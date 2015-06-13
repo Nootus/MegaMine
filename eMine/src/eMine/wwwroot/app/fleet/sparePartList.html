@@ -1,0 +1,9 @@
+﻿<em-toolbar title="Spare Parts" class="title">
+    <md-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addSparePart($event)">
+        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Spare Part
+    </md-button>
+</em-toolbar>
+<md-content layout-padding>
+    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
+</md-content>
+

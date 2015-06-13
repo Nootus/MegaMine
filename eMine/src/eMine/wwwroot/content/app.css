@@ -1,0 +1,471 @@
+﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+
+html {
+    height:100%;
+    margin: 0;
+}
+
+body {
+	background-color: #656565;
+	background-image: url(images/layout/background.gif);
+	background-repeat: repeat;
+	margin: 0 auto;
+	padding: 0;
+	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-size: 0.85em !important;
+    height: 100%;
+}
+
+h4{
+    margin: 1em 0 0 0;
+}
+
+.main-content{
+    min-height: 100%;
+    height: 100%;
+}
+
+.container{
+    width: 1000px;
+    display: table;
+    margin: 0 auto;
+}
+
+.header {
+	background-image: url('images/layout/header.gif');
+	background-repeat: no-repeat;
+	position: relative;
+	width: 100%;
+	height: 115px;
+	margin: 0 0 -20px 0;
+	background-size: 100%;
+    top: 3px;
+    left: 0px;
+}
+
+.top-header{
+    color: #FF8000;
+    font-size: 3em;
+    padding-left: 10px;
+    padding-bottom: 10px;
+}
+
+md-dialog.dialog{
+    background-color: #e4e4e4;
+    width: 600px;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+md-dialog-content.dialog-content{
+    margin-left: 10px;
+    overflow: auto;
+}
+
+div.main-menu {
+  text-transform: uppercase;
+  font-size: 13px;
+  cursor: default;
+  margin: 8px 23px 0px 0px;
+}
+
+.icon-menu{
+    width: 20px;
+    height: 20px;
+    display: inline-block;
+}
+
+.icon-fleet {
+    background: url('images/icons/fleet.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-spareparts {
+    background: url('images/icons/spareparts.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-vehiclelist {
+    background: url('images/icons/vehiclelist.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-quarry {
+    background: url('images/icons/quarry.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-vehicletypes {
+    background: url('images/icons/vehicletypes.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-report {
+    background: url('images/icons/report.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-movematerial {
+    background: url('images/icons/movematerial.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-quarries {
+    background: url('images/icons/quarries.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-stockatyard {
+    background: url('images/icons/stockatyard.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-addmaterial {
+    background: url('images/icons/addmaterial.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-yards {
+    background: url('images/icons/yards.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-fuel {
+    background: url('images/icons/fuel.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-driver {
+    background: url('images/icons/driver.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-service {
+    background: url('images/icons/service.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-manufacturer {
+    background: url('images/icons/manufacturer.svg') no-repeat;
+    background-size: cover;
+}
+
+
+.icon-changepassword {
+    background: url('images/icons/changepassword.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-logout {
+    background: url('images/icons/logout.svg') no-repeat;
+    background-size: cover;
+}
+
+div.main-menu .k-image path{
+    fill: red
+}
+
+.blank-menu-item{
+    color: grey;
+    border-top-width: 2px !important;
+}
+
+div.profile-menu {
+  text-transform: uppercase;
+  font-size: 13px;
+  cursor: default;
+  margin: 10px 20px 0px 0px;
+  text-align: right;
+}
+
+div.profile-menu, a.breadcrumb {
+	color: #DBB94F;
+    text-decoration: none;
+}
+
+div.profile-menu > div  {
+    margin-top: 10px;
+}
+
+div.profile-menu > div > a{
+	color: #DBB94F;
+    text-decoration: none;
+}
+
+div.profile-menu > ul  {
+  text-align: left;
+}
+
+
+.logo{
+    height: 75px;
+}
+
+ul.menu{
+	background: transparent;
+}
+
+
+ul.menu a {
+	color: #DBB94F !important;
+}
+
+ul.left-menu > .k-item {
+    width: 100%;
+    border-bottom-width: 1px !important;
+  text-transform: uppercase;
+  font-size: 13px;
+  cursor: default;
+}
+
+ul.left-menu {
+	background-image: url(images/layout/menu_background.png);
+	background-repeat: repeat;
+}
+
+ul.left-menu > li.k-state-highlight{
+    background-color: rgb(54, 54, 54);
+}
+
+
+
+.site-path{
+}
+
+div.profile-menu > ul.menu{
+  display: inline-block;
+}
+
+.content{
+    margin-top: 8px;
+}
+
+.splash {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+}
+
+.splash-header{
+    color: #FF8000;
+}
+
+img.splash-loading{
+    width: 100px;
+}
+
+
+.icon-button {
+  height: 32px;
+  width: 32px;
+  color: grey !important;
+  margin-top: -5px; 
+}
+
+.text-center{
+    text-align: center;
+}
+
+.text-left{
+    text-align: left;
+}
+
+
+/*em toolbar & buttons*/
+em-toolbar.title > md-toolbar{
+    background-color: rgb(158,158,158);
+}
+em-toolbar.subtitle > md-toolbar{
+    background-color: rgb(208,208,208);
+}
+
+em-toolbar.subtitle-table > md-toolbar{
+    font-size: 1em;
+}
+
+em-toolbar.dialog > md-toolbar{
+    background-color: rgb(168,168,168);
+}
+
+button{
+    background-color: transparent !important;
+}
+
+
+/*Kendo overrides*/
+.k-menu .k-item > .k-link{
+    padding: 0.8em 1.2em 0.6em 1.2em;
+}
+
+.k-popup .k-item.k-first, .k-virtual-item.k-first {
+  border-bottom-style: solid;
+  border-bottom-width: 0; 
+}
+
+/*Material design overrides*/
+
+.md-button{
+    height: 35px;
+    margin: 0;
+    padding: 0 10px 0 0;
+}
+
+md-content.md-default-theme {
+  background-color: #e4e4e4;
+}
+
+md-toolbar{
+      min-height: 40px; 
+}
+.md-toolbar-tools {
+      height: 40px;
+}
+md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label {
+  font-size: 15px;
+  color: black;
+}
+
+md-input-container.md-default-theme .md-input[disabled], [disabled] md-input-container.md-default-theme .md-input {
+  color: black;
+}
+
+md-select.md-default-theme[disabled] .md-select-label {
+  color: black;
+}
+
+md-select.md-default-theme[disabled] .md-select-icon {
+  display: none;
+}
+
+container data-ng-message, md-input-container x-ng-message, md-input-container [ng-message], md-input-container [data-ng-message], md-input-container [x-ng-message], md-input-container .md-char-counter {
+  font-size: 11px;
+  line-height: 15px;
+}
+
+md-input-container {
+  padding: 1px;
+  padding-bottom: 15px;
+}
+
+md-input-container > md-select {
+  margin: 0;
+  margin-top: -6px;
+  padding-bottom: 0px;
+}
+
+md-input-container.emselect label:not(.md-no-float){
+    -webkit-transform: matrix(0.75, 0, 0, 0.75, 0, -35) !important;
+    transform: matrix(0.75, 0, 0, 0.75, 0, -35) !important;
+    font-size: 15px;
+    color: black;
+}
+md-input-container.emselect div {
+    margin-top: -19px;
+    padding-bottom: 19px;
+}
+
+md-input-container.emselect-invalid > md-select.ng-invalid .md-select-label{
+    border-bottom-color: rgb(244,67,54);
+    border-bottom-width:2px;
+}
+
+md-input-container.emselect-invalid [ng-message]{
+    color: red;
+}
+
+md-input-container.emselect-invalid label{
+    color: red !important;
+}
+
+md-progress-linear.md-default-theme[md-mode=buffer].md-warn .md-dashed:before {
+  background: radial-gradient(rgb(168,168,168) 0%, rgb(168,168,168) 16%, transparent 42%);
+}
+
+md-progress-linear.md-default-theme[md-mode=buffer].md-warn .md-bar {
+  background-color: rgb(168,168,168);
+}
+
+md-progress-linear.md-default-theme[md-mode=buffer].md-warn .md-bar1 {
+  background-color: rgb(208,208,208);
+}
+
+md-progress-linear{
+    margin-top: -2px;
+}
+
+/*Material design overrides ends*/
+
+/* UI Grid overrides*/
+.ui-grid-header {
+    height: 30px;
+}
+
+.ui-grid-row:hover {
+    background-color: #d4d4d4;
+}
+
+.ui-grid-row:hover .ui-grid-cell{
+    background-color: #d4d4d4 !important;
+}
+
+.ui-grid-row:nth-child(odd) .ui-grid-cell {
+  background-color: #e4e4e4;
+}
+.ui-grid-row:nth-child(even) .ui-grid-cell {
+  background-color: #f4f4f4;
+}
+/* UI Grid overrides Ends*/
+
+
+/* UI-Router animation*/
+.content[ui-view]{
+ height: 100%; 
+}
+
+.ui-view-container {
+  position: relative;
+}
+
+[ui-view].ng-enter, [ui-view].ng-leave {
+  position: absolute;
+  left: 0;
+  right: 0;
+  -webkit-transition:all .5s ease-in-out;
+	-moz-transition:all .5s ease-in-out;
+	-o-transition:all .5s ease-in-out;
+	transition:all .5s ease-in-out;
+}
+
+[ui-view].ng-enter {
+  opacity: 0;
+  -webkit-transform:scale3d(0.5, 0.5, 0.5);
+  -moz-transform:scale3d(0.5, 0.5, 0.5);
+  transform:scale3d(0.5, 0.5, 0.5);
+}
+
+[ui-view].ng-enter-active {
+  opacity: 1;
+  -webkit-transform:scale3d(1, 1, 1);
+  -moz-transform:scale3d(1, 1, 1);
+  transform:scale3d(1, 1, 1);
+}
+
+[ui-view].ng-leave {
+  opacity: 1;
+  /*padding-left: 0px;*/  
+  -webkit-transform:translate3d(0, 0, 0);
+  -moz-transform:translate3d(0, 0, 0);
+  transform:translate3d(0, 0, 0);
+}
+
+[ui-view].ng-leave-active {
+  opacity: 0;
+  /*padding-left: 100px;*/
+  -webkit-transform:translate3d(100px, 0, 0);
+  -moz-transform:translate3d(100px, 0, 0);
+  transform:translate3d(100px, 0, 0);
+}
+/* UI-Router animation ends*/
+

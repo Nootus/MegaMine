@@ -1,0 +1,39 @@
+﻿<md-dialog aria-label="Driver" class="dialog">
+    <form name="driverForm" novalidate>
+        <em-toolbar title="Driver" class="dialog">
+            <md-button ng-click="save(driverForm)" class="md-raised md-primary" ng-show="editMode === 1" ng-disabled="driverForm.$invalid && driverForm.$submitted" aria-label="Save">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Save
+            </md-button>
+            <md-button ng-click="save(driverForm)" class="md-raised md-primary" ng-show="editMode === 2" ng-disabled="driverForm.$invalid && driverForm.$submitted" aria-label="Save">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Assign
+            </md-button>
+            <md-button ng-click="save(driverForm)" class="md-raised md-primary" ng-show="editMode === 3" ng-disabled="driverForm.$invalid && driverForm.$submitted" aria-label="Save">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Un Assign
+            </md-button>
+            <md-button ng-click="cancel()" class="md-raised md-primary" ng-show="editMode !== 0">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Cancel
+            </md-button>
+            <md-button ng-click="cancel()" class="md-raised md-primary" ng-show="editMode === 0">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Close
+            </md-button>
+        </em-toolbar>
+
+        <md-dialog-content class="dialog-content">
+            <div>
+                <div layout="row">
+                    <div flex="40">
+                        <em-select form="driverForm" label="Driver" control-name="driverName" ng-model="model.VehicleDriverId" opt-list="driverListItems" ng-required="true" ng-disabled="editMode === 0 || editMode === 3"></em-select>
+                    </div>
+                </div>
+                <div layout="row">
+                    <div flex="50" ng-hide="editMode === 3">
+                        <em-input form="driverForm" type="datetime-local" label="Start Time" control-name="assignmentStartDate" ng-model="model.AssignmentStartDate" ng-required="true" ng-disabled="editMode === 0"></em-input>
+                    </div>
+                    <div flex="50" ng-hide="editMode === 2">
+                        <em-input form="driverForm" type="datetime-local" label="End Time" control-name="assignmentEndDate" ng-model="model.AssignmentEndDate" ng-required="editMode !== 2" ng-disabled="editMode === 0"></em-input>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

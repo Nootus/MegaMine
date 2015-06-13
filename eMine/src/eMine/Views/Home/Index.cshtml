@@ -1,0 +1,134 @@
+﻿<html ng-app="emine">
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <base href="/" target="_blank">
+    <title>eMine</title>
+    <link href="content/ui-grid/ui-grid.css" rel="stylesheet" />
+    <link href="content/angular-material.css" rel="stylesheet" />
+
+    <link href="content/kendo/kendo.common-material.css" rel="stylesheet" />
+    <link href="content/kendo/kendo.materialblack.css" rel="stylesheet" />
+    <link href="content/toastr.css" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="content/app.css" />
+</head>
+<body ng-controller="index as vm">
+    <div class="container" layout="column">
+        <div class="header" layout="row" ng-cloak>
+            <div layout="row" flex="40">
+                <div layout="row" layout-align="start center" class="top-header">
+                    <a href="/"><img class="logo" src="content/images/layout/logo.png" /></a>
+                    <span>eMine</span>
+                </div>
+            </div>
+            <div flex layout="column" ng-show="vm.profile.isAuthenticated">
+                <div class="profile-menu" layout="row" layout-alignment="center">
+                    <div flex>
+                        <span ng-repeat="crumb in vm.navigation.breadcrumbs">
+                            <a href="{{crumb.url}}" class="breadcrumb">{{crumb.title}}</a> &gt;
+                        </span>
+                        &nbsp;&nbsp; | &nbsp;
+                    </div>
+                    <ul id="profile-menu" class="menu" kendo-menu k-select="vm.menuSelect"></ul>
+                </div>
+                <div class="main-menu">
+                    <ul id="main-menu" class="menu" kendo-menu k-data-source="vm.mainMenuItems" k-select="vm.menuSelect"></ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div flex layout="row" class="container main-content ui-view-container">
+        <md-progress-linear class="md-warn" md-mode="buffer" value="{{startvalue}}" md-buffer-value="{{buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>
+        <div flex ui-view class="content">
+            <div id="splash" class="splash">
+                <br /><br />
+                <h2 class="top-header">Welcome to eMine</h2>
+                <h3 class="splash-header">Please wait ...</h3>
+                <br />
+                <img class="splash-loading" src="content/images/layout/loading.gif" />
+            </div>
+        </div>
+</div>
+
+
+
+
+
+    <script>
+        window.virtualDirectory = "";
+    </script>
+
+    <script src="scripts/jquery.js"></script>
+
+    <script src="scripts/angular/angular.js"></script>
+    <script src="scripts/angular/angular-messages.js"></script>
+    <script src="scripts/angular/angular-animate.js"></script>
+    <script src="scripts/angular/angular-aria.js"></script>
+    <script src="scripts/angular/angular-material.js"></script>
+    <script src="scripts/angular/angular-ui-router.js"></script>
+
+    <script src="scripts/kendo/kendo.ui.core.js"></script>
+    <script src="scripts/kendo/kendo.menu.js"></script>
+    <script src="scripts/kendo/kendo.angular.js"></script>
+
+    <script src="scripts/ui-grid.js"></script>
+    <script src="scripts/moment.js"></script>
+    <script src="scripts/toastr.js"></script>
+
+    <!--eMine application include files-->
+    <script src="app/app.js"></script>
+    <script src="app/appconfig.js"></script>
+
+    <!-- Routes -->
+    <script src="app/routes/approute.js"></script>
+    <script src="app/routes/fleetroute.js"></script>
+
+
+    <script src="app/layout/index.js"></script>
+
+    <script src="app/shared/apiinterceptor.js"></script>
+    <script src="app/shared/navigation.js"></script>
+    <script src="app/shared/profile.js"></script>
+    <script src="app/shared/session.js"></script>
+    <script src="app/shared/utility.js"></script>
+    <script src="app/shared/constants.js"></script>
+
+    <script src="app/dashboard/dashboard.js"></script>
+    <script src="app/dashboard/dashboardservice.js"></script>
+
+    <script src="app/account/login.js"></script>
+    <script src="app/account/accountservice.js"></script>
+
+    <!-- Directives -->
+    <script src="app/shared/directives/emInput.js"></script>
+    <script src="app/shared/directives/emSelect.js"></script>
+    <script src="app/shared/directives/emToolbar.js"></script>
+
+    <!-- Fleet script files -->
+    <script src="app/fleet/vehicleType.js"></script>
+    <script src="app/fleet/vehicleTypeDialog.js"></script>
+    <script src="app/fleet/driver.js"></script>
+    <script src="app/fleet/driverDialog.js"></script>
+
+
+    <script src="app/fleet/vehicleService.js"></script>
+    <script src="app/fleet/vehicleList.js"></script>
+    <script src="app/fleet/vehicle.js"></script>
+    <script src="app/fleet/vehicleDialog.js"></script>
+    <script src="app/fleet/serviceRecord.js"></script>
+    <script src="app/fleet/fuel.js"></script>
+    <script src="app/fleet/fuelDialog.js"></script>
+    <script src="app/fleet/vehicleDriver.js"></script>
+    <script src="app/fleet/vehicleDriverDialog.js"></script>
+    <script src="app/fleet/vehicleServiceDialog.js"></script>
+
+    <script src="app/fleet/sparePartList.js"></script>
+    <script src="app/fleet/sparePart.js"></script>
+    <script src="app/fleet/sparePartDialog.js"></script>
+    <script src="app/fleet/sparePartOrderDialog.js"></script>
+    <script src="app/fleet/manufacturerList.js"></script>
+    <script src="app/fleet/manufacturerDialog.js"></script>
+
+</body>
+</html>
+

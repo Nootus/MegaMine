@@ -1,0 +1,25 @@
+﻿<md-dialog aria-label="Spare Part" class="dialog">
+    <form name="sparePartForm" novalidate>
+        <em-toolbar title="Spare Part" class="dialog">
+            <md-button ng-click="save(sparePartForm)" class="md-raised md-primary" ng-disabled="sparePartForm.$invalid && sparePartForm.$submitted" aria-label="Save">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Save
+            </md-button>
+            <md-button ng-click="cancel()" class="md-raised md-primary">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Cancel
+            </md-button>
+        </em-toolbar>
+
+        <md-dialog-content class="dialog-content">
+            <div>
+                <div layout="row">
+                    <div flex="30">
+                        <em-input form="sparePartForm" label="Part Name" control-name="name" ng-model="model.Name" ng-required="true" em-maxlength="20"></em-input>
+                    </div>
+                    <div flex="70">
+                        <em-input form="sparePartForm" label="Description" control-name="description" ng-model="model.Description" ng-required="false" em-maxlength="100"></em-input>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

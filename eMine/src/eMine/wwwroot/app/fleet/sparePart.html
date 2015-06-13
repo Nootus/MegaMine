@@ -1,0 +1,32 @@
+﻿<em-toolbar title="Spare Part Details" class="title">
+    <md-button class="md-raised md-primary" aria-label="Edit" ng-click="vm.editSparePart($event)">
+        <md-icon class="icon-button" md-svg-icon="content/images/icons/edit.svg"></md-icon>Edit Spare Part
+    </md-button>
+</em-toolbar>
+<md-content layout-padding>
+    <div layout="row">
+        <div flex="30">
+            <em-input label="Part Name" control-name="partName" ng-model="vm.model.Name" ng-disabled="true"></em-input>
+        </div>
+        <div flex="50">
+            <em-input label="Description" control-name="description" ng-model="vm.model.Description" ng-disabled="true"></em-input>
+        </div>
+        <div flex="20">
+            <em-input label="Quantity on Hand" control-name="quantity" ng-model="vm.model.Quantity" ng-disabled="true"></em-input>
+        </div>
+    </div>
+
+    <div layout="row">
+        <div flex>
+            <em-toolbar title="Add Order" class="subtitle">
+                <md-button ng-click="vm.addOrder($event)" class="md-raised md-primary" aria-label="Add Service">
+                    <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Order
+                </md-button>
+            </em-toolbar>
+            <md-content layout-padding>
+                <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize class="main-grid"></div>
+            </md-content>
+        </div>
+    </div>
+</md-content>
+

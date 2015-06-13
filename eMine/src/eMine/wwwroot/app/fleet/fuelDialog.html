@@ -1,0 +1,31 @@
+﻿<md-dialog aria-label="Fuel" class="dialog">
+    <form name="fuelForm" novalidate>
+        <em-toolbar title="Fuel" class="dialog">
+            <md-button ng-click="save(fuelForm)" class="md-raised md-primary" ng-show="editMode" ng-disabled="fuelForm.$invalid && fuelForm.$submitted" aria-label="Save">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Save
+            </md-button>
+            <md-button ng-click="cancel()" class="md-raised md-primary" ng-show="editMode">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Cancel
+            </md-button>
+            <md-button ng-click="cancel()" class="md-raised md-primary" ng-hide="editMode">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Close
+            </md-button>
+        </em-toolbar>
+
+        <md-dialog-content class="dialog-content">
+            <div>
+                <div layout="row">
+                    <div flex="30">
+                        <em-input form="fuelForm" type="date" label="Fuel Date" control-name="fuelDate" ng-model="model.FuelDate" ng-required="true" ng-disabled="!editMode"></em-input>
+                    </div>
+                    <div flex="30">
+                        <em-input form="fuelForm" type="number" label="Quantity" control-name="quantity" ng-model="model.Quantity" ng-required="true" ng-disabled="!editMode"></em-input>
+                    </div>
+                    <div flex="40">
+                        <em-input form="fuelForm" type="number" label="Odometer" control-name="odometer" ng-model="model.Odometer" ng-required="true" ng-disabled="!editMode"></em-input>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

@@ -1,0 +1,10 @@
+﻿<div>
+    <em-toolbar title="Fuel History" class="subtitle">
+        <md-button ng-click="vm.addFuel($event)" class="md-raised md-primary" aria-label="Add Fuel">
+            <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Fuel
+        </md-button>
+    </em-toolbar>
+    <md-content layout-padding>
+        <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize class="main-grid"></div>
+    </md-content>
+</div>
