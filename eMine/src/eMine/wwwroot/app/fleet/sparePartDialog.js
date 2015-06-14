@@ -6,7 +6,8 @@ sparePartDialog.$inject = ['$mdDialog', 'vehicleService', 'utility'];
 
 function sparePartDialog($mdDialog, vehicleService, utility) {
 
-    var dialog = {
+    var dialog =
+    {
         viewDialog: viewDialog,
     };
 

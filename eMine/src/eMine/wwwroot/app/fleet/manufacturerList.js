@@ -43,7 +43,7 @@ function manufacturerList($scope, $window,vehicleService, manufacturerDialog, ui
     }
 
     function navigateToManufacturer(row) {
-        navigation.gotomanufacturer(row.entity.manufacturerId);
+        navigation.gotomanufacturer(row.entity.VehicleManufacturerId);
     }
 
     function addManufacturer(ev) {

@@ -43,6 +43,7 @@ function fleetRoute($stateProvider) {
                 return vehicleService.getVehicle($stateParams.vehicleid);
             }]
         })
+
         .state("vehicle.service", {
             url: "/service",
             title: "Vehicle",
@@ -97,18 +98,7 @@ function fleetRoute($stateProvider) {
                 return vehicleService.getSparePartList();
             }]
         })
-        .state("sparepart", {
-            url: window.virtualDirectory + "/sparepart/:sparepartid",
-            title: "Spare Part",
-            previousState: "sparepartlist",
-            templateUrl: "/app/fleet/sparepart.html",
-            controller: "sparePart",
-            controllerAs: "vm",
-            resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                return vehicleService.getSparePart($stateParams.sparepartid);
-            }]
-        })
-        .state("driver", {
+       .state("driver", {
             url: window.virtualDirectory + "/driver",
             title: "Drivers",
             previousState: "dashboard",
@@ -117,6 +107,31 @@ function fleetRoute($stateProvider) {
             controllerAs: "vm",
             resolve: ['vehicleService', function (vehicleService) {
                 return vehicleService.getDrivers();
+            }]
+        })
+        .state("sparepart", {
+              url: window.virtualDirectory + "/sparepart/:sparepartid",
+              title: "Spare Part",
+              previousState: "sparepartlist",
+              templateUrl: "/app/fleet/sparepart.html",
+              controller: "sparePart",
+              controllerAs: "vm",
+              resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
+                  return vehicleService.getSparePart($stateParams.sparepartid);
+              }]
+          })
+
+        .state("manufacturer", {
+            url: window.virtualDirectory + "/manufacturer/:manufacturerid",
+            title: "Manufacturer",
+            previousState: "manufacturerList",
+            templateUrl: "/app/fleet/manufacturer.html",
+            controller: "manufacturer",
+            controllerAs: "vm",
+            resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService)
+            {
+                return vehicleService.getCurrentManufacturer($stateParams.manufacturerid);
+                //return vehicleService.getCurrentManufacturer(4);
             }]
         })
 }

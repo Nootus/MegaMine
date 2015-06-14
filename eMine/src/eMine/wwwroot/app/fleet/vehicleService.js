@@ -70,6 +70,7 @@ function vehicleService($http) {
         getCurrentManufacturer: getCurrentManufacturer,
         saveManufacturer: saveManufacturer,
         
+        
     };
 
     return service;

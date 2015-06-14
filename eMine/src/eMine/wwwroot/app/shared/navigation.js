@@ -10,6 +10,7 @@ function navigation($rootScope, $state, $window, $location, profile) {
         initialize: initialize,
         gotoVehicle: gotoVehicle,
         gotoSparePart: gotoSparePart,
+        gotomanufacturer: gotomanufacturer,
         go: go,
         breadcrumbs: []
     };
@@ -63,6 +64,9 @@ function navigation($rootScope, $state, $window, $location, profile) {
         $state.go("sparepart", { sparepartid: sparePartId });
     }
 
+    function gotomanufacturer(manufacturerId) {
+        $state.go("manufacturer", { manufacturerid: manufacturerId });
+    }
 }
 
 
