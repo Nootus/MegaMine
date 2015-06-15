@@ -69,7 +69,7 @@ function vehicleService($http) {
         getManufacturerList: getManufacturerList,
         getCurrentManufacturer: getCurrentManufacturer,
         saveManufacturer: saveManufacturer,
-        
+        getManufacturer: getManufacturer,
         
     };
 
@@ -99,6 +99,14 @@ function vehicleService($http) {
                 service.vehicle = data
             })
     }
+
+    function getManufacturer(manufacturerId) {
+        return $http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
+            .success(function (data) {
+                service.manufacturer = data
+            })
+    }
+
 
     function getFuelList(vehicleId) {
         return $http.get("/api/fleet/fuelgetlist", { params: { "vehicleId": vehicleId } })

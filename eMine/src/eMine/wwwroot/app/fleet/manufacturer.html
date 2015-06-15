@@ -5,6 +5,7 @@
 </em-toolbar>
 <div>
     <md-content layout-padding>
+        <div layout="row">
             <div flex="20">
                 <em-input label="VehicleManufacturerId" control-name="VehicleManufacturerId" ng-model="vm.model.VehicleManufacturerId" ng-disabled="true"></em-input>
             </div>
@@ -14,7 +15,19 @@
             <div flex="20">
                 <em-input label="Description" control-name="Description" ng-model="vm.model.Description" ng-disabled="true"></em-input>
             </div>
-            
-    </md-content>
+        </div>
+        <div layout="row">
+            <div flex>
+                <em-toolbar title="Models Data" class="subtitle">
+                    <md-button ng-click="vm.addModel($event)" class="md-raised md-primary" aria-label="Add Model">
+                        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Model
+                    </md-button>
+                </em-toolbar>
+                <md-content layout-padding>
+                    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize class="main-grid"></div>
+                </md-content>
+            </div>
+        </div>
+</md-content>
 </div>
 

@@ -4,8 +4,18 @@ vehicle.$inject = ['$state', 'vehicleService', 'manufacturer', 'utility'];
 
 function manufacturer($state, vehicleService, vehicleDialog, utility) {
 
+    var gridOptions = {
+        enableColumnResizing: true,
+        columnDefs: [
+                    { name: 'Name', field: 'Name', displayName: 'Name' },
+                    { name: 'Description', field: 'Description', displayName: 'Description' },
+                    
+        ]
+    };
+
     var vm = {
         model: {},
+        gridOptions: gridOptions,
         viewManufacturer: viewManufacturer
    
     };
@@ -16,8 +26,8 @@ function manufacturer($state, vehicleService, vehicleDialog, utility) {
 
     function init()
     {
-        vm.model = vehicleService.currentManufacturer;
-     
+        vm.model = vehicleService.manufacturer;
+        vm.gridOptions.data = vm.model.Models;
     }
 
     function viewManufacturer(ev)

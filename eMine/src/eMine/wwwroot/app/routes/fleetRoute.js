@@ -130,7 +130,7 @@ function fleetRoute($stateProvider) {
             controllerAs: "vm",
             resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService)
             {
-                return vehicleService.getCurrentManufacturer($stateParams.manufacturerid);
+                return vehicleService.getManufacturer($stateParams.manufacturerid);
                 //return vehicleService.getCurrentManufacturer(4);
             }]
         })

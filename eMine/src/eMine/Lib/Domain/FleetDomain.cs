@@ -32,6 +32,13 @@ namespace eMine.Lib.Domain
             return new SparePartRepository().SparePartDetailsGet(sparePartId);
         }
 
+        public ManufacturerDetailsModel ManufacturerDetailsGet(int manufacturerId)
+        {
+            return new VehicleRepository().ManufacturerDetailsGet(manufacturerId);
+        }
+
+         
+
         public SparePartModel SparePartGet(int sparePartId)
         {
             return new SparePartRepository().SparePartGet(sparePartId);

@@ -565,6 +565,34 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
+        public ManufacturerDetailsModel ManufacturerDetailsGet(int manufacturerId)
+        {
+            var manQuery = from manufacturer in dbContext.VehicleManufacturers
+                           where manufacturer.VehicleManufacturerId == manufacturerId
+                           select new ManufacturerDetailsModel
+                           {
+                               VehicleManufacturerId = manufacturer.VehicleManufacturerId,
+                               Description = manufacturer.Description,
+                               Name = manufacturer.Name
+                           };
+
+            ManufacturerDetailsModel model = manQuery.FirstOrDefault();
+
+            var modelsQuery = from vmodel in dbContext.VehicleModels
+                              where model.VehicleManufacturerId == manufacturerId
+                              select new VehicleManufactureModelModel
+                              {
+                                  Name = vmodel.Name,
+                                  Description = vmodel.Description
+
+                              };
+
+
+            model.Models = modelsQuery.ToList();
+
+            return model;
+        }
+
         public List<VehicleListModel> VehicleListGet()
         {
             var query = from vehicles in dbContext.Vehicles
