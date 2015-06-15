@@ -98,7 +98,8 @@ function fleetRoute($stateProvider) {
                 return vehicleService.getSparePartList();
             }]
         })
-       .state("driver", {
+
+        .state("driver", {
             url: window.virtualDirectory + "/driver",
             title: "Drivers",
             previousState: "dashboard",
@@ -109,6 +110,7 @@ function fleetRoute($stateProvider) {
                 return vehicleService.getDrivers();
             }]
         })
+
         .state("sparepart", {
               url: window.virtualDirectory + "/sparepart/:sparepartid",
               title: "Spare Part",
