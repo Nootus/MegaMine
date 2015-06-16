@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('manufacturer', manufacturer)
-manufacturer.$inject = ['$state', 'vehicleService'];
+manufacturer.$inject = ['$state', 'vehicleService', 'vehicleModelDialog'];
 
-function manufacturer($state, vehicleService) {
+function manufacturer($state, vehicleService, vehicleModelDialog) {
 
     var gridOptions = {
         enableColumnResizing: true,
@@ -16,6 +16,7 @@ function manufacturer($state, vehicleService) {
     var vm = {
         model: {},
         gridOptions: gridOptions,
+        addModel: addModel,
         viewManufacturer: viewManufacturer
    
     };
@@ -27,7 +28,7 @@ function manufacturer($state, vehicleService) {
     function init()
     {
         vm.model = vehicleService.manufacturer;
-        vm.gridOptions.data = vm.model.Models;
+        vm.gridOptions.data = vehicleService.modelsList;
     }
 
     function viewManufacturer(ev)
@@ -35,5 +36,13 @@ function manufacturer($state, vehicleService) {
         manufacturerDialog.viewDialog(vm.model.VehicleManufacturerId, true, ev);
     }
 
-  
+    function addModel(ev) {
+        var model = { VehicleModelId: 0, VehicleManufacturerId: vm.model.VehicleManufacturerId }
+        viewDialog(model, true, ev);
+    }
+
+    function viewDialog(model, editMode, ev) {
+        vehicleModelDialog.viewDialog(model, editMode, ev);
+    }
+
 }

@@ -17,6 +17,7 @@ namespace eMine.Lib.Domain
             return new VehicleRepository().VehicleListGet();
         }
 
+
         public List<VehicleTypeModel> VehicleTypeListGet()
         {
             return new VehicleRepository().VehicleTypeListGet();
@@ -37,7 +38,7 @@ namespace eMine.Lib.Domain
             return new VehicleRepository().ManufacturerDetailsGet(manufacturerId);
         }
 
-         
+
 
         public SparePartModel SparePartGet(int sparePartId)
         {
@@ -57,6 +58,11 @@ namespace eMine.Lib.Domain
         public void VehicleSave(VehicleModel model)
         {
             new VehicleRepository().VehicleSave(model);
+        }
+
+        public void ModelSave(VehicleManufactureModelModel model)
+        {
+             new VehicleRepository().ModelSave(model);
         }
 
         public VehicleTypeModel VehicleTypeGet(int vehicleTypeId)

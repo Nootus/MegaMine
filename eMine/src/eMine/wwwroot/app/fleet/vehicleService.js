@@ -70,6 +70,11 @@ function vehicleService($http) {
         getCurrentManufacturer: getCurrentManufacturer,
         saveManufacturer: saveManufacturer,
         getManufacturer: getManufacturer,
+
+        //Models
+        modelsList: [],
+        getModelsList: getModelsList,
+        saveModel: saveModel,
         
     };
 
@@ -104,6 +109,8 @@ function vehicleService($http) {
         return $http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
             .success(function (data) {
                 service.manufacturer = data
+                service.modelsList.splice(0, service.modelsList.length);
+                angular.extend(service.modelsList, service.manufacturer.Models);
             })
     }
 
@@ -116,8 +123,21 @@ function vehicleService($http) {
             })
     }
 
+    function getModelsList(modelId) {
+        return $http.get("/api/fleet/getModelsList", { params: { "modelId": modelId } })
+            .success(function (data) {
+                service.modelsList.splice(0, service.modelsList.length);
+                angular.extend(service.modelsList, data);
+            })
+    }
+    
     function saveFuel(model) {
         return $http.post("/api/fleet/fuelsave", model);
+    }
+
+    function saveModel(model)
+    {
+        return $http.post("/api/fleet/modelsave", model);
     }
 
     function getVehicleDriverList(vehicleId) {

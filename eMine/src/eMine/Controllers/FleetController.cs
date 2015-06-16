@@ -92,7 +92,13 @@ namespace eMine.Controllers
             return AjaxHelper.Save<VehicleModel>(m => new FleetDomain().VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
         }
 
-      
+        [HttpPost]
+        public AjaxModel<VehicleManufactureModelModel> ModelSave([FromBody] VehicleManufactureModelModel model)
+        {
+            return AjaxHelper.Save<VehicleManufactureModelModel>(m => new FleetDomain().ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
+        }
+        
+
         [HttpGet]
         public AjaxModel<SparePartOrderModel> SparePartOrderGet(int sparePartOrderId)
         {

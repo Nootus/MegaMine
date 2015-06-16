@@ -160,6 +160,42 @@ namespace eMine.Lib.Repositories.Fleet
             }
         }
 
+        public void ModelSave(VehicleManufactureModelModel model)
+        {
+            if (model.VehicleModelId == 0)
+            {
+                ModelAdd(model);
+            }
+            else
+            {
+                ModelUpdate(model);
+            }
+        }
+
+
+        public void ModelAdd(VehicleManufactureModelModel model)
+        {
+            VehicleModelEntity entity = new VehicleModelEntity()
+            {
+                VehicleManufacturerId = model.VehicleManufacturerId,
+                Name = model.Name,
+                Description = model.Description
+            };
+            dbContext.VehicleModels.Add(entity);
+            dbContext.SaveChanges();
+
+        }
+
+
+        public void ModelUpdate(VehicleManufactureModelModel model)
+        {
+            VehicleModelEntity entity = (from vm in dbContext.VehicleModels where vm.VehicleModelId == model.VehicleModelId select vm).First();
+            entity.Name = model.Name;
+            entity.Description = model.Description;
+            dbContext.VehicleModels.Update(entity);
+            dbContext.SaveChanges();            
+        }
+        
         public List<VehicleDriverModel> DriversGet()
         {
 

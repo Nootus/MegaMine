@@ -1,0 +1,31 @@
+﻿<md-dialog aria-label="Model" class="dialog">
+    <form name="modelForm" novalidate>
+        <em-toolbar title="Model" class="dialog">
+            <md-button ng-click="save(modelForm)" class="md-raised md-primary" ng-show="editMode" ng-disabled="modelForm.$invalid && modelForm.$submitted" aria-label="Save">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Save
+            </md-button>
+            <md-button ng-click="cancel()" class="md-raised md-primary" ng-show="editMode">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Cancel
+            </md-button>
+            <md-button ng-click="cancel()" class="md-raised md-primary" ng-hide="editMode">
+                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Close
+            </md-button>
+        </em-toolbar>
+
+        <md-dialog-content class="dialog-content">
+            <div>
+                <div layout="row">
+                    <div flex="30">
+                        <em-input form="modelForm" type="string" label="Name" control-name="Name" ng-model="model.Name" ng-required="true" ng-disabled="!editMode"></em-input>
+                    </div>
+                    <div flex="30">
+                        <em-input form="modelForm" type="string" label="Description" control-name="Description" ng-model="model.Description" ng-required="true" ng-disabled="!editMode"></em-input>
+                    </div>
+                    <div flex="40">
+                        <em-input form="modelForm" type="number" label="Manufacturer" control-name="Manufacturer" ng-model="model.VehicleManufacturerId" ng-required="true" ng-disabled="!editMode"></em-input>
+                    </div>
+                </div>
+            </div>
+        </md-dialog-content>
+    </form>
+</md-dialog>

@@ -37,7 +37,7 @@ function sparePart($scope, $mdDialog, vehicleService, sparePartOrderDialog, spar
     }
 
     function addOrder(ev) {
-        vehicleServiceDialog.viewDialog(0, true, ev);
+        sparePartOrderDialog.viewDialog(0, true, ev);
     }
 
     function viewOrder(model, editMode, ev) {
