@@ -213,10 +213,12 @@ function vehicleService($http) {
 
     function saveManufacturer(model) {
         return $http.post("/api/fleet/ManufacturerSave", model)
-            .success(function (data) {
-                //updating the vehicle
-                //service.vehicle.RegistrationNumber = model.RegistrationNumber;
-                //service.vehicle.VehicleType = model.VehicleType;
+            .success(function (data)
+            {
+                //updating the current manufacturer so that the view manufacturer screen gets refreshed properly.
+                service.manufacturer.Name = model.Name;
+                service.manufacturer.Description = model.Description;
+               
             });
     }
 
@@ -255,6 +257,7 @@ function vehicleService($http) {
                 angular.extend(service.sparePartList, data);
             })
     }
+
     function getCurrentSparePart(sparePartId) {
         return $http.get("/api/fleet/sparepartget", { params: { "sparePartId": sparePartId } })
             .success(function (data) {

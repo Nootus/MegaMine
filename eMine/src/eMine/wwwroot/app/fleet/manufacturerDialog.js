@@ -2,9 +2,9 @@
 
 angular.module('emine').factory('manufacturerDialog', manufacturerDialog);
 
-manufacturerDialog.$inject = ['$mdDialog', 'vehicleService', 'utility'];
+manufacturerDialog.$inject = ['$mdDialog', 'vehicleService',  'utility'];
 
-function manufacturerDialog($mdDialog, vehicleService, utility)
+function manufacturerDialog($mdDialog, vehicleService,  utility)
 {
 
     var dialog = {
@@ -12,9 +12,13 @@ function manufacturerDialog($mdDialog, vehicleService, utility)
         editMode: false,
     };
 
+    var curManufacturerId;
+
     return dialog;
 
-    function viewDialog(manufacturerId, editMode, ev) {
+    function viewDialog(manufacturerId, editMode, ev)
+    {
+        curManufacturerId = manufacturerId;
         dialog.editMode = editMode;
 
         $mdDialog.show({
@@ -38,7 +42,7 @@ function manufacturerDialog($mdDialog, vehicleService, utility)
         var vm = {
             save: save,
             cancel: cancel,
-            model: {},
+            model: model,
             editMode: editMode,
         }
 
@@ -61,11 +65,32 @@ function manufacturerDialog($mdDialog, vehicleService, utility)
         {
             if (form.$valid)
             {
-                service.saveManufacturer(vm.model).success(function () {
-                    //refresh the grid
-                    vehicleService.getManufacturerList();
+                service.saveManufacturer(vm.model).success(function ()
+                {
+                    //update the grid values
+                    if (vm.model.VehicleManufacturerId === 0) {
+                        //refresh the grid
+                        vehicleService.getManufacturerList();
+                        
+                    }
+                    else {
+
+                        //Boys : Why the following is not working ?
+                        //model.Name = vm.model.Name
+                        //model.Description = vm.model.Description
+
+                        // Boys : Why it says that navigation.gotomanufacturer is not a function ?
+                        //navigation.gotomanufacturer(curManufacturerId);
+
+                        vehicleService.getCurrentManufacturer(curManufacturerId);
+                      
+                    }
+
                     $mdDialog.hide();
+
                 });
+
+               
             }
         };
     }

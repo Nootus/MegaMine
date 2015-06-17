@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('manufacturer', manufacturer)
-manufacturer.$inject = ['$state', 'vehicleService', 'vehicleModelDialog'];
+manufacturer.$inject = ['$state', 'vehicleService', 'vehicleModelDialog', 'manufacturerDialog'];
 
-function manufacturer($state, vehicleService, vehicleModelDialog) {
+function manufacturer($state, vehicleService, vehicleModelDialog, manufacturerDialog) {
 
     var gridOptions = {
         enableColumnResizing: true,

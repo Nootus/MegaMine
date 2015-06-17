@@ -102,7 +102,7 @@ namespace eMine.Lib.Domain
 
         public void ManufacturerSave(VehicleManufacturerModel model)
         {
-            new VehicleRepository().VehicleManufacturerAdd(model);
+            new VehicleRepository().VehicleManufacturerSave(model);
         }
 
         public VehicleManufacturerModel VehicleManufacturerGet(int manufacturerId)
