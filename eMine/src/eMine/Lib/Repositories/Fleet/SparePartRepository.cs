@@ -136,6 +136,8 @@ namespace eMine.Lib.Repositories.Fleet
             };
             dbContext.SparePartOrders.Add(entity);
 
+            //Get the newly added 
+
             SparePartEntity result = (from part in dbContext.SpareParts
                                       where part.SparePartId == model.SparePartId
                                       && part.DeletedInd == false

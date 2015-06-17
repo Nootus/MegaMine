@@ -4,7 +4,10 @@ angular.module('emine').factory('sparePartOrderDialog', sparePartOrderDialog);
 
 sparePartOrderDialog.$inject = ['$mdDialog', 'vehicleService', 'utility'];
 
-function sparePartOrderDialog($mdDialog, vehicleService, utility) {
+function sparePartOrderDialog($mdDialog, vehicleService, utility)
+{
+
+    var sparePartId;
 
     var dialog = {
         viewDialog: viewDialog,
@@ -15,6 +18,7 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility) {
 
     function viewDialog(orderModel, editMode, ev) {
         var sparePartOrderId = orderModel.SparePartOrderId;
+        sparePartId = orderModel.SparePartId;
         dialog.editMode = editMode;
 
         $mdDialog.show({
@@ -53,8 +57,11 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility) {
             $mdDialog.cancel();
         };
         function save(form) {
-            if (form.$valid) {
-                service.saveSparePartOrder(vm.model).success(function () {
+            if (form.$valid)
+            {
+                vm.model.sparePartId = sparePartId;
+                service.saveSparePartOrder(vm.model).success(function ()
+                {
                     $mdDialog.hide();
                 });
             }

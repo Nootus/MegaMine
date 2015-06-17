@@ -36,8 +36,10 @@ function sparePart($scope, $mdDialog, vehicleService, sparePartOrderDialog, spar
         vm.gridOptions.data = vm.model.Orders;
     }
 
-    function addOrder(ev) {
-        sparePartOrderDialog.viewDialog(0, true, ev);
+    function addOrder(ev)
+    {
+        vm.model.SparePartOrderId = 0;
+        sparePartOrderDialog.viewDialog(vm.model, true, ev);
     }
 
     function viewOrder(model, editMode, ev) {
@@ -45,6 +47,6 @@ function sparePart($scope, $mdDialog, vehicleService, sparePartOrderDialog, spar
     }
 
     function editSparePart(ev) {
-        sparePartDialog.viewDialog(vm.model.SparePartId, ev);
+        sparePartDialog.viewDialog(model.SparePartId, ev);
     }
 }
