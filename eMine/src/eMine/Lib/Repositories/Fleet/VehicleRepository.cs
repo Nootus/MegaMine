@@ -619,7 +619,9 @@ namespace eMine.Lib.Repositories.Fleet
                               select new VehicleManufactureModelModel
                               {
                                   Name = vmodel.Name,
-                                  Description = vmodel.Description
+                                  Description = vmodel.Description,
+                                  VehicleModelId = vmodel.VehicleModelId,
+                                  VehicleManufacturerId = vmodel.VehicleManufacturerId
 
                               };
 

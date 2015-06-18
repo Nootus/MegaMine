@@ -9,6 +9,11 @@ function manufacturer($state, vehicleService, vehicleModelDialog, manufacturerDi
         columnDefs: [
                     { name: 'Name', field: 'Name', displayName: 'Name' },
                     { name: 'Description', field: 'Description', displayName: 'Description' },
+                     {
+                         name: 'SparePartOrderId', field: 'SparePartOrderId', displayName: '',
+                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewModel(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editModel(row.entity, true, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</md-button>",
+                         cellClass: "text-center", enableHiding: false
+                     },
                     
         ]
     };
@@ -17,6 +22,8 @@ function manufacturer($state, vehicleService, vehicleModelDialog, manufacturerDi
         model: {},
         gridOptions: gridOptions,
         addModel: addModel,
+        viewModel: viewModel,
+        editModel: editModel,
         viewManufacturer: viewManufacturer
    
     };
@@ -42,6 +49,16 @@ function manufacturer($state, vehicleService, vehicleModelDialog, manufacturerDi
     }
 
     function viewDialog(model, editMode, ev) {
+        vehicleModelDialog.viewDialog(model, editMode, ev);
+    }
+
+    function viewModel(model, editMode, ev) {
+        model.VehicleModelId = 0;
+        vehicleModelDialog.viewDialog(model, editMode, ev);
+    }
+
+    function editModel(model, editMode, ev) {
+     
         vehicleModelDialog.viewDialog(model, editMode, ev);
     }
 
