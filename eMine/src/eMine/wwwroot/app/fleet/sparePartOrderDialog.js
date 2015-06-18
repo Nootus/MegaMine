@@ -77,8 +77,10 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
                     }
                     else
                     {
-                        model.Name = vm.model.Name
-                        model.Description = vm.model.Description
+                        model.OrderedUTCdatetime = vm.model.OrderedUTCdatetime;
+                        model.OrderedUnits = vm.model.OrderedUnits;
+                        model.UnitCost = vm.model.UnitCost;
+
                     }
 
                     $mdDialog.hide();
