@@ -75,7 +75,9 @@ function vehicleService($http) {
         modelsList: [],
         getModelsList: getModelsList,
         saveModel: saveModel,
-        
+
+        //Orders
+        ordersList: [],
     };
 
     return service;
@@ -278,6 +280,8 @@ function vehicleService($http) {
         return $http.get("/api/fleet/sparepartdetailsget", { params: { "sparePartId": sparePartId } })
             .success(function (data) {
                 service.sparePart = data
+                service.ordersList.splice(0, service.ordersList.length);
+                angular.extend(service.ordersList, service.sparePart.Orders);
             })
     }
 

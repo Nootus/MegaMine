@@ -33,7 +33,7 @@ function sparePart($scope, $mdDialog, vehicleService, sparePartOrderDialog, spar
 
     function init() {
         vm.model = vehicleService.sparePart;
-        vm.gridOptions.data = vm.model.Orders;
+        vm.gridOptions.data = vehicleService.ordersList;
     }
 
     function addOrder(ev)

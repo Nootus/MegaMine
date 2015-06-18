@@ -68,12 +68,11 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
                 vm.model.sparePartId = sparePartId;
                 service.saveSparePartOrder(vm.model).success(function ()
                 {
-                    vehicleService.getCurrentSparePart(sparePartId);
                     //update the grid values
                     if (sparePartOrderId === 0)
                     {
                         //refresh the grid
-                        vehicleService.getCurrentSparePart(sparePartId);
+                        vehicleService.getSparePart(sparePartId);
                     }
                     else
                     {
