@@ -8,6 +8,7 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
 {
 
     var sparePartId;
+    var sparePartOrderId;
 
     var dialog = {
         viewDialog: viewDialog,
@@ -17,7 +18,7 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
     return dialog;
 
     function viewDialog(orderModel, editMode, ev) {
-        var sparePartOrderId = orderModel.SparePartOrderId;
+        sparePartOrderId = orderModel.SparePartOrderId;
         sparePartId = orderModel.SparePartId;
         dialog.editMode = editMode;
 
@@ -44,14 +45,19 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
         var vm = {
             save: save,
             cancel: cancel,
-            model: model,
+            model: {},
             editMode: editMode,
         }
 
-        angular.extend($scope, vm);
+        init();
 
         return vm;
 
+        function init() {
+            angular.extend(vm.model, model);
+            angular.extend($scope, vm);
+        }
+        
         function cancel() {
             event.preventDefault();
             $mdDialog.cancel();
@@ -62,7 +68,21 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
                 vm.model.sparePartId = sparePartId;
                 service.saveSparePartOrder(vm.model).success(function ()
                 {
+                    vehicleService.getCurrentSparePart(sparePartId);
+                    //update the grid values
+                    if (sparePartOrderId === 0)
+                    {
+                        //refresh the grid
+                        vehicleService.getCurrentSparePart(sparePartId);
+                    }
+                    else
+                    {
+                        model.Name = vm.model.Name
+                        model.Description = vm.model.Description
+                    }
+
                     $mdDialog.hide();
+
                 });
             }
         };

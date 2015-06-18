@@ -76,7 +76,9 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
                     else {
 
                         //Boys : Why the following is not working ?
-                        //model.Name = vm.model.Name
+                        model.OrderedUTCdatetime = vm.model.OrderedUTCdatetime
+                        model.OrderedUnits = vm.model.OrderedUnits
+                        model.UnitCost = vm.model.UnitCost
                         //model.Description = vm.model.Description
 
                         // Boys : Why it says that navigation.gotomanufacturer is not a function ?
