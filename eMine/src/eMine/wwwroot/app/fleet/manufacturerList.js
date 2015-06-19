@@ -10,7 +10,7 @@ function manufacturerList($scope, $window,vehicleService, manufacturerDialog, ui
         columnDefs: [
                     { name: 'Name', field: 'Name', displayName: 'Name', type: 'string', enableHiding: false },
                     { name: 'Description', field: 'Description', displayName: 'Description', type: 'string', enableHiding: false },
-                    { name: 'ManufacturerId', field: 'ManufacturerID', displayName: '', type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToManufacturer(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'ManufacturerId', field: 'ManufacturerID', displayName: '', type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToManufacturer(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editManufucturer(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> EditMe</md-button>" , cellClass: "text-center", enableHiding: false },
         ]
     };
 
@@ -20,6 +20,7 @@ function manufacturerList($scope, $window,vehicleService, manufacturerDialog, ui
         gridHeight: '0px',
         navigateToManufacturer: navigateToManufacturer,
         addManufacturer: addManufacturer,
+        editManufucturer: editManufucturer,
     };
 
     init();
@@ -46,7 +47,13 @@ function manufacturerList($scope, $window,vehicleService, manufacturerDialog, ui
         navigation.gotomanufacturer(row.entity.VehicleManufacturerId);
     }
 
-    function addManufacturer(ev) {
+    function addManufacturer(ev)
+    {
         manufacturerDialog.viewDialog(0, true, ev);
+    }
+
+    function editManufucturer(row)
+    {
+        manufacturerDialog.editDialog(row.entity, true, 0);
     }
 }

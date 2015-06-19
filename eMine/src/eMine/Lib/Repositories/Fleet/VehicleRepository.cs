@@ -605,6 +605,7 @@ namespace eMine.Lib.Repositories.Fleet
         {
             var manQuery = from manufacturer in dbContext.VehicleManufacturers
                            where manufacturer.VehicleManufacturerId == manufacturerId
+                           && manufacturer.DeletedInd == false
                            select new ManufacturerDetailsModel
                            {
                                VehicleManufacturerId = manufacturer.VehicleManufacturerId,
@@ -616,6 +617,7 @@ namespace eMine.Lib.Repositories.Fleet
 
             var modelsQuery = from vmodel in dbContext.VehicleModels
                               where vmodel.VehicleManufacturerId == manufacturerId
+                              && vmodel.DeletedInd == false
                               select new VehicleManufactureModelModel
                               {
                                   Name = vmodel.Name,
@@ -745,7 +747,8 @@ namespace eMine.Lib.Repositories.Fleet
                 model = new VehicleServiceViewModel() { ServiceDate = DateTime.Now };
 
             var sparePartsQuery = from parts in dbContext.VehicleServiceSpareParts
-                                  where parts.VehicleServiceId == vehicleServiceId && parts.DeletedInd == false
+                                  where parts.VehicleServiceId == vehicleServiceId 
+                                  && parts.DeletedInd == false
                                   select new SparePartModel
                                   {
                                       VehicleServiceSparePartId = parts.VehicleServiceSparePartId,
@@ -800,7 +803,7 @@ namespace eMine.Lib.Repositories.Fleet
             SparePartModel currentPart;
             foreach (var part in spareParts)
             {
-                currentPart = model.SpareParts.FirstOrDefault(p => p.VehicleServiceSparePartId == part.VehicleServiceSparePartId);
+                currentPart = model.SpareParts.FirstOrDefault(p => p.VehicleServiceSparePartId == part.VehicleServiceSparePartId && part.DeletedInd == false);
                 if (currentPart == null)
                 {
                     //user deleted this in the UI

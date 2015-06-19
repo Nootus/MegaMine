@@ -9,12 +9,33 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
 
     var dialog = {
         viewDialog: viewDialog,
+        editDialog: editDialog,
         editMode: false,
     };
 
     var curManufacturerId;
 
     return dialog;
+
+    function editDialog(model, editMode, ev) {
+        curManufacturerId = model.VehicleManufacturerId;
+        dialog.editMode = editMode;
+
+        $mdDialog.show({
+            controller: DialogController,
+            controllerAs: "vm",
+            templateUrl: utility.virtualDirectory + '/app/fleet/manufacturerDialog.html',
+            targetEvent: ev,
+            locals: { $mdDialog: $mdDialog, service: vehicleService, model: model, editMode: dialog.editMode },
+            resolve: { resolvemodel: function () { return vehicleService.getCurrentManufacturer(curManufacturerId) } }
+        })
+        .then(function () {
+            //alert('You said the information was "' + answer + '".');
+        }, function () {
+            //nothing to do when we cancel
+        });
+    }
+
 
     function viewDialog(manufacturerId, editMode, ev)
     {
@@ -42,7 +63,7 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
         var vm = {
             save: save,
             cancel: cancel,
-            model: model,
+            model: {},
             editMode: editMode,
         }
 
@@ -76,10 +97,8 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
                     else {
 
                         //Boys : Why the following is not working ?
-                        model.OrderedUTCdatetime = vm.model.OrderedUTCdatetime
-                        model.OrderedUnits = vm.model.OrderedUnits
-                        model.UnitCost = vm.model.UnitCost
-                        //model.Description = vm.model.Description
+                        model.Name = vm.model.Name
+                        model.Description = vm.model.Description
 
                         // Boys : Why it says that navigation.gotomanufacturer is not a function ?
                         //navigation.gotomanufacturer(curManufacturerId);
