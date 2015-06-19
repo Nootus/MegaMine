@@ -615,7 +615,7 @@ namespace eMine.Lib.Repositories.Fleet
             ManufacturerDetailsModel model = manQuery.FirstOrDefault();
 
             var modelsQuery = from vmodel in dbContext.VehicleModels
-                              where model.VehicleManufacturerId == manufacturerId
+                              where vmodel.VehicleManufacturerId == manufacturerId
                               select new VehicleManufactureModelModel
                               {
                                   Name = vmodel.Name,
