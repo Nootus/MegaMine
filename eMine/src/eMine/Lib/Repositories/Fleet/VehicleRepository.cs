@@ -29,7 +29,113 @@ namespace eMine.Lib.Repositories.Fleet
             return query.ToList();
         }
 
+        public List<VehicleTripModel> VehicleTripListGet(int VehicleId = 0)
+        {
+            var query = from Trips in dbContext.VehicleTrips
+                        where Trips.DeletedInd == false
+                        && (VehicleId == 0 || Trips.VehicleId == VehicleId)
+                        orderby Trips.StartingTime descending
+                        select new VehicleTripModel
+                        {
+                            VehicleTripName= Trips.VehicleTripName,
+                            VehicleTripId = Trips.VehicleTripId,
+                            VehicleId = Trips.VehicleId,
+                            VehicleDriverId = Trips.VehicleDriverId,
+                            OdometerStart = Trips.OdometerStart,
+                            OdometerEnd = Trips.OdometerEnd,
+                            StartingTime = Trips.StartingTime,
+                            ReachingTime = Trips.ReachingTime
 
+                        };
+
+            return query.ToList();
+        }
+        
+        public List<ListItem<int, string>> VehicleTripListItemGet(int VehicleId = 0)
+        {
+            var query = from Trips in dbContext.VehicleTrips
+                        where Trips.DeletedInd == false
+                        && (VehicleId == 0 || Trips.VehicleId == VehicleId)
+                        orderby Trips.StartingTime descending
+                        select new ListItem<int, string>()
+                        {
+                            Key = Trips.VehicleTripId,
+                            Item = Trips.VehicleTripName
+                        };
+
+            return query.ToList();
+        }
+        public VehicleTripModel VehicleTripGet(int vehicleTripId)
+        {
+            var query = from vt in dbContext.VehicleTrips
+                        where vt.VehicleTripId == vehicleTripId
+                        && vt.DeletedInd == false
+                        select new VehicleTripModel
+                        {
+                            VehicleTripName = vt.VehicleTripName,
+                            VehicleTripId = vt.VehicleTripId,
+                            VehicleId = vt.VehicleId,
+                            VehicleDriverId = vt.VehicleDriverId,
+                            OdometerStart = vt.OdometerStart,
+                            OdometerEnd = vt.OdometerEnd,
+                            StartingTime = vt.StartingTime,
+                            ReachingTime = vt.ReachingTime
+                        };
+
+
+            VehicleTripModel model = query.FirstOrDefault();
+
+            return model;
+        }
+
+        public void VehicleTripAdd(VehicleTripModel model)
+        {
+            VehicleTripEntity entity = new VehicleTripEntity()
+            {
+                VehicleTripName = model.VehicleTripName,
+                VehicleTripId = model.VehicleTripId,
+                VehicleId = model.VehicleId,
+                VehicleDriverId = model.VehicleDriverId,
+                OdometerStart = model.OdometerStart,
+                OdometerEnd = model.OdometerEnd,
+                StartingTime = model.StartingTime,
+                ReachingTime = model.ReachingTime
+            };
+            dbContext.VehicleTrips.Add(entity);
+            dbContext.SaveChanges();
+
+        }
+
+        public void VehicleTripUpdate(VehicleTripModel model)
+        {
+            //Update the VehicleService Entity first
+            VehicleTripEntity entity = (from vt in dbContext.VehicleTrips where vt.VehicleTripId == model.VehicleTripId select vt).First();
+            entity.VehicleTripName = model.VehicleTripName;
+            entity.VehicleTripId = model.VehicleTripId;
+            entity.VehicleId = model.VehicleId;
+            entity.VehicleDriverId = model.VehicleDriverId;
+            entity.OdometerStart = model.OdometerStart;
+            entity.OdometerEnd = model.OdometerEnd;
+            entity.StartingTime = model.StartingTime;
+            entity.ReachingTime = model.ReachingTime;
+            entity.UpdateAuditFields();
+            dbContext.VehicleTrips.Update(entity);
+            dbContext.SaveChanges();
+        }
+
+        public void VehicleTripSave(VehicleTripModel model)
+        {
+            if (model.VehicleTripId == 0)
+            {
+                VehicleTripAdd(model);
+            }
+            else
+            {
+                VehicleTripUpdate(model);
+            }
+        }
+        //End changes
+        
         public List<ListItem<int, string>> VehicleTypeListItemGet()
         {
             var query = from types in dbContext.VehicleTypes
@@ -43,6 +149,7 @@ namespace eMine.Lib.Repositories.Fleet
 
             return query.ToList();
         }
+
 
         public VehicleTypeModel VehicleTypeGet(int vehicleTypeId)
         {

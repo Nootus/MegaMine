@@ -23,6 +23,7 @@ namespace eMine.Lib.Repositories
         public DbSet<ConfigurationEntity> Configurations { get; set; }
         public DbSet<VehicleDriverAssignmentEntity> VehicleDriverAssignments{ get; set; }
         public DbSet<SparePartManufacturerEntity> SparePartManufacturers { get; set; }
+        public DbSet<VehicleTripEntity> VehicleTrips{ get; set; }
 
 
 
@@ -87,7 +88,11 @@ namespace eMine.Lib.Repositories
             //[SparePartManufacturer]
             builder.Entity<SparePartManufacturerEntity >().ForRelational().Table("SparePartManufacturer");
             builder.Entity<SparePartManufacturerEntity >().Key(k => k.SparePartManufacturerId);
-
+            
+            //[VehicleTrip]
+            builder.Entity<VehicleTripEntity>().ForRelational().Table("VehicleTrip");
+            builder.Entity<VehicleTripEntity>().Key(k => k.VehicleTripId);
+            
             base.OnModelCreating(builder);
         }
 

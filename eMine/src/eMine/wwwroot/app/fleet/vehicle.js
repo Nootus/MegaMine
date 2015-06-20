@@ -28,22 +28,26 @@ function vehicle($state, vehicleService, vehicleDialog, utility) {
         return [
                     getMenuItem(" Service History", "service", "service"),
                     getMenuItem(" Fuel History", "fuel", "fuel"),
-                    getMenuItem(" Driver History", "driver", "driver")
+                    getMenuItem(" Driver History", "driver", "driver"),
+                    getMenuItem(" Trip History", "vehicletrip", "vehicletrip")
         ];
     }
 
-    function getMenuItem(text, url, iconCss) {
+    function getMenuItem(text, url, iconCss)
+    {
         var cssClass = "";
         var spriteCssClass = "icon-menu icon-" + iconCss
         var hash = utility.routePath("vehicle/" + vm.model.VehicleId + "/" + url);
         var currentHash = $state.href($state.current.name, $state.params);
-        if (hash === currentHash) {
+        if (hash === currentHash)
+        {
             cssClass = "k-state-highlight";
         }
         return { text: text, url: hash, cssClass: cssClass, spriteCssClass: spriteCssClass };
     }
 
-    function menuSelect(e) {
+    function menuSelect(e)
+    {
         $(e.item).siblings().removeClass("k-state-highlight");
         $(e.item).addClass("k-state-highlight");
     }

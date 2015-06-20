@@ -159,6 +159,25 @@ namespace eMine.Lib.Domain
         {
             return new VehicleRepository().DriversListGet();
         }
+        public List<ListItem<int, string>> VehicleTripListItemGet(int VehicleId = 0)
+        {
+            return new VehicleRepository().VehicleTripListItemGet(VehicleId);
+        }
+
+        public List<VehicleTripModel> VehicleTripListGet(int VehicleId = 0)
+        {
+            return new VehicleRepository().VehicleTripListGet(VehicleId);
+        }
+        
+        public VehicleTripModel VehicleTripGet(int VehicleTripId)
+        {
+            return new VehicleRepository().VehicleTripGet(VehicleTripId);
+        }
+
+        public void VehicleTripSave(VehicleTripModel model)
+        {
+            new VehicleRepository().VehicleTripSave(model);
+        }
 
         internal void VehicleDriverSave(VehicleDriverAssignmentModel model)
         {

@@ -75,6 +75,18 @@ function fleetRoute($stateProvider) {
             }]
         })
 
+          .state("vehicle.vehicletrip", {
+              url: "/vehicletrip",
+              title: "Vehicle",
+              previousState: "vehiclelist",
+              templateUrl: window.virtualDirectory + "/app/fleet/vehicletrip.html",
+              controller: "vehicletrip",
+              controllerAs: "vm",
+              resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
+                  return vehicleService.getTripList($stateParams.vehicleid);
+              }]
+          })
+
 
         .state("vehicletype", {
             url: window.virtualDirectory + "/vehicletype",

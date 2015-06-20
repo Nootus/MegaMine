@@ -44,8 +44,7 @@ function vehicleService($http) {
         //drivers
         getDrivers: getDrivers,
         saveDriver: saveDriver,
-
-
+        
         //spare parts
         sparePartList: [],
         sparePart: {},
@@ -78,6 +77,11 @@ function vehicleService($http) {
 
         //Orders
         ordersList: [],
+
+        //Trips
+        tripsList: [],
+        getTripList: getTripList,
+        saveTrip: saveTrip,
     };
 
     return service;
@@ -116,6 +120,21 @@ function vehicleService($http) {
             })
     }
 
+    function getTripList(vehicleId)
+    {
+        return $http.get("/api/fleet/VehicleTripListGet", { params: { "vehicleId": vehicleId } })
+            .success(function (data)
+            {
+                service.tripsList.splice(0, service.tripsList.length);
+                angular.extend(service.tripsList, data);
+            })
+    }
+
+    function saveTrip(model)
+    {
+        return $http.post("/api/fleet/VehicleTripSave", model);
+    }
+
 
     function getFuelList(vehicleId) {
         return $http.get("/api/fleet/fuelgetlist", { params: { "vehicleId": vehicleId } })
@@ -124,6 +143,12 @@ function vehicleService($http) {
                 angular.extend(service.fuelList, data);
             })
     }
+
+    function saveFuel(model) {
+        return $http.post("/api/fleet/fuelsave", model);
+    }
+
+
 
     function getModelsList(modelId) {
         return $http.get("/api/fleet/getModelsList", { params: { "modelId": modelId } })

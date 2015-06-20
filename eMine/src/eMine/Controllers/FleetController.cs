@@ -180,7 +180,24 @@ namespace eMine.Controllers
             return AjaxHelper.Save<VehicleDriverAssignmentModel>(m => new FleetDomain().VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
         }
 
+        [HttpPost]
+        public AjaxModel<VehicleTripModel> VehicleTripSave([FromBody] VehicleTripModel model)
+        {
+            return AjaxHelper.Save<VehicleTripModel>(m => new FleetDomain().VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
+        }
+        
+        [HttpGet]
+        public AjaxModel<List<VehicleTripModel>> VehicleTripListGet(int vehicleTripId)
+        {
+            return AjaxHelper.Get<List<VehicleTripModel>>(m => new FleetDomain().VehicleTripListGet(vehicleTripId));
+        }
 
+        [HttpGet]
+        public AjaxModel<VehicleTripModel> VehicleTripGet(int vehicleTripId)
+        {
+            return AjaxHelper.Get<VehicleTripModel>(m => new FleetDomain().VehicleTripGet(vehicleTripId));
+        }
+                
         [HttpGet]
         public AjaxModel<string> Test()
         {

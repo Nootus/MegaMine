@@ -22,7 +22,7 @@ namespace eMine.Lib.Shared
             public const string DriveAssessmentError = "Driver is already assigned. Cannot assign another driver";
             public const string FuelSaveSuccess = "Fuel Saved Successfully";
             public const string VehicleDriverSaveSuccess = "Driver record Saved Successfully";
-
+            public const string VehicleTripSaveSuccess = "Vehicle trip record saved Successfully";
             public const string SparePartOrderSaveSuccess = "Spare Part Order Saved Successfully";
             public const string SparePartSaveSuccess = "Spare Part Saved Successfully";
 
