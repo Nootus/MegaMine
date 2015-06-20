@@ -47,6 +47,6 @@ function sparePart($scope, $mdDialog, vehicleService, sparePartOrderDialog, spar
     }
 
     function editSparePart(ev) {
-        sparePartDialog.viewDialog(model.SparePartId, ev);
+        sparePartDialog.viewDialog(vm.model.SparePartId, ev);
     }
 }
