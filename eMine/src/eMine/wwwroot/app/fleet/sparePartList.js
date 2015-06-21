@@ -11,7 +11,7 @@ function sparePartList($scope, $window, vehicleService, sparePartDialog, uiGridC
                     { name: 'Name', field: 'Name', displayName: 'Part Name', type: 'string', enableHiding: false },
                     { name: 'Description', field: 'Description', displayName: 'Description', type: 'string', enableHiding: false },
                     { name: 'Quantity', field: 'Quantity', displayName: 'Available Quantity', type: 'number', enableHiding: false },
-                    { name: 'SparePartId', field: 'SparePartId', displayName: '', type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToSparePart(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'SparePartId', field: 'SparePartId', displayName: '', enableColumnMenu: false,  type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToSparePart(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 

@@ -14,7 +14,7 @@ function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConst
                     { name: 'LastServiceDate', field: 'LastServiceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"', enableHiding: false },
                     { name: 'FuelAverage', field: 'FuelAverage', displayName: 'Fuel Average', type: 'number', enableHiding: false },
                     { name: 'Driver', field: 'Driver', displayName: 'Driver', type: 'string', enableHiding: false },
-                    { name: 'VehicleId', field: 'VehicleId', displayName: '', type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToVehicle(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'VehicleId', field: 'VehicleId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToVehicle(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 

@@ -12,7 +12,7 @@ function serviceRecord(vehicleService, vehicleServiceDialog, uiGridConstants) {
                     { name: 'Compliant', field: 'Compliant', displayName: 'Compliant', type: 'string' },
                     { name: 'ServiceCost', field: 'ServiceCost', displayName: 'Service Cost', type: 'number' },
                     {
-                        name: 'VehicleServiceId', field: 'VehicleServiceId', displayName: '', type: 'string',
+                        name: 'VehicleServiceId', field: 'VehicleServiceId', displayName: '', enableColumnMenu: false,  type: 'string',
                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.VehicleServiceId, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.VehicleServiceId, true, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</md-button>",
                         cellClass: "text-center", enableHiding: false
                     },

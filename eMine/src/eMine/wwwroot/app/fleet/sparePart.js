@@ -8,11 +8,11 @@ function sparePart($scope, $mdDialog, vehicleService, sparePartOrderDialog, spar
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'OrderedUTCdatetime', field: 'OrderedUTCdatetime', displayName: 'Ordered Date', cellFilter: 'date:"dd/MM/yyyy"' },
-                    { name: 'OrderedUnits', field: 'OrderedUnits', displayName: 'Quantity' },
-                    { name: 'UnitCost', field: 'UnitCost', displayName: 'Unit Cost' },
+                    { name: 'OrderedUTCdatetime', field: 'OrderedUTCdatetime', displayName: 'Ordered Date',  type: 'date', cellFilter: 'date:"dd/MM/yyyy"' },
+                    { name: 'OrderedUnits', field: 'OrderedUnits', displayName: 'Quantity', type: 'number' },
+                    { name: 'UnitCost', field: 'UnitCost', displayName: 'Unit Cost', type: 'number' },
                     {
-                        name: 'SparePartOrderId', field: 'SparePartOrderId', displayName: '',
+                        name: 'SparePartOrderId', field: 'SparePartOrderId', enableColumnMenu: false,  displayName: '',
                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, true, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</md-button>",
                         cellClass: "text-center", enableHiding: false
                     },
