@@ -12,7 +12,7 @@ function vehicleDriver(vehicleService, vehicleDriverDialog, uiGridConstants, con
                     { name: 'AssignmentStartDate', field: 'AssignmentStartDate', displayName: 'Start Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
                     { name: 'AssignmentEndDate', field: 'AssignmentEndDate', displayName: 'End Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
                     {
-                        name: 'VehicleDriverAssignmentId', field: 'VehicleDriverAssignmentId', displayName: '', type: 'string',
+                        name: 'VehicleDriverAssignmentId', field: 'VehicleDriverAssignmentId', displayName: '', enableColumnMenu: false, type: 'string',
                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, 0, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, 1, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</md-button>",
                         cellClass: "text-center", enableHiding: false
                     },
