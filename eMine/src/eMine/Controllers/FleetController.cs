@@ -66,6 +66,11 @@ namespace eMine.Controllers
             return AjaxHelper.Get<VehicleServiceViewModel>(m => new FleetDomain().VehicleServiceGet(vehicleServiceId));
         }
 
+        public AjaxModel<List<VehicleServiceViewModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
+        {
+            return AjaxHelper.Get<List<VehicleServiceViewModel>>(m => new FleetDomain().VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
+        }
+
         [HttpGet]
         public AjaxModel<SparePartModel> SparePartGet(int sparePartId)
         {

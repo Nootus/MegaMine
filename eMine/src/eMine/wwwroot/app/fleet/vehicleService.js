@@ -16,6 +16,8 @@ function vehicleService($http) {
         vehicle: {},
         currentVehicle: {},
         currentVehicleService: {},
+        vehicleServiceList: {},
+        getServiceReport: getServiceReport,
 
         //vehicles
         getVehicleList: getVehicleList,
@@ -292,19 +294,32 @@ function vehicleService($http) {
             })
     }
 
-    function saveSparePart(model) {
+    function getServiceReport(vehicleServiceId, StartDate, EndDate)
+    {
+        return $http.get("/api/fleet/VehicleServiceReportGet", { params: { "vehicleServiceId": vehicleServiceId, "StartDate": StartDate, "EndDate": EndDate } })
+            //.success(function (data)
+            //{
+            //    //service.vehicleServiceList.splice(0, service.vehicleServiceList.length);
+            //    //angular.extend(service.vehicleServiceList, data);
+            //    return data;
+            //})
+    }
+        
+    function saveSparePart(model)
+    {
         return $http.post("/api/fleet/sparepartsave", model)
             .success(function (data) {
                 //updating the spare part
                 service.sparePart.Name = model.Name;
                 service.sparePart.Description = model.Description;
+    
             });
     }
 
     function getSparePart(sparePartId) {
         return $http.get("/api/fleet/sparepartdetailsget", { params: { "sparePartId": sparePartId } })
             .success(function (data) {
-                service.sparePart = data
+                service.sparePart = data;
                 service.ordersList.splice(0, service.ordersList.length);
                 angular.extend(service.ordersList, service.sparePart.Orders);
             })

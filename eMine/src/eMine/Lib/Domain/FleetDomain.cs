@@ -135,6 +135,12 @@ namespace eMine.Lib.Domain
         {
             return new VehicleRepository().VehicleServiceGet(vehicleServiceId);
         }
+
+        public List<VehicleServiceViewModel> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
+        {
+            return new VehicleRepository().VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate);
+        }
+
         public List<VehicleDriverModel> DriversGet()
         {
             return new VehicleRepository().DriversGet();

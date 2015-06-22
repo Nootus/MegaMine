@@ -1,8 +1,32 @@
 ﻿<em-toolbar title="Service Report" class="title">
-    <md-button class="md-raised md-primary" aria-label="Show" ng-click="vm.addSparePart($event)">
+    <md-button class="md-raised md-primary" aria-label="Show" ng-click="vm.getReport($event)">
         <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Show Service Report
     </md-button>
 </em-toolbar>
+
 <md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
+    <div>
+
+        <div layout="row">
+            <div flex="30">
+                <em-input label="VehicleId" control-name="VehicleId" ng-model="vm.model.VehicleId" ng-disabled="false"></em-input>
+            </div>
+            <div flex="35">
+                <em-input label="StartDate" control-name="StartDate" ng-model="vm.model.StartDate" type="date" ng-disabled="false"></em-input>
+            </div>
+            <div flex="35">
+                <em-input label="EndDate" control-name="EndDate" ng-model="vm.model.EndDate" type="date" ng-disabled="false"></em-input>
+            </div>
+            
+        </div>
+        <div layout="row">
+            <div flex>
+                <md-content layout-padding>
+                    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize class="main-grid"></div>
+                </md-content>
+            </div>
+        </div>
+
+    </div>
 </md-content>
+

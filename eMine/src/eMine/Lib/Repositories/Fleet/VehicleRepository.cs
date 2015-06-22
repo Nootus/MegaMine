@@ -871,6 +871,27 @@ namespace eMine.Lib.Repositories.Fleet
             return model;
         }
 
+        public List<VehicleServiceViewModel> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate )
+        {
+            var serviceQuery = from service in dbContext.VehicleServices
+                               where (vehicleServiceId == 0 || service.VehicleServiceId == vehicleServiceId )
+                               &&  (service.ServiceStartDate > StartDate)
+                               &&  (service.ServiceStartDate < EndDate)
+                               && service.DeletedInd == false
+                               select new VehicleServiceViewModel
+                               {
+                                   VehicleServiceId = service.VehicleServiceId,
+                                   ServiceDate = service.ServiceStartDate,
+                                   VehicleId = service.VehicleId,
+                                   Compliant = service.Compliant,
+                                   Description = service.Description,
+                                   MiscCost = service.MiscServiceCost,
+                                   ServiceCost = service.TotalServiceCost
+                               };
+            return  serviceQuery.ToList();
+                     
+        }
+
         public VehicleDetailsModel VehicleServiceSave(VehicleServiceViewModel model)
         {
             if (model.VehicleServiceId == 0)

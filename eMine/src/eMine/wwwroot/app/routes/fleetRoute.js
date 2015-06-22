@@ -99,6 +99,19 @@ function fleetRoute($stateProvider) {
                 return vehicleService.getVehicleType();
             }]
         })
+
+        .state("servicereport", {
+            url: window.virtualDirectory + "/servicereport",
+            title: "Service Report",
+            previousState: "dashboard",
+            templateUrl: "/app/fleet/servicereport.html",
+            controller: "servicereport",
+            controllerAs: "vm",
+            resolve: ['vehicleService', function (vehicleService) {
+                
+            }]
+        })
+
         .state("sparepartlist", {
             url: window.virtualDirectory + "/sparepartlist",
             title: "Spare Parts",

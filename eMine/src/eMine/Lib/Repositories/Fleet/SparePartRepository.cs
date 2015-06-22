@@ -89,35 +89,40 @@ namespace eMine.Lib.Repositories.Fleet
             }
         }
 
-
-
-
-
-
-
-
-
-
-
         public SparePartOrderModel SparePartOrderGet(int sparePartOrderId)
         {
+            SparePartOrderModel model = null;
+            if (sparePartOrderId == 0)
+            {
+                model = new SparePartOrderModel();
+                model.SparePartOrderId = sparePartOrderId;
+                model.SparePartId = 0;
+                model.OrderedUnits = 0;
+                model.UnitCost = 0;
+                model.OrderedUTCdatetime = null;
+                model.DeliveredUTCdatetime = null;
+                model.FollowupEmailAddress = "";
+                model.FollowupPhoneNum = "";
+            }
+            else
+            {
+                var query = from order in dbContext.SparePartOrders
+                            where order.SparePartOrderId == sparePartOrderId
+                            && order.DeletedInd == false
+                            select new SparePartOrderModel
+                            {
+                                SparePartOrderId = order.SparePartOrderId,
+                                SparePartId = order.SparePartId,
+                                OrderedUnits = order.OrderedUnits,
+                                UnitCost = order.UnitCost,
+                                OrderedUTCdatetime = order.OrderedUTCdatetime,
+                                DeliveredUTCdatetime = order.DeliveredUTCdatetime,
+                                FollowupEmailAddress = order.FollowupEmailAddress,
+                                FollowupPhoneNum = order.FollowupPhoneNum
+                            };
 
-            var query = from order in dbContext.SparePartOrders
-                        where order.SparePartOrderId == sparePartOrderId
-                        && order.DeletedInd == false
-                        select new SparePartOrderModel
-                        {
-                            SparePartOrderId = order.SparePartOrderId,
-                            SparePartId = order.SparePartId,
-                            OrderedUnits = order.OrderedUnits,
-                            UnitCost = order.UnitCost,
-                            OrderedUTCdatetime = order.OrderedUTCdatetime,
-                            DeliveredUTCdatetime = order.DeliveredUTCdatetime,
-                            FollowupEmailAddress = order.FollowupEmailAddress,
-                            FollowupPhoneNum = order.FollowupPhoneNum
-                        };
-
-            SparePartOrderModel model = query.FirstOrDefault();
+                model = query.FirstOrDefault();
+            }
 
             return model;
         }

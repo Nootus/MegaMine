@@ -9,7 +9,7 @@ function index($scope, $interval, profile, navigation, utility) {
                             text: " Fleet", url: "#", spriteCssClass: "icon-menu icon-fleet",
                             items: [
                                 { text: " Vehicle List", url: "/vehiclelist", spriteCssClass: "icon-menu icon-vehiclelist" },
-                                { text: " Service Report", url: "#", spriteCssClass: "icon-menu icon-report" },
+                                { text: " Service Report", url: "/servicereport", spriteCssClass: "icon-menu icon-report" },
                                 { text: " Spare Parts", url: "/sparepartlist", spriteCssClass: "icon-menu icon-spareparts" },
                                 { text: "Administration", url: "", disabled: "disabled", cssClass: "blank-menu-item" },
                                 { text: " Vehicle Types", url: "/vehicletype", spriteCssClass: "icon-menu icon-vehicletypes" },
