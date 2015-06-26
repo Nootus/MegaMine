@@ -13,14 +13,15 @@ function sparePartDialog($mdDialog, vehicleService, utility) {
 
     return dialog;
 
-    function viewDialog(sparePartId, ev) {
+    function viewDialog(sparePartId, editMode, ev)
+    {
 
         $mdDialog.show({
             controller: DialogController,
             controllerAs: "vm",
             templateUrl: utility.virtualDirectory + '/app/fleet/sparePartDialog.html',
             targetEvent: ev,
-            locals: { $mdDialog: $mdDialog, service: vehicleService, model: vehicleService.currentSparePart },
+            locals: { $mdDialog: $mdDialog, service: vehicleService, model: vehicleService.currentSparePart, editMode: dialog.editMode },
             resolve: { resolvemodel: function () { return vehicleService.getCurrentSparePart(sparePartId) } }
         })
     }
@@ -34,9 +35,43 @@ function sparePartDialog($mdDialog, vehicleService, utility) {
             model: model,
         }
 
-        angular.extend($scope, vm);
+        init();
 
         return vm;
+
+        function init() {
+            angular.extend($scope, vm);
+
+            $scope.$watch("vm.model.VehicleManufacturerId", bindModelDropDown);
+        }
+
+        function bindModelDropDown(manufacturerId, oldmanufacturerId) {
+            if (vm.model.ModelList === undefined) {
+                vm.model.ModelList = [];
+            }
+
+            var modelList = vm.model.ModelList;
+            var vehicleModelList = vm.model.VehicleModelList;
+
+            modelList.splice(0, modelList.length);
+
+            for (var counter = 0; counter < vehicleModelList.length; counter++) {
+                if (vehicleModelList[counter].VehicleManufacturerId === manufacturerId) {
+                    modelList.push({ Key: vehicleModelList[counter].VehicleModelId, Item: vehicleModelList[counter].Name })
+                }
+            }
+
+            if (manufacturerId === oldmanufacturerId)
+                return;
+
+            if (modelList.length > 0) {
+                vm.model.VehicleModelId = modelList[0].Key;
+            }
+            else {
+                vm.model.VehicleModelId = 0;
+            }
+        }
+
 
         function cancel() {
             event.preventDefault();

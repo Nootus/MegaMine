@@ -41,7 +41,7 @@ namespace eMine.Lib.Repositories.Fleet
                         select new SparePartManufacturerModel
                         {
                             SparePartManufacturerId = spm.SparePartManufacturerId,
-                            ManufacturerID = spm.ManufacturerID,
+                            VehicleManufacturerId = spm.VehicleManufacturerId,
                             VehicleModelId = spm.VehicleModelId
                         };
 
@@ -56,8 +56,10 @@ namespace eMine.Lib.Repositories.Fleet
             SparePartManufacturerEntity entity = new SparePartManufacturerEntity()
             {
                 SparePartManufacturerId = model.SparePartManufacturerId,
-                ManufacturerID = model.ManufacturerID,
-                VehicleModelId = model.VehicleModelId
+                SparePartId = model.SparePartId,
+                VehicleManufacturerId = model.VehicleManufacturerId,
+                VehicleModelId = model.VehicleModelId,
+                VehicleTypeId = model.VehicleTypeId
             };
             dbContext.SparePartManufacturers.Add(entity);
             dbContext.SaveChanges();
@@ -69,8 +71,10 @@ namespace eMine.Lib.Repositories.Fleet
             //Update the SparePartManufacturerModel Entity first
             SparePartManufacturerEntity entity = (from spm in dbContext.SparePartManufacturers where spm.SparePartManufacturerId == model.SparePartManufacturerId select spm).First();
             entity.SparePartManufacturerId = model.SparePartManufacturerId;
-            entity.ManufacturerID = model.ManufacturerID;
+            entity.SparePartId = model.SparePartId;
+            entity.VehicleManufacturerId = model.VehicleManufacturerId;
             entity.VehicleModelId = model.VehicleModelId;
+            entity.VehicleTypeId = model.VehicleTypeId;
             entity.UpdateAuditFields();
             dbContext.SparePartManufacturers.Update(entity);
             dbContext.SaveChanges();
@@ -194,6 +198,33 @@ namespace eMine.Lib.Repositories.Fleet
             entity.SparePartDescription = model.Description;
             entity.UpdateAuditFields();
 
+            SparePartManufacturerEntity spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId select spam ).First();
+
+            if (model.VehicleTypeId != 0 || model.VehicleManufacturerId != 0 || model.VehicleModelId != 0)
+            {
+                if(spamen == null)
+                {
+                    SparePartManufacturerEntity spam = new SparePartManufacturerEntity();
+                    spam.VehicleModelId = model.VehicleModelId;
+                    spam.VehicleTypeId = model.VehicleTypeId;
+                    spam.VehicleManufacturerId = model.VehicleManufacturerId;
+                    dbContext.SparePartManufacturers.Add(spam);
+                }
+                else
+                {
+                    spamen.VehicleModelId = model.VehicleModelId;
+                    spamen.VehicleTypeId = model.VehicleTypeId;
+                    spamen.VehicleManufacturerId = model.VehicleManufacturerId;
+                    spamen.DeletedInd = false;
+                    dbContext.SparePartManufacturers.Update(spamen);
+                }               
+            }
+            else
+            {
+                    spamen.DeletedInd = false;
+                    dbContext.SparePartManufacturers.Update(spamen);
+            }
+
             dbContext.SpareParts.Update(entity);
             dbContext.SaveChanges();
         }
@@ -209,8 +240,21 @@ namespace eMine.Lib.Repositories.Fleet
                 SparePartDescription = model.Description
             };
 
+
             dbContext.SpareParts.Add(entity);
             dbContext.SaveChanges();
+            model.SparePartId = entity.SparePartId;
+
+            if (model.VehicleTypeId != 0 || model.VehicleManufacturerId != 0 || model.VehicleModelId != 0)
+            {
+                SparePartManufacturerEntity spam = new SparePartManufacturerEntity();
+                spam.SparePartId = model.SparePartId;
+                spam.VehicleModelId = model.VehicleModelId;
+                spam.VehicleTypeId = model.VehicleTypeId;
+                spam.VehicleManufacturerId = model.VehicleManufacturerId;
+                dbContext.SparePartManufacturers.Add(spam);
+                dbContext.SaveChanges();
+            }          
 
         }
 
@@ -252,8 +296,12 @@ namespace eMine.Lib.Repositories.Fleet
                                             Description = sPart.SparePartDescription
                                         };
 
-                model = sparePartGetQuery.FirstOrDefault();
+                model = sparePartGetQuery.FirstOrDefault();                               
             }
+
+            model.VehicleTypeList = new VehicleRepository().VehicleTypeListItemGet();
+            model.ManufacturerList = new VehicleRepository().VehicleManufacturerListItemGet();
+            model.VehicleModelList = new VehicleRepository().VehicleManufactureModelGet();
 
             return model;
         }

@@ -12,6 +12,6 @@ namespace eMine.Lib.Entities.Fleet
         public string SparePartDescription { get; set; }
         public string ManufacturingBrand { get; set; }
         public int AvailableQuantity { get; set; }
-        
+
     }
 }

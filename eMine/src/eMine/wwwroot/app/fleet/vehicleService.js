@@ -169,19 +169,23 @@ function vehicleService($http) {
         return $http.post("/api/fleet/modelsave", model);
     }
 
-    function getVehicleDriverList(vehicleId) {
+    function getVehicleDriverList(vehicleId)
+    {
         return $http.get("/api/fleet/vehicledrivergetlist", { params: { "vehicleId": vehicleId } })
-            .success(function (data) {
+            .success(function (data)
+            {
                 service.vehicleDriverList.splice(0, service.vehicleDriverList.length);
                 angular.extend(service.vehicleDriverList, data);
             })
     }
 
-    function saveVehiceDriver(model) {
+    function saveVehiceDriver(model)
+    {
         return $http.post("/api/fleet/vehicledriversave", model);
     }
 
-    function getDriversListItems(vehicleId) {
+    function getDriversListItems(vehicleId)
+    {
         return $http.get("/api/fleet/driverslistget")
             .success(function (data) {
                 service.driverListItems = data
@@ -189,14 +193,16 @@ function vehicleService($http) {
     }
 
 
-    function getCurrentService(vehicleServiceId) {
+    function getCurrentService(vehicleServiceId)
+    {
         return $http.get("/api/fleet/vehicleserviceget", { params: { "VehicleServiceId": vehicleServiceId } })
             .success(function (data) {
                 angular.extend(service.currentVehicleService, data);
             })
     }
 
-    function saveVehicleService(model) {
+    function saveVehicleService(model)
+    {
         //for adding we need to populate the vehicleid
         if (model.VehicleId === 0) {
             model.VehicleId = service.vehicle.VehicleId;
@@ -209,7 +215,8 @@ function vehicleService($http) {
             })
     }
 
-    function getCurrentVehicle(vehicleId) {
+    function getCurrentVehicle(vehicleId)
+    {
         return $http.get("/api/fleet/vehicleget", { params: { "vehicleId": vehicleId } })
             .success(function (data) {
                 angular.extend(service.currentVehicle, data);

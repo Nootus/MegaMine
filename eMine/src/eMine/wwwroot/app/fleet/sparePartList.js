@@ -20,6 +20,7 @@ function sparePartList($scope, $window, vehicleService, sparePartDialog, uiGridC
         gridHeight: '0px',
         navigateToSparePart: navigateToSparePart,
         addSparePart: addSparePart,
+        model: {}
     };
 
     init();
@@ -46,7 +47,8 @@ function sparePartList($scope, $window, vehicleService, sparePartDialog, uiGridC
         navigation.gotoSparePart(row.entity.SparePartId);
     }
 
-    function addSparePart(ev) {
-        sparePartDialog.viewDialog(0, ev);
+    function addSparePart(ev, editMode)
+    {
+        sparePartDialog.viewDialog(0, editMode, ev);
     }
 }

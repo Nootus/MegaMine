@@ -8,8 +8,8 @@
     <div>
 
         <div layout="row">
-            <div flex="30">
-                <em-input label="VehicleId" control-name="VehicleId" ng-model="vm.model.VehicleId" ng-disabled="false"></em-input>
+            <div flex="20">
+                <em-select  label="VehicleNumber" control-name="VehicleNumber" ng-model="vm.model.VehicleNumber" opt-list="model.vehicleList" ng-required="true"></em-select>
             </div>
             <div flex="35">
                 <em-input label="StartDate" control-name="StartDate" ng-model="vm.model.StartDate" type="date" ng-disabled="false"></em-input>
@@ -22,7 +22,7 @@
         <div layout="row">
             <div flex>
                 <md-content layout-padding>
-                    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize class="main-grid"></div>
+                    <div ui-grid="vm.gridOptions"  ng-style="{'height' : vm.gridHeight }"  ui-grid-resize-columns ui-grid-auto-resize class="main-grid"></div>
                 </md-content>
             </div>
         </div>

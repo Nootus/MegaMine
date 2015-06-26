@@ -13,7 +13,8 @@ function vehicleDialog($mdDialog, vehicleService, utility) {
 
     return dialog;
 
-    function viewDialog(vehicleId, editMode, ev) {
+    function viewDialog(vehicleId, editMode, ev)
+    {
         dialog.editMode = editMode;
 
         $mdDialog.show({

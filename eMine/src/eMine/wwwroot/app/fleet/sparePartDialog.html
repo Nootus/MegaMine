@@ -18,6 +18,15 @@
                     <div flex="70">
                         <em-input form="sparePartForm" label="Description" control-name="description" ng-model="model.Description" ng-required="false" em-maxlength="100"></em-input>
                     </div>
+                    <div flex="30">
+                        <em-select form="sparePartForm" label="Type" control-name="vehicleType" ng-model="model.VehicleTypeId" opt-list="model.VehicleTypeList" ng-required="false" ></em-select>
+                    </div>
+                    <div flex="20">
+                        <em-select form="sparePartForm" label="Manufacturer" control-name="manufacturer" ng-model="model.VehicleManufacturerId" opt-list="model.ManufacturerList" ng-required="false" ></em-select>
+                    </div>
+                    <div flex="20" class="text-left">
+                        <em-select form="sparePartForm" label="Model" control-name="vehicleModel" ng-model="model.VehicleModelId" opt-list="model.ModelList" ng-required="false" ></em-select>
+                    </div>
                 </div>
             </div>
         </md-dialog-content>
