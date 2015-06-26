@@ -29,7 +29,7 @@ function vehicle($state, vehicleService, vehicleDialog, utility) {
                     getMenuItem(" Service History", "service", "service"),
                     getMenuItem(" Fuel History", "fuel", "fuel"),
                     getMenuItem(" Driver History", "driver", "driver"),
-                    getMenuItem(" Trip History", "vehicletrip", "vehicletrip")
+                    getMenuItem(" Trip History", "vehicletrip", "trip")
         ];
     }
 

@@ -1,11 +1,12 @@
 ﻿'use strict';
 angular.module('emine').controller('manufacturer', manufacturer)
-manufacturer.$inject = ['$state', 'vehicleService', 'vehicleModelDialog', 'manufacturerDialog'];
+manufacturer.$inject = ['$scope', '$window', 'vehicleService', 'vehicleModelDialog', 'manufacturerDialog', 'utility', 'uiGridConstants'];
 
-function manufacturer($state, vehicleService, vehicleModelDialog, manufacturerDialog) {
+function manufacturer($scope, $window, vehicleService, vehicleModelDialog, manufacturerDialog, utility, uiGridConstants) {
 
     var gridOptions = {
         enableColumnResizing: true,
+        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
                     { name: 'Name', field: 'Name', displayName: 'Name' },
                     { name: 'Description', field: 'Description', displayName: 'Description' },
@@ -24,8 +25,8 @@ function manufacturer($state, vehicleService, vehicleModelDialog, manufacturerDi
         addModel: addModel,
         viewModel: viewModel,
         editModel: editModel,
-        viewManufacturer: viewManufacturer
-   
+        viewManufacturer: viewManufacturer,
+        gridHeight: '0px',
     };
 
     init();
@@ -36,6 +37,18 @@ function manufacturer($state, vehicleService, vehicleModelDialog, manufacturerDi
     {
         vm.model = vehicleService.manufacturer;
         vm.gridOptions.data = vehicleService.modelsList;
+        resizeGrid();
+
+        angular.element($window).bind('resize', function () {
+            resizeGrid();
+        });
+        $scope.$on('$destroy', function (e) {
+            angular.element($window).unbind('resize');
+        });
+    }
+
+    function resizeGrid() {
+        vm.gridHeight = utility.getSubGridHeight('sub-grid');
     }
 
     function viewManufacturer(ev)

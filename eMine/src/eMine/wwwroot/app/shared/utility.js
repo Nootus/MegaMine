@@ -13,6 +13,8 @@ function utility(toastr) {
         showInfo: showInfo,
         showError: showError,
         getGridHeight: getGridHeight,
+        getMainGridHeight: getMainGridHeight,
+        getSubGridHeight: getSubGridHeight,
         getListItem: getListItem
     };
 
@@ -31,12 +33,20 @@ function utility(toastr) {
         toastr.error(message);
     }
 
-    function getGridHeight(gridClass) {
+    function getMainGridHeight(gridClass) {
+        return getGridHeight(gridClass, 24);
+    }
+
+    function getSubGridHeight(gridClass) {
+        return getGridHeight(gridClass, 41);
+    }
+
+    function getGridHeight(gridClass, bottomOffset) {
         var contentOffset = angular.element(document.getElementsByClassName('main-content')).offset();
         var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
         var gridOffset = angular.element(document.getElementsByClassName(gridClass)).offset();
         if (gridOffset !== undefined) {
-            var gridHeight = contentHeight - (gridOffset.top) - 25;
+            var gridHeight = contentHeight - (gridOffset.top) - bottomOffset;
             return gridHeight + 'px';
         }
     }

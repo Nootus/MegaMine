@@ -15,8 +15,6 @@ function sparePartList($scope, $window, vehicleService, sparePartDialog, uiGridC
         ]
     };
 
-    //{ name: 'LastServiceDate', field: 'LastServiceDate', displayName: 'Last Order Date', cellFilter: 'date:"dd/MM/yyyy"', enableHiding: false },
-
     var vm = {
         gridOptions: gridOptions,
         gridHeight: '0px',
@@ -41,7 +39,7 @@ function sparePartList($scope, $window, vehicleService, sparePartDialog, uiGridC
     }
 
     function resizeGrid() {
-        vm.gridHeight = utility.getGridHeight('main-grid');
+        vm.gridHeight = utility.getMainGridHeight('main-grid');
     }
 
     function navigateToSparePart(row) {

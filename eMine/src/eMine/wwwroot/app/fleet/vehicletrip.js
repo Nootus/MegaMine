@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicletrip', vehicletrip)
-fuel.$inject = ['vehicleService', 'tripDialog', 'uiGridConstants', 'constants'];
+vehicletrip.$inject = ['vehicleService', 'tripDialog', 'uiGridConstants', 'constants'];
 
 function vehicletrip(vehicleService, tripDialog, uiGridConstants, constants) {
 

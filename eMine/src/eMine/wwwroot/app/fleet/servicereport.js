@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('emine').controller('servicereport', servicereport)
-manufacturer.$inject = ['$state', 'vehicleService', 'vehicleServiceDialog'];
+servicereport.$inject = ['$state', 'vehicleService', 'vehicleServiceDialog'];
 
 function servicereport($state, vehicleService, vehicleServiceDialog) {
 

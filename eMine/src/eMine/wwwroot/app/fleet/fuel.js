@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('fuel', fuel)
-fuel.$inject = ['vehicleService', 'fuelDialog', 'uiGridConstants', 'constants'];
+fuel.$inject = ['$scope', '$window', 'vehicleService', 'fuelDialog', 'utility', 'uiGridConstants', 'constants'];
 
-function fuel(vehicleService, fuelDialog, uiGridConstants, constants) {
+function fuel($scope, $window, vehicleService, fuelDialog, utility, uiGridConstants, constants) {
 
     var gridOptions = {
         enableColumnResizing: true,
@@ -24,6 +24,7 @@ function fuel(vehicleService, fuelDialog, uiGridConstants, constants) {
         gridOptions: gridOptions,
         viewDialog: viewDialog,
         addFuel: addFuel,
+        gridHeight: '0px',
     };
 
     init();
@@ -33,6 +34,18 @@ function fuel(vehicleService, fuelDialog, uiGridConstants, constants) {
     function init() {
         vm.vehicleId = vehicleService.vehicle.VehicleId;
         vm.gridOptions.data = vehicleService.fuelList;
+        resizeGrid();
+
+        angular.element($window).bind('resize', function () {
+            resizeGrid();
+        });
+        $scope.$on('$destroy', function (e) {
+            angular.element($window).unbind('resize');
+        });
+    }
+
+    function resizeGrid() {
+        vm.gridHeight = utility.getSubGridHeight('sub-grid');
     }
 
     function addFuel(ev) {

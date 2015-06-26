@@ -43,7 +43,7 @@ function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConst
     }
 
     function resizeGrid() {
-        vm.gridHeight = utility.getGridHeight('main-grid');
+        vm.gridHeight = utility.getMainGridHeight('main-grid');
     }
 
     function navigateToVehicle(row) {

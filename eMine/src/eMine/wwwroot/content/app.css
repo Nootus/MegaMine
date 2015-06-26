@@ -17,6 +17,7 @@ body {
 	font-family: Verdana, Arial, Helvetica, sans-serif;
 	font-size: 0.85em !important;
     height: 100%;
+    overflow: hidden !important;
 }
 
 h4{
@@ -139,6 +140,11 @@ div.main-menu {
 
 .icon-driver {
     background: url('images/icons/driver.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-trip {
+    background: url('images/icons/trip.svg') no-repeat;
     background-size: cover;
 }
 

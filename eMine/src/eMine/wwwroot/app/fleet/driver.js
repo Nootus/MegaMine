@@ -39,7 +39,7 @@ function driver($scope, $window, vehicleService, driverDialog, uiGridConstants, 
     }
 
     function resizeGrid() {
-        vm.gridHeight = utility.getGridHeight('main-grid');
+        vm.gridHeight = utility.getMainGridHeight('main-grid');
     }
 
     function addDriver(ev) {

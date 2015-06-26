@@ -39,7 +39,7 @@ function vehicleType($scope, $window, vehicleService, vehicleTypeDialog, uiGridC
     }
 
     function resizeGrid() {
-        vm.gridHeight = utility.getGridHeight('main-grid');
+        vm.gridHeight = utility.getMainGridHeight('main-grid');
     }
 
     function addVehicleType(ev) {

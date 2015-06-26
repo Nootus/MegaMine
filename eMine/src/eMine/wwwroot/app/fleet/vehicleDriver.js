@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleDriver', vehicleDriver)
-vehicleDriver.$inject = ['vehicleService', 'vehicleDriverDialog', 'uiGridConstants', 'constants'];
+vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDriverDialog', 'utility', 'uiGridConstants', 'constants'];
 
-function vehicleDriver(vehicleService, vehicleDriverDialog, uiGridConstants, constants) {
+function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, utility, uiGridConstants, constants) {
 
     var gridOptions = {
         enableColumnResizing: true,
@@ -27,7 +27,8 @@ function vehicleDriver(vehicleService, vehicleDriverDialog, uiGridConstants, con
         addDriver: addDriver,
         assignDriver: assignDriver,
         unAssignDriver:unAssignDriver,
-        editMode: 0
+        editMode: 0,
+        gridHeight: '0px',
     };
 
     init();
@@ -38,6 +39,18 @@ function vehicleDriver(vehicleService, vehicleDriverDialog, uiGridConstants, con
         vm.vehicleId = vehicleService.vehicle.VehicleId;
         vm.gridOptions.data = vehicleService.vehicleDriverList;
         vm.editMode = vehicleService.vehicle.Driver === null ? 2 : 3;
+        resizeGrid();
+
+        angular.element($window).bind('resize', function () {
+            resizeGrid();
+        });
+        $scope.$on('$destroy', function (e) {
+            angular.element($window).unbind('resize');
+        });
+    }
+
+    function resizeGrid() {
+        vm.gridHeight = utility.getSubGridHeight('sub-grid');
     }
 
     function unAssignDriver(ev) {

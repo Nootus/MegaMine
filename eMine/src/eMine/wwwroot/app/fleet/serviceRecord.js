@@ -1,14 +1,14 @@
 ﻿'use strict';
 angular.module('emine').controller('serviceRecord', serviceRecord)
-serviceRecord.$inject = ['vehicleService', 'vehicleServiceDialog', 'uiGridConstants'];
+serviceRecord.$inject = ['$scope', '$window', 'vehicleService', 'vehicleServiceDialog', 'utility', 'uiGridConstants', 'constants'];
 
-function serviceRecord(vehicleService, vehicleServiceDialog, uiGridConstants) {
+function serviceRecord($scope, $window, vehicleService, vehicleServiceDialog, utility, uiGridConstants, constants) {
 
     var gridOptions = {
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'ServiceDate', field: 'ServiceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"dd/MM/yyyy"' },
+                    { name: 'ServiceDate', field: 'ServiceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'Compliant', field: 'Compliant', displayName: 'Compliant', type: 'string' },
                     { name: 'ServiceCost', field: 'ServiceCost', displayName: 'Service Cost', type: 'number' },
                     {
@@ -23,6 +23,7 @@ function serviceRecord(vehicleService, vehicleServiceDialog, uiGridConstants) {
         gridOptions: gridOptions,
         viewService: viewService,
         addService: addService,
+        gridHeight: '0px',
     };
 
     init();
@@ -31,6 +32,18 @@ function serviceRecord(vehicleService, vehicleServiceDialog, uiGridConstants) {
 
     function init() {
         vm.gridOptions.data = vehicleService.vehicle.ServiceRecord;
+        resizeGrid();
+
+        angular.element($window).bind('resize', function () {
+            resizeGrid();
+        });
+        $scope.$on('$destroy', function (e) {
+            angular.element($window).unbind('resize');
+        });
+    }
+
+    function resizeGrid() {
+        vm.gridHeight = utility.getSubGridHeight('sub-grid');
     }
 
     function addService(ev) {
