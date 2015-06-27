@@ -198,13 +198,14 @@ namespace eMine.Lib.Repositories.Fleet
             entity.SparePartDescription = model.Description;
             entity.UpdateAuditFields();
 
-            SparePartManufacturerEntity spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId select spam ).First();
+            SparePartManufacturerEntity spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId select spam ).FirstOrDefault();
 
             if (model.VehicleTypeId != 0 || model.VehicleManufacturerId != 0 || model.VehicleModelId != 0)
             {
                 if(spamen == null)
                 {
                     SparePartManufacturerEntity spam = new SparePartManufacturerEntity();
+                    spam.SparePartId = model.SparePartId;
                     spam.VehicleModelId = model.VehicleModelId;
                     spam.VehicleTypeId = model.VehicleTypeId;
                     spam.VehicleManufacturerId = model.VehicleManufacturerId;
@@ -281,6 +282,9 @@ namespace eMine.Lib.Repositories.Fleet
                 model.Name = "";
                 model.ManufacturingBrand = "";
                 model.Description = "";
+                model.VehicleModelId = 0;
+                model.VehicleTypeId = 0;
+                model.VehicleManufacturerId = 0;
             }
             else
             {
@@ -296,7 +300,23 @@ namespace eMine.Lib.Repositories.Fleet
                                             Description = sPart.SparePartDescription
                                         };
 
-                model = sparePartGetQuery.FirstOrDefault();                               
+                model = sparePartGetQuery.FirstOrDefault();
+
+                SparePartManufacturerEntity spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId select spam).FirstOrDefault();
+
+                if (spamen != null)
+                {
+                    model.VehicleModelId = spamen.VehicleModelId;
+                    model.VehicleTypeId = spamen.VehicleTypeId;
+                    model.VehicleManufacturerId = spamen.VehicleManufacturerId;
+                }
+                else
+                {
+                    model.VehicleModelId = 0;
+                    model.VehicleTypeId = 0;
+                    model.VehicleManufacturerId = 0;
+                }
+
             }
 
             model.VehicleTypeList = new VehicleRepository().VehicleTypeListItemGet();
