@@ -78,9 +78,9 @@ namespace eMine.Lib.Domain
             return vehicleRepository.VehicleTypeGet(vehicleTypeId);
         }
 
-        public void VehicleTypeSave(VehicleTypeModel model)
+        public async Task VehicleTypeSave(VehicleTypeModel model)
         {
-            vehicleRepository.VehicleTypeSave(model);
+            await vehicleRepository.VehicleTypeSave(model);
         }
 
         public void DriverSave(VehicleDriverModel model)

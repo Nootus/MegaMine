@@ -176,7 +176,7 @@ namespace eMine.Lib.Repositories.Fleet
             return model;
         }
 
-        public void VehicleTypeAdd(VehicleTypeModel model)
+        public async Task VehicleTypeAdd(VehicleTypeModel model)
         {
             VehicleTypeEntity entity = new VehicleTypeEntity()
             {
@@ -184,11 +184,11 @@ namespace eMine.Lib.Repositories.Fleet
                 VehicleTypeDescription = model.VehicleTypeDescription
             };
             dbContext.VehicleTypes.Add(entity);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
         }
 
-        public void VehicleTypeUpdate(VehicleTypeModel model)
+        public async Task VehicleTypeUpdate(VehicleTypeModel model)
         {
             //Update the VehicleService Entity first
             VehicleTypeEntity entity = (from vt in dbContext.VehicleTypes where vt.VehicleTypeId == model.VehicleTypeId select vt).First();
@@ -196,19 +196,19 @@ namespace eMine.Lib.Repositories.Fleet
             entity.VehicleTypeDescription = model.VehicleTypeDescription;
             entity.UpdateAuditFields();
             dbContext.VehicleTypes.Update(entity);
-            dbContext.SaveChanges();
+            await dbContext.SaveChangesAsync();
 
         }
 
-        public void VehicleTypeSave(VehicleTypeModel model)
+        public async Task VehicleTypeSave(VehicleTypeModel model)
         {
             if (model.VehicleTypeId == 0)
             {
-                VehicleTypeAdd(model);
+                await VehicleTypeAdd(model);
             }
             else
             {
-                VehicleTypeUpdate(model);
+                await VehicleTypeUpdate(model);
             }
         }
         #endregion

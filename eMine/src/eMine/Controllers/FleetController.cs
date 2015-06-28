@@ -124,9 +124,9 @@ namespace eMine.Controllers
 
 
         [HttpPost]
-        public AjaxModel<VehicleTypeModel> VehicleTypeSave([FromBody] VehicleTypeModel model)
+        public async Task<AjaxModel<VehicleTypeModel>> VehicleTypeSave([FromBody] VehicleTypeModel model)
         {
-            return AjaxHelper.Save<VehicleTypeModel>(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync<VehicleTypeModel>(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
         }
 
         [HttpGet]
