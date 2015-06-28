@@ -324,7 +324,7 @@ namespace eMine.Lib.Repositories.Fleet
             return model;
         }
 
-        public SparePartDetailsModel SparePartDetailsGet(int sparePartId)
+        public SparePartDetailsModel SparePartDetailsGet(int sparePartId, VehicleRepository vehicleRepository)
         {
             var sparePartGetQuery = from sPart in dbContext.SpareParts
                                     where sPart.SparePartId == sparePartId
@@ -339,6 +339,42 @@ namespace eMine.Lib.Repositories.Fleet
                                     };
 
             SparePartDetailsModel model = sparePartGetQuery.FirstOrDefault();
+
+            SparePartManufacturerEntity spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId select spam).FirstOrDefault();
+
+            if (spamen != null)
+            {
+                var modelQuery = (from models in dbContext.VehicleModels
+                                  where models.VehicleModelId == spamen.VehicleModelId
+                                  && models.DeletedInd == false
+                                  select models.Description).SingleOrDefault();
+
+                model.VehicleModel = modelQuery.ToString();
+
+                var typeQuery = (from types in dbContext.VehicleTypes
+                                  where types.VehicleTypeId == spamen.VehicleTypeId
+                                  && types.DeletedInd == false
+                                  select types.VehicleTypeName).SingleOrDefault();
+
+                model.VehicleType = typeQuery.ToString();
+
+
+                var manfQuery = (from manufacturers in dbContext.VehicleManufacturers
+                                 where manufacturers.VehicleManufacturerId == spamen.VehicleTypeId
+                                 && manufacturers.DeletedInd == false
+                                 select manufacturers.Description).SingleOrDefault();
+
+                model.VehicleManufacturer = manfQuery.ToString();
+
+                //model.VehicleManufacturer = spamen.VehicleManufacturerId;
+            }
+            else
+            {
+                model.VehicleModel = "";
+                model.VehicleType = "";
+                model.VehicleManufacturer = "";
+            }
+
 
             var ordersQuery = from order in dbContext.SparePartOrders
                               where order.SparePartId == sparePartId

@@ -5,14 +5,23 @@
 </em-toolbar>
 <md-content layout-padding>
     <div layout="row">
-        <div flex="30">
+        <div flex="20">
             <em-input label="Part Name" control-name="partName" ng-model="vm.model.Name" ng-disabled="true"></em-input>
         </div>
-        <div flex="50">
+        <div flex="20">
             <em-input label="Description" control-name="description" ng-model="vm.model.Description" ng-disabled="true"></em-input>
         </div>
         <div flex="20">
             <em-input label="Quantity on Hand" control-name="quantity" ng-model="vm.model.Quantity" ng-disabled="true"></em-input>
+        </div>
+          <div flex="20">
+            <em-input label="vehicleType" control-name="vehicleType" ng-model="vm.model.VehicleType" ng-disabled="true"></em-input>
+        </div>
+        <div flex="10">
+            <em-input label="manufacturer" control-name="manufacturer" ng-model="vm.model.VehicleManufacturer" ng-disabled="true"></em-input>
+        </div>
+        <div flex="10">
+            <em-input label="vehicleModel" control-name="vehicleModel" ng-model="vm.model.VehicleModel" ng-disabled="true"></em-input>
         </div>
         
     </div>
