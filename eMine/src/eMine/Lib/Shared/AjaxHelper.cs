@@ -52,5 +52,25 @@ namespace eMine.Lib.Shared
             return Get(action, message);
         }
 
+        public static async Task<AjaxModel<T>> GetAsync<T>(Func<string, Task<T>> action, string message = "") where T : class
+        {
+            AjaxModel<T> ajax;
+
+            try
+            {
+
+                T model = await action(null);
+
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
+            }
+            catch (Exception exp)
+            {
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.Message };
+            }
+
+            return ajax;
+        }
+
+
     }
 }

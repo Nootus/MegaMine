@@ -19,7 +19,7 @@ namespace eMine.Lib.Repositories.Fleet
         }
 
         #region Vehicle Type
-        public List<VehicleTypeModel> VehicleTypeListGet()
+        public async Task<List<VehicleTypeModel>> VehicleTypeListGet()
         {
             var query = from types in dbContext.VehicleTypes
                         where types.DeletedInd == false
@@ -32,10 +32,10 @@ namespace eMine.Lib.Repositories.Fleet
 
                         };
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
-        public List<VehicleTripModel> VehicleTripListGet(int VehicleId = 0)
+        public async Task<List<VehicleTripModel>> VehicleTripListGet(int VehicleId = 0)
         {
             var query = from Trips in dbContext.VehicleTrips
                         where Trips.DeletedInd == false
@@ -54,7 +54,7 @@ namespace eMine.Lib.Repositories.Fleet
 
                         };
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
         
         public List<ListItem<int, string>> VehicleTripListItemGet(int VehicleId = 0)
@@ -671,7 +671,7 @@ namespace eMine.Lib.Repositories.Fleet
             return model;
         }
 
-        public VehicleDetailsModel VehicleDetailsGet(int vehicleId)
+        public async Task<VehicleDetailsModel> VehicleDetailsGet(int vehicleId)
         {
             var vehicleQuery = from vehicle in dbContext.Vehicles
                                join vehicleType in dbContext.VehicleTypes on vehicle.VehicleTypeId equals vehicleType.VehicleTypeId
@@ -708,7 +708,7 @@ namespace eMine.Lib.Repositories.Fleet
                                    Compliant = service.Compliant
                                };
 
-            model.ServiceRecord = serviceQuery.ToList();
+            model.ServiceRecord = await serviceQuery.ToListAsync();
 
             return model;
 
@@ -746,7 +746,7 @@ namespace eMine.Lib.Repositories.Fleet
             return model;
         }
 
-        public List<VehicleListModel> VehicleListGet()
+        public async Task<List<VehicleListModel>> VehicleListGet()
         {
             var query = from vehicles in dbContext.Vehicles
                         join types in dbContext.VehicleTypes on vehicles.VehicleTypeId equals types.VehicleTypeId
@@ -909,7 +909,7 @@ namespace eMine.Lib.Repositories.Fleet
                 VehicleServiceUpdate(model);
             }
 
-            return VehicleDetailsGet(model.VehicleId);
+            return VehicleDetailsGet(model.VehicleId).Result;
         }
 
         public void VehicleServiceUpdate(VehicleServiceViewModel model)

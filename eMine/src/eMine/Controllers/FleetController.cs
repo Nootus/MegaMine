@@ -21,15 +21,15 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public AjaxModel<List<VehicleListModel>> VehicleList()
+        public async Task<AjaxModel<List<VehicleListModel>>> VehicleList()
         {
-            return AjaxHelper.Get<List<VehicleListModel>>(m => domain.VehicleList());
+            return await AjaxHelper.GetAsync<List<VehicleListModel>>(m => domain.VehicleList());
         }
 
         [HttpGet]
-        public AjaxModel<List<VehicleTypeModel>> VehicleTypeListGet()
+        public async Task<AjaxModel<List<VehicleTypeModel>>> VehicleTypeListGet()
         {
-            return AjaxHelper.Get<List<VehicleTypeModel>>(m => domain.VehicleTypeListGet());
+            return await AjaxHelper.GetAsync<List<VehicleTypeModel>>(m => domain.VehicleTypeListGet());
         }
 
 
@@ -41,9 +41,9 @@ namespace eMine.Controllers
 
         
         [HttpGet]
-        public AjaxModel<VehicleDetailsModel> VehicleDetailsGet(int vehicleId)
+        public Task<AjaxModel<VehicleDetailsModel>> VehicleDetailsGet(int vehicleId)
         {
-            return AjaxHelper.Get<VehicleDetailsModel>(m => domain.VehicleDetailsGet(vehicleId));
+            return AjaxHelper.GetAsync<VehicleDetailsModel>(m => domain.VehicleDetailsGet(vehicleId));
         }
 
 
@@ -198,9 +198,9 @@ namespace eMine.Controllers
         }
         
         [HttpGet]
-        public AjaxModel<List<VehicleTripModel>> VehicleTripListGet(int vehicleTripId)
+        public async Task<AjaxModel<List<VehicleTripModel>>> VehicleTripListGet(int vehicleTripId)
         {
-            return AjaxHelper.Get<List<VehicleTripModel>>(m => domain.VehicleTripListGet(vehicleTripId));
+            return await AjaxHelper.GetAsync<List<VehicleTripModel>>(m => domain.VehicleTripListGet(vehicleTripId));
         }
 
         [HttpGet]

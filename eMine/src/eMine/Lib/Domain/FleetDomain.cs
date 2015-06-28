@@ -20,15 +20,15 @@ namespace eMine.Lib.Domain
             this.sparepartRepository = sparepartRepository;
         }
 
-        public List<VehicleListModel> VehicleList()
+        public async Task<List<VehicleListModel>> VehicleList()
         {
-            return vehicleRepository.VehicleListGet();
+            return await vehicleRepository.VehicleListGet();
         }
 
 
-        public List<VehicleTypeModel> VehicleTypeListGet()
+        public async Task<List<VehicleTypeModel>> VehicleTypeListGet()
         {
-            return vehicleRepository.VehicleTypeListGet();
+            return await vehicleRepository.VehicleTypeListGet();
         }
 
         public List<SparePartModel> SparePartListGet()
@@ -128,9 +128,9 @@ namespace eMine.Lib.Domain
             sparepartRepository.SparePartOrderSave(model);
         }
 
-        public VehicleDetailsModel VehicleDetailsGet(int vehicleId)
+        public async Task<VehicleDetailsModel> VehicleDetailsGet(int vehicleId)
         {
-            return vehicleRepository.VehicleDetailsGet(vehicleId);
+            return await vehicleRepository.VehicleDetailsGet(vehicleId);
         }
 
         public VehicleDetailsModel VehicleServiceSave(VehicleServiceViewModel model)
@@ -178,9 +178,9 @@ namespace eMine.Lib.Domain
             return vehicleRepository.VehicleTripListItemGet(VehicleId);
         }
 
-        public List<VehicleTripModel> VehicleTripListGet(int VehicleId = 0)
+        public async Task<List<VehicleTripModel>> VehicleTripListGet(int VehicleId = 0)
         {
-            return vehicleRepository.VehicleTripListGet(VehicleId);
+            return await vehicleRepository.VehicleTripListGet(VehicleId);
         }
         
         public VehicleTripModel VehicleTripGet(int VehicleTripId)
