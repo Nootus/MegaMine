@@ -164,9 +164,9 @@ namespace eMine.Lib.Domain
             vehicleRepository.FuelSave(model);
         }
 
-        public List<VehicleDriverAssignmentModel> VehicleDriverGetList(int vehicleId)
+        public async Task<List<VehicleDriverAssignmentModel>> VehicleDriverGetList(int vehicleId)
         {
-            return vehicleRepository.VehicleDriverAssignmentGetList(vehicleId);
+            return await vehicleRepository.VehicleDriverAssignmentGetList(vehicleId);
         }
 
         public List<ListItem<int, string>> DriversListGet()

@@ -388,7 +388,7 @@ namespace eMine.Lib.Repositories.Fleet
 #endregion
 
         #region Vehicle Driver Assignment
-        public List<VehicleDriverAssignmentModel> VehicleDriverAssignmentGetList(int vehicleId)
+        public async Task<List<VehicleDriverAssignmentModel>> VehicleDriverAssignmentGetList(int vehicleId)
         {
             var query = from vda in dbContext.VehicleDriverAssignments
                         join driver in dbContext.VehicleDrivers on vda.VehicleDriverId equals driver.VehicleDriverId
@@ -405,7 +405,7 @@ namespace eMine.Lib.Repositories.Fleet
                            AssignmentEndDate = vda.AssignmentEndDate 
                         };
 
-            return query.ToList();
+            return await query.ToListAsync();
         }
 
         public List<ListItem<int, string>> DriversListGet()
