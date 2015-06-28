@@ -14,73 +14,79 @@ namespace eMine.Controllers
 {
     public class FleetController : Controller
     {
+        private FleetDomain domain;
+        public FleetController(FleetDomain domain)
+        {
+            this.domain = domain;
+        }
+
         [HttpGet]
         public AjaxModel<List<VehicleListModel>> VehicleList()
         {
-            return AjaxHelper.Get<List<VehicleListModel>>(m => new FleetDomain().VehicleList());
+            return AjaxHelper.Get<List<VehicleListModel>>(m => domain.VehicleList());
         }
 
         [HttpGet]
         public AjaxModel<List<VehicleTypeModel>> VehicleTypeListGet()
         {
-            return AjaxHelper.Get<List<VehicleTypeModel>>(m => new FleetDomain().VehicleTypeListGet());
+            return AjaxHelper.Get<List<VehicleTypeModel>>(m => domain.VehicleTypeListGet());
         }
 
 
         [HttpGet]
         public AjaxModel<List<SparePartModel>> SparePartListGet()
         {
-            return AjaxHelper.Get<List<SparePartModel>>(m => new FleetDomain().SparePartListGet());
+            return AjaxHelper.Get<List<SparePartModel>>(m => domain.SparePartListGet());
         }
 
         
         [HttpGet]
         public AjaxModel<VehicleDetailsModel> VehicleDetailsGet(int vehicleId)
         {
-            return AjaxHelper.Get<VehicleDetailsModel>(m => new FleetDomain().VehicleDetailsGet(vehicleId));
+            return AjaxHelper.Get<VehicleDetailsModel>(m => domain.VehicleDetailsGet(vehicleId));
         }
 
 
         [HttpGet]
         public AjaxModel<SparePartDetailsModel> SparePartDetailsGet(int sparePartId)
         {
-            return AjaxHelper.Get<SparePartDetailsModel>(m => new FleetDomain().SparePartDetailsGet(sparePartId));
+            return AjaxHelper.Get<SparePartDetailsModel>(m => domain.SparePartDetailsGet(sparePartId));
         }
 
         [HttpGet]
         public AjaxModel<ManufacturerDetailsModel> ManufacturerDetailsGet(int manufacturerId)
         {
-            return AjaxHelper.Get<ManufacturerDetailsModel>(m => new FleetDomain().ManufacturerDetailsGet(manufacturerId));
+            return AjaxHelper.Get<ManufacturerDetailsModel>(m => domain.ManufacturerDetailsGet(manufacturerId));
         }
         
 
         [HttpPost]
         public AjaxModel<VehicleDetailsModel> VehicleServiceSave([FromBody] VehicleServiceViewModel model)
         {
-            return AjaxHelper.SaveGet<VehicleDetailsModel>(m => new FleetDomain().VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
+            return AjaxHelper.SaveGet<VehicleDetailsModel>(m => domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
         }
 
         [HttpGet]
         public AjaxModel<VehicleServiceViewModel> VehicleServiceGet(int vehicleServiceId)
         {
-            return AjaxHelper.Get<VehicleServiceViewModel>(m => new FleetDomain().VehicleServiceGet(vehicleServiceId));
+            return AjaxHelper.Get<VehicleServiceViewModel>(m => domain.VehicleServiceGet(vehicleServiceId));
         }
 
         public AjaxModel<List<VehicleServiceViewModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
         {
-            return AjaxHelper.Get<List<VehicleServiceViewModel>>(m => new FleetDomain().VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
+            return AjaxHelper.Get<List<VehicleServiceViewModel>>(m => domain.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
         }
 
         [HttpGet]
         public AjaxModel<SparePartModel> SparePartGet(int sparePartId)
         {
-            return AjaxHelper.Get<SparePartModel>(m => new FleetDomain().SparePartGet(sparePartId));
+            return AjaxHelper.Get<SparePartModel>(m => domain.SparePartGet(sparePartId));
         }
 
         [HttpPost]
         public AjaxModel<SparePartModel> SparePartSave([FromBody] SparePartModel model)
         {
-            return AjaxHelper.Save<SparePartModel>(m => new FleetDomain().SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
+            return AjaxHelper.Save<SparePartModel>(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
         }
 
        
@@ -88,119 +94,119 @@ namespace eMine.Controllers
         [HttpGet]
         public AjaxModel<VehicleModel> VehicleGet(int vehicleId)
         {
-            return AjaxHelper.Get<VehicleModel>(m => new FleetDomain().VehicleGet(vehicleId));
+            return AjaxHelper.Get<VehicleModel>(m => domain.VehicleGet(vehicleId));
         }
 
         [HttpPost]
         public AjaxModel<VehicleModel> VehicleSave([FromBody] VehicleModel model)
         {
-            return AjaxHelper.Save<VehicleModel>(m => new FleetDomain().VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
+            return AjaxHelper.Save<VehicleModel>(m => domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
         }
 
         [HttpPost]
         public AjaxModel<VehicleManufactureModelModel> ModelSave([FromBody] VehicleManufactureModelModel model)
         {
-            return AjaxHelper.Save<VehicleManufactureModelModel>(m => new FleetDomain().ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
+            return AjaxHelper.Save<VehicleManufactureModelModel>(m => domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
         }
         
 
         [HttpGet]
         public AjaxModel<SparePartOrderModel> SparePartOrderGet(int sparePartOrderId)
         {
-            return AjaxHelper.Get<SparePartOrderModel>(m => new FleetDomain().SparePartOrderGet(sparePartOrderId));
+            return AjaxHelper.Get<SparePartOrderModel>(m => domain.SparePartOrderGet(sparePartOrderId));
         }
 
         [HttpPost]
         public AjaxModel<SparePartOrderModel> SparePartOrderSave([FromBody] SparePartOrderModel model)
         {
-            return AjaxHelper.Save<SparePartOrderModel>(m => new FleetDomain().SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
+            return AjaxHelper.Save<SparePartOrderModel>(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
         }
 
 
         [HttpPost]
         public AjaxModel<VehicleTypeModel> VehicleTypeSave([FromBody] VehicleTypeModel model)
         {
-            return AjaxHelper.Save<VehicleTypeModel>(m => new FleetDomain().VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
+            return AjaxHelper.Save<VehicleTypeModel>(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
         }
 
         [HttpGet]
         public AjaxModel<List<VehicleDriverModel>> DriversGet()
         {
-            return AjaxHelper.Get<List<VehicleDriverModel>>(m => new FleetDomain().DriversGet());
+            return AjaxHelper.Get<List<VehicleDriverModel>>(m => domain.DriversGet());
         }
 
         [HttpPost]
         public AjaxModel<VehicleDriverModel> DriverSave([FromBody] VehicleDriverModel model)
         {
-            return AjaxHelper.Save<VehicleDriverModel>(m => new FleetDomain().DriverSave(model), Messages.Fleet.DriverSaveSuccess);
+            return AjaxHelper.Save<VehicleDriverModel>(m => domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
         }
 
         [HttpGet]
         public AjaxModel<List<ListItem<int, string>>> DriversListGet()
         {
-            return AjaxHelper.Get<List<ListItem<int, string>>>(m => new FleetDomain().DriversListGet());
+            return AjaxHelper.Get<List<ListItem<int, string>>>(m => domain.DriversListGet());
         }
 
 
         [HttpGet]
         public AjaxModel<List<VehicleManufacturerModel>> ManufacturersGet()
         {
-            return AjaxHelper.Get<List<VehicleManufacturerModel>>(m => new FleetDomain().VehicleManufacturersGet());
+            return AjaxHelper.Get<List<VehicleManufacturerModel>>(m => domain.VehicleManufacturersGet());
         }
 
         [HttpGet]
         public AjaxModel<VehicleManufacturerModel> ManufacturerGet(int manufacturerId)
         {
-            return AjaxHelper.Get<VehicleManufacturerModel>(m => new FleetDomain().VehicleManufacturerGet(manufacturerId));
+            return AjaxHelper.Get<VehicleManufacturerModel>(m => domain.VehicleManufacturerGet(manufacturerId));
         }
 
         [HttpPost]
         public AjaxModel<VehicleTypeModel> ManufacturerSave([FromBody] VehicleManufacturerModel model)
         {
-            return AjaxHelper.Save<VehicleTypeModel>(m => new FleetDomain().ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
+            return AjaxHelper.Save<VehicleTypeModel>(m => domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
         }
 
         [HttpGet]
         public AjaxModel<List<FuelModel>> FuelGetList(int vehicleId)
         {
-            return AjaxHelper.Get<List<FuelModel>>(m => new FleetDomain().FuelGetList(vehicleId));
+            return AjaxHelper.Get<List<FuelModel>>(m => domain.FuelGetList(vehicleId));
         }
 
         [HttpPost]
         public AjaxModel<FuelModel> FuelSave([FromBody] FuelModel model)
         {
-            return AjaxHelper.Save<FuelModel>(m => new FleetDomain().FuelSave(model), Messages.Fleet.FuelSaveSuccess);
+            return AjaxHelper.Save<FuelModel>(m => domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
         }
 
         [HttpGet]
         public AjaxModel<List<VehicleDriverAssignmentModel>> VehicleDriverGetList(int vehicleId)
         {
-            return AjaxHelper.Get<List<VehicleDriverAssignmentModel>>(m => new FleetDomain().VehicleDriverGetList(vehicleId));
+            return AjaxHelper.Get<List<VehicleDriverAssignmentModel>>(m => domain.VehicleDriverGetList(vehicleId));
         }
 
 
         [HttpPost]
         public AjaxModel<VehicleDriverAssignmentModel> VehicleDriverSave([FromBody] VehicleDriverAssignmentModel model)
         {
-            return AjaxHelper.Save<VehicleDriverAssignmentModel>(m => new FleetDomain().VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
+            return AjaxHelper.Save<VehicleDriverAssignmentModel>(m => domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
         }
 
         [HttpPost]
         public AjaxModel<VehicleTripModel> VehicleTripSave([FromBody] VehicleTripModel model)
         {
-            return AjaxHelper.Save<VehicleTripModel>(m => new FleetDomain().VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
+            return AjaxHelper.Save<VehicleTripModel>(m => domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
         }
         
         [HttpGet]
         public AjaxModel<List<VehicleTripModel>> VehicleTripListGet(int vehicleTripId)
         {
-            return AjaxHelper.Get<List<VehicleTripModel>>(m => new FleetDomain().VehicleTripListGet(vehicleTripId));
+            return AjaxHelper.Get<List<VehicleTripModel>>(m => domain.VehicleTripListGet(vehicleTripId));
         }
 
         [HttpGet]
         public AjaxModel<VehicleTripModel> VehicleTripGet(int vehicleTripId)
         {
-            return AjaxHelper.Get<VehicleTripModel>(m => new FleetDomain().VehicleTripGet(vehicleTripId));
+            return AjaxHelper.Get<VehicleTripModel>(m => domain.VehicleTripGet(vehicleTripId));
         }
                 
         [HttpGet]
@@ -213,7 +219,7 @@ namespace eMine.Controllers
 
                 v.Model.UnitCost = v.Model.UnitCost+25;
 
-                new FleetDomain().SparePartOrderSave(v.Model);
+                domain.SparePartOrderSave(v.Model);
 
             }
             catch

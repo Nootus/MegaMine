@@ -95,11 +95,5 @@ namespace eMine.Lib.Repositories
             
             base.OnModelCreating(builder);
         }
-
-
-        protected override void OnConfiguring(DbContextOptionsBuilder options)
-        {
-            options.UseSqlServer(SiteSettings.ConnectionString);
-        }
     }
 }

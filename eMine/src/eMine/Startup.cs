@@ -3,6 +3,12 @@ using Microsoft.Framework.DependencyInjection;
 using Microsoft.AspNet.Hosting;
 using Microsoft.Framework.ConfigurationModel;
 using eMine.Lib.Shared;
+using eMine.Lib.Entities.Account;
+using eMine.Lib.Repositories;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Data.Entity;
+using eMine.Lib.Domain;
+using eMine.Lib.Repositories.Fleet;
 
 namespace eMine
 {
@@ -27,17 +33,28 @@ namespace eMine
             services.AddMvc();
 
             services.AddEntityFramework()
-                .AddSqlServer();
-            //.AddDbContext<ApplicationDbContext>(options =>
-            //{
-            //    options.UseSqlServer(Configuration.Get("Data:DefaultConnection:ConnectionString"));
-            //});
+                .AddSqlServer()
+            .AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration.Get("Data:DefaultConnection:ConnectionString"));
+            });
 
+            // Add Identity services to the services container.
+            services.AddIdentity<ApplicationUser, IdentityRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
+
+            //Dependency Injection
+            services.AddTransient<FleetDomain>();
+            services.AddTransient<VehicleRepository>();
+            services.AddTransient<SparePartRepository>();
         }
 
         public void Configure(IApplicationBuilder app)
         {
             app.UseStaticFiles();
+            app.UseIdentity();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -50,6 +67,9 @@ namespace eMine
                     template: "{*url}",
                     defaults: new { controller = "Home", action = "Index" });
             });
+
+            //storing the HttpContextAccessor
+            HttpHelper.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
         }
     }
 }

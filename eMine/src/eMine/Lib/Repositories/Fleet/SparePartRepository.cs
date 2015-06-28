@@ -10,11 +10,9 @@ namespace eMine.Lib.Repositories.Fleet
 {
     public class SparePartRepository : BaseRepository
     {
-        public SparePartRepository() : base()
+        public SparePartRepository(ApplicationDbContext dbContext)
         {
-        }
-        public SparePartRepository(ApplicationDbContext dbContext) : base(dbContext)
-        {
+            this.dbContext = dbContext;
         }
 
         //SparePartManufacturer
@@ -271,7 +269,7 @@ namespace eMine.Lib.Repositories.Fleet
             }
         }
 
-        public SparePartModel SparePartGet(int SparePartId)
+        public SparePartModel SparePartGet(int SparePartId, VehicleRepository vehicleRepository)
         {
             SparePartModel model = null;
             if (SparePartId == 0)
@@ -319,9 +317,9 @@ namespace eMine.Lib.Repositories.Fleet
 
             }
 
-            model.VehicleTypeList = new VehicleRepository().VehicleTypeListItemGet();
-            model.ManufacturerList = new VehicleRepository().VehicleManufacturerListItemGet();
-            model.VehicleModelList = new VehicleRepository().VehicleManufactureModelGet();
+            model.VehicleTypeList = vehicleRepository.VehicleTypeListItemGet();
+            model.ManufacturerList = vehicleRepository.VehicleManufacturerListItemGet();
+            model.VehicleModelList = vehicleRepository.VehicleManufactureModelGet();
 
             return model;
         }

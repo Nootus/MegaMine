@@ -6,11 +6,17 @@ using eMine.Models.Fleet;
 using eMine.Lib.Entities.Fleet;
 using eMine.Lib.Entities;
 using eMine.Lib.Shared;
+using Microsoft.AspNet.Mvc;
 
 namespace eMine.Lib.Repositories.Fleet
 {
     public class VehicleRepository : BaseRepository
     {
+
+        public VehicleRepository(ApplicationDbContext dbContext)
+        {
+            this.dbContext = dbContext;
+        }
 
         #region Vehicle Type
         public List<VehicleTypeModel> VehicleTypeListGet()

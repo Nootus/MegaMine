@@ -12,182 +12,190 @@ namespace eMine.Lib.Domain
 {
     public class FleetDomain
     {
+        private VehicleRepository vehicleRepository;
+        private SparePartRepository sparepartRepository;
+        public FleetDomain(VehicleRepository vehicleRepository, SparePartRepository sparepartRepository)
+        {
+            this.vehicleRepository = vehicleRepository;
+            this.sparepartRepository = sparepartRepository;
+        }
+
         public List<VehicleListModel> VehicleList()
         {
-            return new VehicleRepository().VehicleListGet();
+            return vehicleRepository.VehicleListGet();
         }
 
 
         public List<VehicleTypeModel> VehicleTypeListGet()
         {
-            return new VehicleRepository().VehicleTypeListGet();
+            return vehicleRepository.VehicleTypeListGet();
         }
 
         public List<SparePartModel> SparePartListGet()
         {
-            return new SparePartRepository().SparePartListGet();
+            return sparepartRepository.SparePartListGet();
         }
 
         public SparePartDetailsModel SparePartDetailsGet(int sparePartId)
         {
-            return new SparePartRepository().SparePartDetailsGet(sparePartId);
+            return sparepartRepository.SparePartDetailsGet(sparePartId);
         }
 
         public ManufacturerDetailsModel ManufacturerDetailsGet(int manufacturerId)
         {
-            return new VehicleRepository().ManufacturerDetailsGet(manufacturerId);
+            return vehicleRepository.ManufacturerDetailsGet(manufacturerId);
         }
 
 
 
         public SparePartModel SparePartGet(int sparePartId)
         {
-            return new SparePartRepository().SparePartGet(sparePartId);
+            return sparepartRepository.SparePartGet(sparePartId, vehicleRepository);
         }
 
         public void SparePartSave(SparePartModel model)
         {
-            new SparePartRepository().SparePartSave(model);
+            sparepartRepository.SparePartSave(model);
         }
 
         public VehicleModel VehicleGet(int vehicleId)
         {
-            return new VehicleRepository().VehicleGet(vehicleId);
+            return vehicleRepository.VehicleGet(vehicleId);
         }
 
         public void VehicleSave(VehicleModel model)
         {
-            new VehicleRepository().VehicleSave(model);
+            vehicleRepository.VehicleSave(model);
         }
 
         public void ModelSave(VehicleManufactureModelModel model)
         {
-             new VehicleRepository().ModelSave(model);
+             vehicleRepository.ModelSave(model);
         }
 
         public VehicleTypeModel VehicleTypeGet(int vehicleTypeId)
         {
-            return new VehicleRepository().VehicleTypeGet(vehicleTypeId);
+            return vehicleRepository.VehicleTypeGet(vehicleTypeId);
         }
 
         public void VehicleTypeSave(VehicleTypeModel model)
         {
-            new VehicleRepository().VehicleTypeSave(model);
+            vehicleRepository.VehicleTypeSave(model);
         }
 
         public void DriverSave(VehicleDriverModel model)
         {
-            new VehicleRepository().DriverSave(model);
+            vehicleRepository.DriverSave(model);
         }
 
         public List<VehicleManufacturerModel> VehicleManufacturersGet()
         {
-            return new VehicleRepository().VehicleManufacturersGet();
+            return vehicleRepository.VehicleManufacturersGet();
         }
 
         public void VehicleManufacturerSave(VehicleManufacturerModel  model)
         {
-            new VehicleRepository().VehicleManufacturerSave(model);
+            vehicleRepository.VehicleManufacturerSave(model);
         }
 
         public void VehicleFuelSave(FuelModel model)
         {
-            new VehicleRepository().FuelSave(model);
+            vehicleRepository.FuelSave(model);
         }
 
         public void SparePartManufacturerSave(SparePartManufacturerModel model)
         {
-           new SparePartRepository().SparePartManufacturerModelSave(model);
+           sparepartRepository.SparePartManufacturerModelSave(model);
         }
 
         public void ManufacturerSave(VehicleManufacturerModel model)
         {
-            new VehicleRepository().VehicleManufacturerSave(model);
+            vehicleRepository.VehicleManufacturerSave(model);
         }
 
         public VehicleManufacturerModel VehicleManufacturerGet(int manufacturerId)
         {
-            return new VehicleRepository().VehicleManufacturerGet(manufacturerId);
+            return vehicleRepository.VehicleManufacturerGet(manufacturerId);
         }
 
         public SparePartOrderModel SparePartOrderGet(int sparePartOrderId)
         {
-            return new SparePartRepository().SparePartOrderGet(sparePartOrderId);
+            return sparepartRepository.SparePartOrderGet(sparePartOrderId);
         }
 
         public void SparePartOrderSave(SparePartOrderModel model)
         {
-            new SparePartRepository().SparePartOrderSave(model);
+            sparepartRepository.SparePartOrderSave(model);
         }
 
         public VehicleDetailsModel VehicleDetailsGet(int vehicleId)
         {
-            return new VehicleRepository().VehicleDetailsGet(vehicleId);
+            return vehicleRepository.VehicleDetailsGet(vehicleId);
         }
 
         public VehicleDetailsModel VehicleServiceSave(VehicleServiceViewModel model)
         {
             if (model.MiscCost.Equals(DBNull.Value)) model.MiscCost = 0;
-            return new VehicleRepository().VehicleServiceSave(model);
+            return vehicleRepository.VehicleServiceSave(model);
         }
 
         public VehicleServiceViewModel VehicleServiceGet(int vehicleServiceId)
         {
-            return new VehicleRepository().VehicleServiceGet(vehicleServiceId);
+            return vehicleRepository.VehicleServiceGet(vehicleServiceId);
         }
 
         public List<VehicleServiceViewModel> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
         {
-            return new VehicleRepository().VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate);
+            return vehicleRepository.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate);
         }
 
         public List<VehicleDriverModel> DriversGet()
         {
-            return new VehicleRepository().DriversGet();
+            return vehicleRepository.DriversGet();
         }
 
         public List<FuelModel> FuelGetList(int vehicleId)
         {
-            return new VehicleRepository().FuelGetList(vehicleId);
+            return vehicleRepository.FuelGetList(vehicleId);
         }
 
         public void FuelSave(FuelModel model)
         {
-            new VehicleRepository().FuelSave(model);
+            vehicleRepository.FuelSave(model);
         }
 
         public List<VehicleDriverAssignmentModel> VehicleDriverGetList(int vehicleId)
         {
-            return new VehicleRepository().VehicleDriverAssignmentGetList(vehicleId);
+            return vehicleRepository.VehicleDriverAssignmentGetList(vehicleId);
         }
 
         public List<ListItem<int, string>> DriversListGet()
         {
-            return new VehicleRepository().DriversListGet();
+            return vehicleRepository.DriversListGet();
         }
         public List<ListItem<int, string>> VehicleTripListItemGet(int VehicleId = 0)
         {
-            return new VehicleRepository().VehicleTripListItemGet(VehicleId);
+            return vehicleRepository.VehicleTripListItemGet(VehicleId);
         }
 
         public List<VehicleTripModel> VehicleTripListGet(int VehicleId = 0)
         {
-            return new VehicleRepository().VehicleTripListGet(VehicleId);
+            return vehicleRepository.VehicleTripListGet(VehicleId);
         }
         
         public VehicleTripModel VehicleTripGet(int VehicleTripId)
         {
-            return new VehicleRepository().VehicleTripGet(VehicleTripId);
+            return vehicleRepository.VehicleTripGet(VehicleTripId);
         }
 
         public void VehicleTripSave(VehicleTripModel model)
         {
-            new VehicleRepository().VehicleTripSave(model);
+            vehicleRepository.VehicleTripSave(model);
         }
 
         internal void VehicleDriverSave(VehicleDriverAssignmentModel model)
         {
-            new VehicleRepository().VehicleDriverSave(model);
+            vehicleRepository.VehicleDriverSave(model);
         }
     }
 }
