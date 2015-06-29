@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using eMine.Lib.Domain;
 using eMine.Lib.Repositories.Fleet;
+using Microsoft.AspNet.Mvc;
+using eMine.Lib.Filters;
 
 namespace eMine
 {
@@ -30,7 +32,11 @@ namespace eMine
             SiteSettings.ConnectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
             SiteSettings.WebPath = Configuration.Get("DNX_APPBASE");
 
-            services.AddMvc();
+            services.AddMvc()
+                .Configure<MvcOptions>(options =>
+                {
+                    options.Filters.Add(new ProfileFilter());
+                });
 
             services.AddEntityFramework()
                 .AddSqlServer()
@@ -47,6 +53,7 @@ namespace eMine
 
             //Dependency Injection
             services.AddTransient<FleetDomain>();
+            services.AddTransient<AccountDomain>();
             services.AddTransient<VehicleRepository>();
             services.AddTransient<SparePartRepository>();
         }
@@ -66,6 +73,7 @@ namespace eMine
                     name: "default",
                     template: "{*url}",
                     defaults: new { controller = "Home", action = "Index" });
+
             });
 
             //storing the HttpContextAccessor
