@@ -129,11 +129,11 @@ namespace eMine.Lib.Repositories.Fleet
             dbContext.SaveChanges();
         }
 
-        public void VehicleTripSave(VehicleTripModel model)
+        public async Task VehicleTripSave(VehicleTripModel model)
         {
             if (model.VehicleTripId == 0)
             {
-                VehicleTripAdd(model);
+               VehicleTripAdd(model);
             }
             else
             {
@@ -261,7 +261,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
-        public void DriverSave(VehicleDriverModel model)
+        public async Task  DriverSave(VehicleDriverModel model)
         {
             if (model.VehicleDriverId == 0)
             {
@@ -273,11 +273,11 @@ namespace eMine.Lib.Repositories.Fleet
             }
         }
 
-        public void ModelSave(VehicleManufactureModelModel model)
+        public async Task  ModelSave(VehicleManufactureModelModel model)
         {
             if (model.VehicleModelId == 0)
             {
-                ModelAdd(model);
+               ModelAdd(model);
             }
             else
             {
@@ -374,7 +374,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
-        public void FuelSave(FuelModel model)
+        public async Task  FuelSave(FuelModel model)
         {
             if (model.VehicleFuelId == 0)
             {
@@ -382,7 +382,7 @@ namespace eMine.Lib.Repositories.Fleet
             }
             else
             {
-                FuelUpdate(model);
+               FuelUpdate(model);
             }
         }
 #endregion
@@ -422,7 +422,7 @@ namespace eMine.Lib.Repositories.Fleet
             return query.ToList();
         }
 
-        public void VehicleDriverSave(VehicleDriverAssignmentModel model)
+        public async Task  VehicleDriverSave(VehicleDriverAssignmentModel model)
         {
             if (model.VehicleDriverAssignmentId == 0)
             {
@@ -566,7 +566,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
-        public void VehicleManufacturerSave(VehicleManufacturerModel model)
+        public async Task  VehicleManufacturerSave(VehicleManufacturerModel model)
         {
             if (model.VehicleManufacturerId == 0)
             {
@@ -626,7 +626,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
-        public void VehicleSave(VehicleModel model)
+        public async Task  VehicleSave(VehicleModel model)
         {
             if (model.VehicleId == 0)
             {
@@ -898,7 +898,7 @@ namespace eMine.Lib.Repositories.Fleet
                      
         }
 
-        public VehicleDetailsModel VehicleServiceSave(VehicleServiceViewModel model)
+        public async Task <VehicleDetailsModel>  VehicleServiceSave(VehicleServiceViewModel model)
         {
             if (model.VehicleServiceId == 0)
             {
@@ -906,10 +906,10 @@ namespace eMine.Lib.Repositories.Fleet
             }
             else
             {
-                VehicleServiceUpdate(model);
+               VehicleServiceUpdate(model);
             }
 
-            return VehicleDetailsGet(model.VehicleId).Result;
+            return  VehicleDetailsGet(model.VehicleId).Result;
         }
 
         public void VehicleServiceUpdate(VehicleServiceViewModel model)

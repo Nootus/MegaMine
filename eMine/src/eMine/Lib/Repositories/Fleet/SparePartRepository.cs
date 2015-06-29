@@ -79,7 +79,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
-        public void SparePartManufacturerModelSave(SparePartManufacturerModel model)
+        public async Task  SparePartManufacturerModelSave(SparePartManufacturerModel model)
         {
             if (model.SparePartManufacturerId == 0)
             {
@@ -173,7 +173,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
-        public void SparePartOrderSave(SparePartOrderModel model)
+        public async Task  SparePartOrderSave(SparePartOrderModel model)
         {
             if (model.SparePartOrderId == 0)
             {
@@ -257,7 +257,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
-        public void SparePartSave(SparePartModel model)
+        public async Task  SparePartSave(SparePartModel model)
         {
             if (model.SparePartId == 0)
             {

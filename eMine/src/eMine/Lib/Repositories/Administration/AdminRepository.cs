@@ -69,7 +69,7 @@ namespace eMine.Lib.Repositories.Administration
 
         }
 
-        public void ConfigurationSave(ConfigurationModel model)
+        public async Task  ConfigurationSave(ConfigurationModel model)
         {
             if (model.ConfigurationId == 0)
             {
