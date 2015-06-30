@@ -80,6 +80,8 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
                         model.OrderedUnits = vm.model.OrderedUnits;
                         model.UnitCost = vm.model.UnitCost;
 
+                        vehicleService.getSparePart(sparePartId);
+
                     }
 
                     $mdDialog.hide();

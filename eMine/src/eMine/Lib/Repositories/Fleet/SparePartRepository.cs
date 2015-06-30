@@ -160,6 +160,7 @@ namespace eMine.Lib.Repositories.Fleet
         {
             //Update the VehicleService Entity first
             SparePartOrderEntity entity = (from order in dbContext.SparePartOrders where order.SparePartOrderId == model.SparePartOrderId select order).First();
+            int diff = entity.OrderedUnits - model.OrderedUnits;
             entity.SparePartId = model.SparePartId;
             entity.OrderedUnits = model.OrderedUnits;
             entity.UnitCost = model.UnitCost;
@@ -169,6 +170,16 @@ namespace eMine.Lib.Repositories.Fleet
             entity.FollowupPhoneNum = model.FollowupPhoneNum;
             entity.UpdateAuditFields();
             dbContext.SparePartOrders.Update(entity);
+            dbContext.SaveChanges();
+
+            //Get the newly added 
+            SparePartEntity result = (from part in dbContext.SpareParts
+                                      where part.SparePartId == model.SparePartId
+                                      && part.DeletedInd == false
+                                      select part).SingleOrDefault();
+
+            result.AvailableQuantity -= diff;
+
             dbContext.SaveChanges();
 
         }
@@ -340,7 +351,14 @@ namespace eMine.Lib.Repositories.Fleet
 
             SparePartDetailsModel model = sparePartGetQuery.FirstOrDefault();
 
-            SparePartManufacturerEntity spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId select spam).FirstOrDefault();
+            if (model == null) return model;
+
+            SparePartManufacturerEntity spamen = null;
+
+            if (sparePartId != 0)
+            {
+                spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId select spam).FirstOrDefault();
+            }
 
             if (spamen != null)
             {
@@ -360,7 +378,7 @@ namespace eMine.Lib.Repositories.Fleet
 
 
                 var manfQuery = (from manufacturers in dbContext.VehicleManufacturers
-                                 where manufacturers.VehicleManufacturerId == spamen.VehicleTypeId
+                                 where manufacturers.VehicleManufacturerId == spamen.VehicleManufacturerId
                                  && manufacturers.DeletedInd == false
                                  select manufacturers.Description).SingleOrDefault();
 

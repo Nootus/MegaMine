@@ -326,7 +326,7 @@ function vehicleService($http) {
     function getSparePart(sparePartId) {
         return $http.get("/api/fleet/sparepartdetailsget", { params: { "sparePartId": sparePartId } })
             .success(function (data) {
-                service.sparePart = data;
+                angular.extend(service.sparePart, data);
                 service.ordersList.splice(0, service.ordersList.length);
                 angular.extend(service.ordersList, service.sparePart.Orders);
             })
