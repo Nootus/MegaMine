@@ -9,6 +9,10 @@ namespace eMine.Lib.Repositories
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
+        //Account
+        public DbSet<UserProfileEntity> UserProfiles { get; set; }
+
+        //Fleet
         public DbSet<VehicleTypeEntity> VehicleTypes { get; set; }
         public DbSet<VehicleEntity> Vehicles { get; set; }
         public DbSet<VehicleServiceEntity> VehicleServices { get; set; }
@@ -31,6 +35,13 @@ namespace eMine.Lib.Repositories
         {
             // configuration for each table
 
+            //Account
+            builder.Entity<UserProfileEntity>().ForRelational().Table("UserProfile");
+            builder.Entity<UserProfileEntity>().Key(k => k.UserProfileId);
+
+
+
+            #region Fleet
             //VehicleType
             builder.Entity<VehicleTypeEntity>().ForRelational().Table("VehicleType");
             builder.Entity<VehicleTypeEntity>().Key(k => k.VehicleTypeId);
@@ -92,8 +103,18 @@ namespace eMine.Lib.Repositories
             //[VehicleTrip]
             builder.Entity<VehicleTripEntity>().ForRelational().Table("VehicleTrip");
             builder.Entity<VehicleTripEntity>().Key(k => k.VehicleTripId);
-            
+            #endregion
+
             base.OnModelCreating(builder);
+
+            //renaming identity tables
+            builder.Entity<ApplicationUser>().ForRelational().Table("IdentityUser");
+            builder.Entity<IdentityRole>().ForRelational().Table("IdentityRole");
+            builder.Entity<IdentityRoleClaim<string>>().ForRelational().Table("IdentityRoleClaim");
+            builder.Entity<IdentityUserClaim<string>>().ForRelational().Table("IdentityUserClaim");
+            builder.Entity<IdentityUserLogin<string>>().ForRelational().Table("IdentityUserLogin");
+            builder.Entity<IdentityUserRole<string>>().ForRelational().Table("IdentityUserRole");
+
         }
     }
 }

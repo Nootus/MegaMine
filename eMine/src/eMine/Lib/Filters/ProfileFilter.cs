@@ -12,6 +12,7 @@ namespace eMine.Lib.Filters
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             await next();
+
         }
     }
 }

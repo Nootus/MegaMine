@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNet.Http;
 using eMine.Lib.Domain;
 using eMine.Lib.Shared;
+using eMine.Models.Account;
 
 namespace eMine.Controllers
 {

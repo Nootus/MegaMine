@@ -11,6 +11,7 @@ using eMine.Lib.Domain;
 using eMine.Lib.Repositories.Fleet;
 using Microsoft.AspNet.Mvc;
 using eMine.Lib.Filters;
+using eMine.Lib.MiddleWare;
 
 namespace eMine
 {
@@ -52,16 +53,21 @@ namespace eMine
 
 
             //Dependency Injection
+            //Fleet
             services.AddTransient<FleetDomain>();
-            services.AddTransient<AccountDomain>();
             services.AddTransient<VehicleRepository>();
             services.AddTransient<SparePartRepository>();
+
+            //Accout
+            services.AddTransient<AccountDomain>();
+            services.AddTransient<AccountRepository>();
         }
 
         public void Configure(IApplicationBuilder app)
         {
             app.UseStaticFiles();
             app.UseIdentity();
+            app.UseProfileMiddleWare();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -75,6 +81,7 @@ namespace eMine
                     defaults: new { controller = "Home", action = "Index" });
 
             });
+
 
             //storing the HttpContextAccessor
             HttpHelper.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
