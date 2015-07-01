@@ -31,26 +31,26 @@ namespace eMine.Lib.Domain
             return await vehicleRepository.VehicleTypeListGet();
         }
 
-        public List<SparePartModel> SparePartListGet()
+        public async Task<List<SparePartModel>> SparePartListGet()
         {
-            return sparepartRepository.SparePartListGet();
+            return await sparepartRepository.SparePartListGet();
         }
 
-        public SparePartDetailsModel SparePartDetailsGet(int sparePartId)
+        public async Task <SparePartDetailsModel> SparePartDetailsGet(int sparePartId)
         {
-            return sparepartRepository.SparePartDetailsGet(sparePartId, vehicleRepository);
+           return   await sparepartRepository.SparePartDetailsGet(sparePartId, vehicleRepository);
         }
 
-        public ManufacturerDetailsModel ManufacturerDetailsGet(int manufacturerId)
+        public async Task <ManufacturerDetailsModel> ManufacturerDetailsGet(int manufacturerId)
         {
-            return vehicleRepository.ManufacturerDetailsGet(manufacturerId);
+            return await vehicleRepository.ManufacturerDetailsGet(manufacturerId);
         }
 
 
 
-        public SparePartModel SparePartGet(int sparePartId)
+        public async Task <SparePartModel> SparePartGet(int sparePartId)
         {
-            return sparepartRepository.SparePartGet(sparePartId, vehicleRepository);
+            return await sparepartRepository.SparePartGet(sparePartId, vehicleRepository);
         }
 
         public async Task  SparePartSave(SparePartModel model)
@@ -58,9 +58,9 @@ namespace eMine.Lib.Domain
            await sparepartRepository.SparePartSave(model);
         }
 
-        public VehicleModel VehicleGet(int vehicleId)
+        public async Task <VehicleModel> VehicleGet(int vehicleId)
         {
-            return vehicleRepository.VehicleGet(vehicleId);
+            return await vehicleRepository.VehicleGet(vehicleId);
         }
 
         public async Task  VehicleSave(VehicleModel model)
@@ -73,9 +73,9 @@ namespace eMine.Lib.Domain
             await vehicleRepository.ModelSave(model);
         }
 
-        public VehicleTypeModel VehicleTypeGet(int vehicleTypeId)
+        public async Task <VehicleTypeModel> VehicleTypeGet(int vehicleTypeId)
         {
-            return vehicleRepository.VehicleTypeGet(vehicleTypeId);
+            return await vehicleRepository.VehicleTypeGet(vehicleTypeId);
         }
 
         public async Task VehicleTypeSave(VehicleTypeModel model)
@@ -88,9 +88,9 @@ namespace eMine.Lib.Domain
            await vehicleRepository.DriverSave(model);
         }
 
-        public List<VehicleManufacturerModel> VehicleManufacturersGet()
+        public async Task<List<VehicleManufacturerModel>> VehicleManufacturersGet()
         {
-            return vehicleRepository.VehicleManufacturersGet();
+            return await vehicleRepository.VehicleManufacturersGet();
         }
 
         public async Task VehicleManufacturerSave(VehicleManufacturerModel  model)
@@ -113,14 +113,14 @@ namespace eMine.Lib.Domain
            await vehicleRepository.VehicleManufacturerSave(model);
         }
 
-        public VehicleManufacturerModel VehicleManufacturerGet(int manufacturerId)
+        public async Task <VehicleManufacturerModel> VehicleManufacturerGet(int manufacturerId)
         {
-            return vehicleRepository.VehicleManufacturerGet(manufacturerId);
+            return await vehicleRepository.VehicleManufacturerGet(manufacturerId);
         }
 
-        public SparePartOrderModel SparePartOrderGet(int sparePartOrderId)
+        public async Task <SparePartOrderModel> SparePartOrderGet(int sparePartOrderId)
         {
-            return sparepartRepository.SparePartOrderGet(sparePartOrderId);
+            return await sparepartRepository.SparePartOrderGet(sparePartOrderId);
         }
 
         public async Task  SparePartOrderSave(SparePartOrderModel model)
@@ -139,29 +139,29 @@ namespace eMine.Lib.Domain
             return await  vehicleRepository.VehicleServiceSave(model);
         }
 
-        public VehicleServiceViewModel VehicleServiceGet(int vehicleServiceId)
+        public async Task <VehicleServiceViewModel> VehicleServiceGet(int vehicleServiceId)
         {
-            return vehicleRepository.VehicleServiceGet(vehicleServiceId);
+            return await vehicleRepository.VehicleServiceGet(vehicleServiceId);
         }
 
-        public List<VehicleServiceViewModel> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
+        public async Task<List<VehicleServiceViewModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
         {
-            return vehicleRepository.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate);
+            return await vehicleRepository.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate);
         }
 
-        public List<VehicleDriverModel> DriversGet()
+        public async Task<List<VehicleDriverModel>> DriversGet()
         {
-            return vehicleRepository.DriversGet();
+            return await vehicleRepository.DriversGet();
         }
 
-        public List<FuelModel> FuelGetList(int vehicleId)
+        public async Task<List<FuelModel>> FuelGetList(int vehicleId)
         {
-            return vehicleRepository.FuelGetList(vehicleId);
+            return await vehicleRepository.FuelGetList(vehicleId);
         }
 
         public async Task  FuelSave(FuelModel model)
         {
-           await vehicleRepository.FuelSave(model);
+          await vehicleRepository.FuelSave(model);
         }
 
         public async Task<List<VehicleDriverAssignmentModel>> VehicleDriverGetList(int vehicleId)
@@ -169,13 +169,13 @@ namespace eMine.Lib.Domain
             return await vehicleRepository.VehicleDriverAssignmentGetList(vehicleId);
         }
 
-        public List<ListItem<int, string>> DriversListGet()
+        public async Task<List<ListItem<int, string>>> DriversListGet()
         {
-            return vehicleRepository.DriversListGet();
+            return await vehicleRepository.DriversListGet();
         }
-        public List<ListItem<int, string>> VehicleTripListItemGet(int VehicleId = 0)
+        public async Task<List<ListItem<int, string>>> VehicleTripListItemGet(int VehicleId = 0)
         {
-            return vehicleRepository.VehicleTripListItemGet(VehicleId);
+            return await vehicleRepository.VehicleTripListItemGet(VehicleId);
         }
 
         public async Task<List<VehicleTripModel>> VehicleTripListGet(int VehicleId = 0)
@@ -183,9 +183,9 @@ namespace eMine.Lib.Domain
             return await vehicleRepository.VehicleTripListGet(VehicleId);
         }
         
-        public VehicleTripModel VehicleTripGet(int VehicleTripId)
+        public async Task <VehicleTripModel> VehicleTripGet(int VehicleTripId)
         {
-            return vehicleRepository.VehicleTripGet(VehicleTripId);
+            return await vehicleRepository.VehicleTripGet(VehicleTripId);
         }
 
         public async Task VehicleTripSave(VehicleTripModel model)

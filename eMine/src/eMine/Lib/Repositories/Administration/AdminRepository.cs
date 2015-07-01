@@ -69,15 +69,15 @@ namespace eMine.Lib.Repositories.Administration
 
         }
 
-        public async Task  ConfigurationSave(ConfigurationModel model)
+        public async Task ConfigurationSave(ConfigurationModel model)
         {
             if (model.ConfigurationId == 0)
             {
-                ConfigurationAdd(model);
+               ConfigurationAdd(model);
             }
             else
             {
-                ConfigurationUpdate(model);
+               ConfigurationUpdate(model);
             }
         }
     }

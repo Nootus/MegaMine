@@ -34,29 +34,29 @@ namespace eMine.Controllers
 
 
         [HttpGet]
-        public AjaxModel<List<SparePartModel>> SparePartListGet()
+        public async Task<AjaxModel<List<SparePartModel>>> SparePartListGet()
         {
-            return AjaxHelper.Get<List<SparePartModel>>(m => domain.SparePartListGet());
+            return await  AjaxHelper.GetAsync<List<SparePartModel>>(m => domain.SparePartListGet());
         }
 
         
         [HttpGet]
-        public Task<AjaxModel<VehicleDetailsModel>> VehicleDetailsGet(int vehicleId)
+        public async Task<AjaxModel<VehicleDetailsModel>> VehicleDetailsGet(int vehicleId)
         {
-            return AjaxHelper.GetAsync<VehicleDetailsModel>(m => domain.VehicleDetailsGet(vehicleId));
+            return await AjaxHelper.GetAsync<VehicleDetailsModel>(m => domain.VehicleDetailsGet(vehicleId));
         }
 
 
         [HttpGet]
-        public AjaxModel<SparePartDetailsModel> SparePartDetailsGet(int sparePartId)
+        public async Task<AjaxModel<SparePartDetailsModel>>SparePartDetailsGet(int sparePartId)
         {
-            return AjaxHelper.Get<SparePartDetailsModel>(m => domain.SparePartDetailsGet(sparePartId));
+            return await AjaxHelper.GetAsync<SparePartDetailsModel>(m => domain.SparePartDetailsGet(sparePartId));
         }
 
         [HttpGet]
-        public AjaxModel<ManufacturerDetailsModel> ManufacturerDetailsGet(int manufacturerId)
+        public async Task<AjaxModel<ManufacturerDetailsModel>> ManufacturerDetailsGet(int manufacturerId)
         {
-            return AjaxHelper.Get<ManufacturerDetailsModel>(m => domain.ManufacturerDetailsGet(manufacturerId));
+            return await AjaxHelper.GetAsync<ManufacturerDetailsModel>(m => domain.ManufacturerDetailsGet(manufacturerId));
         }
         
 
@@ -67,20 +67,20 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public AjaxModel<VehicleServiceViewModel> VehicleServiceGet(int vehicleServiceId)
+        public async Task<AjaxModel<VehicleServiceViewModel>> VehicleServiceGet(int vehicleServiceId)
         {
-            return AjaxHelper.Get<VehicleServiceViewModel>(m => domain.VehicleServiceGet(vehicleServiceId));
+            return await  AjaxHelper.GetAsync<VehicleServiceViewModel>(m => domain.VehicleServiceGet(vehicleServiceId));
         }
 
-        public AjaxModel<List<VehicleServiceViewModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
+        public async Task<AjaxModel<List<VehicleServiceViewModel>>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
         {
-            return AjaxHelper.Get<List<VehicleServiceViewModel>>(m => domain.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
+            return await AjaxHelper.GetAsync<List<VehicleServiceViewModel>>(m => domain.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
         }
 
         [HttpGet]
-        public AjaxModel<SparePartModel> SparePartGet(int sparePartId)
+        public async Task<AjaxModel<SparePartModel>> SparePartGet(int sparePartId)
         {
-            return AjaxHelper.Get<SparePartModel>(m => domain.SparePartGet(sparePartId));
+            return await  AjaxHelper.GetAsync<SparePartModel>(m => domain.SparePartGet(sparePartId));
         }
 
         [HttpPost]
@@ -92,9 +92,9 @@ namespace eMine.Controllers
        
 
         [HttpGet]
-        public AjaxModel<VehicleModel> VehicleGet(int vehicleId)
+        public async Task <AjaxModel<VehicleModel>> VehicleGet(int vehicleId)
         {
-            return AjaxHelper.Get<VehicleModel>(m => domain.VehicleGet(vehicleId));
+            return await AjaxHelper.GetAsync<VehicleModel>(m => domain.VehicleGet(vehicleId));
         }
 
         [HttpPost]
@@ -111,9 +111,9 @@ namespace eMine.Controllers
         
 
         [HttpGet]
-        public AjaxModel<SparePartOrderModel> SparePartOrderGet(int sparePartOrderId)
+        public async Task <AjaxModel<SparePartOrderModel>> SparePartOrderGet(int sparePartOrderId)
         {
-            return AjaxHelper.Get<SparePartOrderModel>(m => domain.SparePartOrderGet(sparePartOrderId));
+            return await AjaxHelper.GetAsync<SparePartOrderModel>(m => domain.SparePartOrderGet(sparePartOrderId));
         }
 
         [HttpPost]
@@ -130,9 +130,9 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public AjaxModel<List<VehicleDriverModel>> DriversGet()
+        public async Task <AjaxModel<List<VehicleDriverModel>>> DriversGet()
         {
-            return AjaxHelper.Get<List<VehicleDriverModel>>(m => domain.DriversGet());
+            return await AjaxHelper.GetAsync<List<VehicleDriverModel>>(m => domain.DriversGet());
         }
 
         [HttpPost]
@@ -142,22 +142,22 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public AjaxModel<List<ListItem<int, string>>> DriversListGet()
+        public async Task <AjaxModel<List<ListItem<int, string>>>> DriversListGet()
         {
-            return AjaxHelper.Get<List<ListItem<int, string>>>(m => domain.DriversListGet());
+            return await AjaxHelper.GetAsync<List<ListItem<int, string>>>(m => domain.DriversListGet());
         }
 
 
         [HttpGet]
-        public AjaxModel<List<VehicleManufacturerModel>> ManufacturersGet()
+        public async Task <AjaxModel<List<VehicleManufacturerModel>>> ManufacturersGet()
         {
-            return AjaxHelper.Get<List<VehicleManufacturerModel>>(m => domain.VehicleManufacturersGet());
+            return await AjaxHelper.GetAsync<List<VehicleManufacturerModel>>(m => domain.VehicleManufacturersGet());
         }
 
         [HttpGet]
-        public AjaxModel<VehicleManufacturerModel> ManufacturerGet(int manufacturerId)
+        public async Task <AjaxModel<VehicleManufacturerModel>> ManufacturerGet(int manufacturerId)
         {
-            return AjaxHelper.Get<VehicleManufacturerModel>(m => domain.VehicleManufacturerGet(manufacturerId));
+            return await AjaxHelper.GetAsync<VehicleManufacturerModel>(m => domain.VehicleManufacturerGet(manufacturerId));
         }
 
         [HttpPost]
@@ -167,9 +167,9 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public AjaxModel<List<FuelModel>> FuelGetList(int vehicleId)
+        public async Task <AjaxModel<List<FuelModel>>> FuelGetList(int vehicleId)
         {
-            return AjaxHelper.Get<List<FuelModel>>(m => domain.FuelGetList(vehicleId));
+            return await AjaxHelper.GetAsync<List<FuelModel>>(m => domain.FuelGetList(vehicleId));
         }
 
         [HttpPost]
@@ -204,30 +204,27 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public AjaxModel<VehicleTripModel> VehicleTripGet(int vehicleTripId)
+        public async Task <AjaxModel<VehicleTripModel>> VehicleTripGet(int vehicleTripId)
         {
-            return AjaxHelper.Get<VehicleTripModel>(m => domain.VehicleTripGet(vehicleTripId));
+            return await AjaxHelper.GetAsync<VehicleTripModel>(m => domain.VehicleTripGet(vehicleTripId));
         }
                 
         [HttpGet]
-        public AjaxModel<string> Test()
+        public async Task<AjaxModel<string>> Test()
         {
             AjaxModel<string> ajax = null;
             try
             {
-                var v = SparePartOrderGet(1);
-
-                v.Model.UnitCost = v.Model.UnitCost+25;
-
-                domain.SparePartOrderSave(v.Model);
-
+              var v = SparePartOrderGet(1);
+                
+            
             }
             catch
             {
 
             }
 
-            return ajax;
+            return   ajax;
 
         }
 
