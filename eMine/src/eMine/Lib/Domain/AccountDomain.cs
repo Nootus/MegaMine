@@ -30,34 +30,22 @@ namespace eMine.Lib.Domain
         {
             ProfileModel profile = null;
 
-            var user = new ApplicationUser { UserName = "prasanna@nootus.com"};
             //await userManager.CreateAsync(user, "Prasanna@123");
 
             var result = await signInManager.PasswordSignInAsync(userName, password, false, false);
 
             if (result.Succeeded)
             {
-                var usr = await userManager.FindByNameAsync(userName);
-                //var roleclaims = await userManager.cla (usr); 
-                var userclaims = await userManager.GetClaimsAsync(usr);
-                //string userId = await userManager.GetUserIdAsync(user);
-                //var roles = await userManager.GetRolesAsync(user);
+                profile = await accountRepository.UserProfileGet(userName);
 
-                ////getting the claims
-                //var claims = await userManager.GetClaimsAsync(user);
-
-                //string userId = claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier).Value;
-
-                //profile = await accountRepository.UserProfileGet(userId);
-                //profile.UserName = claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
-
-                ////setting the claims on to the context
-                //HttpHelper.HttpContext.Items["Profile"] = profile;
+                //setting the claims on to the context
+                HttpHelper.HttpContext.Items["Profile"] = profile;
             }
             else
             {
                 throw new eMineException("Invalid Username and/or Password");
             }
+
             return profile;
         }
     }
