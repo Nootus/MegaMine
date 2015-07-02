@@ -54,13 +54,13 @@ namespace eMine.Lib.Repositories
             var userClaims = await userClaimsQuery.ToListAsync();
 
             //get the deny claims and remove them from the main claims
-            var denyClaims = userClaims.Where(c => c.ClaimType.EndsWith("_Deny"));
-            var denyClaimsCleanup = denyClaims.Select(c => new ClaimModel() { ClaimType = c.ClaimType.Replace("_Deny", ""), ClaimValue = c.ClaimValue });
+            var denyUserClaims = userClaims.Where(c => c.ClaimType.EndsWith("_Deny")).ToList();
+            var denyRoleClaims = denyUserClaims.Select(c => new ClaimModel() { ClaimType = c.ClaimType.Replace("_Deny", ""), ClaimValue = c.ClaimValue }).ToList();
 
-            userClaims = (List<ClaimModel>) userClaims.Except(denyClaims);
-            roleClaims = (List<ClaimModel>) roleClaims.Except(denyClaimsCleanup);
+            userClaims = userClaims.Except(denyUserClaims).ToList();
+            roleClaims = roleClaims.Except(denyRoleClaims, new ClaimModelComparer()).ToList();
 
-            model.Claims = (List<ClaimModel>) roleClaims.Union(userClaims);
+            model.Claims = roleClaims.Union(userClaims).ToList();
 
             return model;
         }

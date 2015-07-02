@@ -11,7 +11,7 @@ function profile() {
         lastName: 'Pattam',
         fullName: 'Prasanna Pattam',
         userName: 'prasanna',
-        isAuthenticated: false,
+        isAuthenticated: true,
         populate: populate,
         logout: logout
     };
