@@ -21,15 +21,12 @@ namespace eMine.Lib.Entities
         {
             ProfileModel profile = (ProfileModel) HttpHelper.HttpContext.Items["Profile"];
 
-            if(profile != null)
-            {
-                CreatedUserId = profile.UserID;
-                CreatedDate = DateTime.UtcNow;
-                LastModifiedUserId = profile.UserID;
-                LastModifiedDate = DateTime.UtcNow;
-                DeletedInd = false;
-                CompanyId = profile.CompanyId;
-            }
+            CreatedUserId = profile.UserName;
+            CreatedDate = DateTime.UtcNow;
+            LastModifiedUserId = profile.UserName;
+            LastModifiedDate = DateTime.UtcNow;
+            DeletedInd = false;
+            CompanyId = profile.CompanyId;
         }
 
         public virtual void UpdateAuditFields()
@@ -37,7 +34,7 @@ namespace eMine.Lib.Entities
             ProfileModel profile = (ProfileModel)HttpHelper.HttpContext.Items["Profile"];
 
             LastModifiedDate = DateTime.UtcNow;
-            LastModifiedUserId = profile.UserID;  //TODO: Change this get the current user
+            LastModifiedUserId = profile.UserName;  //TODO: Change this get the current user
         }
     }
 }

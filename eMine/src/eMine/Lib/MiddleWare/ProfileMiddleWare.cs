@@ -1,5 +1,6 @@
 ﻿using eMine.Models;
 using eMine.Models.Account;
+using eMine.Models.Shared;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
 using System;
@@ -27,8 +28,10 @@ namespace eMine.Lib.MiddleWare
 
                 ProfileModel profile = new ProfileModel()
                 {
-                    UserID = claims.First(c => c.Type == ClaimTypes.Name).Value,
-                    UserName = context.User.Identity.Name
+                    UserID = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
+                    UserName = context.User.Identity.Name,
+                    FirstName = claims.First(c => c.Type == NClaimTypes.FirstName).Value,
+                    LastName = claims.First(c => c.Type == NClaimTypes.LastName).Value
                 };
 
                 context.Items["Profile"] = profile;

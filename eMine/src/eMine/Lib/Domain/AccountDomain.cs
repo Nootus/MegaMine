@@ -36,6 +36,7 @@ namespace eMine.Lib.Domain
 
             if (result.Succeeded)
             {
+
                 profile = await accountRepository.UserProfileGet(userName);
 
                 //setting the claims on to the context
