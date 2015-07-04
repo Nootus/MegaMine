@@ -50,7 +50,7 @@ namespace eMine.Controllers
         [HttpGet]
         public async Task<AjaxModel<SparePartDetailsModel>>SparePartDetailsGet(int sparePartId)
         {
-            return await AjaxHelper.GetAsync<SparePartDetailsModel>(m => domain.SparePartDetailsGet(sparePartId));
+            return await AjaxHelper.GetAsync<SparePartDetailsModel>(m =>domain.SparePartDetailsGet(sparePartId));
         }
 
         [HttpGet]

@@ -473,18 +473,18 @@ namespace eMine.Lib.Repositories.Fleet
             int totalNeeded = totalparts;
             foreach (SparePartOrderEntity order in partorderquery)
             {
-                if (totalNeeded < order.OrderedUnits - order.ConsumedUnits)
+                if (totalNeeded < (order.OrderedUnits - order.ConsumedUnits) )
                 {
                     totalcost = totalcost + (order.UnitCost * totalNeeded);
                     if (bUpdate)
                     {
-                        order.ConsumedUnits = totalNeeded;
+                        order.ConsumedUnits += totalNeeded;
                         dbContext.SparePartOrders.Update(order);
                     }
                     break;
                 }
 
-                totalNeeded -= order.OrderedUnits - order.ConsumedUnits;
+                totalNeeded -= (order.OrderedUnits - order.ConsumedUnits);
                 totalcost = totalcost + (order.UnitCost * (order.OrderedUnits - order.ConsumedUnits));
                 if (bUpdate)
                 {
