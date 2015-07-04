@@ -357,8 +357,22 @@ namespace eMine.Lib.Repositories.Fleet
                 FuelDate = model.FuelDate
             };
             dbContext.VehicleFuel.Add(entity);
-            await dbContext.SaveChangesAsync();
 
+            VehicleEntity ventity = (from vehicle in dbContext.Vehicles where vehicle.VehicleId == model.VehicleId select vehicle).First();
+            if (ventity.FuelStartOdometer == null)
+            {
+                ventity.FuelStartOdometer = model.Odometer;
+                ventity.FuelEndOdometer = model.Odometer;
+                ventity.FuelQuantity = model.Quantity;
+                ventity.FuelAverage = 0;
+            }
+            else
+            {
+                ventity.FuelEndOdometer = model.Odometer;
+                ventity.FuelQuantity += model.Quantity;
+                ventity.FuelAverage = ventity.FuelEndOdometer - ventity.FuelStartOdometer;
+            }
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task FuelUpdate(FuelModel model)

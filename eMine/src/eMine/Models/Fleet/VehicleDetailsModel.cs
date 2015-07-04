@@ -17,9 +17,9 @@ namespace eMine.Models.Fleet
         public decimal? FuelAverage { get; set; }
         public decimal? ServiceCost { get; set; }
         public DateTime? ServiceDate { get; set; }
-        public decimal FuelStartOdometer { get; set; }
-        public decimal FuelEndOdometer { get; set; }
-        public decimal FuelQuantity { get; set; }
+        public decimal? FuelStartOdometer { get; set; }
+        public decimal? FuelEndOdometer { get; set; }
+        public decimal? FuelQuantity { get; set; }
 
         public List<VehicleServiceModel> ServiceRecord { get; set; }
     }
