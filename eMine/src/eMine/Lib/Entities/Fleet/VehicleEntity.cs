@@ -18,6 +18,9 @@ namespace eMine.Lib.Entities.Fleet
         public decimal? FuelAverage { get; set; }
         public int? VehicleDriverId { get; set; }
         public int? VehicleDriverAssignmentId { get; set; }
+        public decimal FuelStartOdometer { get; set; }
+        public decimal FuelEndOdometer { get; set; }
+        public decimal FuelQuantity { get; set; }
 
         public DateTime? LastServiceDate { get; set; }
         public decimal TotalServiceCost { get; set; }

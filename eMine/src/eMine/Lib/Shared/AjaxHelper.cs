@@ -22,7 +22,7 @@ namespace eMine.Lib.Shared
             }
             catch (Exception exp)
             {
-                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.Message };
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
             }
 
             return ajax;
@@ -41,7 +41,7 @@ namespace eMine.Lib.Shared
             }
             catch (Exception exp)
             {
-                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.Message };
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
             }
 
             return ajax;
@@ -65,7 +65,7 @@ namespace eMine.Lib.Shared
             }
             catch (Exception exp)
             {
-                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.Message };
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
             }
 
             return ajax;
@@ -84,7 +84,7 @@ namespace eMine.Lib.Shared
             }
             catch (Exception exp)
             {
-                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.Message };
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
             }
 
             return ajax;

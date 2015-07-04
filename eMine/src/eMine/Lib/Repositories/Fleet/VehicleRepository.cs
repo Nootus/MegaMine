@@ -664,7 +664,7 @@ namespace eMine.Lib.Repositories.Fleet
                                           RegistrationNumber = vehicle.RegistrationNumber,
                                           VehicleTypeId = vehicle.VehicleTypeId,
                                           VehicleManufacturerId = vehicle.VehicleManufacturerId,
-                                          VehicleModelId = vehicle.VehicleModelId,
+                                          VehicleModelId = vehicle.VehicleModelId
                                       };
 
                 model = vehicleGetQuery.FirstOrDefault();
@@ -697,7 +697,11 @@ namespace eMine.Lib.Repositories.Fleet
                                    VehicleDriverAssignmentId = vehicle.VehicleDriverAssignmentId,
                                    FuelAverage = vehicle.FuelAverage,
                                    ServiceCost = vehicle.TotalServiceCost,
-                                   ServiceDate = vehicle.LastServiceDate
+                                   ServiceDate = vehicle.LastServiceDate,
+                                   FuelStartOdometer = vehicle.FuelStartOdometer,
+                                   FuelEndOdometer = vehicle.FuelEndOdometer,
+                                   FuelQuantity = vehicle.FuelQuantity
+
                                };
             VehicleDetailsModel model = vehicleQuery.FirstOrDefault();
 
@@ -914,7 +918,7 @@ namespace eMine.Lib.Repositories.Fleet
               await VehicleServiceUpdate(model);
             }
 
-            return   VehicleDetailsGet(model.VehicleId).Result;
+            return await  VehicleDetailsGet(model.VehicleId);
         }
 
         public async Task VehicleServiceUpdate(VehicleServiceViewModel model)

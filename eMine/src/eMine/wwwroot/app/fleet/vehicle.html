@@ -34,6 +34,19 @@
             </div>
         </div>
         <div layout="row">
+            <div flex="20">
+                <em-input  label="Fuel Start Odometer" control-name="fuelStartOdometer" ng-model="vm.model.FuelStartOdometer" ng-disabled="true"></em-input>
+            </div>
+            <div flex="20">
+                <em-input label="Fuel End Odometer" control-name="fuelEndOdometer" ng-model="vm.model.FuelEndOdometer" ng-disabled="true"></em-input>
+            </div>
+            <div flex="20">
+                <em-input label="Fuel Quantity" control-name="fuelQuantity" ng-model="vm.model.FuelQuantity" ng-disabled="true"></em-input>
+            </div>
+            
+        </div>
+
+        <div layout="row">
             <ul flex="20" id="left-menu" class="left-menu menu" kendo-menu k-data-source="vm.menuItems" k-select="vm.menuSelect"></ul>
             <div flex ui-view></div>
         </div>
