@@ -10,6 +10,7 @@ function sparePart($scope, $window, $mdDialog, vehicleService, sparePartOrderDia
         columnDefs: [
                     { name: 'OrderedUTCdatetime', field: 'OrderedUTCdatetime', displayName: 'Ordered Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'OrderedUnits', field: 'OrderedUnits', displayName: 'Quantity', type: 'number' },
+                    { name: 'ConsumedUnits', field: 'ConsumedUnits', displayName: 'ConsumedUnits', type: 'number' },
                     { name: 'UnitCost', field: 'UnitCost', displayName: 'Unit Cost', type: 'number' },
                     {
                         name: 'SparePartOrderId', field: 'SparePartOrderId', enableColumnMenu: false, displayName: '', type: 'string',

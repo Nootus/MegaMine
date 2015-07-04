@@ -406,7 +406,8 @@ namespace eMine.Lib.Repositories.Fleet
                                   OrderedUTCdatetime = order.OrderedUTCdatetime,
                                   DeliveredUTCdatetime = order.DeliveredUTCdatetime,
                                   FollowupEmailAddress = order.FollowupEmailAddress,
-                                  FollowupPhoneNum = order.FollowupPhoneNum
+                                  FollowupPhoneNum = order.FollowupPhoneNum,
+                                  ConsumedUnits = order.ConsumedUnits 
                               };
 
             model.Orders = await ordersQuery.ToListAsync();
@@ -427,7 +428,8 @@ namespace eMine.Lib.Repositories.Fleet
                             Quantity = parts.AvailableQuantity,
                             Name = parts.SparePartName,
                             ManufacturingBrand = parts.ManufacturingBrand,
-                            Description = parts.SparePartDescription,
+                            Description = parts.SparePartDescription
+                          
                         };
 
             return  await query.ToListAsync();
