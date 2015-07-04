@@ -424,6 +424,11 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task  VehicleDriverSave(VehicleDriverAssignmentModel model)
         {
+            if (model.AssignmentStartDate > model.AssignmentEndDate)
+            {
+                throw new eMineException(Messages.Fleet.DriveAssessmentDateError);
+            }
+
             if (model.VehicleDriverAssignmentId == 0)
             {
                await VehicleDriverAdd(model);

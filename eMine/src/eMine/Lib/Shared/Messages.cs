@@ -25,6 +25,7 @@ namespace eMine.Lib.Shared
             public const string VehicleTripSaveSuccess = "Vehicle trip record saved Successfully";
             public const string SparePartOrderSaveSuccess = "Spare Part Order Saved Successfully";
             public const string SparePartSaveSuccess = "Spare Part Saved Successfully";
+            public const string DriveAssessmentDateError = "Driver assignment start date should not be greater than the end date.";
 
         }
         #endregion
