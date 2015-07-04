@@ -30,8 +30,8 @@ namespace eMine.Lib.MiddleWare
                 {
                     UserID = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
                     UserName = context.User.Identity.Name,
-                    FirstName = claims.First(c => c.Type == NClaimTypes.FirstName).Value,
-                    LastName = claims.First(c => c.Type == NClaimTypes.LastName).Value
+                    FirstName = claims.First(c => c.Type == NTClaimTypes.FirstName).Value,
+                    LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value
                 };
 
                 context.Items["Profile"] = profile;
@@ -43,5 +43,4 @@ namespace eMine.Lib.MiddleWare
     }
 }
 
-//http://stackoverflow.com/questions/21762077/asp-net-identity-and-claims
 

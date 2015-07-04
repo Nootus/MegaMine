@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace eMine.Models.Shared
 {
-    public static class NClaimTypes
+    public static class NTClaimTypes
     {
         public const string CompanyId = "CompanyId";
         public const string FirstName = "FirstName";

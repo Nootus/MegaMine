@@ -9,10 +9,5 @@ namespace eMine.Lib.Domain
 {
     public class AdminDomain
     {
-        public void ConfigurationSave(ConfigurationModel model)
-        {
-            new AdminRepository().ConfigurationSave(model);
-        }
-
     }
 }
