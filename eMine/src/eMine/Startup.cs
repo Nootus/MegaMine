@@ -32,9 +32,7 @@ namespace eMine
 
         public void ConfigureServices(IServiceCollection services)
         {
-            //saving the site settgins
-            SiteSettings.ConnectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
-            SiteSettings.WebPath = Configuration.Get("DNX_APPBASE");
+            services.AddTransient<ProfileFilter>();
 
             services.AddMvc()
                 .Configure<MvcOptions>(options =>
@@ -64,10 +62,16 @@ namespace eMine
             //Accout
             services.AddTransient<AccountDomain>();
             services.AddTransient<AccountRepository>();
+
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            //saving the site settgins
+            SiteSettings.ConnectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
+            SiteSettings.WebPath = Configuration.Get("DNX_APPBASE");
+            SiteSettings.EnvironmentName = env.EnvironmentName;
+
             // Add the following to the request pipeline only in development environment.
             if (env.IsEnvironment("Development"))
             {
@@ -76,9 +80,7 @@ namespace eMine
             }
             else
             {
-                // Add Error handling middleware which catches all application specific errors and
-                // sends the request to the following path or controller action.
-                app.UseErrorHandler("/Home/Error");
+                app.UseErrorHandler("/Error");
             }
 
             app.UseStaticFiles();
@@ -90,6 +92,11 @@ namespace eMine
                     name: "webapi",
                     template: "api/{controller}/{action}/{id?}",
                     defaults: new { controller = "Home", action = "Index" });
+
+                routes.MapRoute(
+                    name: "error",
+                    template: "Error",
+                    defaults: new { controller = "Home", action = "Error" });
 
                 routes.MapRoute(
                     name: "default",

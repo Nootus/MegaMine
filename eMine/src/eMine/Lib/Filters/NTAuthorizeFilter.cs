@@ -25,10 +25,10 @@ namespace eMine.Lib.Filters
             var userClaims = context.HttpContext.User.Claims;
 
             //checking whether user is an admin
-            if (!userClaims.Any(c => c.Type == ClaimTypes.Role && AdminRole.SiteAdmin.Exists(r => r == c.Value)))
+            if (!userClaims.Any(c => c.Type == ClaimTypes.Role && AccountSettings.SiteAdmin.Exists(r => r == c.Value)))
             {
                 //check for module Ading
-                if(!userClaims.Any(c => c.Type == ClaimTypes.Role && c.Value == module + AdminRole.AdminSuffix))
+                if(!userClaims.Any(c => c.Type == ClaimTypes.Role && c.Value == module + AccountSettings.AdminSuffix))
                 {
                     //checking for current claim
                     if (!userClaims.Any(c => c.Type == module && c.Value == claim))
