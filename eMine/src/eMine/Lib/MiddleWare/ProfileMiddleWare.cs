@@ -13,6 +13,8 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.Framework.DependencyInjection;
+using eMine.Lib.Repositories;
+using Newtonsoft.Json;
 
 namespace eMine.Lib.MiddleWare
 {
@@ -47,17 +49,21 @@ namespace eMine.Lib.MiddleWare
             {
                 SignInManager<ApplicationUser> signInManager = serviceProvider.GetService<SignInManager<ApplicationUser>>();
                 UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
+                AccountRepository accountRepository = serviceProvider.GetService<AccountRepository>();
 
-                ProfileModel profile = AccountSettings.DefaultProfile;
+                ProfileModel profile = await accountRepository.UserProfileGet(AccountSettings.DefaultProfileUserName);
 
                 ApplicationUser user = await userManager.FindByNameAsync(profile.UserName);
                 await signInManager.SignInAsync(user, false);
-                profile.UserID = user.Id;
                 context.Items["Profile"] = profile;
+
+
+                //setting the profile in the header
+                context.Response.Headers.Add("Profile", new string[] { JsonConvert.SerializeObject(profile) });
             }
 
-            
             await next(context);
+
         }
 
     }

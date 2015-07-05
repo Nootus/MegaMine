@@ -9,6 +9,7 @@ using eMine.Lib.Shared;
 using eMine.Models.Fleet;
 using eMine.Lib.Entities;
 using eMine.Models.Shared;
+using eMine.Lib.Filters;
 
 namespace eMine.Controllers
 {
@@ -21,6 +22,7 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
+        [NTAuthorize("Fleet", "VehicleView")]
         public async Task<AjaxModel<List<VehicleListModel>>> VehicleList()
         {
             return await AjaxHelper.GetAsync<List<VehicleListModel>>(m => domain.VehicleList());
@@ -336,25 +338,5 @@ namespace eMine.Controllers
         {
             return await AjaxHelper.GetAsync<VehicleTripModel>(m => domain.VehicleTripGet(vehicleTripId));
         }
-                
-        [HttpGet]
-        public async Task<AjaxModel<string>> Test()
-        {
-            AjaxModel<string> ajax = null;
-            try
-            {
-              var v = SparePartOrderGet(1);
-                
-            
-            }
-            catch
-            {
-
-            }
-
-            return   ajax;
-
-        }
-
     }
 }

@@ -1,4 +1,5 @@
-﻿using eMine.Models;
+﻿using eMine.Lib.Shared;
+using eMine.Models;
 using eMine.Models.Account;
 using System;
 using System.Collections.Generic;
@@ -30,6 +31,13 @@ namespace eMine.Lib.Repositories
 
             ProfileModel model = await query.FirstOrDefaultAsync();
 
+            //getting roles
+            var roleQuery = from userRoles in dbContext.UserRoles
+                            join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                            where userRoles.UserId == model.UserID
+                            select roles.Name;
+            model.Roles = roleQuery.ToArray();
+      
             //getting roles claims
             var rolesClaimsQuery = from roles in dbContext.UserRoles
                                   join claims in dbContext.RoleClaims on roles.RoleId equals claims.RoleId
@@ -54,8 +62,8 @@ namespace eMine.Lib.Repositories
             var userClaims = await userClaimsQuery.ToListAsync();
 
             //get the deny claims and remove them from the main claims
-            var denyUserClaims = userClaims.Where(c => c.ClaimType.EndsWith("_Deny")).ToList();
-            var denyRoleClaims = denyUserClaims.Select(c => new ClaimModel() { ClaimType = c.ClaimType.Replace("_Deny", ""), ClaimValue = c.ClaimValue }).ToList();
+            var denyUserClaims = userClaims.Where(c => c.ClaimType.EndsWith(AccountSettings.DenySuffix)).ToList();
+            var denyRoleClaims = denyUserClaims.Select(c => new ClaimModel() { ClaimType = c.ClaimType.Replace(AccountSettings.DenySuffix, ""), ClaimValue = c.ClaimValue }).ToList();
 
             userClaims = userClaims.Except(denyUserClaims).ToList();
             roleClaims = roleClaims.Except(denyRoleClaims, new ClaimModelComparer()).ToList();

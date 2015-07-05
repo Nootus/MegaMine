@@ -14,6 +14,7 @@ namespace eMine.Models.Account
         public string FullName { get { return FirstName + " " + LastName; } }
         public int CompanyId { get; set; }
 
+        public string[] Roles { get; set; }
         public List<ClaimModel> Claims { get; set; }
     }
 }

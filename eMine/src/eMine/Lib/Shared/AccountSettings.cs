@@ -11,13 +11,9 @@ namespace eMine.Lib.Shared
         public static List<string> SiteAdmin = new List<string>() { "SuperAdmin", "GroupAdmin", "CompanyAdmin" };
 
         public const string AdminSuffix = "Admin";
+        public const string DenySuffix = "_Deny";
 
-        public static ProfileModel DefaultProfile = new ProfileModel() {
-                                                    UserID = "",
-                                                    UserName = "prasanna@nootus.com",
-                                                    FirstName = "Prasanna",
-                                                    LastName = "Pattam"
-                                                };
+        public static string DefaultProfileUserName = "prasanna@nootus.com";
     }
 }
     
