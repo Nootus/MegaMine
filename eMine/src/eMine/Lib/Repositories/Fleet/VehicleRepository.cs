@@ -375,6 +375,20 @@ namespace eMine.Lib.Repositories.Fleet
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task ResetVehicleFuel(int vehicleId)
+        {
+            VehicleEntity ventity = (from vehicle in dbContext.Vehicles where vehicle.VehicleId == vehicleId select vehicle).First();
+            if (ventity.FuelStartOdometer != null)
+            {
+                ventity.FuelStartOdometer = null;
+                ventity.FuelEndOdometer = null;
+                ventity.FuelQuantity = null;
+                ventity.FuelAverage = null;
+
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
         public async Task FuelUpdate(FuelModel model)
         {
             //Update the Fuel Entity first

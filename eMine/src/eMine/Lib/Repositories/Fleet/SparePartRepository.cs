@@ -499,7 +499,34 @@ namespace eMine.Lib.Repositories.Fleet
         }
 
         //Create the VehicleService and SparePartOrders link table
-        public async Task CreateVehicleServiceSparePartOrdersLink(SparePartModel spvm, VehicleServiceViewModel model, int totalparts)
+        public async Task CreateVehicleServiceSparePartOrderLink(SparePartModel spvm, VehicleServiceViewModel model, SparePartOrderEntity order, int nUnitsToconsume)
+        {
+            VehicleServiceSparePartOrderEntity servicePartOrder =
+                (from vspentity in dbContext.VehicleServiceSparePartOrders
+                 where DeletedInd = false && vspentity.SparePartOrderId == order.SparePartOrderId
+                 && servicePartOrder.VehicleServiceId == model.VehicleServiceId
+                 select servicePartOrder).ToSingleOrDefault();
+
+            if (servicePartOrder == null)
+            {
+                servicePartOrder = new VehicleServiceSparePartOrderEntity()
+                {
+                    SparePartOrderId = order.SparePartOrderId,
+                    ConsumedUnits = nUnitsToconsume,
+                    VehicleServiceId = model.VehicleServiceId
+                };
+                dbContext.VehicleServiceSparePartOrders.Add(servicePartOrder);
+            }
+            else
+            {
+                servicePartOrder.ConsumedUnits += nUnitsToconsume;
+            }
+            await dbContext.SaveChangesAsync();
+        }
+    
+
+    //Create the VehicleService and SparePartOrders link table
+    public async Task CreateVehicleServiceSparePartOrdersLink(SparePartModel spvm, VehicleServiceViewModel model, int totalparts)
         {
             var partorderquery = (from order in dbContext.SparePartOrders
                                   where order.SparePartId == spvm.SparePartId && order.OrderedUnits > order.ConsumedUnits

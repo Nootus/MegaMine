@@ -31,6 +31,7 @@ function vehicleService($http) {
         fuelList: [],
         getFuelList: getFuelList,
         saveFuel: saveFuel,
+        resetFuel:resetFuel,
 
         //vehicle driver
         vehicleDriverList: [],
@@ -108,6 +109,13 @@ function vehicleService($http) {
 
     function getVehicle(vehicleId) {
         return $http.get("/api/fleet/vehicledetailsget", { params: { "vehicleId": vehicleId } })
+            .success(function (data) {
+                service.vehicle = data
+            })
+    }
+
+    function resetFuel(vehicleId) {
+        return $http.post("/api/fleet/vehiclefuelreset", { params: { "vehicleId": vehicleId } })
             .success(function (data) {
                 service.vehicle = data
             })

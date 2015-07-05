@@ -8,6 +8,7 @@ function vehicle($state, vehicleService, vehicleDialog, utility) {
         model: {},
         menuItems: [],
         viewVehicle: viewVehicle,
+        resetFuel: resetFuel,
         menuSelect: menuSelect
     };
 
@@ -50,6 +51,11 @@ function vehicle($state, vehicleService, vehicleDialog, utility) {
     {
         $(e.item).siblings().removeClass("k-state-highlight");
         $(e.item).addClass("k-state-highlight");
+    }
+
+    function resetFuel(e)
+    {
+        vehicleService.resetFuel(vm.model.VehicleId);
     }
 
 }
