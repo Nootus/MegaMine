@@ -9,7 +9,9 @@
       "Microsoft.AspNet.StaticFiles >= 1.0.0-beta4",
       "Microsoft.AspNet.Identity.EntityFramework >= 3.0.0-beta4",
       "Microsoft.Framework.ConfigurationModel.Json >= 1.0.0-beta4",
-      "EntityFramework.SqlServer >= 7.0.0-beta4"
+      "EntityFramework.SqlServer >= 7.0.0-beta4",
+      "Microsoft.AspNet.Diagnostics >= 1.0.0-beta4",
+      "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-beta4"
     ],
     "DNX,Version=v4.5.1": [],
     "DNXCore,Version=v5.0": []
@@ -697,6 +699,107 @@
         "lib/dnxcore50/Microsoft.AspNet.DataProtection.Interfaces.xml",
         "lib/net451/Microsoft.AspNet.DataProtection.Interfaces.dll",
         "lib/net451/Microsoft.AspNet.DataProtection.Interfaces.xml"
+      ]
+    },
+    "Microsoft.AspNet.Diagnostics/1.0.0-beta4": {
+      "serviceable": true,
+      "sha": "OiWNg+pzKkX5Rv+vzG+7z5N5/hIzE63Lo8C8o7cvowOXlqYxMFgaecRCaZQvAVMDNzBhUH0FsW+Uku93mLCuCw==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.AspNet.Diagnostics.Interfaces": "1.0.0-beta4",
+            "Microsoft.AspNet.Hosting": "1.0.0-beta4",
+            "Microsoft.AspNet.WebUtilities": "1.0.0-beta4",
+            "Microsoft.Framework.OptionsModel": "1.0.0-beta4",
+            "Microsoft.Framework.WebEncoders.Core": "1.0.0-beta4"
+          },
+          "frameworkAssemblies": [
+            "mscorlib",
+            "System",
+            "System.Core",
+            "Microsoft.CSharp"
+          ],
+          "runtimeAssemblies": [
+            "lib/dnx451/Microsoft.AspNet.Diagnostics.dll"
+          ],
+          "compileAssemblies": [
+            "lib/dnx451/Microsoft.AspNet.Diagnostics.dll"
+          ]
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "Microsoft.AspNet.Diagnostics.Interfaces": "1.0.0-beta4",
+            "Microsoft.AspNet.Hosting": "1.0.0-beta4",
+            "Microsoft.AspNet.WebUtilities": "1.0.0-beta4",
+            "Microsoft.Framework.OptionsModel": "1.0.0-beta4",
+            "Microsoft.Framework.WebEncoders.Core": "1.0.0-beta4",
+            "System.Reflection.Extensions": "4.0.0-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/dnxcore50/Microsoft.AspNet.Diagnostics.dll"
+          ],
+          "compileAssemblies": [
+            "lib/dnxcore50/Microsoft.AspNet.Diagnostics.dll"
+          ]
+        }
+      },
+      "files": [
+        "Microsoft.AspNet.Diagnostics.1.0.0-beta4.nupkg",
+        "Microsoft.AspNet.Diagnostics.1.0.0-beta4.nupkg.sha512",
+        "Microsoft.AspNet.Diagnostics.nuspec",
+        "lib/dnx451/Microsoft.AspNet.Diagnostics.dll",
+        "lib/dnx451/Microsoft.AspNet.Diagnostics.xml",
+        "lib/dnxcore50/Microsoft.AspNet.Diagnostics.dll",
+        "lib/dnxcore50/Microsoft.AspNet.Diagnostics.xml"
+      ]
+    },
+    "Microsoft.AspNet.Diagnostics.Entity/7.0.0-beta4": {
+      "serviceable": true,
+      "sha": "QYPFAO+F1IlSmKYVxpIqU0t4ZQovnZ4NS5GqpZ1KYckdtHcvoH5k7OrpuxyoHtwUzwke97FOjHboQ78yNZ7chA==",
+      "frameworks": {
+        "DNX,Version=v4.5.1": {
+          "dependencies": {
+            "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
+            "EntityFramework.Relational": "7.0.0-beta4"
+          },
+          "frameworkAssemblies": [
+            "System.Configuration",
+            "mscorlib",
+            "System",
+            "System.Core",
+            "Microsoft.CSharp"
+          ],
+          "runtimeAssemblies": [
+            "lib/dnx451/Microsoft.AspNet.Diagnostics.Entity.dll"
+          ],
+          "compileAssemblies": [
+            "lib/dnx451/Microsoft.AspNet.Diagnostics.Entity.dll"
+          ]
+        },
+        "DNXCore,Version=v5.0": {
+          "dependencies": {
+            "Microsoft.AspNet.Diagnostics": "1.0.0-beta4",
+            "EntityFramework.Relational": "7.0.0-beta4",
+            "System.Threading": "4.0.10-beta-22816"
+          },
+          "frameworkAssemblies": [],
+          "runtimeAssemblies": [
+            "lib/dnxcore50/Microsoft.AspNet.Diagnostics.Entity.dll"
+          ],
+          "compileAssemblies": [
+            "lib/dnxcore50/Microsoft.AspNet.Diagnostics.Entity.dll"
+          ]
+        }
+      },
+      "files": [
+        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-beta4.nupkg",
+        "Microsoft.AspNet.Diagnostics.Entity.7.0.0-beta4.nupkg.sha512",
+        "Microsoft.AspNet.Diagnostics.Entity.nuspec",
+        "lib/dnx451/Microsoft.AspNet.Diagnostics.Entity.dll",
+        "lib/dnx451/Microsoft.AspNet.Diagnostics.Entity.xml",
+        "lib/dnxcore50/Microsoft.AspNet.Diagnostics.Entity.dll",
+        "lib/dnxcore50/Microsoft.AspNet.Diagnostics.Entity.xml"
       ]
     },
     "Microsoft.AspNet.Diagnostics.Interfaces/1.0.0-beta4": {

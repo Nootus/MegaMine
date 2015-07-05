@@ -12,6 +12,8 @@ using eMine.Lib.Repositories.Fleet;
 using Microsoft.AspNet.Mvc;
 using eMine.Lib.Filters;
 using eMine.Lib.MiddleWare;
+using Microsoft.AspNet.Diagnostics;
+using Microsoft.AspNet.Diagnostics.Entity;
 
 namespace eMine
 {
@@ -22,10 +24,11 @@ namespace eMine
             //creating the config object
             Configuration = new Configuration()
                         .AddJsonFile("Config.json")
-                        .AddEnvironmentVariables();
+                        .AddEnvironmentVariables()
+                        .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
         }
 
-        public Microsoft.Framework.ConfigurationModel.IConfiguration Configuration { get; set; }
+        public IConfiguration Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -63,8 +66,21 @@ namespace eMine
             services.AddTransient<AccountRepository>();
         }
 
-        public void Configure(IApplicationBuilder app)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            // Add the following to the request pipeline only in development environment.
+            if (env.IsEnvironment("Development"))
+            {
+                app.UseErrorPage(ErrorPageOptions.ShowAll);
+                app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
+            }
+            else
+            {
+                // Add Error handling middleware which catches all application specific errors and
+                // sends the request to the following path or controller action.
+                app.UseErrorHandler("/Home/Error");
+            }
+
             app.UseStaticFiles();
             app.UseIdentity();
             app.UseProfileMiddleWare();
