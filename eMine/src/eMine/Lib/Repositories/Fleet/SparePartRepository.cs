@@ -452,12 +452,12 @@ namespace eMine.Lib.Repositories.Fleet
 
 
         //RamPras algorithm to get the total cost
-        public decimal GetSparePartsCost(SparePartModel spvm, int totalparts, bool bUpdate = false)
+        public decimal GetSparePartsCost(SparePartModel spvm, VehicleServiceViewModel vsvm, int totalparts, bool bUpdate = false)
         {
             decimal totalcost = 0;
 
             int totalAvailable = 0;
-
+                        
             var partorderquery = (from order in dbContext.SparePartOrders
                                   where order.SparePartId == spvm.SparePartId && order.OrderedUnits > order.ConsumedUnits
                                   && order.DeletedInd == false
@@ -468,9 +468,7 @@ namespace eMine.Lib.Repositories.Fleet
 
             // Do not proceed with Save if there are no parts.
             if (totalAvailable < totalparts) return totalAvailable - totalparts;
-
-
-
+            
             //Get the price and update the consumed units 
             int totalNeeded = totalparts;
             foreach (SparePartOrderEntity order in partorderquery)
@@ -482,6 +480,7 @@ namespace eMine.Lib.Repositories.Fleet
                     {
                         order.ConsumedUnits += totalNeeded;
                         dbContext.SparePartOrders.Update(order);
+                        CreateVehicleServiceSparePartOrderLink(spvm, vsvm, order, order.OrderedUnits - order.ConsumedUnits);
                     }
                     break;
                 }
@@ -490,6 +489,7 @@ namespace eMine.Lib.Repositories.Fleet
                 totalcost = totalcost + (order.UnitCost * (order.OrderedUnits - order.ConsumedUnits));
                 if (bUpdate)
                 {
+                    CreateVehicleServiceSparePartOrderLink(spvm, vsvm, order, order.OrderedUnits - order.ConsumedUnits);
                     order.ConsumedUnits = order.OrderedUnits;
                     dbContext.SparePartOrders.Update(order);
                 }
@@ -501,11 +501,12 @@ namespace eMine.Lib.Repositories.Fleet
         //Create the VehicleService and SparePartOrders link table
         public async Task CreateVehicleServiceSparePartOrderLink(SparePartModel spvm, VehicleServiceViewModel model, SparePartOrderEntity order, int nUnitsToconsume)
         {
-            VehicleServiceSparePartOrderEntity servicePartOrder =
+            VehicleServiceSparePartOrderEntity servicePartOrder = null;
+            servicePartOrder = 
                 (from vspentity in dbContext.VehicleServiceSparePartOrders
-                 where DeletedInd = false && vspentity.SparePartOrderId == order.SparePartOrderId
+                 where vspentity.DeletedInd == false && vspentity.SparePartOrderId == order.SparePartOrderId
                  && servicePartOrder.VehicleServiceId == model.VehicleServiceId
-                 select servicePartOrder).ToSingleOrDefault();
+                 select vspentity).SingleOrDefault();
 
             if (servicePartOrder == null)
             {
@@ -524,42 +525,6 @@ namespace eMine.Lib.Repositories.Fleet
             await dbContext.SaveChangesAsync();
         }
     
-
-    //Create the VehicleService and SparePartOrders link table
-    public async Task CreateVehicleServiceSparePartOrdersLink(SparePartModel spvm, VehicleServiceViewModel model, int totalparts)
-        {
-            var partorderquery = (from order in dbContext.SparePartOrders
-                                  where order.SparePartId == spvm.SparePartId && order.OrderedUnits > order.ConsumedUnits
-                                  && order.DeletedInd == false
-                                  orderby order.DeliveredUTCdatetime ascending
-                                  select order).ToList();
-
-            int totalneeded = totalparts;
-
-            foreach (SparePartOrderEntity order in partorderquery)
-            {
-                int nAvailableOrderItems = order.OrderedUnits - order.ConsumedUnits;
-
-                int nConsumedOrderItems = (totalneeded < nAvailableOrderItems) ? totalneeded : nAvailableOrderItems;
-
-                totalneeded = totalneeded - nConsumedOrderItems;
-
-                VehicleServiceSparePartOrderEntity servicePartOrder = new VehicleServiceSparePartOrderEntity()
-                {
-                    SparePartOrderId = order.SparePartOrderId,
-                    ConsumedUnits = nConsumedOrderItems,
-                    VehicleServiceId = model.VehicleServiceId
-                };
-
-                dbContext.VehicleServiceSparePartOrders.Add(servicePartOrder);
-
-                if (totalneeded == nConsumedOrderItems)
-                {
-                    break;
-                }
-            }
-
-            await dbContext.SaveChangesAsync();
-        }
+        
     }
 }

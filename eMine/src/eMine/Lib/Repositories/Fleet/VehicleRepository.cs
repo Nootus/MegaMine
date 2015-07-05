@@ -823,7 +823,7 @@ namespace eMine.Lib.Repositories.Fleet
 
             foreach (var part in model.SpareParts)
             {
-                decimal  partsCost = sparepartRepository.GetSparePartsCost(part, part.Quantity);
+                decimal  partsCost = sparepartRepository.GetSparePartsCost(part, model, part.Quantity);
 
                 //THrow the error to indicate that the parts are not sufficient.
                 if (partsCost < 0)
@@ -839,10 +839,7 @@ namespace eMine.Lib.Repositories.Fleet
             decimal totalCost = 0;
             foreach (var part in model.SpareParts)
             {
-              await  sparepartRepository.CreateVehicleServiceSparePartOrdersLink(part, model, part.Quantity);
-
-                decimal partsCost = sparepartRepository.GetSparePartsCost(part, part.Quantity, true);
-
+                decimal partsCost = sparepartRepository.GetSparePartsCost(part, model, part.Quantity, true);
 
                 //Update the total available spare parts
                 SparePartEntity result = (from p in dbContext.SpareParts
