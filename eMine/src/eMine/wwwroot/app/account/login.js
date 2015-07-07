@@ -18,6 +18,7 @@ function login($state, accountService, profile) {
 
     function init() {
         profile.logout();
+        accountService.logout();
         vm.model = accountService.model;
     
     }

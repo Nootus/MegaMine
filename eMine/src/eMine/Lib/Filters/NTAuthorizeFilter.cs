@@ -35,8 +35,11 @@ namespace eMine.Lib.Filters
                 //checking for current claim
                 else if (!userClaims.Any(c => c.Type == module && c.Value == claim))
                 {
-                    context.Result = new HttpUnauthorizedResult();
+                    context.Result = new HttpStatusCodeResult(403);
                 }
+                //context.Result = new HttpUnauthorizedResult();
+
+                //context.Result = new HttpStatusCodeResult(403);
             }
         }
 

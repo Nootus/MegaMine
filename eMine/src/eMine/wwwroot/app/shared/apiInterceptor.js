@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('emine').factory('apiInterceptor', apiInterceptor);
-apiInterceptor.$inject = ['$q', 'utility'];
+apiInterceptor.$inject = ['$q', 'utility', 'message'];
 
-function apiInterceptor($q, utility) {
+function apiInterceptor($q, utility, message) {
 
     var rawapiUrl = '/api/';
     var apiUrl = window.virtualDirectory + '/api/';
@@ -39,30 +39,30 @@ function apiInterceptor($q, utility) {
 
     // response success
     function response(response) {
-        if (response.config.url.indexOf(apiUrl) === 0)
+        if (response.config.url.indexOf(apiUrl) === 0) {
             navigation.isLoading = false;
 
-        //checking whether we got our AjaxModel
-        if (response.data.hasOwnProperty("Result") && response.data.hasOwnProperty("Message") && response.data.hasOwnProperty("Model")) {
-            if (response.data.Result === 1) {
-                utility.showError(response.data.Message);
-                return $q.reject(response);
-                //alert(response.data.Message);
-                //if (response.config.data.supressToastr === true) {
-                //    response.config.data.supressToastr = false;
-                //    return $q.reject(response.data.Message);
-                //}
-                //else {
-                //    utility.showError(response.data.Message);
-                //    return $q.reject(response);
-                //}
-            }
-            else {
-                utility.showInfo(response.data.Message);
-                response.data = response.data.Model;
+            //checking whether we got our AjaxModel
+            if (response.data.hasOwnProperty("Result") && response.data.hasOwnProperty("Message") && response.data.hasOwnProperty("Model")) {
+                if (response.data.Result === 1) {
+                    utility.showError(response.data.Message);
+                    return $q.reject(response);
+                    //alert(response.data.Message);
+                    //if (response.config.data.supressToastr === true) {
+                    //    response.config.data.supressToastr = false;
+                    //    return $q.reject(response.data.Message);
+                    //}
+                    //else {
+                    //    utility.showError(response.data.Message);
+                    //    return $q.reject(response);
+                    //}
+                }
+                else {
+                    utility.showInfo(response.data.Message);
+                    response.data = response.data.Model;
+                }
             }
         }
-
         // Return the response or promise.
         return response || $q.when(response);
     }
@@ -71,7 +71,12 @@ function apiInterceptor($q, utility) {
     function responseError(rejection) {
         if (rejection.config.url.indexOf(apiUrl) === 0) {
             navigation.isLoading = false;
-            utility.showError(rejection.data.Message);
+            if (rejection.status === 403) {
+                utility.showError(message.unAuthorized);
+            }
+            else {
+                utility.showError(rejection.data.Message);
+            }
         }
             
         // Return the promise rejection.

@@ -24,5 +24,11 @@ namespace eMine.Controllers
         {
             return await AjaxHelper.GetAsync<ProfileModel>(m => domain.Validate(model.UserName, model.UserPassword));
         }
+
+        [HttpGet]
+        public void Logout()
+        {
+            domain.Logout();
+        }
     }
 }

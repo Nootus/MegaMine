@@ -37,7 +37,7 @@ namespace eMine
             services.AddMvc()
                 .Configure<MvcOptions>(options =>
                 {
-                    options.Filters.Add(new ProfileFilter());
+                    //options.Filters.Add(new ProfileFilter());
                 });
 
             services.AddEntityFramework()
@@ -73,15 +73,15 @@ namespace eMine
             SiteSettings.EnvironmentName = env.EnvironmentName;
 
             // Add the following to the request pipeline only in development environment.
-            if (env.IsEnvironment("Development"))
-            {
-                app.UseErrorPage(ErrorPageOptions.ShowAll);
-                app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
-            }
-            else
-            {
-                app.UseErrorHandler("/Error");
-            }
+            //if (env.IsEnvironment("Development"))
+            //{
+            //    app.UseErrorPage(ErrorPageOptions.ShowAll);
+            //    app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
+            //}
+            //else
+            //{
+            //    app.UseErrorHandler("/Error");
+            //}
 
             app.UseStaticFiles();
             app.UseIdentity();
@@ -102,6 +102,11 @@ namespace eMine
                     name: "default",
                     template: "{*url}",
                     defaults: new { controller = "Home", action = "Index" });
+
+                //routes.MapRoute(
+                //    name: "default",
+                //    template: "{controller}/{action}",
+                //    defaults: new { controller = "Home", action = "Index" });
 
             });
 

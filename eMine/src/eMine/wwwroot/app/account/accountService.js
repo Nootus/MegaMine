@@ -12,7 +12,8 @@ function accountService($http, profile) {
 
     var service = {
         model: model,
-        validate: validate
+        validate: validate,
+        logout: logout
     };
 
     return service;
@@ -24,4 +25,7 @@ function accountService($http, profile) {
             });
     }
 
+    function logout() {
+        return $http.get("/api/account/logout");
+    }
 }

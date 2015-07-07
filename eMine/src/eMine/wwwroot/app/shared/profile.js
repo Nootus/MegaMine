@@ -11,6 +11,7 @@ function profile() {
         lastName: 'Pattam',
         fullName: 'Prasanna Pattam',
         userName: 'prasanna',
+        roles: [],
         claims: [],
         isAuthenticated: true,
         populate: populate,
@@ -25,6 +26,7 @@ function profile() {
         vm.lastName = data.LastName;
         vm.fullName = data.FullName;
         vm.userName = data.UserName;
+        vm.roles = data.Roles;
         vm.claims = data.Claims;
         vm.isAuthenticated = true;
     };

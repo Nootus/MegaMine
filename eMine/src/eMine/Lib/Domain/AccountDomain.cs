@@ -49,5 +49,10 @@ namespace eMine.Lib.Domain
 
             return profile;
         }
+
+        public void Logout()
+        {
+            signInManager.SignOut();
+        }
     }
 }
