@@ -1,4 +1,5 @@
 ﻿using eMine.Lib.Entities.Account;
+using eMine.Lib.Middleware;
 using eMine.Lib.Repositories;
 using eMine.Lib.Shared;
 using eMine.Models;
@@ -38,6 +39,7 @@ namespace eMine.Lib.Domain
             {
 
                 profile = await accountRepository.UserProfileGet(userName);
+                profile.SetMenu();
 
                 //setting the claims on to the context
                 HttpHelper.HttpContext.Items["Profile"] = profile;

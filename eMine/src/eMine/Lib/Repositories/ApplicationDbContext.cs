@@ -11,6 +11,7 @@ namespace eMine.Lib.Repositories
     {
         //Account
         public DbSet<UserProfileEntity> UserProfiles { get; set; }
+        public DbSet<IdentityPageEntity> IdentityPages { get; set; }
 
         //Fleet
         public DbSet<VehicleTypeEntity> VehicleTypes { get; set; }
@@ -30,7 +31,6 @@ namespace eMine.Lib.Repositories
         public DbSet<VehicleTripEntity> VehicleTrips{ get; set; }
 
 
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // configuration for each table
@@ -39,6 +39,8 @@ namespace eMine.Lib.Repositories
             builder.Entity<UserProfileEntity>().ForRelational().Table("UserProfile");
             builder.Entity<UserProfileEntity>().Key(k => k.UserProfileId);
 
+            builder.Entity<IdentityPageEntity>().ForRelational().Table("IdentityPage");
+            builder.Entity<IdentityPageEntity>().Key(k => k.PageId);
 
 
             #region Fleet

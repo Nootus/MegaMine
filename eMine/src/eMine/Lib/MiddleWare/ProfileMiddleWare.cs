@@ -16,17 +16,15 @@ using Microsoft.Framework.DependencyInjection;
 using eMine.Lib.Repositories;
 using Newtonsoft.Json;
 
-namespace eMine.Lib.MiddleWare
+namespace eMine.Lib.Middleware
 {
-    public class ProfileMiddleWare
+    public class ProfileMiddleware
     {
         private RequestDelegate next;
-        private IServiceProvider serviceProvider;
 
-        public ProfileMiddleWare(RequestDelegate next, IServiceProvider serviceProvider)
+        public ProfileMiddleware(RequestDelegate next)
         {
             this.next = next;
-            this.serviceProvider = serviceProvider;
         }
 
         public async Task Invoke(HttpContext context)
@@ -45,21 +43,22 @@ namespace eMine.Lib.MiddleWare
 
                 context.Items["Profile"] = profile;
             }
-            else if (SiteSettings.IsEnvironment("Development"))
+            //automatically loggin in in the dev mode
+            else if (SiteSettings.IsEnvironment("Development") && context.Request.Path.Value.ToLower() != "/api/account/validate")
             {
-                SignInManager<ApplicationUser> signInManager = serviceProvider.GetService<SignInManager<ApplicationUser>>();
-                UserManager<ApplicationUser> userManager = serviceProvider.GetService<UserManager<ApplicationUser>>();
-                AccountRepository accountRepository = serviceProvider.GetService<AccountRepository>();
+                SignInManager<ApplicationUser> signInManager = context.ApplicationServices.GetService<SignInManager<ApplicationUser>>();
+                UserManager<ApplicationUser> userManager = context.ApplicationServices.GetService<UserManager<ApplicationUser>>();
+                AccountRepository accountRepository = context.ApplicationServices.GetService<AccountRepository>();
 
                 ProfileModel profile = await accountRepository.UserProfileGet(AccountSettings.DefaultProfileUserName);
 
-                ApplicationUser user = await userManager.FindByNameAsync(profile.UserName);
+                ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
                 await signInManager.SignInAsync(user, false);
                 context.Items["Profile"] = profile;
 
 
                 //setting the profile in the header
-                context.Response.Headers.Add("Profile", new string[] { JsonConvert.SerializeObject(profile) });
+                //context.Response.Headers.Add("Profile", new string[] { JsonConvert.SerializeObject(profile) });
             }
 
             await next(context);

@@ -16,5 +16,7 @@ namespace eMine.Models.Account
 
         public string[] Roles { get; set; }
         public List<ClaimModel> Claims { get; set; }
+
+        public List<MenuModel> Menu { get; set; }
     }
 }

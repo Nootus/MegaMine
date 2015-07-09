@@ -11,7 +11,7 @@ using eMine.Lib.Domain;
 using eMine.Lib.Repositories.Fleet;
 using Microsoft.AspNet.Mvc;
 using eMine.Lib.Filters;
-using eMine.Lib.MiddleWare;
+using eMine.Lib.Middleware;
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
 
@@ -32,8 +32,6 @@ namespace eMine
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<ProfileFilter>();
-
             services.AddMvc()
                 .Configure<MvcOptions>(options =>
                 {
@@ -63,6 +61,8 @@ namespace eMine
             services.AddTransient<AccountDomain>();
             services.AddTransient<AccountRepository>();
 
+            //caching page claims
+            services.CachePageClaims();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -85,7 +85,7 @@ namespace eMine
 
             app.UseStaticFiles();
             app.UseIdentity();
-            app.UseProfileMiddleWare();
+            app.UseProfileMiddleware();
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

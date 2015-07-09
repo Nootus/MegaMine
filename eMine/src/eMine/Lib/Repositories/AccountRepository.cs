@@ -1,4 +1,5 @@
-﻿using eMine.Lib.Shared;
+﻿using eMine.Lib.Entities.Account;
+using eMine.Lib.Shared;
 using eMine.Models;
 using eMine.Models.Account;
 using System;
@@ -71,6 +72,13 @@ namespace eMine.Lib.Repositories
             model.Claims = roleClaims.Union(userClaims).ToList();
 
             return model;
+        }
+
+        public List<IdentityPageEntity> IdentityPagesGet()
+        {
+            var query = from page in dbContext.IdentityPages select page;
+
+            return query.ToList();
         }
     }
 }
