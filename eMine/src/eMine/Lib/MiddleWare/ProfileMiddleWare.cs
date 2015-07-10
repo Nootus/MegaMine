@@ -44,21 +44,25 @@ namespace eMine.Lib.Middleware
                 context.Items["Profile"] = profile;
             }
             //automatically loggin in in the dev mode
-            else if (SiteSettings.IsEnvironment("Development") && context.Request.Path.Value.ToLower() != "/api/account/validate")
+            else if (SiteSettings.IsEnvironment("Development"))
             {
                 SignInManager<ApplicationUser> signInManager = context.ApplicationServices.GetService<SignInManager<ApplicationUser>>();
                 UserManager<ApplicationUser> userManager = context.ApplicationServices.GetService<UserManager<ApplicationUser>>();
                 AccountRepository accountRepository = context.ApplicationServices.GetService<AccountRepository>();
 
                 ProfileModel profile = await accountRepository.UserProfileGet(AccountSettings.DefaultProfileUserName);
-
-                ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
-                await signInManager.SignInAsync(user, false);
+                profile.SetMenu();
+                try
+                {
+                    ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
+                    await signInManager.SignInAsync(user, false);
+                }
+                catch
+                {
+                    //ignore exception
+                }
                 context.Items["Profile"] = profile;
 
-
-                //setting the profile in the header
-                //context.Response.Headers.Add("Profile", new string[] { JsonConvert.SerializeObject(profile) });
             }
 
             await next(context);

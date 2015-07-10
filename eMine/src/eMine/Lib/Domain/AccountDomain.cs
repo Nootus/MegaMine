@@ -37,17 +37,31 @@ namespace eMine.Lib.Domain
 
             if (result.Succeeded)
             {
-
-                profile = await accountRepository.UserProfileGet(userName);
-                profile.SetMenu();
-
-                //setting the claims on to the context
-                HttpHelper.HttpContext.Items["Profile"] = profile;
+                profile = await ProfileGet(userName);
             }
             else
             {
                 throw new eMineException("Invalid Username and/or Password");
             }
+
+            return profile;
+        }
+
+        private async Task<ProfileModel> ProfileGet(string userName)
+        {
+            ProfileModel profile = await accountRepository.UserProfileGet(userName);
+            profile.SetMenu();
+            //setting the claims on to the context
+            HttpHelper.HttpContext.Items["Profile"] = profile;
+
+            return profile;
+        }
+
+        public async Task<ProfileModel> DefaultProfile()
+        {
+            ProfileModel profile = (ProfileModel) HttpHelper.HttpContext.Items["Profile"];
+
+            profile = await ProfileGet(profile.UserName);
 
             return profile;
         }

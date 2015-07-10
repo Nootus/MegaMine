@@ -7,13 +7,14 @@ function profile() {
 
     var vm = {
         userID: 1,
-        firstName: 'Prasanna',
-        lastName: 'Pattam',
-        fullName: 'Prasanna Pattam',
-        userName: 'prasanna',
+        firstName: undefined,
+        lastName: undefined,
+        fullName: undefined,
+        userName: undefined,
         roles: [],
         claims: [],
-        isAuthenticated: true,
+        menu: [],
+        isAuthenticated: false,
         populate: populate,
         logout: logout
     };
@@ -28,6 +29,7 @@ function profile() {
         vm.userName = data.UserName;
         vm.roles = data.Roles;
         vm.claims = data.Claims;
+        vm.menu = data.Menu;
         vm.isAuthenticated = true;
     };
 

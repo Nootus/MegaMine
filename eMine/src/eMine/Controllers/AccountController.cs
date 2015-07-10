@@ -30,5 +30,11 @@ namespace eMine.Controllers
         {
             domain.Logout();
         }
+
+        [HttpGet]
+        public async Task<AjaxModel<ProfileModel>> DefaultProfile()
+        {
+            return await AjaxHelper.GetAsync<ProfileModel>(m => domain.DefaultProfile());
+        }
     }
 }
