@@ -29,5 +29,10 @@ namespace eMine.Lib.Shared
 
         }
         #endregion
+
+        public static class Account
+        {
+            public const string LogoutSuccess = "Successfully logged out";
+        }
     }
 }

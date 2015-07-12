@@ -22,7 +22,6 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        [NTAuthorize("Fleet", "VehicleView")]
         public async Task<AjaxModel<List<VehicleListModel>>> VehicleList()
         {
             return await AjaxHelper.GetAsync<List<VehicleListModel>>(m => domain.VehicleList());

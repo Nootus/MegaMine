@@ -66,9 +66,10 @@ namespace eMine.Lib.Domain
             return profile;
         }
 
-        public void Logout()
+        public string Logout()
         {
             signInManager.SignOut();
+            return null;
         }
     }
 }
