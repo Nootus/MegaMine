@@ -15,10 +15,10 @@ namespace eMine.Lib.Middleware
             return app.UseMiddleware<ProfileMiddleware>();
         }
 
-        public static IServiceCollection CachePageClaims(this IServiceCollection services)
+        public static IServiceCollection CachePageClaimsRoles(this IServiceCollection services)
         {
             AccountRepository repository = services.BuildServiceProvider().GetRequiredService<AccountRepository>();
-            PageService.CachePageClaims(repository);
+            PageService.CachePageClaimsRoles(repository);
             return services;
         }
     }

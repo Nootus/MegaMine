@@ -5,7 +5,7 @@ message.$inject = [];
 
 function message() {
     var vm = {
-        unAuthorized: "Unauthorized to view the page"
+        unAuthorized: "Unauthorized"
     };
 
     return vm;

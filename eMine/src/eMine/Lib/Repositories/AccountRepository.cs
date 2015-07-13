@@ -1,4 +1,5 @@
-﻿using eMine.Lib.Entities.Account;
+﻿using eMine.Lib.Entities;
+using eMine.Lib.Entities.Account;
 using eMine.Lib.Shared;
 using eMine.Models;
 using eMine.Models.Account;
@@ -79,6 +80,30 @@ namespace eMine.Lib.Repositories
             var query = from page in dbContext.IdentityPages select page;
 
             return query.ToList();
+        }
+
+        public List<ListItem<string, string>> IdentityRolesGet()
+        {
+            var dbroles = (from roles in dbContext.IdentityRoleHierarchies
+                        join role in dbContext.Roles on roles.RoleId equals role.Id
+                        join child in dbContext.Roles on roles.ChildRoleId equals child.Id
+                        select new ListItem<string, string>() { Key = role.Name, Item = child.Name }).ToList();
+
+            var hierarchy = dbroles.SelectMany(r => GetChildren(dbroles, r)).Distinct(new ListItemStringComparer()).OrderBy( r => r.Key).ToList();
+            return hierarchy;
+        }
+
+        private List<ListItem<string, string>> GetChildren(List<ListItem<string, string>>  roles, ListItem<string, string> parent)
+        {
+            var childroles = roles.Where(r => r.Key == parent.Item).SelectMany(r => GetChildren(roles, r));
+            //var childRoles = newroles.SelectMany(r => GetChildren(roles, r)).ToList();
+            var newroles = childroles.Select(r => new ListItem<string, string>() { Key = parent.Key, Item = r.Item }).ToList();
+
+            //adding itself
+            newroles.Add(new ListItem<string, string>() { Key = parent.Key, Item = parent.Key });
+            newroles.Add(new ListItem<string, string>() { Key = parent.Item, Item = parent.Item });
+            newroles.Add(parent);
+            return newroles;
         }
     }
 }

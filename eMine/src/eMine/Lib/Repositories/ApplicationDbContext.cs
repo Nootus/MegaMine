@@ -12,6 +12,7 @@ namespace eMine.Lib.Repositories
         //Account
         public DbSet<UserProfileEntity> UserProfiles { get; set; }
         public DbSet<IdentityPageEntity> IdentityPages { get; set; }
+        public DbSet<IdentityRoleHierarchyEntity> IdentityRoleHierarchies { get; set; }
 
         //Fleet
         public DbSet<VehicleTypeEntity> VehicleTypes { get; set; }
@@ -41,6 +42,9 @@ namespace eMine.Lib.Repositories
 
             builder.Entity<IdentityPageEntity>().ForRelational().Table("IdentityPage");
             builder.Entity<IdentityPageEntity>().Key(k => k.PageId);
+
+            builder.Entity<IdentityRoleHierarchyEntity>().ForRelational().Table("IdentityRoleHierarchy");
+            //builder.Entity<IdentityRoleHierarchyEntity>().Key(k => k.RoleId );
 
 
             #region Fleet

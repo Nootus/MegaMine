@@ -11,7 +11,7 @@ using eMine.Lib.Middleware;
 namespace eMine.Lib.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
-    public class NTAuthorizeAttribute : Attribute, IAuthorizationFilter
+    public class NTAuthorizeFilter : Attribute, IAuthorizationFilter
     {
         public void OnAuthorization(AuthorizationContext context)
         {
@@ -35,8 +35,12 @@ namespace eMine.Lib.Filters
 
             var userClaims = context.HttpContext.User.Claims;
 
+            //getting current roles and then get all the child roles
+            string[] roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToArray();
+            roles = PageService.Roles.Where(r => roles.Contains(r.Key)).Select(r => r.Item).ToArray();
+
             //checking whether user is an admin
-            if (!userClaims.Any(c => c.Type == ClaimTypes.Role && (c.Value == pageClaim.Module + AccountSettings.AdminSuffix || AccountSettings.SiteAdmin.Exists(r => r == c.Value))))
+            if (!roles.Contains(pageClaim.Module + AccountSettings.AdminSuffix))
             {
                 //checking for deny claim
                 if (userClaims.Any(c => c.Type == pageClaim.Module + AccountSettings.DenySuffix && c.Value == pageClaim.Claim))

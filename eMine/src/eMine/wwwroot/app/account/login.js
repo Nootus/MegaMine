@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('emine').controller('login', login);
-login.$inject = ['$state', 'accountService', 'profile'];
+login.$inject = ['$state', 'accountService'];
 
-function login($state, accountService, profile) {
+function login($state, accountService) {
 
     var vm = {
         model: {},
@@ -17,16 +17,12 @@ function login($state, accountService, profile) {
     return vm;
 
     function init() {
-        profile.logout();
-        accountService.logout();
         vm.model = accountService.model;
-    
     }
 
 
     function validate(form) {
-        if (form.$valid)
-        {
+        if (form.$valid) {
             accountService.validate(vm.model).success(function () {
                 $state.go('dashboard');
             });

@@ -132,7 +132,7 @@ function vehicleService($http) {
 
     function getTripList(vehicleId)
     {
-        return $http.get("/api/fleet/VehicleTripListGet", { params: { "vehicleId": vehicleId } })
+        return $http.get("/api/fleet/vehicletriplistget", { params: { "vehicleId": vehicleId } })
             .success(function (data)
             {
                 service.tripsList.splice(0, service.tripsList.length);
@@ -142,7 +142,14 @@ function vehicleService($http) {
 
     function saveTrip(model)
     {
-        return $http.post("/api/fleet/VehicleTripSave", model);
+        var url;
+        if (model.VehicleTripId === 0) {
+            url = "/api/fleet/vehicletripadd";
+        }
+        else {
+            url = "/api/fleet/vehicletripupdate";
+        }
+        return $http.post(url, model);
     }
 
 
@@ -154,11 +161,6 @@ function vehicleService($http) {
             })
     }
 
-    function saveFuel(model) {
-        return $http.post("/api/fleet/fuelsave", model);
-    }
-
-
 
     function getModelsList(modelId) {
         return $http.get("/api/fleet/getModelsList", { params: { "modelId": modelId } })
@@ -169,12 +171,26 @@ function vehicleService($http) {
     }
     
     function saveFuel(model) {
-        return $http.post("/api/fleet/fuelsave", model);
+        var url;
+        if (model.VehicleFuelId === 0) {
+            url = "/api/fleet/fueladd";
+        }
+        else {
+            url = "/api/fleet/fuelupdate";
+        }
+        return $http.post(url, model);
     }
 
     function saveModel(model)
     {
-        return $http.post("/api/fleet/modelsave", model);
+        var url;
+        if (model.VehicleModelId === 0) {
+            url = "/api/fleet/modeladd";
+        }
+        else {
+            url = "/api/fleet/modelupdate";
+        }
+        return $http.post(url, model);
     }
 
     function getVehicleDriverList(vehicleId)
@@ -189,7 +205,14 @@ function vehicleService($http) {
 
     function saveVehiceDriver(model)
     {
-        return $http.post("/api/fleet/vehicledriversave", model);
+        var url;
+        if (model.VehicleDriverAssignmentId === 0) {
+            url = "/api/fleet/vehicledriveradd"
+        }
+        else {
+            url = "/api/fleet/vehicledriverupdate"
+        }
+        return $http.post(url, model);
     }
 
     function getDriversListItems(vehicleId)
@@ -215,7 +238,14 @@ function vehicleService($http) {
         if (model.VehicleId === 0) {
             model.VehicleId = service.vehicle.VehicleId;
         }
-        return $http.post("/api/fleet/vehicleservicesave", model)
+        var url;
+        if (model.VehicleServiceId === 0) {
+            url = "/api/fleet/vehicleserviceadd";
+        }
+        else {
+            url = "/api/fleet/vehicleserviceupdate";
+        }
+        return $http.post(url, model)
             .success(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.vehicle.ServiceRecord.splice(0, service.vehicle.ServiceRecord.length);
@@ -245,7 +275,15 @@ function vehicleService($http) {
 
 
     function saveVehicle(model) {
-        return $http.post("/api/fleet/vehiclesave", model)
+        var url;
+        if (model.VehicleId === 0) {
+            url = "/api/fleet/vehicleadd";
+        }
+        else {
+            url = "/api/fleet/vehicleupdate";
+        }
+
+        return $http.post(url, model)
             .success(function (data) {
                 //updating the vehicle
                 service.vehicle.RegistrationNumber = model.RegistrationNumber;
@@ -256,7 +294,15 @@ function vehicleService($http) {
     }
 
     function saveManufacturer(model) {
-        return $http.post("/api/fleet/ManufacturerSave", model)
+        var url;
+        if (model.VehicleManufacturerId === 0) {
+            url = "/api/fleet/manufactureradd";
+        }
+        else {
+            url = "/api/fleet/manufacturerupdate";
+        }
+
+        return $http.post(url, model)
             .success(function (data)
             {
                 //updating the current manufacturer so that the view manufacturer screen gets refreshed properly.
@@ -276,7 +322,15 @@ function vehicleService($http) {
     }
 
     function saveVehicleType(model) {
-        return $http.post("/api/fleet/vehicletypesave", model);
+        var url;
+        if (model.VehicleTypeId === 0) {
+            url = "/api/fleet/vehicletypeadd";
+        }
+        else {
+            url = "/api/fleet/vehicletypeupdate";
+        }
+
+        return $http.post(url, model);
     }
 
     function getDrivers() {
@@ -289,7 +343,14 @@ function vehicleService($http) {
     }
 
     function saveDriver(model) {
-        return $http.post("/api/fleet/driversave", model);
+        var url;
+        if (model.VehicleDriverId === 0) {
+            url = "/api/fleet/driveradd";
+        }
+        else {
+            url = "/api/fleet/driverupdate";
+        }
+        return $http.post(url, model);
     }
 
     function getSparePartList()
@@ -322,7 +383,14 @@ function vehicleService($http) {
         
     function saveSparePart(model)
     {
-        return $http.post("/api/fleet/sparepartsave", model)
+        var url;
+        if (model.SparePartId === 0) {
+            url = "/api/fleet/sparepartadd";
+        }
+        else {
+            url = "/api/fleet/sparepartupdate";
+        }
+        return $http.post(url, model)
             .success(function (data) {
                 //updating the spare part
                 service.sparePart.Name = model.Name;
@@ -349,7 +417,14 @@ function vehicleService($http) {
     }
 
     function saveSparePartOrder(model) {
-        return $http.post("/api/fleet/sparepartorderSave", model);
+        var url;
+        if (model.SparePartOrderId === 0) {
+            url = "/api/fleet/sparepartorderadd";
+        }
+        else {
+            url = "/api/fleet/sparepartorderupdate";
+        }
+        return $http.post(url, model);
     }
 
 }

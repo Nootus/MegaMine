@@ -35,7 +35,7 @@ namespace eMine
             services.AddMvc()
                 .Configure<MvcOptions>(options =>
                 {
-                    //options.Filters.Add(new ProfileFilter());
+                    options.Filters.Add(new NTAuthorizeFilter());
                 });
 
             services.AddEntityFramework()
@@ -62,7 +62,7 @@ namespace eMine
             services.AddTransient<AccountRepository>();
 
             //caching page claims
-            services.CachePageClaims();
+            services.CachePageClaimsRoles();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

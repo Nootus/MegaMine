@@ -25,6 +25,18 @@ function appRoute($stateProvider, $urlRouterProvider, $locationProvider) {
             controller: "login",
             controllerAs: "vm",
         })
+        .state("logout", {
+            url: window.virtualDirectory + "/logout",
+            title: "Login",
+            previousState: "",
+            templateUrl: "/app/account/login.html",
+            controller: "login",
+            controllerAs: "vm",
+            resolve: ['profile', 'accountService', function (profile, accountService) {
+                profile.logout();
+                return accountService.logout();
+            }]
+        })
 
     $locationProvider.html5Mode(true);
 

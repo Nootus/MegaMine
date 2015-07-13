@@ -48,7 +48,7 @@ function index($scope, $interval, profile, navigation, utility) {
                         text: profile.firstName, url: "#",
                         items: [
                             { text: "Change Password", url: "#", spriteCssClass: "icon-menu icon-changepassword" },
-                            { text: "Logout", url: "/login", spriteCssClass: "icon-menu icon-logout" }
+                            { text: "Logout", url: "/logout", spriteCssClass: "icon-menu icon-logout" }
                         ]
                     }
             ],

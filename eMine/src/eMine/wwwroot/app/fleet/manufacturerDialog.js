@@ -94,18 +94,6 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
                         vehicleService.getManufacturerList();
                         
                     }
-                    else {
-
-                        //Boys : Why the following is not working ?
-                        model.Name = vm.model.Name
-                        model.Description = vm.model.Description
-
-                        // Boys : Why it says that navigation.gotomanufacturer is not a function ?
-                        //navigation.gotomanufacturer(curManufacturerId);
-
-                        vehicleService.getCurrentManufacturer(curManufacturerId);
-                      
-                    }
 
                     $mdDialog.hide();
 

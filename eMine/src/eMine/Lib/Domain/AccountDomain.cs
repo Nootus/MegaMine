@@ -51,6 +51,9 @@ namespace eMine.Lib.Domain
         {
             ProfileModel profile = await accountRepository.UserProfileGet(userName);
             profile.SetMenu();
+            //setting all the roles
+            profile.Roles = PageService.Roles.Where(r => profile.Roles.Contains(r.Key)).Select(r => r.Item).ToArray();
+
             //setting the claims on to the context
             HttpHelper.HttpContext.Items["Profile"] = profile;
 

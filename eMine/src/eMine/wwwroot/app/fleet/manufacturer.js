@@ -8,10 +8,10 @@ function manufacturer($scope, $window, vehicleService, vehicleModelDialog, manuf
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'Name', field: 'Name', displayName: 'Name' },
-                    { name: 'Description', field: 'Description', displayName: 'Description' },
+                    { name: 'Name', field: 'Name', displayName: 'Name', type: 'string' },
+                    { name: 'Description', field: 'Description', displayName: 'Description', type: 'string' },
                      {
-                         name: 'SparePartOrderId', field: 'SparePartOrderId', displayName: '', enableColumnMenu: false,
+                         name: 'SparePartOrderId', field: 'SparePartOrderId', displayName: '', type: 'string', enableColumnMenu: false,
                          cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewModel(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editModel(row.entity, true, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</md-button>",
                          cellClass: "text-center", enableHiding: false
                      },
