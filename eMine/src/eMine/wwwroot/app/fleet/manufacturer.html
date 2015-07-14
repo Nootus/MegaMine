@@ -1,9 +1,7 @@
 ﻿<em-toolbar title="Manufacturer Details" class="title">
-
-
-    <md-button class="md-raised md-primary" aria-label="Edit" ng-click="vm.viewManufacturer($event)">
+    <em-button class="md-raised md-primary" aria-label="Edit" ng-click="vm.viewManufacturer($event)" module="Fleet" claim="ManufacturerEdit">
         <md-icon class="icon-button" md-svg-icon="content/images/icons/edit.svg"></md-icon>Edit Manufacturer
-    </md-button>
+    </em-button>
 </em-toolbar>
 <div>
     <md-content layout-padding>
@@ -18,9 +16,9 @@
         <div layout="row">
             <div flex>
                 <em-toolbar title="Models Data" class="subtitle">
-                    <md-button ng-click="vm.addModel($event)" class="md-raised md-primary" aria-label="Add Model">
+                    <em-button ng-click="vm.addModel($event)" class="md-raised md-primary" aria-label="Add Model" module="Fleet" claim="ManufacturerModelAdd">
                         <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Model
-                    </md-button>
+                    </em-button>
                     
                 </em-toolbar>
                 <md-content layout-padding>

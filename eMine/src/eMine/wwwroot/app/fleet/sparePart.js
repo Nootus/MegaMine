@@ -14,7 +14,7 @@ function sparePart($scope, $window, $mdDialog, vehicleService, sparePartOrderDia
                     { name: 'UnitCost', field: 'UnitCost', displayName: 'Unit Cost', type: 'number' },
                     {
                         name: 'SparePartOrderId', field: 'SparePartOrderId', enableColumnMenu: false, displayName: '', type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, true, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</md-button>",
+                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, true, $event)\" module=\"Fleet\" claim=\"SparePartOrderEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
                         cellClass: "text-center", enableHiding: false
                     },
         ]

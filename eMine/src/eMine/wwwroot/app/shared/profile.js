@@ -16,7 +16,8 @@ function profile() {
         menu: [],
         isAuthenticated: false,
         populate: populate,
-        logout: logout
+        logout: logout,
+        isAuthorized: isAuthorized
     };
 
     return vm;
@@ -36,5 +37,20 @@ function profile() {
     function logout() {
         vm.isAuthenticated = false;
     };
+
+    function isAuthorized(module, claim) {
+        var response = false;
+
+        if (vm.roles.indexOf(module + "Admin") === -1) {
+            for(var counter = 0; counter < vm.claims.length; counter ++){
+                if (vm.claims[counter].ClaimType === module && vm.claims[counter].ClaimValue === claim) {
+                    response = true;
+                    break;
+                }
+            }
+        }
+
+        return response;
+    }
 };
 

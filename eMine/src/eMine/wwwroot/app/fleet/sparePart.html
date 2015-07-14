@@ -1,7 +1,7 @@
 ﻿<em-toolbar title="Spare Part Details" class="title">
-    <md-button class="md-raised md-primary" aria-label="Edit" ng-click="vm.editSparePart($event)">
+    <em-button class="md-raised md-primary" aria-label="Edit" ng-click="vm.editSparePart($event)" module="Fleet" claim="SparePartEdit">
         <md-icon class="icon-button" md-svg-icon="content/images/icons/edit.svg"></md-icon>Edit Spare Part
-    </md-button>
+    </em-button>
 </em-toolbar>
 <md-content layout-padding>
     <div layout="row">
@@ -29,9 +29,9 @@
     <div layout="row">
         <div flex>
             <em-toolbar title="Orders Data" class="subtitle">
-                <md-button ng-click="vm.addOrder($event)" class="md-raised md-primary" aria-label="Add Order">
+                <em-button ng-click="vm.addOrder($event)" class="md-raised md-primary" aria-label="Add Order" module="Fleet" claim="SparePartOrderAdd">
                     <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Order
-                </md-button>
+                </em-button>
             </em-toolbar>
             <md-content layout-padding>
                 <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="sub-grid"></div>

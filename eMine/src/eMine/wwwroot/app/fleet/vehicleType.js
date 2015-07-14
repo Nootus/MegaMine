@@ -10,7 +10,7 @@ function vehicleType($scope, $window, vehicleService, vehicleTypeDialog, uiGridC
         columnDefs: [
                     { name: 'VehicleTypeName', field: 'VehicleTypeName', displayName: 'Vehicle Type', type: 'string', enableHiding: false },
                     { name: 'VehicleTypeDescription', field: 'VehicleTypeDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    { name: 'VehicleTypeId', field: 'VehicleTypeId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'VehicleTypeId', field: 'VehicleTypeId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Fleet\" claim=\"VehicleTypeEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 
