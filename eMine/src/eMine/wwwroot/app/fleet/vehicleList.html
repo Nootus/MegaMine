@@ -1,7 +1,7 @@
 ﻿<em-toolbar title="Vehicle List" class="title">
-    <md-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addVehicle($event)">
+    <em-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addVehicle($event)" module="Fleet" claim="VehicleAdd">
         <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Vehicle
-    </md-button>
+    </em-button>
 </em-toolbar>
 <md-content layout-padding>
     <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid" ></div>

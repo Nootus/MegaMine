@@ -1,8 +1,8 @@
 ﻿<div>
     <em-toolbar title="Service History" class="subtitle">
-        <md-button ng-click="vm.addService($event)" class="md-raised md-primary" aria-label="Add Service">
+        <em-button ng-click="vm.addService($event)" class="md-raised md-primary" aria-label="Add Service" module="Fleet" claim="VehicleServiceAdd">
             <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Service
-        </md-button>
+        </em-button>
     </em-toolbar>
     <md-content layout-padding>
         <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="sub-grid"></div>
