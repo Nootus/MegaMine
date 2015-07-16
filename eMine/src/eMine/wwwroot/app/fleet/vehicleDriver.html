@@ -1,14 +1,14 @@
 ﻿<div>
     <em-toolbar title="Driver History" class="subtitle">
-        <md-button ng-click="vm.assignDriver($event)" ng-show="vm.editMode === 2" class="md-raised md-primary" aria-label="Assign Driver">
+        <em-button ng-click="vm.assignDriver($event)" ng-show="vm.editMode === 2" class="md-raised md-primary" aria-label="Assign Driver" module="Fleet" claim="VehicleDriverAssign">
             <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Assign Driver
-        </md-button>
-        <md-button ng-click="vm.unAssignDriver($event)" ng-show="vm.editMode === 3" class="md-raised md-primary" aria-label="Assign Driver">
+        </em-button>
+        <em-button ng-click="vm.unAssignDriver($event)" ng-show="vm.editMode === 3" class="md-raised md-primary" aria-label="Assign Driver" module="Fleet" claim="VehicleDriverAssign">
             <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Un Assign Driver
-        </md-button>
-        <md-button ng-click="vm.addDriver($event)" class="md-raised md-primary" aria-label="Add Driver">
+        </em-button>
+        <em-button ng-click="vm.addDriver($event)" class="md-raised md-primary" aria-label="Add Driver" module="Fleet" claim="VehicleDriverAdd">
             <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Driver
-        </md-button>
+        </em-button>
     </em-toolbar>
     <md-content layout-padding>
         <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="sub-grid"></div>

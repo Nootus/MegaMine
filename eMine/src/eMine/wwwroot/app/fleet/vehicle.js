@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicle', vehicle)
-vehicle.$inject = ['$state', 'vehicleService', 'vehicleDialog', 'utility'];
+vehicle.$inject = ['$state', 'vehicleService', 'vehicleDialog', 'utility', 'profile'];
 
-function vehicle($state, vehicleService, vehicleDialog, utility) {
+function vehicle($state, vehicleService, vehicleDialog, utility, profile) {
 
     var vm = {
         model: {},
@@ -26,12 +26,21 @@ function vehicle($state, vehicleService, vehicleDialog, utility) {
     }
 
     function getMenu() {
-        return [
-                    getMenuItem(" Service History", "service", "service"),
-                    getMenuItem(" Fuel History", "fuel", "fuel"),
-                    getMenuItem(" Driver History", "driver", "driver"),
-                    getMenuItem(" Trip History", "vehicletrip", "trip")
-        ];
+        var items = [];
+
+        if (profile.isAuthorized("Fleet", "VehicleServiceView"))
+            items.push(getMenuItem(" Service History", "service", "service"));
+
+        if (profile.isAuthorized("Fleet", "VehicleFuelView"))
+            items.push(getMenuItem(" Fuel History", "fuel", "fuel"));
+
+        if (profile.isAuthorized("Fleet", "VehicleDriverView"))
+            items.push(getMenuItem(" Driver History", "driver", "driver"));
+
+        if (profile.isAuthorized("Fleet", "VehicleTripView"))
+            items.push(getMenuItem(" Trip History", "vehicletrip", "trip"));
+
+        return items;
     }
 
     function getMenuItem(text, url, iconCss)
