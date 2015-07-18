@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').factory('navigation', navigation)
-navigation.$inject = ['$rootScope', '$state', '$window', '$location', '$http', 'profile'];
+navigation.$inject = ['$rootScope', '$state', '$window', '$location', '$http', 'profile', 'utility'];
 
-function navigation($rootScope, $state, $window, $location, $http, profile) {
+function navigation($rootScope, $state, $window, $location, $http, profile, utility) {
 
     var vm = {
         appTitle: 'eMine',
@@ -13,7 +13,9 @@ function navigation($rootScope, $state, $window, $location, $http, profile) {
         gotoSparePart: gotoSparePart,
         gotomanufacturer: gotomanufacturer,
         go: go,
-        breadcrumbs: []
+        breadcrumbs: [],
+        vehicleMenuItems: [],
+        populateVehicleMenu: populateVehicleMenu
     };
 
     return vm;
@@ -66,7 +68,12 @@ function navigation($rootScope, $state, $window, $location, $http, profile) {
     }
 
     function gotoVehicle(vehicleId) {
-        $state.go("vehicle.service", { vehicleid: vehicleId });
+        var state = "vehicle";
+        populateVehicleMenu(vehicleId); //populating the vehicle menu items
+        if (vm.vehicleMenuItems.length > 0) {
+            state += "." + vm.vehicleMenuItems[0].state;
+        }
+        $state.go(state, { vehicleid: vehicleId });
     }
 
     function gotoSparePart(sparePartId) {
@@ -76,6 +83,34 @@ function navigation($rootScope, $state, $window, $location, $http, profile) {
     function gotomanufacturer(manufacturerId) {
         $state.go("manufacturer", { manufacturerid: manufacturerId });
     }
+
+
+    function populateVehicleMenu(vehicleId) {
+        vm.vehicleMenuItems.splice(0, vm.vehicleMenuItems.length);
+
+        if (profile.isAuthorized("Fleet", "VehicleServiceView"))
+            vm.vehicleMenuItems.push(getVehicleMenuItem(vehicleId, " Service History", "service", "service"));
+
+        if (profile.isAuthorized("Fleet", "VehicleFuelView"))
+            vm.vehicleMenuItems.push(getVehicleMenuItem(vehicleId, " Fuel History", "fuel", "fuel"));
+
+        if (profile.isAuthorized("Fleet", "VehicleDriverView"))
+            vm.vehicleMenuItems.push(getVehicleMenuItem(vehicleId, " Driver History", "driver", "driver"));
+
+        if (profile.isAuthorized("Fleet", "VehicleTripView"))
+            vm.vehicleMenuItems.push(getVehicleMenuItem(vehicleId, " Trip History", "vehicletrip", "trip"));
+    }
+
+    function getVehicleMenuItem(vehicleId, text, url, iconCss) {
+        var cssClass = "";
+        var spriteCssClass = "icon-menu icon-" + iconCss
+        var hash = utility.routePath("vehicle/" + vehicleId + "/" + url);
+        var currentHash = $state.href($state.current.name, $state.params);
+        if (hash === currentHash) {
+            cssClass = "k-state-highlight";
+        }
+        return { text: text, url: hash, state: url, cssClass: cssClass, spriteCssClass: spriteCssClass };
+    }
+
+
 }
-
-

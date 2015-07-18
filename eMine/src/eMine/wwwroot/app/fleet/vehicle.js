@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicle', vehicle)
-vehicle.$inject = ['$state', 'vehicleService', 'vehicleDialog', 'utility', 'profile'];
+vehicle.$inject = ['$state', 'vehicleService', 'vehicleDialog', 'utility', 'profile', 'navigation'];
 
-function vehicle($state, vehicleService, vehicleDialog, utility, profile) {
+function vehicle($state, vehicleService, vehicleDialog, utility, profile, navigation) {
 
     var vm = {
         model: {},
@@ -18,42 +18,13 @@ function vehicle($state, vehicleService, vehicleDialog, utility, profile) {
 
     function init() {
         vm.model = vehicleService.vehicle;
-        vm.menuItems = getMenu();
+        if (navigation.vehicleMenuItems.length === 0)
+            navigation.populateVehicleMenu(vm.model.VehicleId);
+        vm.menuItems = navigation.vehicleMenuItems;
     }
 
     function viewVehicle(ev) {
         vehicleDialog.viewDialog(vm.model.VehicleId, true, ev);
-    }
-
-    function getMenu() {
-        var items = [];
-
-        if (profile.isAuthorized("Fleet", "VehicleServiceView"))
-            items.push(getMenuItem(" Service History", "service", "service"));
-
-        if (profile.isAuthorized("Fleet", "VehicleFuelView"))
-            items.push(getMenuItem(" Fuel History", "fuel", "fuel"));
-
-        if (profile.isAuthorized("Fleet", "VehicleDriverView"))
-            items.push(getMenuItem(" Driver History", "driver", "driver"));
-
-        if (profile.isAuthorized("Fleet", "VehicleTripView"))
-            items.push(getMenuItem(" Trip History", "vehicletrip", "trip"));
-
-        return items;
-    }
-
-    function getMenuItem(text, url, iconCss)
-    {
-        var cssClass = "";
-        var spriteCssClass = "icon-menu icon-" + iconCss
-        var hash = utility.routePath("vehicle/" + vm.model.VehicleId + "/" + url);
-        var currentHash = $state.href($state.current.name, $state.params);
-        if (hash === currentHash)
-        {
-            cssClass = "k-state-highlight";
-        }
-        return { text: text, url: hash, cssClass: cssClass, spriteCssClass: spriteCssClass };
     }
 
     function menuSelect(e)
