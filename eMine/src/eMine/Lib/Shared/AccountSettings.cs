@@ -8,8 +8,6 @@ namespace eMine.Lib.Shared
 {
     public static class AccountSettings
     {
-        public static List<string> SiteAdmin = new List<string>() { "SuperAdmin", "GroupAdmin", "CompanyAdmin" };
-
         public const string AdminSuffix = "Admin";
         public const string DenySuffix = "_Deny";
 

@@ -19,7 +19,7 @@ namespace eMine.Lib.Entities
 
         public BaseEntity()
         {
-            ProfileModel profile = (ProfileModel) HttpHelper.HttpContext.Items["Profile"];
+            ProfileModel profile = (ProfileModel) HttpHelper.HttpContext.Items[Constants.ProfileString];
 
             CreatedUserId = profile.UserName;
             CreatedDate = DateTime.UtcNow;
@@ -31,7 +31,7 @@ namespace eMine.Lib.Entities
 
         public virtual void UpdateAuditFields()
         {
-            ProfileModel profile = (ProfileModel)HttpHelper.HttpContext.Items["Profile"];
+            ProfileModel profile = (ProfileModel)HttpHelper.HttpContext.Items[Constants.ProfileString];
 
             LastModifiedDate = DateTime.UtcNow;
             LastModifiedUserId = profile.UserName;  //TODO: Change this get the current user

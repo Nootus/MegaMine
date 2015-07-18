@@ -47,22 +47,22 @@ namespace eMine.Lib.Domain
             return profile;
         }
 
-        private async Task<ProfileModel> ProfileGet(string userName)
+        internal async Task<ProfileModel> ProfileGet(string userName)
         {
             ProfileModel profile = await accountRepository.UserProfileGet(userName);
-            profile.SetMenu();
             //setting all the roles
             profile.Roles = PageService.Roles.Where(r => profile.Roles.Contains(r.Key)).Select(r => r.Item).ToArray();
+            profile.SetMenu();
 
             //setting the claims on to the context
-            HttpHelper.HttpContext.Items["Profile"] = profile;
+            HttpHelper.HttpContext.Items[Constants.ProfileString] = profile;
 
             return profile;
         }
 
         public async Task<ProfileModel> DefaultProfile()
         {
-            ProfileModel profile = (ProfileModel) HttpHelper.HttpContext.Items["Profile"];
+            ProfileModel profile = (ProfileModel) HttpHelper.HttpContext.Items[Constants.ProfileString];
 
             profile = await ProfileGet(profile.UserName);
 

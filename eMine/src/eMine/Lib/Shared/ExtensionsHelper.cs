@@ -14,32 +14,25 @@ namespace eMine.Lib.Shared
         {
             List<IdentityPageEntity> pageClaims = PageService.PageClaims;
             List<IdentityPageEntity> menuClaims;
-            //checking for admin roles
-            if (profile.Roles.Any(r => AccountSettings.SiteAdmin.Contains(r)))
-            {
-                menuClaims = pageClaims.Where(c=> c.MenuInd == true).ToList();
-            }
-            else
-            {
-                //checking for the module admins
-                var rolequery = from claims in pageClaims
-                             where profile.Roles.Contains(claims.Module + AccountSettings.AdminSuffix)
-                             && claims.MenuInd == true
-                             select claims;
 
-                var roleClaims = rolequery.ToList();
+            //checking for the admins
+            var rolequery = from claims in pageClaims
+                            where profile.Roles.Contains(claims.Module + AccountSettings.AdminSuffix)
+                            && claims.MenuInd == true
+                            select claims;
 
-                //checking for name
-                var userquery = from claims in pageClaims
-                                 join pc in profile.Claims on claims.Module equals pc.ClaimType
-                                where claims.Claim == null || claims.Claim == pc.ClaimValue
-                                && claims.MenuInd == true
-                                select claims;
+            var roleClaims = rolequery.ToList();
 
-                var userClaims = userquery.ToList();
+            //checking for name
+            var userquery = from claims in pageClaims
+                                join pc in profile.Claims on claims.Module equals pc.ClaimType
+                            where claims.Claim == null || claims.Claim == pc.ClaimValue
+                            && claims.MenuInd == true
+                            select claims;
 
-                menuClaims = roleClaims.Union(userClaims).ToList();
-            }
+            var userClaims = userquery.ToList();
+
+            menuClaims = roleClaims.Union(userClaims).ToList();
 
             //getting the menu model
             List<MenuModel> menu = menuClaims.Select(claims => new MenuModel { text =  claims.Text, url = claims.Url, disabled = claims.Disabled,

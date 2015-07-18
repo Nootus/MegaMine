@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').factory('navigation', navigation)
-navigation.$inject = ['$rootScope', '$state', '$window', '$location', '$http', 'profile', 'utility'];
+navigation.$inject = ['$rootScope', '$state', '$window', '$location', '$http', 'profile', 'utility', 'constants'];
 
-function navigation($rootScope, $state, $window, $location, $http, profile, utility) {
+function navigation($rootScope, $state, $window, $location, $http, profile, utility, constants) {
 
     var vm = {
         appTitle: 'eMine',
@@ -29,7 +29,7 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
 
             //checking whether user is authenticated
             if (profile.isAuthenticated === false && toState.name !== 'login') {
-                if (vm.environmentName.toLowerCase() === "development") {
+                if (vm.environmentName.toLowerCase() === constants.devEnvironment) {
                     $http.get("/api/account/defaultprofile")
                         .success(function (data) {
                             profile.populate(data);

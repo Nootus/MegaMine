@@ -15,6 +15,7 @@ using System.Threading.Tasks;
 using Microsoft.Framework.DependencyInjection;
 using eMine.Lib.Repositories;
 using Newtonsoft.Json;
+using eMine.Lib.Domain;
 
 namespace eMine.Lib.Middleware
 {
@@ -41,17 +42,17 @@ namespace eMine.Lib.Middleware
                     LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value
                 };
 
-                context.Items["Profile"] = profile;
+                context.Items[Constants.ProfileString] = profile;
             }
             //automatically loggin in in the dev mode
-            else if (SiteSettings.IsEnvironment("Development"))
+            else if (SiteSettings.IsEnvironment(Constants.DevEnvironment))
             {
                 SignInManager<ApplicationUser> signInManager = context.ApplicationServices.GetService<SignInManager<ApplicationUser>>();
                 UserManager<ApplicationUser> userManager = context.ApplicationServices.GetService<UserManager<ApplicationUser>>();
-                AccountRepository accountRepository = context.ApplicationServices.GetService<AccountRepository>();
+                AccountDomain accountDomain = context.ApplicationServices.GetService<AccountDomain>();
 
-                ProfileModel profile = await accountRepository.UserProfileGet(AccountSettings.DefaultProfileUserName);
-                profile.SetMenu();
+                ProfileModel profile = await accountDomain.ProfileGet(AccountSettings.DefaultProfileUserName);
+
                 try
                 {
                     ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
@@ -61,7 +62,7 @@ namespace eMine.Lib.Middleware
                 {
                     //ignore exception
                 }
-                context.Items["Profile"] = profile;
+                context.Items[Constants.ProfileString] = profile;
 
             }
 
