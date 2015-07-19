@@ -10,5 +10,6 @@ namespace eMine.Models.Shared
         public const string CompanyId = "CompanyId";
         public const string FirstName = "FirstName";
         public const string LastName = "LastName";
+        public const string Companies = "Companies";
     }
 }

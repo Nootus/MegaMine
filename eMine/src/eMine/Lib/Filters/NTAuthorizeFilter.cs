@@ -7,6 +7,7 @@ using Microsoft.Framework.Internal;
 using eMine.Lib.Shared;
 using System.Security.Claims;
 using eMine.Lib.Middleware;
+using eMine.Models.Shared;
 
 namespace eMine.Lib.Filters
 {
@@ -34,6 +35,15 @@ namespace eMine.Lib.Filters
             }
 
             var userClaims = context.HttpContext.User.Claims;
+
+            //checking the companyid passed in headers
+            string companies = userClaims.Where(c => c.Type == NTClaimTypes.Companies).Select(c => c.Value).FirstOrDefault();
+            string companyId = context.HttpContext.Request.Headers.Get(Constants.HeaderCompanyId);
+            if (companies == null || companyId == null || !companies.Split(',').Contains(companyId))
+            {
+                context.Result = new HttpStatusCodeResult(403);
+                return;
+            }
 
             //getting current roles and then get all the child roles
             string[] roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToArray();

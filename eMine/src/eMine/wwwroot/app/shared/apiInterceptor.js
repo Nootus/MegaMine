@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('emine').factory('apiInterceptor', apiInterceptor);
-apiInterceptor.$inject = ['$q', 'utility', 'message'];
+apiInterceptor.$inject = ['$q', 'utility', 'message', 'profile'];
 
-function apiInterceptor($q, utility, message) {
+function apiInterceptor($q, utility, message, profile) {
 
     var rawapiUrl = '/api/';
     var apiUrl = window.virtualDirectory + '/api/';
@@ -20,8 +20,10 @@ function apiInterceptor($q, utility, message) {
         if (config.url.indexOf(rawapiUrl) === 0)
             config.url = window.virtualDirectory + config.url;
 
-        if (config.url.indexOf(apiUrl) === 0)
-            navigation.isLoading = true;
+        if (config.url.indexOf(apiUrl) === 0) {
+            //navigation.isLoading = true;
+            config.headers.companyId = profile.companyId
+        }
 
         // Return the config or promise.
         return config || $q.when(config);

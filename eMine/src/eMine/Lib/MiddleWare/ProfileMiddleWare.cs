@@ -34,12 +34,15 @@ namespace eMine.Lib.Middleware
             {
                 var claims = context.User.Claims;
 
+                string companyId = context.Request.Headers.Get(Constants.HeaderCompanyId);
+
                 ProfileModel profile = new ProfileModel()
                 {
                     UserID = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
                     UserName = context.User.Identity.Name,
                     FirstName = claims.First(c => c.Type == NTClaimTypes.FirstName).Value,
-                    LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value
+                    LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value,
+                    CompanyId = Convert.ToInt32(companyId ?? "0")
                 };
 
                 context.Items[Constants.ProfileString] = profile;

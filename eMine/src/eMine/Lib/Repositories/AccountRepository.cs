@@ -1,8 +1,10 @@
 ﻿using eMine.Lib.Entities;
 using eMine.Lib.Entities.Account;
+using eMine.Lib.Middleware;
 using eMine.Lib.Shared;
 using eMine.Models;
 using eMine.Models.Account;
+using eMine.Models.Administration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,18 +30,33 @@ namespace eMine.Lib.Repositories
                             UserID = users.UserProfileId,
                             FirstName = users.FirstName,
                             LastName = users.LastName,
-                            UserName = idn.UserName
+                            UserName = idn.UserName,
+                            DefaultCompanyId = users.CompanyId,
+                            CompanyId = users.CompanyId
                         };
 
             ProfileModel model = await query.FirstOrDefaultAsync();
+
+            var companyQuery = from cmp in dbContext.Companies
+                               join usrcmp in dbContext.UserCompanies on cmp.CompanyId equals usrcmp.CompanyId
+                               where usrcmp.UserProfileId == model.UserID
+                               && cmp.DeletedInd == false
+                               select new CompanyModel
+                               {
+                                   CompanyId = cmp.CompanyId,
+                                   CompanyName = cmp.CompanyName,
+                                   GroupInd = cmp.GroupInd,
+                                   ParentCompanyId = cmp.ParentCompanyId
+                               };
+            model.Companies = await companyQuery.ToListAsync();
 
             //getting roles
             var roleQuery = from userRoles in dbContext.UserRoles
                             join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
                             where userRoles.UserId == model.UserID
                             select roles.Name;
-            model.Roles = roleQuery.ToArray();
-      
+            model.Roles = await roleQuery.ToArrayAsync();
+
             //getting roles claims
             var rolesClaimsQuery = from roles in dbContext.UserRoles
                                   join claims in dbContext.RoleClaims on roles.RoleId equals claims.RoleId

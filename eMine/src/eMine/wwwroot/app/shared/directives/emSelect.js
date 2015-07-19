@@ -13,16 +13,17 @@ function emSelect($compile) {
             form: "=",
             label: '@',
             controlName: "@",
-             ngRequired: '=',
+            ngRequired: '=',
             ngDisabled: '=',
-            style: '@'
+            style: '@',
+            hideLabel: '@'
         },
         link: link,
     };
 
     function getTemplate(controlName, optValue, optText) {
         return '<md-input-container class="emselect {{errorCss}}" md-is-error="isFieldError()" style="{{style}}">'
-                    + '<label>{{label}}</label>'
+                    + '<label ng-hide="{{hideLabel}}">{{label}}</label>'
                     + '<md-select name="' + controlName + '" ng-required="{{ngRequired}}" ng-disabled="{{ngDisabled}}" ng-model="ngModel" aria-label="{{controlName}}">'
                     + '<md-option ng-value="opt.' + optValue + '" ng-repeat="opt in optList">{{ opt.' + optText + ' }}</md-option>'
                     + '</md-select>'

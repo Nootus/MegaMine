@@ -1,4 +1,5 @@
-﻿using System;
+﻿using eMine.Models.Administration;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,7 +18,7 @@ namespace eMine.Models.Account
 
         public string[] Roles { get; set; }
         public List<ClaimModel> Claims { get; set; }
-        //public List<CompanyModel>
+        public List<CompanyModel> Companies { get; set; }
 
         public List<MenuModel> Menu { get; set; }
     }

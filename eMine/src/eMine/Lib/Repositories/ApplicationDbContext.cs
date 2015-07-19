@@ -1,4 +1,5 @@
 ﻿using eMine.Lib.Entities.Account;
+using eMine.Lib.Entities.Administration;
 using eMine.Lib.Entities.Fleet;
 using eMine.Lib.Shared;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -10,9 +11,13 @@ namespace eMine.Lib.Repositories
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         //Account
-        public DbSet<UserProfileEntity> UserProfiles { get; set; }
         public DbSet<IdentityPageEntity> IdentityPages { get; set; }
         public DbSet<IdentityRoleHierarchyEntity> IdentityRoleHierarchies { get; set; }
+        public DbSet<UserProfileEntity> UserProfiles { get; set; }
+        public DbSet<UserCompanyEntity> UserCompanies { get; set; }
+
+        //Administration
+        public DbSet<CompanyEntity> Companies { get; set; }
 
         //Fleet
         public DbSet<VehicleTypeEntity> VehicleTypes { get; set; }
@@ -45,6 +50,14 @@ namespace eMine.Lib.Repositories
 
             builder.Entity<IdentityRoleHierarchyEntity>().ForRelational().Table("IdentityRoleHierarchy");
             //builder.Entity<IdentityRoleHierarchyEntity>().Key(k => k.RoleId );
+
+            builder.Entity<UserCompanyEntity>().ForRelational().Table("UserCompany");
+            builder.Entity<UserCompanyEntity>().Key(k => new { k.UserProfileId, k.CompanyId });
+
+
+            //Administration
+            builder.Entity<CompanyEntity>().ForRelational().Table("Company");
+            builder.Entity<CompanyEntity>().Key(k => k.CompanyId);
 
 
             #region Fleet

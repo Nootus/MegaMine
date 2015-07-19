@@ -8,6 +8,7 @@ function index($scope, $interval, profile, navigation, utility) {
         navigation: navigation,
         profile: profile,
         menuSelect: menuSelect,
+        companies: []
     };
 
 
@@ -16,10 +17,8 @@ function index($scope, $interval, profile, navigation, utility) {
     init();
 
     function init() {
-        //setMenuPermissions();
 
-        $scope.$watch("vm.profile.isAuthenticated", bindProfileMenu);
-        //$scope.$watch("vm.profile.isAuthenticated", closeProfileMenu);
+        $scope.$watch("vm.profile.isAuthenticated", profileUpdated);
 
         ConfigProgressBar();
     }
@@ -40,7 +39,7 @@ function index($scope, $interval, profile, navigation, utility) {
         }, 100, 0, true);
     }
 
-    function bindProfileMenu() {
+    function profileUpdated() {
 
         $("#profile-menu").kendoMenu({
             dataSource: [

@@ -9,5 +9,7 @@ namespace eMine.Lib.Shared
     {
         public const string ProfileString = "Profile";
         public const string DevEnvironment = "Development";
+
+        public const string HeaderCompanyId = "companyId";
     }
 }

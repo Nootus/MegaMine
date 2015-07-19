@@ -11,6 +11,8 @@ function profile() {
         lastName: undefined,
         fullName: undefined,
         userName: undefined,
+        companyId: undefined,
+        companies: [],
         roles: [],
         claims: [],
         menu: [],
@@ -28,6 +30,8 @@ function profile() {
         vm.lastName = data.LastName;
         vm.fullName = data.FullName;
         vm.userName = data.UserName;
+        vm.companyId = data.CompanyId;
+        vm.companies = data.Companies;
         vm.roles = data.Roles;
         vm.claims = data.Claims;
         vm.menu = data.Menu;
@@ -48,6 +52,9 @@ function profile() {
                     break;
                 }
             }
+        }
+        else {
+            response = true;
         }
 
         return response;

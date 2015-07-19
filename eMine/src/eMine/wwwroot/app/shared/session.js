@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('emine').factory('session', session);
-session.$inject = ['$rootScope', '$state', '$window', '$http', 'toastr', 'profile', 'navigation', '$location'];
+session.$inject = [ '$window', 'toastr', 'navigation'];
 
-function session($rootScope, $state, $window, $http, toastr, profile, navigation, $location) {
+function session($window, toastr,  navigation) {
 
     var breadcrumbs = [];
     var breadcrumbsService = {};
@@ -11,7 +11,7 @@ function session($rootScope, $state, $window, $http, toastr, profile, navigation
 
     var vm = {
         navigation: navigation,
-        profile: profile,
+        //profile: profile,
         initialize: initialize,
         logout: logout
     };
@@ -23,10 +23,13 @@ function session($rootScope, $state, $window, $http, toastr, profile, navigation
         toastr.options.backgroundpositionClass = 'toast-bottom-right';
 
         navigation.initialize();
+
+        //global values
+        $window.navigation = navigation;
     }
 
     function logout() {
-        profile.logout();
+        //profile.logout();
     }
 
 };
