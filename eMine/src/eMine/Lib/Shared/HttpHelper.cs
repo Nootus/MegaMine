@@ -19,7 +19,7 @@ namespace eMine.Lib.Shared
         {
             get
             {
-                return HttpContextAccessor.HttpContext;
+                return HttpContextAccessor?.HttpContext;
             }
         }
     }

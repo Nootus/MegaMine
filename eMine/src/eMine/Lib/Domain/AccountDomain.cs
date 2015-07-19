@@ -54,15 +54,15 @@ namespace eMine.Lib.Domain
             profile.Roles = PageService.Roles.Where(r => profile.Roles.Contains(r.Key)).Select(r => r.Item).ToArray();
             profile.SetMenu();
 
-            //setting the claims on to the context
-            HttpHelper.HttpContext.Items[Constants.ProfileString] = profile;
+            //setting the claims on to the context'
+            Profile.SetCurrent(profile);
 
             return profile;
         }
 
         public async Task<ProfileModel> DefaultProfile()
         {
-            ProfileModel profile = (ProfileModel) HttpHelper.HttpContext.Items[Constants.ProfileString];
+            var profile = Profile.Current;
 
             profile = await ProfileGet(profile.UserName);
 

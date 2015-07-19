@@ -78,10 +78,10 @@ namespace eMine.Lib.Domain
             await vehicleRepository.ModelSave(model);
         }
 
-        public async Task <VehicleTypeModel> VehicleTypeGet(int vehicleTypeId)
-        {
-            return await vehicleRepository.VehicleTypeGet(vehicleTypeId);
-        }
+        //public async Task <VehicleTypeModel> VehicleTypeGet(int vehicleTypeId)
+        //{
+        //    return await vehicleRepository.VehicleTypeGet(vehicleTypeId);
+        //}
 
         public async Task VehicleTypeSave(VehicleTypeModel model)
         {
@@ -178,10 +178,10 @@ namespace eMine.Lib.Domain
         {
             return await vehicleRepository.DriversListGet();
         }
-        public async Task<List<ListItem<int, string>>> VehicleTripListItemGet(int VehicleId = 0)
-        {
-            return await vehicleRepository.VehicleTripListItemGet(VehicleId);
-        }
+        //public async Task<List<ListItem<int, string>>> VehicleTripListItemGet(int VehicleId = 0)
+        //{
+        //    return await vehicleRepository.VehicleTripListItemGet(VehicleId);
+        //}
 
         public async Task<List<VehicleTripModel>> VehicleTripListGet(int VehicleId = 0)
         {

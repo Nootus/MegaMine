@@ -39,6 +39,8 @@ namespace eMine.Lib.Filters
             //checking the companyid passed in headers
             string companies = userClaims.Where(c => c.Type == NTClaimTypes.Companies).Select(c => c.Value).FirstOrDefault();
             string companyId = context.HttpContext.Request.Headers.Get(Constants.HeaderCompanyId);
+            companyId = companyId ?? userClaims.Where(c => c.Type == NTClaimTypes.CompanyId).Select(c => c.Value).FirstOrDefault();
+
             if (companies == null || companyId == null || !companies.Split(',').Contains(companyId))
             {
                 context.Result = new HttpStatusCodeResult(403);
