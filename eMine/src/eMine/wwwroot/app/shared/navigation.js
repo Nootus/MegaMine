@@ -5,7 +5,7 @@ navigation.$inject = ['$rootScope', '$state', '$window', '$location', '$http', '
 function navigation($rootScope, $state, $window, $location, $http, profile, utility, constants) {
 
     var vm = {
-        appTitle: 'eMine',
+        appTitle: 'Mega Mine',
         environmentName: window.environmentName,
         isLoading: true,
         initialize: initialize,

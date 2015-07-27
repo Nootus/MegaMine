@@ -14,7 +14,8 @@ function emInput(moment, constants) {
             ngRequired: '=',
             ngDisabled: '=',
             emMaxlength: '@',
-            style: '@'
+            style: '@',
+            errorMessages: '='
         },
         link: link,
         template: '<md-input-container md-is-error="isFieldError()" style="{{style}}">'
@@ -26,6 +27,9 @@ function emInput(moment, constants) {
                     + '<span ng-message="number">Invalid number!</span>'
                     + '<span ng-message="date">Invalid date!</span>'
                     + '<span ng-message="datetimelocal">Invalid date!</span>'
+                    + '<span ng-repeat="errorMessage in errorMessages">'
+                        + '<span ng-message-exp="errorMessage.type">{{ errorMessage.text }}</span>'
+                    + '</span>'
                     + '</div>'
                     + '</md-input-container>'
 

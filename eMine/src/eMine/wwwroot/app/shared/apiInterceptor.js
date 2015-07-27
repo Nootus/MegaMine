@@ -46,22 +46,18 @@ function apiInterceptor($q, utility, message, profile) {
 
             //checking whether we got our AjaxModel
             if (response.data.hasOwnProperty("Result") && response.data.hasOwnProperty("Message") && response.data.hasOwnProperty("Model")) {
-                if (response.data.Result === 1) {
-                    utility.showError(response.data.Message);
-                    return $q.reject(response);
-                    //alert(response.data.Message);
-                    //if (response.config.data.supressToastr === true) {
-                    //    response.config.data.supressToastr = false;
-                    //    return $q.reject(response.data.Message);
-                    //}
-                    //else {
-                    //    utility.showError(response.data.Message);
-                    //    return $q.reject(response);
-                    //}
-                }
-                else {
-                    utility.showInfo(response.data.Message);
-                    response.data = response.data.Model;
+                switch (response.data.Result) {
+                    case 1:
+                        utility.showError(response.data.Message);
+                        return $q.reject(response);
+                        break;
+                    case 2:
+                        return $q.reject(response);
+                        break;
+                    default:
+                        utility.showInfo(response.data.Message);
+                        response.data = response.data.Model;
+                        break;
                 }
             }
         }

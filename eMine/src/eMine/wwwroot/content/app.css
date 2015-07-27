@@ -401,6 +401,12 @@ md-progress-linear{
     margin-top: -2px;
 }
 
+[ng-message-exp]{
+    color: rgb(244, 67, 54);
+    font-size: 11px;
+    position: absolute;
+}
+
 /*Material design overrides ends*/
 
 /* UI Grid overrides*/
