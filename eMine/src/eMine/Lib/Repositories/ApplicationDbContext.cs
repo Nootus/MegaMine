@@ -1,6 +1,7 @@
 ﻿using eMine.Lib.Entities.Account;
 using eMine.Lib.Entities.Administration;
 using eMine.Lib.Entities.Fleet;
+using eMine.Lib.Entities.Quarry;
 using eMine.Lib.Shared;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
@@ -36,11 +37,15 @@ namespace eMine.Lib.Repositories
         public DbSet<SparePartManufacturerEntity> SparePartManufacturers { get; set; }
         public DbSet<VehicleTripEntity> VehicleTrips{ get; set; }
 
+        //Quarry
+        public DbSet<MaterialColourEntity> MaterialColours { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // configuration for each table
 
+            #region Account
+            
             //Account
             builder.Entity<UserProfileEntity>().ForRelational().Table("UserProfile");
             builder.Entity<UserProfileEntity>().Key(k => k.UserProfileId);
@@ -59,7 +64,8 @@ namespace eMine.Lib.Repositories
             builder.Entity<CompanyEntity>().ForRelational().Table("Company");
             builder.Entity<CompanyEntity>().Key(k => k.CompanyId);
 
-
+            #endregion
+            
             #region Fleet
             //VehicleType
             builder.Entity<VehicleTypeEntity>().ForRelational().Table("VehicleType");
@@ -122,6 +128,14 @@ namespace eMine.Lib.Repositories
             //[VehicleTrip]
             builder.Entity<VehicleTripEntity>().ForRelational().Table("VehicleTrip");
             builder.Entity<VehicleTripEntity>().Key(k => k.VehicleTripId);
+            #endregion
+
+            #region Quarry
+
+            //MaterialColour
+            builder.Entity<MaterialColourEntity>().ForRelational().Table("MaterialColour");
+            builder.Entity<MaterialColourEntity>().Key(k => k.MaterialColourId);
+
             #endregion
 
             base.OnModelCreating(builder);

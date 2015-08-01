@@ -30,6 +30,13 @@ namespace eMine.Lib.Shared
         }
         #endregion
 
+        #region Quarry Messages
+        public static class Quarry
+        {
+            public const string MaterialColourSaveSuccess = "Colour Saved Successfully";
+        }
+        #endregion
+
         public static class Account
         {
             public const string LogoutSuccess = "Successfully logged out";

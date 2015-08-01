@@ -57,6 +57,10 @@ namespace eMine
             services.AddTransient<VehicleRepository>();
             services.AddTransient<SparePartRepository>();
 
+            //Quarry
+            services.AddTransient<QuarryDomain>();
+            services.AddTransient<QuarryRepository>();
+
             //Accout
             services.AddTransient<AccountDomain>();
             services.AddTransient<AccountRepository>();
