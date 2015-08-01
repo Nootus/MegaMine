@@ -40,5 +40,18 @@ namespace eMine.Lib.Domain
             await quarryRepository.ProductTypeSave(model);
         }
         #endregion
+
+        #region Quarry
+        //Product Type
+        public async Task<List<QuarryModel>> QuarriesGet()
+        {
+            return await quarryRepository.QuarriesGet();
+        }
+
+        public async Task QuarrySave(QuarryModel model)
+        {
+            await quarryRepository.QuarrySave(model);
+        }
+        #endregion
     }
 }

@@ -17,6 +17,11 @@ function quarryService($http) {
         getProductTypes: getProductTypes,
         saveProductType: saveProductType,
 
+        //product types
+        quarries: [],
+        getQuarries: getQuarries,
+        saveQuarry: saveQuarry,
+
     };
 
     return service;
@@ -65,4 +70,25 @@ function quarryService($http) {
         return $http.post(url, model);
     }
 
+    //Quarry
+    function getQuarries() {
+        return $http.get("/api/quarry/quarriesget")
+            .success(function (data) {
+                //in order to refresh the grid, we need to remove all the elements and readd them
+                service.quarries.splice(0, service.quarries.length);
+                angular.extend(service.quarries, data);
+            });
+    }
+
+    function saveQuarry(model) {
+        var url;
+        if (model.QuarryId === 0) {
+            url = "/api/quarry/quarryadd";
+        }
+        else {
+            url = "/api/quarry/quarryupdate";
+        }
+
+        return $http.post(url, model);
+    }
 }

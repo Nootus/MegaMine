@@ -15,7 +15,8 @@ function utility(toastr) {
         getGridHeight: getGridHeight,
         getMainGridHeight: getMainGridHeight,
         getSubGridHeight: getSubGridHeight,
-        getListItem: getListItem
+        getListItem: getListItem,
+        getItem: getItem
     };
 
     return vm;
@@ -56,6 +57,18 @@ function utility(toastr) {
         for (var counter = 0; counter < list.length; counter++) {
             if (key === list[counter].Key) {
                 item = list[counter].Item;
+                break;
+            }
+        }
+
+        return item;
+    }
+
+    function getItem(list, key, keyField, itemField) {
+        var item;
+        for (var counter = 0; counter < list.length; counter++) {
+            if (key === list[counter][keyField]) {
+                item = list[counter][itemField];
                 break;
             }
         }

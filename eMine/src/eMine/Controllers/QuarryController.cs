@@ -58,5 +58,24 @@ namespace eMine.Controllers
         }
         #endregion
 
+        #region Quarry
+        [HttpGet]
+        public async Task<AjaxModel<List<QuarryModel>>> QuarriesGet()
+        {
+            return await AjaxHelper.GetAsync<List<QuarryModel>>(m => domain.QuarriesGet());
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<QuarryModel>> QuarryAdd([FromBody] QuarryModel model)
+        {
+            return await AjaxHelper.SaveAsync<QuarryModel>(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<QuarryModel>> QuarryUpdate([FromBody] QuarryModel model)
+        {
+            return await AjaxHelper.SaveAsync<QuarryModel>(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
+        }
+        #endregion
     }
 }

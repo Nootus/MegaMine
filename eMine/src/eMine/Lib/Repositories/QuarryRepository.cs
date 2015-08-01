@@ -123,5 +123,95 @@ namespace eMine.Lib.Repositories
             }
         }
         #endregion
+
+        #region Quarry
+        public async Task<List<QuarryModel>> QuarriesGet()
+        {
+            var quarry = await (from qry in dbContext.Quarries
+                        where qry.DeletedInd == false
+                            && qry.CompanyId == profile.CompanyId
+                        orderby qry.QuarryName ascending
+                        select new QuarryModel
+                        {
+                            QuarryId = qry.QuarryId,
+                            QuarryName = qry.QuarryName,
+                            Location = qry.Location
+
+                        }).ToListAsync();
+
+            var quarryColours = await (from clr in dbContext.QuarryMaterialColours
+                                        join mc in dbContext.MaterialColours on clr.MaterialColourId equals mc.MaterialColourId
+                                       where clr.DeletedInd == false
+                                           && clr.CompanyId == profile.CompanyId
+                                       select new { clr.QuarryId, clr.MaterialColourId, mc.ColourName }).ToListAsync();
+
+
+            quarry.ForEach(q => {
+                q.ColourIds = quarryColours.Where(qc => qc.QuarryId == q.QuarryId).Select(qc => qc.MaterialColourId).ToList();
+                q.Colours = String.Join(", ", quarryColours.Where(qc => qc.QuarryId == q.QuarryId).Select(qc => qc.ColourName).OrderBy(nm => nm));
+            });
+
+            return quarry;
+        }
+
+        public async Task QuarryAdd(QuarryModel model)
+        {
+            QuarryEntity entity = new QuarryEntity()
+            {
+                QuarryName = model.QuarryName,
+                Location = model.Location
+            };
+            dbContext.Quarries.Add(entity);
+
+            //adding colours ids
+            model.ColourIds.ForEach(cId => dbContext.QuarryMaterialColours.Add(new QuarryMaterialColourEntity() { Quarry = entity, MaterialColourId = cId }));
+
+            //adding Yard
+            dbContext.Yards.Add(new YardEntity() { YardName = model.QuarryName + " Yard", Location = model.Location, Quarry = entity });
+
+            await dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task QuarryUpdate(QuarryModel model)
+        {
+            //Update the VehicleService Entity first
+            QuarryEntity entity = (from qry in dbContext.Quarries where qry.QuarryId == model.QuarryId && qry.CompanyId == profile.CompanyId select qry).First();
+            entity.QuarryName = model.QuarryName;
+            entity.Location = model.Location;
+            entity.UpdateAuditFields();
+            dbContext.Quarries.Update(entity);
+
+            //getting the existing colours
+            List<QuarryMaterialColourEntity> colours = (from clr in dbContext.QuarryMaterialColours where clr.QuarryId == model.QuarryId select clr).ToList();
+
+            //deleting colour ids
+            colours.Where(c => !model.ColourIds.Contains(c.MaterialColourId)).ToList().ForEach(ce => dbContext.QuarryMaterialColours.Remove(ce));
+
+            //adding colours ids
+            model.ColourIds.Except(colours.Select(ce => ce.MaterialColourId)).ToList().ForEach(cId => dbContext.QuarryMaterialColours.Add(new QuarryMaterialColourEntity() { QuarryId = model.QuarryId, MaterialColourId = cId }));
+
+            //updating Yard
+            YardEntity yard = (from yd in dbContext.Yards where yd.QuarryId == model.QuarryId select yd).First();
+            yard.Location = model.Location;
+            yard.YardName = model.QuarryName + " Yard";
+            dbContext.Yards.Update(yard);
+
+            await dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task QuarrySave(QuarryModel model)
+        {
+            if (model.QuarryId == 0)
+            {
+                await QuarryAdd(model);
+            }
+            else
+            {
+                await QuarryUpdate(model);
+            }
+        }
+        #endregion
     }
 }
