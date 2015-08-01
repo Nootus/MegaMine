@@ -17,10 +17,15 @@ function quarryService($http) {
         getProductTypes: getProductTypes,
         saveProductType: saveProductType,
 
-        //product types
+        //quarries
         quarries: [],
         getQuarries: getQuarries,
         saveQuarry: saveQuarry,
+
+        //yards
+        yards: [],
+        getYards: getYards,
+        saveYard: saveYard,
 
     };
 
@@ -87,6 +92,28 @@ function quarryService($http) {
         }
         else {
             url = "/api/quarry/quarryupdate";
+        }
+
+        return $http.post(url, model);
+    }
+
+    //Yardsrry
+    function getYards() {
+        return $http.get("/api/quarry/yardsget")
+            .success(function (data) {
+                //in order to refresh the grid, we need to remove all the elements and readd them
+                service.yards.splice(0, service.yards.length);
+                angular.extend(service.yards, data);
+            });
+    }
+
+    function saveYard(model) {
+        var url;
+        if (model.YardId === 0) {
+            url = "/api/quarry/yardadd";
+        }
+        else {
+            url = "/api/quarry/yardupdate";
         }
 
         return $http.post(url, model);

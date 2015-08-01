@@ -77,5 +77,25 @@ namespace eMine.Controllers
             return await AjaxHelper.SaveAsync<QuarryModel>(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
         }
         #endregion
+
+        #region Yard
+        [HttpGet]
+        public async Task<AjaxModel<List<YardModel>>> YardsGet()
+        {
+            return await AjaxHelper.GetAsync<List<YardModel>>(m => domain.YardsGet());
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<YardModel>> YardAdd([FromBody] YardModel model)
+        {
+            return await AjaxHelper.SaveAsync<YardModel>(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<YardModel>> YardUpdate([FromBody] YardModel model)
+        {
+            return await AjaxHelper.SaveAsync<YardModel>(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
+        }
+        #endregion
     }
 }

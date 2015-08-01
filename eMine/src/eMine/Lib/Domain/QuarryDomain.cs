@@ -42,7 +42,7 @@ namespace eMine.Lib.Domain
         #endregion
 
         #region Quarry
-        //Product Type
+        //Quarry
         public async Task<List<QuarryModel>> QuarriesGet()
         {
             return await quarryRepository.QuarriesGet();
@@ -51,6 +51,19 @@ namespace eMine.Lib.Domain
         public async Task QuarrySave(QuarryModel model)
         {
             await quarryRepository.QuarrySave(model);
+        }
+        #endregion
+
+        #region Yard
+        //Yards
+        public async Task<List<YardModel>> YardsGet()
+        {
+            return await quarryRepository.YardsGet();
+        }
+
+        public async Task YardSave(YardModel model)
+        {
+            await quarryRepository.YardSave(model);
         }
         #endregion
     }

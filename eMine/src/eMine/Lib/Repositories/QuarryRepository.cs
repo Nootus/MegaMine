@@ -46,7 +46,6 @@ namespace eMine.Lib.Repositories
 
         public async Task MaterialColourUpdate(MaterialColourModel model)
         {
-            //Update the VehicleService Entity first
             MaterialColourEntity entity = (from mc in dbContext.MaterialColours where mc.MaterialColourId == model.MaterialColourId && mc.CompanyId == profile.CompanyId select mc).First();
             entity.ColourName = model.ColourName;
             entity.ColourDescription = model.ColourDescription;
@@ -101,7 +100,6 @@ namespace eMine.Lib.Repositories
 
         public async Task ProductTypeUpdate(ProductTypeModel model)
         {
-            //Update the VehicleService Entity first
             ProductTypeEntity entity = (from pt in dbContext.ProductTypes where pt.ProductTypeId == model.ProductTypeId && pt.CompanyId == profile.CompanyId select pt).First();
             entity.ProductTypeName = model.ProductTypeName;
             entity.ProductTypeDescription = model.ProductTypeDescription;
@@ -175,7 +173,6 @@ namespace eMine.Lib.Repositories
 
         public async Task QuarryUpdate(QuarryModel model)
         {
-            //Update the VehicleService Entity first
             QuarryEntity entity = (from qry in dbContext.Quarries where qry.QuarryId == model.QuarryId && qry.CompanyId == profile.CompanyId select qry).First();
             entity.QuarryName = model.QuarryName;
             entity.Location = model.Location;
@@ -210,6 +207,60 @@ namespace eMine.Lib.Repositories
             else
             {
                 await QuarryUpdate(model);
+            }
+        }
+        #endregion
+
+        #region Yard
+        public async Task<List<YardModel>> YardsGet()
+        {
+            var query = from yd in dbContext.Yards
+                        where yd.DeletedInd == false
+                            && yd.CompanyId == profile.CompanyId
+                        orderby yd.YardName ascending
+                        select new YardModel
+                        {
+                            YardId = yd.YardId,
+                            YardName = yd.YardName,
+                            Location = yd.Location,
+                            QuarryId = yd.QuarryId
+                        };
+
+            return await query.ToListAsync();
+        }
+
+        public async Task YardAdd(YardModel model)
+        {
+            YardEntity entity = new YardEntity()
+            {
+                YardName = model.YardName,
+                Location = model.Location
+            };
+            dbContext.Yards.Add(entity);
+            await dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task YardUpdate(YardModel model)
+        {
+            YardEntity entity = (from yd in dbContext.Yards where yd.YardId == model.YardId && yd.CompanyId == profile.CompanyId select yd).First();
+            entity.YardName = model.YardName;
+            entity.Location = model.Location;
+            entity.UpdateAuditFields();
+            dbContext.Yards.Update(entity);
+            await dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task YardSave(YardModel model)
+        {
+            if (model.YardId == 0)
+            {
+                await YardAdd(model);
+            }
+            else
+            {
+                await YardUpdate(model);
             }
         }
         #endregion
