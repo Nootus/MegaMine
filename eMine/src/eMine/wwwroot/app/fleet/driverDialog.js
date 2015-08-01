@@ -54,7 +54,7 @@ function driverDialog($mdDialog, vehicleService, utility) {
                 service.saveDriver(vm.model).success(function () {
                     //update the grid values
                     if (vm.model.VehicleDriverId === 0) {
-                        vehicleService.getDrivers();
+                        service.getDrivers();
                     }
                     else {
                         model.DriverName = vm.model.DriverName

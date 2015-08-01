@@ -64,7 +64,7 @@ function tripDialog($mdDialog, vehicleService, utility)
                     //update the grid values
                     if (vm.model.VehicleTripId === 0)
                     {
-                        vehicleService.getTripList(vm.model.VehicleId);
+                        service.getTripList(vm.model.VehicleId);
                     }
                     else
                     {

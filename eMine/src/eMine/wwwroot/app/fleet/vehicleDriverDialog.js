@@ -72,7 +72,7 @@ function vehicleDriverDialog($mdDialog, vehicleService, utility, moment) {
                     }
                     //update the grid values
                     if (vm.model.VehicleDriverAssignmentId === 0) {
-                        vehicleService.getVehicleDriverList(vm.model.VehicleId);
+                        service.getVehicleDriverList(vm.model.VehicleId);
                     }
                     else {
                         model.DriverName = driverName;

@@ -59,7 +59,7 @@ function vehicleModelDialog($mdDialog, vehicleService, utility) {
                     //update the grid values
                     if (vm.model.VehicleModelId === 0)
                     {
-                        vehicleService.getManufacturer(vm.model.VehicleManufacturerId);
+                        service.getManufacturer(vm.model.VehicleManufacturerId);
                     }
                     else
                     {

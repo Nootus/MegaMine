@@ -54,7 +54,7 @@ function materialColourDialog($mdDialog, quarryService, utility) {
                 service.saveMaterialColour(vm.model).success(function () {
                     //update the grid values
                     if (vm.model.MaterialColourId === 0) {
-                        quarryService.getMaterialColours();
+                        service.getMaterialColours();
                     }
                     else {
                         model.ColourName = vm.model.ColourName

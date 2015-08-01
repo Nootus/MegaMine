@@ -72,7 +72,7 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
                     if (sparePartOrderId === 0)
                     {
                         //refresh the grid
-                        vehicleService.getSparePart(sparePartId);
+                        service.getSparePart(sparePartId);
                     }
                     else
                     {
@@ -80,7 +80,7 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
                         model.OrderedUnits = vm.model.OrderedUnits;
                         model.UnitCost = vm.model.UnitCost;
 
-                        vehicleService.getSparePart(sparePartId);
+                        service.getSparePart(sparePartId);
 
                     }
 
