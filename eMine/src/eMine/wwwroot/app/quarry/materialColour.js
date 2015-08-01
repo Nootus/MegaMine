@@ -19,7 +19,7 @@ function materialColour($scope, $window, quarryService, materialColourDialog, ui
         gridOptions: gridOptions,
         gridHeight: '0px',
         viewDialog: viewDialog,
-        addmaterialColour: addmaterialColour
+        addMaterialColour: addMaterialColour
     };
 
     init();
@@ -42,7 +42,7 @@ function materialColour($scope, $window, quarryService, materialColourDialog, ui
         vm.gridHeight = utility.getMainGridHeight('main-grid');
     }
 
-    function addmaterialColour(ev) {
+    function addMaterialColour(ev) {
         var model = { MaterialColourId: 0 }
         viewDialog(model, true, ev);
     }

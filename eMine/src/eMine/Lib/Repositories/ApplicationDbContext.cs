@@ -39,6 +39,7 @@ namespace eMine.Lib.Repositories
 
         //Quarry
         public DbSet<MaterialColourEntity> MaterialColours { get; set; }
+        public DbSet<ProductTypeEntity> ProductTypes { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -135,6 +136,10 @@ namespace eMine.Lib.Repositories
             //MaterialColour
             builder.Entity<MaterialColourEntity>().ForRelational().Table("MaterialColour");
             builder.Entity<MaterialColourEntity>().Key(k => k.MaterialColourId);
+
+            //ProductType
+            builder.Entity<ProductTypeEntity>().ForRelational().Table("ProductType");
+            builder.Entity<ProductTypeEntity>().Key(k => k.ProductTypeId);
 
             #endregion
 

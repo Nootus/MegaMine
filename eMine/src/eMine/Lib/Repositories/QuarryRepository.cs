@@ -14,7 +14,7 @@ namespace eMine.Lib.Repositories
             this.dbContext = dbContext;
         }
 
-        #region MaterialColourType
+        #region MaterialColour
         public async Task<List<MaterialColourModel>> MaterialColoursGet()
         {
             var query = from mc in dbContext.MaterialColours
@@ -65,6 +65,61 @@ namespace eMine.Lib.Repositories
             else
             {
                 await MaterialColourUpdate(model);
+            }
+        }
+        #endregion
+
+        #region ProductType
+        public async Task<List<ProductTypeModel>> ProductTypesGet()
+        {
+            var query = from pt in dbContext.ProductTypes
+                        where pt.DeletedInd == false
+                            && pt.CompanyId == profile.CompanyId
+                        orderby pt.ProductTypeName ascending
+                        select new ProductTypeModel
+                        {
+                            ProductTypeId = pt.ProductTypeId,
+                            ProductTypeName = pt.ProductTypeName,
+                            ProductTypeDescription = pt.ProductTypeDescription
+
+                        };
+
+            return await query.ToListAsync();
+        }
+
+        public async Task ProductTypeAdd(ProductTypeModel model)
+        {
+            ProductTypeEntity entity = new ProductTypeEntity()
+            {
+                ProductTypeName = model.ProductTypeName,
+                ProductTypeDescription = model.ProductTypeDescription
+            };
+            dbContext.ProductTypes.Add(entity);
+            await dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task ProductTypeUpdate(ProductTypeModel model)
+        {
+            //Update the VehicleService Entity first
+            ProductTypeEntity entity = (from pt in dbContext.ProductTypes where pt.ProductTypeId == model.ProductTypeId && pt.CompanyId == profile.CompanyId select pt).First();
+            entity.ProductTypeName = model.ProductTypeName;
+            entity.ProductTypeDescription = model.ProductTypeDescription;
+            entity.UpdateAuditFields();
+            dbContext.ProductTypes.Update(entity);
+            await dbContext.SaveChangesAsync();
+
+        }
+
+        public async Task ProductTypeSave(ProductTypeModel model)
+        {
+            if (model.ProductTypeId == 0)
+            {
+                await ProductTypeAdd(model);
+            }
+            else
+            {
+                await ProductTypeUpdate(model);
             }
         }
         #endregion

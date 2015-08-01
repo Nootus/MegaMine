@@ -17,5 +17,16 @@ function quarryRoute($stateProvider) {
                 return quarryService.getMaterialColours();
             }]
         })
+        .state("producttype", {
+            url: window.virtualDirectory + "/producttype",
+            title: "Product Type",
+            previousState: "dashboard",
+            templateUrl: "/app/quarry/productType.html",
+            controller: "productType",
+            controllerAs: "vm",
+            resolve: ['quarryService', function (quarryService) {
+                return quarryService.getProductTypes();
+            }]
+        })
 
 }

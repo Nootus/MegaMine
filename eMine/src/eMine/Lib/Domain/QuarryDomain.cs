@@ -15,6 +15,8 @@ namespace eMine.Lib.Domain
             this.quarryRepository = quarryRepository;
         }
 
+        #region Material Colour
+        //Material Colour
         public async Task<List<MaterialColourModel>> MaterialColoursGet()
         {
             return await quarryRepository.MaterialColoursGet();
@@ -24,6 +26,19 @@ namespace eMine.Lib.Domain
         {
             await quarryRepository.MaterialColourSave(model);
         }
+        #endregion
 
+        #region Product Type
+        //Product Type
+        public async Task<List<ProductTypeModel>> ProductTypesGet()
+        {
+            return await quarryRepository.ProductTypesGet();
+        }
+
+        public async Task ProductTypeSave(ProductTypeModel model)
+        {
+            await quarryRepository.ProductTypeSave(model);
+        }
+        #endregion
     }
 }

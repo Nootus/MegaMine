@@ -34,6 +34,7 @@ namespace eMine.Lib.Shared
         public static class Quarry
         {
             public const string MaterialColourSaveSuccess = "Colour Saved Successfully";
+            public const string ProductTypeSaveSuccess = "Product Type Saved Successfully";
         }
         #endregion
 

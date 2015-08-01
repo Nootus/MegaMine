@@ -1,7 +1,7 @@
-﻿<md-dialog aria-label="Colour" class="dialog">
-    <form name="materialColourForm" novalidate>
-        <em-toolbar title="Colour" class="dialog">
-            <md-button ng-click="save(materialColourForm)" class="md-raised md-primary" ng-show="editMode" ng-disabled="materialColourForm.$invalid && materialColourForm.$submitted" aria-label="Save">
+﻿<md-dialog aria-label="Product Type" class="dialog">
+    <form name="productTypeForm" novalidate>
+        <em-toolbar title="Product Type" class="dialog">
+            <md-button ng-click="save(productTypeForm)" class="md-raised md-primary" ng-show="editMode" ng-disabled="productTypeForm.$invalid && productTypeForm.$submitted" aria-label="Save">
                 <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Save
             </md-button>
             <md-button ng-click="cancel()" class="md-raised md-primary" ng-show="editMode">
@@ -16,10 +16,10 @@
             <div>
                 <div layout="row">
                     <div flex="30">
-                        <em-input form="materialColourForm" label="Colour" control-name="colourName" ng-model="model.ColourName" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
+                        <em-input form="productTypeForm" label="Product Type" control-name="productTypeName" ng-model="model.ProductTypeName" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
                     </div>
                     <div flex="70">
-                        <em-input form="materialColourForm" label="Description" control-name="colourDescription" ng-model="model.ColourDescription" ng-required="false" em-maxlength="100" ng-disabled="!editMode"></em-input>
+                        <em-input form="productTypeForm" label="Description" control-name="productTypeDescription" ng-model="model.ProductTypeDescription" ng-required="false" em-maxlength="100" ng-disabled="!editMode"></em-input>
                     </div>
                 </div>
             </div>

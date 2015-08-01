@@ -18,6 +18,7 @@ namespace eMine.Controllers
             this.domain = domain;
         }
 
+        #region Material Colour
         [HttpGet]
         public async Task<AjaxModel<List<MaterialColourModel>>> MaterialColoursGet()
         {
@@ -30,13 +31,32 @@ namespace eMine.Controllers
             return await AjaxHelper.SaveAsync<MaterialColourModel>(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
         }
 
-
         [HttpPost]
         public async Task<AjaxModel<MaterialColourModel>> MaterialColourUpdate([FromBody] MaterialColourModel model)
         {
             return await AjaxHelper.SaveAsync<MaterialColourModel>(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
         }
+        #endregion
 
+        #region Product Type
+        [HttpGet]
+        public async Task<AjaxModel<List<ProductTypeModel>>> ProductTypesGet()
+        {
+            return await AjaxHelper.GetAsync<List<ProductTypeModel>>(m => domain.ProductTypesGet());
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<ProductTypeModel>> ProductTypeAdd([FromBody] ProductTypeModel model)
+        {
+            return await AjaxHelper.SaveAsync<ProductTypeModel>(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<ProductTypeModel>> ProductTypeUpdate([FromBody] ProductTypeModel model)
+        {
+            return await AjaxHelper.SaveAsync<ProductTypeModel>(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
+        }
+        #endregion
 
     }
 }
