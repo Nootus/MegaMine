@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using eMine.Models.Quarry;
 using eMine.Lib.Entities.Quarry;
+using eMine.Lib.Entities;
 
 namespace eMine.Lib.Repositories
 {
@@ -263,6 +264,83 @@ namespace eMine.Lib.Repositories
                 await YardUpdate(model);
             }
         }
+        #endregion
+
+        #region Material
+
+        public async Task MaterialSave(List<MaterialModel> models)
+        {
+            int yardId;
+            //getting all the yards
+            List<YardModel> yards = await YardsGet();
+
+            foreach(var model in models)
+            {
+                yardId = yards.Where(y => y.QuarryId == model.QuarryId).Select(y => y.YardId).First();
+
+                MaterialEntity material = new MaterialEntity()
+                {
+                    ProductTypeId = model.ProductTypeId,
+                    QuarryId = model.QuarryId,
+                    Dimensions = model.Dimensions,
+                    MaterialColourId = model.MaterialColourId,
+                    MaterialDate = model.MaterialDate
+                };
+
+                dbContext.Materials.Add(material);
+
+                //adding to the Yard
+                MaterialMovementEntity movement = new MaterialMovementEntity()
+                {
+                    Material = material,
+                    FromYardId = yardId,
+                    ToYardId = yardId,
+                    MovementDate = model.MaterialDate,
+                    CurrentInd = true
+                };
+
+                dbContext.MaterialMovements.Add(movement);
+            }
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        public async Task<MaterialViewModel> MaterialViewModelGet()
+        {
+            MaterialViewModel viewModel = new MaterialViewModel();
+
+            viewModel.MaterialColour = await (from clr in dbContext.MaterialColours
+                                    where clr.DeletedInd == false && clr.CompanyId == profile.CompanyId
+                                    orderby clr.ColourName
+                                    select new ListItem<int, string>()
+                                    {
+                                        Key = clr.MaterialColourId,
+                                        Item = clr.ColourName
+                                    }).ToListAsync();
+
+            viewModel.ProductType = await (from pt in dbContext.ProductTypes
+                                       where pt.DeletedInd == false && pt.CompanyId == profile.CompanyId
+                                          orderby pt.ProductTypeName
+                                          select new ListItem<int, string>()
+                                          {
+                                              Key = pt.ProductTypeId,
+                                              Item = pt.ProductTypeName
+                                          }).ToListAsync();
+
+            viewModel.Quarry = await (from qry in dbContext.Quarries
+                                       where qry.DeletedInd == false && qry.CompanyId == profile.CompanyId
+                                       orderby qry.QuarryName
+                                       select new ListItem<int, string>()
+                                       {
+                                           Key = qry.QuarryId,
+                                           Item = qry.QuarryName
+                                       }).ToListAsync();
+
+            viewModel.Model = new MaterialModel();
+
+            return viewModel;
+        }
+
         #endregion
     }
 }

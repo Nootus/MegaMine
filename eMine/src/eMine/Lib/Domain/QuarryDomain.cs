@@ -66,5 +66,19 @@ namespace eMine.Lib.Domain
             await quarryRepository.YardSave(model);
         }
         #endregion
+
+        #region Material
+
+        public async Task<MaterialViewModel> MaterialViewModelGet()
+        {
+            return await quarryRepository.MaterialViewModelGet();
+        }
+
+        public async Task MaterialSave(List<MaterialModel> models)
+        {
+            await quarryRepository.MaterialSave(models);
+        }
+
+        #endregion 
     }
 }

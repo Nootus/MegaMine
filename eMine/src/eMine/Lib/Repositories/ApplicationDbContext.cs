@@ -43,7 +43,9 @@ namespace eMine.Lib.Repositories
         public DbSet<QuarryEntity> Quarries { get; set; }
         public DbSet<QuarryMaterialColourEntity> QuarryMaterialColours { get; set; }
         public DbSet<YardEntity> Yards { get; set; }
-
+        public DbSet<MaterialEntity> Materials { get; set; }
+        public DbSet<MaterialMovementEntity> MaterialMovements { get; set; }
+        
         protected override void OnModelCreating(ModelBuilder builder)
         {
             // configuration for each table
@@ -156,6 +158,14 @@ namespace eMine.Lib.Repositories
             builder.Entity<YardEntity>().ForRelational().Table("Yard");
             builder.Entity<YardEntity>().Key(k => k.YardId);
 
+            //Material
+            builder.Entity<MaterialEntity>().ForRelational().Table("Material");
+            builder.Entity<MaterialEntity>().Key(k => k.MaterialId);
+
+            //MaterialMovement
+            builder.Entity<MaterialMovementEntity>().ForRelational().Table("MaterialMovement");
+            builder.Entity<MaterialMovementEntity>().Key(k => k.MaterialMovementId);
+            
             #endregion
 
             base.OnModelCreating(builder);

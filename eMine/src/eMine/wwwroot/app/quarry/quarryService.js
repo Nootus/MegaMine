@@ -27,6 +27,10 @@ function quarryService($http) {
         getYards: getYards,
         saveYard: saveYard,
 
+        //material
+        materialViewModel: {},
+        getMaterialViewModel: getMaterialViewModel,
+        saveMaterial: saveMaterial
     };
 
     return service;
@@ -118,4 +122,17 @@ function quarryService($http) {
 
         return $http.post(url, model);
     }
+
+    //material
+    function getMaterialViewModel() {
+        return $http.get("/api/quarry/materialviewmodelget")
+            .success(function (data) {
+                service.materialViewModel = data;
+            });
+    }
+    function saveMaterial(models) {
+        return $http.post("/api/quarry/materialsave", models);
+    }
+
+    
 }

@@ -97,5 +97,21 @@ namespace eMine.Controllers
             return await AjaxHelper.SaveAsync<YardModel>(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
         }
         #endregion
+
+        #region Material
+
+        [HttpGet]
+        public async Task<AjaxModel<MaterialViewModel>> MaterialViewModelGet()
+        {
+            return await AjaxHelper.GetAsync<MaterialViewModel>(m => domain.MaterialViewModelGet());
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<List<MaterialModel>>> MaterialSave([FromBody] List<MaterialModel> models)
+        {
+            return await AjaxHelper.SaveAsync<List<MaterialModel>>(m => domain.MaterialSave(models), Messages.Quarry.MaterialSaveSuccess);
+        }
+
+        #endregion
     }
 }

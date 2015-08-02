@@ -37,6 +37,7 @@ namespace eMine.Lib.Shared
             public const string ProductTypeSaveSuccess = "Product Type Saved Successfully";
             public const string QuarrySaveSuccess = "Quarry Saved Successfully";
             public const string YardSaveSuccess = "Yard Saved Successfully";
+            public const string MaterialSaveSuccess = "Material Successfully Added";
         }
         #endregion
 

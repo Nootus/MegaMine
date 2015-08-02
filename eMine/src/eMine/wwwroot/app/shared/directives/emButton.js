@@ -19,6 +19,11 @@ function emButton(profile) {
     };
 
     function link(scope, element, attrs, nullController, transclude) {
-        scope.hide = !profile.isAuthorized(scope.module, scope.claim);
+        if (scope.module === undefined || scope.claim === undefined) {
+            scope.hide = false;
+        }
+        else {
+            scope.hide = !profile.isAuthorized(scope.module, scope.claim);
+        }
     }
 }
