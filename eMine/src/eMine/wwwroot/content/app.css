@@ -133,6 +133,16 @@ div.main-menu {
     background-size: cover;
 }
 
+.icon-colour {
+    background: url('images/icons/colour.svg') no-repeat;
+    background-size: cover;
+}
+
+.icon-stone {
+    background: url('images/icons/stone.svg') no-repeat;
+    background-size: cover;
+}
+
 .icon-fuel {
     background: url('images/icons/fuel.svg') no-repeat;
     background-size: cover;
