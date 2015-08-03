@@ -80,5 +80,14 @@ namespace eMine.Lib.Domain
         }
 
         #endregion 
+
+        #region Material
+
+        public async Task<List<StockModel>> StockGet(int yardId)
+        {
+            return await quarryRepository.StockGet(yardId);
+        }
+
+        #endregion 
     }
 }

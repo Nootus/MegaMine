@@ -342,5 +342,38 @@ namespace eMine.Lib.Repositories
         }
 
         #endregion
+
+        #region Stock & Move Material
+        //Material Movement
+        public async Task<List<StockModel>> StockGet(int yardId)
+        {
+            var query = from mm in dbContext.MaterialMovements
+                        join mt in dbContext.Materials on mm.MaterialId equals mt.MaterialId
+                        join qry in dbContext.Quarries on mt.QuarryId equals qry.QuarryId
+                        join pt in dbContext.ProductTypes on mt.ProductTypeId equals pt.ProductTypeId
+                        join mc in dbContext.MaterialColours on mt.MaterialColourId equals mc.MaterialColourId
+                        where mm.CurrentInd == true
+                         && mm.CompanyId == profile.CompanyId
+                         && mt.DeletedInd == false
+                         && mm.ToYardId == yardId
+                        select new StockModel()
+                        {
+                            MaterialMovementId = mm.MaterialMovementId,
+                            Quarry = qry.QuarryName,
+                            ProductType = pt.ProductTypeName,
+                            MaterialColour = mc.ColourName,
+                            Dimensions = mt.Dimensions,
+                            MaterialDate = mt.MaterialDate,
+                            QuarryId = mt.QuarryId,
+                            ProductTypeId = mt.ProductTypeId,
+                            MaterialColourId = mt.MaterialColourId
+                        };
+                            
+
+            return await query.ToListAsync();
+        }
+
+        #endregion
+
     }
 }

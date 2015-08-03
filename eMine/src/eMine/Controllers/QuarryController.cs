@@ -113,5 +113,15 @@ namespace eMine.Controllers
         }
 
         #endregion
+
+        #region Stock & Material Movement
+
+        [HttpGet]
+        public async Task<AjaxModel<List<StockModel>>> StockGet(int yardId)
+        {
+            return await AjaxHelper.GetAsync<List<StockModel>>(m => domain.StockGet(yardId));
+        }
+
+        #endregion
     }
 }

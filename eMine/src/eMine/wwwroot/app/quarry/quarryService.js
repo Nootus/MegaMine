@@ -30,7 +30,11 @@ function quarryService($http) {
         //material
         materialViewModel: {},
         getMaterialViewModel: getMaterialViewModel,
-        saveMaterial: saveMaterial
+        saveMaterial: saveMaterial,
+
+        //stockyard
+        stock: [],
+        getStock: getStock
     };
 
     return service;
@@ -132,6 +136,15 @@ function quarryService($http) {
     }
     function saveMaterial(models) {
         return $http.post("/api/quarry/materialsave", models);
+    }
+
+    //stock & material movement
+    function getStock(yardId) {
+        return $http.get("/api/quarry/stockget", { params: { "yardId": yardId } })
+            .success(function (data) {
+                service.stock.splice(0, service.stock.length);
+                angular.extend(service.stock, data);
+            });
     }
 
     

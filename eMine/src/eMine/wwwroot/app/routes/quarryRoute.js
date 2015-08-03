@@ -64,5 +64,16 @@ function quarryRoute($stateProvider) {
                 return quarryService.getMaterialViewModel();
             }]
         })
+        .state("yardstock", {
+            url: window.virtualDirectory + "/stockyard",
+            title: "Stock at Yard",
+            previousState: "dashboard",
+            templateUrl: "/app/quarry/stockyard.html",
+            controller: "stockyard",
+            controllerAs: "vm",
+            resolve: ['quarryService', function (quarryService) {
+                return quarryService.getYards();
+            }]
+        })
 
 }

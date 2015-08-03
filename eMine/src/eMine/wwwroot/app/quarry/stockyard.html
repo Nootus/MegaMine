@@ -1,0 +1,20 @@
+﻿<em-toolbar title="Stock at Yard" class="title">
+</em-toolbar>
+<md-content layout-padding>
+    <form name="stockForm" novalidate>
+        <div layout="row">
+            <div flex="15">
+                <em-select form="stockForm" label="Yard" control-name="yard" ng-model="vm.yardId" opt-list="vm.yards" opt-value="YardId" opt-text="YardName" ng-required="true"></em-select>
+            </div>
+            <div flex="10" layout-align="center">
+                <md-button ng-click="vm.getStock(stockForm)" class="md-raised md-primary" ng-disabled="stockForm.$invalid && stockForm.$submitted" aria-label="Get Stock">
+                    <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon> Get Stock
+                </md-button>
+            </div>
+        </div>
+    </form>
+</md-content>
+<md-content layout-padding>
+    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
+</md-content>
+
