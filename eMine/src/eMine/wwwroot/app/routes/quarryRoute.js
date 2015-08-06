@@ -75,5 +75,16 @@ function quarryRoute($stateProvider) {
                 return quarryService.getYards();
             }]
         })
+        .state("materialmovement", {
+            url: window.virtualDirectory + "/materialmovement",
+            title: "Material Movement",
+            previousState: "dashboard",
+            templateUrl: "/app/quarry/materialmovement.html",
+            controller: "materialmovement",
+            controllerAs: "vm",
+            resolve: ['quarryService', function (quarryService) {
+                return quarryService.getYards();
+            }]
+        })
 
 }

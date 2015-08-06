@@ -88,6 +88,11 @@ namespace eMine.Lib.Domain
             return await quarryRepository.StockGet(yardId);
         }
 
+        public async Task MoveMaterial(MaterialMovementModel model)
+        {
+            await quarryRepository.MoveMaterial(model);
+        }
+
         #endregion 
     }
 }

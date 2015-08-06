@@ -6,6 +6,9 @@ using eMine.Models.Quarry;
 using eMine.Lib.Entities.Quarry;
 using eMine.Lib.Entities;
 
+using Microsoft.Data.Entity;
+using eMine.Lib.Extensions;
+
 namespace eMine.Lib.Repositories
 {
     public class QuarryRepository : BaseRepository
@@ -368,9 +371,19 @@ namespace eMine.Lib.Repositories
                             ProductTypeId = mt.ProductTypeId,
                             MaterialColourId = mt.MaterialColourId
                         };
-                            
+
 
             return await query.ToListAsync();
+        }
+
+        public async Task MoveMaterial(MaterialMovementModel model)
+        {
+            //inserting the movement
+            string sql = "INSERT INTO MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
+                            " SELECT MaterialId, ToYardId, @ToYardId, @MovementDate, 1, @UserId, @CurrentDate, @UserId, @CurrentDate, 0, @CompanyId FROM MaterialMovement WHERE MaterialMovementId in (" + String.Join(",", model.MaterialMovementIds) + ")";
+
+
+            await dbContext.Database.AsSqlServer().ExecuteSqlCommand(sql, false, model.ToYardId, model.MovementDate, profile.UserName, DateTime.UtcNow, profile.CompanyId);
         }
 
         #endregion
