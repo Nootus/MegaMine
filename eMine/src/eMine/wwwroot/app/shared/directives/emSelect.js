@@ -7,6 +7,7 @@ function emSelect($compile) {
         restrict: 'E',
         scope: {
             ngModel: "=",
+            ngChange: "=",
             optList: "=",
             optValue: "@",
             optText: "@",
@@ -16,19 +17,23 @@ function emSelect($compile) {
             ngRequired: '=',
             ngDisabled: '=',
             style: '@',
-            hideLabel: '@'
-        },
+            hideLabel: '@',
+            errorMessages: '='
+    },
         link: link,
     };
 
     function getTemplate(controlName, optValue, optText) {
         return '<md-input-container class="emselect {{errorCss}}" md-is-error="isFieldError()" style="{{style}}">'
                     + '<label ng-hide="{{hideLabel}}">{{label}}</label>'
-                    + '<md-select name="' + controlName + '" ng-required="{{ngRequired}}" ng-disabled="{{ngDisabled}}" ng-model="ngModel" aria-label="{{controlName}}">'
+                    + '<md-select name="' + controlName + '" ng-required="{{ngRequired}}" ng-disabled="{{ngDisabled}}" ng-model="ngModel" ng-change="ngChange" aria-label="{{controlName}}">'
                     + '<md-option ng-value="opt.' + optValue + '" ng-repeat="opt in optList">{{ opt.' + optText + ' }}</md-option>'
                     + '</md-select>'
                     + '<div ng-messages="form[controlName].$error" ng-show="isFieldError()">'
                     + '<span ng-message="required">Required!</span>'
+                    + '<span ng-repeat="errorMessage in errorMessages">'
+                        + '<span ng-message-exp="errorMessage.type">{{ errorMessage.text }}</span>'
+                    + '</span>'
                     + '</div>'
                     + '</md-input-container>'
     }

@@ -123,9 +123,9 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<MaterialMovementModel>> MoveMaterial([FromBody] MaterialMovementModel model)
+        public async Task<AjaxModel<List<StockModel>>> MoveMaterial([FromBody] MaterialMovementModel model)
         {
-            return await AjaxHelper.SaveAsync<MaterialMovementModel>(m => domain.MoveMaterial(model), Messages.Quarry.MaterialMovementSuccess);
+            return await AjaxHelper.SaveGetAsync<List<StockModel>>(m => domain.MoveMaterial(model), Messages.Quarry.MaterialMovementSuccess);
         }
 
         #endregion

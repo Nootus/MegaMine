@@ -20,12 +20,16 @@ function materialmovement($scope, $window, $filter, $mdDialog, quarryService, ui
 
     var vm = {
         yards: [],
-        fromYardid: undefined,
-        toYardid: undefined,
+        fromYardId: undefined,
+        toYardId: undefined,
+        currentYardId: undefined,
+        movementDate: undefined,
         gridOptions: gridOptions,
         gridHeight: '0px',
         getStock: getStock,
-        moveMaterial: moveMaterial
+        moveMaterial: moveMaterial,
+        movementErrorMessages: [],
+        validateToYard: validateToYard
     };
 
     init();
@@ -52,17 +56,51 @@ function materialmovement($scope, $window, $filter, $mdDialog, quarryService, ui
 
     function getStock(form) {
         if (form.$valid) {
-            quarryService.getStock(vm.fromYardid);
+            quarryService.getStock(vm.fromYardId);
+            vm.currentYardId = vm.fromYardId;
         }
     }
 
-    function moveMaterial(ev) {
-        var selectedIds = [];
-        angular.forEach(quarryService.stock, function (item) {
-            if (item.Selected === true) {
-                selectedIds.push(item.MaterialMovementId)
+    function validateToYard(form) {
+        if (form.toYard !== undefined && !form.toYard.$valid && vm.currentYardId !== vm.toYardId) {
+            form.toYard.$setValidity('dupyard', true);
+        }
+    }
+
+    function moveMaterial(form, ev) {
+        form.$submitted = true;
+
+        //checking the from & to yard
+        if (vm.currentYardId === vm.toYardId) {
+            vm.movementErrorMessages.splice(0, vm.movementErrorMessages.length);
+            vm.movementErrorMessages.push({ type: 'dupyard', text: 'From and To yards can\'t be same' });
+
+            form.toYard.$setValidity('dupyard', false);
+        }
+
+        if (form.$valid) {
+            var selectedIds = [];
+            angular.forEach(quarryService.stock, function (item) {
+                if (item.Selected === true) {
+                    selectedIds.push(item.MaterialMovementId)
+                }
+            });
+
+            if (selectedIds.length === 0) {
+                $mdDialog.show(
+                  $mdDialog.alert()
+                    .parent(angular.element(document.body))
+                    .title('No Materials Selected')
+                    .content('Please select materials to move')
+                    .ariaLabel('No Materials Selected')
+                    .ok('Ok')
+                    .targetEvent(ev)
+                );
             }
-        });
+            else {
+                quarryService.moveMaterial({ MaterialMovementIds: selectedIds, FromYardId: vm.currentYardId, ToYardId: vm.toYardId, MovementDate: vm.movementDate })
+            }
+        }
     }
 }
 
