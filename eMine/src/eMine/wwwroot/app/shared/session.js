@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('emine').factory('session', session);
-session.$inject = [ '$window', 'toastr', 'navigation'];
+session.$inject = [ '$window', 'toastr', 'navigation', 'constants'];
 
-function session($window, toastr,  navigation) {
+function session($window, toastr, navigation, constants) {
 
     var breadcrumbs = [];
     var breadcrumbsService = {};
@@ -26,6 +26,7 @@ function session($window, toastr,  navigation) {
 
         //global values
         $window.navigation = navigation;
+        $window.constants = constants
     }
 
     function logout() {

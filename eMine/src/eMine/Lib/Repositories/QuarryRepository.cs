@@ -367,11 +367,12 @@ namespace eMine.Lib.Repositories
                             Quarry = qry.QuarryName,
                             ProductType = pt.ProductTypeName,
                             MaterialColour = mc.ColourName,
-                            Dimensions = mt.Dimensions,
-                            MaterialDate = mt.MaterialDate,
+                            MaterialId = mt.MaterialId,
                             QuarryId = mt.QuarryId,
                             ProductTypeId = mt.ProductTypeId,
-                            MaterialColourId = mt.MaterialColourId
+                            MaterialColourId = mt.MaterialColourId,
+                            Dimensions = mt.Dimensions,
+                            MaterialDate = mt.MaterialDate
                         };
 
 
@@ -412,6 +413,60 @@ namespace eMine.Lib.Repositories
 
 
             return await StockGet(model.FromYardId);
+        }
+
+        public async Task MaterialUpdate(MaterialModel model)
+        {
+            MaterialEntity entity = (from mt in dbContext.Materials where mt.MaterialId == model.MaterialId && mt.CompanyId == profile.CompanyId select mt).First();
+            entity.ProductTypeId = model.ProductTypeId;
+            entity.MaterialColourId = model.MaterialColourId;
+            entity.Dimensions = model.Dimensions;
+            entity.MaterialDate = model.MaterialDate;
+            entity.UpdateAuditFields();
+
+            if(entity.QuarryId != model.QuarryId)
+            {
+                //getting the YardId
+                List<YardModel> yards = await YardsGet();
+
+                int oldYardId = yards.First(y => y.QuarryId == entity.QuarryId).YardId;
+                int newYardId = yards.First(y => y.QuarryId == model.QuarryId).YardId;
+
+                //updating the movement records
+                List<MaterialMovementEntity> movementEntites = (from me in dbContext.MaterialMovements where me.MaterialId == model.MaterialId && me.FromYardId == oldYardId && me.CompanyId == profile.CompanyId orderby me.MaterialMovementId select me).Take(2).ToList();
+
+                //updating the first record
+                bool intiallyMoved = false;
+                for (int counter = 0; counter < movementEntites.Count; counter++)
+                {
+                    if(counter == 0)
+                    {
+                        movementEntites[counter].FromYardId = newYardId;
+                        if(movementEntites[counter].ToYardId == oldYardId)
+                        {
+                            movementEntites[counter].ToYardId = newYardId;
+                        }
+                        else
+                        {
+                            intiallyMoved = true;
+                        }
+                    }
+                    else
+                    {
+                        if (intiallyMoved)
+                            break;
+                        movementEntites[counter].FromYardId = newYardId;
+                    }
+                    movementEntites[counter].UpdateAuditFields();
+                    dbContext.MaterialMovements.Update(movementEntites[counter]);
+                }
+
+                entity.QuarryId = model.QuarryId;
+            }
+
+            dbContext.Materials.Update(entity);
+            await dbContext.SaveChangesAsync();
+
         }
 
         #endregion

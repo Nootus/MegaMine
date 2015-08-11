@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('stockyard', stockyard)
-stockyard.$inject = ['$scope', '$window', '$mdDialog', 'quarryService', 'uiGridConstants', 'utility', 'constants'];
+stockyard.$inject = ['$scope', '$window', '$mdDialog', 'quarryService', 'stockyardDialog', 'uiGridConstants', 'utility', 'constants'];
 
-function stockyard($scope, $window, $mdDialog, quarryService, uiGridConstants, utility, constants) {
+function stockyard($scope, $window, $mdDialog, quarryService, stockyardDialog, uiGridConstants, utility, constants) {
 
     var gridOptions = {
         enableColumnResizing: true,
@@ -33,6 +33,7 @@ function stockyard($scope, $window, $mdDialog, quarryService, uiGridConstants, u
     return vm;
 
     function init() {
+        quarryService.materialViewModel = undefined; //resetting the view model, so that it can be populated in the edit pop ups
         vm.yards = quarryService.yards;
         quarryService.stock.splice(0, quarryService.stock.length);
         vm.gridOptions.data = quarryService.stock;
@@ -56,12 +57,17 @@ function stockyard($scope, $window, $mdDialog, quarryService, uiGridConstants, u
         }
     }
 
-    function editStock(row, ev) {
-
+    function editStock(model, ev) {
+        viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
-    function deleteStock(row, ev) {
+    function deleteStock(model, ev) {
+        viewDialog(model, constants.enum.dialogMode.delete, ev);
+    }
 
+    function viewDialog(model, dialogMode, ev) {
+        model.currentYardId = vm.yardId;
+        stockyardDialog.viewDialog(model, dialogMode, ev);
     }
 
 }

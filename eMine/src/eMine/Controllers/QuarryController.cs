@@ -128,6 +128,11 @@ namespace eMine.Controllers
             return await AjaxHelper.SaveGetAsync<List<StockModel>>(m => domain.MoveMaterial(model), Messages.Quarry.MaterialMovementSuccess);
         }
 
+        [HttpPost]
+        public async Task<AjaxModel<List<StockModel>>> MaterialUpdate([FromBody] MaterialModel model, int yardId)
+        {
+            return await AjaxHelper.SaveGetAsync<List<StockModel>>(m => domain.MaterialUpdate(model, yardId), Messages.Quarry.MaterialUpdateSuccess);
+        }
         #endregion
     }
 }

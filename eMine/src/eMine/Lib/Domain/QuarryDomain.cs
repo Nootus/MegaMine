@@ -81,7 +81,7 @@ namespace eMine.Lib.Domain
 
         #endregion 
 
-        #region Material
+        #region Stockyard
 
         public async Task<List<StockModel>> StockGet(int yardId)
         {
@@ -91,6 +91,12 @@ namespace eMine.Lib.Domain
         public async Task<List<StockModel>> MoveMaterial(MaterialMovementModel model)
         {
             return await quarryRepository.MoveMaterial(model);
+        }
+
+        public async Task<List<StockModel>> MaterialUpdate(MaterialModel model, int yardId)
+        {
+            await quarryRepository.MaterialUpdate(model);
+            return await StockGet(yardId);
         }
 
         #endregion 
