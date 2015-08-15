@@ -1,4 +1,25 @@
 ﻿<md-dialog aria-label="Stock Yard Dialog" class="dialog">
+    <!--<nt-dialog title="Material" dialog-mode="{{dialogMode}}">
+        <div layout="row">
+            <div flex="30">
+                <em-select form="stockyardForm" label="Quarry" control-name="quarry" ng-model="vm.model.QuarryId" opt-list="vm.viewModel.Quarry" ng-required="true" ng-disabled="dialogMode !== dialogModeEnum.save"></em-select>
+            </div>
+            <div flex="25">
+                <em-select form="stockyardForm" label="Product Type" control-name="productType" ng-model="vm.model.ProductTypeId" opt-list="vm.viewModel.ProductType" ng-required="true" ng-disabled="dialogMode !== dialogModeEnum.save"></em-select>
+            </div>
+            <div flex="30">
+                <em-select form="stockyardForm" label="Colour" control-name="materialColour" ng-model="vm.model.MaterialColourId" opt-list="vm.viewModel.MaterialColour" ng-required="true" ng-disabled="dialogMode !== dialogModeEnum.save"></em-select>
+            </div>
+        </div>
+        <div layout="row">
+            <div flex="30">
+                <em-input form="stockyardForm" label="Dimensions" control-name="dimensions" ng-model="vm.model.Dimensions" ng-required="true" em-maxlength="20" ng-disabled="dialogMode !== dialogModeEnum.save"></em-input>
+            </div>
+            <div flex="30">
+                <em-input form="stockyardForm" type="date" label="Date" control-name="materialDate" ng-model="vm.model.MaterialDate" ng-required="true" ng-disabled="dialogMode !== dialogModeEnum.save"></em-input>
+            </div>
+        </div>
+    </nt-dialog>-->
     <form name="stockyardForm" novalidate>
         <em-toolbar title="Material" class="dialog">
             <md-button ng-click="save(stockyardForm)" class="md-raised md-primary" ng-show="dialogMode === dialogModeEnum.save" ng-disabled="stockyardForm.$invalid && stockyardForm.$submitted" aria-label="Save">

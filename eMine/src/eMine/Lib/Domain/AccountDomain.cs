@@ -31,7 +31,7 @@ namespace eMine.Lib.Domain
         {
             ProfileModel profile = null;
 
-            //await userManager.CreateAsync(user, "Prasanna@123");
+            //await userManager.CreateAsync(new ApplicationUser() { UserName = "megamine@nootus.com" }, "Nootus@123");
 
             var result = await signInManager.PasswordSignInAsync(userName, password, false, false);
 
