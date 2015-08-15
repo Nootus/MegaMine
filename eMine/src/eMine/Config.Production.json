@@ -1,7 +1,8 @@
 ﻿{
+  "EnvironmentName":  "Production",
 	"Data": {
 		"DefaultConnection": {
-			"ConnectionString": "Server=.\\SQLExpress;Database=eMine;Trusted_Connection=True;",
+			"ConnectionString": "Server=tcp:prasanna.database.windows.net,1433;Database=eMineDev;User ID=prasanna@prasanna;Password=password@321;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;"
 		}
 	}
 }

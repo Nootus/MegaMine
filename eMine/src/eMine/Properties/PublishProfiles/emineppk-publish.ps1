@@ -8,15 +8,15 @@ function Get-VisualStudio2015InstallPath{
     param()
     process{
         $keysToCheck = @('hklm:\SOFTWARE\Wow6432Node\Microsoft\VisualStudio\14.0',
-						 'hklm:\SOFTWARE\Microsoft\VisualStudio\14.0',
-						 'hklm:\SOFTWARE\Wow6432Node\Microsoft\VWDExpress\14.0',
-						 'hklm:\SOFTWARE\Microsoft\VWDExpress\14.0'
-						 )
+                         'hklm:\SOFTWARE\Microsoft\VisualStudio\14.0',
+                         'hklm:\SOFTWARE\Wow6432Node\Microsoft\VWDExpress\14.0',
+                         'hklm:\SOFTWARE\Microsoft\VWDExpress\14.0'
+                         )
         [string]$vsInstallPath=$null
 
         foreach($keyToCheck in $keysToCheck){
             if(Test-Path $keyToCheck){
-                $vsInstallPath = (Get-itemproperty $keyToCheck -Name InstallDir | select -ExpandProperty InstallDir)
+                $vsInstallPath = (Get-itemproperty $keyToCheck -Name InstallDir -ErrorAction SilentlyContinue | select -ExpandProperty InstallDir -ErrorAction SilentlyContinue)
             }
 
             if($vsInstallPath){
@@ -28,7 +28,7 @@ function Get-VisualStudio2015InstallPath{
     }
 }
 
-$vsInstallPath = (Get-VisualStudio2015InstallPath)
+$vsInstallPath = Get-VisualStudio2015InstallPath
 $publishModulePath = "{0}Extensions\Microsoft\Web Tools\Publish\Scripts\{1}\" -f $vsInstallPath,'1.0.1'
 
 if(!(Test-Path $publishModulePath)){
@@ -36,7 +36,7 @@ if(!(Test-Path $publishModulePath)){
 }
 
 $defaultPublishSettings = New-Object psobject -Property @{
-    LocalInstallDir = ($publishModulePath)
+    LocalInstallDir = $publishModulePath
 }
 
 function Enable-PackageDownloader{
@@ -97,5 +97,5 @@ try{
     Publish-AspNet -publishProperties $publishProperties -packOutput $packOutput
 }
 catch{
-    "An error occured during publish.`n{0}" -f $_.Exception.Message | Write-Error
+    "An error occurred during publish.`n{0}" -f $_.Exception.Message | Write-Error
 }

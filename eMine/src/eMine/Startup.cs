@@ -74,7 +74,7 @@ namespace eMine
             //saving the site settgins
             SiteSettings.ConnectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
             SiteSettings.WebPath = Configuration.Get("DNX_APPBASE");
-            SiteSettings.EnvironmentName = env.EnvironmentName;
+            SiteSettings.EnvironmentName = Configuration.Get("EnvironmentName");
 
             // Add the following to the request pipeline only in development environment.
             //if (env.IsEnvironment(Constants.DevEnvironment))
