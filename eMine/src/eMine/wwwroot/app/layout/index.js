@@ -20,10 +20,10 @@ function index($scope, $interval, profile, navigation, utility) {
 
         $scope.$watch("vm.profile.isAuthenticated", profileUpdated);
 
-        ConfigProgressBar();
+        configProgressBar();
     }
 
-    function ConfigProgressBar() {
+    function configProgressBar() {
         //for the progress bar
         $scope.startvalue = 10;
         $scope.buffervalue = 20;
@@ -68,6 +68,4 @@ function index($scope, $interval, profile, navigation, utility) {
 
         return;
     }
-
-
 }

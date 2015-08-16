@@ -25,18 +25,18 @@ function profile() {
     return vm;
 
     function populate(data) {
-        vm.userID = data.UserID;
-        vm.firstName = data.FirstName;
-        vm.lastName = data.LastName;
-        vm.fullName = data.FullName;
-        vm.userName = data.UserName;
-        vm.companyId = data.CompanyId;
-        vm.companies = data.Companies;
-        vm.roles = data.Roles;
-        vm.claims = data.Claims;
+        vm.userID = data.userID;
+        vm.firstName = data.firstName;
+        vm.lastName = data.lastName;
+        vm.fullName = data.fullName;
+        vm.userName = data.userName;
+        vm.companyId = data.companyId;
+        vm.companies = data.companies;
+        vm.roles = data.roles;
+        vm.claims = data.claims;
         vm.isAuthenticated = true;
         vm.menu.splice(0, vm.menu.length);
-        angular.extend(vm.menu, data.Menu);
+        angular.extend(vm.menu, data.menu);
     };
 
     function logout() {
@@ -48,7 +48,7 @@ function profile() {
 
         if (vm.roles.indexOf(module + "Admin") === -1) {
             for(var counter = 0; counter < vm.claims.length; counter ++){
-                if (vm.claims[counter].ClaimType === module && vm.claims[counter].ClaimValue === claim) {
+                if (vm.claims[counter].claimType === module && vm.claims[counter].claimValue === claim) {
                     response = true;
                     break;
                 }

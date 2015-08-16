@@ -8,9 +8,9 @@ function productType($scope, $window, quarryService, productTypeDialog, uiGridCo
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'productTypeName', field: 'ProductTypeName', displayName: 'Product Type', type: 'string', enableHiding: false },
-                    { name: 'productTypeDescription', field: 'ProductTypeDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    { name: 'productTypeId', field: 'ProductTypeId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Quarry\" claim=\"ProductTypeEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string', enableHiding: false },
+                    { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description', enableHiding: false },
+                    { name: 'productTypeId', field: 'productTypeId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Quarry\" claim=\"ProductTypeEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 
@@ -43,7 +43,7 @@ function productType($scope, $window, quarryService, productTypeDialog, uiGridCo
     }
 
     function addProductType(ev) {
-        var model = { ProductTypeId: 0 }
+        var model = { productTypeId: 0 }
         viewDialog(model, true, ev);
     }
 

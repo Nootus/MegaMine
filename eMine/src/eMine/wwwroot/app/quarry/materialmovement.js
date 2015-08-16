@@ -8,12 +8,12 @@ function materialmovement($scope, $window, $filter, $mdDialog, quarryService, ui
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'materialMovementId', field: 'MaterialMovementId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-checkbox ng-model=\"row.entity.Selected\" aria-label=\"{{row.entity.MaterialMovementId}}\" class=\"md-primary\"></md-checkbox>", cellClass: "text-center", enableHiding: false },
-                    { name: 'productType', field: 'ProductType', displayName: 'Product Type', type: 'string', enableHiding: false },
-                    { name: 'colour', field: 'MaterialColour', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'dimensions', field: 'Dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
-                    { name: 'materialDate', field: 'MaterialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'quarry', field: 'Quarry', type: 'string', displayName: 'Quarry', enableHiding: false }
+                    { name: 'materialMovementId', field: 'materialMovementId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-checkbox ng-model=\"row.entity.Selected\" aria-label=\"{{row.entity.MaterialMovementId}}\" class=\"md-primary\"></md-checkbox>", cellClass: "text-center", enableHiding: false },
+                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
+                    { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
+                    { name: 'dimensions', field: 'dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
+                    { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false }
         ]
     };
 
@@ -82,7 +82,7 @@ function materialmovement($scope, $window, $filter, $mdDialog, quarryService, ui
             var selectedIds = [];
             angular.forEach(quarryService.stock, function (item) {
                 if (item.Selected === true) {
-                    selectedIds.push(item.MaterialMovementId)
+                    selectedIds.push(item.materialMovementId)
                 }
             });
 
@@ -98,7 +98,7 @@ function materialmovement($scope, $window, $filter, $mdDialog, quarryService, ui
                 );
             }
             else {
-                quarryService.moveMaterial({ MaterialMovementIds: selectedIds, FromYardId: vm.currentYardId, ToYardId: vm.toYardId, MovementDate: vm.movementDate })
+                quarryService.moveMaterial({ materialMovementIds: selectedIds, fromYardId: vm.currentYardId, toYardId: vm.toYardId, movementDate: vm.movementDate })
             }
         }
     }

@@ -8,9 +8,9 @@ function materialColour($scope, $window, quarryService, materialColourDialog, ui
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'colourName', field: 'ColourName', displayName: 'Colour', type: 'string', enableHiding: false },
-                    { name: 'colourDescription', field: 'ColourDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    { name: 'materialColourId', field: 'MaterialColourId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Quarry\" claim=\"MaterialColourEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string', enableHiding: false },
+                    { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description', enableHiding: false },
+                    { name: 'materialColourId', field: 'materialColourId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Quarry\" claim=\"MaterialColourEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 
@@ -43,7 +43,7 @@ function materialColour($scope, $window, quarryService, materialColourDialog, ui
     }
 
     function addMaterialColour(ev) {
-        var model = { MaterialColourId: 0 }
+        var model = { materialColourId: 0 }
         viewDialog(model, true, ev);
     }
 

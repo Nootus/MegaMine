@@ -14,6 +14,7 @@ using eMine.Lib.Filters;
 using eMine.Lib.Middleware;
 using Microsoft.AspNet.Diagnostics;
 using Microsoft.AspNet.Diagnostics.Entity;
+using Newtonsoft.Json.Serialization;
 
 namespace eMine
 {
@@ -36,6 +37,10 @@ namespace eMine
                 .Configure<MvcOptions>(options =>
                 {
                     options.Filters.Add(new NTAuthorizeFilter());
+
+                    //setting the camel case
+                    JsonOutputFormatter jsonFormatter = options.OutputFormatters.InstanceOf<JsonOutputFormatter>();
+                    jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
 
             services.AddEntityFramework()

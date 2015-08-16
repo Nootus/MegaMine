@@ -8,7 +8,7 @@
             <form flex="50" name="stockForm" novalidate>
                 <div layout="row">
                     <div flex="30">
-                        <em-select form="stockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="YardId" opt-text="YardName" ng-required="true"></em-select>
+                        <em-select form="stockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></em-select>
                     </div>
                     <div flex="70" layout-align="center">
                         <md-button ng-click="vm.getStock(stockForm)" class="md-raised md-primary" ng-disabled="stockForm.$invalid && stockForm.$submitted" aria-label="Get Stock">
@@ -20,7 +20,7 @@
             <form flex="50" name="movementForm" novalidate>
                 <div layout="row">
                     <div flex="30">
-                        <em-select form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.yards" opt-value="YardId" opt-text="YardName" ng-required="true" ng-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></em-select>
+                        <em-select form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true" ng-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></em-select>
                     </div>
                     <div flex="30">
                         <em-input form="movementForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></em-input>

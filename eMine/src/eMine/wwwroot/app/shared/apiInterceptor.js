@@ -33,7 +33,7 @@ function apiInterceptor($q, utility, message, profile) {
     function requestError(rejection) {
         if (rejection.url.indexOf(apiUrl) === 0)
             navigation.isLoading = false;
-        utility.showError(rejection.data.Message);
+        utility.showError(rejection.data.message);
 
         // Return the promise rejection.
         return $q.reject(rejection);
@@ -45,18 +45,18 @@ function apiInterceptor($q, utility, message, profile) {
             navigation.isLoading = false;
 
             //checking whether we got our AjaxModel
-            if (response.data.hasOwnProperty("Result") && response.data.hasOwnProperty("Message") && response.data.hasOwnProperty("Model")) {
-                switch (response.data.Result) {
+            if (response.data.hasOwnProperty("result") && response.data.hasOwnProperty("message") && response.data.hasOwnProperty("model")) {
+                switch (response.data.result) {
                     case 1:
-                        utility.showError(response.data.Message);
+                        utility.showError(response.data.message);
                         return $q.reject(response);
                         break;
                     case 2:
                         return $q.reject(response);
                         break;
                     default:
-                        utility.showInfo(response.data.Message);
-                        response.data = response.data.Model;
+                        utility.showInfo(response.data.message);
+                        response.data = response.data.model;
                         break;
                 }
             }
@@ -73,7 +73,7 @@ function apiInterceptor($q, utility, message, profile) {
                 utility.showError(message.unAuthorized);
             }
             else {
-                utility.showError(rejection.data.Message);
+                utility.showError(rejection.data.message);
             }
         }
             

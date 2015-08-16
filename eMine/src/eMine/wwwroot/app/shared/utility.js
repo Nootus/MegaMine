@@ -55,8 +55,8 @@ function utility(toastr) {
     function getListItem(list, key) {
         var item;
         for (var counter = 0; counter < list.length; counter++) {
-            if (key === list[counter].Key) {
-                item = list[counter].Item;
+            if (key === list[counter].key) {
+                item = list[counter].item;
                 break;
             }
         }

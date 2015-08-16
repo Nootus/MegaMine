@@ -13,10 +13,6 @@ function dashboardService($http) {
     return service;
 
     function resolve() {
-        //return $http.get("/api/dashboard")
-        //    .success(function (data) {
-        //        service.patientList = data
-        //    })
     }
 
 }

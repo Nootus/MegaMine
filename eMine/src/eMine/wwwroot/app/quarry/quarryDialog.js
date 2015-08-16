@@ -42,7 +42,7 @@ function quarryDialog($mdDialog, quarryService, utility) {
         return vm;
 
         function init() {
-            vm.model.ColourIds = [];
+            vm.model.colourIds = [];
             angular.extend(vm.model, model);
             angular.extend($scope, vm);
         }
@@ -55,13 +55,13 @@ function quarryDialog($mdDialog, quarryService, utility) {
             if (form.$valid) {
                 service.saveQuarry(vm.model).success(function () {
                     //update the grid values
-                    if (vm.model.QuarryId === 0) {
+                    if (vm.model.quarryId === 0) {
                         service.getQuarries();
                     }
                     else {
-                        model.QuarryName = vm.model.QuarryName
-                        model.Location = vm.model.Location
-                        model.Colours = utility.getItem(service.colours, vm.model.ColourIds[0], "MaterialColourId", "ColourName");
+                        model.quarryName = vm.model.quarryName
+                        model.location = vm.model.location
+                        model.colours = utility.getItem(service.colours, vm.model.colourIds[0], "materialColourId", "colourName");
                     }
 
                     $mdDialog.hide();

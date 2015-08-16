@@ -53,12 +53,12 @@ function productTypeDialog($mdDialog, quarryService, utility) {
             if (form.$valid) {
                 service.saveProductType(vm.model).success(function () {
                     //update the grid values
-                    if (vm.model.ProductTypeId === 0) {
+                    if (vm.model.productTypeId === 0) {
                         service.getProductTypes();
                     }
                     else {
-                        model.ProductTypeName = vm.model.ProductTypeName
-                        model.ProductTypeDescription = vm.model.ProductTypeDescription
+                        model.productTypeName = vm.model.productTypeName
+                        model.productTypeDescription = vm.model.productTypeDescription
                     }
 
                     $mdDialog.hide();

@@ -40,8 +40,8 @@ function emSelect($compile) {
 
     function link(scope, element, attrs, nullController, transclude) {
 
-        scope.optValue = scope.optValue === undefined ? "Key" : scope.optValue
-        scope.optText = scope.optText === undefined ? "Item" : scope.optText
+        scope.optValue = scope.optValue === undefined ? "key" : scope.optValue
+        scope.optText = scope.optText === undefined ? "item" : scope.optText
         scope.errorCss = "";
 
         var elementHtml = getTemplate(scope.controlName, scope.optValue, scope.optText);

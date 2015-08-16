@@ -8,12 +8,12 @@ function stockyard($scope, $window, $mdDialog, quarryService, stockyardDialog, u
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'productType', field: 'ProductType', displayName: 'Product Type', type: 'string', enableHiding: false },
-                    { name: 'colour', field: 'MaterialColour', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'dimensions', field: 'Dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
-                    { name: 'materialDate', field: 'MaterialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'quarry', field: 'Quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
-                    { name: 'materialMovementId', field: 'MaterialMovementId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editStock(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon></md-button><md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.deleteStock(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/delete.svg\"></md-icon></md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
+                    { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
+                    { name: 'dimensions', field: 'dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
+                    { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
+                    { name: 'materialMovementId', field: 'materialMovementId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editStock(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon></md-button><md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.deleteStock(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/delete.svg\"></md-icon></md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 

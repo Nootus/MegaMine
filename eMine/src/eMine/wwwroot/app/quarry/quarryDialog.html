@@ -16,13 +16,13 @@
             <div>
                 <div layout="row">
                     <div flex="30">
-                        <em-input form="quarryForm" label="Quarry Name" control-name="quarryName" ng-model="model.QuarryName" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
+                        <em-input form="quarryForm" label="Quarry Name" control-name="quarryName" ng-model="model.quarryName" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
                     </div>
                     <div flex="30">
-                        <em-input form="quarryForm" label="location" control-name="Location" ng-model="model.Location" ng-required="false" em-maxlength="100" ng-disabled="!editMode"></em-input>
+                        <em-input form="quarryForm" label="location" control-name="Location" ng-model="model.location" ng-required="false" em-maxlength="100" ng-disabled="!editMode"></em-input>
                     </div>
                     <div flex class="text-left">
-                        <em-select form="quarryForm" label="Colour" control-name="colourId" ng-model="model.ColourIds[0]" opt-list="service.colours" opt-value="MaterialColourId" opt-text="ColourName" ng-required="true" ng-disabled="!editMode"></em-select>
+                        <em-select form="quarryForm" label="Colour" control-name="colourId" ng-model="model.colourIds[0]" opt-list="service.colours" opt-value="materialColourId" opt-text="colourName" ng-required="true" ng-disabled="!editMode"></em-select>
                     </div>
                 </div>
             </div>

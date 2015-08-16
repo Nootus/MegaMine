@@ -8,10 +8,10 @@ function quarry($scope, $window, quarryService, quarryDialog, uiGridConstants, u
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'quarryName', field: 'QuarryName', displayName: 'Name', type: 'string', enableHiding: false },
-                    { name: 'colour', field: 'Colours', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'location', field: 'Location', type: 'string', displayName: 'Location', enableHiding: false },
-                    { name: 'quarryId', field: 'QuarryId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Quarry\" claim=\"QuarryEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'quarryName', field: 'quarryName', displayName: 'Name', type: 'string', enableHiding: false },
+                    { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour', enableHiding: false },
+                    { name: 'location', field: 'location', type: 'string', displayName: 'Location', enableHiding: false },
+                    { name: 'quarryId', field: 'quarryId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Quarry\" claim=\"QuarryEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 
@@ -44,7 +44,7 @@ function quarry($scope, $window, quarryService, quarryDialog, uiGridConstants, u
     }
 
     function addQuarry(ev) {
-        var model = { QuarryId: 0 }
+        var model = { quarryId: 0 }
         viewDialog(model, true, ev);
     }
 

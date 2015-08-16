@@ -13,7 +13,6 @@ function session($window, toastr, navigation, constants) {
         navigation: navigation,
         //profile: profile,
         initialize: initialize,
-        logout: logout
     };
 
     return vm;
@@ -28,10 +27,5 @@ function session($window, toastr, navigation, constants) {
         $window.navigation = navigation;
         $window.constants = constants
     }
-
-    function logout() {
-        //profile.logout();
-    }
-
 };
 

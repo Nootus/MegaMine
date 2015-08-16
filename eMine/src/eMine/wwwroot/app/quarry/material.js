@@ -8,12 +8,12 @@ function material($scope, $window, $mdDialog, quarryService, uiGridConstants, ut
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'quarry', field: 'Quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
-                    { name: 'productType', field: 'ProductType', displayName: 'Product Type', type: 'string', enableHiding: false },
-                    { name: 'colour', field: 'MaterialColour', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'dimensions', field: 'Dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
-                    { name: 'materialDate', field: 'MaterialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'materialId', field: 'MaterialId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon></md-button><md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.deleteRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/delete.svg\"></md-icon></md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
+                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
+                    { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
+                    { name: 'dimensions', field: 'dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
+                    { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'materialId', field: 'materialId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon></md-button><md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.deleteRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/delete.svg\"></md-icon></md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 
@@ -41,8 +41,8 @@ function material($scope, $window, $mdDialog, quarryService, uiGridConstants, ut
 
     function init() {
         vm.viewModel = quarryService.materialViewModel;
-        vm.model = vm.viewModel.Model;
-        vm.model.MaterialDate = new Date();
+        vm.model = vm.viewModel.model;
+        vm.model.materialDate = new Date();
         vm.gridOptions.data = vm.list;
         resizeGrid();
 
@@ -59,13 +59,13 @@ function material($scope, $window, $mdDialog, quarryService, uiGridConstants, ut
     }
 
     function updateDropDownText() {
-        vm.model.ProductType = utility.getListItem(vm.viewModel.ProductType, vm.model.ProductTypeId);
-        vm.model.MaterialColour = utility.getListItem(vm.viewModel.MaterialColour, vm.model.MaterialColourId);
-        vm.model.Quarry = utility.getListItem(vm.viewModel.Quarry, vm.model.QuarryId);
+        vm.model.productType = utility.getListItem(vm.viewModel.productType, vm.model.productTypeId);
+        vm.model.materialColour = utility.getListItem(vm.viewModel.materialColour, vm.model.materialColourId);
+        vm.model.quarry = utility.getListItem(vm.viewModel.quarry, vm.model.quarryId);
     }
 
     function resetModel() {
-        vm.model.Dimensions = "";
+        vm.model.dimensions = "";
     }
 
     function addMaterial(form) {
@@ -117,7 +117,7 @@ function material($scope, $window, $mdDialog, quarryService, uiGridConstants, ut
     }
 
     function deleteRowMaterial(row, ev) {
-        var message = "Are you sure you want to delete the material" + "{Quarry: " + row.Quarry + ", Product Type: " + row.ProductType + ", Colour: " + row.MaterialColour + ", Dimensions: " + row.Dimensions + "}";
+        var message = "Are you sure you want to delete the material" + "{Quarry: " + row.quarry + ", Product Type: " + row.productType + ", Colour: " + row.materialColour + ", Dimensions: " + row.dimensions + "}";
         var confirm = $mdDialog.confirm()
           .parent(angular.element(document.body))
           .title('Delete Material')

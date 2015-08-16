@@ -53,7 +53,7 @@ function quarryService($http) {
 
     function saveMaterialColour(model) {
         var url;
-        if (model.MaterialColourId === 0) {
+        if (model.materialColourId === 0) {
             url = "/api/quarry/materialcolouradd";
         }
         else {
@@ -75,7 +75,7 @@ function quarryService($http) {
 
     function saveProductType(model) {
         var url;
-        if (model.ProductTypeId === 0) {
+        if (model.productTypeId === 0) {
             url = "/api/quarry/producttypeadd";
         }
         else {
@@ -97,7 +97,7 @@ function quarryService($http) {
 
     function saveQuarry(model) {
         var url;
-        if (model.QuarryId === 0) {
+        if (model.quarryId === 0) {
             url = "/api/quarry/quarryadd";
         }
         else {
@@ -119,7 +119,7 @@ function quarryService($http) {
 
     function saveYard(model) {
         var url;
-        if (model.YardId === 0) {
+        if (model.yardId === 0) {
             url = "/api/quarry/yardadd";
         }
         else {

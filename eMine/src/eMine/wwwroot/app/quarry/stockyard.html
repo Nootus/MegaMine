@@ -4,7 +4,7 @@
     <form name="stockForm" novalidate>
         <div layout="row">
             <div flex="15">
-                <em-select form="stockForm" label="Yard" control-name="yard" ng-model="vm.yardId" opt-list="vm.yards" opt-value="YardId" opt-text="YardName" ng-required="true"></em-select>
+                <em-select form="stockForm" label="Yard" control-name="yard" ng-model="vm.yardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></em-select>
             </div>
             <div flex="10" layout-align="center">
                 <md-button ng-click="vm.getStock(stockForm)" class="md-raised md-primary" ng-disabled="stockForm.$invalid && stockForm.$submitted" aria-label="Get Stock">

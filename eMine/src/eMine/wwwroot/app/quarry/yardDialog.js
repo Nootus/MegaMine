@@ -53,12 +53,12 @@ function yardDialog($mdDialog, quarryService, utility) {
             if (form.$valid) {
                 service.saveYard(vm.model).success(function () {
                     //update the grid values
-                    if (vm.model.YardId === 0) {
+                    if (vm.model.yardId === 0) {
                         service.getYards();
                     }
                     else {
-                        model.YardName = vm.model.YardName
-                        model.Location = vm.model.Location
+                        model.yardName = vm.model.yardName
+                        model.location = vm.model.location
                     }
 
                     $mdDialog.hide();
