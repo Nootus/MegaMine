@@ -1,11 +1,11 @@
 ﻿'use strict';
 angular.module('emine').controller('dashboard', dashboard)
-dashboard.$inject = ['$http', 'dashboardService'];
+dashboard.$inject = ['dashboardService', 'profile'];
 
-function dashboard($http, dashboardService) {
+function dashboard(dashboardService, profile) {
 
     var vm = {
-        testClick: testClick
+        menu: profile.menu
     };
 
     init();
@@ -13,13 +13,6 @@ function dashboard($http, dashboardService) {
     return vm;
 
     function init() {
-    }
-
-    function testClick() {
-        return $http.get("/api/fleet/ManufacturersGet")
-            .success(function (data) {
-                alert("Success");
-            })
     }
 
 }

@@ -1,7 +1,21 @@
 ﻿<em-toolbar title="Dashboard" class="title">
-    <!--<md-button class="md-raised md-primary" ng-click="vm.testClick()">Test</md-button>-->
 </em-toolbar>
 <md-content layout-padding>
-    <!--<a href="/vehiclelist">Vehicle List</a>-->
+    <div layout="row">
+        <div flex="25" ng-repeat="menuItem in vm.menu track by menuItem.pageId">
+            <span class="{{menuItem.spriteCssClass}}"></span> &nbsp;{{menuItem.text}}
+            <div layout="row">
+                <div flex="20"></div>
+                <div flex layout="column">
+                    <div ng-repeat="child in menuItem.items track by child.pageId" >
+                        <span class="{{child.spriteCssClass}}"></span>
+                        <span><a href="{{child.url}}" ng-hide="child.disabled === 'disabled'">{{child.text}}</a></span>
+                        <span ng-show="child.disabled === 'disabled'"><br />{{child.text}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </md-content>
 

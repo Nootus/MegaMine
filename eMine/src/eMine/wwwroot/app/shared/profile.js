@@ -34,8 +34,9 @@ function profile() {
         vm.companies = data.Companies;
         vm.roles = data.Roles;
         vm.claims = data.Claims;
-        vm.menu = data.Menu;
         vm.isAuthenticated = true;
+        vm.menu.splice(0, vm.menu.length);
+        angular.extend(vm.menu, data.Menu);
     };
 
     function logout() {
