@@ -3,7 +3,7 @@
 <md-content layout-padding>
     <div layout="row">
         <div flex="25" ng-repeat="menuItem in vm.menu track by menuItem.pageId">
-            <span class="{{menuItem.spriteCssClass}}"></span> &nbsp;{{menuItem.text}}
+            <span class="{{menuItem.spriteCssClass}}"></span>{{menuItem.text}}
             <div layout="row">
                 <div flex="20"></div>
                 <div flex layout="column">
