@@ -53,12 +53,12 @@ function driverDialog($mdDialog, vehicleService, utility) {
             if (form.$valid) {
                 service.saveDriver(vm.model).success(function () {
                     //update the grid values
-                    if (vm.model.VehicleDriverId === 0) {
+                    if (vm.model.vehicleDriverId === 0) {
                         service.getDrivers();
                     }
                     else {
-                        model.DriverName = vm.model.DriverName
-                        model.Contact = vm.model.Contact
+                        model.driverName = vm.model.driverName
+                        model.contact = vm.model.contact
                     }
 
                     $mdDialog.hide();

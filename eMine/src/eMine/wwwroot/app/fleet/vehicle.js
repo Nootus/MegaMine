@@ -19,12 +19,12 @@ function vehicle($state, vehicleService, vehicleDialog, utility, profile, naviga
     function init() {
         vm.model = vehicleService.vehicle;
         if (navigation.vehicleMenuItems.length === 0)
-            navigation.populateVehicleMenu(vm.model.VehicleId);
+            navigation.populateVehicleMenu(vm.model.vehicleId);
         vm.menuItems = navigation.vehicleMenuItems;
     }
 
     function viewVehicle(ev) {
-        vehicleDialog.viewDialog(vm.model.VehicleId, true, ev);
+        vehicleDialog.viewDialog(vm.model.vehicleId, true, ev);
     }
 
     function menuSelect(e)
@@ -35,7 +35,7 @@ function vehicle($state, vehicleService, vehicleDialog, utility, profile, naviga
 
     function resetFuel(e)
     {
-        vehicleService.resetFuel(vm.model.VehicleId);
+        vehicleService.resetFuel(vm.model.vehicleId);
     }
 
 }

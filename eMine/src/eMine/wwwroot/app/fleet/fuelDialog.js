@@ -52,13 +52,13 @@ function fuelDialog($mdDialog, vehicleService, utility) {
             if (form.$valid) {
                 service.saveFuel(vm.model).success(function () {
                     //update the grid values
-                    if (vm.model.VehicleFuelId === 0) {
-                        service.getFuelList(vm.model.VehicleId);
+                    if (vm.model.vehicleFuelId === 0) {
+                        service.getFuelList(vm.model.vehicleId);
                     }
                     else {
-                        model.Odometer = vm.model.Odometer
-                        model.Quantity = vm.model.Quantity
-                        model.FuelDate = vm.model.FuelDate
+                        model.odometer = vm.model.odometer
+                        model.quantity = vm.model.quantity
+                        model.fuelDate = vm.model.fuelDate
                     }
 
                     $mdDialog.hide();

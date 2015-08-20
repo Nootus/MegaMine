@@ -8,11 +8,11 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'DriverName', field: 'DriverName', displayName: 'Driver', type:'string' },
-                    { name: 'AssignmentStartDate', field: 'AssignmentStartDate', displayName: 'Start Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
-                    { name: 'AssignmentEndDate', field: 'AssignmentEndDate', displayName: 'End Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
+                    { name: 'driverName', field: 'driverName', displayName: 'Driver', type:'string' },
+                    { name: 'assignmentStartDate', field: 'assignmentStartDate', displayName: 'Start Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
+                    { name: 'assignmentEndDate', field: 'assignmentEndDate', displayName: 'End Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
                     {
-                        name: 'VehicleDriverAssignmentId', field: 'VehicleDriverAssignmentId', displayName: '', enableColumnMenu: false, type: 'string',
+                        name: 'vehicleDriverAssignmentId', field: 'vehicleDriverAssignmentId', displayName: '', enableColumnMenu: false, type: 'string',
                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, 0, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, 1, $event)\" module=\"Fleet\" claim=\"VehicleDriverEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
                         cellClass: "text-center", enableHiding: false
                     },
@@ -36,9 +36,9 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
     return vm;
 
     function init() {
-        vm.vehicleId = vehicleService.vehicle.VehicleId;
+        vm.vehicleId = vehicleService.vehicle.vehicleId;
         vm.gridOptions.data = vehicleService.vehicleDriverList;
-        vm.editMode = vehicleService.vehicle.Driver === null ? 2 : 3;
+        vm.editMode = vehicleService.vehicle.driver === null ? 2 : 3;
         resizeGrid();
 
         angular.element($window).bind('resize', function () {
@@ -56,9 +56,9 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
     function unAssignDriver(ev) {
         //getting the model for unassign
         var model;
-        if (vehicleService.vehicle.VehicleDriverAssignmentId !== null){
+        if (vehicleService.vehicle.vehicleDriverAssignmentId !== null){
             for(var counter = 0; counter < vehicleService.vehicleDriverList.length; counter ++){
-                if (vehicleService.vehicleDriverList[counter].VehicleDriverAssignmentId === vehicleService.vehicle.VehicleDriverAssignmentId) {
+                if (vehicleService.vehicleDriverList[counter].vehicleDriverAssignmentId === vehicleService.vehicle.vehicleDriverAssignmentId) {
                     model = vehicleService.vehicleDriverList[counter];
                     break;
                 }
@@ -66,7 +66,7 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
         }
         else {
             for (var counter = 0; counter < vehicleService.vehicleDriverList.length; counter++) {
-                if (vehicleService.vehicleDriverList[counter].AssignmentEndDate === null) {
+                if (vehicleService.vehicleDriverList[counter].assignmentEndDate === null) {
                     model = vehicleService.vehicleDriverList[counter];
                     break;
                 }
@@ -76,19 +76,19 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
     }
 
     function assignDriver(ev) {
-        var model = { VehicleDriverAssignmentId: 0, VehicleId: vm.vehicleId }
+        var model = { vehicleDriverAssignmentId: 0, vehicleId: vm.vehicleId }
         viewDialog(model, 2, ev);
     }
 
     function addDriver(ev) {
-        var model = { VehicleDriverAssignmentId: 0, VehicleId: vm.vehicleId }
+        var model = { vehicleDriverAssignmentId: 0, vehicleId: vm.vehicleId }
         viewDialog(model, 1, ev);
     }
 
     function viewDialog(model, editMode, ev) {
         vehicleDriverDialog.viewDialog(model, editMode, ev)
         .then(function () {
-            vm.editMode = vehicleService.vehicle.Driver === null ? 2 : 3;
+            vm.editMode = vehicleService.vehicle.driver === null ? 2 : 3;
         }, function () {
             //nothing to do when we cancel
         });

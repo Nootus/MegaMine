@@ -68,11 +68,11 @@ function tripDialog($mdDialog, vehicleService, utility)
                     }
                     else
                     {
-                        model.VehicleTripName = vm.model.VehicleTripName
-                        model.StartingTime = vm.model.StartingTime
-                        model.ReachingTime = vm.model.ReachingTime
-                        model.OdometerStart = vm.model.OdometerStart
-                        model.OdometerEnd = vm.model.OdometerEnd
+                        model.vehicleTripName = vm.model.vehicleTripName
+                        model.startingTime = vm.model.startingTime
+                        model.reachingTime = vm.model.reachingTime
+                        model.odometerStart = vm.model.odometerStart
+                        model.odometerEnd = vm.model.odometerEnd
                     }
 
                     $mdDialog.hide();

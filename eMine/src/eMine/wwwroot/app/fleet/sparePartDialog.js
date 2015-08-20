@@ -46,18 +46,18 @@ function sparePartDialog($mdDialog, vehicleService, utility) {
         }
 
         function bindModelDropDown(manufacturerId, oldmanufacturerId) {
-            if (vm.model.ModelList === undefined) {
-                vm.model.ModelList = [];
+            if (vm.model.modelList === undefined) {
+                vm.model.modelList = [];
             }
 
-            var modelList = vm.model.ModelList;
-            var vehicleModelList = vm.model.VehicleModelList;
+            var modelList = vm.model.modelList;
+            var vehicleModelList = vm.model.vehicleModelList;
 
             modelList.splice(0, modelList.length);
 
             for (var counter = 0; counter < vehicleModelList.length; counter++) {
-                if (vehicleModelList[counter].VehicleManufacturerId === manufacturerId) {
-                    modelList.push({ Key: vehicleModelList[counter].VehicleModelId, Item: vehicleModelList[counter].Name })
+                if (vehicleModelList[counter].vehicleManufacturerId === manufacturerId) {
+                    modelList.push({ Key: vehicleModelList[counter].vehicleModelId, Item: vehicleModelList[counter].name })
                 }
             }
 
@@ -65,10 +65,10 @@ function sparePartDialog($mdDialog, vehicleService, utility) {
                 return;
 
             if (modelList.length > 0) {
-                vm.model.VehicleModelId = modelList[0].Key;
+                vm.model.vehicleModelId = modelList[0].key;
             }
             else {
-                vm.model.VehicleModelId = 0;
+                vm.model.vehicleModelId = 0;
             }
         }
 

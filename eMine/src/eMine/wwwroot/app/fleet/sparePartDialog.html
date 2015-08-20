@@ -13,19 +13,19 @@
             <div>
                 <div layout="row">
                     <div flex="30">
-                        <em-input form="sparePartForm" label="Part Name" control-name="name" ng-model="model.Name" ng-required="true" em-maxlength="20"></em-input>
+                        <em-input form="sparePartForm" label="Part Name" control-name="name" ng-model="model.name" ng-required="true" em-maxlength="20"></em-input>
                     </div>
                     <div flex="70">
-                        <em-input form="sparePartForm" label="Description" control-name="description" ng-model="model.Description" ng-required="false" em-maxlength="100"></em-input>
+                        <em-input form="sparePartForm" label="Description" control-name="description" ng-model="model.description" ng-required="false" em-maxlength="100"></em-input>
                     </div>
                     <div flex="30">
-                        <em-select form="sparePartForm" label="Type" control-name="vehicleType" ng-model="model.VehicleTypeId" opt-list="model.VehicleTypeList" ng-required="false" ></em-select>
+                        <em-select form="sparePartForm" label="Type" control-name="vehicleType" ng-model="model.vehicleTypeId" opt-list="model.vehicleTypeList" ng-required="false" ></em-select>
                     </div>
                     <div flex="20">
-                        <em-select form="sparePartForm" label="Manufacturer" control-name="manufacturer" ng-model="model.VehicleManufacturerId" opt-list="model.ManufacturerList" ng-required="false" ></em-select>
+                        <em-select form="sparePartForm" label="Manufacturer" control-name="manufacturer" ng-model="model.vehicleManufacturerId" opt-list="model.manufacturerList" ng-required="false" ></em-select>
                     </div>
                     <div flex="20" class="text-left">
-                        <em-select form="sparePartForm" label="Model" control-name="vehicleModel" ng-model="model.VehicleModelId" opt-list="model.ModelList" ng-required="false" ></em-select>
+                        <em-select form="sparePartForm" label="Model" control-name="vehicleModel" ng-model="model.vehicleModelId" opt-list="model.modelList" ng-required="false" ></em-select>
                     </div>
                 </div>
             </div>

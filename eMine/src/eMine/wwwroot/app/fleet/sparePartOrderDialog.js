@@ -18,8 +18,8 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
     return dialog;
 
     function viewDialog(orderModel, editMode, ev) {
-        sparePartOrderId = orderModel.SparePartOrderId;
-        sparePartId = orderModel.SparePartId;
+        sparePartOrderId = orderModel.sparePartOrderId;
+        sparePartId = orderModel.sparePartId;
         dialog.editMode = editMode;
 
         $mdDialog.show({
@@ -31,9 +31,9 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
             resolve: { resolvemodel: function () { return vehicleService.getCurrentSparePartOrder(sparePartOrderId) } }
         })
         .then(function () {
-            orderModel.OrderedUTCdatetime = vehicleService.currentSparePartOrder.OrderedUTCdatetime;
-            orderModel.OrderedUnits = vehicleService.currentSparePartOrder.OrderedUnits;
-            orderModel.UnitCost = vehicleService.currentSparePartOrder.UnitCost;
+            orderModel.orderedUTCdatetime = vehicleService.currentSparePartOrder.orderedUTCdatetime;
+            orderModel.orderedUnits = vehicleService.currentSparePartOrder.orderedUnits;
+            orderModel.unitCost = vehicleService.currentSparePartOrder.unitCost;
         }, function () {
             //nothing to do when we cancel
         });
@@ -76,9 +76,9 @@ function sparePartOrderDialog($mdDialog, vehicleService, utility)
                     }
                     else
                     {
-                        model.OrderedUTCdatetime = vm.model.OrderedUTCdatetime;
-                        model.OrderedUnits = vm.model.OrderedUnits;
-                        model.UnitCost = vm.model.UnitCost;
+                        model.orderedUTCdatetime = vm.model.orderedUTCdatetime;
+                        model.orderedUnits = vm.model.orderedUnits;
+                        model.unitCost = vm.model.unitCost;
 
                         service.getSparePart(sparePartId);
 

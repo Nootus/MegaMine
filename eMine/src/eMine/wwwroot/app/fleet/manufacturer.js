@@ -8,10 +8,10 @@ function manufacturer($scope, $window, vehicleService, vehicleModelDialog, manuf
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'Name', field: 'Name', displayName: 'Name', type: 'string' },
-                    { name: 'Description', field: 'Description', displayName: 'Description', type: 'string' },
+                    { name: 'name', field: 'name', displayName: 'Name', type: 'string' },
+                    { name: 'description', field: 'description', displayName: 'Description', type: 'string' },
                      {
-                         name: 'SparePartOrderId', field: 'SparePartOrderId', displayName: '', type: 'string', enableColumnMenu: false,
+                         name: 'sparePartOrderId', field: 'sparePartOrderId', displayName: '', type: 'string', enableColumnMenu: false,
                          cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewModel(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editModel(row.entity, true, $event)\" module=\"Fleet\" claim=\"ManufacturerModelEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
                          cellClass: "text-center", enableHiding: false
                      },
@@ -53,11 +53,11 @@ function manufacturer($scope, $window, vehicleService, vehicleModelDialog, manuf
 
     function viewManufacturer(ev)
     {
-        manufacturerDialog.viewDialog(vm.model.VehicleManufacturerId, true, ev);
+        manufacturerDialog.viewDialog(vm.model.vehicleManufacturerId, true, ev);
     }
 
     function addModel(ev) {
-        var model = { VehicleModelId: 0, VehicleManufacturerId: vm.model.VehicleManufacturerId }
+        var model = { vehicleModelId: 0, vehicleManufacturerId: vm.model.vehicleManufacturerId }
         viewDialog(model, true, ev);
     }
 

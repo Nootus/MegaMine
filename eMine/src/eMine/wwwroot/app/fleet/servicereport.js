@@ -8,14 +8,14 @@ function servicereport($state, vehicleService, vehicleServiceDialog) {
     {
         enableColumnResizing: true,
         columnDefs: [
-                    { name: 'VehicleNumber', field: 'VehicleId', displayName: 'VehicleNumber' },
-                    { name: 'Description', field: 'Description', displayName: 'Description' },
-                    { name: 'ServiceDate', field: 'ServiceDate', displayName: 'ServiceDate' },
-                    { name: 'Compliant', field: 'Compliant', displayName: 'Compliant' },
-                    { name: 'ServiceCost', field: 'ServiceCost', displayName: 'ServiceCost' },
+                    { name: 'vehicleNumber', field: 'vehicleId', displayName: 'VehicleNumber' },
+                    { name: 'description', field: 'description', displayName: 'Description' },
+                    { name: 'serviceDate', field: 'serviceDate', displayName: 'ServiceDate' },
+                    { name: 'compliant', field: 'compliant', displayName: 'Compliant' },
+                    { name: 'serviceCost', field: 'serviceCost', displayName: 'ServiceCost' },
                      {
-                         name: 'VehicleServiceId', field: 'VehicleServiceId', displayName: '', enableColumnMenu: false,
-                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.VehicleServiceId, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>",
+                         name: 'vehicleserviceid', field: 'vehicleServiceId', displayName: '', enableColumnMenu: false,
+                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.vehicleServiceId, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>",
                          cellClass: "text-center", enableHiding: false
                      },
 
@@ -48,7 +48,7 @@ function servicereport($state, vehicleService, vehicleServiceDialog) {
 
     function getReport(ev)
     {
-        vehicleService.getServiceReport(vm.model.VehicleId, vm.model.StartDate, vm.model.EndDate)
+        vehicleService.getServiceReport(vm.model.vehicleId, vm.model.startDate, vm.model.endDate)
         .success(function (data) {
             vm.gridOptions.data = data;
         })

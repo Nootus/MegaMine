@@ -57,14 +57,14 @@ function vehicleModelDialog($mdDialog, vehicleService, utility) {
                 service.saveModel(vm.model).success(function ()
                 {
                     //update the grid values
-                    if (vm.model.VehicleModelId === 0)
+                    if (vm.model.vehicleModelId === 0)
                     {
-                        service.getManufacturer(vm.model.VehicleManufacturerId);
+                        service.getManufacturer(vm.model.vehicleManufacturerId);
                     }
                     else
                     {
-                        model.Name = vm.model.Name
-                        model.Description = vm.model.Description                        
+                        model.name = vm.model.name
+                        model.description = vm.model.description                        
                     }
 
                     $mdDialog.hide();

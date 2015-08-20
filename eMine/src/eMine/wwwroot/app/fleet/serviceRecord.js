@@ -8,12 +8,12 @@ function serviceRecord($scope, $window, vehicleService, vehicleServiceDialog, ut
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'ServiceDate', field: 'ServiceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'Compliant', field: 'Compliant', displayName: 'Compliant', type: 'string' },
-                    { name: 'ServiceCost', field: 'ServiceCost', displayName: 'Service Cost', type: 'number' },
+                    { name: 'serviceDate', field: 'serviceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'compliant', field: 'compliant', displayName: 'Compliant', type: 'string' },
+                    { name: 'serviceCost', field: 'serviceCost', displayName: 'Service Cost', type: 'number' },
                     {
-                        name: 'VehicleServiceId', field: 'VehicleServiceId', displayName: '', enableColumnMenu: false,  type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.VehicleServiceId, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.VehicleServiceId, true, $event)\" module=\"Fleet\" claim=\"VehicleServiceEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
+                        name: 'vehicleServiceId', field: 'vehicleServiceId', displayName: '', enableColumnMenu: false,  type: 'string',
+                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.vehicleServiceId, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.vehicleServiceId, true, $event)\" module=\"Fleet\" claim=\"VehicleServiceEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
                         cellClass: "text-center", enableHiding: false
                     },
         ]
@@ -31,7 +31,7 @@ function serviceRecord($scope, $window, vehicleService, vehicleServiceDialog, ut
     return vm;
 
     function init() {
-        vm.gridOptions.data = vehicleService.vehicle.ServiceRecord;
+        vm.gridOptions.data = vehicleService.vehicle.serviceRecord;
         resizeGrid();
 
         angular.element($window).bind('resize', function () {

@@ -8,10 +8,10 @@ function sparePartList($scope, $window, vehicleService, sparePartDialog, uiGridC
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'Name', field: 'Name', displayName: 'Part Name', type: 'string', enableHiding: false },
-                    { name: 'Description', field: 'Description', displayName: 'Description', type: 'string', enableHiding: false },
-                    { name: 'Quantity', field: 'Quantity', displayName: 'Available Quantity', type: 'number', enableHiding: false },
-                    { name: 'SparePartId', field: 'SparePartId', displayName: '', enableColumnMenu: false,  type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToSparePart(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'name', field: 'name', displayName: 'Part Name', type: 'string', enableHiding: false },
+                    { name: 'description', field: 'description', displayName: 'Description', type: 'string', enableHiding: false },
+                    { name: 'quantity', field: 'quantity', displayName: 'Available Quantity', type: 'number', enableHiding: false },
+                    { name: 'sparePartId', field: 'sparePartId', displayName: '', enableColumnMenu: false,  type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToSparePart(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 
@@ -44,7 +44,7 @@ function sparePartList($scope, $window, vehicleService, sparePartDialog, uiGridC
     }
 
     function navigateToSparePart(row) {
-        navigation.gotoSparePart(row.entity.SparePartId);
+        navigation.gotoSparePart(row.entity.sparePartId);
     }
 
     function addSparePart(ev, editMode)

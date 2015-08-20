@@ -8,9 +8,9 @@ function driver($scope, $window, vehicleService, driverDialog, uiGridConstants, 
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'DriverName', field: 'DriverName', displayName: 'Name', type: 'string', enableHiding: false },
-                    { name: 'Contact', field: 'Contact', displayName: 'Contact', type: 'string', enableHiding: false },
-                    { name: 'VehicleDriverId', field: 'VehicleDriverId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Fleet\" claim=\"DriverEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</em-button>", cellClass: "text-center", enableHiding: false },
+                    { name: 'driverName', field: 'driverName', displayName: 'Name', type: 'string', enableHiding: false },
+                    { name: 'contact', field: 'contact', displayName: 'Contact', type: 'string', enableHiding: false },
+                    { name: 'vehicleDriverId', field: 'vehicleDriverId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Fleet\" claim=\"DriverEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</em-button>", cellClass: "text-center", enableHiding: false },
         ]
     };
 
@@ -43,7 +43,7 @@ function driver($scope, $window, vehicleService, driverDialog, uiGridConstants, 
     }
 
     function addDriver(ev) {
-        var model = { VehicleDriverId: 0 }
+        var model = { vehicleDriverId: 0 }
         viewDialog(model, true, ev);
     }
 

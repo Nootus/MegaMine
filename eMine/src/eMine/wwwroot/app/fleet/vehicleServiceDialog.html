@@ -16,14 +16,14 @@
             <div>
                 <div layout="row">
                     <div flex="30">
-                        <em-input form="serviceForm" type="date" label="Service Date" control-name="serviceDate" ng-model="model.ServiceDate" ng-required="true" ng-disabled="!editMode"></em-input>
+                        <em-input form="serviceForm" type="date" label="Service Date" control-name="serviceDate" ng-model="model.serviceDate" ng-required="true" ng-disabled="!editMode"></em-input>
                     </div>
                     <div flex="70">
-                        <em-input form="serviceForm" label="Compliant" control-name="compliant" ng-model="model.Compliant" ng-required="true" em-maxlength="30" ng-disabled="!editMode"></em-input>
+                        <em-input form="serviceForm" label="Compliant" control-name="compliant" ng-model="model.compliant" ng-required="true" em-maxlength="30" ng-disabled="!editMode"></em-input>
                     </div>
                 </div>
                 <div>
-                    <em-input form="serviceForm" label="Description" control-name="description" ng-model="model.Description" ng-disabled="!editMode"></em-input>
+                    <em-input form="serviceForm" label="Description" control-name="description" ng-model="model.description" ng-disabled="!editMode"></em-input>
                 </div>
                 <div layout="row">
                     <div flex="70">
@@ -42,13 +42,13 @@
                                         <span ng-init="part.control_partname='partname' + $index"></span>
                                         <span ng-init="part.control_quantity='quantity' + $index"></span>
                                         <md-input-container>
-                                            <md-select name="partname" placeholder="Part" ng-model="part.SparePartId" required ng-disabled="!editMode">
-                                                <md-option ng-value="opt.Key" ng-repeat="opt in model.SparePartsLookup">{{ opt.Item }}</md-option>
+                                            <md-select name="partname" placeholder="Part" ng-model="part.sparePartId" required ng-disabled="!editMode">
+                                                <md-option ng-value="opt.key" ng-repeat="opt in model.sparePartsLookup">{{ opt.item }}</md-option>
                                             </md-select>
                                         </md-input-container>
                                     </td>
                                     <td>
-                                        <em-input form="serviceForm" label="Quantity" control-name="{{part.control_quantity}}" type="number" ng-model="part.Quantity" ng-required="true" ng-disabled="!editMode" style="width:100px"></em-input>
+                                        <em-input form="serviceForm" label="Quantity" control-name="{{part.control_quantity}}" type="number" ng-model="part.quantity" ng-required="true" ng-disabled="!editMode" style="width:100px"></em-input>
                                     </td>
                                     <td>
                                         <md-button ng-click="removePart($index)" class="md-icon-button md-raised em-button" ng-show="editMode" aria-label="Remove">
@@ -60,14 +60,8 @@
                         </table>
                     </div>
                     <div flex>
-                        <em-input form="serviceForm" label="Misc Cost" control-name="miscCost" type="number" ng-model="model.MiscCost" ng-required="false" ng-disabled="!editMode"></em-input>
-                        <em-input form="serviceForm" label="Reason" control-name="reason" ng-model="model.Reason" ng-disabled="!editMode"></em-input>
-                    </div>
-                </div>
-                <div layout="row">
-                    <div flex="30">
-                    </div>
-                    <div flex="70">
+                        <em-input form="serviceForm" label="Misc Cost" control-name="miscCost" type="number" ng-model="model.miscCost" ng-required="false" ng-disabled="!editMode"></em-input>
+                        <em-input form="serviceForm" label="Reason" control-name="reason" ng-model="model.reason" ng-disabled="!editMode"></em-input>
                     </div>
                 </div>
             </div>

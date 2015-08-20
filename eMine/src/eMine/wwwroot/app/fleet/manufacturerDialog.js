@@ -89,7 +89,7 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
                 service.saveManufacturer(vm.model).success(function ()
                 {
                     //update the grid values
-                    if (vm.model.VehicleManufacturerId === 0) {
+                    if (vm.model.vehicleManufacturerId === 0) {
                         //refresh the grid
                         service.getManufacturerList();
                         

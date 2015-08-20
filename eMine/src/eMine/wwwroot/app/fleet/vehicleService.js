@@ -126,7 +126,7 @@ function vehicleService($http) {
             .success(function (data) {
                 service.manufacturer = data
                 service.modelsList.splice(0, service.modelsList.length);
-                angular.extend(service.modelsList, service.manufacturer.Models);
+                angular.extend(service.modelsList, service.manufacturer.models);
             })
     }
 
@@ -143,7 +143,7 @@ function vehicleService($http) {
     function saveTrip(model)
     {
         var url;
-        if (model.VehicleTripId === 0) {
+        if (model.vehicleTripId === 0) {
             url = "/api/fleet/vehicletripadd";
         }
         else {
@@ -172,7 +172,7 @@ function vehicleService($http) {
     
     function saveFuel(model) {
         var url;
-        if (model.VehicleFuelId === 0) {
+        if (model.vehicleFuelId === 0) {
             url = "/api/fleet/fueladd";
         }
         else {
@@ -184,7 +184,7 @@ function vehicleService($http) {
     function saveModel(model)
     {
         var url;
-        if (model.VehicleModelId === 0) {
+        if (model.vehicleModelId === 0) {
             url = "/api/fleet/modeladd";
         }
         else {
@@ -206,7 +206,7 @@ function vehicleService($http) {
     function saveVehiceDriver(model)
     {
         var url;
-        if (model.VehicleDriverAssignmentId === 0) {
+        if (model.vehicleDriverAssignmentId === 0) {
             url = "/api/fleet/vehicledriveradd"
         }
         else {
@@ -226,7 +226,7 @@ function vehicleService($http) {
 
     function getCurrentService(vehicleServiceId)
     {
-        return $http.get("/api/fleet/vehicleserviceget", { params: { "VehicleServiceId": vehicleServiceId } })
+        return $http.get("/api/fleet/vehicleserviceget", { params: { "vehicleServiceId": vehicleServiceId } })
             .success(function (data) {
                 angular.extend(service.currentVehicleService, data);
             })
@@ -235,11 +235,11 @@ function vehicleService($http) {
     function saveVehicleService(model)
     {
         //for adding we need to populate the vehicleid
-        if (model.VehicleId === 0) {
-            model.VehicleId = service.vehicle.VehicleId;
+        if (model.vehicleId === 0) {
+            model.vehicleId = service.vehicle.vehicleId;
         }
         var url;
-        if (model.VehicleServiceId === 0) {
+        if (model.vehicleServiceId === 0) {
             url = "/api/fleet/vehicleserviceadd";
         }
         else {
@@ -248,8 +248,8 @@ function vehicleService($http) {
         return $http.post(url, model)
             .success(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
-                service.vehicle.ServiceRecord.splice(0, service.vehicle.ServiceRecord.length);
-                angular.extend(service.vehicle.ServiceRecord, data.ServiceRecord);
+                service.vehicle.ServiceRecord.splice(0, service.vehicle.serviceRecord.length);
+                angular.extend(service.vehicle.serviceRecord, data.serviceRecord);
             })
     }
 
@@ -259,9 +259,9 @@ function vehicleService($http) {
             .success(function (data) {
                 angular.extend(service.currentVehicle, data);
                 if (vehicleId === 0) {
-                    service.currentVehicle.VehicleTypeId = undefined;
-                    service.currentVehicle.VehicleManufacturerId = undefined;
-                    service.currentVehicle.VehicleModelId = undefined;
+                    service.currentVehicle.vehicleTypeId = undefined;
+                    service.currentVehicle.vehicleManufacturerId = undefined;
+                    service.currentVehicle.vehicleModelId = undefined;
                 }
             })
     }
@@ -286,16 +286,16 @@ function vehicleService($http) {
         return $http.post(url, model)
             .success(function (data) {
                 //updating the vehicle
-                service.vehicle.RegistrationNumber = model.RegistrationNumber;
-                service.vehicle.VehicleType = model.VehicleType;
-                service.vehicle.Manufacturer = model.Manufacturer;
-                service.vehicle.VehicleModel = model.VehicleModel;
+                service.vehicle.registrationNumber = model.registrationNumber;
+                service.vehicle.vehicleType = model.vehicleType;
+                service.vehicle.manufacturer = model.manufacturer;
+                service.vehicle.vehicleModel = model.vehicleModel;
             });
     }
 
     function saveManufacturer(model) {
         var url;
-        if (model.VehicleManufacturerId === 0) {
+        if (model.vehicleManufacturerId === 0) {
             url = "/api/fleet/manufactureradd";
         }
         else {
@@ -306,8 +306,8 @@ function vehicleService($http) {
             .success(function (data)
             {
                 //updating the current manufacturer so that the view manufacturer screen gets refreshed properly.
-                service.manufacturer.Name = model.Name;
-                service.manufacturer.Description = model.Description;
+                service.manufacturer.name = model.name;
+                service.manufacturer.description = model.description;
                
             });
     }
@@ -323,7 +323,7 @@ function vehicleService($http) {
 
     function saveVehicleType(model) {
         var url;
-        if (model.VehicleTypeId === 0) {
+        if (model.vehicleTypeId === 0) {
             url = "/api/fleet/vehicletypeadd";
         }
         else {
@@ -344,7 +344,7 @@ function vehicleService($http) {
 
     function saveDriver(model) {
         var url;
-        if (model.VehicleDriverId === 0) {
+        if (model.vehicleDriverId === 0) {
             url = "/api/fleet/driveradd";
         }
         else {
@@ -373,18 +373,12 @@ function vehicleService($http) {
     function getServiceReport(vehicleServiceId, StartDate, EndDate)
     {
         return $http.get("/api/fleet/VehicleServiceReportGet", { params: { "vehicleServiceId": vehicleServiceId, "StartDate": StartDate, "EndDate": EndDate } })
-            //.success(function (data)
-            //{
-            //    //service.vehicleServiceList.splice(0, service.vehicleServiceList.length);
-            //    //angular.extend(service.vehicleServiceList, data);
-            //    return data;
-            //})
     }
         
     function saveSparePart(model)
     {
         var url;
-        if (model.SparePartId === 0) {
+        if (model.sparePartId === 0) {
             url = "/api/fleet/sparepartadd";
         }
         else {
@@ -393,8 +387,8 @@ function vehicleService($http) {
         return $http.post(url, model)
             .success(function (data) {
                 //updating the spare part
-                service.sparePart.Name = model.Name;
-                service.sparePart.Description = model.Description;
+                service.sparePart.name = model.name;
+                service.sparePart.description = model.description;
     
             });
     }
@@ -404,7 +398,7 @@ function vehicleService($http) {
             .success(function (data) {
                 angular.extend(service.sparePart, data);
                 service.ordersList.splice(0, service.ordersList.length);
-                angular.extend(service.ordersList, service.sparePart.Orders);
+                angular.extend(service.ordersList, service.sparePart.orders);
             })
     }
 
@@ -412,13 +406,13 @@ function vehicleService($http) {
         return $http.get("/api/fleet/sparepartorderget", { params: { "sparePartOrderId": sparePartOrderId } })
             .success(function (data) {
                 angular.extend(service.currentSparePartOrder, data);
-                service.currentSparePartOrder.OrderedUTCdatetime = new Date(service.currentSparePartOrder.OrderedUTCdatetime);
+                service.currentSparePartOrder.orderedUTCdatetime = new Date(service.currentSparePartOrder.orderedUTCdatetime);
             })
     }
 
     function saveSparePartOrder(model) {
         var url;
-        if (model.SparePartOrderId === 0) {
+        if (model.sparePartOrderId === 0) {
             url = "/api/fleet/sparepartorderadd";
         }
         else {

@@ -56,12 +56,12 @@ function vehicleServiceDialog($mdDialog, vehicleService, utility) {
 
         function addPart() {
             event.preventDefault();
-            vm.model.SpareParts.push({ VehicleServiceSparePartId: undefined, SparePartId: 0, Quantity: undefined });
+            vm.model.spareParts.push({ vehicleServiceSparePartId: undefined, sparePartId: 0, quantity: undefined });
         }
 
         function removePart(index) {
             event.preventDefault();
-            vm.model.SpareParts.splice(index, 1);
+            vm.model.spareParts.splice(index, 1);
         }
     }
 

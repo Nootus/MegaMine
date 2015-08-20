@@ -16,17 +16,17 @@
             <div>
                 <div layout="row">
                     <div flex="30">
-                        <em-input form="vehicleForm" label="Registration #" control-name="registrationNumber" ng-model="model.RegistrationNumber" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
+                        <em-input form="vehicleForm" label="Registration #" control-name="registrationNumber" ng-model="model.registrationNumber" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
                     </div>
                     <div flex="30">
-                        <em-select form="vehicleForm" label="Type" control-name="vehicleType" ng-model="model.VehicleTypeId" opt-list="model.VehicleTypeList" ng-required="true" ng-disabled="!editMode"></em-select>
+                        <em-select form="vehicleForm" label="Type" control-name="vehicleType" ng-model="model.vehicleTypeId" opt-list="model.vehicleTypeList" ng-required="true" ng-disabled="!editMode"></em-select>
                     </div>
                    
                     <div flex="20">
-                        <em-select form="vehicleForm" label="Manufacturer" control-name="manufacturer" ng-model="model.VehicleManufacturerId" opt-list="model.ManufacturerList" ng-required="true" ng-disabled="!editMode"></em-select>
+                        <em-select form="vehicleForm" label="Manufacturer" control-name="manufacturer" ng-model="model.vehicleManufacturerId" opt-list="model.manufacturerList" ng-required="true" ng-disabled="!editMode"></em-select>
                     </div>
                     <div flex="20" class="text-left">
-                        <em-select form="vehicleForm" label="Model" control-name="vehicleModel" ng-model="model.VehicleModelId" opt-list="model.ModelList" ng-required="true" ng-disabled="!editMode"></em-select>
+                        <em-select form="vehicleForm" label="Model" control-name="vehicleModel" ng-model="model.vehicleModelId" opt-list="model.modelList" ng-required="true" ng-disabled="!editMode"></em-select>
                     </div>
                 </div>
             </div>

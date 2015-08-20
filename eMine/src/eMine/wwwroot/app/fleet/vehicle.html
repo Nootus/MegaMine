@@ -7,41 +7,41 @@
     <md-content layout-padding>
         <div layout="row">
             <div flex="20">
-                <em-input label="Registration #" control-name="registrationNumber" ng-model="vm.model.RegistrationNumber" ng-disabled="true"></em-input>
+                <em-input label="Registration #" control-name="registrationNumber" ng-model="vm.model.registrationNumber" ng-disabled="true"></em-input>
             </div>
             <div flex="20">
-                <em-input label="Vehicle Type" control-name="vehicleType" ng-model="vm.model.VehicleType" ng-disabled="true"></em-input>
+                <em-input label="Vehicle Type" control-name="vehicleType" ng-model="vm.model.vehicleType" ng-disabled="true"></em-input>
             </div>
             <div flex="20">
-                <em-input label="Manufacturer" control-name="manufacturer" ng-model="vm.model.Manufacturer" ng-disabled="true"></em-input>
+                <em-input label="Manufacturer" control-name="manufacturer" ng-model="vm.model.manufacturer" ng-disabled="true"></em-input>
             </div>
             <div flex="20">
-                <em-input label="Model" control-name="vehicleModel" ng-model="vm.model.VehicleModel" ng-disabled="true"></em-input>
-            </div>
-        </div>
-        <div layout="row">
-            <div flex="20">
-                <em-input type="date" label="Last Service Date" control-name="serviceDate" ng-model="vm.model.ServiceDate" ng-disabled="true"></em-input>
-            </div>
-            <div flex="20">
-                <em-input label="Service Cost" control-name="serviceCost" ng-model="vm.model.ServiceCost" ng-disabled="true"></em-input>
-            </div>
-            <div flex="20">
-                <em-input label="Fuel Average" control-name="fuelAverage" ng-model="vm.model.FuelAverage" ng-disabled="true"></em-input>
-            </div>
-            <div flex="20">
-                <em-input label="Driver" control-name="driver" ng-model="vm.model.Driver" ng-disabled="true"></em-input>
+                <em-input label="Model" control-name="vehicleModel" ng-model="vm.model.vehicleModel" ng-disabled="true"></em-input>
             </div>
         </div>
         <div layout="row">
             <div flex="20">
-                <em-input  label="Fuel Start Odometer" control-name="fuelStartOdometer" ng-model="vm.model.FuelStartOdometer" ng-disabled="true"></em-input>
+                <em-input type="date" label="Last Service Date" control-name="serviceDate" ng-model="vm.model.serviceDate" ng-disabled="true"></em-input>
             </div>
             <div flex="20">
-                <em-input label="Fuel End Odometer" control-name="fuelEndOdometer" ng-model="vm.model.FuelEndOdometer" ng-disabled="true"></em-input>
+                <em-input label="Service Cost" control-name="serviceCost" ng-model="vm.model.serviceCost" ng-disabled="true"></em-input>
             </div>
             <div flex="20">
-                <em-input label="Fuel Quantity" control-name="fuelQuantity" ng-model="vm.model.FuelQuantity" ng-disabled="true"></em-input>
+                <em-input label="Fuel Average" control-name="fuelAverage" ng-model="vm.model.fuelAverage" ng-disabled="true"></em-input>
+            </div>
+            <div flex="20">
+                <em-input label="Driver" control-name="driver" ng-model="vm.model.driver" ng-disabled="true"></em-input>
+            </div>
+        </div>
+        <div layout="row">
+            <div flex="20">
+                <em-input  label="Fuel Start Odometer" control-name="fuelStartOdometer" ng-model="vm.model.fuelStartOdometer" ng-disabled="true"></em-input>
+            </div>
+            <div flex="20">
+                <em-input label="Fuel End Odometer" control-name="fuelEndOdometer" ng-model="vm.model.fuelEndOdometer" ng-disabled="true"></em-input>
+            </div>
+            <div flex="20">
+                <em-input label="Fuel Quantity" control-name="fuelQuantity" ng-model="vm.model.fuelQuantity" ng-disabled="true"></em-input>
             </div>
             <md-button class="md-raised md-primary" aria-label="Reset" ng-click="vm.resetFuel($event)">
                 <md-icon class="icon-button" ></md-icon>ResetFuel

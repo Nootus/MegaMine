@@ -8,12 +8,12 @@ function sparePart($scope, $window, $mdDialog, vehicleService, sparePartOrderDia
         enableColumnResizing: true,
         enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'OrderedUTCdatetime', field: 'OrderedUTCdatetime', displayName: 'Ordered Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'OrderedUnits', field: 'OrderedUnits', displayName: 'Quantity', type: 'number' },
-                    { name: 'ConsumedUnits', field: 'ConsumedUnits', displayName: 'ConsumedUnits', type: 'number' },
-                    { name: 'UnitCost', field: 'UnitCost', displayName: 'Unit Cost', type: 'number' },
+                    { name: 'orderedUTCdatetime', field: 'orderedUTCdatetime', displayName: 'Ordered Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'orderedUnits', field: 'orderedUnits', displayName: 'Quantity', type: 'number' },
+                    { name: 'consumedUnits', field: 'consumedUnits', displayName: 'ConsumedUnits', type: 'number' },
+                    { name: 'unitCost', field: 'unitCost', displayName: 'Unit Cost', type: 'number' },
                     {
-                        name: 'SparePartOrderId', field: 'SparePartOrderId', enableColumnMenu: false, displayName: '', type: 'string',
+                        name: 'sparePartOrderId', field: 'sparePartOrderId', enableColumnMenu: false, displayName: '', type: 'string',
                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, true, $event)\" module=\"Fleet\" claim=\"SparePartOrderEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
                         cellClass: "text-center", enableHiding: false
                     },
@@ -61,6 +61,6 @@ function sparePart($scope, $window, $mdDialog, vehicleService, sparePartOrderDia
     }
 
     function editSparePart(ev) {
-        sparePartDialog.viewDialog(vm.model.SparePartId, ev);
+        sparePartDialog.viewDialog(vm.model.sparePartId, ev);
     }
 }

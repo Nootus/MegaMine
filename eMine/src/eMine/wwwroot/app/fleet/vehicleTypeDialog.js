@@ -53,12 +53,12 @@ function vehicleTypeDialog($mdDialog, vehicleService, utility) {
             if (form.$valid) {
                 service.saveVehicleType(vm.model).success(function () {
                     //update the grid values
-                    if (vm.model.VehicleTypeId === 0) {
+                    if (vm.model.vehicleTypeId === 0) {
                         service.getVehicleType();
                     }
                 else{
-                        model.VehicleTypeName = vm.model.VehicleTypeName
-                        model.VehicleTypeDescription = vm.model.VehicleTypeDescription
+                        model.vehicleTypeName = vm.model.vehicleTypeName
+                        model.vehicleTypeDescription = vm.model.vehicleTypeDescription
                     }
 
                     $mdDialog.hide();
