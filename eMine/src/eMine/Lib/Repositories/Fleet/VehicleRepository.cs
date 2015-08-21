@@ -568,6 +568,7 @@ namespace eMine.Lib.Repositories.Fleet
             var query = from vm in dbContext.VehicleManufacturers
                         where vm.DeletedInd == false
                         && vm.CompanyId == profile.CompanyId
+                        orderby vm.Name
                         select new VehicleManufacturerModel()
                         {
                             VehicleManufacturerId = vm.VehicleManufacturerId,

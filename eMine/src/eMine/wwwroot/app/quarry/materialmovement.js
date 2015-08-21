@@ -1,14 +1,16 @@
 ﻿'use strict';
 angular.module('emine').controller('materialmovement', materialmovement)
-materialmovement.$inject = ['$scope', '$window', '$filter', '$mdDialog', 'quarryService', 'uiGridConstants', 'utility', 'constants'];
+materialmovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'utility', 'constants'];
 
-function materialmovement($scope, $window, $filter, $mdDialog, quarryService, uiGridConstants, utility, constants) {
+function materialmovement($scope, $mdDialog, quarryService, utility, constants) {
 
     var gridOptions = {
-        enableColumnResizing: true,
-        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
-                    { name: 'materialMovementId', field: 'materialMovementId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-checkbox ng-model=\"row.entity.Selected\" aria-label=\"{{row.entity.MaterialMovementId}}\" class=\"md-primary\"></md-checkbox>", cellClass: "text-center", enableHiding: false },
+                    {
+                        name: 'materialMovementId', field: 'materialMovementId', displayName: '', enableColumnMenu: false, type: 'string',
+                        cellTemplate: "<md-checkbox ng-model=\"row.entity.selected\" aria-label=\"{{row.entity.materialMovementId}}\" class=\"md-primary\"></md-checkbox>",
+                        cellClass: "text-center", enableHiding: false
+                    },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
                     { name: 'dimensions', field: 'dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
@@ -25,7 +27,6 @@ function materialmovement($scope, $window, $filter, $mdDialog, quarryService, ui
         currentYardId: undefined,
         movementDate: undefined,
         gridOptions: gridOptions,
-        gridHeight: '0px',
         getStock: getStock,
         moveMaterial: moveMaterial,
         movementErrorMessages: [],
@@ -39,19 +40,8 @@ function materialmovement($scope, $window, $filter, $mdDialog, quarryService, ui
     function init() {
         vm.yards = quarryService.yards;
         quarryService.stock.splice(0, quarryService.stock.length);
-        vm.gridOptions.data = quarryService.stock;
-        resizeGrid();
 
-        angular.element($window).bind('resize', function () {
-            resizeGrid();
-        });
-        $scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-    }
-
-    function resizeGrid() {
-        vm.gridHeight = utility.getMainGridHeight('main-grid');
+        utility.initializeGrid(vm, $scope, quarryService.stock);
     }
 
     function getStock(form) {
@@ -81,7 +71,7 @@ function materialmovement($scope, $window, $filter, $mdDialog, quarryService, ui
         if (form.$valid) {
             var selectedIds = [];
             angular.forEach(quarryService.stock, function (item) {
-                if (item.Selected === true) {
+                if (item.selected === true) {
                     selectedIds.push(item.materialMovementId)
                 }
             });

@@ -10,7 +10,11 @@ function manufacturerList($scope, $window,vehicleService, manufacturerDialog, ui
         columnDefs: [
                     { name: 'name', field: 'name', displayName: 'Name', type: 'string', enableHiding: false },
                     { name: 'description', field: 'description', displayName: 'Description', type: 'string', enableHiding: false },
-                    { name: 'manufacturerId', field: 'manufacturerID', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToManufacturer(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button> ", cellClass: "text-center", enableHiding: false },
+                    {
+                        name: 'manufacturerId', field: 'manufacturerID', displayName: '', enableColumnMenu: false, type: 'string',
+                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToManufacturer(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button> ",
+                        cellClass: "text-center", enableHiding: false
+                    },
         ]
     };
 

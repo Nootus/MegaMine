@@ -1,23 +1,24 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleType', vehicleType)
-vehicleType.$inject = ['$scope', '$window', 'vehicleService', 'vehicleTypeDialog', 'uiGridConstants', 'utility'];
+vehicleType.$inject = ['$scope', 'vehicleService', 'vehicleTypeDialog', 'utility'];
 
-function vehicleType($scope, $window, vehicleService, vehicleTypeDialog, uiGridConstants, utility) {
+function vehicleType($scope, vehicleService, vehicleTypeDialog, utility) {
 
     var gridOptions = {
-        enableColumnResizing: true,
-        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
                     { name: 'vehicleTypeName', field: 'vehicleTypeName', displayName: 'Vehicle Type', type: 'string', enableHiding: false },
                     { name: 'vehicleTypeDescription', field: 'vehicleTypeDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    { name: 'vehicleTypeId', field: 'vehicleTypeId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Fleet\" claim=\"VehicleTypeEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>", cellClass: "text-center", enableHiding: false },
+                    {
+                        name: 'vehicleTypeId', field: 'vehicleTypeId', displayName: '', enableColumnMenu: false, type: 'string',
+                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Fleet\" claim=\"VehicleTypeEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>",
+                        cellClass: "text-center", enableHiding: false
+                    },
         ]
     };
 
 
     var vm = {
         gridOptions: gridOptions,
-        gridHeight: '0px',
         viewDialog: viewDialog,
         addVehicleType: addVehicleType
     };
@@ -27,19 +28,7 @@ function vehicleType($scope, $window, vehicleService, vehicleTypeDialog, uiGridC
     return vm;
 
     function init() {
-        vm.gridOptions.data = vehicleService.vehicleTypes;
-        resizeGrid();
-
-        angular.element($window).bind('resize', function () {
-            resizeGrid();
-        });
-        $scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-    }
-
-    function resizeGrid() {
-        vm.gridHeight = utility.getMainGridHeight('main-grid');
+        utility.initializeGrid(vm, $scope, vehicleService.vehicleTypes);
     }
 
     function addVehicleType(ev) {

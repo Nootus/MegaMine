@@ -13,12 +13,9 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
         editMode: false,
     };
 
-    var curManufacturerId;
-
     return dialog;
 
     function editDialog(model, editMode, ev) {
-        curManufacturerId = model.VehicleManufacturerId;
         dialog.editMode = editMode;
 
         $mdDialog.show({
@@ -27,7 +24,7 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
             templateUrl: utility.virtualDirectory + '/app/fleet/manufacturerDialog.html',
             targetEvent: ev,
             locals: { $mdDialog: $mdDialog, service: vehicleService, model: model, editMode: dialog.editMode },
-            resolve: { resolvemodel: function () { return vehicleService.getCurrentManufacturer(curManufacturerId) } }
+            resolve: { resolvemodel: function () { return vehicleService.getCurrentManufacturer(model.vehicleManufacturerId) } }
         })
         .then(function () {
             //alert('You said the information was "' + answer + '".');
@@ -39,7 +36,6 @@ function manufacturerDialog($mdDialog, vehicleService,  utility)
 
     function viewDialog(manufacturerId, editMode, ev)
     {
-        curManufacturerId = manufacturerId;
         dialog.editMode = editMode;
 
         $mdDialog.show({

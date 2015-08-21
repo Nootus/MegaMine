@@ -1,19 +1,21 @@
 ﻿'use strict';
 angular.module('emine').controller('material', material)
-material.$inject = ['$scope', '$window', '$mdDialog', 'quarryService', 'uiGridConstants', 'utility', 'constants'];
+material.$inject = ['$scope', '$mdDialog', 'quarryService', 'utility', 'constants'];
 
-function material($scope, $window, $mdDialog, quarryService, uiGridConstants, utility, constants) {
+function material($scope, $mdDialog, quarryService, utility, constants) {
 
     var gridOptions = {
-        enableColumnResizing: true,
-        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
                     { name: 'dimensions', field: 'dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'materialId', field: 'materialId', displayName: '', enableColumnMenu: false, type: 'string', cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon></md-button><md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.deleteRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/delete.svg\"></md-icon></md-button>", cellClass: "text-center", enableHiding: false },
+                    {
+                        name: 'materialId', field: 'materialId', displayName: '', enableColumnMenu: false, type: 'string',
+                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon></md-button><md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.deleteRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/delete.svg\"></md-icon></md-button>",
+                        cellClass: "text-center", enableHiding: false
+                    },
         ]
     };
 
@@ -24,7 +26,6 @@ function material($scope, $window, $mdDialog, quarryService, uiGridConstants, ut
         previousModel: {},
         viewModel: {},
         gridOptions: gridOptions,
-        gridHeight: '0px',
         viewDialog: {},
         addMaterial: addMaterial,
         saveMaterial: saveMaterial,
@@ -43,19 +44,8 @@ function material($scope, $window, $mdDialog, quarryService, uiGridConstants, ut
         vm.viewModel = quarryService.materialViewModel;
         vm.model = vm.viewModel.model;
         vm.model.materialDate = new Date();
-        vm.gridOptions.data = vm.list;
-        resizeGrid();
 
-        angular.element($window).bind('resize', function () {
-            resizeGrid();
-        });
-        $scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-    }
-
-    function resizeGrid() {
-        vm.gridHeight = utility.getMainGridHeight('main-grid');
+        utility.initializeGrid(vm, $scope, vm.list);
     }
 
     function updateDropDownText() {

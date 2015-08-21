@@ -10,12 +10,12 @@ function manufacturer($scope, $window, vehicleService, vehicleModelDialog, manuf
         columnDefs: [
                     { name: 'name', field: 'name', displayName: 'Name', type: 'string' },
                     { name: 'description', field: 'description', displayName: 'Description', type: 'string' },
-                     {
-                         name: 'sparePartOrderId', field: 'sparePartOrderId', displayName: '', type: 'string', enableColumnMenu: false,
-                         cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewModel(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editModel(row.entity, true, $event)\" module=\"Fleet\" claim=\"ManufacturerModelEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
-                         cellClass: "text-center", enableHiding: false
-                     },
-                    
+                    {
+                        name: 'sparePartOrderId', field: 'sparePartOrderId', displayName: '', type: 'string', enableColumnMenu: false,
+                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewModel(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editModel(row.entity, true, $event)\" module=\"Fleet\" claim=\"ManufacturerModelEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
+                        cellClass: "text-center", enableHiding: false
+                    },
+
         ]
     };
 

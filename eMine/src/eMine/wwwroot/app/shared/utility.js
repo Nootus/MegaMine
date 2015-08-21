@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('emine').factory('utility', utility);
-utility.$inject = ['toastr'];
+utility.$inject = ['$window', 'toastr', 'uiGridConstants'];
 
-function utility(toastr) {
+function utility($window, toastr, uiGridConstants) {
 
     var virtualDirectory = window.virtualDirectory || '';
 
@@ -12,6 +12,7 @@ function utility(toastr) {
         routePath: routePath,
         showInfo: showInfo,
         showError: showError,
+        initializeGrid: initializeGrid,
         getGridHeight: getGridHeight,
         getMainGridHeight: getMainGridHeight,
         getSubGridHeight: getSubGridHeight,
@@ -33,6 +34,24 @@ function utility(toastr) {
     function showError(message) {
         toastr.error(message);
     }
+
+    function initializeGrid(vm, scope, model) {
+        vm.gridOptions.enableColumnResizing = true,
+        vm.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
+        vm.gridOptions.data = model;
+        setGridHeight(vm);
+
+        angular.element($window).bind('resize', function () {
+            setGridHeight(vm);
+        });
+        scope.$on('$destroy', function (e) {
+            angular.element($window).unbind('resize');
+        });
+    }
+    function setGridHeight(vm) {
+        vm.gridHeight = getMainGridHeight('main-grid');
+    }
+
 
     function getMainGridHeight(gridClass) {
         return getGridHeight(gridClass, 24);
