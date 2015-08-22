@@ -10,7 +10,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		global.json = global.json
 	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "eMine", "src\eMine\eMine.xproj", "{EB6527A0-AEC0-45C4-8CC7-23D01FD59A70}"
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "MegaMine", "src\eMine\MegaMine.xproj", "{EB6527A0-AEC0-45C4-8CC7-23D01FD59A70}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -28,15 +28,5 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{EB6527A0-AEC0-45C4-8CC7-23D01FD59A70} = {E4902446-F6DE-49F1-B991-869991BBC5C2}
-	EndGlobalSection
-	GlobalSection(TeamFoundationVersionControl) = preSolution
-		SccNumberOfProjects = 2
-		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
-		SccTeamFoundationServer = https://prasannapattam.visualstudio.com/defaultcollection
-		SccLocalPath0 = .
-		SccProjectUniqueName1 = src\\eMine\\eMine.xproj
-		SccProjectTopLevelParentUniqueName1 = eMine.sln
-		SccProjectName1 = src/eMine
-		SccLocalPath1 = src\\eMine
 	EndGlobalSection
 EndGlobal
