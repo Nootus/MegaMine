@@ -5,8 +5,6 @@ vehicleList.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDialog', '
 function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConstants, utility, navigation, constants) {
 
     var gridOptions = {
-        enableColumnResizing: true,
-        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
                     { name: 'registrationNumber', field: 'registrationNumber', displayName: 'Registration #', type:'string', enableHiding: false },
                     { name: 'vehicleType', field: 'vehicleType', displayName: 'Type', type: 'string', enableHiding: false },
@@ -25,7 +23,6 @@ function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConst
 
     var vm = {
         gridOptions: gridOptions,
-        gridHeight: '0px',
         navigateToVehicle: navigateToVehicle,
         addVehicle: addVehicle,
     };
@@ -35,19 +32,7 @@ function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConst
     return vm;
 
     function init() {
-        vm.gridOptions.data = vehicleService.vehicleList;
-        resizeGrid();
-
-        angular.element($window).bind('resize', function () {
-            resizeGrid();
-        });
-        $scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-    }
-
-    function resizeGrid() {
-        vm.gridHeight = utility.getMainGridHeight('main-grid');
+        utility.initializeGrid(vm, $scope, vehicleService.vehicleList);
     }
 
     function navigateToVehicle(row) {
