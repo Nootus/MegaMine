@@ -33,8 +33,7 @@ function manufacturer($scope, $window, vehicleService, vehicleModelDialog, manuf
 
     return vm;
 
-    function init()
-    {
+    function init(){
         vm.model = vehicleService.manufacturer;
         vm.gridOptions.data = vehicleService.modelsList;
         resizeGrid();
@@ -51,8 +50,7 @@ function manufacturer($scope, $window, vehicleService, vehicleModelDialog, manuf
         vm.gridHeight = utility.getSubGridHeight('sub-grid');
     }
 
-    function viewManufacturer(ev)
-    {
+    function viewManufacturer(ev){
         manufacturerDialog.viewDialog(vm.model.vehicleManufacturerId, true, ev);
     }
 
@@ -71,7 +69,6 @@ function manufacturer($scope, $window, vehicleService, vehicleModelDialog, manuf
     }
 
     function editModel(model, editMode, ev) {
-     
         vehicleModelDialog.viewDialog(model, editMode, ev);
     }
 

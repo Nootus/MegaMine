@@ -39,17 +39,28 @@ function utility($window, toastr, uiGridConstants) {
         vm.gridOptions.enableColumnResizing = true,
         vm.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
         vm.gridOptions.data = model;
-        setGridHeight(vm);
+        vm.gridHeight = getMainGridHeight('main-grid');
 
         angular.element($window).bind('resize', function () {
-            setGridHeight(vm);
+            vm.gridHeight = getMainGridHeight('main-grid');
         });
         scope.$on('$destroy', function (e) {
             angular.element($window).unbind('resize');
         });
     }
-    function setGridHeight(vm) {
-        vm.gridHeight = getMainGridHeight('main-grid');
+
+    function initializeSubGrid(vm, scope, model) {
+        vm.gridOptions.enableColumnResizing = true,
+        vm.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
+        vm.gridOptions.data = model;
+        vm.gridHeight = getSubGridHeight('sub-grid');
+
+        angular.element($window).bind('resize', function () {
+            vm.gridHeight = getSubGridHeight('sub-grid');
+        });
+        scope.$on('$destroy', function (e) {
+            angular.element($window).unbind('resize');
+        });
     }
 
 

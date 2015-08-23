@@ -1,31 +1,15 @@
 ﻿<md-dialog aria-label="Quarry" class="dialog">
-    <form name="quarryForm" novalidate>
-        <em-toolbar title="Quarry" class="dialog">
-            <md-button ng-click="save(quarryForm)" class="md-raised md-primary" ng-show="editMode" ng-disabled="quarryForm.$invalid && quarryForm.$submitted" aria-label="Save">
-                <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Save
-            </md-button>
-            <md-button ng-click="cancel()" class="md-raised md-primary" ng-show="editMode">
-                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Cancel
-            </md-button>
-            <md-button ng-click="cancel()" class="md-raised md-primary" ng-hide="editMode">
-                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Close
-            </md-button>
-        </em-toolbar>
-
-        <md-dialog-content class="dialog-content">
-            <div>
-                <div layout="row">
-                    <div flex="30">
-                        <em-input form="quarryForm" label="Quarry Name" control-name="quarryName" ng-model="model.quarryName" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
-                    </div>
-                    <div flex="30">
-                        <em-input form="quarryForm" label="location" control-name="Location" ng-model="model.location" ng-required="false" em-maxlength="100" ng-disabled="!editMode"></em-input>
-                    </div>
-                    <div flex class="text-left">
-                        <em-select form="quarryForm" label="Colour" control-name="colourId" ng-model="model.colourIds[0]" opt-list="service.colours" opt-value="materialColourId" opt-text="colourName" ng-required="true" ng-disabled="!editMode"></em-select>
-                    </div>
-                </div>
+    <nt-dialog form="quarryForm" title="Quarry">
+        <div layout="row">
+            <div flex="30">
+                <em-input form="quarryForm" label="Quarry Name" control-name="quarryName" ng-model="model.quarryName" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
             </div>
-        </md-dialog-content>
-    </form>
+            <div flex="30">
+                <em-input form="quarryForm" label="location" control-name="Location" ng-model="model.location" ng-required="false" em-maxlength="100" ng-disabled="!editMode"></em-input>
+            </div>
+            <div flex class="text-left">
+                <em-select form="quarryForm" label="Colour" control-name="colourId" ng-model="model.colourIds[0]" opt-list="service.colours" opt-value="materialColourId" opt-text="colourName" ng-required="true" ng-disabled="!editMode"></em-select>
+            </div>
+        </div>
+    </nt-dialog>
 </md-dialog>

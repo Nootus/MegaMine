@@ -9,13 +9,14 @@ function emInput(moment, constants) {
             ngModel: "=",
             form: "=",
             label: '@',
-            controlName: "@",
-            type: "@",
+            controlName: '@',
+            type: '@',
             ngRequired: '=',
             ngDisabled: '=',
             emMaxlength: '@',
             style: '@',
-            errorMessages: '='
+            errorMessages: '=',
+            dialogMode: '@'
         },
         link: link,
         template: '<md-input-container md-is-error="isFieldError()" style="{{style}}">'
