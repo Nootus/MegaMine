@@ -33,17 +33,32 @@ function quarry($scope, quarryService, quarryDialog, utility, dialogService) {
     }
 
     function addQuarry(ev) {
-        var model = { quarryId: 0 }
+        var model = { quarryId: 0, colourIds: [] }
         viewDialog(model, 1, ev);
     }
 
     function viewDialog(model, dialogMode, ev) {
         //quarryDialog.viewDialog(model, editMode, ev);
-        dialogService.showDialog({
-            templateUrl: '/app/quarry/quarryDialog.html',
+        dialogService.show({
+            templateUrl: 'quarry_dialog.html',
             targetEvent: ev,
             data: { model: model, service: quarryService },
             dialogMode: dialogMode
+        })
+        .then(function(dialogModel) {
+            quarryService.saveQuarry(dialogModel).then(function () {
+                //update the grid values
+                if (dialogModel.quarryId === 0) {
+                    quarryService.getQuarries();
+                }
+                else {
+                    model.quarryName = dialogModel.quarryName
+                    model.location = dialogModel.location
+                    model.colours = utility.getItem(quarryService.colours, dialogModel.colourIds[0], "materialColourId", "colourName");
+                }
+
+                dialogService.hide();
+            });
         });
     }
 }

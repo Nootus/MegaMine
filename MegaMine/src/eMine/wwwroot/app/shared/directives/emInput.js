@@ -16,12 +16,11 @@ function emInput(moment, constants) {
             emMaxlength: '@',
             style: '@',
             errorMessages: '=',
-            dialogMode: '@'
         },
         link: link,
         template: '<md-input-container md-is-error="isFieldError()" style="{{style}}">'
                     + '<label>{{label}}</label>'
-                    + '<input name="{{controlName}}" type="{{type}}" ng-required="{{ngRequired}}" ng-disabled="{{ngDisabled}}" md-maxlength="{{emMaxlength}}" ng-model="ngModel" >'
+                    + '<input name="{{controlName}}" type="{{type}}" ng-required="{{ngRequired}}" ng-disabled="ngDisabled" md-maxlength="{{emMaxlength}}" ng-model="ngModel" >'
                     + '<div ng-messages="form[controlName].$error" ng-show="isFieldError()">'
                     + '<span ng-message="required">Required!</span>'
                     + '<span ng-message="md-maxlength">Text is too long!</span>'
@@ -46,8 +45,13 @@ function emInput(moment, constants) {
 
         if (scope.type === undefined)
             scope.type = "text";
-
+        if (scope.$parent.dialogMode !== undefined) {
+            scope.ngDisabled = scope.$parent.dialogMode !== constants.enum.dialogMode.save
+        }
         scope.isFieldError = function () {
+            if (scope.form === undefined) {
+                scope.form = scope.$parent.dialogForm;
+            }
             if (scope.form !== undefined) {
                 var control = scope.form[scope.controlName];
                 return scope.form.$submitted && !control.$valid;
