@@ -54,17 +54,6 @@ h4{
     padding-bottom: 10px;
 }
 
-md-dialog.dialog{
-    background-color: #e4e4e4;
-    width: 600px;
-    margin-left: auto ;
-    margin-right: auto ;
-}
-md-dialog-content.dialog-content{
-    margin-left: 10px;
-    overflow: auto;
-}
-
 div.main-menu {
   text-transform: uppercase;
   font-size: 13px;
@@ -415,6 +404,20 @@ md-progress-linear{
     color: rgb(244, 67, 54);
     font-size: 11px;
     position: absolute;
+}
+
+md-dialog.dialog{
+    background-color: #e4e4e4;
+    width: 600px;
+    margin-left: auto ;
+    margin-right: auto ;
+}
+md-dialog-content.dialog-content{
+    margin-left: 10px;
+    overflow: auto;
+}
+md-select-label{
+    width: 100%;
 }
 
 /*Material design overrides ends*/

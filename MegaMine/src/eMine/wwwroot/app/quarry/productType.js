@@ -1,19 +1,15 @@
 ﻿'use strict';
 angular.module('emine').controller('productType', productType)
-productType.$inject = ['$scope', 'quarryService', 'productTypeDialog', 'utility'];
+productType.$inject = ['$scope', 'quarryService', 'utility', 'constants', 'dialogService', 'template'];
 
-function productType($scope, quarryService, productTypeDialog, utility) {
+function productType($scope, quarryService, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string', enableHiding: false },
                     { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    {
-                        name: 'productTypeId', field: 'productTypeId', displayName: '', enableColumnMenu: false, type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Quarry\" claim=\"ProductTypeEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>",
-                        cellClass: "text-center", enableHiding: false
-                    },
-        ]
+                    template.getButtonColumnDefs('productTypeId', true, 'Quarry', 'ProductTypeEdit')
+                ]
     };
 
 
@@ -33,11 +29,30 @@ function productType($scope, quarryService, productTypeDialog, utility) {
 
     function addProductType(ev) {
         var model = { productTypeId: 0 }
-        viewDialog(model, true, ev);
+        viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
-    function viewDialog(model, editMode, ev) {
-        productTypeDialog.viewDialog(model, editMode, ev);
+    function viewDialog(model, dialogMode, ev) {
+        dialogService.show({
+            templateUrl: 'product_type_dialog',
+            targetEvent: ev,
+            data: { model: model },
+            dialogMode: dialogMode
+        })
+        .then(function (dialogModel) {
+            quarryService.saveProductType(dialogModel).success(function () {
+                //update the grid values
+                if (dialogModel.productTypeId === 0) {
+                    quarryService.getProductTypes();
+                }
+                else {
+                    model.productTypeName = dialogModel.productTypeName
+                    model.productTypeDescription = dialogModel.productTypeDescription
+                }
+
+                dialogService.hide();
+            });
+        });
     }
 }
 

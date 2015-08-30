@@ -7,3 +7,17 @@
     <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
 </md-content>
 
+<script type="text/ng-template" id="yard_dialog">
+    <md-dialog aria-label="Yard" class="dialog">
+        <nt-dialog form="yardForm" title="Yard">
+            <div layout="row">
+                <div flex="30">
+                    <em-input form="yardForm" label="Name" control-name="yardName" ng-model="vm.model.yardName" ng-required="true" em-maxlength="20"></em-input>
+                </div>
+                <div flex="70">
+                    <em-input form="yardForm" label="Location" control-name="location" ng-model="vm.model.location" ng-required="false" em-maxlength="100"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

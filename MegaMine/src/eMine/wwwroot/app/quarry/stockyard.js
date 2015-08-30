@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('stockyard', stockyard)
-stockyard.$inject = ['$scope', '$mdDialog', 'quarryService', 'stockyardDialog', 'utility', 'constants'];
+stockyard.$inject = ['$scope', '$mdDialog', 'quarryService', 'utility', 'constants', 'dialogService', 'template'];
 
-function stockyard($scope, $mdDialog, quarryService, stockyardDialog, utility, constants) {
+function stockyard($scope, $mdDialog, quarryService, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -34,7 +34,7 @@ function stockyard($scope, $mdDialog, quarryService, stockyardDialog, utility, c
     return vm;
 
     function init() {
-        quarryService.materialViewModel = undefined; //resetting the view model, so that it can be populated in the edit pop ups
+        quarryService.materialViewModel = {}; //resetting the view model, so that it can be populated in the edit pop ups
         vm.yards = quarryService.yards;
         quarryService.stock.splice(0, quarryService.stock.length);
 
@@ -57,7 +57,33 @@ function stockyard($scope, $mdDialog, quarryService, stockyardDialog, utility, c
 
     function viewDialog(model, dialogMode, ev) {
         model.currentYardId = vm.yardId;
-        stockyardDialog.viewDialog(model, dialogMode, ev);
+        dialogService.show({
+            templateUrl: 'stockyard_dialog',
+            targetEvent: ev,
+            data: { model: model, viewModel: quarryService.materialViewModel },
+            dialogMode: dialogMode,
+            resolve: {
+                resolvemodel: function () {
+                    if (Object.getOwnPropertyNames(quarryService.materialViewModel).length === 0) {
+                        return quarryService.getMaterialViewModel()
+                    }
+                    else {
+                        return true;
+                    }
+                }
+            }
+        })
+        .then(function (dialogModel) {
+            if (dialogMode === constants.enum.dialogMode.delete) {
+                alert('delete yet to implement');
+                dialogService.hide();
+            }
+            else {
+                quarryService.materialUpdate(dialogModel).then(function () {
+                    dialogService.hide();
+                });
+            }
+        });
     }
 
 }

@@ -28,7 +28,7 @@ function quarryService($http) {
         saveYard: saveYard,
 
         //material
-        materialViewModel: undefined,
+        materialViewModel: {},
         getMaterialViewModel: getMaterialViewModel,
         saveMaterial: saveMaterial,
 
@@ -133,7 +133,7 @@ function quarryService($http) {
     function getMaterialViewModel() {
         return $http.get("/api/quarry/materialviewmodelget")
             .success(function (data) {
-                service.materialViewModel = data;
+                angular.extend(service.materialViewModel, data);
             });
     }
     function saveMaterial(models) {

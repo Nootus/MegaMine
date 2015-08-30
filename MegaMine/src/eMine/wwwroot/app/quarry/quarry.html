@@ -7,18 +7,18 @@
     <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
 </md-content>
 
-<script type="text/ng-template" id="quarry_dialog.html">
+<script type="text/ng-template" id="quarry_dialog">
     <md-dialog aria-label="Quarry" class="dialog">
         <nt-dialog form="quarryForm" title="Quarry">
             <div layout="row">
                 <div flex="30">
-                    <em-input form="quarryForm" label="Quarry Name" control-name="quarryName" ng-model="model.quarryName" ng-required="true" em-maxlength="20"></em-input>
+                    <em-input form="quarryForm" label="Quarry Name" control-name="quarryName" ng-model="vm.model.quarryName" ng-required="true" em-maxlength="20"></em-input>
                 </div>
                 <div flex="30">
-                    <em-input form="quarryForm" label="location" control-name="Location" ng-model="model.location" ng-required="false" em-maxlength="100"></em-input>
+                    <em-input form="quarryForm" label="location" control-name="Location" ng-model="vm.model.location" ng-required="false" em-maxlength="100"></em-input>
                 </div>
                 <div flex class="text-left">
-                    <em-select form="quarryForm" label="Colour" control-name="colourId" ng-model="model.colourIds[0]" opt-list="service.colours" opt-value="materialColourId" opt-text="colourName" ng-required="true"></em-select>
+                    <em-select form="quarryForm" label="Colour" control-name="colourId" ng-model="vm.model.colourIds[0]" opt-list="service.colours" opt-value="materialColourId" opt-text="colourName" ng-required="true"></em-select>
                 </div>
             </div>
         </nt-dialog>

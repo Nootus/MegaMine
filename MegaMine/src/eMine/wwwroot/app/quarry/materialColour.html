@@ -7,3 +7,17 @@
     <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
 </md-content>
 
+<script type="text/ng-template" id="material_colour_dialog">
+    <md-dialog aria-label="Colour" class="dialog">
+        <nt-dialog form="materialColourForm" title="Colour">
+            <div layout="row">
+                <div flex="30">
+                    <em-input form="materialColourForm" label="Colour" control-name="colourName" ng-model="vm.model.colourName" ng-required="true" em-maxlength="20"></em-input>
+                </div>
+                <div flex="70">
+                    <em-input form="materialColourForm" label="Description" control-name="colourDescription" ng-model="vm.model.colourDescription" ng-required="false" em-maxlength="100"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

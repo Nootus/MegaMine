@@ -1,19 +1,15 @@
 ﻿'use strict';
 angular.module('emine').controller('materialColour', materialColour)
-materialColour.$inject = ['$scope', 'quarryService', 'materialColourDialog', 'utility'];
+materialColour.$inject = ['$scope', 'quarryService', 'utility', 'constants', 'dialogService', 'template'];
 
-function materialColour($scope, quarryService, materialColourDialog, utility) {
+function materialColour($scope, quarryService, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string', enableHiding: false },
                     { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    {
-                        name: 'materialColourId', field: 'materialColourId', displayName: '', enableColumnMenu: false, type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Quarry\" claim=\"MaterialColourEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</md-button>",
-                        cellClass: "text-center", enableHiding: false
-                    },
-        ]
+                    template.getButtonColumnDefs('materialColourId', true, 'Quarry', 'MaterialColourEdit')
+                ]
     };
 
 
@@ -33,11 +29,30 @@ function materialColour($scope, quarryService, materialColourDialog, utility) {
 
     function addMaterialColour(ev) {
         var model = { materialColourId: 0 }
-        viewDialog(model, true, ev);
+        viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
-    function viewDialog(model, editMode, ev) {
-        materialColourDialog.viewDialog(model, editMode, ev);
+    function viewDialog(model, dialogMode, ev) {
+        dialogService.show({
+            templateUrl: 'material_colour_dialog',
+            targetEvent: ev,
+            data: { model: model },
+            dialogMode: dialogMode
+        })
+        .then(function (dialogModel) {
+            quarryService.saveMaterialColour(dialogModel).success(function () {
+                //update the grid values
+                if (dialogModel.materialColourId === 0) {
+                    quarryService.getMaterialColours();
+                }
+                else {
+                    model.colourName = dialogModel.colourName
+                    model.colourDescription = dialogModel.colourDescription
+                }
+
+                dialogService.hide();
+            });
+        });
     }
 }
 

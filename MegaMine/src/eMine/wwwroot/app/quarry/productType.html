@@ -7,3 +7,17 @@
     <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
 </md-content>
 
+<script type="text/ng-template" id="product_type_dialog">
+    <md-dialog aria-label="Product Type" class="dialog">
+        <nt-dialog form="productTypeForm" title="Product Type">
+            <div layout="row">
+                <div flex="30">
+                    <em-input form="productTypeForm" label="Product Type" control-name="productTypeName" ng-model="vm.model.productTypeName" ng-required="true" em-maxlength="20"></em-input>
+                </div>
+                <div flex="70">
+                    <em-input form="productTypeForm" label="Description" control-name="productTypeDescription" ng-model="vm.model.productTypeDescription" ng-required="false" em-maxlength="100"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>
