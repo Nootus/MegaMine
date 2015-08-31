@@ -1,11 +1,4 @@
-﻿<em-toolbar title="Quarries" class="title">
-    <em-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addQuarry($event)" module="Quarry" claim="QuarryAdd">
-        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Quarry
-    </em-button>
-</em-toolbar>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+﻿<nt-list-toolbar vm="vm" title="Quaries" add-text="Quarry" claim-module="Quarry" claim="QuarryAdd" ng-click="vm.addQuarry"></nt-list-toolbar>
 
 <script type="text/ng-template" id="quarry_dialog">
     <md-dialog aria-label="Quarry" class="dialog">

@@ -1,11 +1,4 @@
-﻿<em-toolbar title="Yards" class="title">
-    <em-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addYard($event)" module="Quarry" claim="YardAdd">
-        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Yard
-    </em-button>
-</em-toolbar>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+﻿<nt-list-toolbar vm="vm" title="Yards" add-text="Yard" claim-module="Quarry" claim="YardAdd" ng-click="vm.addYard"></nt-list-toolbar>
 
 <script type="text/ng-template" id="yard_dialog">
     <md-dialog aria-label="Yard" class="dialog">

@@ -9,7 +9,7 @@ function quarry($scope, quarryService, utility, constants, dialogService, templa
                     { name: 'quarryName', field: 'quarryName', displayName: 'Name', type: 'string', enableHiding: false },
                     { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour', enableHiding: false },
                     { name: 'location', field: 'location', type: 'string', displayName: 'Location', enableHiding: false },
-                    template.getButtonColumnDefs('quarryId', true, 'Quarry', 'QuarryEdit')
+                    template.getButtonDefaultColumnDefs('quarryId', 'Quarry', 'QuarryEdit')
         ]
     };
 
