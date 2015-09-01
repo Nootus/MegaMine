@@ -8,7 +8,7 @@ function productType($scope, quarryService, utility, constants, dialogService, t
         columnDefs: [
                     { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string', enableHiding: false },
                     { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    template.getButtonColumnDefs('productTypeId', true, 'Quarry', 'ProductTypeEdit')
+                    template.getButtonDefaultColumnDefs('productTypeId', 'Quarry', 'ProductTypeEdit')
                 ]
     };
 

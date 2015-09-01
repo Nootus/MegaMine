@@ -1,11 +1,4 @@
-﻿<em-toolbar title="Colours" class="title">
-    <em-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addMaterialColour($event)" module="Quarry" claim="MaterialColourAdd">
-        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Colour
-    </em-button>
-</em-toolbar>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+﻿<nt-list-toolbar vm="vm" title="Colours" add-text="Colour" claim-module="Quarry" claim="MaterialColourAdd" ng-click="vm.addMaterialColour"></nt-list-toolbar>
 
 <script type="text/ng-template" id="material_colour_dialog">
     <md-dialog aria-label="Colour" class="dialog">

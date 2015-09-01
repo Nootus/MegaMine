@@ -1,11 +1,4 @@
-﻿<em-toolbar title="Product Types" class="title">
-    <em-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addProductType($event)" module="Quarry" claim="ProductTypeAdd">
-        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Product Type
-    </em-button>
-</em-toolbar>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+﻿<nt-list-toolbar vm="vm" title="Product Types" add-text="Product Type" claim-module="Quarry" claim="ProductTypeAdd" ng-click="vm.addProductType"></nt-list-toolbar>
 
 <script type="text/ng-template" id="product_type_dialog">
     <md-dialog aria-label="Product Type" class="dialog">

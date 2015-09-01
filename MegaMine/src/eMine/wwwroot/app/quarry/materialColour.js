@@ -8,7 +8,7 @@ function materialColour($scope, quarryService, utility, constants, dialogService
         columnDefs: [
                     { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string', enableHiding: false },
                     { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    template.getButtonColumnDefs('materialColourId', true, 'Quarry', 'MaterialColourEdit')
+                    template.getButtonDefaultColumnDefs('materialColourId', 'Quarry', 'MaterialColourEdit')
                 ]
     };
 
