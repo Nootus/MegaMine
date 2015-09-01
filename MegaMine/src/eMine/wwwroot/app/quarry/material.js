@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('material', material)
-material.$inject = ['$scope', '$mdDialog', 'quarryService', 'utility', 'constants'];
+material.$inject = ['$scope', '$mdDialog', 'quarryService', 'utility', 'constants', 'template'];
 
-function material($scope, $mdDialog, quarryService, utility, constants) {
+function material($scope, $mdDialog, quarryService, utility, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -11,11 +11,7 @@ function material($scope, $mdDialog, quarryService, utility, constants) {
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
                     { name: 'dimensions', field: 'dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    {
-                        name: 'materialId', field: 'materialId', displayName: '', enableColumnMenu: false, type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.editRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon></md-button><md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.deleteRowMaterial(row.entity, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/delete.svg\"></md-icon></md-button>",
-                        cellClass: "text-center", enableHiding: false
-                    },
+                    template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.vm.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.vm.deleteRowMaterial(row.entity, $event)' }])
         ]
     };
 
