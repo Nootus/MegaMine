@@ -1,9 +1,16 @@
-﻿<em-toolbar title="Drivers" class="title">
-    <em-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addDriver($event)" module="Fleet" claim="DriverAdd">
-        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Driver
-    </em-button>
-</em-toolbar>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+﻿<nt-list-toolbar vm="vm" title="Drivers" add-text="Driver" claim-module="Fleet" claim="DriverAdd" ng-click="vm.addDriver"></nt-list-toolbar>
 
+<script type="text/ng-template" id="driver_dialog">
+    <md-dialog aria-label="Driver" class="dialog">
+        <nt-dialog form="driverForm" title="Driver">
+            <div layout="row">
+                <div flex="30">
+                    <em-input form="driverForm" label="Name" control-name="name" ng-model="vm.model.driverName" ng-required="true" em-maxlength="40"></em-input>
+                </div>
+                <div flex="70">
+                    <em-input form="driverForm" label="Contact" control-name="contact" ng-model="vm.model.contact" ng-required="false" em-maxlength="100"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

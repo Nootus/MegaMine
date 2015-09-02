@@ -1,9 +1,16 @@
-﻿<em-toolbar title="Vehicle Types" class="title">
-    <em-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addVehicleType($event)" module="Fleet" claim="VehicleTypeAdd">
-        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Vehicle Type
-    </em-button>
-</em-toolbar>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+﻿<nt-list-toolbar vm="vm" title="Vehicle Types" add-text="Vehicle Type" claim-module="Fleet" claim="VehicleTypeAdd" ng-click="vm.addVehicleType"></nt-list-toolbar>
 
+<script type="text/ng-template" id="vehicle_type_dialog">
+    <md-dialog aria-label="Vehicle Type" class="dialog">
+        <nt-dialog form="vehicleTypeForm" title="Vehicle Type">
+            <div layout="row">
+                <div flex="30">
+                    <em-input form="vehicleTypeForm" label="Vehicle Type" control-name="vehicleTypeName" ng-model="vm.model.vehicleTypeName" ng-required="true" em-maxlength="20"></em-input>
+                </div>
+                <div flex="70">
+                    <em-input form="vehicleTypeForm" label="Description" control-name="vehicleTypeDescription" ng-model="vm.model.vehicleTypeDescription" ng-required="false" em-maxlength="100"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

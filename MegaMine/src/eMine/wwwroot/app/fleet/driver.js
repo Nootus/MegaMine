@@ -1,19 +1,15 @@
 ﻿'use strict';
 angular.module('emine').controller('driver', driver)
-driver.$inject = ['$scope', 'vehicleService', 'driverDialog', 'utility'];
+driver.$inject = ['$scope', 'vehicleService', 'utility', 'constants', 'dialogService', 'template'];
 
-function driver($scope, vehicleService, driverDialog, utility) {
+function driver($scope, vehicleService, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'driverName', field: 'driverName', displayName: 'Name', type: 'string', enableHiding: false },
                     { name: 'contact', field: 'contact', displayName: 'Contact', type: 'string', enableHiding: false },
-                    {
-                        name: 'vehicleDriverId', field: 'vehicleDriverId', displayName: '', enableColumnMenu: false, type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Fleet\" claim=\"DriverEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\"></md-icon> Edit</em-button>",
-                        cellClass: "text-center", enableHiding: false
-                    },
-        ]
+                    template.getButtonDefaultColumnDefs('vehicleDriverId', 'Fleet', 'DriverEdit')
+                    ]
     };
 
 
@@ -33,11 +29,30 @@ function driver($scope, vehicleService, driverDialog, utility) {
 
     function addDriver(ev) {
         var model = { vehicleDriverId: 0 }
-        viewDialog(model, true, ev);
+        viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
-    function viewDialog(model, editMode, ev) {
-        driverDialog.viewDialog(model, editMode, ev);
+    function viewDialog(model, dialogMode, ev) {
+        dialogService.show({
+            templateUrl: 'driver_dialog',
+            targetEvent: ev,
+            data: { model: model },
+            dialogMode: dialogMode
+        })
+        .then(function (dialogModel) {
+            vehicleService.saveDriver(dialogModel).success(function () {
+                //update the grid values
+                if (dialogModel.vehicleDriverId === 0) {
+                    vehicleService.getDrivers();
+                }
+                else {
+                    model.driverName = dialogModel.driverName
+                    model.contact = dialogModel.contact
+                }
+
+                dialogService.hide();
+            });
+        });
     }
 }
 
