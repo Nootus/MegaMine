@@ -13,6 +13,7 @@ function utility($window, toastr, uiGridConstants) {
         showInfo: showInfo,
         showError: showError,
         initializeGrid: initializeGrid,
+        initializeSubGrid: initializeSubGrid,
         getGridHeight: getGridHeight,
         getMainGridHeight: getMainGridHeight,
         getSubGridHeight: getSubGridHeight,

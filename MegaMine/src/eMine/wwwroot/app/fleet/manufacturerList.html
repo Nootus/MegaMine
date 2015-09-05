@@ -1,8 +1,1 @@
-﻿<em-toolbar title="Manufacturer List" class="title">
-<em-button class="md-raised md-primary" aria-label="Add" ng-click="vm.addManufacturer($event)" module="Fleet" claim="ManufacturerAdd">
-    <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Manufacturer
-</em-button>
-</em-toolbar>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+﻿<nt-list-toolbar vm="vm" title="Manufacturers" add-text="Manufacturer" claim-module="Fleet" claim="ManufacturerAdd" ng-click="vm.addManufacturer"></nt-list-toolbar>

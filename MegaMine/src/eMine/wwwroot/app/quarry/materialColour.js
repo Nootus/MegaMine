@@ -40,7 +40,7 @@ function materialColour($scope, quarryService, utility, constants, dialogService
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            quarryService.saveMaterialColour(dialogModel).success(function () {
+            quarryService.saveMaterialColour(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.materialColourId === 0) {
                     quarryService.getMaterialColours();

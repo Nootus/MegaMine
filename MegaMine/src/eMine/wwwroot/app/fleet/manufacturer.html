@@ -1,31 +1,28 @@
-﻿<em-toolbar title="Manufacturer Details" class="title">
-    <em-button class="md-raised md-primary" aria-label="Edit" ng-click="vm.viewManufacturer($event)" module="Fleet" claim="ManufacturerEdit">
-        <md-icon class="icon-button" md-svg-icon="content/images/icons/edit.svg"></md-icon>Edit Manufacturer
-    </em-button>
-</em-toolbar>
-<div>
-    <md-content layout-padding>
-        <div layout="row">
-            <div flex="20">
-                <em-input label="Name" control-name="Name" ng-model="vm.model.name" ng-disabled="true"></em-input>
-            </div>
-            <div flex="20">
-                <em-input label="Description" control-name="Description" ng-model="vm.model.description" ng-disabled="true"></em-input>
-            </div>
-        </div>
-        <div layout="row">
-            <div flex>
-                <em-toolbar title="Models Data" class="subtitle">
-                    <em-button ng-click="vm.addModel($event)" class="md-raised md-primary" aria-label="Add Model" module="Fleet" claim="ManufacturerModelAdd">
-                        <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Model
-                    </em-button>
-                    
-                </em-toolbar>
-                <md-content layout-padding>
-                    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="sub-grid"></div>
-                </md-content>
-            </div>
-        </div>
-</md-content>
-</div>
+﻿<nt-toolbar-button vm="vm" title="Manufacturer Details" button-text="Edit Manufacturer" button-icon="edit" claim-module="Fleet" claim="ManufacturerEdit" ng-click="vm.viewManufacturer"></nt-toolbar-button>
 
+<md-content layout-padding>
+    <div layout="row">
+        <div flex="20">
+            <em-input label="Name" control-name="Name" ng-model="vm.model.name" ng-disabled="true"></em-input>
+        </div>
+        <div flex="20">
+            <em-input label="Description" control-name="Description" ng-model="vm.model.description" ng-disabled="true"></em-input>
+        </div>
+    </div>
+    <nt-list-toolbar vm="vm" title="Models" add-text="Model" claim-module="Fleet" claim="ManufacturerModelAdd" ng-click="vm.addModel"></nt-list-toolbar>
+</md-content>
+
+<script type="text/ng-template" id="vehicle_modal_dialog">
+    <md-dialog aria-label="Model" class="dialog">
+        <nt-dialog form="modelForm" title="Model">
+            <div layout="row">
+                <div flex="30">
+                    <em-input form="modelForm" type="string" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="40"></em-input>
+                </div>
+                <div flex="70">
+                    <em-input form="modelForm" type="string" label="Description" control-name="description" ng-model="vm.model.description" ng-required="false" em-maxlength="100"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

@@ -40,7 +40,7 @@ function driver($scope, vehicleService, utility, constants, dialogService, templ
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            vehicleService.saveDriver(dialogModel).success(function () {
+            vehicleService.saveDriver(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.vehicleDriverId === 0) {
                     vehicleService.getDrivers();

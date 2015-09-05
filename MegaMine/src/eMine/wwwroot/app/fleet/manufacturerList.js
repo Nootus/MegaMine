@@ -1,30 +1,22 @@
 ﻿'use strict';
 angular.module('emine').controller('manufacturerList', manufacturerList)
-manufacturerList.$inject = ['$scope', '$window', 'vehicleService', 'manufacturerDialog', 'uiGridConstants', 'utility', 'navigation'];
+manufacturerList.$inject = ['$scope', 'vehicleService', 'utility', 'navigation', 'constants', 'dialogService', 'template'];
 
-function manufacturerList($scope, $window,vehicleService, manufacturerDialog, uiGridConstants, utility, navigation) {
+function manufacturerList($scope, vehicleService, utility, navigation, constants, dialogService, template) {
 
     var gridOptions = {
-        enableColumnResizing: true,
-        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
                     { name: 'name', field: 'name', displayName: 'Name', type: 'string', enableHiding: false },
                     { name: 'description', field: 'description', displayName: 'Description', type: 'string', enableHiding: false },
-                    {
-                        name: 'manufacturerId', field: 'manufacturerID', displayName: '', enableColumnMenu: false, type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToManufacturer(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button> ",
-                        cellClass: "text-center", enableHiding: false
-                    },
-        ]
+                    template.getButtonColumnDefs('vehicleManufacturerId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.vm.navigateToManufacturer(row.entity)' }])
+                    ]
     };
 
 
     var vm = {
         gridOptions: gridOptions,
-        gridHeight: '0px',
         navigateToManufacturer: navigateToManufacturer,
         addManufacturer: addManufacturer,
-        editManufucturer: editManufucturer,
     };
 
     init();
@@ -32,32 +24,32 @@ function manufacturerList($scope, $window,vehicleService, manufacturerDialog, ui
     return vm;
 
     function init() {
-        vm.gridOptions.data = vehicleService.manufacturerList;
-        resizeGrid();
-
-        angular.element($window).bind('resize', function () {
-            resizeGrid();
-        });
-        $scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-    }
-
-    function resizeGrid() {
-        vm.gridHeight = utility.getMainGridHeight('main-grid');
+        utility.initializeGrid(vm, $scope, vehicleService.manufacturerList);
     }
 
     function navigateToManufacturer(row) {
-        navigation.gotomanufacturer(row.entity.vehicleManufacturerId);
+        navigation.gotomanufacturer(row.vehicleManufacturerId);
     }
 
     function addManufacturer(ev)
     {
-        manufacturerDialog.viewDialog(0, true, ev);
+        var model = { vehicleManufacturerId: 0 }
+        viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
-    function editManufucturer(row)
-    {
-        manufacturerDialog.editDialog(row.entity, true, 0);
+    function viewDialog(model, dialogMode, ev) {
+        dialogService.show({
+            templateUrl: utility.virtualDirectory + '/app/fleet/manufacturerDialog.html',
+            targetEvent: ev,
+            data: { model: model },
+            dialogMode: dialogMode
+        })
+        .then(function (dialogModel) {
+            vehicleService.saveManufacturer(dialogModel).then(function () {
+                vehicleService.getManufacturerList();
+                dialogService.hide();
+            });
+        });
     }
+
 }

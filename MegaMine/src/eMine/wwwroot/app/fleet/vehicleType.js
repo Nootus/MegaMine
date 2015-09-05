@@ -40,7 +40,7 @@ function vehicleType($scope, vehicleService, utility, constants, dialogService, 
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            vehicleService.saveVehicleType(dialogModel).success(function () {
+            vehicleService.saveVehicleType(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.vehicleTypeId === 0) {
                     vehicleService.getVehicleType();

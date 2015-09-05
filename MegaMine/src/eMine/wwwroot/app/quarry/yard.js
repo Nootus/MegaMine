@@ -40,7 +40,7 @@ function yard($scope, quarryService, utility, constants, dialogService, template
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            quarryService.saveYard(dialogModel).success(function () {
+            quarryService.saveYard(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.yardId === 0) {
                     quarryService.getYards();

@@ -40,7 +40,7 @@ function productType($scope, quarryService, utility, constants, dialogService, t
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            quarryService.saveProductType(dialogModel).success(function () {
+            quarryService.saveProductType(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.productTypeId === 0) {
                     quarryService.getProductTypes();
