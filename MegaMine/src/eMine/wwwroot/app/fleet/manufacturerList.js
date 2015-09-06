@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('manufacturerList', manufacturerList)
-manufacturerList.$inject = ['$scope', 'vehicleService', 'utility', 'navigation', 'constants', 'dialogService', 'template'];
+manufacturerList.$inject = ['$scope', 'vehicleService', 'manufacturerDialog', 'utility', 'navigation', 'constants', 'template'];
 
-function manufacturerList($scope, vehicleService, utility, navigation, constants, dialogService, template) {
+function manufacturerList($scope, vehicleService, manufacturerDialog, utility, navigation, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -34,22 +34,6 @@ function manufacturerList($scope, vehicleService, utility, navigation, constants
     function addManufacturer(ev)
     {
         var model = { vehicleManufacturerId: 0 }
-        viewDialog(model, constants.enum.dialogMode.save, ev);
+        manufacturerDialog.viewDialog(model, constants.enum.dialogMode.save, ev);
     }
-
-    function viewDialog(model, dialogMode, ev) {
-        dialogService.show({
-            templateUrl: utility.virtualDirectory + '/app/fleet/manufacturerDialog.html',
-            targetEvent: ev,
-            data: { model: model },
-            dialogMode: dialogMode
-        })
-        .then(function (dialogModel) {
-            vehicleService.saveManufacturer(dialogModel).then(function () {
-                vehicleService.getManufacturerList();
-                dialogService.hide();
-            });
-        });
-    }
-
 }

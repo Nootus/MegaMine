@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('manufacturer', manufacturer)
-manufacturer.$inject = ['$scope', 'vehicleService', 'vehicleModelDialog', 'utility', 'constants', 'dialogService', 'template'];
+manufacturer.$inject = ['$scope', 'vehicleService', 'manufacturerDialog', 'utility', 'constants', 'dialogService', 'template'];
 
-function manufacturer($scope, vehicleService, vehicleModelDialog, utility, constants, dialogService, template) {
+function manufacturer($scope, vehicleService, manufacturerDialog, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -30,20 +30,8 @@ function manufacturer($scope, vehicleService, vehicleModelDialog, utility, const
         utility.initializeSubGrid(vm, $scope, vehicleService.modelsList);
     }
 
-    function viewManufacturer(ev){
-        dialogService.show({
-            templateUrl: utility.virtualDirectory + '/app/fleet/manufacturerDialog.html',
-            targetEvent: ev,
-            data: { model: vm.model },
-            dialogMode: constants.enum.dialogMode.save
-        })
-        .then(function (dialogModel) {
-            vehicleService.saveManufacturer(dialogModel).then(function () {
-                vm.model.name = dialogModel.name
-                vm.model.description = dialogModel.description
-                dialogService.hide();
-            });
-        });
+    function viewManufacturer(ev) {
+        manufacturerDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
     }
 
     function addModel(ev) {
@@ -53,42 +41,24 @@ function manufacturer($scope, vehicleService, vehicleModelDialog, utility, const
 
     function viewDialog(model, dialogMode, ev) {
         dialogService.show({
-            templateUrl: 'driver_dialog',
+            templateUrl: 'vehicle_model_dialog',
             targetEvent: ev,
             data: { model: model },
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            vehicleService.saveDriver(dialogModel).then(function () {
+            vehicleService.saveModel(dialogModel).then(function () {
                 //update the grid values
-                if (dialogModel.vehicleDriverId === 0) {
-                    vehicleService.getDrivers();
+                if (dialogModel.vehicleModelId === 0) {
+                    vehicleService.getManufacturer(dialogModel.vehicleManufacturerId);
                 }
                 else {
-                    model.driverName = dialogModel.driverName
-                    model.contact = dialogModel.contact
+                    model.name = dialogModel.name
+                    model.description = dialogModel.description
                 }
 
                 dialogService.hide();
             });
         });
     }
-
-    //function addModel(ev) {
-    //    var model = { vehicleModelId: 0, vehicleManufacturerId: vm.model.vehicleManufacturerId }
-    //    viewDialog(model, true, ev);
-    //}
-
-    //function viewDialog(model, editMode, ev) {
-    //    vehicleModelDialog.viewDialog(model, editMode, ev);
-    //}
-
-    //function viewModel(model, editMode, ev) {
-    //    model.VehicleModelId = 0;
-    //    vehicleModelDialog.viewDialog(model, editMode, ev);
-    //}
-
-    //function editModel(model, editMode, ev) {
-    //    vehicleModelDialog.viewDialog(model, editMode, ev);
-    //}
 }

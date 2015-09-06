@@ -1,30 +1,67 @@
 ﻿'use strict'
-
 angular.module('emine').factory('sparePartDialog', sparePartDialog);
+sparePartDialog.$inject = ['dialogService', 'vehicleService', 'utility'];
 
-sparePartDialog.$inject = ['$mdDialog', 'vehicleService', 'utility'];
-
-function sparePartDialog($mdDialog, vehicleService, utility) {
+function sparePartDialog(dialogService, vehicleService, utility) {
 
     var dialog =
     {
         viewDialog: viewDialog,
+        model: vehicleService.currentSparePart
     };
 
     return dialog;
 
-    function viewDialog(sparePartId, editMode, ev)
+    function viewDialog(scope, model, dialogMode, ev)
     {
-
-        $mdDialog.show({
-            controller: DialogController,
-            controllerAs: "vm",
+        dialogService.show({
             templateUrl: utility.virtualDirectory + '/app/fleet/sparePartDialog.html',
             targetEvent: ev,
-            locals: { $mdDialog: $mdDialog, service: vehicleService, model: vehicleService.currentSparePart, editMode: dialog.editMode },
-            resolve: { resolvemodel: function () { return vehicleService.getCurrentSparePart(sparePartId) } }
+            data: { model: dialog.model },
+            dialogMode: dialogMode,
+            resolve: { function () { return vehicleService.getCurrentSparePart(model.sparePartId) } }
         })
+        .then(function (dialogModel) {
+            return;
+            vehicleService.saveSparePart(dialogModel).then(function () {
+                vehicleService.getSparePartList();
+                dialogService.hide();
+            });
+        });
+
+        //scope.$watch("vehicleService.currentSparePart.vehicleManufacturerId", bindModelDropDown);
     }
+
+    function bindModelDropDown(manufacturerId, oldmanufacturerId) {
+        if (dialog.model.modelList === undefined) {
+            dialog.model.modelList = [];
+        }
+
+        var modelList = dialog.model.modelList;
+        var vehicleModelList = dialog.model.vehicleModelList;
+        if (vehicleModelList === undefined)
+            return;
+
+        modelList.splice(0, modelList.length);
+
+        for (var counter = 0; counter < vehicleModelList.length; counter++) {
+            if (vehicleModelList[counter].vehicleManufacturerId === manufacturerId) {
+                modelList.push({ Key: vehicleModelList[counter].vehicleModelId, Item: vehicleModelList[counter].name })
+            }
+        }
+
+        if (manufacturerId === oldmanufacturerId)
+            return;
+
+        if (modelList.length > 0) {
+            dialog.model.vehicleModelId = modelList[0].key;
+        }
+        else {
+            dialog.model.vehicleModelId = 0;
+        }
+    }
+
+
 
     function DialogController($scope, $mdDialog, service, model) {
 
@@ -42,7 +79,7 @@ function sparePartDialog($mdDialog, vehicleService, utility) {
         function init() {
             angular.extend($scope, vm);
 
-            $scope.$watch("vm.model.VehicleManufacturerId", bindModelDropDown);
+            //$scope.$watch("dialog.model.VehicleManufacturerId", bindModelDropDown);
         }
 
         function bindModelDropDown(manufacturerId, oldmanufacturerId) {
