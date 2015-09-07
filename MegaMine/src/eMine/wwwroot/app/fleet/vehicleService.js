@@ -384,13 +384,7 @@ function vehicleService($http) {
         else {
             url = "/api/fleet/sparepartupdate";
         }
-        return $http.post(url, model)
-            .success(function (data) {
-                //updating the spare part
-                service.sparePart.name = model.name;
-                service.sparePart.description = model.description;
-    
-            });
+        return $http.post(url, model);
     }
 
     function getSparePart(sparePartId) {

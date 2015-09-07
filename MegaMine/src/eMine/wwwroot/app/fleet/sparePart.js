@@ -1,32 +1,26 @@
 ﻿'use strict';
 angular.module('emine').controller('sparePart', sparePart)
-sparePart.$inject = ['$scope', '$window', '$mdDialog', 'vehicleService', 'sparePartOrderDialog', 'sparePartDialog', 'utility', 'uiGridConstants', 'constants'];
+sparePart.$inject = ['$scope', 'vehicleService', 'sparePartDialog', 'utility', 'constants', 'dialogService', 'template'];
 
-function sparePart($scope, $window, $mdDialog, vehicleService, sparePartOrderDialog, sparePartDialog, utility, uiGridConstants, constants) {
+function sparePart($scope, vehicleService, sparePartDialog, utility, constants, dialogService, template) {
 
     var gridOptions = {
-        enableColumnResizing: true,
-        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
                     { name: 'orderedUTCdatetime', field: 'orderedUTCdatetime', displayName: 'Ordered Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'orderedUnits', field: 'orderedUnits', displayName: 'Quantity', type: 'number' },
                     { name: 'consumedUnits', field: 'consumedUnits', displayName: 'ConsumedUnits', type: 'number' },
                     { name: 'unitCost', field: 'unitCost', displayName: 'Unit Cost', type: 'number' },
-                    {
-                        name: 'sparePartOrderId', field: 'sparePartOrderId', enableColumnMenu: false, displayName: '', type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewOrder(row.entity, true, $event)\" module=\"Fleet\" claim=\"SparePartOrderEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
-                        cellClass: "text-center", enableHiding: false
-                    },
-        ]
-    };
+                    template.getButtonDefaultColumnDefs('sparePartOrderId', 'Fleet', 'SparePartOrderEdit')
+                    ]
+        };
 
     var vm = {
         model: {},
         gridOptions: gridOptions,
-        viewOrder: viewOrder,
-        addOrder: addOrder,
         editSparePart: editSparePart,
-        gridHeight: '0px',
+
+        addOrder: addOrder,
+        viewDialog: viewDialog
     };
 
     init();
@@ -35,32 +29,40 @@ function sparePart($scope, $window, $mdDialog, vehicleService, sparePartOrderDia
 
     function init() {
         vm.model = vehicleService.sparePart;
-        vm.gridOptions.data = vehicleService.ordersList;
-        resizeGrid();
-
-        angular.element($window).bind('resize', function () {
-            resizeGrid();
-        });
-        $scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-    }
-
-    function resizeGrid() {
-        vm.gridHeight = utility.getSubGridHeight('sub-grid');
-    }
-
-    function addOrder(ev)
-    {
-        vm.model.SparePartOrderId = 0;
-        sparePartOrderDialog.viewDialog(vm.model, true, ev);
-    }
-
-    function viewOrder(model, editMode, ev) {
-        sparePartOrderDialog.viewDialog(model, editMode, ev);
+        utility.initializeSubGrid(vm, $scope, vehicleService.ordersList);
     }
 
     function editSparePart(ev) {
         sparePartDialog.viewDialog(vm.model.sparePartId, ev);
+    }
+
+    function addOrder(ev)
+    {
+        var model = { sparePartOrderId: 0, sparePartId: vm.model.sparePartId }
+        viewDialog(model, constants.enum.dialogMode.save, ev);
+    }
+
+    function viewDialog(model, dialogMode, ev) {
+        dialogService.show({
+            templateUrl: 'spare_part_order_dialog',
+            targetEvent: ev,
+            data: { model: model },
+            dialogMode: dialogMode
+        })
+        .then(function (dialogModel) {
+            vehicleService.saveSparePartOrder(dialogModel).then(function () {
+                //update the grid values
+                if (dialogModel.sparePartOrderId === 0) {
+                    vehicleService.getSparePart(dialogModel.sparePartId);
+                }
+                else {
+                    model.orderedUTCdatetime = dialogModel.orderedUTCdatetime;
+                    model.orderedUnits = dialogModel.orderedUnits;
+                    model.unitCost = dialogModel.unitCost;
+                }
+
+                dialogService.hide();
+            });
+        });
     }
 }

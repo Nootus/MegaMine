@@ -18,7 +18,8 @@ function utility($window, toastr, uiGridConstants) {
         getMainGridHeight: getMainGridHeight,
         getSubGridHeight: getSubGridHeight,
         getListItem: getListItem,
-        getItem: getItem
+        getItem: getItem,
+        deleteProperties: deleteProperties
     };
 
     return vm;
@@ -105,6 +106,12 @@ function utility($window, toastr, uiGridConstants) {
         }
 
         return item;
+    }
+
+    function deleteProperties(model) {
+        angular.forEach(model, function (value, property) {
+            delete model[property];
+        });
     }
 };
 
