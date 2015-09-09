@@ -288,6 +288,10 @@ namespace eMine.Lib.Repositories
                     ProductTypeId = model.ProductTypeId,
                     QuarryId = model.QuarryId,
                     Dimensions = model.Dimensions,
+                    Length = model.Length,
+                    Width = model.Width,
+                    Height = model.Height,
+                    Weight = model.Weight,
                     MaterialColourId = model.MaterialColourId,
                     MaterialDate = model.MaterialDate
                 };
@@ -372,6 +376,10 @@ namespace eMine.Lib.Repositories
                             ProductTypeId = mt.ProductTypeId,
                             MaterialColourId = mt.MaterialColourId,
                             Dimensions = mt.Dimensions,
+                            Length = mt.Length,
+                            Width = mt.Width,
+                            Height = mt.Height,
+                            Weight = mt.Weight,
                             MaterialDate = mt.MaterialDate
                         };
 
@@ -421,6 +429,10 @@ namespace eMine.Lib.Repositories
             entity.ProductTypeId = model.ProductTypeId;
             entity.MaterialColourId = model.MaterialColourId;
             entity.Dimensions = model.Dimensions;
+            entity.Length = model.Length;
+            entity.Width = model.Width;
+            entity.Height = model.Height;
+            entity.Weight = model.Weight;
             entity.MaterialDate = model.MaterialDate;
             entity.UpdateAuditFields();
 

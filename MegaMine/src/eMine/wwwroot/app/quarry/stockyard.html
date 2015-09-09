@@ -33,8 +33,17 @@
                 </div>
             </div>
             <div layout="row">
-                <div flex="30">
-                    <em-input form="stockyardForm" label="Dimensions" control-name="dimensions" ng-model="vm.model.dimensions" ng-required="true" em-maxlength="20"></em-input>
+                <div flex="15">
+                    <em-input form="stockyardForm" type="number" label="Length" control-name="length" ng-model="vm.model.length" ng-required="true"></em-input>
+                </div>
+                <div flex="15">
+                    <em-input form="stockyardForm" type="number" label="Width" control-name="width" ng-model="vm.model.width" ng-required="true"></em-input>
+                </div>
+                <div flex="15">
+                    <em-input form="stockyardForm" type="number" label="Height" control-name="height" ng-model="vm.model.height" ng-required="true"></em-input>
+                </div>
+                <div flex="15">
+                    <em-input form="stockyardForm" type="number" label="Weight" control-name="weight" ng-model="vm.model.weight" ng-required="true"></em-input>
                 </div>
                 <div flex="30">
                     <em-input form="stockyardForm" type="date" label="Date" control-name="materialDate" ng-model="vm.model.materialDate" ng-required="true"></em-input>

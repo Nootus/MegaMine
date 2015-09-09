@@ -9,8 +9,11 @@ function material($scope, $mdDialog, quarryService, utility, constants, template
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'dimensions', field: 'dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
-                    { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'length', field: 'length', type: 'number', displayName: 'Length', enableHiding: false },
+                    { name: 'width', field: 'width', type: 'number', displayName: 'Width', enableHiding: false },
+                    { name: 'height', field: 'height', type: 'number', displayName: 'Height', enableHiding: false },
+                    //{ name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', enableHiding: false },
+                    //{ name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.vm.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.vm.deleteRowMaterial(row.entity, $event)' }])
         ]
     };
@@ -51,7 +54,10 @@ function material($scope, $mdDialog, quarryService, utility, constants, template
     }
 
     function resetModel() {
-        vm.model.dimensions = "";
+        vm.model.length = "";
+        vm.model.width = "";
+        vm.model.height = "";
+        vm.model.weight = "";
     }
 
     function addMaterial(form) {
@@ -103,7 +109,7 @@ function material($scope, $mdDialog, quarryService, utility, constants, template
     }
 
     function deleteRowMaterial(row, ev) {
-        var message = "Are you sure you want to delete the material" + "{Quarry: " + row.quarry + ", Product Type: " + row.productType + ", Colour: " + row.materialColour + ", Dimensions: " + row.dimensions + "}";
+        var message = "Are you sure you want to delete the material";
         var confirm = $mdDialog.confirm()
           .parent(angular.element(document.body))
           .title('Delete Material')

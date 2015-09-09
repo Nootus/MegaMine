@@ -44,6 +44,10 @@ function emSelect($compile, constants) {
         scope.optText = scope.optText === undefined ? "item" : scope.optText
         scope.errorCss = "";
 
+        //checking the required
+        if (scope.ngModel === 0 && scope.ngRequired === true)
+            scope.ngModel = undefined;
+
         if (scope.$parent.dialogMode !== undefined) {
             scope.ngDisabled = scope.$parent.dialogMode !== constants.enum.dialogMode.save
         }

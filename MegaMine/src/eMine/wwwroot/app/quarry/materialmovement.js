@@ -13,7 +13,10 @@ function materialmovement($scope, $mdDialog, quarryService, utility, constants) 
                     },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'dimensions', field: 'dimensions', type: 'string', displayName: 'Dimensions', enableHiding: false },
+                    { name: 'length', field: 'length', type: 'number', displayName: 'Length', enableHiding: false },
+                    { name: 'width', field: 'width', type: 'number', displayName: 'Width', enableHiding: false },
+                    { name: 'height', field: 'height', type: 'number', displayName: 'Height', enableHiding: false },
+                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', enableHiding: false },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false }
         ]
