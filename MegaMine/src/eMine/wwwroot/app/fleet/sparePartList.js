@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('sparePartList', sparePartList)
-sparePartList.$inject = ['$rootScope', '$scope', 'vehicleService', 'sparePartDialog', 'utility', 'navigation', 'constants', 'dialogService', 'template'];
+sparePartList.$inject = ['$rootScope', '$scope', 'vehicleService', 'sparePartDialog', 'utility', 'navigation', 'constants', 'template'];
 
-function sparePartList($rootScope, $scope, vehicleService, sparePartDialog, utility, navigation, constants, dialogService, template) {
+function sparePartList($rootScope, $scope, vehicleService, sparePartDialog, utility, navigation, constants, template) {
 
     var gridOptions = {
         columnDefs: [

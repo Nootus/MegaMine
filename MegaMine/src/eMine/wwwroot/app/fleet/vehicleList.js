@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleList', vehicleList)
-vehicleList.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDialog', 'uiGridConstants', 'utility', 'navigation', 'constants'];
+vehicleList.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDialog', 'uiGridConstants', 'utility', 'navigation', 'constants', 'template'];
 
 function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConstants, utility, navigation, constants) {
 
@@ -12,12 +12,8 @@ function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConst
                     { name: 'lastServiceDate', field: 'lastServiceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"', enableHiding: false },
                     { name: 'fuelAverage', field: 'fuelAverage', displayName: 'Fuel Average', type: 'number', enableHiding: false },
                     { name: 'driver', field: 'driver', displayName: 'Driver', type: 'string', enableHiding: false },
-                    {
-                        name: 'vehicleId', field: 'vehicleId', displayName: '', enableColumnMenu: false, type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.navigateToVehicle(row)\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>",
-                        cellClass: "text-center", enableHiding: false
-                    },
-        ]
+                    template.getButtonColumnDefs('vehicleId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.vm.navigateToVehicle(row.entity)' }])
+                    ]
     };
 
 
@@ -36,10 +32,11 @@ function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConst
     }
 
     function navigateToVehicle(row) {
-        navigation.gotoVehicle(row.entity.vehicleId);
+        navigation.gotoVehicle(row.vehicleId);
     }
 
     function addVehicle(ev) {
-        vehicleDialog.viewDialog(0, true, ev);
+        var model = { vehicleId: 0 }
+        vehicleDialog.viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 }

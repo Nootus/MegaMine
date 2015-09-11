@@ -11,7 +11,7 @@ function sparePartDialog($rootScope, dialogService, vehicleService, utility) {
 
     return dialog;
 
-    function viewDialog(scope, model, dialogMode, ev)
+    function viewDialog(model, dialogMode, ev)
     {
         dialogService.show({
             templateUrl: utility.virtualDirectory + '/app/fleet/sparePartDialog.html',
@@ -28,6 +28,9 @@ function sparePartDialog($rootScope, dialogService, vehicleService, utility) {
                 else {
                     model.name = dialogModel.name
                     model.description = dialogModel.description
+                    model.vehicleType = dialogModel.description
+                    model.vehicleManufacturer = dialogModel.description
+                    model.vehicleModel = dialogModel.description
                 }
                 dialogService.hide();
             });
@@ -66,69 +69,4 @@ function sparePartDialog($rootScope, dialogService, vehicleService, utility) {
             dialogService.dialogModel.vehicleModelId = 0;
         }
     }
-
-
-
-    //function DialogController($scope, $mdDialog, service, model) {
-
-
-    //    var vm = {
-    //        save: save,
-    //        cancel: cancel,
-    //        model: model,
-    //    }
-
-    //    init();
-
-    //    return vm;
-
-    //    function init() {
-    //        angular.extend($scope, vm);
-
-    //        //$scope.$watch("dialog.model.VehicleManufacturerId", bindModelDropDown);
-    //    }
-
-    //    function bindModelDropDown(manufacturerId, oldmanufacturerId) {
-    //        if (vm.model.modelList === undefined) {
-    //            vm.model.modelList = [];
-    //        }
-
-    //        var modelList = vm.model.modelList;
-    //        var vehicleModelList = vm.model.vehicleModelList;
-
-    //        modelList.splice(0, modelList.length);
-
-    //        for (var counter = 0; counter < vehicleModelList.length; counter++) {
-    //            if (vehicleModelList[counter].vehicleManufacturerId === manufacturerId) {
-    //                modelList.push({ Key: vehicleModelList[counter].vehicleModelId, Item: vehicleModelList[counter].name })
-    //            }
-    //        }
-
-    //        if (manufacturerId === oldmanufacturerId)
-    //            return;
-
-    //        if (modelList.length > 0) {
-    //            vm.model.vehicleModelId = modelList[0].key;
-    //        }
-    //        else {
-    //            vm.model.vehicleModelId = 0;
-    //        }
-    //    }
-
-
-    //    function cancel() {
-    //        event.preventDefault();
-    //        $mdDialog.cancel();
-    //    };
-    //    function save(form) {
-    //        if (form.$valid) {
-    //            service.saveSparePart(vm.model).success(function () {
-    //                //refresh the grid
-    //                vehicleService.getSparePartList();
-    //                $mdDialog.hide();
-    //            });
-    //        }
-    //    };
-    //}
-
 }

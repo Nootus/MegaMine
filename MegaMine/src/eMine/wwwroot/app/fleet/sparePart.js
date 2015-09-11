@@ -33,7 +33,7 @@ function sparePart($scope, vehicleService, sparePartDialog, utility, constants, 
     }
 
     function editSparePart(ev) {
-        sparePartDialog.viewDialog(vm.model.sparePartId, ev);
+        sparePartDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
     }
 
     function addOrder(ev)

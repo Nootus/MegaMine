@@ -1,36 +1,19 @@
 ﻿<md-dialog aria-label="Vehicle" class="dialog">
-    <form name="vehicleForm" novalidate>
-        <em-toolbar title="Vehicle" class="dialog">
-            <md-button ng-click="save(vehicleForm)" class="md-raised md-primary" ng-show="editMode" ng-disabled="vehicleForm.$invalid && vehicleForm.$submitted" aria-label="Save">
-                <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Save
-            </md-button>
-            <md-button ng-click="cancel()" class="md-raised md-primary" ng-show="editMode">
-                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Cancel
-            </md-button>
-            <md-button ng-click="cancel()" class="md-raised md-primary" ng-hide="editMode">
-                <md-icon class="icon-button" md-svg-icon="content/images/icons/cancel.svg"></md-icon>Close
-            </md-button>
-        </em-toolbar>
-
-        <md-dialog-content class="dialog-content">
-            <div>
-                <div layout="row">
-                    <div flex="30">
-                        <em-input form="vehicleForm" label="Registration #" control-name="registrationNumber" ng-model="model.registrationNumber" ng-required="true" em-maxlength="20" ng-disabled="!editMode"></em-input>
-                    </div>
-                    <div flex="30">
-                        <em-select form="vehicleForm" label="Type" control-name="vehicleType" ng-model="model.vehicleTypeId" opt-list="model.vehicleTypeList" ng-required="true" ng-disabled="!editMode"></em-select>
-                    </div>
-                   
-                    <div flex="20">
-                        <em-select form="vehicleForm" label="Manufacturer" control-name="manufacturer" ng-model="model.vehicleManufacturerId" opt-list="model.manufacturerList" ng-required="true" ng-disabled="!editMode"></em-select>
-                    </div>
-                    <div flex="20" class="text-left">
-                        <em-select form="vehicleForm" label="Model" control-name="vehicleModel" ng-model="model.vehicleModelId" opt-list="model.modelList" ng-required="true" ng-disabled="!editMode"></em-select>
-                    </div>
-                </div>
+    <nt-dialog form="vehicleForm" title="Vehicle">
+        <div layout="row">
+            <div flex="30">
+                <em-input form="vehicleForm" label="Registration #" control-name="registrationNumber" ng-model="vm.model.registrationNumber" ng-required="true" em-maxlength="20"></em-input>
             </div>
-        </md-dialog-content>
-    </form>
+            <div flex="30">
+                <em-select form="vehicleForm" label="Type" control-name="vehicleType" ng-model="vm.model.vehicleTypeId" opt-list="vm.model.vehicleTypeList" ng-required="true"></em-select>
+            </div>
+            <div flex="20">
+                <em-select form="vehicleForm" label="Manufacturer" control-name="manufacturer" ng-model="vm.model.vehicleManufacturerId" opt-list="vm.model.manufacturerList" ng-required="true"></em-select>
+            </div>
+            <div flex="20" class="text-left">
+                <em-select form="vehicleForm" label="Model" control-name="vehicleModel" ng-model="vm.model.vehicleModelId" opt-list="vm.model.modelList" ng-required="true"></em-select>
+            </div>
+        </div>
+    </nt-dialog>
 </md-dialog>
   

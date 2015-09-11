@@ -8,12 +8,39 @@ function vehicleDialog($mdDialog, vehicleService, utility) {
 
     var dialog = {
         viewDialog: viewDialog,
-        editMode: false,
     };
 
     return dialog;
 
-    function viewDialog(vehicleId, editMode, ev)
+    function viewDialog(model, dialogMode, ev) {
+        dialogService.show({
+            templateUrl: utility.virtualDirectory + '/app/fleet/vehicleDialog.html',
+            targetEvent: ev,
+            data: { model: vehicleService.currentVehicle },
+            dialogMode: dialogMode,
+            resolve: { resolvemodel: function () { return vehicleService.getCurrentVehicle(model.vehicleId) } }
+        })
+        .then(function (dialogModel) {
+            if (model.vehicleManufacturerId === 0) {
+                vehicleService.saveManufacturer(dialogModel).then(function () {
+                    vehicleService.getManufacturerList();
+                });
+            }
+            else {
+                model.vehicleType = utility.getListItem(dialogModel.VehicleTypeList, dialogModel.vehicleTypeId);
+                model.manufacturer = utility.getListItem(dialogModel.ManufacturerList, dialogModel.vehicleManufacturerId);
+                model.vehicleModel = utility.getListItem(dialogModel.ModelList, dialogModel.vehicleModelId);
+
+                model.registrationNumber = dialogModel.registrationNumber
+                model.modelvehicleTypeId = dialogModel.vehicleTypeId
+                model.modelvehicleManufacturerId = dialogModel.vehicleManufacturerId
+                model.modelvehicleModelId = dialogModel.vehicleModelId
+            }
+            dialogService.hide();
+        });
+    }
+
+    function viewDialog(vehicleId, dialogMode, ev)
     {
         dialog.editMode = editMode;
 
