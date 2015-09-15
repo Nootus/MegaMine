@@ -22,7 +22,7 @@ function sparePartDialog($rootScope, dialogService, vehicleService, utility) {
         })
         .then(function (dialogModel) {
             vehicleService.saveSparePart(dialogModel).then(function () {
-                if (dialogModel.vehicleDriverId === 0) {
+                if (dialogModel.sparePartId === 0) {
                     vehicleService.getSparePartList();
                 }
                 else {

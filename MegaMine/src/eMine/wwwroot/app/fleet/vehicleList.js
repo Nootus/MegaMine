@@ -2,7 +2,7 @@
 angular.module('emine').controller('vehicleList', vehicleList)
 vehicleList.$inject = ['$scope', 'vehicleService', 'vehicleDialog', 'uiGridConstants', 'utility', 'navigation', 'constants', 'template'];
 
-function vehicleList($scope, vehicleService, vehicleDialog, uiGridConstants, utility, navigation, constants) {
+function vehicleList($scope, vehicleService, vehicleDialog, uiGridConstants, utility, navigation, constants, template) {
 
     var gridOptions = {
         columnDefs: [
