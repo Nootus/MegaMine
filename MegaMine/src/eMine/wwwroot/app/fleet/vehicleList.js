@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleList', vehicleList)
-vehicleList.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDialog', 'uiGridConstants', 'utility', 'navigation', 'constants', 'template'];
+vehicleList.$inject = ['$scope', 'vehicleService', 'vehicleDialog', 'uiGridConstants', 'utility', 'navigation', 'constants', 'template'];
 
-function vehicleList($scope, $window, vehicleService, vehicleDialog, uiGridConstants, utility, navigation, constants) {
+function vehicleList($scope, vehicleService, vehicleDialog, uiGridConstants, utility, navigation, constants) {
 
     var gridOptions = {
         columnDefs: [
