@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('emine').factory('utility', utility);
-utility.$inject = ['$window', 'toastr', 'uiGridConstants'];
+utility.$inject = ['$window', '$timeout', 'toastr', 'uiGridConstants'];
 
-function utility($window, toastr, uiGridConstants) {
+function utility($window, $timeout, toastr, uiGridConstants) {
 
     var virtualDirectory = window.virtualDirectory || '';
 
@@ -41,7 +41,7 @@ function utility($window, toastr, uiGridConstants) {
         vm.gridOptions.enableColumnResizing = true,
         vm.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
         vm.gridOptions.data = model;
-        vm.gridHeight = getMainGridHeight('main-grid');
+        resizeInitialGrid(vm);
 
         angular.element($window).bind('resize', function () {
             vm.gridHeight = getMainGridHeight('main-grid');
@@ -49,6 +49,15 @@ function utility($window, toastr, uiGridConstants) {
         scope.$on('$destroy', function (e) {
             angular.element($window).unbind('resize');
         });
+    }
+
+    function resizeInitialGrid(vm, currentHeight) {
+        vm.gridHeight = getMainGridHeight('main-grid');
+        if (vm.gridHeight !== currentHeight || currentHeight === undefined) {
+            $timeout(function () {
+                resizeInitialGrid(vm, vm.gridHeight);
+            }, 100);
+        }
     }
 
     function initializeSubGrid(vm, scope, model) {
@@ -75,9 +84,10 @@ function utility($window, toastr, uiGridConstants) {
     }
 
     function getGridHeight(gridClass, bottomOffset) {
-        var contentOffset = angular.element(document.getElementsByClassName('main-content')).offset();
+        var contentOffset = angular.element(document.getElementsByClassName('main-content')[0]).offset();
         var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
-        var gridOffset = angular.element(document.getElementsByClassName(gridClass)).offset();
+        var gridOffset = angular.element(document.getElementsByClassName(gridClass)[0]).offset();
+        var gdOffset = angular.element(document.getElementById(gridClass)).offset();
         if (gridOffset !== undefined) {
             var gridHeight = contentHeight - (gridOffset.top) - bottomOffset;
             return gridHeight + 'px';
