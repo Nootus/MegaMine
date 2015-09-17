@@ -2,9 +2,9 @@
 
 angular.module('emine').factory('vehicleDialog', vehicleDialog);
 
-vehicleDialog.$inject = ['$mdDialog', 'vehicleService', 'utility'];
+vehicleDialog.$inject = ['$rootScope', 'dialogService', 'vehicleService', 'utility', 'fleetUtility'];
 
-function vehicleDialog($mdDialog, vehicleService, utility) {
+function vehicleDialog($rootScope, dialogService, vehicleService, utility, fleetUtility) {
 
     var dialog = {
         viewDialog: viewDialog,
@@ -21,111 +21,119 @@ function vehicleDialog($mdDialog, vehicleService, utility) {
             resolve: { resolvemodel: function () { return vehicleService.getCurrentVehicle(model.vehicleId) } }
         })
         .then(function (dialogModel) {
-            if (model.vehicleManufacturerId === 0) {
-                vehicleService.saveManufacturer(dialogModel).then(function () {
+            vehicleService.saveManufacturer(dialogModel).then(function () {
+                if (model.vehicleManufacturerId === 0) {
                     vehicleService.getManufacturerList();
-                });
-            }
-            else {
-                model.vehicleType = utility.getListItem(dialogModel.VehicleTypeList, dialogModel.vehicleTypeId);
-                model.manufacturer = utility.getListItem(dialogModel.ManufacturerList, dialogModel.vehicleManufacturerId);
-                model.vehicleModel = utility.getListItem(dialogModel.ModelList, dialogModel.vehicleModelId);
-
-                model.registrationNumber = dialogModel.registrationNumber
-                model.modelvehicleTypeId = dialogModel.vehicleTypeId
-                model.modelvehicleManufacturerId = dialogModel.vehicleManufacturerId
-                model.modelvehicleModelId = dialogModel.vehicleModelId
-            }
-            dialogService.hide();
-        });
-    }
-
-    function viewDialog(vehicleId, dialogMode, ev)
-    {
-        dialog.editMode = editMode;
-
-        $mdDialog.show({
-            controller: DialogController,
-            controllerAs: "vm",
-            templateUrl: utility.virtualDirectory + '/app/fleet/vehicleDialog.html',
-            targetEvent: ev,
-            locals: { $mdDialog: $mdDialog, service: vehicleService, model: vehicleService.currentVehicle, editMode: dialog.editMode },
-            resolve: { resolvemodel: function () { return vehicleService.getCurrentVehicle(vehicleId) } }
-        })
-        .then(function () {
-            //alert('You said the information was "' + answer + '".');
-        }, function () {
-            //nothing to do when we cancel
-        });
-    }
-
-    function DialogController($scope, $mdDialog, service, model, editMode) {
-
-
-        var vm = {
-            save: save,
-            cancel: cancel,
-            model: model,
-            editMode: editMode,
-        }
-
-        init();
-
-        return vm;
-
-        function init() {
-            angular.extend($scope, vm);
-
-            $scope.$watch("vm.model.VehicleManufacturerId", bindModelDropDown);
-        }
-
-        function bindModelDropDown(manufacturerId, oldmanufacturerId) {
-            if (vm.model.ModelList === undefined) {
-                vm.model.ModelList = [];
-            }
-
-            var modelList = vm.model.ModelList;
-            var vehicleModelList = vm.model.VehicleModelList;
-
-            modelList.splice(0, modelList.length);
-
-            for (var counter = 0; counter < vehicleModelList.length; counter++) {
-                if (vehicleModelList[counter].VehicleManufacturerId === manufacturerId) {
-                    modelList.push({ Key: vehicleModelList[counter].VehicleModelId, Item: vehicleModelList[counter].Name })
                 }
-            }
+                else {
+                    model.vehicleType = utility.getListItem(dialogModel.vehicleTypeList, dialogModel.vehicleTypeId);
+                    model.manufacturer = utility.getListItem(dialogModel.manufacturerList, dialogModel.vehicleManufacturerId);
+                    model.vehicleModel = utility.getListItem(dialogModel.modelList, dialogModel.vehicleModelId);
 
-            if (manufacturerId === oldmanufacturerId)
-                return;
+                    model.registrationNumber = dialogModel.registrationNumber
+                    model.modelvehicleTypeId = dialogModel.vehicleTypeId
+                    model.modelvehicleManufacturerId = dialogModel.vehicleManufacturerId
+                    model.modelvehicleModelId = dialogModel.vehicleModelId
+                }
+                dialogService.hide();
+            });
+        });
 
-            if (modelList.length > 0) {
-                vm.model.VehicleModelId = modelList[0].Key;
-            }
-            else {
-                vm.model.VehicleModelId = 0;
-            }
-        }
+        fleetUtility.watchManufacturerModel(dialogService.dialogModel);
 
-        function cancel() {
-            event.preventDefault();
-            $mdDialog.cancel();
-        };
+        //$rootScope.$watch(function () {
+        //    return dialogService.dialogModel.vehicleManufacturerId;
+        //}, bindModelDropDown);
 
-        function save(form) {
-            if (form.$valid) {
-                //populating the vehicletype
-                vm.model.VehicleType = utility.getListItem(vm.model.VehicleTypeList, vm.model.VehicleTypeId);
-                vm.model.Manufacturer = utility.getListItem(vm.model.ManufacturerList, vm.model.VehicleManufacturerId);
-                vm.model.VehicleModel = utility.getListItem(vm.model.ModelList, vm.model.VehicleModelId);
-                service.saveVehicle(vm.model).success(function () {
-                    //refresh the grid
-                    if (vm.model.VehicleId === 0) {
-                        vehicleService.getVehicleList();
-                    }
-                    $mdDialog.hide();
-                });
-            }
-        };
     }
+
+
+    //function viewDialog(vehicleId, dialogMode, ev)
+    //{
+    //    dialog.editMode = editMode;
+
+    //    $mdDialog.show({
+    //        controller: DialogController,
+    //        controllerAs: "vm",
+    //        templateUrl: utility.virtualDirectory + '/app/fleet/vehicleDialog.html',
+    //        targetEvent: ev,
+    //        locals: { $mdDialog: $mdDialog, service: vehicleService, model: vehicleService.currentVehicle, editMode: dialog.editMode },
+    //        resolve: { resolvemodel: function () { return vehicleService.getCurrentVehicle(vehicleId) } }
+    //    })
+    //    .then(function () {
+    //        //alert('You said the information was "' + answer + '".');
+    //    }, function () {
+    //        //nothing to do when we cancel
+    //    });
+    //}
+
+    //function DialogController($scope, $mdDialog, service, model, editMode) {
+
+
+    //    var vm = {
+    //        save: save,
+    //        cancel: cancel,
+    //        model: model,
+    //        editMode: editMode,
+    //    }
+
+    //    init();
+
+    //    return vm;
+
+    //    function init() {
+    //        angular.extend($scope, vm);
+
+    //        $scope.$watch("vm.model.VehicleManufacturerId", bindModelDropDown);
+    //    }
+
+    //    function bindModelDropDown(manufacturerId, oldmanufacturerId) {
+    //        if (vm.model.ModelList === undefined) {
+    //            vm.model.ModelList = [];
+    //        }
+
+    //        var modelList = vm.model.ModelList;
+    //        var vehicleModelList = vm.model.VehicleModelList;
+
+    //        modelList.splice(0, modelList.length);
+
+    //        for (var counter = 0; counter < vehicleModelList.length; counter++) {
+    //            if (vehicleModelList[counter].VehicleManufacturerId === manufacturerId) {
+    //                modelList.push({ Key: vehicleModelList[counter].VehicleModelId, Item: vehicleModelList[counter].Name })
+    //            }
+    //        }
+
+    //        if (manufacturerId === oldmanufacturerId)
+    //            return;
+
+    //        if (modelList.length > 0) {
+    //            vm.model.VehicleModelId = modelList[0].Key;
+    //        }
+    //        else {
+    //            vm.model.VehicleModelId = 0;
+    //        }
+    //    }
+
+    //    function cancel() {
+    //        event.preventDefault();
+    //        $mdDialog.cancel();
+    //    };
+
+    //    function save(form) {
+    //        if (form.$valid) {
+    //            //populating the vehicletype
+    //            vm.model.VehicleType = utility.getListItem(vm.model.VehicleTypeList, vm.model.VehicleTypeId);
+    //            vm.model.Manufacturer = utility.getListItem(vm.model.ManufacturerList, vm.model.VehicleManufacturerId);
+    //            vm.model.VehicleModel = utility.getListItem(vm.model.ModelList, vm.model.VehicleModelId);
+    //            service.saveVehicle(vm.model).success(function () {
+    //                //refresh the grid
+    //                if (vm.model.VehicleId === 0) {
+    //                    vehicleService.getVehicleList();
+    //                }
+    //                $mdDialog.hide();
+    //            });
+    //        }
+    //    };
+    //}
 
 }

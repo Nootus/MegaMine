@@ -14,8 +14,6 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         showError: showError,
         initializeGrid: initializeGrid,
         initializeSubGrid: initializeSubGrid,
-        getGridHeight: getGridHeight,
-        getMainGridHeight: getMainGridHeight,
         getSubGridHeight: getSubGridHeight,
         getListItem: getListItem,
         getItem: getItem,
@@ -41,7 +39,7 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         vm.gridOptions.enableColumnResizing = true,
         vm.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
         vm.gridOptions.data = model;
-        resizeInitialGrid(vm);
+        resizeMainGrid(vm);
 
         angular.element($window).bind('resize', function () {
             vm.gridHeight = getMainGridHeight('main-grid');
@@ -51,11 +49,20 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         });
     }
 
-    function resizeInitialGrid(vm, currentHeight) {
+    function resizeMainGrid(vm, currentHeight) {
         vm.gridHeight = getMainGridHeight('main-grid');
         if (vm.gridHeight !== currentHeight || currentHeight === undefined) {
             $timeout(function () {
-                resizeInitialGrid(vm, vm.gridHeight);
+                resizeMainGrid(vm, vm.gridHeight);
+            }, 100);
+        }
+    }
+
+    function resizeSubGrid(vm, currentHeight) {
+        vm.gridHeight = getMainGridHeight('sub-grid');
+        if (vm.gridHeight !== currentHeight || currentHeight === undefined) {
+            $timeout(function () {
+                resizeSubGrid(vm, vm.gridHeight);
             }, 100);
         }
     }
@@ -64,7 +71,7 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         vm.gridOptions.enableColumnResizing = true,
         vm.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
         vm.gridOptions.data = model;
-        vm.gridHeight = getSubGridHeight('sub-grid');
+        resizeSubGrid(vm);
 
         angular.element($window).bind('resize', function () {
             vm.gridHeight = getSubGridHeight('sub-grid');

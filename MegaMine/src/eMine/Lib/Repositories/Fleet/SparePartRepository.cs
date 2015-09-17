@@ -31,11 +31,11 @@ namespace eMine.Lib.Repositories.Fleet
             return await query.ToListAsync();
         }
 
-        public async Task <SparePartManufacturerModel> SparePartManufacturerGet(int SparePartManufacturerId)
+        public async Task <SparePartManufacturerModel> SparePartManufacturerGet(int sparePartManufacturerId)
         {
 
             var query = from spm in dbContext.SparePartManufacturers
-                        where spm.SparePartManufacturerId == SparePartManufacturerId
+                        where spm.SparePartManufacturerId == sparePartManufacturerId
                         && spm.DeletedInd == false
                         && spm.CompanyId == profile.CompanyId
                         select new SparePartManufacturerModel
@@ -285,10 +285,10 @@ namespace eMine.Lib.Repositories.Fleet
             }
         }
 
-        public async Task <SparePartModel> SparePartGet(int SparePartId, VehicleRepository vehicleRepository)
+        public async Task <SparePartModel> SparePartGet(int sparePartId, VehicleRepository vehicleRepository)
         {
             SparePartModel model = null;
-            if (SparePartId == 0)
+            if (sparePartId == 0)
             {
                 model = new SparePartModel();
                 model.SparePartId = 0;
@@ -303,7 +303,7 @@ namespace eMine.Lib.Repositories.Fleet
             else
             {
                 var sparePartGetQuery = from sPart in dbContext.SpareParts
-                                        where sPart.SparePartId == SparePartId
+                                        where sPart.SparePartId == sparePartId
                                         && sPart.DeletedInd == false
                                         && sPart.CompanyId == profile.CompanyId
                                         select new SparePartModel
@@ -343,17 +343,17 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task <SparePartDetailsModel> SparePartDetailsGet(int sparePartId, VehicleRepository vehicleRepository)
         {
-            var sparePartGetQuery = from sPart in dbContext.SpareParts
-                                    where sPart.SparePartId == sparePartId
-                                    && sPart.DeletedInd == false
-                                    && sPart.CompanyId == profile.CompanyId
+            var sparePartGetQuery = from part in dbContext.SpareParts
+                                    where part.SparePartId == sparePartId
+                                    && part.DeletedInd == false
+                                    && part.CompanyId == profile.CompanyId
                                     select new SparePartDetailsModel
                                     {
-                                        SparePartId = sPart.SparePartId,
-                                        Quantity = sPart.AvailableQuantity,
-                                        Name = sPart.SparePartName,
-                                        ManufacturingBrand = sPart.ManufacturingBrand,
-                                        Description = sPart.SparePartDescription
+                                        SparePartId = part.SparePartId,
+                                        Quantity = part.AvailableQuantity,
+                                        Name = part.SparePartName,
+                                        ManufacturingBrand = part.ManufacturingBrand,
+                                        Description = part.SparePartDescription
                                     };
 
             SparePartDetailsModel model = await sparePartGetQuery.FirstOrDefaultAsync();
