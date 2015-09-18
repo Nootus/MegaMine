@@ -27,14 +27,12 @@ function vehicle($state, vehicleService, vehicleDialog, utility, profile, naviga
         vehicleDialog.viewDialog(vm.model.vehicleId, true, ev);
     }
 
-    function menuSelect(e)
-    {
+    function menuSelect(e){
         $(e.item).siblings().removeClass("k-state-highlight");
         $(e.item).addClass("k-state-highlight");
     }
 
-    function resetFuel(e)
-    {
+    function resetFuel(e){
         vehicleService.resetFuel(vm.model.vehicleId);
     }
 

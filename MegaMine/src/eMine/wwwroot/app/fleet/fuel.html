@@ -1,10 +1,19 @@
-﻿<div>
-    <em-toolbar title="Fuel History" class="subtitle">
-        <em-button ng-click="vm.addFuel($event)" class="md-raised md-primary" aria-label="Add Fuel" module="Fleet" claim="VehicleFuelAdd">
-            <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Fuel
-        </em-button>
-    </em-toolbar>
-    <md-content layout-padding>
-        <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="sub-grid"></div>
-    </md-content>
-</div>
+﻿<nt-list-toolbar vm="vm" title="Fuel History" add-text="Fuel" claim-module="Fleet" claim="VehicleFuelAdd" ng-click="vm.addFuel" grid-class="sub-grid"></nt-list-toolbar>
+
+<script type="text/ng-template" id="vehicle_fuel_dialog">
+    <md-dialog aria-label="Fuel" class="dialog">
+        <nt-dialog form="fuelForm" title="Fuel">
+            <div layout="row">
+                <div flex="30">
+                    <em-input form="fuelForm" type="date" label="Fuel Date" control-name="fuelDate" ng-model="vm.model.fuelDate" ng-required="true"></em-input>
+                </div>
+                <div flex="30">
+                    <em-input form="fuelForm" type="number" label="Quantity" control-name="quantity" ng-model="vm.model.quantity" ng-required="true"></em-input>
+                </div>
+                <div flex="40">
+                    <em-input form="fuelForm" type="number" label="Odometer" control-name="odometer" ng-model="vm.model.odometer" ng-required="true"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>
