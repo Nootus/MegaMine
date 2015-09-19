@@ -56,8 +56,8 @@ function fleetRoute($stateProvider) {
             url: "/fuel",
             title: "Vehicle",
             previousState: "vehiclelist",
-            templateUrl: window.virtualDirectory + "/app/fleet/fuel.html",
-            controller: "fuel",
+            templateUrl: window.virtualDirectory + "/app/fleet/vehicleFuel.html",
+            controller: "vehicleFuel",
             controllerAs: "vm",
             resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
                 return vehicleService.getFuelList($stateParams.vehicleid);
@@ -80,8 +80,8 @@ function fleetRoute($stateProvider) {
               url: "/vehicletrip",
               title: "Vehicle",
               previousState: "vehiclelist",
-              templateUrl: window.virtualDirectory + "/app/fleet/vehicletrip.html",
-              controller: "vehicletrip",
+              templateUrl: window.virtualDirectory + "/app/fleet/vehicleTrip.html",
+              controller: "vehicleTrip",
               controllerAs: "vm",
               resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
                   return vehicleService.getTripList($stateParams.vehicleid);

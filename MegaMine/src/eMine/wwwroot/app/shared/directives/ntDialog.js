@@ -8,14 +8,15 @@ function ntDialog($mdDialog, constants) {
         transclude: true,
         scope: {
             form: '@',
-            title: '@'
+            title: '@',
+            saveText: '@'
         },
         link: link,
         template: ''
                     + '<form name="{{form}}" novalidate>'
                     + '    <em-toolbar title="{{title}}" class="dialog">'
                     + '       <md-button ng-click="save(dialogForm)" class="md-raised md-primary" ng-show="dialogMode === dialogModeEnum.save" ng-disabled="dialogForm.$invalid && dialogForm.$submitted" aria-label="Save">'
-                    + '            <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>Save'
+                    + '            <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon>{{saveText}}'
                     + '        </md-button>'
                     + '        <md-button ng-click="deleteItem($event)" class="md-raised md-primary" ng-show="dialogMode === dialogModeEnum.delete">'
                     + '            <md-icon class="icon-button" md-svg-icon="content/images/icons/delete.svg"></md-icon>Delete'
@@ -43,6 +44,9 @@ function ntDialog($mdDialog, constants) {
             deleteItem: scope.$parent.deleteItem,
             cancel: scope.$parent.cancel,
         });
+
+        if (scope.saveText === undefined)
+            scope.saveText = 'Save';
 
         scope.dialogForm = scope[scope.form]
         scope.$parent.dialogForm = scope.dialogForm;

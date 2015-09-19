@@ -1,22 +1,16 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleDriver', vehicleDriver)
-vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDriverDialog', 'utility', 'uiGridConstants', 'constants'];
+vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDriverDialog', 'utility', 'constants', 'dialogService', 'template'];
 
-function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, utility, uiGridConstants, constants) {
+function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, utility, constants, dialogService, template) {
 
     var gridOptions = {
-        enableColumnResizing: true,
-        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [
                     { name: 'driverName', field: 'driverName', displayName: 'Driver', type:'string' },
                     { name: 'assignmentStartDate', field: 'assignmentStartDate', displayName: 'Start Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
                     { name: 'assignmentEndDate', field: 'assignmentEndDate', displayName: 'End Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
-                    {
-                        name: 'vehicleDriverAssignmentId', field: 'vehicleDriverAssignmentId', displayName: '', enableColumnMenu: false, type: 'string',
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, 0, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, 1, $event)\" module=\"Fleet\" claim=\"VehicleDriverEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
-                        cellClass: "text-center", enableHiding: false
-                    },
-        ]
+                    template.getButtonDefaultColumnDefs('vehicleDriverAssignmentId', 'Fleet', 'VehicleDriverEdit')
+                    ]
     };
 
     var vm = {
@@ -37,20 +31,9 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
 
     function init() {
         vm.vehicleId = vehicleService.vehicle.vehicleId;
-        vm.gridOptions.data = vehicleService.vehicleDriverList;
         vm.editMode = vehicleService.vehicle.driver === null ? 2 : 3;
-        resizeGrid();
 
-        angular.element($window).bind('resize', function () {
-            resizeGrid();
-        });
-        $scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-    }
-
-    function resizeGrid() {
-        vm.gridHeight = utility.getSubGridHeight('sub-grid');
+        utility.initializeSubGrid(vm, $scope, vehicleService.vehicleDriverList);
     }
 
     function unAssignDriver(ev) {

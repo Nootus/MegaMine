@@ -15,9 +15,7 @@ function ntToolbarButton() {
         },
         link: link,
         template: '<em-toolbar title="{{title}}" class="title">'
-                        + '<em-button class="md-raised md-primary" aria-label="{{buttonText}}" ng-click="ngClick($event)" module="{{claimModule}}" claim="{{claim}}">'
-                        + '<md-icon class="icon-button" md-svg-icon="content/images/icons/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
-                        + '</em-button>'
+                        + '<nt-button ng-click="ngClick($event)" button-icon="{{buttonIcon}}" button-text="{{buttonText}}" module="{{claimModule}}" claim="{{claim}}"></nt-button>'
                     + '</em-toolbar>'
 
     };

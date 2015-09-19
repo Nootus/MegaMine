@@ -1,29 +1,21 @@
 ﻿'use strict';
-angular.module('emine').controller('vehicletrip', vehicletrip)
-vehicletrip.$inject = ['vehicleService', 'tripDialog', 'uiGridConstants', 'constants'];
+angular.module('emine').controller('vehicleTrip', vehicleTrip)
+vehicleTrip.$inject = ['$scope', 'vehicleService', 'utility', 'constants', 'dialogService', 'template'];
 
-function vehicletrip(vehicleService, tripDialog, uiGridConstants, constants) {
+function vehicleTrip($scope, vehicleService, utility, constants, dialogService, template) {
 
     var gridOptions = {
-        enableColumnResizing: true,
-        enableHorizontalScrollbar: uiGridConstants.scrollbars.NEVER,
         columnDefs: [                    
                     { name: 'vehicleTripName', field: 'vehicleTripName', displayName: 'TripName', type: 'string' },
                     { name: 'startingTime', field: 'startingTime', displayName: 'StartingTime', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'reachingTime', field: 'reachingTime', displayName: 'ReachingTime', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'odometerStart', field: 'odometerStart', displayName: 'OdometerStart', type: 'number' },
                     { name: 'odometerEnd', field: 'odometerEnd', displayName: 'OdometerEnd', type: 'number' },
-
-                    {
-                        name: 'vehicleTripId', field: 'vehicleTripId', displayName: '', type: 'string', enableColumnMenu: false,
-                        cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/eye.svg\"></md-icon> View</md-button>  <em-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewDialog(row.entity, true, $event)\" module=\"Fleet\" claim=\"VehicleTripEdit\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/edit.svg\" aria-label=\"Edit\"></md-icon> Edit</em-button>",
-                        cellClass: "text-center", enableHiding: false
-                    },
-        ]
-    };
+                    template.getButtonDefaultColumnDefs('vehicleTripId', 'Fleet', 'VehicleTripEdit')
+                    ]
+        };
 
     var vm = {
-        vehicleId: 0,
         gridOptions: gridOptions,
         viewDialog: viewDialog,
         addTrip: addTrip,
@@ -35,18 +27,38 @@ function vehicletrip(vehicleService, tripDialog, uiGridConstants, constants) {
 
     function init()
     {
-        vm.vehicleId = vehicleService.vehicle.vehicleId;
-        vm.gridOptions.data = vehicleService.tripsList;
+        utility.initializeSubGrid(vm, $scope, vehicleService.tripsList);
     }
 
     function addTrip(ev)
     {
-        var model = { vehicleTripId: 0, vehicleId: vm.vehicleId }
-        viewDialog(model, true, ev);
+        var model = { vehicleTripId: 0, vehicleId: vehicleService.vehicle.vehicleId }
+        viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
-    function viewDialog(model, editMode, ev)
-    {
-        tripDialog.viewDialog(model, editMode, ev);
+    function viewDialog(model, dialogMode, ev) {
+        dialogService.show({
+            templateUrl: 'vehicle_trip_dialog',
+            targetEvent: ev,
+            data: { model: model },
+            dialogMode: dialogMode
+        })
+        .then(function (dialogModel) {
+            vehicleService.saveFuel(dialogModel).then(function () {
+                //update the grid values
+                if (dialogModel.VehicleTripId === 0) {
+                    vehicleService.getTripList(dialogModel.vehicleId);
+                }
+                else {
+                    model.vehicleTripName = dialogModel.vehicleTripName
+                    model.startingTime = dialogModel.startingTime
+                    model.reachingTime = dialogModel.reachingTime
+                    model.odometerStart = dialogModel.odometerStart
+                    model.odometerEnd = dialogModel.odometerEnd
+                }
+
+                dialogService.hide();
+            });
+        });
     }
 }

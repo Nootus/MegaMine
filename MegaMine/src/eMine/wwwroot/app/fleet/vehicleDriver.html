@@ -1,16 +1,28 @@
 ﻿<div>
     <em-toolbar title="Driver History" class="subtitle">
-        <em-button ng-click="vm.assignDriver($event)" ng-show="vm.editMode === 2" class="md-raised md-primary" aria-label="Assign Driver" module="Fleet" claim="VehicleDriverAssign">
-            <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Assign Driver
-        </em-button>
-        <em-button ng-click="vm.unAssignDriver($event)" ng-show="vm.editMode === 3" class="md-raised md-primary" aria-label="Assign Driver" module="Fleet" claim="VehicleDriverAssign">
-            <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Un Assign Driver
-        </em-button>
-        <em-button ng-click="vm.addDriver($event)" class="md-raised md-primary" aria-label="Add Driver" module="Fleet" claim="VehicleDriverAdd">
-            <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Driver
-        </em-button>
+        <nt-button ng-click="vm.assignDriver($event)" ng-show="vm.editMode === 2" button-icon="add" button-text="Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
+        <nt-button ng-click="vm.unAssignDriver($event)" ng-show="vm.editMode === 3" button-icon="add" button-text="Un Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
+        <nt-button ng-click="vm.addDriver($event)" svg-icon="add" button-text="Add Driver" module="Fleet" claim="VehicleDriverAdd"></nt-button>
     </em-toolbar>
     <md-content layout-padding>
         <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="sub-grid"></div>
     </md-content>
 </div>
+
+<script type="text/ng-template" id="vehicle_driver_dialog">
+    <md-dialog aria-label="Fuel" class="dialog">
+        <nt-dialog form="fuelForm" title="Fuel">
+            <div layout="row">
+                <div flex="30">
+                    <em-input form="fuelForm" type="date" label="Fuel Date" control-name="fuelDate" ng-model="vm.model.fuelDate" ng-required="true"></em-input>
+                </div>
+                <div flex="30">
+                    <em-input form="fuelForm" type="number" label="Quantity" control-name="quantity" ng-model="vm.model.quantity" ng-required="true"></em-input>
+                </div>
+                <div flex="40">
+                    <em-input form="fuelForm" type="number" label="Odometer" control-name="odometer" ng-model="vm.model.odometer" ng-required="true"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

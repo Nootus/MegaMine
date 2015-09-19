@@ -1,10 +1,29 @@
-﻿<div>
-    <em-toolbar title="Trip History" class="subtitle">
-        <em-button ng-click="vm.addTrip($event)" class="md-raised md-primary" aria-label="Add Trip" module="Fleet" claim="VehicleTripAdd">
-            <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add Trip
-        </em-button>
-    </em-toolbar>
-    <md-content layout-padding>
-        <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize class="main-grid"></div>
-    </md-content>
-</div>
+﻿<nt-list-toolbar vm="vm" title="Trip History" add-text="Trip" claim-module="Fleet" claim="VehicleTripAdd" ng-click="vm.addTrip" grid-class="sub-grid"></nt-list-toolbar>
+
+<script type="text/ng-template" id="vehicle_trip_dialog">
+    <md-dialog aria-label="Trip" class="dialog">
+        <nt-dialog form="tripForm" title="Trip">
+            <div layout="row">
+                <div flex="33">
+                    <em-input form="tripForm" type="string" label="TripName" control-name="vehicleTripName" ng-model="vm.model.vehicleTripName" ng-required="true"></em-input>
+                </div>
+                <div flex="33">
+                    <em-input form="tripForm" type="date" label="Start" control-name="vtartingTime" ng-model="vm.model.startingTime" ng-required="true"></em-input>
+                </div>
+                <div flex="33">
+                    <em-input form="tripForm" type="date" label="Reached" control-name="reachingTime" ng-model="vm.model.reachingTime" ng-required="true"></em-input>
+                </div>
+            </div>
+            <div layout="row">
+                <div flex="33">
+                    <em-input form="tripForm" type="number" label="Odometer Start" control-name="odometerStart" ng-model="vm.model.odometerStart" ng-required="true"></em-input>
+                </div>
+                <div flex="33">
+                    <em-input form="tripForm" type="number" label="Odometer End" control-name="odometer" ng-model="vm.model.odometerEnd" ng-required="true"></em-input>
+                </div>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>
+
+
