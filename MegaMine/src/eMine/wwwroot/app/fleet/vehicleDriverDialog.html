@@ -21,17 +21,11 @@
         <md-dialog-content class="dialog-content">
             <div>
                 <div layout="row">
-                    <div flex="40">
-                        <em-select form="driverForm" label="Driver" control-name="driverName" ng-model="model.vehicleDriverId" opt-list="driverListItems" ng-required="true" ng-disabled="editMode === 0 || editMode === 3"></em-select>
-                    </div>
+                    <em-select flex="50" form="driverForm" label="Driver" control-name="driverName" ng-model="model.vehicleDriverId" opt-list="driverListItems" ng-required="true" ng-disabled="editMode === 0 || editMode === 3"></em-select>
                 </div>
                 <div layout="row">
-                    <div flex="50" ng-hide="editMode === 3">
-                        <em-input form="driverForm" type="datetime-local" label="Start Time" control-name="assignmentStartDate" ng-model="model.assignmentStartDate" ng-required="true" ng-disabled="editMode === 0"></em-input>
-                    </div>
-                    <div flex="50" ng-hide="editMode === 2">
-                        <em-input form="driverForm" type="datetime-local" label="End Time" control-name="assignmentEndDate" ng-model="model.assignmentEndDate" ng-required="editMode !== 2" ng-disabled="editMode === 0"></em-input>
-                    </div>
+                    <em-input flex="50" form="driverForm" type="datetime-local" label="Start Time" control-name="assignmentStartDate" ng-model="model.assignmentStartDate" ng-required="true" ng-disabled="editMode === 0"  ng-hide="editMode === 3"></em-input>
+                    <em-input flex="50" form="driverForm" type="datetime-local" label="End Time" control-name="assignmentEndDate" ng-model="model.assignmentEndDate" ng-required="editMode !== 2" ng-disabled="editMode === 0" ng-hide="editMode === 2"></em-input>
                 </div>
             </div>
         </md-dialog-content>

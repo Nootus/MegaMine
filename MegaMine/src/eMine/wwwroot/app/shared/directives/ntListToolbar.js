@@ -15,14 +15,8 @@ function ntListToolbar() {
             gridClass: '@'
         },
         link: link,
-        template: '<em-toolbar title="{{title}}" class="title">'
-                        + '<em-button class="md-raised md-primary" aria-label="Add" ng-click="ngClick($event)" module="{{claimModule}}" claim="{{claim}}">'
-                        + '<md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>Add {{addText}}'
-                        + '</em-button>'
-                    + '</em-toolbar>'
-                    + '<md-content layout-padding>'
-                        + '<div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{\'height\' : vm.gridHeight }" ng-class="gridClass"></div>'
-                    + '</md-content>'
+        template: '<nt-toolbar-button title="{{title}}" button-text="Add {{addText}}" button-icon="add" claim-module="{{claimModule}}" claim="{{claim}}" ng-click="ngClick"></nt-toolbar-button>'
+                    + '<nt-grid vm="vm"></nt-grid>'
 
     };
 

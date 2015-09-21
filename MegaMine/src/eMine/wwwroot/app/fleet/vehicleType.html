@@ -4,12 +4,8 @@
     <md-dialog aria-label="Vehicle Type" class="dialog">
         <nt-dialog form="vehicleTypeForm" title="Vehicle Type">
             <div layout="row">
-                <div flex="30">
-                    <em-input form="vehicleTypeForm" label="Vehicle Type" control-name="vehicleTypeName" ng-model="vm.model.vehicleTypeName" ng-required="true" em-maxlength="20"></em-input>
-                </div>
-                <div flex="70">
-                    <em-input form="vehicleTypeForm" label="Description" control-name="vehicleTypeDescription" ng-model="vm.model.vehicleTypeDescription" ng-required="false" em-maxlength="100"></em-input>
-                </div>
+                <em-input flex="30" form="vehicleTypeForm" label="Vehicle Type" control-name="vehicleTypeName" ng-model="vm.model.vehicleTypeName" ng-required="true" em-maxlength="20"></em-input>
+                <em-input flex="70" form="vehicleTypeForm" label="Description" control-name="vehicleTypeDescription" ng-model="vm.model.vehicleTypeDescription" ng-required="false" em-maxlength="100"></em-input>
             </div>
         </nt-dialog>
     </md-dialog>

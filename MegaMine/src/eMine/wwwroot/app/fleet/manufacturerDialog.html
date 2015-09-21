@@ -1,12 +1,8 @@
 ﻿<md-dialog aria-label="Manufacturer" class="dialog">
     <nt-dialog form="manufacturerForm" title="Manufacturer">
         <div layout="row">
-            <div flex="30">
-                <em-input form="manufacturerForm" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="20"></em-input>
-            </div>
-            <div flex="70">
-                <em-input form="manufacturerForm" label="Description" control-name="description" ng-model="vm.model.description" em-maxlength="100" ng-required="false"></em-input>
-            </div>
+            <em-input flex="30" form="manufacturerForm" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="20"></em-input>
+            <em-input flex="70" form="manufacturerForm" label="Description" control-name="description" ng-model="vm.model.description" em-maxlength="100" ng-required="false"></em-input>
         </div>
     </nt-dialog>
 </md-dialog>

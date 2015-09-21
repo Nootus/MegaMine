@@ -1,23 +1,13 @@
 ﻿<md-dialog aria-label="Spare Part" class="dialog">
     <nt-dialog form="sparePartForm" title="Spare Part">
         <div layout="row">
-            <div flex="30">
-                <em-input form="sparePartForm" label="Part Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="20"></em-input>
-            </div>
-            <div flex="70">
-                <em-input form="sparePartForm" label="Description" control-name="description" ng-model="vm.model.description" ng-required="false" em-maxlength="100"></em-input>
-            </div>
+            <em-input flex="30" form="sparePartForm" label="Part Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="20"></em-input>
+            <em-input flex="70" form="sparePartForm" label="Description" control-name="description" ng-model="vm.model.description" ng-required="false" em-maxlength="100"></em-input>
         </div>
         <div layout="row">
-            <div flex="30">
-                <em-select form="sparePartForm" label="Type" control-name="vehicleType" ng-model="vm.model.vehicleTypeId" opt-list="vm.model.vehicleTypeList" ng-required="false"></em-select>
-            </div>
-            <div flex="20">
-                <em-select form="sparePartForm" label="Manufacturer" control-name="manufacturer" ng-model="vm.model.vehicleManufacturerId" opt-list="vm.model.manufacturerList" ng-required="false"></em-select>
-            </div>
-            <div flex="20" class="text-left">
-                <em-select form="sparePartForm" label="Model" control-name="vehicleModel" ng-model="vm.model.vehicleModelId" opt-list="vm.model.modelList" ng-required="false"></em-select>
-            </div>
+            <em-select flex="30" form="sparePartForm" label="Type" control-name="vehicleType" ng-model="vm.model.vehicleTypeId" opt-list="vm.model.vehicleTypeList" ng-required="false"></em-select>
+            <em-select flex="20" form="sparePartForm" label="Manufacturer" control-name="manufacturer" ng-model="vm.model.vehicleManufacturerId" opt-list="vm.model.manufacturerList" ng-required="false"></em-select>
+            <em-select flex="20" form="sparePartForm" label="Model" control-name="vehicleModel" ng-model="vm.model.vehicleModelId" opt-list="vm.model.modelList" ng-required="false"></em-select>
         </div>
     </nt-dialog>
 </md-dialog>

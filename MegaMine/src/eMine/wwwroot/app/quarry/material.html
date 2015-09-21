@@ -1,46 +1,22 @@
-﻿<nt-toolbar-button vm="vm" title="Add Material" button-text="Save" button-icon="add" ng-click="vm.saveMaterial"></nt-toolbar-button>
+﻿<nt-toolbar-button title="Add Material" button-text="Save" button-icon="add" ng-click="vm.saveMaterial"></nt-toolbar-button>
 <md-content layout-padding>
     <form name="materialForm" novalidate>
         <div layout="row">
-            <div flex="10">
-                <em-select form="materialForm" label="Quarry" control-name="quarry" ng-model="vm.model.quarryId" opt-list="vm.viewModel.quarry" ng-required="true"></em-select>
-            </div>
-            <div flex="10">
-                <em-select form="materialForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productType" ng-required="true"></em-select>
-            </div>
-            <div flex="15">
-                <em-select form="materialForm" label="Colour" control-name="materialColour" ng-model="vm.model.materialColourId" opt-list="vm.viewModel.materialColour" ng-required="true"></em-select>
-            </div>
-            <div flex="10">
-                <em-input form="materialForm" type="number" label="Length" control-name="length" ng-model="vm.model.length" ng-required="true"></em-input>
-            </div>
-            <div flex="10">
-                <em-input form="materialForm" type="number" label="Width" control-name="width" ng-model="vm.model.width" ng-required="true"></em-input>
-            </div>
-            <div flex="10">
-                <em-input form="materialForm" type="number" label="Height" control-name="height" ng-model="vm.model.height" ng-required="true"></em-input>
-            </div>
-            <div flex="10">
-                <em-input form="materialForm" type="number" label="Weight" control-name="weight" ng-model="vm.model.weight" ng-required="true"></em-input>
-            </div>
-            <div flex="15">
-                <em-input form="materialForm" type="date" label="Date" control-name="materialDate" ng-model="vm.model.materialDate" ng-required="true"></em-input>
-            </div>
+            <em-select flex="10" form="materialForm" label="Quarry" control-name="quarry" ng-model="vm.model.quarryId" opt-list="vm.viewModel.quarry" ng-required="true"></em-select>
+            <em-select flex="10" form="materialForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productType" ng-required="true"></em-select>
+            <em-select flex="15" form="materialForm" label="Colour" control-name="materialColour" ng-model="vm.model.materialColourId" opt-list="vm.viewModel.materialColour" ng-required="true"></em-select>
+            <em-input flex="10" form="materialForm" type="number" label="Length" control-name="length" ng-model="vm.model.length" ng-required="true"></em-input>
+            <em-input flex="10" form="materialForm" type="number" label="Width" control-name="width" ng-model="vm.model.width" ng-required="true"></em-input>
+            <em-input flex="10" form="materialForm" type="number" label="Height" control-name="height" ng-model="vm.model.height" ng-required="true"></em-input>
+            <em-input flex="10" form="materialForm" type="number" label="Weight" control-name="weight" ng-model="vm.model.weight" ng-required="true"></em-input>
+            <em-input flex="15" form="materialForm" type="date" label="Date" control-name="materialDate" ng-model="vm.model.materialDate" ng-required="true"></em-input>
             <div flex="10" layout-align="center">
-                <md-button ng-click="vm.addMaterial(materialForm)" class="md-raised md-primary" ng-disabled="materialForm.$invalid && materialForm.$submitted" aria-label="Save" ng-show="!vm.editMode">
-                    <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon> Add
-                </md-button>
-                <md-button ng-click="vm.updateMaterial(materialForm)" class="md-raised md-primary" ng-disabled="materialForm.$invalid && materialForm.$submitted" aria-label="Update" ng-show="vm.editMode">
-                    <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon> Update
-                </md-button>
-                <md-button ng-click="vm.cancelMaterial(materialForm)" class="md-raised md-primary" aria-label="Cancel" ng-show="vm.editMode">
-                    <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon> Cancel
-                </md-button>
+                <nt-button ng-click="vm.addMaterial(materialForm)" button-icon="save" button-text="Add" ng-disabled="materialForm.$invalid && materialForm.$submitted" ng-show="!vm.editMode"></nt-button>
+                <nt-button ng-click="vm.updateMaterial(materialForm)" button-icon="save" button-text="Update" ng-disabled="materialForm.$invalid && materialForm.$submitted" ng-show="vm.editMode"></nt-button>
+                <nt-button ng-click="vm.cancelMaterial(materialForm)" button-icon="cancel" button-text="Cancel" ng-show="vm.editMode"></nt-button>
             </div>
         </div>
     </form>
 </md-content>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+<nt-grid vm="vm" ></nt-grid>
 

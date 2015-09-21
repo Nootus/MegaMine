@@ -4,15 +4,9 @@
     <md-dialog aria-label="Fuel" class="dialog">
         <nt-dialog form="fuelForm" title="Fuel">
             <div layout="row">
-                <div flex="30">
-                    <em-input form="fuelForm" type="date" label="Fuel Date" control-name="fuelDate" ng-model="vm.model.fuelDate" ng-required="true"></em-input>
-                </div>
-                <div flex="30">
-                    <em-input form="fuelForm" type="number" label="Quantity" control-name="quantity" ng-model="vm.model.quantity" ng-required="true"></em-input>
-                </div>
-                <div flex="40">
-                    <em-input form="fuelForm" type="number" label="Odometer" control-name="odometer" ng-model="vm.model.odometer" ng-required="true"></em-input>
-                </div>
+                <em-input flex="33" form="fuelForm" type="date" label="Fuel Date" control-name="fuelDate" ng-model="vm.model.fuelDate" ng-required="true"></em-input>
+                <em-input flex="33" form="fuelForm" type="number" label="Quantity" control-name="quantity" ng-model="vm.model.quantity" ng-required="true"></em-input>
+                <em-input flex="33" form="fuelForm" type="number" label="Odometer" control-name="odometer" ng-model="vm.model.odometer" ng-required="true"></em-input>
             </div>
         </nt-dialog>
     </md-dialog>

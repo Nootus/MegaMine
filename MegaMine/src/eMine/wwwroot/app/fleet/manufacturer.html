@@ -1,13 +1,9 @@
-﻿<nt-toolbar-button vm="vm" title="Manufacturer Details" button-text="Edit Manufacturer" button-icon="edit" claim-module="Fleet" claim="ManufacturerEdit" ng-click="vm.viewManufacturer"></nt-toolbar-button>
+﻿<nt-toolbar-button title="Manufacturer Details" button-text="Edit Manufacturer" button-icon="edit" claim-module="Fleet" claim="ManufacturerEdit" ng-click="vm.viewManufacturer"></nt-toolbar-button>
 
 <md-content layout-padding>
     <div layout="row">
-        <div flex="20">
-            <em-input label="Name" control-name="Name" ng-model="vm.model.name" ng-disabled="true"></em-input>
-        </div>
-        <div flex="20">
-            <em-input label="Description" control-name="Description" ng-model="vm.model.description" ng-disabled="true"></em-input>
-        </div>
+        <em-input flex="20" label="Name" control-name="Name" ng-model="vm.model.name" ng-disabled="true"></em-input>
+        <em-input flex="20" label="Description" control-name="Description" ng-model="vm.model.description" ng-disabled="true"></em-input>
     </div>
     <nt-list-toolbar vm="vm" title="Models" add-text="Model" claim-module="Fleet" claim="ManufacturerModelAdd" ng-click="vm.addModel" grid-class="sub-grid"></nt-list-toolbar>
 </md-content>
@@ -16,12 +12,8 @@
     <md-dialog aria-label="Model" class="dialog">
         <nt-dialog form="modelForm" title="Model">
             <div layout="row">
-                <div flex="30">
-                    <em-input form="modelForm" type="string" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="40"></em-input>
-                </div>
-                <div flex="70">
-                    <em-input form="modelForm" type="string" label="Description" control-name="description" ng-model="vm.model.description" ng-required="false" em-maxlength="100"></em-input>
-                </div>
+                <em-input flex="30" form="modelForm" type="string" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="40"></em-input>
+                <em-input flex="70" form="modelForm" type="string" label="Description" control-name="description" ng-model="vm.model.description" ng-required="false" em-maxlength="100"></em-input>
             </div>
         </nt-dialog>
     </md-dialog>

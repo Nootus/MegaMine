@@ -11,10 +11,11 @@ function ntButton(profile) {
             buttonText: '@',
             module: '@',
             claim: '@',
-            hide: '@'
+            hide: '@',
+            ngDisabled: '='
         },
         link: link,
-        template: '<md-button class="{{class}}" ng-hide="hide" aria-label="{{buttonText}}">'
+        template: '<md-button class="{{class}}" ng-hide="hide" aria-label="{{buttonText}}" ng-disabled="ngDisabled">'
                     + ' <md-icon class="icon-button" md-svg-icon="content/images/icons/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
                     + '</md-button>'
 
@@ -28,6 +29,6 @@ function ntButton(profile) {
             scope.hide = !profile.isAuthorized(scope.module, scope.claim);
         }
 
-        scope.class = scope.class === undefined ? 'md-raised md-primary' : scope.class;
+        scope.class = scope.class === undefined ? 'md-raised md-primary md-default-theme' : scope.class;
     }
 }

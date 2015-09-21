@@ -2,27 +2,33 @@
     <em-toolbar title="Driver History" class="subtitle">
         <nt-button ng-click="vm.assignDriver($event)" ng-show="vm.editMode === 2" button-icon="add" button-text="Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
         <nt-button ng-click="vm.unAssignDriver($event)" ng-show="vm.editMode === 3" button-icon="add" button-text="Un Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
-        <nt-button ng-click="vm.addDriver($event)" svg-icon="add" button-text="Add Driver" module="Fleet" claim="VehicleDriverAdd"></nt-button>
+        <nt-button ng-click="vm.addDriver($event)" button-icon="add" button-text="Add Driver" module="Fleet" claim="VehicleDriverAdd"></nt-button>
     </em-toolbar>
-    <md-content layout-padding>
-        <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="sub-grid"></div>
-    </md-content>
+    <nt-grid vm="vm" grid-class="sub-grid"></nt-grid>
 </div>
 
 <script type="text/ng-template" id="vehicle_driver_dialog">
-    <md-dialog aria-label="Fuel" class="dialog">
-        <nt-dialog form="fuelForm" title="Fuel">
-            <div layout="row">
-                <div flex="30">
-                    <em-input form="fuelForm" type="date" label="Fuel Date" control-name="fuelDate" ng-model="vm.model.fuelDate" ng-required="true"></em-input>
+    <md-dialog aria-label="Driver" class="dialog">
+        <form name="driverForm" novalidate>
+            <em-toolbar title="Driver" class="dialog">
+                <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 1" button-icon="save" button-text="Save" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
+                <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 2" button-icon="save" button-text="Assign" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
+                <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 3" button-icon="save" button-text="Un Assign" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
+                <nt-button ng-click="cancel($event)" ng-show="vm.editMode !== 0" button-icon="cancel" button-text="Cancel"></nt-button>
+                <nt-button ng-click="cancel($event)" ng-show="vm.editMode === 0" button-icon="cancel" button-text="Close"></nt-button>
+            </em-toolbar>
+
+            <md-dialog-content class="dialog-content">
+                <div>
+                    <div layout="row">
+                        <em-select flex="50" form="driverForm" label="Driver" control-name="driverName" ng-model="vm.model.vehicleDriverId" opt-list="service.driverListItems" ng-required="true" ng-disabled="vm.editMode === 0 || vm.editMode === 3"></em-select>
+                    </div>
+                    <div layout="row">
+                        <em-input flex="50" form="driverForm" type="datetime-local" label="Start Time" control-name="assignmentStartDate" ng-model="vm.model.assignmentStartDate" ng-required="true" ng-disabled="vm.editMode === 0" ng-hide="vm.editMode === 3"></em-input>
+                        <em-input flex="50" form="driverForm" type="datetime-local" label="End Time" control-name="assignmentEndDate" ng-model="vm.model.assignmentEndDate" ng-required="editMode !== 2" ng-disabled="vm.editMode === 0" ng-hide="vm.editMode === 2"></em-input>
+                    </div>
                 </div>
-                <div flex="30">
-                    <em-input form="fuelForm" type="number" label="Quantity" control-name="quantity" ng-model="vm.model.quantity" ng-required="true"></em-input>
-                </div>
-                <div flex="40">
-                    <em-input form="fuelForm" type="number" label="Odometer" control-name="odometer" ng-model="vm.model.odometer" ng-required="true"></em-input>
-                </div>
-            </div>
-        </nt-dialog>
+            </md-dialog-content>
+        </form>
     </md-dialog>
 </script>

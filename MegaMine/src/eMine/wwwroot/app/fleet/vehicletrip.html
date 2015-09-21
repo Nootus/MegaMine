@@ -4,23 +4,13 @@
     <md-dialog aria-label="Trip" class="dialog">
         <nt-dialog form="tripForm" title="Trip">
             <div layout="row">
-                <div flex="33">
-                    <em-input form="tripForm" type="string" label="TripName" control-name="vehicleTripName" ng-model="vm.model.vehicleTripName" ng-required="true"></em-input>
-                </div>
-                <div flex="33">
-                    <em-input form="tripForm" type="date" label="Start" control-name="vtartingTime" ng-model="vm.model.startingTime" ng-required="true"></em-input>
-                </div>
-                <div flex="33">
-                    <em-input form="tripForm" type="date" label="Reached" control-name="reachingTime" ng-model="vm.model.reachingTime" ng-required="true"></em-input>
-                </div>
+                <em-input flex="33" form="tripForm" type="string" label="TripName" control-name="vehicleTripName" ng-model="vm.model.vehicleTripName" ng-required="true"></em-input>
+                <em-input flex="33" form="tripForm" type="date" label="Start" control-name="vtartingTime" ng-model="vm.model.startingTime" ng-required="true"></em-input>
+                <em-input flex="33" form="tripForm" type="date" label="Reached" control-name="reachingTime" ng-model="vm.model.reachingTime" ng-required="true"></em-input>
             </div>
             <div layout="row">
-                <div flex="33">
-                    <em-input form="tripForm" type="number" label="Odometer Start" control-name="odometerStart" ng-model="vm.model.odometerStart" ng-required="true"></em-input>
-                </div>
-                <div flex="33">
-                    <em-input form="tripForm" type="number" label="Odometer End" control-name="odometer" ng-model="vm.model.odometerEnd" ng-required="true"></em-input>
-                </div>
+                <em-input flex="33" form="tripForm" type="number" label="Odometer Start" control-name="odometerStart" ng-model="vm.model.odometerStart" ng-required="true"></em-input>
+                <em-input flex="33" form="tripForm" type="number" label="Odometer End" control-name="odometer" ng-model="vm.model.odometerEnd" ng-required="true"></em-input>
             </div>
         </nt-dialog>
     </md-dialog>

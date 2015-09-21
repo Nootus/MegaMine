@@ -1,27 +1,13 @@
-﻿<nt-toolbar-button vm="vm" title="Spare Part Details" button-text="Edit Spare Part" button-icon="edit" claim-module="Fleet" claim="SparePartEdit" ng-click="vm.editSparePart"></nt-toolbar-button>
+﻿<nt-toolbar-button title="Spare Part Details" button-text="Edit Spare Part" button-icon="edit" claim-module="Fleet" claim="SparePartEdit" ng-click="vm.editSparePart"></nt-toolbar-button>
 <md-content layout-padding>
     <div layout="row">
-        <div flex="20">
-            <em-input label="Part Name" control-name="partName" ng-model="vm.model.name" ng-disabled="true"></em-input>
-        </div>
-        <div flex="20">
-            <em-input label="Description" control-name="description" ng-model="vm.model.description" ng-disabled="true"></em-input>
-        </div>
-        <div flex="15">
-            <em-input label="Quantity on Hand" control-name="quantity" ng-model="vm.model.quantity" ng-disabled="true"></em-input>
-        </div>
-          <div flex="10">
-            <em-input label="vehicleType" control-name="vehicleType" ng-model="vm.model.vehicleType" ng-disabled="true"></em-input>
-        </div>
-        <div flex="20">
-            <em-input label="manufacturer" control-name="manufacturer" ng-model="vm.model.vehicleManufacturer" ng-disabled="true"></em-input>
-        </div>
-        <div flex="15">
-            <em-input label="vehicleModel" control-name="vehicleModel" ng-model="vm.model.vehicleModel" ng-disabled="true"></em-input>
-        </div>
-        
+        <em-input flex="20" label="Part Name" control-name="partName" ng-model="vm.model.name" ng-disabled="true"></em-input>
+        <em-input flex="20" label="Description" control-name="description" ng-model="vm.model.description" ng-disabled="true"></em-input>
+        <em-input flex="15" label="Quantity on Hand" control-name="quantity" ng-model="vm.model.quantity" ng-disabled="true"></em-input>
+        <em-input flex="10" label="vehicleType" control-name="vehicleType" ng-model="vm.model.vehicleType" ng-disabled="true"></em-input>
+        <em-input flex="20" label="manufacturer" control-name="manufacturer" ng-model="vm.model.vehicleManufacturer" ng-disabled="true"></em-input>
+        <em-input flex="15" label="vehicleModel" control-name="vehicleModel" ng-model="vm.model.vehicleModel" ng-disabled="true"></em-input>
     </div>
-
     <nt-list-toolbar vm="vm" title="Orders" add-text="Order" claim-module="Fleet" claim="SparePartOrderAdd" ng-click="vm.addOrder" grid-class="sub-grid"></nt-list-toolbar>
 </md-content>
 
@@ -29,15 +15,9 @@
     <md-dialog aria-label="Spare Part Order" class="dialog">
         <nt-dialog form="sparePartOrderForm" title="Spare Part Order">
             <div layout="row">
-                <div flex="30">
-                    <em-input form="sparePartOrderForm" type="date" label="Order Date" control-name="ordereDate" ng-model="vm.model.orderedUTCdatetime" ng-required="true"></em-input>
-                </div>
-                <div flex="30">
-                    <em-input form="sparePartOrderForm" type="number" label="Quantity" control-name="orderedUnits" ng-model="vm.model.orderedUnits" ng-required="true"></em-input>
-                </div>
-                <div flex="40">
-                    <em-input form="sparePartOrderForm" type="number" label="Unit Cost" control-name="unitCost" ng-model="vm.model.unitCost" ng-required="true"></em-input>
-                </div>
+                <em-input flex="30" form="sparePartOrderForm" type="date" label="Order Date" control-name="ordereDate" ng-model="vm.model.orderedUTCdatetime" ng-required="true"></em-input>
+                <em-input flex="30" form="sparePartOrderForm" type="number" label="Quantity" control-name="orderedUnits" ng-model="vm.model.orderedUnits" ng-required="true"></em-input>
+                <em-input flex="40" form="sparePartOrderForm" type="number" label="Unit Cost" control-name="unitCost" ng-model="vm.model.unitCost" ng-required="true"></em-input>
             </div>
         </nt-dialog>
     </md-dialog>

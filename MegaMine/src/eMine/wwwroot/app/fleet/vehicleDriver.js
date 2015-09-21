@@ -22,7 +22,6 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
         assignDriver: assignDriver,
         unAssignDriver:unAssignDriver,
         editMode: 0,
-        gridHeight: '0px',
     };
 
     init();
@@ -69,12 +68,39 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
     }
 
     function viewDialog(model, editMode, ev) {
-        vehicleDriverDialog.viewDialog(model, editMode, ev)
-        .then(function () {
-            vm.editMode = vehicleService.vehicle.driver === null ? 2 : 3;
-        }, function () {
-            //nothing to do when we cancel
-        });
+        dialogService.show({
+            templateUrl: 'vehicle_driver_dialog',
+            targetEvent: ev,
+            data: { service: vehicleService, model: model, editMode: editMode },
+            dialogMode: undefined,
+            resolve: { resolvemodel: function () { return vehicleService.getDriversListItems() } }
+        })
+        .then(function (dialogModel) {
+            vehicleService.saveVehiceDriver(dialogModel).success(function () {
+                var driverName = utility.getListItem(vehicleService.driverListItems, dialogModel.vehicleDriverId);
 
+                if (editMode === 2) {
+                    vehicleService.vehicle.driver = driverName;
+                    vm.editMode = 3;
+                }
+                else if (editMode === 3 || vehicleService.vehicle.vehicleDriverAssignmentId === dialogModel.vehicleDriverAssignmentId) {
+                    vehicleService.vehicle.driver = undefined;
+                    vehicleService.vehicle.vehicleDriverAssignmentId = undefined;
+                    vm.editMode = 2;
+                }
+                //update the grid values
+                if (dialogModel.vehicleDriverAssignmentId === 0) {
+                    vehicleService.getVehicleDriverList(dialogModel.vehicleId);
+                }
+                else {
+                    model.driverName = driverName;
+                    model.vehicleDriverId = dialogModel.vehicleDriverId;
+                    model.assignmentStartDate = dialogModel.assignmentStartDate;
+                    model.assignmentEndDate = dialogModel.assignmentEndDate;
+                }
+
+                dialogService.hide();
+            });
+        });
     }
 }

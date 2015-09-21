@@ -315,6 +315,9 @@ button{
 
 /*Material design overrides*/
 
+nt-button.[tabindex='0']:focus {
+  outline: none; }
+
 .md-button{
     height: 35px;
     margin: 0;

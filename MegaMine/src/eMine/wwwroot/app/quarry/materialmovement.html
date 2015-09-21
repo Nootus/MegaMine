@@ -7,29 +7,19 @@
         <div layout="row">
             <form flex="50" name="stockForm" novalidate>
                 <div layout="row">
-                    <div flex="30">
-                        <em-select form="stockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></em-select>
-                    </div>
+                    <em-select flex="30" form="stockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></em-select>
                     <div flex="70" layout-align="center">
-                        <md-button ng-click="vm.getStock(stockForm)" class="md-raised md-primary" ng-disabled="stockForm.$invalid && stockForm.$submitted" aria-label="Get Stock">
-                            <md-icon class="icon-button" md-svg-icon="content/images/icons/save.svg"></md-icon> Get Stock
-                        </md-button>
+                        <nt-button ng-click="vm.getStock(stockForm)" button-icon="save" button-text="Get Stock" ng-disabled="stockForm.$invalid && stockForm.$submitted"></nt-button>
                     </div>
                 </div>
             </form>
             <form flex="50" name="movementForm" novalidate>
                 <div layout="row">
-                    <div flex="30">
-                        <em-select form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true" ng-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></em-select>
-                    </div>
-                    <div flex="30">
-                        <em-input form="movementForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></em-input>
-                    </div>
+                    <em-select flex="30" form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true" ng-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></em-select>
+                    <em-input flex="30" form="movementForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></em-input>
                 </div>
             </form>
         </div>
 </md-content>
-<md-content layout-padding>
-    <div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ng-style="{'height' : vm.gridHeight }" class="main-grid"></div>
-</md-content>
+<nt-grid vm="vm"></nt-grid>
 

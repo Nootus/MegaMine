@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('sparePartList', sparePartList)
-sparePartList.$inject = ['$rootScope', '$scope', 'vehicleService', 'sparePartDialog', 'utility', 'navigation', 'constants', 'template'];
+sparePartList.$inject = ['$scope', 'vehicleService', 'sparePartDialog', 'utility', 'navigation', 'constants', 'template'];
 
-function sparePartList($rootScope, $scope, vehicleService, sparePartDialog, utility, navigation, constants, template) {
+function sparePartList($scope, vehicleService, sparePartDialog, utility, navigation, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -34,6 +34,6 @@ function sparePartList($rootScope, $scope, vehicleService, sparePartDialog, util
     function addSparePart(ev, editMode)
     {
         var model = { sparePartId: 0 }
-        sparePartDialog.viewDialog($rootScope, model, constants.enum.dialogMode.save, ev);
+        sparePartDialog.viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 }
