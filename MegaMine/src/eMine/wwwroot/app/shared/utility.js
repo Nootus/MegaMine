@@ -59,7 +59,7 @@ function utility($window, $timeout, toastr, uiGridConstants) {
     }
 
     function resizeSubGrid(vm, currentHeight) {
-        vm.gridHeight = getMainGridHeight('sub-grid');
+        vm.gridHeight = getSubGridHeight('sub-grid');
         if (vm.gridHeight !== currentHeight || currentHeight === undefined) {
             $timeout(function () {
                 resizeSubGrid(vm, vm.gridHeight);
@@ -94,7 +94,7 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         var contentOffset = angular.element(document.getElementsByClassName('main-content')[0]).offset();
         var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
         var gridOffset = angular.element(document.getElementsByClassName(gridClass)[0]).offset();
-        var gdOffset = angular.element(document.getElementById(gridClass)).offset();
+        //var gdOffset = angular.element(document.getElementById(gridClass)).offset();
         if (gridOffset !== undefined) {
             var gridHeight = contentHeight - (gridOffset.top) - bottomOffset;
             return gridHeight + 'px';
