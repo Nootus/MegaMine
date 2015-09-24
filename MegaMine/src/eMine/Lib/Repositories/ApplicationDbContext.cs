@@ -31,7 +31,7 @@ namespace eMine.Lib.Repositories
         public DbSet<VehicleDriverEntity> VehicleDrivers { get; set; }
         public DbSet<VehicleManufacturerEntity> VehicleManufacturers { get; set; }
         public DbSet<VehicleModelEntity> VehicleModels { get; set; }
-        public DbSet<VehicleFuelEntity> VehicleFuel { get; set; }
+        public DbSet<VehicleFuelEntity> VehicleFuels { get; set; }
         public DbSet<ConfigurationEntity> Configurations { get; set; }
         public DbSet<VehicleDriverAssignmentEntity> VehicleDriverAssignments{ get; set; }
         public DbSet<SparePartManufacturerEntity> SparePartManufacturers { get; set; }

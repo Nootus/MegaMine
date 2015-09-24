@@ -15,12 +15,14 @@ namespace eMine.Lib.Entities.Fleet
         public int VehicleTypeId { get; set; } //foreign key
         public int VehicleManufacturerId { get; set; }
         public int VehicleModelId { get; set; }
-        public decimal? FuelAverage { get; set; }
         public int? VehicleDriverId { get; set; }
         public int? VehicleDriverAssignmentId { get; set; }
+
+        public decimal? FuelAverage { get; set; }
         public decimal? FuelStartOdometer { get; set; }
         public decimal? FuelEndOdometer { get; set; }
         public decimal? FuelQuantity { get; set; }
+        public DateTime? FuelResetDate { get; set; }
 
         public DateTime? LastServiceDate { get; set; }
         public decimal TotalServiceCost { get; set; }

@@ -331,7 +331,7 @@ namespace eMine.Lib.Repositories.Fleet
         #region Fuel
         public async Task <List<FuelModel>> FuelGetList(int vehicleId)
         {
-            var query = from vf in dbContext.VehicleFuel
+            var query = from vf in dbContext.VehicleFuels
                         where vf.VehicleId == vehicleId
                         && vf.DeletedInd == false
                         && vf.CompanyId == profile.CompanyId
@@ -358,48 +358,64 @@ namespace eMine.Lib.Repositories.Fleet
                 Fuel = model.Quantity,
                 FuelDate = model.FuelDate
             };
-            dbContext.VehicleFuel.Add(entity);
+            dbContext.VehicleFuels.Add(entity);
 
-            VehicleEntity ventity = (from vehicle in dbContext.Vehicles where vehicle.VehicleId == model.VehicleId && vehicle.CompanyId == profile.CompanyId select vehicle).First();
-            if (ventity.FuelStartOdometer == null)
+            VehicleEntity vehicleEntity = (from vehicle in dbContext.Vehicles where vehicle.VehicleId == model.VehicleId && vehicle.CompanyId == profile.CompanyId select vehicle).First();
+            if (vehicleEntity.FuelStartOdometer == null)
             {
-                ventity.FuelStartOdometer = model.Odometer;
-                ventity.FuelEndOdometer = model.Odometer;
-                ventity.FuelQuantity = model.Quantity;
-                ventity.FuelAverage = 0;
+                vehicleEntity.FuelStartOdometer = model.Odometer;
+                vehicleEntity.FuelEndOdometer = model.Odometer;
+                vehicleEntity.FuelQuantity = model.Quantity;
+                vehicleEntity.FuelAverage = 0;
             }
             else
             {
-                ventity.FuelEndOdometer = model.Odometer;
-                ventity.FuelQuantity += model.Quantity;
-                ventity.FuelAverage = ventity.FuelEndOdometer - ventity.FuelStartOdometer;
+                vehicleEntity.FuelEndOdometer = model.Odometer;
+                vehicleEntity.FuelQuantity += model.Quantity;
+                vehicleEntity.FuelAverage = (vehicleEntity.FuelEndOdometer - vehicleEntity.FuelStartOdometer)/ vehicleEntity.FuelQuantity;
             }
+            dbContext.Vehicles.Update(vehicleEntity);
+
             await dbContext.SaveChangesAsync();
         }
 
         public async Task ResetVehicleFuel(int vehicleId)
         {
-            VehicleEntity ventity = (from vehicle in dbContext.Vehicles where vehicle.VehicleId == vehicleId && vehicle.CompanyId == profile.CompanyId select vehicle).First();
-            if (ventity.FuelStartOdometer != null)
-            {
-                ventity.FuelStartOdometer = null;
-                ventity.FuelEndOdometer = null;
-                ventity.FuelQuantity = null;
-                ventity.FuelAverage = null;
 
-                await dbContext.SaveChangesAsync();
+            VehicleEntity vehicleEntity = (from vehicle in dbContext.Vehicles where vehicle.VehicleId == vehicleId && vehicle.CompanyId == profile.CompanyId select vehicle).First();
+            if (vehicleEntity.FuelStartOdometer != null)
+            {
+                vehicleEntity.FuelStartOdometer = null;
+                vehicleEntity.FuelEndOdometer = null;
+                vehicleEntity.FuelQuantity = null;
+                vehicleEntity.FuelAverage = null;
+                vehicleEntity.FuelResetDate = DateTime.Now.Date;
+
+                dbContext.Vehicles.Update(vehicleEntity);
             }
+
+           
+
+            await dbContext.SaveChangesAsync();
         }
 
         public async Task FuelUpdate(FuelModel model)
         {
             //Update the Fuel Entity first
-            VehicleFuelEntity entity = (from vf in dbContext.VehicleFuel where vf.VehicleFuelId == model.VehicleFuelId && vf.CompanyId == profile.CompanyId select vf).First();
+            VehicleFuelEntity entity = (from vf in dbContext.VehicleFuels where vf.VehicleFuelId == model.VehicleFuelId && vf.CompanyId == profile.CompanyId select vf).First();
             entity.FuelDate = model.FuelDate;
             entity.Odometer = model.Odometer;
             entity.Fuel = model.Quantity;
             entity.UpdateAuditFields();
-            dbContext.VehicleFuel.Update(entity);
+            dbContext.VehicleFuels.Update(entity);
+
+            //calculating the fuel average
+            VehicleEntity vehicleEntity = (from vehicle in dbContext.Vehicles where vehicle.VehicleId == model.VehicleId && vehicle.CompanyId == profile.CompanyId select vehicle).First();
+            if(vehicleEntity.FuelResetDate == null || vehicleEntity.FuelResetDate <= model.FuelDate)
+            {
+
+            }
+
             await dbContext.SaveChangesAsync();
 
         }
@@ -604,7 +620,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         }
 
-        public async Task  VehicleManufacturerSave(VehicleManufacturerModel model)
+        public async Task VehicleManufacturerSave(VehicleManufacturerModel model)
         {
             if (model.VehicleManufacturerId == 0)
             {

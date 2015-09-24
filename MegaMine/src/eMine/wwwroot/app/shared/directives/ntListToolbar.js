@@ -21,6 +21,7 @@ function ntListToolbar() {
     };
 
     function link(scope, element, attrs, nullController, transclude) {
-        //scope.gridClass = scope.gridClass === undefined ? 'main-grid' : scope.gridClass;
+        scope.gridClass = scope.gridClass === undefined ? 'main-grid' : scope.gridClass;
+        //scope.gridClass = 'sub-grid';
     }
 }
