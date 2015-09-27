@@ -355,6 +355,14 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task  FuelSave(FuelModel model)
         {
+            //validating Odometer reading
+            VehicleFuelEntity vehicleFuelEntity = await (from fuel in dbContext.VehicleFuels where fuel.VehicleFuelId != model.VehicleFuelId && ((fuel.Odometer >= model.Odometer && fuel.FuelDate < model.FuelDate) || (fuel.Odometer <= model.Odometer && fuel.FuelDate > model.FuelDate)) select fuel).FirstOrDefaultAsync();
+
+            if(vehicleFuelEntity != null)
+            {
+                throw new eMineException(Messages.Fleet.FuelInvalidOdometer);
+            }
+
             if (model.VehicleFuelId == 0)
             {
                await FuelAdd(model);

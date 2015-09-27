@@ -9,6 +9,7 @@
 <script type="text/ng-template" id="vehicle_fuel_dialog">
     <md-dialog aria-label="Fuel" class="dialog">
         <nt-dialog form="fuelForm" title="Fuel">
+            <div class="dialog_error">{{vm.dialogError.errorMessage}}</div>
             <div layout="row">
                 <em-input flex="33" form="fuelForm" type="date" label="Fuel Date" control-name="fuelDate" ng-model="vm.model.fuelDate" ng-required="true"></em-input>
                 <em-input flex="33" form="fuelForm" type="number" label="Quantity" control-name="quantity" ng-model="vm.model.quantity" ng-required="true"></em-input>

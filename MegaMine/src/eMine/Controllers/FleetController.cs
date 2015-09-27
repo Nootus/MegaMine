@@ -226,7 +226,6 @@ namespace eMine.Controllers
         [HttpPost]
         public async Task<AjaxModel<FuelModel>> FuelUpdate([FromBody] FuelModel model)
         {
-            throw new Exception("Error");
             return await AjaxHelper.SaveAsync<FuelModel>(m => domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
         }
 

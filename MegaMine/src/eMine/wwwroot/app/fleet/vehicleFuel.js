@@ -34,15 +34,14 @@ function vehicleFuel($scope, $mdDialog, vehicleService, utility, constants, dial
     }
 
     function viewDialog(model, dialogMode, ev) {
+        var error = {};
         dialogService.show({
             templateUrl: 'vehicle_fuel_dialog',
             targetEvent: ev,
-            data: { model: model },
+            data: { model: model, error: error },
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            alert('called');
-            return;
             vehicleService.saveFuel(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.vehicleFuelId === 0) {
@@ -55,6 +54,8 @@ function vehicleFuel($scope, $mdDialog, vehicleService, utility, constants, dial
                 }
 
                 dialogService.hide();
+            }).catch(function (data) {
+                error.errorMessage = data.message;
             });
         });
     }

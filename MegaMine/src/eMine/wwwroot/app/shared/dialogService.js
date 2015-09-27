@@ -46,7 +46,8 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             cancel: cancel,
             deleteItem: deleteItem,
             dialogMode: dialogMode,
-            deferredPromiseState: undefined
+            deferredPromiseState: undefined,
+            dialogError: data.error
         }
 
         init();

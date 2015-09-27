@@ -281,6 +281,13 @@ img.splash-loading{
     text-align: left;
 }
 
+.dialog_error{
+    color: red;
+    text-align: center;
+    width: 100%;
+    font-size: 0.85em;
+}
+
 
 /*em toolbar & buttons*/
 em-toolbar.title > md-toolbar{
