@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('emine').factory('dialogService', dialogService);
-dialogService.$inject = ['$q', '$mdDialog', 'utility'];
+dialogService.$inject = ['$timeout', '$q', '$mdDialog', 'utility'];
 
-function dialogService($q, $mdDialog, utility) {
+function dialogService($timeout, $q, $mdDialog, utility) {
     var vm = {
         show: show,
         hide: hide,
@@ -45,7 +45,8 @@ function dialogService($q, $mdDialog, utility) {
             save: save,
             cancel: cancel,
             deleteItem: deleteItem,
-            dialogMode: dialogMode
+            dialogMode: dialogMode,
+            deferredPromiseState: undefined
         }
 
         init();
@@ -68,6 +69,9 @@ function dialogService($q, $mdDialog, utility) {
         }
         function save(form) {
             if (form.$valid) {
+                if (dialog.deferredPromiseState === undefined)
+                    dialog.deferredPromiseState = angular.copy(vm.deferred.promise.$$state);
+                angular.extend(vm.deferred.promise.$$state, dialog.deferredPromiseState)
                 vm.deferred.resolve(dialog.model)
             }
         }

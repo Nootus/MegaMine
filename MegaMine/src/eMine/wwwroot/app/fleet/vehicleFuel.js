@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleFuel', vehicleFuel)
-vehicleFuel.$inject = ['$scope', 'vehicleService', 'utility', 'constants', 'dialogService', 'template'];
+vehicleFuel.$inject = ['$scope', '$mdDialog', 'vehicleService', 'utility', 'constants', 'dialogService', 'template'];
 
-function vehicleFuel($scope, vehicleService, utility, constants, dialogService, template) {
+function vehicleFuel($scope, $mdDialog, vehicleService, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -17,6 +17,7 @@ function vehicleFuel($scope, vehicleService, utility, constants, dialogService, 
         gridOptions: gridOptions,
         viewDialog: viewDialog,
         addFuel: addFuel,
+        resetFuel: resetFuel
     };
 
     init();
@@ -40,6 +41,8 @@ function vehicleFuel($scope, vehicleService, utility, constants, dialogService, 
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
+            alert('called');
+            return;
             vehicleService.saveFuel(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.vehicleFuelId === 0) {
@@ -53,6 +56,23 @@ function vehicleFuel($scope, vehicleService, utility, constants, dialogService, 
 
                 dialogService.hide();
             });
+        });
+    }
+
+    function resetFuel(ev) {
+        var confirm = $mdDialog.confirm()
+          .parent(angular.element(document.body))
+          .title('Reset Average')
+          .content('Please confirm to reset fuel average')
+          .ariaLabel('Reset Average')
+          .ok('Yes')
+          .cancel('No')
+          .targetEvent(ev);
+        $mdDialog.show(confirm).then(function () {
+            vehicleService.resetFuelAverage(vehicleService.vehicle.vehicleId)
+                .success(function () {
+                    vehicleService.vehicle.fuelAverage = null;
+                });
         });
     }
 }

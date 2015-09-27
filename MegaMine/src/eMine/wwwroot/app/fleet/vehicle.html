@@ -14,15 +14,6 @@
         <em-input flex="20" label="Driver" control-name="driver" ng-model="vm.model.driver" ng-disabled="true"></em-input>
     </div>
     <div layout="row">
-        <em-input flex="20"  label="Fuel Start Odometer" control-name="fuelStartOdometer" ng-model="vm.model.fuelStartOdometer" ng-disabled="true"></em-input>
-        <em-input flex="20" label="Fuel End Odometer" control-name="fuelEndOdometer" ng-model="vm.model.fuelEndOdometer" ng-disabled="true"></em-input>
-        <em-input flex="20" label="Fuel Quantity" control-name="fuelQuantity" ng-model="vm.model.fuelQuantity" ng-disabled="true"></em-input>
-        <md-button class="md-raised md-primary" aria-label="Reset" ng-click="vm.resetFuel($event)">
-            <md-icon class="icon-button" ></md-icon>ResetFuel
-        </md-button>
-    </div>
-
-    <div layout="row">
         <ul flex="20" id="left-menu" class="left-menu menu" kendo-menu k-data-source="vm.menuItems" k-select="vm.menuSelect"></ul>
         <div flex ui-view></div>
     </div>

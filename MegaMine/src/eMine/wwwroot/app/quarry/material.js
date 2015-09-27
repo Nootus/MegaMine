@@ -96,9 +96,7 @@ function material($scope, $mdDialog, quarryService, utility, constants, template
                             vm.list.splice(0, vm.list.length);
                             resetModel();
                         });
-                    }, function () {
-                        //noting
-            });
+                    });
         }
     }
 

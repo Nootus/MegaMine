@@ -63,9 +63,9 @@ namespace eMine.Lib.Domain
             return await vehicleRepository.VehicleGet(vehicleId);
         }
 
-        public async Task ResetVehicleFuel(int vehicleId)
+        public async Task VehicleFuelReset(int vehicleId)
         {
-            await vehicleRepository.ResetVehicleFuel(vehicleId);
+            await vehicleRepository.VehicleFuelReset(vehicleId);
         }               
 
         public async Task  VehicleSave(VehicleModel model)

@@ -1,4 +1,10 @@
-﻿<nt-list-toolbar vm="vm" title="Fuel History" add-text="Fuel" claim-module="Fleet" claim="VehicleFuelAdd" ng-click="vm.addFuel" grid-class="sub-grid"></nt-list-toolbar>
+﻿<div>
+    <em-toolbar title="Fuel History" class="subtitle">
+        <nt-button ng-click="vm.resetFuel($event)" button-icon="edit" button-text="Reset Average" module="Fleet" claim="VehicleFuelReset"></nt-button>
+        <nt-button ng-click="vm.addFuel($event)" button-icon="add" button-text="Add Fuel" module="Fleet" claim="VehicleFuelAdd"></nt-button>
+    </em-toolbar>
+    <nt-grid vm="vm" grid-class="sub-grid"></nt-grid>
+</div>
 
 <script type="text/ng-template" id="vehicle_fuel_dialog">
     <md-dialog aria-label="Fuel" class="dialog">
