@@ -69,7 +69,7 @@ namespace eMine.Lib.Repositories.Fleet
         public async Task SparePartManufacturerUpdate(SparePartManufacturerModel model)
         {
             //Update the SparePartManufacturerModel Entity first
-            SparePartManufacturerEntity entity = (from spm in dbContext.SparePartManufacturers where spm.SparePartManufacturerId == model.SparePartManufacturerId && spm.CompanyId == profile.CompanyId select spm).First();
+            SparePartManufacturerEntity entity = await (from spm in dbContext.SparePartManufacturers where spm.SparePartManufacturerId == model.SparePartManufacturerId && spm.CompanyId == profile.CompanyId select spm).FirstAsync();
             entity.SparePartManufacturerId = model.SparePartManufacturerId;
             entity.SparePartId = model.SparePartId;
             entity.VehicleManufacturerId = model.VehicleManufacturerId;
@@ -148,11 +148,11 @@ namespace eMine.Lib.Repositories.Fleet
 
             //Get the newly added 
 
-            SparePartEntity result = (from part in dbContext.SpareParts
+            SparePartEntity result = await (from part in dbContext.SpareParts
                                       where part.SparePartId == model.SparePartId
                                       && part.DeletedInd == false
                                       && part.CompanyId == profile.CompanyId
-                                      select part).SingleOrDefault();
+                                      select part).SingleOrDefaultAsync();
 
             result.AvailableQuantity += model.OrderedUnits;
 
@@ -163,7 +163,7 @@ namespace eMine.Lib.Repositories.Fleet
         public async Task SparePartOrderUpdate(SparePartOrderModel model)
         {
             //Update the VehicleService Entity first
-            SparePartOrderEntity entity = (from order in dbContext.SparePartOrders where order.SparePartOrderId == model.SparePartOrderId && order.CompanyId == profile.CompanyId select order).First();
+            SparePartOrderEntity entity = await (from order in dbContext.SparePartOrders where order.SparePartOrderId == model.SparePartOrderId && order.CompanyId == profile.CompanyId select order).FirstAsync();
             int diff = entity.OrderedUnits - model.OrderedUnits;
             entity.SparePartId = model.SparePartId;
             entity.OrderedUnits = model.OrderedUnits;
@@ -177,11 +177,11 @@ namespace eMine.Lib.Repositories.Fleet
             dbContext.SaveChanges();
 
             //Get the newly added 
-            SparePartEntity result = (from part in dbContext.SpareParts
+            SparePartEntity result = await (from part in dbContext.SpareParts
                                       where part.SparePartId == model.SparePartId
                                       && part.DeletedInd == false
                                       && part.CompanyId == profile.CompanyId
-                                      select part).SingleOrDefault();
+                                      select part).SingleOrDefaultAsync();
 
             result.AvailableQuantity -= diff;
 
@@ -203,7 +203,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task SparePartUpdate(SparePartModel model)
         {
-            SparePartEntity entity = (from spart in dbContext.SpareParts where spart.SparePartId == model.SparePartId && spart.CompanyId == profile.CompanyId select spart).First();
+            SparePartEntity entity = await (from spart in dbContext.SpareParts where spart.SparePartId == model.SparePartId && spart.CompanyId == profile.CompanyId select spart).FirstAsync();
 
             entity.SparePartId = model.SparePartId;
             entity.AvailableQuantity = model.Quantity;
@@ -212,7 +212,7 @@ namespace eMine.Lib.Repositories.Fleet
             entity.SparePartDescription = model.Description;
             entity.UpdateAuditFields();
 
-            SparePartManufacturerEntity spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId && spam.CompanyId == profile.CompanyId select spam ).FirstOrDefault();
+            SparePartManufacturerEntity spamen = await (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId && spam.CompanyId == profile.CompanyId select spam ).FirstOrDefaultAsync();
 
             if (model.VehicleTypeId != 0 || model.VehicleManufacturerId != 0 || model.VehicleModelId != 0)
             {
@@ -317,7 +317,7 @@ namespace eMine.Lib.Repositories.Fleet
 
                 model = await sparePartGetQuery.FirstOrDefaultAsync();
 
-                SparePartManufacturerEntity spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId && spam.CompanyId == profile.CompanyId select spam).FirstOrDefault();
+                SparePartManufacturerEntity spamen = await (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId && spam.CompanyId == profile.CompanyId select spam).FirstOrDefaultAsync();
 
                 if (spamen != null)
                 {
@@ -364,33 +364,33 @@ namespace eMine.Lib.Repositories.Fleet
 
             if (sparePartId != 0)
             {
-                spamen = (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId && spam.CompanyId == profile.CompanyId select spam).FirstOrDefault();
+                spamen = await (from spam in dbContext.SparePartManufacturers where spam.SparePartId == model.SparePartId && spam.CompanyId == profile.CompanyId select spam).FirstOrDefaultAsync();
             }
 
             if (spamen != null)
             {
-                var modelQuery = (from models in dbContext.VehicleModels
+                var modelQuery = await (from models in dbContext.VehicleModels
                                   where models.VehicleModelId == spamen.VehicleModelId
                                   && models.DeletedInd == false
                                   && models.CompanyId == profile.CompanyId
-                                  select models.Description).SingleOrDefault();
+                                  select models.Description).SingleOrDefaultAsync();
 
                 model.VehicleModel = modelQuery.ToString();
 
-                var typeQuery = (from types in dbContext.VehicleTypes
+                var typeQuery = await (from types in dbContext.VehicleTypes
                                   where types.VehicleTypeId == spamen.VehicleTypeId
                                   && types.DeletedInd == false
                                   && types.CompanyId == profile.CompanyId
-                                 select types.VehicleTypeName).SingleOrDefault();
+                                 select types.VehicleTypeName).SingleOrDefaultAsync();
 
                 model.VehicleType = typeQuery.ToString();
 
 
-                var manfQuery = (from manufacturers in dbContext.VehicleManufacturers
+                var manfQuery = await (from manufacturers in dbContext.VehicleManufacturers
                                  where manufacturers.VehicleManufacturerId == spamen.VehicleManufacturerId
                                  && manufacturers.DeletedInd == false
                                  && manufacturers.CompanyId == profile.CompanyId
-                                 select manufacturers.Description).SingleOrDefault();
+                                 select manufacturers.Description).SingleOrDefaultAsync();
 
                 model.VehicleManufacturer = manfQuery.ToString();
 
@@ -471,12 +471,12 @@ namespace eMine.Lib.Repositories.Fleet
 
             int totalAvailable = 0;
                         
-            var partorderquery = (from order in dbContext.SparePartOrders
+            var partorderquery = await (from order in dbContext.SparePartOrders
                                   where order.SparePartId == spvm.SparePartId && order.OrderedUnits > order.ConsumedUnits
                                   && order.DeletedInd == false
                                   && order.CompanyId == profile.CompanyId
                                   orderby order.DeliveredUTCdatetime ascending
-                                  select order).ToList();
+                                  select order).ToListAsync();
 
             foreach (SparePartOrderEntity order in partorderquery) { totalAvailable += order.OrderedUnits - order.ConsumedUnits; }
 
@@ -516,12 +516,12 @@ namespace eMine.Lib.Repositories.Fleet
         public async Task CreateVehicleServiceSparePartOrderLink(SparePartModel spvm, VehicleServiceViewModel model, SparePartOrderEntity order, int nUnitsToconsume)
         {
             VehicleServiceSparePartOrderEntity servicePartOrder = null;
-            servicePartOrder = 
-                (from vspentity in dbContext.VehicleServiceSparePartOrders
+            servicePartOrder =
+                await (from vspentity in dbContext.VehicleServiceSparePartOrders
                  where vspentity.DeletedInd == false && vspentity.SparePartOrderId == order.SparePartOrderId
                  && vspentity.VehicleServiceId == model.VehicleServiceId
                  && vspentity.CompanyId == profile.CompanyId
-                 select vspentity).SingleOrDefault();
+                 select vspentity).SingleOrDefaultAsync();
 
             if (servicePartOrder == null)
             {

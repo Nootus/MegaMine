@@ -212,6 +212,25 @@ div.profile-menu > ul  {
     height: 75px;
 }
 
+md-menu-bar {
+    padding: 0;
+    margin-top: -8px;
+}
+md-menu-content {
+    margin-top: -5px;
+}
+
+md-menu > button, md-menu > button > span, md-menu-item > button > span {
+    font-size: 13px;
+    color: #DBB94F;
+    text-transform: uppercase;
+}
+
+md-menu-content {
+	background-color: #363636;
+}
+
+
 ul.menu{
 	background: transparent;
 }
@@ -337,26 +356,27 @@ md-content.md-default-theme {
 
 md-toolbar{
       min-height: 40px; 
+      z-index: 1;
 }
 .md-toolbar-tools {
       height: 40px;
 }
-md-input-container.md-default-theme:not(.md-input-invalid).md-input-has-value label {
+md-input-container:not(.md-input-invalid).md-input-has-value label {
   font-size: 15px;
   color: black;
 }
 
-md-input-container.md-default-theme .md-input[disabled], [disabled] md-input-container.md-default-theme .md-input {
+md-input-container .md-input[disabled], [disabled] md-input-container .md-input {
   color: black;
 }
 
-md-select.md-default-theme[disabled] .md-select-label {
+/*md-select.md-default-theme[disabled] .md-select-label {
   color: black;
 }
 
 md-select.md-default-theme[disabled] .md-select-icon {
   display: none;
-}
+}*/
 
 container data-ng-message, md-input-container x-ng-message, md-input-container [ng-message], md-input-container [data-ng-message], md-input-container [x-ng-message], md-input-container .md-char-counter {
   font-size: 11px;
@@ -368,7 +388,7 @@ md-input-container {
   padding-bottom: 15px;
 }
 
-md-input-container > md-select {
+/*md-input-container > md-select {
   margin: 0;
   margin-top: -6px;
   padding-bottom: 0px;
@@ -396,7 +416,7 @@ md-input-container.emselect-invalid [ng-message]{
 
 md-input-container.emselect-invalid label{
     color: red !important;
-}
+}*/
 
 md-progress-linear.md-default-theme[md-mode=buffer].md-warn .md-dashed:before {
   background: radial-gradient(rgb(168,168,168) 0%, rgb(168,168,168) 16%, transparent 42%);
@@ -421,18 +441,19 @@ md-progress-linear{
 }
 
 md-dialog.dialog{
-    background-color: #e4e4e4;
     width: 600px;
+    overflow: hidden;
+    /*background-color: #e4e4e4;
     margin-left: auto ;
-    margin-right: auto ;
+    margin-right: auto ;*/
 }
-md-dialog-content.dialog-content{
+/*md-dialog-content.dialog-content{
     margin-left: 10px;
     overflow: auto;
-}
-md-select-label{
+}*/
+/*md-select-label{
     width: 100%;
-}
+}*/
 
 /*Material design overrides ends*/
 

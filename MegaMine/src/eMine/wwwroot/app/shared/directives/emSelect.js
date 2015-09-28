@@ -17,7 +17,6 @@ function emSelect($compile, constants) {
             ngRequired: '=',
             ngDisabled: '=',
             style: '@',
-            hideLabel: '@',
             errorMessages: '='
     },
         link: link,
@@ -25,7 +24,7 @@ function emSelect($compile, constants) {
 
     function getTemplate(controlName, optValue, optText) {
         return '<md-input-container class="emselect {{errorCss}}" md-is-error="isFieldError()" style="{{style}}">'
-                    + '<label ng-hide="{{hideLabel}}">{{label}}</label>'
+                    + '<label>{{label}}</label>'
                     + '<md-select name="' + controlName + '" ng-required="{{ngRequired}}" ng-disabled="ngDisabled" ng-model="ngModel" ng-change="ngChange" aria-label="{{controlName}}">'
                     + '<md-option ng-value="opt.' + optValue + '" ng-repeat="opt in optList">{{ opt.' + optText + ' }}</md-option>'
                     + '</md-select>'
