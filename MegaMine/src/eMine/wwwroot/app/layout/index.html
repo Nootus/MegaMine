@@ -25,11 +25,12 @@
                                 <md-icon class="{{menu.spriteCssClass}}"></md-icon> {{menu.text}}
                             </button>
                             <md-menu-content>
-                                <md-menu-item ng-repeat="item in menu.items">
-                                    <md-button>
+                                <md-menu-item ng-repeat-start="item in menu.items" ng-hide="item.cssClass === 'blank-menu-item'">
+                                    <md-button ng-href="{{item.url}}" ng-hide="item.cssClass === 'blank-menu-item'">
                                         <md-icon class="{{item.spriteCssClass}}"></md-icon> {{item.text}}
                                     </md-button>
                                 </md-menu-item>
+                                <md-menu-divider ng-repeat-end ng-show="item.cssClass === 'blank-menu-item'"></md-menu-divider>
                             </md-menu-content>
                         </md-menu>
                     </md-menu-bar>

@@ -212,6 +212,7 @@ div.profile-menu > ul  {
     height: 75px;
 }
 
+/*menu styles*/
 md-menu-bar {
     padding: 0;
     margin-top: -8px;
@@ -220,16 +221,38 @@ md-menu-content {
     margin-top: -5px;
 }
 
-md-menu > button, md-menu > button > span, md-menu-item > button > span {
+.md-open-menu-container{
+    margin-top: 8px;
+}
+
+md-menu > button, md-menu > button > span {
     font-size: 13px;
     color: #DBB94F;
     text-transform: uppercase;
+    height: 22px;
+    margin-top: 10px;
 }
 
 md-menu-content {
 	background-color: #363636;
 }
 
+md-menu.md-open > button{
+    background-color: #606060 !important; 
+    /*height: 22px;*/
+}
+
+md-menu-item > a.md-button{
+    font-size: 13px;
+    color: #DBB94F;
+    text-transform: uppercase;
+    height: 22px;
+}
+md-menu-item:hover{
+    background-color: #606060;
+}
+
+/*menu styles end*/
 
 ul.menu{
 	background: transparent;
