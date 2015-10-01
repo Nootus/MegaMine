@@ -1,14 +1,12 @@
 ﻿using eMine.Lib.Entities;
 using eMine.Lib.Entities.Account;
-using eMine.Lib.Middleware;
 using eMine.Lib.Shared;
-using eMine.Models;
 using eMine.Models.Account;
 using eMine.Models.Administration;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.Entity;
 
 namespace eMine.Lib.Repositories
 {

@@ -6,8 +6,8 @@ using eMine.Models.Fleet;
 using eMine.Lib.Entities.Fleet;
 using eMine.Lib.Entities;
 using eMine.Lib.Shared;
-using Microsoft.AspNet.Mvc;
 using System.Data.SqlTypes;
+using Microsoft.Data.Entity;
 
 namespace eMine.Lib.Repositories.Fleet
 {

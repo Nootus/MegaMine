@@ -69,9 +69,9 @@ namespace eMine.Lib.Domain
             return profile;
         }
 
-        public string Logout()
+        public async Task<string> Logout()
         {
-            signInManager.SignOut();
+            await signInManager.SignOutAsync();
             return null;
         }
     }

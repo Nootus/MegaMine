@@ -26,9 +26,9 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public AjaxModel<string> Logout()
+        public async Task<AjaxModel<string>> Logout()
         {
-            return AjaxHelper.Get<string>(m => domain.Logout(), Messages.Account.LogoutSuccess);
+            return await AjaxHelper.GetAsync<string>(m => domain.Logout(), Messages.Account.LogoutSuccess);
         }
 
         [HttpGet]

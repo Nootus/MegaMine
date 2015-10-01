@@ -9,12 +9,10 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using eMine.Lib.Domain;
 using eMine.Lib.Repositories.Fleet;
-using Microsoft.AspNet.Mvc;
-using eMine.Lib.Filters;
 using eMine.Lib.Middleware;
-using Microsoft.AspNet.Diagnostics;
-using Microsoft.AspNet.Diagnostics.Entity;
 using Newtonsoft.Json.Serialization;
+using Newtonsoft.Json;
+using Microsoft.AspNet.Http;
 
 namespace eMine
 {
@@ -34,14 +32,22 @@ namespace eMine
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc()
-                .Configure<MvcOptions>(options =>
+                .AddJsonOptions(options =>
                 {
-                    options.Filters.Add(new NTAuthorizeFilter());
-
-                    //setting the camel case
-                    JsonOutputFormatter jsonFormatter = options.OutputFormatters.InstanceOf<JsonOutputFormatter>();
-                    jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+                    options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
+                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
+            //services.con
+            //    .Configure<MvcOptions>(options =>
+            //    {
+            //        options.Filters.Add(new NTAuthorizeFilter());
+
+            //        //setting the camel case
+            //        //JsonOutputFormatter jsonFormatter = options.OutputFormatters.InstanceOf<JsonOutputFormatter>();
+            //        //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+            //    });
+
 
             services.AddEntityFramework()
                 .AddSqlServer()
@@ -91,6 +97,8 @@ namespace eMine
             //{
             //    app.UseErrorHandler("/Error");
             //}
+
+            app.UseErrorPage();
 
             app.UseStaticFiles();
             app.UseIdentity();

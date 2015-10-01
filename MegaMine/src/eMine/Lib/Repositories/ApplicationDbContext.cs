@@ -51,132 +51,212 @@ namespace eMine.Lib.Repositories
             // configuration for each table
 
             #region Account
-            
+
             //Account
-            builder.Entity<UserProfileEntity>().ForRelational().Table("UserProfile");
-            builder.Entity<UserProfileEntity>().Key(k => k.UserProfileId);
+            builder.Entity<UserProfileEntity>(e => 
+            {
+                e.ToTable("UserProfile");
+                e.Key(k => k.UserProfileId);
+            });
 
-            builder.Entity<IdentityPageEntity>().ForRelational().Table("IdentityPage");
-            builder.Entity<IdentityPageEntity>().Key(k => k.PageId);
+            builder.Entity<IdentityPageEntity>(e =>
+            {
+                e.ToTable("IdentityPage");
+                e.Key(k => k.PageId);
+            });
 
-            builder.Entity<IdentityRoleHierarchyEntity>().ForRelational().Table("IdentityRoleHierarchy");
-            //builder.Entity<IdentityRoleHierarchyEntity>().Key(k => k.RoleId );
+            builder.Entity<IdentityRoleHierarchyEntity>(e =>
+            {
+                e.ToTable("IdentityRoleHierarchy");
+                //e.Key(k => k.RoleId);
+            });
 
-            builder.Entity<UserCompanyEntity>().ForRelational().Table("UserCompany");
-            builder.Entity<UserCompanyEntity>().Key(k => new { k.UserProfileId, k.CompanyId });
+
+            builder.Entity<UserCompanyEntity>(e =>
+            {
+                e.ToTable("UserCompany");
+                e.Key(k => new { k.UserProfileId, k.CompanyId });
+            });
 
 
             //Administration
-            builder.Entity<CompanyEntity>().ForRelational().Table("Company");
-            builder.Entity<CompanyEntity>().Key(k => k.CompanyId);
+            builder.Entity<CompanyEntity>(e =>
+            {
+                e.ToTable("Company");
+                e.Key(k => k.CompanyId);
+            });
 
             #endregion
-            
+
             #region Fleet
             //VehicleType
-            builder.Entity<VehicleTypeEntity>().ForRelational().Table("VehicleType");
-            builder.Entity<VehicleTypeEntity>().Key(k => k.VehicleTypeId);
+            builder.Entity<VehicleTypeEntity>(e =>
+            {
+                e.ToTable("VehicleType");
+                e.Key(k => k.VehicleTypeId);
+            });
+
 
             //Vehicle
-            builder.Entity<VehicleEntity>().ForRelational().Table("Vehicle");
-            builder.Entity<VehicleEntity>().Key(k => k.VehicleId);
+            builder.Entity<VehicleEntity>(e =>
+            {
+                e.ToTable("Vehicle");
+                e.Key(k => k.VehicleId);
+            });
 
             //VehicleService
-            builder.Entity<VehicleServiceEntity>().ForRelational().Table("VehicleService");
-            builder.Entity<VehicleServiceEntity>().Key(k => k.VehicleServiceId);
+            builder.Entity<VehicleServiceEntity>(e =>
+            {
+                e.ToTable("VehicleService");
+                e.Key(k => k.VehicleServiceId);
+            });
 
             //VehicleServiceSparePart
-            builder.Entity<VehicleServiceSparePartEntity>().ForRelational().Table("VehicleServiceSparePart");
-            builder.Entity<VehicleServiceSparePartEntity>().Key(k => k.VehicleServiceSparePartId);
+            builder.Entity<VehicleServiceSparePartEntity>(e =>
+            {
+                e.ToTable("VehicleServiceSparePart");
+                e.Key(k => k.VehicleServiceSparePartId);
+            });
 
             //VehicleServiceSparePart
-            builder.Entity<SparePartEntity>().ForRelational().Table("SparePart");
-            builder.Entity<SparePartEntity>().Key(k => k.SparePartId);
+            builder.Entity<SparePartEntity>(e =>
+            {
+                e.ToTable("SparePart");
+                e.Key(k => k.SparePartId);
+            });
 
             //VehicleServiceSparePartOrder
-            builder.Entity<VehicleServiceSparePartOrderEntity>().ForRelational().Table("VehicleServiceSparePartOrder");
-            builder.Entity<VehicleServiceSparePartOrderEntity>().Key(k => k.VehicleServiceSparePartOrderId);
+            builder.Entity<VehicleServiceSparePartOrderEntity>(e =>
+            {
+                e.ToTable("VehicleServiceSparePartOrder");
+                e.Key(k => k.VehicleServiceSparePartOrderId);
+            });
 
             //SparePartOrder
-            builder.Entity<SparePartOrderEntity>().ForRelational().Table("SparePartOrder");
-            builder.Entity<SparePartOrderEntity>().Key(k => k.SparePartOrderId);
+            builder.Entity<SparePartOrderEntity>(e =>
+            {
+                e.ToTable("SparePartOrder");
+                e.Key(k => k.SparePartOrderId);
+            });
 
             //VehicleDriver
-            builder.Entity<VehicleDriverEntity>().ForRelational().Table("VehicleDriver");
-            builder.Entity<VehicleDriverEntity>().Key(k => k.VehicleDriverId);
-
+            builder.Entity<VehicleDriverEntity>(e =>
+            {
+                e.ToTable("VehicleDriver");
+                e.Key(k => k.VehicleDriverId);
+            });
 
             // VehicleManufacturer
-            builder.Entity<VehicleManufacturerEntity>().ForRelational().Table("VehicleManufacturer");
-            builder.Entity<VehicleManufacturerEntity>().Key(k => k.VehicleManufacturerId);
+            builder.Entity<VehicleManufacturerEntity>(e =>
+            {
+                e.ToTable("VehicleManufacturer");
+                e.Key(k => k.VehicleManufacturerId);
+            });
 
             //VehicleModel
-            builder.Entity<VehicleModelEntity>().ForRelational().Table("VehicleModel");
-            builder.Entity<VehicleModelEntity>().Key(k => k.VehicleModelId);
-
+            builder.Entity<VehicleModelEntity>(e =>
+            {
+                e.ToTable("VehicleModel");
+                e.Key(k => k.VehicleModelId);
+            });
 
             //VehicleFuel 
-            builder.Entity<VehicleFuelEntity>().ForRelational().Table("VehicleFuel");
-            builder.Entity<VehicleFuelEntity>().Key(k => k.VehicleFuelId);
+            builder.Entity<VehicleFuelEntity>(e =>
+            {
+                e.ToTable("VehicleFuel");
+                e.Key(k => k.VehicleFuelId);
+            });
 
             //Configuration
-            builder.Entity<ConfigurationEntity>().ForRelational().Table("Configuration");
-            builder.Entity<ConfigurationEntity>().Key(k => k.ConfigurationId);
+            builder.Entity<ConfigurationEntity>(e =>
+            {
+                e.ToTable("Configuration");
+                e.Key(k => k.ConfigurationId);
+            });
 
             //VehicleDriverAssignment
-            builder.Entity<VehicleDriverAssignmentEntity>().ForRelational().Table("VehicleDriverAssignment");
-            builder.Entity<VehicleDriverAssignmentEntity>().Key(k => k.VehicleDriverAssignmentId);
+            builder.Entity<VehicleDriverAssignmentEntity>(e =>
+            {
+                e.ToTable("VehicleDriverAssignment");
+                e.Key(k => k.VehicleDriverAssignmentId);
+            });
 
             //[SparePartManufacturer]
-            builder.Entity<SparePartManufacturerEntity >().ForRelational().Table("SparePartManufacturer");
-            builder.Entity<SparePartManufacturerEntity >().Key(k => k.SparePartManufacturerId);
-            
+            builder.Entity<SparePartManufacturerEntity>(e =>
+            {
+                e.ToTable("SparePartManufacturer");
+                e.Key(k => k.SparePartManufacturerId);
+            });
+
             //[VehicleTrip]
-            builder.Entity<VehicleTripEntity>().ForRelational().Table("VehicleTrip");
-            builder.Entity<VehicleTripEntity>().Key(k => k.VehicleTripId);
+            builder.Entity<VehicleTripEntity>(e =>
+            {
+                e.ToTable("VehicleTrip");
+                e.Key(k => k.VehicleTripId);
+            });
             #endregion
 
             #region Quarry
 
             //MaterialColour
-            builder.Entity<MaterialColourEntity>().ForRelational().Table("MaterialColour");
-            builder.Entity<MaterialColourEntity>().Key(k => k.MaterialColourId);
+            builder.Entity<MaterialColourEntity>(e =>
+            {
+                e.ToTable("MaterialColour");
+                e.Key(k => k.MaterialColourId);
+            });
 
             //ProductType
-            builder.Entity<ProductTypeEntity>().ForRelational().Table("ProductType");
-            builder.Entity<ProductTypeEntity>().Key(k => k.ProductTypeId);
+            builder.Entity<ProductTypeEntity>(e =>
+            {
+                e.ToTable("ProductType");
+                e.Key(k => k.ProductTypeId);
+            });
 
             //Quarry
-            builder.Entity<QuarryEntity>().ForRelational().Table("Quarry");
-            builder.Entity<QuarryEntity>().Key(k => k.QuarryId);
+            builder.Entity<QuarryEntity>(e =>
+            {
+                e.ToTable("Quarry");
+                e.Key(k => k.QuarryId);
+            });
 
             //Quarry Material Colour
-            builder.Entity<QuarryMaterialColourEntity>().ForRelational().Table("QuarryMaterialColour");
-            builder.Entity<QuarryMaterialColourEntity>().Key(k => k.QuarryMaterialColourId);
+            builder.Entity<QuarryMaterialColourEntity>(e =>
+            {
+                e.ToTable("QuarryMaterialColour");
+                e.Key(k => k.QuarryMaterialColourId);
+            });
 
             //Yard
-            builder.Entity<YardEntity>().ForRelational().Table("Yard");
-            builder.Entity<YardEntity>().Key(k => k.YardId);
+            builder.Entity<YardEntity>(e =>
+            {
+                e.ToTable("Yard");
+                e.Key(k => k.YardId);
+            });
 
             //Material
-            builder.Entity<MaterialEntity>().ForRelational().Table("Material");
-            builder.Entity<MaterialEntity>().Key(k => k.MaterialId);
+            builder.Entity<MaterialEntity>(e =>
+            {
+                e.ToTable("Material");
+                e.Key(k => k.MaterialId);
+            });
 
             //MaterialMovement
-            builder.Entity<MaterialMovementEntity>().ForRelational().Table("MaterialMovement");
-            builder.Entity<MaterialMovementEntity>().Key(k => k.MaterialMovementId);
-            
+            builder.Entity<MaterialMovementEntity>(e =>
+            {
+                e.ToTable("MaterialMovement");
+                e.Key(k => k.MaterialMovementId);
+            });           
             #endregion
 
             base.OnModelCreating(builder);
 
             //renaming identity tables
-            builder.Entity<ApplicationUser>().ForRelational().Table("IdentityUser");
-            builder.Entity<IdentityRole>().ForRelational().Table("IdentityRole");
-            builder.Entity<IdentityRoleClaim<string>>().ForRelational().Table("IdentityRoleClaim");
-            builder.Entity<IdentityUserClaim<string>>().ForRelational().Table("IdentityUserClaim");
-            builder.Entity<IdentityUserLogin<string>>().ForRelational().Table("IdentityUserLogin");
-            builder.Entity<IdentityUserRole<string>>().ForRelational().Table("IdentityUserRole");
+            builder.Entity<ApplicationUser>().ToTable("IdentityUser");
+            builder.Entity<IdentityRole>().ToTable("IdentityRole");
+            builder.Entity<IdentityRoleClaim<string>>().ToTable("IdentityRoleClaim");
+            builder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
+            builder.Entity<IdentityUserLogin<string>>().ToTable("IdentityUserLogin");
+            builder.Entity<IdentityUserRole<string>>().ToTable("IdentityUserRole");
 
         }
     }

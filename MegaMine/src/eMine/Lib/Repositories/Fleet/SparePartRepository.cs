@@ -1,10 +1,10 @@
 ﻿using eMine.Lib.Entities;
 using eMine.Lib.Entities.Fleet;
 using eMine.Models.Fleet;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Data.Entity;
 
 namespace eMine.Lib.Repositories.Fleet
 {
