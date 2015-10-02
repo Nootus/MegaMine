@@ -10,6 +10,7 @@ using Microsoft.Data.Entity;
 using eMine.Lib.Extensions;
 using Microsoft.Data.Entity.SqlServer;
 using Microsoft.Data.Entity.Relational;
+using Microsoft.Data.Entity.Storage;
 
 namespace eMine.Lib.Repositories
 {
@@ -391,33 +392,38 @@ namespace eMine.Lib.Repositories
         {
             string ids = String.Join(",", model.MaterialMovementIds);
 
-            SqlServerDatabase database = dbContext.Database.AsSqlServer();
-            using (RelationalTransaction transaction = database.Connection.BeginTransaction())
-            {
-                try
-                {
-                    //inserting the movement
-                    string sql = "INSERT INTO MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
-                                    " SELECT MaterialId, ToYardId, @ToYardId, @MovementDate, 1, @UserId, @CurrentDate, @UserId, @CurrentDate, 0, @CompanyId FROM MaterialMovement WHERE MaterialMovementId in (" + ids + ")";
+            var database = dbContext.Database;
+
+            await dbContext.Database.BeginTransactionAsync();
+
+            //inserting the movement
+            string sql = "INSERT INTO MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
+                            " SELECT MaterialId, ToYardId, @ToYardId, @MovementDate, 1, @UserId, @CurrentDate, @UserId, @CurrentDate, 0, @CompanyId FROM MaterialMovement WHERE MaterialMovementId in (" + ids + ")";
 
 
-                    await database.ExecuteSqlCommand(sql, transaction, false, new KeyValuePair<string, object>("@ToYardId", model.ToYardId)
-                                                , new KeyValuePair<string, object>("@MovementDate", model.MovementDate)
-                                                , new KeyValuePair<string, object>("@UserId", profile.UserName)
-                                                , new KeyValuePair<string, object>("@CurrentDate", DateTime.UtcNow)
-                                                , new KeyValuePair<string, object>("@CompanyId", profile.CompanyId.ToString()));
+            //await database.ExecuteSqlCommand(sql,  new KeyValuePair<string, object>("@ToYardId", model.ToYardId)
+            //                            , new KeyValuePair<string, object>("@MovementDate", model.MovementDate)
+            //                            , new KeyValuePair<string, object>("@UserId", profile.UserName)
+            //                            , new KeyValuePair<string, object>("@CurrentDate", DateTime.UtcNow)
+            //                            , new KeyValuePair<string, object>("@CompanyId", profile.CompanyId.ToString()));
 
-                    sql = "UPDATE MaterialMovement SET CurrentInd = 0 WHERE MaterialMovementId in (" + ids + ")";
-                    await database.ExecuteSqlCommand(sql, transaction, false);
+            //SqlServerDatabase database = dbContext.Database.AsSqlServer();
+            //using (RelationalTransaction transaction = database.Connection.BeginTransaction())
+            //{
+            //    try
+            //    {
 
-                    transaction.Commit();
-                }
-                catch
-                {
-                    transaction.Rollback();
-                    throw;
-                }
-            }
+            //        sql = "UPDATE MaterialMovement SET CurrentInd = 0 WHERE MaterialMovementId in (" + ids + ")";
+            //        await database.ExecuteSqlCommand(sql, transaction, false);
+
+            //        transaction.Commit();
+            //    }
+            //    catch
+            //    {
+            //        transaction.Rollback();
+            //        throw;
+            //    }
+            //}
 
 
             return await StockGet(model.FromYardId);

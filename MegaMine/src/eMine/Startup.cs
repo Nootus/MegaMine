@@ -1,7 +1,6 @@
 ﻿using Microsoft.AspNet.Builder;
 using Microsoft.Framework.DependencyInjection;
 using Microsoft.AspNet.Hosting;
-using Microsoft.Framework.ConfigurationModel;
 using eMine.Lib.Shared;
 using eMine.Lib.Entities.Account;
 using eMine.Lib.Repositories;
@@ -13,30 +12,32 @@ using eMine.Lib.Middleware;
 using Newtonsoft.Json.Serialization;
 using Newtonsoft.Json;
 using Microsoft.AspNet.Http;
+using Microsoft.Dnx.Runtime;
+using System.IO;
+using Microsoft.Framework.Configuration;
 
 namespace eMine
 {
     public class Startup
     {
-        public Startup(IHostingEnvironment env)
-        {
-            //creating the config object
-            Configuration = new Configuration()
-                        .AddJsonFile("Config.json")
-                        .AddEnvironmentVariables()
-                        .AddJsonFile($"config.{env.EnvironmentName}.json", optional: true);
-        }
-
         public IConfiguration Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var applicationEnvironment = services.BuildServiceProvider().GetRequiredService<IApplicationEnvironment>();
+            var configurationPath = Path.Combine(applicationEnvironment.ApplicationBasePath, "config.json");
+
+            // Set up configuration sources.
+            var configBuilder = new ConfigurationBuilder()
+                .AddJsonFile(configurationPath)
+                .AddEnvironmentVariables();
+
+            Configuration = configBuilder.Build();
+
             services.AddMvc()
                 .AddJsonOptions(options =>
                 {
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-                    options.SerializerSettings.DefaultValueHandling = DefaultValueHandling.Ignore;
-                    options.SerializerSettings.NullValueHandling = NullValueHandling.Ignore;
                 });
             //services.con
             //    .Configure<MvcOptions>(options =>
@@ -53,7 +54,7 @@ namespace eMine
                 .AddSqlServer()
             .AddDbContext<ApplicationDbContext>(options =>
             {
-                options.UseSqlServer(Configuration.Get("Data:DefaultConnection:ConnectionString"));
+                options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
             });
 
             // Add Identity services to the services container.
@@ -83,9 +84,9 @@ namespace eMine
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             //saving the site settgins
-            SiteSettings.ConnectionString = Configuration.Get("Data:DefaultConnection:ConnectionString");
-            SiteSettings.WebPath = Configuration.Get("DNX_APPBASE");
-            SiteSettings.EnvironmentName = Configuration.Get("EnvironmentName");
+            SiteSettings.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
+            SiteSettings.WebPath = Configuration["DNX_APPBASE"];
+            SiteSettings.EnvironmentName = Configuration["EnvironmentName"];
 
             // Add the following to the request pipeline only in development environment.
             //if (env.IsEnvironment(Constants.DevEnvironment))

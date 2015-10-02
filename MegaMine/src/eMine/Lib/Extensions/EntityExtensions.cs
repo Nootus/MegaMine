@@ -11,32 +11,32 @@ namespace eMine.Lib.Extensions
 {
     public static class EntityExtensions
     {
-        public static async Task<int> ExecuteSqlCommand(this SqlServerDatabase database, string sql, RelationalTransaction transaction, bool throwexception = false, params KeyValuePair<string, object>[] parameters)
-        {
-            if (throwexception)
-                throw new Exception("bad");
+        //public static async Task<int> ExecuteSqlCommand(this SqlServerDatabase database, string sql, RelationalTransaction transaction, bool throwexception = false, params KeyValuePair<string, object>[] parameters)
+        //{
+        //    if (throwexception)
+        //        throw new Exception("bad");
 
-            var connection = database.Connection;
+        //    var connection = database.Connection;
             
-            var command = connection.DbConnection.CreateCommand();
-            command.CommandText = sql;
-            command.Transaction = transaction.DbTransaction;
+        //    var command = connection.DbConnection.CreateCommand();
+        //    command.CommandText = sql;
+        //    command.Transaction = transaction.DbTransaction;
             
-            foreach(var parameter in parameters)
-            {
-                command.Parameters.Add(new SqlParameter(parameter.Key, parameter.Value));
-            }
+        //    foreach(var parameter in parameters)
+        //    {
+        //        command.Parameters.Add(new SqlParameter(parameter.Key, parameter.Value));
+        //    }
 
-            try
-            {
-                connection.Open();
+        //    try
+        //    {
+        //        connection.Open();
 
-                return await command.ExecuteNonQueryAsync();
-            }
-            finally
-            {
-                connection.Close();
-            }
-        }
+        //        return await command.ExecuteNonQueryAsync();
+        //    }
+        //    finally
+        //    {
+        //        connection.Close();
+        //    }
+        //}
     }
 }
