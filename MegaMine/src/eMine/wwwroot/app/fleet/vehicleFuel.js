@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleFuel', vehicleFuel)
-vehicleFuel.$inject = ['$scope', '$mdDialog', 'vehicleService', 'utility', 'constants', 'dialogService', 'template'];
+vehicleFuel.$inject = ['$scope', '$mdDialog', 'vehicleService', 'gridUtility', 'constants', 'dialogService', 'template'];
 
-function vehicleFuel($scope, $mdDialog, vehicleService, utility, constants, dialogService, template) {
+function vehicleFuel($scope, $mdDialog, vehicleService, gridUtility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -25,7 +25,7 @@ function vehicleFuel($scope, $mdDialog, vehicleService, utility, constants, dial
     return vm;
 
     function init() {
-        utility.initializeSubGrid(vm, $scope, vehicleService.fuelList);
+        gridUtility.initializeSubGrid(vm, $scope, vehicleService.fuelList);
     }
 
     function addFuel(ev) {

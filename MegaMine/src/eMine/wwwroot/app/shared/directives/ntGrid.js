@@ -18,7 +18,7 @@ function ntGrid() {
     };
 
     function link(scope, element, attrs, nullController, transclude) {
-
+        scope.gridClass = scope.gridClass === undefined ? 'main-grid' : scope.gridClass;
     }
 }
 

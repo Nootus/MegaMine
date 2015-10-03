@@ -411,36 +411,6 @@ md-input-container {
   padding-bottom: 15px;
 }
 
-/*md-input-container > md-select {
-  margin: 0;
-  margin-top: -6px;
-  padding-bottom: 0px;
-}
-
-md-input-container.emselect label:not(.md-no-float){
-    -webkit-transform: matrix(0.75, 0, 0, 0.75, 0, -35) !important;
-    transform: matrix(0.75, 0, 0, 0.75, 0, -35) !important;
-    font-size: 15px;
-    color: black;
-}
-md-input-container.emselect div {
-    margin-top: -19px;
-    padding-bottom: 19px;
-}
-
-md-input-container.emselect-invalid > md-select.ng-invalid .md-select-label{
-    border-bottom-color: rgb(244,67,54);
-    border-bottom-width:2px;
-}
-
-md-input-container.emselect-invalid [ng-message]{
-    color: red;
-}
-
-md-input-container.emselect-invalid label{
-    color: red !important;
-}*/
-
 md-progress-linear.md-default-theme[md-mode=buffer].md-warn .md-dashed:before {
   background: radial-gradient(rgb(168,168,168) 0%, rgb(168,168,168) 16%, transparent 42%);
 }
@@ -466,17 +436,7 @@ md-progress-linear{
 md-dialog.dialog{
     width: 600px;
     overflow: hidden;
-    /*background-color: #e4e4e4;
-    margin-left: auto ;
-    margin-right: auto ;*/
 }
-/*md-dialog-content.dialog-content{
-    margin-left: 10px;
-    overflow: auto;
-}*/
-/*md-select-label{
-    width: 100%;
-}*/
 
 /*Material design overrides ends*/
 

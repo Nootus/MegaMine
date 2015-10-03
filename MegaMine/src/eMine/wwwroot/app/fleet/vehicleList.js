@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleList', vehicleList)
-vehicleList.$inject = ['$scope', 'vehicleService', 'vehicleDialog', 'utility', 'navigation', 'constants', 'template'];
+vehicleList.$inject = ['$scope', 'vehicleService', 'vehicleDialog', 'gridUtility', 'navigation', 'constants', 'template'];
 
-function vehicleList($scope, vehicleService, vehicleDialog, utility, navigation, constants, template) {
+function vehicleList($scope, vehicleService, vehicleDialog, gridUtility, navigation, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -28,7 +28,7 @@ function vehicleList($scope, vehicleService, vehicleDialog, utility, navigation,
     return vm;
 
     function init() {
-        utility.initializeGrid(vm, $scope, vehicleService.vehicleList);
+        gridUtility.initializeGrid(vm, $scope, vehicleService.vehicleList);
     }
 
     function navigateToVehicle(row) {

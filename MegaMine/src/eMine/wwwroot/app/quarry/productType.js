@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('productType', productType)
-productType.$inject = ['$scope', 'quarryService', 'utility', 'constants', 'dialogService', 'template'];
+productType.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
 
-function productType($scope, quarryService, utility, constants, dialogService, template) {
+function productType($scope, quarryService, gridUtility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -24,7 +24,7 @@ function productType($scope, quarryService, utility, constants, dialogService, t
     return vm;
 
     function init() {
-        utility.initializeGrid(vm, $scope, quarryService.productTypes);
+        gridUtility.initializeGrid(vm, $scope, quarryService.productTypes);
     }
 
     function addProductType(ev) {

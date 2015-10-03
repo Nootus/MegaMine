@@ -6,9 +6,7 @@ namespace eMine.Lib.Entities.Account
     [Table("UserCompany")]
     public class UserCompanyEntity
     {
-        [Key]
         public string UserProfileId { get; set; }
-        [Key]
         public int CompanyId { get; set; }
     }
 }

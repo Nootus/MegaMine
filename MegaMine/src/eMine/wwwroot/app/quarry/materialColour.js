@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('materialColour', materialColour)
-materialColour.$inject = ['$scope', 'quarryService', 'utility', 'constants', 'dialogService', 'template'];
+materialColour.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
 
-function materialColour($scope, quarryService, utility, constants, dialogService, template) {
+function materialColour($scope, quarryService, gridUtility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -24,7 +24,7 @@ function materialColour($scope, quarryService, utility, constants, dialogService
     return vm;
 
     function init() {
-        utility.initializeGrid(vm, $scope, quarryService.colours);
+        gridUtility.initializeGrid(vm, $scope, quarryService.colours);
     }
 
     function addMaterialColour(ev) {

@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('manufacturerList', manufacturerList)
-manufacturerList.$inject = ['$scope', 'vehicleService', 'manufacturerDialog', 'utility', 'navigation', 'constants', 'template'];
+manufacturerList.$inject = ['$scope', 'vehicleService', 'manufacturerDialog', 'gridUtility', 'navigation', 'constants', 'template'];
 
-function manufacturerList($scope, vehicleService, manufacturerDialog, utility, navigation, constants, template) {
+function manufacturerList($scope, vehicleService, manufacturerDialog, gridUtility, navigation, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -24,7 +24,7 @@ function manufacturerList($scope, vehicleService, manufacturerDialog, utility, n
     return vm;
 
     function init() {
-        utility.initializeGrid(vm, $scope, vehicleService.manufacturerList);
+        gridUtility.initializeGrid(vm, $scope, vehicleService.manufacturerList);
     }
 
     function navigateToManufacturer(row) {

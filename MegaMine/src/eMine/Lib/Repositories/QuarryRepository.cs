@@ -1,16 +1,11 @@
-﻿using System;
+﻿using eMine.Lib.Entities;
+using eMine.Lib.Entities.Quarry;
+using eMine.Models.Quarry;
+using Microsoft.Data.Entity;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eMine.Models.Quarry;
-using eMine.Lib.Entities.Quarry;
-using eMine.Lib.Entities;
-
-using Microsoft.Data.Entity;
-using eMine.Lib.Extensions;
-using Microsoft.Data.Entity.SqlServer;
-using Microsoft.Data.Entity.Relational;
-using Microsoft.Data.Entity.Storage;
 
 namespace eMine.Lib.Repositories
 {

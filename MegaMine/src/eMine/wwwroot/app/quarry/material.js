@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('material', material)
-material.$inject = ['$scope', '$mdDialog', 'quarryService', 'utility', 'constants', 'template'];
+material.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'utility', 'constants', 'template'];
 
-function material($scope, $mdDialog, quarryService, utility, constants, template) {
+function material($scope, $mdDialog, quarryService, gridUtility, utility, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -44,7 +44,7 @@ function material($scope, $mdDialog, quarryService, utility, constants, template
         vm.model = vm.viewModel.model;
         vm.model.materialDate = new Date();
 
-        utility.initializeGrid(vm, $scope, vm.list);
+        gridUtility.initializeGrid(vm, $scope, vm.list);
     }
 
     function updateDropDownText() {

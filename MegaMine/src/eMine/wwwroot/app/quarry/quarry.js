@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('quarry', quarry)
-quarry.$inject = ['$scope', 'quarryService', 'utility', 'constants', 'dialogService', 'template'];
+quarry.$inject = ['$scope', 'quarryService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function quarry($scope, quarryService, utility, constants, dialogService, template) {
+function quarry($scope, quarryService, gridUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -25,7 +25,7 @@ function quarry($scope, quarryService, utility, constants, dialogService, templa
     return vm;
 
     function init() {
-        utility.initializeGrid(vm, $scope, quarryService.quarries);
+        gridUtility.initializeGrid(vm, $scope, quarryService.quarries);
     }
 
     function addQuarry(ev) {

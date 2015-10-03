@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('sparePart', sparePart)
-sparePart.$inject = ['$scope', 'vehicleService', 'sparePartDialog', 'utility', 'constants', 'dialogService', 'template'];
+sparePart.$inject = ['$scope', 'vehicleService', 'sparePartDialog', 'gridUtility', 'constants', 'dialogService', 'template'];
 
-function sparePart($scope, vehicleService, sparePartDialog, utility, constants, dialogService, template) {
+function sparePart($scope, vehicleService, sparePartDialog, gridUtility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -29,7 +29,7 @@ function sparePart($scope, vehicleService, sparePartDialog, utility, constants, 
 
     function init() {
         vm.model = vehicleService.sparePart;
-        utility.initializeSubGrid(vm, $scope, vehicleService.ordersList);
+        gridUtility.initializeSubGrid(vm, $scope, vehicleService.ordersList);
     }
 
     function editSparePart(ev) {

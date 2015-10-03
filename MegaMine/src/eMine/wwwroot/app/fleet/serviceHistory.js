@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('serviceRecord', serviceRecord)
-serviceRecord.$inject = ['$scope', '$window', 'vehicleService', 'vehicleServiceDialog', 'utility', 'uiGridConstants', 'constants'];
+serviceRecord.$inject = ['$scope', '$window', 'vehicleService', 'vehicleServiceDialog', 'gridUtility', 'uiGridConstants', 'constants'];
 
-function serviceRecord($scope, $window, vehicleService, vehicleServiceDialog, utility, uiGridConstants, constants) {
+function serviceRecord($scope, $window, vehicleService, vehicleServiceDialog, gridUtility, uiGridConstants, constants) {
 
     var gridOptions = {
         enableColumnResizing: true,
@@ -31,7 +31,7 @@ function serviceRecord($scope, $window, vehicleService, vehicleServiceDialog, ut
     return vm;
 
     function init() {
-        utility.initializeSubGrid(vm, $scope, vehicleService.vehicle.serviceRecord);
+        gridUtility.initializeSubGrid(vm, $scope, vehicleService.vehicle.serviceRecord);
     }
 
     function addService(ev) {

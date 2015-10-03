@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('materialmovement', materialmovement)
-materialmovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'utility', 'constants'];
+materialmovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants'];
 
-function materialmovement($scope, $mdDialog, quarryService, utility, constants) {
+function materialmovement($scope, $mdDialog, quarryService, gridUtility, constants) {
 
     var gridOptions = {
         columnDefs: [
@@ -44,7 +44,7 @@ function materialmovement($scope, $mdDialog, quarryService, utility, constants) 
         vm.yards = quarryService.yards;
         quarryService.stock.splice(0, quarryService.stock.length);
 
-        utility.initializeGrid(vm, $scope, quarryService.stock);
+        gridUtility.initializeGrid(vm, $scope, quarryService.stock);
     }
 
     function getStock(form) {

@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('yard', yard)
-yard.$inject = ['$scope', 'quarryService', 'utility', 'constants', 'dialogService', 'template'];
+yard.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
 
-function yard($scope, quarryService, utility, constants, dialogService, template) {
+function yard($scope, quarryService, gridUtility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -24,7 +24,7 @@ function yard($scope, quarryService, utility, constants, dialogService, template
     return vm;
 
     function init() {
-        utility.initializeGrid(vm, $scope, quarryService.yards);
+        gridUtility.initializeGrid(vm, $scope, quarryService.yards);
     }
 
     function addYard(ev) {

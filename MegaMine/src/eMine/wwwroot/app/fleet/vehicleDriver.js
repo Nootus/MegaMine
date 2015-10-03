@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('vehicleDriver', vehicleDriver)
-vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDriverDialog', 'utility', 'constants', 'dialogService', 'template'];
+vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDriverDialog', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, utility, constants, dialogService, template) {
+function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, gridUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -32,7 +32,7 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, uti
         vm.vehicleId = vehicleService.vehicle.vehicleId;
         vm.editMode = vehicleService.vehicle.driver === null ? 2 : 3;
 
-        utility.initializeSubGrid(vm, $scope, vehicleService.vehicleDriverList);
+        gridUtility.initializeSubGrid(vm, $scope, vehicleService.vehicleDriverList);
     }
 
     function unAssignDriver(ev) {

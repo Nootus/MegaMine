@@ -15,13 +15,28 @@
                         </span>
                         &nbsp;&nbsp; | &nbsp;
                     </div>
-                    <ul id="profile-menu" class="menu" kendo-menu k-select="vm.menuSelect"></ul>
+                    <md-menu-bar>
+                        <md-menu>
+                            <button ng-mouseenter="$mdOpenMenu()">{{vm.profile.firstName}}</button>
+                            <md-menu-content>
+                                <md-menu-item>
+                                    <md-button ng-href="#">
+                                        <md-icon class="icon-changepassword"></md-icon> Change Password
+                                    </md-button>
+                                </md-menu-item>
+                                <md-menu-item>
+                                    <md-button ng-href="/logout">
+                                        <md-icon class="icon-logout"></md-icon> Logout
+                                    </md-button>
+                                </md-menu-item>
+                            </md-menu-content>
+                        </md-menu>
+                    </md-menu-bar>
                 </div>
                 <div class="main-menu">
-                    <!--<ul id="main-menu" class="menu" kendo-menu k-select="vm.menuSelect"></ul>-->
                     <md-menu-bar>
                         <md-menu ng-repeat="menu in vm.profile.menu">
-                            <button ng-click="$mdOpenMenu()">
+                            <button ng-mouseenter="$mdOpenMenu()">
                                 <md-icon class="{{menu.spriteCssClass}}"></md-icon> {{menu.text}}
                             </button>
                             <md-menu-content>
@@ -39,8 +54,8 @@
         </div>
     </div>
     <div flex layout="row" class="container main-content ui-view-container">
-        <md-progress-linear class="md-warn" md-mode="buffer" value="{{startvalue}}" md-buffer-value="{{buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>
-        <div flex ui-view class="content">
+        <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.startvalue}}" md-buffer-value="{{vm.buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>
+        <div flex ui-view class="view-content">
             <div id="splash" class="splash">
                 <br /><br />
                 <h2 class="top-header">Welcome to Mega Mine</h2>
