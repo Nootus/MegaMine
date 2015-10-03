@@ -1,12 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eMine.Lib.Entities.Quarry
 {
+    [Table("MaterialMovement")]
     public class MaterialMovementEntity : BaseEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int MaterialMovementId { get; set; }
         public int MaterialId { get; set; }
         public int FromYardId { get; set; }

@@ -394,37 +394,25 @@ namespace eMine.Lib.Repositories
 
             var database = dbContext.Database;
 
-            await dbContext.Database.BeginTransactionAsync();
+            await database.BeginTransactionAsync();
 
-            //inserting the movement
-            string sql = "INSERT INTO MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
-                            " SELECT MaterialId, ToYardId, @ToYardId, @MovementDate, 1, @UserId, @CurrentDate, @UserId, @CurrentDate, 0, @CompanyId FROM MaterialMovement WHERE MaterialMovementId in (" + ids + ")";
+            try
+            {
+                //inserting the movement
+                string sql = "INSERT INTO MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
+                                " SELECT MaterialId, ToYardId, @p0, @p1, 1, @p2, @p3, @p4, @p5, 0, @p6 FROM MaterialMovement WHERE MaterialMovementId in (" + ids + ")";
 
+                database.ExecuteSqlCommand(sql, model.ToYardId, model.MovementDate, profile.UserName, DateTime.UtcNow, profile.UserName, DateTime.UtcNow, profile.CompanyId.ToString());
 
-            //await database.ExecuteSqlCommand(sql,  new KeyValuePair<string, object>("@ToYardId", model.ToYardId)
-            //                            , new KeyValuePair<string, object>("@MovementDate", model.MovementDate)
-            //                            , new KeyValuePair<string, object>("@UserId", profile.UserName)
-            //                            , new KeyValuePair<string, object>("@CurrentDate", DateTime.UtcNow)
-            //                            , new KeyValuePair<string, object>("@CompanyId", profile.CompanyId.ToString()));
+                sql = "UPDATE MaterialMovement SET CurrentInd = 0 WHERE MaterialMovementId in (" + ids + ")";
+                database.ExecuteSqlCommand(sql);
 
-            //SqlServerDatabase database = dbContext.Database.AsSqlServer();
-            //using (RelationalTransaction transaction = database.Connection.BeginTransaction())
-            //{
-            //    try
-            //    {
-
-            //        sql = "UPDATE MaterialMovement SET CurrentInd = 0 WHERE MaterialMovementId in (" + ids + ")";
-            //        await database.ExecuteSqlCommand(sql, transaction, false);
-
-            //        transaction.Commit();
-            //    }
-            //    catch
-            //    {
-            //        transaction.Rollback();
-            //        throw;
-            //    }
-            //}
-
+                database.CommitTransaction();
+            }
+            catch
+            {
+                database.RollbackTransaction();
+            }
 
             return await StockGet(model.FromYardId);
         }

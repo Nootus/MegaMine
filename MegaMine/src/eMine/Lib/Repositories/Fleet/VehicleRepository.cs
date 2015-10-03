@@ -779,7 +779,7 @@ namespace eMine.Lib.Repositories.Fleet
                             Driver = (vehicledriver == null ? null : vehicledriver.DriverName)
                         };
 
-            return  query.ToList();
+            return await query.ToListAsync();
         }
         #endregion
 

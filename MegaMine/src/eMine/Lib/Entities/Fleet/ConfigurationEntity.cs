@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eMine.Lib.Entities.Fleet
 {
+    [Table("Configuration")]
     public class ConfigurationEntity : BaseEntity
     {
+        [Key]
         public int ConfigurationId { get; set; }
         public string ConfigKey { get; set; }
         public string ConfigValue { get; set; }

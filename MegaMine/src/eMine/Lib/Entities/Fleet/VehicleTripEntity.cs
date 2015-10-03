@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eMine.Lib.Entities.Fleet 
 {
+    [Table("VehicleTrip")]
     public class VehicleTripEntity : BaseEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VehicleTripId { get; set; }
-
         public string VehicleTripName { get; set; }
         public int VehicleId { get; set; }
         public int VehicleDriverId { get; set; }

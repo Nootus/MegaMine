@@ -1,15 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eMine.Lib.Entities.Fleet
 {
+    [Table("VehicleService")]
     public class VehicleServiceEntity : BaseEntity
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int VehicleServiceId { get; set; }
-
         public int VehicleId { get; set; }
         public string Compliant { get; set; }
         public DateTime? ServiceStartDate { get; set; }

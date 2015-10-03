@@ -39,15 +39,6 @@ namespace eMine
                 {
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
                 });
-            //services.con
-            //    .Configure<MvcOptions>(options =>
-            //    {
-            //        options.Filters.Add(new NTAuthorizeFilter());
-
-            //        //setting the camel case
-            //        //JsonOutputFormatter jsonFormatter = options.OutputFormatters.InstanceOf<JsonOutputFormatter>();
-            //        //jsonFormatter.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
-            //    });
 
 
             services.AddEntityFramework()
