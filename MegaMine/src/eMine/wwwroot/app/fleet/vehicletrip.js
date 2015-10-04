@@ -7,10 +7,10 @@ function vehicleTrip($scope, vehicleService, gridUtility, constants, dialogServi
     var gridOptions = {
         columnDefs: [                    
                     { name: 'vehicleTripName', field: 'vehicleTripName', displayName: 'TripName', type: 'string' },
-                    { name: 'startingTime', field: 'startingTime', displayName: 'StartingTime', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'reachingTime', field: 'reachingTime', displayName: 'ReachingTime', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'odometerStart', field: 'odometerStart', displayName: 'OdometerStart', type: 'number' },
-                    { name: 'odometerEnd', field: 'odometerEnd', displayName: 'OdometerEnd', type: 'number' },
+                    { name: 'startingTime', field: 'startingTime', displayName: 'Start', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'reachingTime', field: 'reachingTime', displayName: 'End', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'odometerStart', field: 'odometerStart', displayName: 'Odometer Start', type: 'number' },
+                    { name: 'odometerEnd', field: 'odometerEnd', displayName: 'Odometer End', type: 'number' },
                     template.getButtonDefaultColumnDefs('vehicleTripId', 'Fleet', 'VehicleTripEdit')
                     ]
         };
@@ -44,7 +44,7 @@ function vehicleTrip($scope, vehicleService, gridUtility, constants, dialogServi
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            vehicleService.saveFuel(dialogModel).then(function () {
+            vehicleService.saveTrip(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.VehicleTripId === 0) {
                     vehicleService.getTripList(dialogModel.vehicleId);

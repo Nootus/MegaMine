@@ -1,20 +1,20 @@
-﻿using Microsoft.AspNet.Builder;
-using Microsoft.Framework.DependencyInjection;
-using Microsoft.AspNet.Hosting;
-using eMine.Lib.Shared;
+﻿using eMine.Lib.Domain;
 using eMine.Lib.Entities.Account;
+using eMine.Lib.Mapping;
+using eMine.Lib.Middleware;
 using eMine.Lib.Repositories;
+using eMine.Lib.Repositories.Fleet;
+using eMine.Lib.Shared;
+using Microsoft.AspNet.Builder;
+using Microsoft.AspNet.Hosting;
+using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
-using eMine.Lib.Domain;
-using eMine.Lib.Repositories.Fleet;
-using eMine.Lib.Middleware;
-using Newtonsoft.Json.Serialization;
-using Newtonsoft.Json;
-using Microsoft.AspNet.Http;
 using Microsoft.Dnx.Runtime;
-using System.IO;
 using Microsoft.Framework.Configuration;
+using Microsoft.Framework.DependencyInjection;
+using Newtonsoft.Json.Serialization;
+using System.IO;
 
 namespace eMine
 {
@@ -122,6 +122,7 @@ namespace eMine
 
             //storing the HttpContextAccessor
             HttpHelper.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
+            MappingConfiguration.Configure();
         }
     }
 }

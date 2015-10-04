@@ -8,6 +8,7 @@ using eMine.Lib.Entities;
 using eMine.Lib.Shared;
 using System.Data.SqlTypes;
 using Microsoft.Data.Entity;
+using AutoMapper;
 
 namespace eMine.Lib.Repositories.Fleet
 {
@@ -24,7 +25,6 @@ namespace eMine.Lib.Repositories.Fleet
             var query = from trips in dbContext.VehicleTrips
                         where trips.DeletedInd == false
                         && trips.VehicleId == VehicleId
-                        && trips.CompanyId == profile.CompanyId
                         orderby trips.StartingTime descending
                         select new VehicleTripModel
                         {
@@ -44,23 +44,21 @@ namespace eMine.Lib.Repositories.Fleet
         
         public async Task <VehicleTripModel> VehicleTripGet(int vehicleTripId)
         {
-            var query = from vt in dbContext.VehicleTrips
-                        where vt.VehicleTripId == vehicleTripId
-                        && vt.DeletedInd == false
-                        && vt.CompanyId == profile.CompanyId
+            var query = from trip in dbContext.VehicleTrips
+                        where trip.VehicleTripId == vehicleTripId
                         select new VehicleTripModel
                         {
-                            VehicleTripName = vt.VehicleTripName,
-                            VehicleTripId = vt.VehicleTripId,
-                            VehicleId = vt.VehicleId,
-                            VehicleDriverId = vt.VehicleDriverId,
-                            OdometerStart = vt.OdometerStart,
-                            OdometerEnd = vt.OdometerEnd,
-                            StartingTime = vt.StartingTime,
-                            ReachingTime = vt.ReachingTime
+                            VehicleTripName = trip.VehicleTripName,
+                            VehicleTripId = trip.VehicleTripId,
+                            VehicleId = trip.VehicleId,
+                            VehicleDriverId = trip.VehicleDriverId,
+                            OdometerStart = trip.OdometerStart,
+                            OdometerEnd = trip.OdometerEnd,
+                            StartingTime = trip.StartingTime,
+                            ReachingTime = trip.ReachingTime
                         };
 
-            return await query.FirstOrDefaultAsync();
+            return await query.SingleAsync();
         }
 
         public async Task  VehicleTripAdd(VehicleTripModel model)
@@ -78,13 +76,11 @@ namespace eMine.Lib.Repositories.Fleet
             };
             dbContext.VehicleTrips.Add(entity);
             await dbContext.SaveChangesAsync();
-
         }
 
         public async Task VehicleTripUpdate(VehicleTripModel model)
         {
-            //Update the VehicleService Entity first
-            VehicleTripEntity entity = await (from vt in dbContext.VehicleTrips where vt.VehicleTripId == model.VehicleTripId && vt.CompanyId == profile.CompanyId select vt).FirstAsync();
+            VehicleTripEntity entity = await (from trip in dbContext.VehicleTrips where trip.VehicleTripId == model.VehicleTripId select trip).SingleAsync();
             entity.VehicleTripName = model.VehicleTripName;
             entity.VehicleTripId = model.VehicleTripId;
             entity.VehicleId = model.VehicleId;
@@ -118,13 +114,7 @@ namespace eMine.Lib.Repositories.Fleet
                         where types.DeletedInd == false
                             && types.CompanyId == profile.CompanyId
                         orderby types.VehicleTypeName ascending
-                        select new VehicleTypeModel
-                        {
-                            VehicleTypeId = types.VehicleTypeId,
-                            VehicleTypeName = types.VehicleTypeName,
-                            VehicleTypeDescription = types.VehicleTypeDescription
-
-                        };
+                        select Mapper.Map<VehicleTypeEntity, VehicleTypeModel>(types);
 
             return await query.ToListAsync();
         }
@@ -158,8 +148,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task VehicleTypeUpdate(VehicleTypeModel model)
         {
-            //Update the VehicleService Entity first
-            VehicleTypeEntity entity = await (from vt in dbContext.VehicleTypes where vt.VehicleTypeId == model.VehicleTypeId && vt.CompanyId == profile.CompanyId select vt).FirstAsync();
+            VehicleTypeEntity entity = await (from vt in dbContext.VehicleTypes where vt.VehicleTypeId == model.VehicleTypeId select vt).SingleAsync();
             entity.VehicleTypeName = model.VehicleTypeName;
             entity.VehicleTypeDescription = model.VehicleTypeDescription;
             entity.UpdateAuditFields();
@@ -216,8 +205,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task DriverUpdate(VehicleDriverModel model)
         {
-            //Update the  VehicleDriver Entity first
-            VehicleDriverEntity entity = await (from vd in dbContext.VehicleDrivers where vd.VehicleDriverId == model.VehicleDriverId && vd.CompanyId == profile.CompanyId select vd).FirstAsync();
+            VehicleDriverEntity entity = await (from vd in dbContext.VehicleDrivers where vd.VehicleDriverId == model.VehicleDriverId select vd).SingleAsync();
             entity.DriverName = model.DriverName;
             entity.Contact = model.Contact;
             entity.PhotoUrl = model.PhotoUrl;
@@ -270,7 +258,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task ModelUpdate(VehicleManufactureModelModel model)
         {
-            VehicleModelEntity entity = await (from vm in dbContext.VehicleModels where vm.VehicleModelId == model.VehicleModelId && vm.CompanyId == profile.CompanyId select vm).FirstAsync();
+            VehicleModelEntity entity = await (from vm in dbContext.VehicleModels where vm.VehicleModelId == model.VehicleModelId select vm).SingleAsync();
             entity.Name = model.Name;
             entity.Description = model.Description;
             entity.UpdateAuditFields();
@@ -286,7 +274,6 @@ namespace eMine.Lib.Repositories.Fleet
             var query = from vf in dbContext.VehicleFuels
                         where vf.VehicleId == vehicleId
                         && vf.DeletedInd == false
-                        && vf.CompanyId == profile.CompanyId
                         orderby vf.FuelDate descending
                         select new FuelModel
                         {
@@ -318,9 +305,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task FuelUpdate(FuelModel model)
         {
-
-            //Update the Fuel Entity first
-            VehicleFuelEntity entity = await (from vehicleFuel in dbContext.VehicleFuels where vehicleFuel.VehicleFuelId == model.VehicleFuelId && vehicleFuel.CompanyId == profile.CompanyId select vehicleFuel).FirstAsync();
+            VehicleFuelEntity entity = await (from vehicleFuel in dbContext.VehicleFuels where vehicleFuel.VehicleFuelId == model.VehicleFuelId select vehicleFuel).SingleAsync();
             decimal currentQuantity = entity.Fuel;
             entity.FuelDate = model.FuelDate;
             entity.Odometer = model.Odometer;
@@ -335,7 +320,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task FuelAverage(int vehicleId)
         {
-            VehicleEntity vehicleEntity = await (from vehicle in dbContext.Vehicles where vehicle.VehicleId == vehicleId select vehicle).FirstAsync();
+            VehicleEntity vehicleEntity = await (from vehicle in dbContext.Vehicles where vehicle.VehicleId == vehicleId select vehicle).SingleAsync();
             DateTime fuelResetDate = vehicleEntity.FuelResetDate ?? SqlDateTime.MinValue.Value;
 
             //getting min & max odometer
@@ -356,7 +341,7 @@ namespace eMine.Lib.Repositories.Fleet
         public async Task  FuelSave(FuelModel model)
         {
             //validating Odometer reading
-            VehicleFuelEntity vehicleFuelEntity = await (from fuel in dbContext.VehicleFuels where fuel.VehicleFuelId != model.VehicleFuelId && ((fuel.Odometer >= model.Odometer && fuel.FuelDate < model.FuelDate) || (fuel.Odometer <= model.Odometer && fuel.FuelDate > model.FuelDate)) select fuel).FirstOrDefaultAsync();
+            VehicleFuelEntity vehicleFuelEntity = await (from fuel in dbContext.VehicleFuels where fuel.VehicleFuelId != model.VehicleFuelId && ((fuel.Odometer >= model.Odometer && fuel.FuelDate < model.FuelDate) || (fuel.Odometer <= model.Odometer && fuel.FuelDate > model.FuelDate)) select fuel).SingleOrDefaultAsync();
 
             if(vehicleFuelEntity != null)
             {
@@ -375,7 +360,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task VehicleFuelReset(int vehicleId)
         {
-            VehicleEntity vehicleEntity = await (from vehicle in dbContext.Vehicles where vehicle.VehicleId == vehicleId select vehicle).FirstAsync();
+            VehicleEntity vehicleEntity = await (from vehicle in dbContext.Vehicles where vehicle.VehicleId == vehicleId select vehicle).SingleAsync();
             vehicleEntity.FuelAverage = null;
             vehicleEntity.FuelResetDate = DateTime.Now.Date;
             dbContext.Vehicles.Update(vehicleEntity);
@@ -391,8 +376,6 @@ namespace eMine.Lib.Repositories.Fleet
                         join driver in dbContext.VehicleDrivers on vda.VehicleDriverId equals driver.VehicleDriverId
                         where vda.VehicleId == vehicleId
                         && vda.DeletedInd == false
-                        && vda.CompanyId == profile.CompanyId
-                        && driver.CompanyId == profile.CompanyId
                         orderby vda.VehicleDriverAssignmentId descending
                         select new VehicleDriverAssignmentModel
                         {
@@ -454,7 +437,7 @@ namespace eMine.Lib.Repositories.Fleet
             if(model.AssignmentEndDate == null)
             {
                 //validate whether assignment date is allowed and then set it
-                VehicleEntity vehicle = await (from v in dbContext.Vehicles where v.VehicleId == model.VehicleId && v.CompanyId == profile.CompanyId select v).FirstAsync();
+                VehicleEntity vehicle = await (from v in dbContext.Vehicles where v.VehicleId == model.VehicleId select v).SingleAsync();
                 if(vehicle.VehicleDriverId != null)
                 {
                     throw new eMineException(Messages.Fleet.DriveAssessmentError);
@@ -473,8 +456,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task VehicleDriverUpdate(VehicleDriverAssignmentModel model)
         {
-            //Update the  VehicleDriver Entity first
-            VehicleDriverAssignmentEntity entity = await (from vd in dbContext.VehicleDriverAssignments where vd.VehicleDriverAssignmentId == model.VehicleDriverAssignmentId && vd.CompanyId == profile.CompanyId select vd).FirstAsync();
+            VehicleDriverAssignmentEntity entity = await (from vd in dbContext.VehicleDriverAssignments where vd.VehicleDriverAssignmentId == model.VehicleDriverAssignmentId select vd).SingleAsync();
             entity.VehicleDriverId = model.VehicleDriverId;
             entity.AssignmentStartDate = model.AssignmentStartDate;
             entity.AssignmentEndDate = model.AssignmentEndDate;
@@ -482,7 +464,7 @@ namespace eMine.Lib.Repositories.Fleet
             dbContext.VehicleDriverAssignments.Update(entity);
 
             //checking if the current driver is assigned to the vehicle
-            VehicleEntity vehicle = await (from v in dbContext.Vehicles where v.VehicleId == model.VehicleId && v.CompanyId == profile.CompanyId select v).FirstAsync();
+            VehicleEntity vehicle = await (from v in dbContext.Vehicles where v.VehicleId == model.VehicleId select v).SingleAsync();
             if(vehicle.VehicleDriverAssignmentId == entity.VehicleDriverAssignmentId)
             {
                 vehicle.VehicleDriverId = null;
@@ -517,8 +499,6 @@ namespace eMine.Lib.Repositories.Fleet
 
             var query = from vm in dbContext.VehicleManufacturers
                         where vm.VehicleManufacturerId == vehicleManufacturerId
-                        && vm.DeletedInd == false
-                        && vm.CompanyId == profile.CompanyId
                         select new VehicleManufacturerModel()
                         {
                             VehicleManufacturerId = vm.VehicleManufacturerId,
@@ -526,7 +506,7 @@ namespace eMine.Lib.Repositories.Fleet
                             Description = vm.Description
                         };
 
-            return await query.FirstOrDefaultAsync();
+            return await query.SingleAsync();
         }
 
         public async Task<List<VehicleManufacturerModel>> VehicleManufacturersGet()
@@ -561,8 +541,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task VehicleManufacturerUpdate(VehicleManufacturerModel model)
         {
-            //Update the VehicleManufacturer Entity first
-            VehicleManufacturerEntity entity = await (from vm in dbContext.VehicleManufacturers where vm.VehicleManufacturerId == model.VehicleManufacturerId && vm.CompanyId == profile.CompanyId select vm).FirstAsync();
+            VehicleManufacturerEntity entity = await (from vm in dbContext.VehicleManufacturers where vm.VehicleManufacturerId == model.VehicleManufacturerId select vm).SingleAsync();
             entity.Name = model.Name;
             entity.Description = model.Description;
             entity.UpdateAuditFields();
@@ -604,7 +583,7 @@ namespace eMine.Lib.Repositories.Fleet
         #region Vehicle
         public async Task VehicleUpdate(VehicleModel model)
         {
-            VehicleEntity entity = await (from vehicle in dbContext.Vehicles where vehicle.VehicleId == model.VehicleId && vehicle.CompanyId == profile.CompanyId select vehicle).FirstAsync();
+            VehicleEntity entity = await (from vehicle in dbContext.Vehicles where vehicle.VehicleId == model.VehicleId select vehicle).SingleAsync();
             entity.RegistrationNumber = model.RegistrationNumber;
             entity.VehicleTypeId = model.VehicleTypeId;
             entity.VehicleManufacturerId = model.VehicleManufacturerId;
@@ -657,8 +636,6 @@ namespace eMine.Lib.Repositories.Fleet
             {
                 var vehicleGetQuery = from vehicle in dbContext.Vehicles
                                       where vehicle.VehicleId == vehicleId
-                                      && vehicle.DeletedInd == false
-                                      && vehicle.CompanyId == profile.CompanyId
                                       select new VehicleModel
                                       {
                                           VehicleId = vehicle.VehicleId,
@@ -668,7 +645,7 @@ namespace eMine.Lib.Repositories.Fleet
                                           VehicleModelId = vehicle.VehicleModelId
                                       };
 
-                model = vehicleGetQuery.FirstOrDefault();
+                model = await vehicleGetQuery.SingleAsync();
             }
 
             model.VehicleTypeList = await VehicleTypeListItemGet();
@@ -686,8 +663,6 @@ namespace eMine.Lib.Repositories.Fleet
                                join driver in dbContext.VehicleDrivers on vehicle.VehicleDriverId equals driver.VehicleDriverId into driverJoin
                                from vehicledriver in driverJoin.DefaultIfEmpty()
                                where vehicle.VehicleId == vehicleId
-                               && vehicle.DeletedInd == false
-                               && vehicle.CompanyId == profile.CompanyId
                                select new VehicleDetailsModel
                                {
                                    VehicleId = vehicle.VehicleId,
@@ -703,12 +678,11 @@ namespace eMine.Lib.Repositories.Fleet
                                    ServiceDate = vehicle.LastServiceDate,
 
                                };
-            VehicleDetailsModel model = vehicleQuery.FirstOrDefault();
+            VehicleDetailsModel model = await vehicleQuery.SingleAsync();
 
             var serviceQuery = from service in dbContext.VehicleServices
                                where service.VehicleId == vehicleId
                                && service.DeletedInd == false
-                               && service.CompanyId == profile.CompanyId
                                orderby service.ServiceStartDate descending
                                select new VehicleServiceModel
                                {
@@ -728,8 +702,6 @@ namespace eMine.Lib.Repositories.Fleet
         {
             var manQuery = from manufacturer in dbContext.VehicleManufacturers
                            where manufacturer.VehicleManufacturerId == manufacturerId
-                           && manufacturer.DeletedInd == false
-                           && manufacturer.CompanyId == profile.CompanyId
                            select new ManufacturerDetailsModel
                            {
                                VehicleManufacturerId = manufacturer.VehicleManufacturerId,
@@ -737,12 +709,11 @@ namespace eMine.Lib.Repositories.Fleet
                                Name = manufacturer.Name
                            };
 
-            ManufacturerDetailsModel model = manQuery.FirstOrDefault();
+            ManufacturerDetailsModel model = await manQuery.SingleAsync();
 
             var modelsQuery = from vmodel in dbContext.VehicleModels
                               where vmodel.VehicleManufacturerId == manufacturerId
                               && vmodel.DeletedInd == false
-                              && vmodel.CompanyId == profile.CompanyId
                               select new VehicleManufactureModelModel
                               {
                                   Name = vmodel.Name,
@@ -819,8 +790,6 @@ namespace eMine.Lib.Repositories.Fleet
                 //Update the total available spare parts
                 SparePartEntity result = await (from p in dbContext.SpareParts
                                           where p.SparePartId == part.SparePartId
-                                          && p.DeletedInd == false
-                                          && p.CompanyId == profile.CompanyId
                                           select p).SingleOrDefaultAsync();
 
                 result.AvailableQuantity -= part.Quantity;
@@ -852,8 +821,6 @@ namespace eMine.Lib.Repositories.Fleet
         {
             var serviceQuery = from service in dbContext.VehicleServices
                                where service.VehicleServiceId == vehicleServiceId
-                               && service.DeletedInd == false
-                               && service.CompanyId == profile.CompanyId
                                select new VehicleServiceViewModel
                                {
                                    VehicleServiceId = service.VehicleServiceId,
@@ -864,7 +831,7 @@ namespace eMine.Lib.Repositories.Fleet
                                    MiscCost = service.MiscServiceCost,
                                    ServiceCost = service.TotalServiceCost
                                };
-            VehicleServiceViewModel model = serviceQuery.FirstOrDefault();
+            VehicleServiceViewModel model = await serviceQuery.SingleOrDefaultAsync();
 
             //for adding return blank model
             if (model == null)
@@ -873,7 +840,6 @@ namespace eMine.Lib.Repositories.Fleet
             var sparePartsQuery = from parts in dbContext.VehicleServiceSpareParts
                                   where parts.VehicleServiceId == vehicleServiceId 
                                   && parts.DeletedInd == false
-                                  && parts.CompanyId == profile.CompanyId
                                   select new SparePartModel
                                   {
                                       VehicleServiceSparePartId = parts.VehicleServiceSparePartId,
@@ -896,7 +862,6 @@ namespace eMine.Lib.Repositories.Fleet
                                &&  (service.ServiceStartDate > StartDate)
                                &&  (service.ServiceStartDate < EndDate)
                                && service.DeletedInd == false
-                               && service.CompanyId == profile.CompanyId
                                select new VehicleServiceViewModel
                                {
                                    VehicleServiceId = service.VehicleServiceId,
@@ -927,13 +892,10 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task VehicleServiceUpdate(VehicleServiceViewModel model)
         {
-            //Update the VehicleService Entity first
             VehicleServiceEntity vsEntity = await
                 (from vsm in dbContext.VehicleServices
                  where vsm.VehicleServiceId == model.VehicleServiceId
-                 && vsm.DeletedInd == false
-                 && vsm.CompanyId == profile.CompanyId
-                 select vsm).FirstAsync();
+                 select vsm).SingleAsync();
             vsEntity.Compliant = model.Compliant;
             vsEntity.MiscServiceCost = model.MiscCost;
             vsEntity.ServiceDeliveryDate = model.ServiceDate;
@@ -944,14 +906,14 @@ namespace eMine.Lib.Repositories.Fleet
             dbContext.SaveChanges();
 
             //Get the current links from the database for the data integrity
-            var query = from vs in dbContext.VehicleServiceSpareParts where vs.VehicleServiceId == model.VehicleServiceId && vs.DeletedInd == false && vs.CompanyId == profile.CompanyId select vs;
+            var query = from vs in dbContext.VehicleServiceSpareParts where vs.VehicleServiceId == model.VehicleServiceId && vs.DeletedInd == false select vs;
             List<VehicleServiceSparePartEntity> spareParts = query.ToList();
 
             //updating and deleting the existing VehicleServiceSpareParts in DB
             SparePartModel currentPart;
             foreach (var part in spareParts)
             {
-                currentPart = model.SpareParts.FirstOrDefault(p => p.VehicleServiceSparePartId == part.VehicleServiceSparePartId && part.DeletedInd == false);
+                currentPart = model.SpareParts.SingleOrDefault(p => p.VehicleServiceSparePartId == part.VehicleServiceSparePartId && part.DeletedInd == false);
                 if (currentPart == null)
                 {
                     //user deleted this in the UI

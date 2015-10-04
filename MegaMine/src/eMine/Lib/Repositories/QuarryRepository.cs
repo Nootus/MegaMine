@@ -48,7 +48,7 @@ namespace eMine.Lib.Repositories
 
         public async Task MaterialColourUpdate(MaterialColourModel model)
         {
-            MaterialColourEntity entity = await (from mc in dbContext.MaterialColours where mc.MaterialColourId == model.MaterialColourId && mc.CompanyId == profile.CompanyId select mc).FirstAsync();
+            MaterialColourEntity entity = await (from mc in dbContext.MaterialColours where mc.MaterialColourId == model.MaterialColourId select mc).SingleAsync();
             entity.ColourName = model.ColourName;
             entity.ColourDescription = model.ColourDescription;
             entity.UpdateAuditFields();
@@ -102,7 +102,7 @@ namespace eMine.Lib.Repositories
 
         public async Task ProductTypeUpdate(ProductTypeModel model)
         {
-            ProductTypeEntity entity = await (from pt in dbContext.ProductTypes where pt.ProductTypeId == model.ProductTypeId && pt.CompanyId == profile.CompanyId select pt).FirstAsync();
+            ProductTypeEntity entity = await (from pt in dbContext.ProductTypes where pt.ProductTypeId == model.ProductTypeId select pt).SingleAsync();
             entity.ProductTypeName = model.ProductTypeName;
             entity.ProductTypeDescription = model.ProductTypeDescription;
             entity.UpdateAuditFields();
@@ -175,7 +175,7 @@ namespace eMine.Lib.Repositories
 
         public async Task QuarryUpdate(QuarryModel model)
         {
-            QuarryEntity entity = await (from qry in dbContext.Quarries where qry.QuarryId == model.QuarryId && qry.CompanyId == profile.CompanyId select qry).FirstAsync();
+            QuarryEntity entity = await (from qry in dbContext.Quarries where qry.QuarryId == model.QuarryId select qry).SingleAsync();
             entity.QuarryName = model.QuarryName;
             entity.Location = model.Location;
             entity.UpdateAuditFields();
@@ -191,7 +191,7 @@ namespace eMine.Lib.Repositories
             model.ColourIds.Except(colours.Select(ce => ce.MaterialColourId)).ToList().ForEach(cId => dbContext.QuarryMaterialColours.Add(new QuarryMaterialColourEntity() { QuarryId = model.QuarryId, MaterialColourId = cId }));
 
             //updating Yard
-            YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == model.QuarryId select yd).FirstAsync();
+            YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == model.QuarryId select yd).SingleAsync();
             yard.Location = model.Location;
             yard.YardName = model.QuarryName + " Yard";
             dbContext.Yards.Update(yard);
@@ -245,7 +245,7 @@ namespace eMine.Lib.Repositories
 
         public async Task YardUpdate(YardModel model)
         {
-            YardEntity entity = await (from yd in dbContext.Yards where yd.YardId == model.YardId && yd.CompanyId == profile.CompanyId select yd).FirstAsync();
+            YardEntity entity = await (from yd in dbContext.Yards where yd.YardId == model.YardId select yd).SingleAsync();
             entity.YardName = model.YardName;
             entity.Location = model.Location;
             entity.UpdateAuditFields();
@@ -277,7 +277,7 @@ namespace eMine.Lib.Repositories
 
             foreach(var model in models)
             {
-                yardId = yards.Where(y => y.QuarryId == model.QuarryId).Select(y => y.YardId).First();
+                yardId = yards.Where(y => y.QuarryId == model.QuarryId).Select(y => y.YardId).Single();
 
                 MaterialEntity material = new MaterialEntity()
                 {
@@ -358,7 +358,6 @@ namespace eMine.Lib.Repositories
                         join pt in dbContext.ProductTypes on mt.ProductTypeId equals pt.ProductTypeId
                         join mc in dbContext.MaterialColours on mt.MaterialColourId equals mc.MaterialColourId
                         where mm.CurrentInd == true
-                         && mm.CompanyId == profile.CompanyId
                          && mt.DeletedInd == false
                          && mm.ToYardId == yardId
                         select new StockModel()
@@ -414,7 +413,7 @@ namespace eMine.Lib.Repositories
 
         public async Task MaterialUpdate(MaterialModel model)
         {
-            MaterialEntity entity = await (from mt in dbContext.Materials where mt.MaterialId == model.MaterialId && mt.CompanyId == profile.CompanyId select mt).FirstAsync();
+            MaterialEntity entity = await (from mt in dbContext.Materials where mt.MaterialId == model.MaterialId select mt).SingleAsync();
             entity.ProductTypeId = model.ProductTypeId;
             entity.MaterialColourId = model.MaterialColourId;
             entity.Dimensions = model.Dimensions;
@@ -430,11 +429,11 @@ namespace eMine.Lib.Repositories
                 //getting the YardId
                 List<YardModel> yards = await YardsGet();
 
-                int oldYardId = yards.First(y => y.QuarryId == entity.QuarryId).YardId;
-                int newYardId = yards.First(y => y.QuarryId == model.QuarryId).YardId;
+                int oldYardId = yards.Single(y => y.QuarryId == entity.QuarryId).YardId;
+                int newYardId = yards.Single(y => y.QuarryId == model.QuarryId).YardId;
 
                 //updating the movement records
-                List<MaterialMovementEntity> movementEntites = await (from me in dbContext.MaterialMovements where me.MaterialId == model.MaterialId && me.FromYardId == oldYardId && me.CompanyId == profile.CompanyId orderby me.MaterialMovementId select me).Take(2).ToListAsync();
+                List<MaterialMovementEntity> movementEntites = await (from me in dbContext.MaterialMovements where me.MaterialId == model.MaterialId && me.FromYardId == oldYardId orderby me.MaterialMovementId select me).Take(2).ToListAsync();
 
                 //updating the first record
                 bool intiallyMoved = false;

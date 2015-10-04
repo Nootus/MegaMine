@@ -3,6 +3,21 @@
   "version": 1,
   "targets": {
     "DNX,Version=v4.5.1": {
+      "AutoMapper/4.0.4": {
+        "type": "package",
+        "frameworkAssemblies": [
+          "Microsoft.CSharp",
+          "mscorlib",
+          "System",
+          "System.Core"
+        ],
+        "compile": {
+          "lib/net45/AutoMapper.dll": {}
+        },
+        "runtime": {
+          "lib/net45/AutoMapper.dll": {}
+        }
+      },
       "EntityFramework.Core/7.0.0-beta7": {
         "type": "package",
         "dependencies": {
@@ -1763,6 +1778,37 @@
     }
   },
   "libraries": {
+    "AutoMapper/4.0.4": {
+      "type": "package",
+      "sha512": "7EJaXSD7mI/T1nwlAgsUcxiuSW4zAY8cQy52/onmc8+lM4T9XqVlDqvFuY9pzcNxI1c2X3GD47G8qDO0hcip1g==",
+      "files": [
+        "AutoMapper.4.0.4.nupkg",
+        "AutoMapper.4.0.4.nupkg.sha512",
+        "AutoMapper.nuspec",
+        "lib/dotnet/AutoMapper.dll",
+        "lib/dotnet/AutoMapper.xml",
+        "lib/MonoAndroid/AutoMapper.dll",
+        "lib/MonoAndroid/AutoMapper.XML",
+        "lib/MonoTouch/AutoMapper.dll",
+        "lib/MonoTouch/AutoMapper.XML",
+        "lib/net40/AutoMapper.dll",
+        "lib/net40/AutoMapper.xml",
+        "lib/net45/AutoMapper.dll",
+        "lib/net45/AutoMapper.xml",
+        "lib/portable-net45+win+wpa81+wp80+MonoAndroid10+Xamarin.iOS10+MonoTouch10/AutoMapper.dll",
+        "lib/portable-net45+win+wpa81+wp80+MonoAndroid10+Xamarin.iOS10+MonoTouch10/AutoMapper.xml",
+        "lib/sl50/AutoMapper.dll",
+        "lib/sl50/AutoMapper.xml",
+        "lib/win/AutoMapper.dll",
+        "lib/win/AutoMapper.xml",
+        "lib/wp80/AutoMapper.dll",
+        "lib/wp80/AutoMapper.xml",
+        "lib/wpa81/AutoMapper.dll",
+        "lib/wpa81/AutoMapper.xml",
+        "lib/Xamarin.iOS10/AutoMapper.dll",
+        "lib/Xamarin.iOS10/AutoMapper.XML"
+      ]
+    },
     "EntityFramework.Core/7.0.0-beta7": {
       "type": "package",
       "serviceable": true,
@@ -3738,7 +3784,8 @@
       "EntityFramework.SqlServer >= 7.0.0-beta7",
       "Microsoft.AspNet.Diagnostics >= 1.0.0-beta7",
       "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-beta7",
-      "Microsoft.Framework.Configuration.Json >= 1.0.0-beta6"
+      "Microsoft.Framework.Configuration.Json >= 1.0.0-beta6",
+      "AutoMapper >= 4.0.4"
     ],
     "DNX,Version=v4.5.1": []
   }
