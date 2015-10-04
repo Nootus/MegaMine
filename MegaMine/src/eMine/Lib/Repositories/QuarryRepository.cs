@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 
 namespace eMine.Lib.Repositories
 {
@@ -23,38 +24,25 @@ namespace eMine.Lib.Repositories
                         where mc.DeletedInd == false
                             && mc.CompanyId == profile.CompanyId
                         orderby mc.ColourName ascending
-                        select new MaterialColourModel
-                        {
-                            MaterialColourId = mc.MaterialColourId,
-                            ColourName = mc.ColourName,
-                            ColourDescription = mc.ColourDescription
-
-                        };
+                        select Mapper.Map<MaterialColourEntity, MaterialColourModel>(mc);
 
             return await query.ToListAsync();
         }
 
         public async Task MaterialColourAdd(MaterialColourModel model)
         {
-            MaterialColourEntity entity = new MaterialColourEntity()
-            {
-                ColourName = model.ColourName,
-                ColourDescription = model.ColourDescription
-            };
+            MaterialColourEntity entity = Mapper.Map<MaterialColourModel, MaterialColourEntity>(model);
             dbContext.MaterialColours.Add(entity);
             await dbContext.SaveChangesAsync();
-
         }
 
         public async Task MaterialColourUpdate(MaterialColourModel model)
         {
             MaterialColourEntity entity = await (from mc in dbContext.MaterialColours where mc.MaterialColourId == model.MaterialColourId select mc).SingleAsync();
-            entity.ColourName = model.ColourName;
-            entity.ColourDescription = model.ColourDescription;
+            Mapper.Map<MaterialColourModel, MaterialColourEntity>(model, entity);
             entity.UpdateAuditFields();
             dbContext.MaterialColours.Update(entity);
             await dbContext.SaveChangesAsync();
-
         }
 
         public async Task MaterialColourSave(MaterialColourModel model)
@@ -77,24 +65,14 @@ namespace eMine.Lib.Repositories
                         where pt.DeletedInd == false
                             && pt.CompanyId == profile.CompanyId
                         orderby pt.ProductTypeName ascending
-                        select new ProductTypeModel
-                        {
-                            ProductTypeId = pt.ProductTypeId,
-                            ProductTypeName = pt.ProductTypeName,
-                            ProductTypeDescription = pt.ProductTypeDescription
-
-                        };
+                        select Mapper.Map<ProductTypeEntity, ProductTypeModel>(pt);
 
             return await query.ToListAsync();
         }
 
         public async Task ProductTypeAdd(ProductTypeModel model)
         {
-            ProductTypeEntity entity = new ProductTypeEntity()
-            {
-                ProductTypeName = model.ProductTypeName,
-                ProductTypeDescription = model.ProductTypeDescription
-            };
+            ProductTypeEntity entity = Mapper.Map<ProductTypeModel, ProductTypeEntity>(model);
             dbContext.ProductTypes.Add(entity);
             await dbContext.SaveChangesAsync();
 
@@ -103,8 +81,7 @@ namespace eMine.Lib.Repositories
         public async Task ProductTypeUpdate(ProductTypeModel model)
         {
             ProductTypeEntity entity = await (from pt in dbContext.ProductTypes where pt.ProductTypeId == model.ProductTypeId select pt).SingleAsync();
-            entity.ProductTypeName = model.ProductTypeName;
-            entity.ProductTypeDescription = model.ProductTypeDescription;
+            Mapper.Map<ProductTypeModel, ProductTypeEntity>(model, entity);
             entity.UpdateAuditFields();
             dbContext.ProductTypes.Update(entity);
             await dbContext.SaveChangesAsync();
@@ -131,13 +108,7 @@ namespace eMine.Lib.Repositories
                         where qry.DeletedInd == false
                             && qry.CompanyId == profile.CompanyId
                         orderby qry.QuarryName ascending
-                        select new QuarryModel
-                        {
-                            QuarryId = qry.QuarryId,
-                            QuarryName = qry.QuarryName,
-                            Location = qry.Location
-
-                        }).ToListAsync();
+                                select Mapper.Map<QuarryEntity, QuarryModel>(qry)).ToListAsync();
 
             var quarryColours = await (from clr in dbContext.QuarryMaterialColours
                                         join mc in dbContext.MaterialColours on clr.MaterialColourId equals mc.MaterialColourId
@@ -156,11 +127,7 @@ namespace eMine.Lib.Repositories
 
         public async Task QuarryAdd(QuarryModel model)
         {
-            QuarryEntity entity = new QuarryEntity()
-            {
-                QuarryName = model.QuarryName,
-                Location = model.Location
-            };
+            QuarryEntity entity = Mapper.Map<QuarryModel, QuarryEntity>(model);
             dbContext.Quarries.Add(entity);
 
             //adding colours ids
@@ -176,8 +143,7 @@ namespace eMine.Lib.Repositories
         public async Task QuarryUpdate(QuarryModel model)
         {
             QuarryEntity entity = await (from qry in dbContext.Quarries where qry.QuarryId == model.QuarryId select qry).SingleAsync();
-            entity.QuarryName = model.QuarryName;
-            entity.Location = model.Location;
+            Mapper.Map<QuarryModel, QuarryEntity>(model, entity);
             entity.UpdateAuditFields();
             dbContext.Quarries.Update(entity);
 
@@ -220,24 +186,14 @@ namespace eMine.Lib.Repositories
                         where yd.DeletedInd == false
                             && yd.CompanyId == profile.CompanyId
                         orderby yd.YardName ascending
-                        select new YardModel
-                        {
-                            YardId = yd.YardId,
-                            YardName = yd.YardName,
-                            Location = yd.Location,
-                            QuarryId = yd.QuarryId
-                        };
+                        select Mapper.Map<YardEntity, YardModel>(yd);
 
             return await query.ToListAsync();
         }
 
         public async Task YardAdd(YardModel model)
         {
-            YardEntity entity = new YardEntity()
-            {
-                YardName = model.YardName,
-                Location = model.Location
-            };
+            YardEntity entity = Mapper.Map<YardModel, YardEntity>(model);
             dbContext.Yards.Add(entity);
             await dbContext.SaveChangesAsync();
 
@@ -246,8 +202,7 @@ namespace eMine.Lib.Repositories
         public async Task YardUpdate(YardModel model)
         {
             YardEntity entity = await (from yd in dbContext.Yards where yd.YardId == model.YardId select yd).SingleAsync();
-            entity.YardName = model.YardName;
-            entity.Location = model.Location;
+            Mapper.Map<YardModel, YardEntity>(model, entity);
             entity.UpdateAuditFields();
             dbContext.Yards.Update(entity);
             await dbContext.SaveChangesAsync();
@@ -279,19 +234,7 @@ namespace eMine.Lib.Repositories
             {
                 yardId = yards.Where(y => y.QuarryId == model.QuarryId).Select(y => y.YardId).Single();
 
-                MaterialEntity material = new MaterialEntity()
-                {
-                    ProductTypeId = model.ProductTypeId,
-                    QuarryId = model.QuarryId,
-                    Dimensions = model.Dimensions,
-                    Length = model.Length,
-                    Width = model.Width,
-                    Height = model.Height,
-                    Weight = model.Weight,
-                    MaterialColourId = model.MaterialColourId,
-                    MaterialDate = model.MaterialDate
-                };
-
+                MaterialEntity material = Mapper.Map<MaterialModel, MaterialEntity>(model);
                 dbContext.Materials.Add(material);
 
                 //adding to the Yard
@@ -414,14 +357,7 @@ namespace eMine.Lib.Repositories
         public async Task MaterialUpdate(MaterialModel model)
         {
             MaterialEntity entity = await (from mt in dbContext.Materials where mt.MaterialId == model.MaterialId select mt).SingleAsync();
-            entity.ProductTypeId = model.ProductTypeId;
-            entity.MaterialColourId = model.MaterialColourId;
-            entity.Dimensions = model.Dimensions;
-            entity.Length = model.Length;
-            entity.Width = model.Width;
-            entity.Height = model.Height;
-            entity.Weight = model.Weight;
-            entity.MaterialDate = model.MaterialDate;
+            Mapper.Map<MaterialModel, MaterialEntity>(model, entity);
             entity.UpdateAuditFields();
 
             if(entity.QuarryId != model.QuarryId)

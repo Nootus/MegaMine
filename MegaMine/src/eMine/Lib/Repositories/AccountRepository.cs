@@ -7,6 +7,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
+using AutoMapper;
+using eMine.Lib.Entities.Administration;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace eMine.Lib.Repositories
 {
@@ -39,13 +42,7 @@ namespace eMine.Lib.Repositories
                                join usrcmp in dbContext.UserCompanies on cmp.CompanyId equals usrcmp.CompanyId
                                where usrcmp.UserProfileId == model.UserID
                                && cmp.DeletedInd == false
-                               select new CompanyModel
-                               {
-                                   CompanyId = cmp.CompanyId,
-                                   CompanyName = cmp.CompanyName,
-                                   GroupInd = cmp.GroupInd,
-                                   ParentCompanyId = cmp.ParentCompanyId
-                               };
+                               select Mapper.Map<CompanyEntity, CompanyModel>(cmp);
             model.Companies = await companyQuery.ToListAsync();
 
             //getting roles
@@ -59,22 +56,14 @@ namespace eMine.Lib.Repositories
             var rolesClaimsQuery = from roles in dbContext.UserRoles
                                   join claims in dbContext.RoleClaims on roles.RoleId equals claims.RoleId
                                   where roles.UserId == model.UserID
-                                  select new ClaimModel
-                                  {
-                                      ClaimType = claims.ClaimType,
-                                      ClaimValue = claims.ClaimValue
-                                  };
+                                  select Mapper.Map<IdentityRoleClaim<string>, ClaimModel>(claims);
 
             var roleClaims = await rolesClaimsQuery.ToListAsync();
 
             //getting user specific overrides
             var userClaimsQuery = from claim in dbContext.UserClaims
                                   where claim.UserId == model.UserID
-                                  select new ClaimModel
-                                  {
-                                      ClaimType = claim.ClaimType,
-                                      ClaimValue = claim.ClaimValue,
-                                  };
+                                  select Mapper.Map<IdentityUserClaim<string>, ClaimModel>(claim);
 
             var userClaims = await userClaimsQuery.ToListAsync();
 

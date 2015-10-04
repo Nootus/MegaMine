@@ -4,7 +4,7 @@ using eMine.Models.Fleet;
 
 namespace eMine.Lib.Mapping
 {
-    public class FleetMappingProfile : AutoMapper.Profile
+    public class FleetMappingProfile : Profile
     {
         public override string ProfileName
         {

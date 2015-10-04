@@ -21,12 +21,15 @@ namespace eMine.Lib.Entities
         {
             var profile = Profile.Current;
 
-            CreatedUserId = profile.UserName;
+            if(profile != null)
+            {
+                CreatedUserId = profile.UserName;
+                LastModifiedUserId = profile.UserName;
+                CompanyId = profile.CompanyId;
+            }
             CreatedDate = DateTime.UtcNow;
-            LastModifiedUserId = profile.UserName;
             LastModifiedDate = DateTime.UtcNow;
             DeletedInd = false;
-            CompanyId = profile.CompanyId;
         }
 
         public virtual void UpdateAuditFields()
