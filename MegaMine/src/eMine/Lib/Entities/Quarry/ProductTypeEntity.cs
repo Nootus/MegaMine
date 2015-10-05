@@ -11,5 +11,7 @@ namespace eMine.Lib.Entities.Quarry
         public int ProductTypeId { get; set; }
         public string ProductTypeName { get; set; }
         public string ProductTypeDescription { get; set; }
+        public string Formula { get; set; }
+        public int? FormulaOrder { get; set; }
     }
 }
