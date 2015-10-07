@@ -7,12 +7,12 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, consta
     var gridOptions = {
         columnDefs: [
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
-                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
                     { name: 'length', field: 'length', type: 'number', displayName: 'Length', enableHiding: false },
                     { name: 'width', field: 'width', type: 'number', displayName: 'Width', enableHiding: false },
                     { name: 'height', field: 'height', type: 'number', displayName: 'Height', enableHiding: false },
-                    //{ name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', enableHiding: false },
+                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', enableHiding: false },
+                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
                     //{ name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.vm.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.vm.deleteRowMaterial(row.entity, $event)' }])
         ]
@@ -45,6 +45,7 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, consta
         vm.model.materialDate = new Date();
 
         gridUtility.initializeGrid(vm, $scope, vm.list);
+
     }
 
     function updateDropDownText() {
