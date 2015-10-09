@@ -27,7 +27,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             controllerAs: "vm",
             templateUrl: options.templateUrl,
             targetEvent: options.targetEvent,
-            locals: { $mdDialog: $mdDialog, data: options.data, dialogMode: options.dialogMode },
+            locals: { $mdDialog: $mdDialog, data: options.data, dialogMode: options.dialogMode, returnForm: options.returnForm },
             resolve: options.resolve
         });
 
@@ -38,7 +38,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
         $mdDialog.hide();
     }
 
-    function dialogController($scope, $mdDialog, data, dialogMode) {
+    function dialogController($scope, $mdDialog, data, dialogMode, returnForm) {
 
 
         var dialog = {
@@ -69,11 +69,17 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             $mdDialog.cancel();
         }
         function save(form) {
+            //form.formulaOrder.$setValidity('orderRequired', false)
             if (form.$valid) {
                 if (dialog.deferredPromiseState === undefined)
                     dialog.deferredPromiseState = angular.copy(vm.deferred.promise.$$state);
                 angular.extend(vm.deferred.promise.$$state, dialog.deferredPromiseState)
-                vm.deferred.resolve(dialog.model)
+                if (returnForm === true) {
+                    vm.deferred.resolve({ dialogModel: dialog.model, form: form });
+                }
+                else {
+                    vm.deferred.resolve(dialog.model)
+                }
             }
         }
         function deleteItem(ev) {

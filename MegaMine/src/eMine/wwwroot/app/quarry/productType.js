@@ -64,15 +64,18 @@ function productType($scope, quarryService, gridUtility, constants, dialogServic
     }
 
     function viewDialog(model, dialogMode, ev) {
-        model.orderErrorMessages = [{ type: 'orderRequired', text: 'Required!' }];
+        model.orderErrorMessages = [{ type: 'orderRequired', text: 'Required!', }];
 
         dialogService.show({
             templateUrl: 'product_type_dialog',
             targetEvent: ev,
             data: { model: model },
-            dialogMode: dialogMode
+            dialogMode: dialogMode,
+            returnForm: true
         })
-        .then(function (dialogModel, form) {
+        .then(function (response) {
+            var dialogModel = response.dialogModel;
+            var form = response.form;
             dialogModel.formula = JSON.stringify(dialogModel.formulaJson);
             var formulaExists = false;
             angular.forEach(dialogModel.formulaJson, function (item) {
@@ -81,7 +84,7 @@ function productType($scope, quarryService, gridUtility, constants, dialogServic
                 }
             });
             if (formulaExists && (dialogModel.formulaOrder === null || dialogModel.formulaOrder === undefined)) {
-                alert('error');
+                form.formulaOrder.$setValidity('orderRequired', false)
                 return;
             }
             
