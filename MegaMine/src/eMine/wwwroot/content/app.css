@@ -307,6 +307,49 @@ img.splash-loading{
     width: 100px;
 }
 
+div.type-formula{
+    padding: 1px;
+}
+
+div.type-formula label{
+    display: inline-block;
+    font-size: 15px;
+    padding-left: 2px;
+    position: relative;
+    top: -2px;
+    transform: matrix(0.75, 0, 0, 0.75, 0, 6);
+    transform-origin: 0px 0px;
+    transition-delay: 0s;
+    transition-duration: 0s;
+    transition-property: none;
+    transition-timing-function: ease;
+}
+
+div.type-formula input{
+    width: 70px;
+    order: 2;
+    padding-top: 2px;
+    padding-bottom: 1px;
+    padding-left: 2px;
+    padding-right: 2px;
+    border-width: 0 0 1px 0;
+    line-height: 26px;
+    border-radius: 0;
+}
+
+div.type-formula input:focus {
+    border-color: rgb(158, 158, 158) !important;
+    border-width: 0 0 2px 0 !important;
+    outline: none;
+}
+
+div.type-formula select{
+    order: 2;
+    padding-top: 2px;
+    padding-bottom: 6px;
+    border-width: 0 0 1px 0;
+    border-radius: 0;
+}
 
 .icon-button {
   height: 32px;

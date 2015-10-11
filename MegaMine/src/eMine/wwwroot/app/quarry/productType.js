@@ -18,7 +18,8 @@ function productType($scope, quarryService, gridUtility, constants, dialogServic
     var vm = {
         gridOptions: gridOptions,
         viewDialog: viewDialog,
-        addProductType: addProductType
+        addProductType: addProductType,
+        validateFormulaOrder: validateFormulaOrder
     };
 
     init();
@@ -58,20 +59,34 @@ function productType($scope, quarryService, gridUtility, constants, dialogServic
             return false;
     }
 
+    function validateFormulaOrder(form) {
+        //if (form.toYard !== undefined && !form.toYard.$valid && vm.currentYardId !== vm.toYardId) {
+        //    form.toYard.$setValidity('dupyard', true);
+        //}
+        //alert('enter');
+        if (form !== undefined) {
+            //form.formulaOrder.$setValidity('orderRequired', false)
+        }
+    }
+
     function addProductType(ev) {
         var model = { productTypeId: 0 }
         viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
     function viewDialog(model, dialogMode, ev) {
-        model.orderErrorMessages = [{ type: 'orderRequired', text: 'Required!', }];
+        var validator = {
+            orderErrorMessages: [{ type: 'orderRequired', text: 'Required!', }],
+            validateFormulaOrder: validateFormulaOrder
+        }
 
         dialogService.show({
             templateUrl: 'product_type_dialog',
             targetEvent: ev,
-            data: { model: model },
+            data: { model: model, validator: validator },
             dialogMode: dialogMode,
-            returnForm: true
+            returnForm: true,
+            parentVm: vm
         })
         .then(function (response) {
             var dialogModel = response.dialogModel;

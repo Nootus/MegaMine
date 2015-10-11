@@ -8,31 +8,29 @@
                 <em-input flex="70" form="productTypeForm" label="Description" control-name="productTypeDescription" ng-model="vm.model.productTypeDescription" ng-required="false" em-maxlength="100"></em-input>
             </div>
             <div layout="row">
-                <div flex="35">
-                    {{vm.model.formulaJson[0].field}}
-                    <select ng-model="vm.model.formulaJson[0].operand">
-                        <option value="<"><</option>
-                        <option value="<="><=</option>
-                        <option value="=">=</option>
-                        <option value=">">></option>
-                        <option value=">=">>=</option>
-                    </select>
-                    <input type="number" ng-model="vm.model.formulaJson[0].value" style="width:70px" />
+                <div flex="80">
+                    <div class="type-formula">
+                        <label class="ng-binding">Formula</label>
+                        <div layout="row">
+                            <div flex="45" ng-repeat-start="item in vm.model.formulaJson track by $id(item)">
+                                <label>{{item.field}}</label>
+                                <select ng-model="item.operand">
+                                    <option value="<"><</option>
+                                    <option value="<="><=</option>
+                                    <option value="=">=</option>
+                                    <option value=">">></option>
+                                    <option value=">=">>=</option>
+                                </select>
+                                <input name="formulaValue_{{$index}}" type="number" ng-model="item.value" />
+                            </div>
+                            <div flex="10" ng-repeat-end ng-hide="$last"><label>And</label></div>
+                        </div>
+                    </div>
                 </div>
-                <div flex="10">And</div>
-                <div flex="35">
-                    {{vm.model.formulaJson[1].field}}
-                    <select ng-model="vm.model.formulaJson[1].operand">
-                        <option value="<"><</option>
-                        <option value="<="><=</option>
-                        <option value="=">=</option>
-                        <option value=">">></option>
-                        <option value=">=">>=</option>
-                    </select>
-                    <input type="number" ng-model="vm.model.formulaJson[1].value" style="width:70px" />
-                </div>
-                <em-input flex="20" form="productTypeForm" type="number" label="Formula Order" control-name="formulaOrder" ng-model="vm.model.formulaOrder" error-messages="vm.model.orderErrorMessages"></em-input>
+                <em-input flex="20" form="productTypeForm" type="number" label="Formula Order" control-name="formulaOrder" ng-model="vm.model.formulaOrder" error-messages="vm.validator.orderErrorMessages" ng-change="vm.validator.validateFormulaOrder(productTypeForm)"></em-input>
             </div>
+            <button ng-click="vm.validator.validateFormulaOrder(productTypeForm)">Click</button>
+
         </nt-dialog>
     </md-dialog>
 </script>

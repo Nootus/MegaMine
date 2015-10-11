@@ -13,6 +13,7 @@ function emInput(moment, constants) {
             type: '@',
             ngRequired: '=',
             ngDisabled: '=',
+            ngChange: '=',
             emMaxlength: '@',
             style: '@',
             errorMessages: '=',
@@ -20,7 +21,7 @@ function emInput(moment, constants) {
         link: link,
         template: '<md-input-container md-is-error="isFieldError()" style="{{style}}">'
                     + '<label>{{label}}</label>'
-                    + '<input name="{{controlName}}" type="{{type}}" ng-required="{{ngRequired}}" ng-disabled="ngDisabled" md-maxlength="{{emMaxlength}}" ng-model="ngModel" >'
+                    + '<input name="{{controlName}}" type="{{type}}" ng-required="{{ngRequired}}" ng-disabled="ngDisabled" md-maxlength="{{emMaxlength}}" ng-model="ngModel" ng-change="ngChange" >'
                     + '<div ng-messages="form[controlName].$error" ng-show="isFieldError()">'
                     + '<span ng-message="required">Required!</span>'
                     + '<span ng-message="md-maxlength">Text is too long!</span>'

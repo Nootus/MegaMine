@@ -27,7 +27,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             controllerAs: "vm",
             templateUrl: options.templateUrl,
             targetEvent: options.targetEvent,
-            locals: { $mdDialog: $mdDialog, data: options.data, dialogMode: options.dialogMode, returnForm: options.returnForm },
+            locals: { $mdDialog: $mdDialog, data: options.data, dialogMode: options.dialogMode, returnForm: options.returnForm, parentVm: options.parentVm },
             resolve: options.resolve
         });
 
@@ -38,7 +38,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
         $mdDialog.hide();
     }
 
-    function dialogController($scope, $mdDialog, data, dialogMode, returnForm) {
+    function dialogController($scope, $mdDialog, data, dialogMode, returnForm, parentVm) {
 
 
         var dialog = {
@@ -47,7 +47,8 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             deleteItem: deleteItem,
             dialogMode: dialogMode,
             deferredPromiseState: undefined,
-            dialogError: data.error
+            dialogError: data.error,
+            parentVm: parentVm
         }
 
         init();
@@ -59,7 +60,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             //cloning the model
             utility.deleteProperties(vm.dialogModel);
             if (data.model !== undefined) {
-                dialog.model = angular.extend(vm.dialogModel, data.model);
+                dialog.model = angular.copy(data.model, vm.dialogModel);
             }
             angular.extend($scope, dialog);
         }
@@ -69,7 +70,6 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             $mdDialog.cancel();
         }
         function save(form) {
-            //form.formulaOrder.$setValidity('orderRequired', false)
             if (form.$valid) {
                 if (dialog.deferredPromiseState === undefined)
                     dialog.deferredPromiseState = angular.copy(vm.deferred.promise.$$state);
