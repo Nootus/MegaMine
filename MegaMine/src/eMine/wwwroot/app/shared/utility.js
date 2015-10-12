@@ -14,7 +14,9 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         showError: showError,
         getListItem: getListItem,
         getItem: getItem,
-        deleteProperties: deleteProperties
+        deleteProperties: deleteProperties,
+        isEmpty: isEmpty,
+        isUndefined: isUndefined
     };
 
     return vm;
@@ -60,6 +62,14 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         angular.forEach(model, function (value, property) {
             delete model[property];
         });
+    }
+
+    function isEmpty(value) {
+        return isUndefined(value) || value === '' || value === null || value !== value;
+    };
+
+    function isUndefined(value) {
+        return typeof value === 'undefined';
     }
 };
 

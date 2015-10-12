@@ -8,7 +8,7 @@ namespace eMine.Models.Quarry
 {
     public class MaterialViewModel
     {
-        public List<ListItem<int, string>> ProductType { get; set; }
+        public List<ProductTypeModel> ProductType { get; set; }
         public List<ListItem<int, string>> MaterialColour { get; set; }
         public List<ListItem<int, string>> Quarry { get; set; }
 

@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('productType', productType)
-productType.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
+productType.$inject = ['$scope', 'quarryService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function productType($scope, quarryService, gridUtility, constants, dialogService, template) {
+function productType($scope, quarryService, gridUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -28,15 +28,24 @@ function productType($scope, quarryService, gridUtility, constants, dialogServic
 
     function init() {
         angular.forEach(quarryService.productTypes, function (item) {
-            item.formulaJson = JSON.parse(item.formula);
-            item.formulaString = getFormulaString(item.formulaJson);
-            if (item.formulaJson === null) {
-                item.formulaJson = [];
-                item.formulaJson.push({ field: 'Height' });
-                item.formulaJson.push({ field: 'Weight' });
-            }
+            initializeModel(item);
         });
         gridUtility.initializeGrid(vm, $scope, quarryService.productTypes);
+    }
+
+    function initializeModel(model) {
+        if (model.formula === undefined)
+            model.formula = null;
+
+        model.formulaJson = JSON.parse(model.formula);
+        model.formulaString = getFormulaString(model.formulaJson);
+        if (model.formulaJson === null) {
+            model.formulaJson = [];
+            model.formulaJson.push({ field: 'Length', operand: '>=' });
+            model.formulaJson.push({ field: 'Width', operand: '<=' });
+        }
+
+        return model;
     }
 
     function getFormulaString(formulaJson) {
@@ -60,17 +69,32 @@ function productType($scope, quarryService, gridUtility, constants, dialogServic
     }
 
     function validateFormulaOrder(form) {
-        //if (form.toYard !== undefined && !form.toYard.$valid && vm.currentYardId !== vm.toYardId) {
-        //    form.toYard.$setValidity('dupyard', true);
-        //}
-        //alert('enter');
         if (form !== undefined) {
-            //form.formulaOrder.$setValidity('orderRequired', false)
+            var counter = 0;
+            var controlName = '';
+            var formulaExists = false;
+            while (true) {
+                controlName = "formulaValue_" + counter;
+                if (form[controlName] === undefined)
+                    break;
+                if (!utility.isEmpty(form[controlName].$modelValue)) {
+                    formulaExists = true;
+                    break;
+                }
+                counter++;
+            }
+            
+            if (formulaExists && utility.isEmpty(form.formulaOrder.$modelValue)) {
+                form.formulaOrder.$setValidity('orderRequired', false)
+            }
+            else {
+                form.formulaOrder.$setValidity('orderRequired', true)
+            }
         }
     }
 
     function addProductType(ev) {
-        var model = { productTypeId: 0 }
+        var model = initializeModel({ productTypeId: 0 });
         viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
@@ -92,26 +116,22 @@ function productType($scope, quarryService, gridUtility, constants, dialogServic
             var dialogModel = response.dialogModel;
             var form = response.form;
             dialogModel.formula = JSON.stringify(dialogModel.formulaJson);
-            var formulaExists = false;
-            angular.forEach(dialogModel.formulaJson, function (item) {
-                if (valueExists(item.value)) {
-                    formulaExists = true;
-                }
-            });
-            if (formulaExists && (dialogModel.formulaOrder === null || dialogModel.formulaOrder === undefined)) {
-                form.formulaOrder.$setValidity('orderRequired', false)
-                return;
-            }
             
             quarryService.saveProductType(dialogModel).then(function () {
                 //update the grid values
                 if (dialogModel.productTypeId === 0) {
-                    quarryService.getProductTypes();
+                    quarryService.getProductTypes().then(function () {
+                        angular.forEach(quarryService.productTypes, function (item) {
+                            initializeModel(item);
+                        });
+                    });
                 }
                 else {
                     model.productTypeName = dialogModel.productTypeName
                     model.productTypeDescription = dialogModel.productTypeDescription
                     model.formulaString = getFormulaString(dialogModel.formulaJson);
+                    model.formula = JSON.stringify(dialogModel.formulaJson);
+                    model.formulaJson = angular.copy(dialogModel.formulaJson);
                     model.formulaOrder = dialogModel.formulaOrder
                 }
 

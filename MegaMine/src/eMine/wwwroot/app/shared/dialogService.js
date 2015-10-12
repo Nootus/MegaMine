@@ -58,9 +58,8 @@ function dialogService($timeout, $q, $mdDialog, utility) {
         function init() {
             angular.extend(dialog, data);
             //cloning the model
-            utility.deleteProperties(vm.dialogModel);
             if (data.model !== undefined) {
-                dialog.model = angular.copy(data.model, vm.dialogModel);
+                dialog.model = angular.copy(data.model);
             }
             angular.extend($scope, dialog);
         }

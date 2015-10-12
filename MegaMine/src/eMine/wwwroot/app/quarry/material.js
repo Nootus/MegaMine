@@ -1,19 +1,19 @@
 ﻿'use strict';
 angular.module('emine').controller('material', material)
-material.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'utility', 'constants', 'template'];
+material.$inject = ['$scope', '$mdDialog', '$filter', 'quarryService', 'gridUtility', 'utility', 'constants', 'template'];
 
-function material($scope, $mdDialog, quarryService, gridUtility, utility, constants, template) {
+function material($scope, $mdDialog, $filter, quarryService, gridUtility, utility, constants, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
+                    { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
                     { name: 'length', field: 'length', type: 'number', displayName: 'Length', enableHiding: false },
                     { name: 'width', field: 'width', type: 'number', displayName: 'Width', enableHiding: false },
                     { name: 'height', field: 'height', type: 'number', displayName: 'Height', enableHiding: false },
                     { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', enableHiding: false },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
-                    //{ name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.vm.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.vm.deleteRowMaterial(row.entity, $event)' }])
         ]
     };
@@ -46,10 +46,27 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, consta
 
         gridUtility.initializeGrid(vm, $scope, vm.list);
 
+        var productTypes = $filter('orderBy')(vm.viewModel.productType, ['formulaOrder', 'productTypeName']);
+        angular.forEach(productTypes, function (item) {
+
+        });
+
+        $scope.$watchGroup([vm.model.length, vm.model.width], function (newValues, oldValues) {
+            if (!utility.isEmpty(newValues[0]) && !utility.isEmpty(newValues[1])) {
+                var length = newValues[0];
+                var width = newValues[1];
+
+                for (var counter = 0; counter < productTypes.length; counter++) {
+
+                }
+
+                //vm.viewModel.productType.productType
+            }
+        });
     }
 
     function updateDropDownText() {
-        vm.model.productType = utility.getListItem(vm.viewModel.productType, vm.model.productTypeId);
+        vm.model.productType = utility.getItem(vm.viewModel.productType, vm.model.productTypeId, 'productTypeId', 'productTypeName');
         vm.model.materialColour = utility.getListItem(vm.viewModel.materialColour, vm.model.materialColourId);
         vm.model.quarry = utility.getListItem(vm.viewModel.quarry, vm.model.quarryId);
     }

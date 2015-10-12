@@ -266,14 +266,7 @@ namespace eMine.Lib.Repositories
                                         Item = clr.ColourName
                                     }).ToListAsync();
 
-            viewModel.ProductType = await (from pt in dbContext.ProductTypes
-                                       where pt.DeletedInd == false && pt.CompanyId == profile.CompanyId
-                                          orderby pt.ProductTypeName
-                                          select new ListItem<int, string>()
-                                          {
-                                              Key = pt.ProductTypeId,
-                                              Item = pt.ProductTypeName
-                                          }).ToListAsync();
+            viewModel.ProductType = await ProductTypesGet();
 
             viewModel.Quarry = await (from qry in dbContext.Quarries
                                        where qry.DeletedInd == false && qry.CompanyId == profile.CompanyId
