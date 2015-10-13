@@ -44,7 +44,7 @@ function quarryService($http) {
     //Material Colour
     function getMaterialColours() {
         return $http.get("/api/quarry/materialcoloursget")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.colours.splice(0, service.colours.length);
                 angular.extend(service.colours, data);
@@ -66,7 +66,7 @@ function quarryService($http) {
     //Product Types
     function getProductTypes() {
         return $http.get("/api/quarry/producttypesget")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.productTypes.splice(0, service.productTypes.length);
                 angular.extend(service.productTypes, data);
@@ -88,7 +88,7 @@ function quarryService($http) {
     //Quarry
     function getQuarries() {
         return $http.get("/api/quarry/quarriesget")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.quarries.splice(0, service.quarries.length);
                 angular.extend(service.quarries, data);
@@ -110,7 +110,7 @@ function quarryService($http) {
     //Yardsrry
     function getYards() {
         return $http.get("/api/quarry/yardsget")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.yards.splice(0, service.yards.length);
                 angular.extend(service.yards, data);
@@ -132,7 +132,7 @@ function quarryService($http) {
     //material
     function getMaterialViewModel() {
         return $http.get("/api/quarry/materialviewmodelget")
-            .success(function (data) {
+            .then(function (data) {
                 angular.extend(service.materialViewModel, data);
             });
     }
@@ -143,15 +143,16 @@ function quarryService($http) {
     //stock & material movement
     function getStock(yardId) {
         return $http.get("/api/quarry/stockget", { params: { "yardId": yardId } })
-            .success(function (data) {
+            .then(function (data) {
                 service.stock.splice(0, service.stock.length);
                 angular.extend(service.stock, data);
+                return data;
             });
     }
 
     function moveMaterial(model) {
         return $http.post("/api/quarry/movematerial", model)
-            .success(function (data) {
+            .then(function (data) {
                 service.stock.splice(0, service.stock.length);
                 angular.extend(service.stock, data);
             });

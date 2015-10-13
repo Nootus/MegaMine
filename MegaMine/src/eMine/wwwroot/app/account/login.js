@@ -23,7 +23,7 @@ function login($state, accountService) {
 
     function validate(form) {
         if (form.$valid) {
-            accountService.validate(vm.model).success(function () {
+            accountService.validate(vm.model).then(function () {
                 $state.go('dashboard');
             });
         }

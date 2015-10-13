@@ -57,6 +57,7 @@ function apiInterceptor($q, utility, message, profile) {
                     default:
                         utility.showInfo(response.data.message);
                         response.data = response.data.model;
+                        return $q.resolve(response.data)
                         break;
                 }
             }

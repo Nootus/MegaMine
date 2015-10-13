@@ -366,6 +366,10 @@ div.type-formula select{
     text-align: left;
 }
 
+.view-error{
+    color: red;
+}
+
 .dialog_error{
     color: red;
     text-align: center;

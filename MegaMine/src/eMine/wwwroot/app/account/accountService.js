@@ -20,7 +20,7 @@ function accountService($http, profile) {
 
     function validate(model) {
         return $http.post("/api/account/validate", model)
-            .success(function (data) {
+            .then(function (data) {
                 profile.populate(data);
             });
     }

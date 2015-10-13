@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('stockyard', stockyard)
-stockyard.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
+stockyard.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template', 'message'];
 
-function stockyard($scope, $mdDialog, quarryService, gridUtility, constants, dialogService, template) {
+function stockyard($scope, $mdDialog, quarryService, gridUtility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -26,6 +26,7 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, constants, dia
         editStock: editStock,
         deleteStock: deleteStock,
         getStock: getStock,
+        noStockMessage: undefined
     };
 
     init();
@@ -42,7 +43,11 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, constants, dia
 
     function getStock(form) {
         if (form.$valid) {
-            quarryService.getStock(vm.yardId);
+            vm.noStockMessage = undefined;
+            quarryService.getStock(vm.yardId).then(function () {
+                if (quarryService.stock.length === 0)
+                    vm.noStockMessage = message.noStockMessage;
+            });
         }
     }
 

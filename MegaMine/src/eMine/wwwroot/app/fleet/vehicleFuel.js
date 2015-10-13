@@ -71,7 +71,7 @@ function vehicleFuel($scope, $mdDialog, vehicleService, gridUtility, constants, 
           .targetEvent(ev);
         $mdDialog.show(confirm).then(function () {
             vehicleService.resetFuelAverage(vehicleService.vehicle.vehicleId)
-                .success(function () {
+                .then(function () {
                     vehicleService.vehicle.fuelAverage = null;
                 });
         });

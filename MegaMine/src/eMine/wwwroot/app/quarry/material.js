@@ -48,19 +48,44 @@ function material($scope, $mdDialog, $filter, quarryService, gridUtility, utilit
 
         var productTypes = $filter('orderBy')(vm.viewModel.productType, ['formulaOrder', 'productTypeName']);
         angular.forEach(productTypes, function (item) {
-
+            item.formulaJson = JSON.parse(item.formula);
+            var formulaEval = '';
+            angular.forEach(item.formulaJson, function (formulaItem) {
+                if (!utility.isEmpty(formulaItem.value)) {
+                    formulaEval = formulaEval !== '' ? formulaEval + ' && ' : formulaEval;
+                    formulaEval += 'vm.model.' + formulaItem.field.toLowerCase() + ' ' + formulaItem.operand + ' ' + formulaItem.value;
+                }
+            });
+            if (formulaEval !== '') {
+                item.formulaEval = formulaEval;
+            }
         });
 
-        $scope.$watchGroup([vm.model.length, vm.model.width], function (newValues, oldValues) {
+        $scope.$watchGroup(['vm.model.length', 'vm.model.width'], function (newValues, oldValues) {
             if (!utility.isEmpty(newValues[0]) && !utility.isEmpty(newValues[1])) {
                 var length = newValues[0];
                 var width = newValues[1];
-
+                var blankFormula = false;
+                var productTypeId = undefined;
                 for (var counter = 0; counter < productTypes.length; counter++) {
-
+                    var formulaEval = productTypes[counter].formulaEval;
+                    if (formulaEval === undefined) {
+                        productTypeId = productTypes[counter].productTypeId;
+                        break;
+                    }
+                    else {
+                        if ($scope.$eval(formulaEval) === true) {
+                            productTypeId = productTypes[counter].productTypeId;
+                            break;
+                        }
+                    }
                 }
 
-                //vm.viewModel.productType.productType
+                if (productTypeId === undefined) {
+                    productTypeId = productTypes[counter - 1].productTypeId;
+                }
+
+                vm.model.productTypeId = productTypeId;
             }
         });
     }
@@ -110,7 +135,7 @@ function material($scope, $mdDialog, $filter, quarryService, gridUtility, utilit
               .targetEvent(ev);
             $mdDialog.show(confirm).then(function () {
                 quarryService.saveMaterial(vm.list)
-                    .success(function (data) {
+                    .then(function (data) {
                             vm.list.splice(0, vm.list.length);
                             resetModel();
                         });

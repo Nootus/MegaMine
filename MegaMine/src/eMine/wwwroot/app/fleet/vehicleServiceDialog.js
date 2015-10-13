@@ -48,7 +48,7 @@ function vehicleServiceDialog($mdDialog, vehicleService, utility) {
         };
         function save(form) {
             if (form.$valid) {
-                service.saveVehicleService(vm.model).success(function () {
+                service.saveVehicleService(vm.model).then(function () {
                     $mdDialog.hide();
                 });
             }

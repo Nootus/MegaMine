@@ -91,7 +91,7 @@ function vehicleService($http) {
 
     function getVehicleList() {
         return $http.get("/api/fleet/vehiclelist")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.vehicleList.splice(0, service.vehicleList.length);
                 angular.extend(service.vehicleList, data);
@@ -100,7 +100,7 @@ function vehicleService($http) {
 
     function getManufacturerList() {
         return $http.get("/api/fleet/manufacturersGet")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and add them again
                 service.manufacturerList.splice(0, service.manufacturerList.length);
                 angular.extend(service.manufacturerList, data);
@@ -109,7 +109,7 @@ function vehicleService($http) {
 
     function getVehicle(vehicleId) {
         return $http.get("/api/fleet/vehicledetailsget", { params: { "vehicleId": vehicleId } })
-            .success(function (data) {
+            .then(function (data) {
                 service.vehicle = data
             })
     }
@@ -120,7 +120,7 @@ function vehicleService($http) {
 
     function getManufacturer(manufacturerId) {
         return $http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
-            .success(function (data) {
+            .then(function (data) {
                 service.manufacturer = data
                 service.modelsList.splice(0, service.modelsList.length);
                 angular.extend(service.modelsList, service.manufacturer.models);
@@ -130,7 +130,7 @@ function vehicleService($http) {
     function getTripList(vehicleId)
     {
         return $http.get("/api/fleet/vehicletriplistget", { params: { "vehicleId": vehicleId } })
-            .success(function (data)
+            .then(function (data)
             {
                 service.tripsList.splice(0, service.tripsList.length);
                 angular.extend(service.tripsList, data);
@@ -152,7 +152,7 @@ function vehicleService($http) {
 
     function getFuelList(vehicleId) {
         return $http.get("/api/fleet/fuelgetlist", { params: { "vehicleId": vehicleId } })
-            .success(function (data) {
+            .then(function (data) {
                 service.fuelList.splice(0, service.fuelList.length);
                 angular.extend(service.fuelList, data);
             })
@@ -161,7 +161,7 @@ function vehicleService($http) {
 
     function getModelsList(modelId) {
         return $http.get("/api/fleet/getModelsList", { params: { "modelId": modelId } })
-            .success(function (data) {
+            .then(function (data) {
                 service.modelsList.splice(0, service.modelsList.length);
                 angular.extend(service.modelsList, data);
             })
@@ -193,7 +193,7 @@ function vehicleService($http) {
     function getVehicleDriverList(vehicleId)
     {
         return $http.get("/api/fleet/vehicledrivergetlist", { params: { "vehicleId": vehicleId } })
-            .success(function (data)
+            .then(function (data)
             {
                 service.vehicleDriverList.splice(0, service.vehicleDriverList.length);
                 angular.extend(service.vehicleDriverList, data);
@@ -215,7 +215,7 @@ function vehicleService($http) {
     function getDriversListItems(vehicleId)
     {
         return $http.get("/api/fleet/driverslistget")
-            .success(function (data) {
+            .then(function (data) {
                 service.driverListItems = data
             })
     }
@@ -224,7 +224,7 @@ function vehicleService($http) {
     function getCurrentService(vehicleServiceId)
     {
         return $http.get("/api/fleet/vehicleserviceget", { params: { "vehicleServiceId": vehicleServiceId } })
-            .success(function (data) {
+            .then(function (data) {
                 angular.extend(service.currentVehicleService, data);
             })
     }
@@ -243,7 +243,7 @@ function vehicleService($http) {
             url = "/api/fleet/vehicleserviceupdate";
         }
         return $http.post(url, model)
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.vehicle.ServiceRecord.splice(0, service.vehicle.serviceRecord.length);
                 angular.extend(service.vehicle.serviceRecord, data.serviceRecord);
@@ -253,7 +253,7 @@ function vehicleService($http) {
     function getCurrentVehicle(vehicleId)
     {
         return $http.get("/api/fleet/vehicleget", { params: { "vehicleId": vehicleId } })
-            .success(function (data) {
+            .then(function (data) {
                 angular.extend(service.currentVehicle, data);
                 if (vehicleId === 0) {
                     service.currentVehicle.vehicleTypeId = undefined;
@@ -265,7 +265,7 @@ function vehicleService($http) {
 
     function getCurrentManufacturer(manufacturerId) {
         return $http.get("/api/fleet/manufacturerget", { params: { "manufacturerId": manufacturerId } })
-            .success(function (data) {
+            .then(function (data) {
                 angular.extend(service.currentManufacturer, data);
             })
     }
@@ -281,7 +281,7 @@ function vehicleService($http) {
         }
 
         return $http.post(url, model)
-            .success(function (data) {
+            .then(function (data) {
                 //updating the vehicle
                 service.vehicle.registrationNumber = model.registrationNumber;
                 service.vehicle.vehicleType = model.vehicleType;
@@ -300,7 +300,7 @@ function vehicleService($http) {
         }
 
         return $http.post(url, model)
-            .success(function (data)
+            .then(function (data)
             {
                 //updating the current manufacturer so that the view manufacturer screen gets refreshed properly.
                 service.manufacturer.name = model.name;
@@ -311,7 +311,7 @@ function vehicleService($http) {
 
     function getVehicleType() {
         return $http.get("/api/fleet/vehicletypelistget")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.vehicleTypes.splice(0, service.vehicleTypes.length);
                 angular.extend(service.vehicleTypes, data);
@@ -332,7 +332,7 @@ function vehicleService($http) {
 
     function getDrivers() {
         return $http.get("/api/fleet/driversget")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.drivers.splice(0, service.drivers.length);
                 angular.extend(service.drivers, data);
@@ -353,7 +353,7 @@ function vehicleService($http) {
     function getSparePartList()
     {
         return $http.get("/api/fleet/sparepartlistget")
-            .success(function (data) {
+            .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.sparePartList.splice(0, service.sparePartList.length);
                 angular.extend(service.sparePartList, data);
@@ -362,7 +362,7 @@ function vehicleService($http) {
 
     function getCurrentSparePart(sparePartId) {
         return $http.get("/api/fleet/sparepartget", { params: { "sparePartId": sparePartId } })
-            .success(function (data) {
+            .then(function (data) {
                 angular.extend(service.currentSparePart, data);
             })
     }
@@ -386,7 +386,7 @@ function vehicleService($http) {
 
     function getSparePart(sparePartId) {
         return $http.get("/api/fleet/sparepartdetailsget", { params: { "sparePartId": sparePartId } })
-            .success(function (data) {
+            .then(function (data) {
                 angular.extend(service.sparePart, data);
                 service.ordersList.splice(0, service.ordersList.length);
                 angular.extend(service.ordersList, service.sparePart.orders);
@@ -395,7 +395,7 @@ function vehicleService($http) {
 
     function getCurrentSparePartOrder(sparePartOrderId) {
         return $http.get("/api/fleet/sparepartorderget", { params: { "sparePartOrderId": sparePartOrderId } })
-            .success(function (data) {
+            .then(function (data) {
                 angular.extend(service.currentSparePartOrder, data);
                 service.currentSparePartOrder.orderedUTCdatetime = new Date(service.currentSparePartOrder.orderedUTCdatetime);
             })

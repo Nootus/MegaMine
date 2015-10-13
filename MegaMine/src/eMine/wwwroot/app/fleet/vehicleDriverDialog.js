@@ -60,7 +60,7 @@ function vehicleDriverDialog($mdDialog, vehicleService, utility, moment) {
         function save(form) {
 
             if (form.$valid) {
-                service.saveVehiceDriver(vm.model).success(function () {
+                service.saveVehiceDriver(vm.model).then(function () {
                     var driverName = utility.getListItem(vm.driverListItems, vm.model.vehicleDriverId);
 
                     if (editMode === 2) {

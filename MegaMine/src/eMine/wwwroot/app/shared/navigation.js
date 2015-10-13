@@ -31,7 +31,7 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
             if (profile.isAuthenticated === false && toState.name !== 'login') {
                 if (vm.environmentName.toLowerCase() === constants.devEnvironment) {
                     $http.get("/api/account/defaultprofile")
-                        .success(function (data) {
+                        .then(function (data) {
                             profile.populate(data);
                         });
                 }

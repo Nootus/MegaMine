@@ -8,6 +8,7 @@ function appConfig($httpProvider, $mdThemingProvider) {
 
     // Add the interceptor to the $httpProvider.
     $httpProvider.interceptors.push('apiInterceptor');
+    $httpProvider.useLegacyPromiseExtensions = false;
 
     $mdThemingProvider.theme('default')
       .primaryPalette('grey');

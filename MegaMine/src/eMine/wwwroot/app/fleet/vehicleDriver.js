@@ -76,7 +76,7 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, gri
             resolve: { resolvemodel: function () { return vehicleService.getDriversListItems() } }
         })
         .then(function (dialogModel) {
-            vehicleService.saveVehiceDriver(dialogModel).success(function () {
+            vehicleService.saveVehiceDriver(dialogModel).then(function () {
                 var driverName = utility.getListItem(vehicleService.driverListItems, dialogModel.vehicleDriverId);
 
                 if (editMode === 2) {

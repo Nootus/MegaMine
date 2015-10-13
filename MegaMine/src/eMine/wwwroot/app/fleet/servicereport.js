@@ -49,7 +49,7 @@ function servicereport($state, vehicleService, vehicleServiceDialog) {
     function getReport(ev)
     {
         vehicleService.getServiceReport(vm.model.vehicleId, vm.model.startDate, vm.model.endDate)
-        .success(function (data) {
+        .then(function (data) {
             vm.gridOptions.data = data;
         })
     }
