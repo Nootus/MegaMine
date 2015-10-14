@@ -62,10 +62,8 @@ function material($scope, $mdDialog, $filter, quarryService, gridUtility, utilit
         });
 
         $scope.$watchGroup(['vm.model.length', 'vm.model.width'], function (newValues, oldValues) {
+            //getting the product type
             if (!utility.isEmpty(newValues[0]) && !utility.isEmpty(newValues[1])) {
-                var length = newValues[0];
-                var width = newValues[1];
-                var blankFormula = false;
                 var productTypeId = undefined;
                 for (var counter = 0; counter < productTypes.length; counter++) {
                     var formulaEval = productTypes[counter].formulaEval;
@@ -88,6 +86,13 @@ function material($scope, $mdDialog, $filter, quarryService, gridUtility, utilit
                 vm.model.productTypeId = productTypeId;
             }
         });
+        $scope.$watchGroup(['vm.model.length', 'vm.model.width', 'vm.model.height'], function (newValues, oldValues) {
+            //calculating weight
+            if (!utility.isEmpty(vm.model.length) && !utility.isEmpty(vm.model.width) && !utility.isEmpty(vm.model.height)) {
+                vm.model.weight = Math.round((vm.model.length * vm.model.width * vm.model.height * 2) * 100) / 100;
+            }
+        });
+
     }
 
     function updateDropDownText() {
@@ -161,8 +166,6 @@ function material($scope, $mdDialog, $filter, quarryService, gridUtility, utilit
           .targetEvent(ev);
         $mdDialog.show(confirm).then(function () {
             vm.list.splice(row.index, 1);
-        }, function () {
-            //noting
         });
     }
 
