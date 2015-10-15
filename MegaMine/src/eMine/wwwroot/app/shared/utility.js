@@ -7,7 +7,7 @@ function utility($window, $timeout, toastr, uiGridConstants) {
 
     var virtualDirectory = window.virtualDirectory || '';
 
-    var vm = {
+    var util = {
         virtualDirectory: virtualDirectory,
         routePath: routePath,
         showInfo: showInfo,
@@ -19,7 +19,7 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         isUndefined: isUndefined
     };
 
-    return vm;
+    return util;
 
     function routePath(path) {
         return window.virtualDirectory + "/" + path;

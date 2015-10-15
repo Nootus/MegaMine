@@ -27,7 +27,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             controllerAs: "vm",
             templateUrl: options.templateUrl,
             targetEvent: options.targetEvent,
-            locals: { $mdDialog: $mdDialog, data: options.data, dialogMode: options.dialogMode, returnForm: options.returnForm, parentVm: options.parentVm },
+            locals: { $mdDialog: $mdDialog, dialogOptions: options },
             resolve: options.resolve
         });
 
@@ -38,17 +38,17 @@ function dialogService($timeout, $q, $mdDialog, utility) {
         $mdDialog.hide();
     }
 
-    function dialogController($scope, $mdDialog, data, dialogMode, returnForm, parentVm) {
+    function dialogController($scope, $mdDialog, dialogOptions) {
 
 
         var dialog = {
             save: save,
             cancel: cancel,
             deleteItem: deleteItem,
-            dialogMode: dialogMode,
+            dialogMode: dialogOptions.dialogMode,
             deferredPromiseState: undefined,
-            dialogError: data.error,
-            parentVm: parentVm
+            dialogError: dialogOptions.data.error,
+            parentVm: dialogOptions.parentVm
         }
 
         init();
@@ -56,12 +56,16 @@ function dialogService($timeout, $q, $mdDialog, utility) {
         return dialog;
 
         function init() {
-            angular.extend(dialog, data);
+            angular.extend(dialog, dialogOptions.data);
             //cloning the model
-            if (data.model !== undefined) {
-                dialog.model = angular.copy(data.model);
+            if (dialogOptions.data.model !== undefined) {
+                dialog.model = angular.copy(dialogOptions.data.model);
             }
             angular.extend($scope, dialog);
+
+            if (dialogOptions.dialogInit !== undefined) {
+                dialogOptions.dialogInit($scope, dialog.model);
+            }
         }
 
         function cancel(ev) {
@@ -73,7 +77,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
                 if (dialog.deferredPromiseState === undefined)
                     dialog.deferredPromiseState = angular.copy(vm.deferred.promise.$$state);
                 angular.extend(vm.deferred.promise.$$state, dialog.deferredPromiseState)
-                if (returnForm === true) {
+                if (dialogOptions.returnForm === true) {
                     vm.deferred.resolve({ dialogModel: dialog.model, form: form });
                 }
                 else {

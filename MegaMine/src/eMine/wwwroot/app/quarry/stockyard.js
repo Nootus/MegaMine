@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('stockyard', stockyard)
-stockyard.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template', 'message'];
+stockyard.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'quarryUtility', 'constants', 'dialogService', 'template', 'message'];
 
-function stockyard($scope, $mdDialog, quarryService, gridUtility, constants, dialogService, template, message) {
+function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -59,6 +59,10 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, constants, dia
         viewDialog(model, constants.enum.dialogMode.delete, ev);
     }
 
+    function dialogInit(dialogScope, dialogModel) {
+        quarryUtility.addMaterialWatchers(dialogScope, dialogModel);
+    }
+
     function viewDialog(model, dialogMode, ev) {
         model.currentYardId = vm.yardId;
         dialogService.show({
@@ -66,6 +70,7 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, constants, dia
             targetEvent: ev,
             data: { model: model, viewModel: quarryService.materialViewModel },
             dialogMode: dialogMode,
+            dialogInit: dialogInit,
             resolve: {
                 function () {
                     if (Object.getOwnPropertyNames(quarryService.materialViewModel).length === 0) {
@@ -80,7 +85,7 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, constants, dia
         .then(function (dialogModel) {
             if (dialogMode === constants.enum.dialogMode.delete) {
                 alert('delete functionality yet to be implemented');
-                dialogService.hide();
+                //dialogService.hide();
             }
             else {
                 quarryService.materialUpdate(dialogModel).then(function () {

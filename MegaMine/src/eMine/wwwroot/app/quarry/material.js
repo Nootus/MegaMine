@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('material', material)
-material.$inject = ['$scope', '$mdDialog', '$filter', 'quarryService', 'gridUtility', 'utility', 'constants', 'template'];
+material.$inject = ['$scope', '$mdDialog', '$filter', 'quarryService', 'gridUtility', 'utility', 'quarryUtility', 'constants', 'template'];
 
-function material($scope, $mdDialog, $filter, quarryService, gridUtility, utility, constants, template) {
+function material($scope, $mdDialog, $filter, quarryService, gridUtility, utility, quarryUtility, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -46,53 +46,7 @@ function material($scope, $mdDialog, $filter, quarryService, gridUtility, utilit
 
         gridUtility.initializeGrid(vm, $scope, vm.list);
 
-        var productTypes = $filter('orderBy')(vm.viewModel.productType, ['formulaOrder', 'productTypeName']);
-        angular.forEach(productTypes, function (item) {
-            item.formulaJson = JSON.parse(item.formula);
-            var formulaEval = '';
-            angular.forEach(item.formulaJson, function (formulaItem) {
-                if (!utility.isEmpty(formulaItem.value)) {
-                    formulaEval = formulaEval !== '' ? formulaEval + ' && ' : formulaEval;
-                    formulaEval += 'vm.model.' + formulaItem.field.toLowerCase() + ' ' + formulaItem.operand + ' ' + formulaItem.value;
-                }
-            });
-            if (formulaEval !== '') {
-                item.formulaEval = formulaEval;
-            }
-        });
-
-        $scope.$watchGroup(['vm.model.length', 'vm.model.width'], function (newValues, oldValues) {
-            //getting the product type
-            if (!utility.isEmpty(newValues[0]) && !utility.isEmpty(newValues[1])) {
-                var productTypeId = undefined;
-                for (var counter = 0; counter < productTypes.length; counter++) {
-                    var formulaEval = productTypes[counter].formulaEval;
-                    if (formulaEval === undefined) {
-                        productTypeId = productTypes[counter].productTypeId;
-                        break;
-                    }
-                    else {
-                        if ($scope.$eval(formulaEval) === true) {
-                            productTypeId = productTypes[counter].productTypeId;
-                            break;
-                        }
-                    }
-                }
-
-                if (productTypeId === undefined) {
-                    productTypeId = productTypes[counter - 1].productTypeId;
-                }
-
-                vm.model.productTypeId = productTypeId;
-            }
-        });
-        $scope.$watchGroup(['vm.model.length', 'vm.model.width', 'vm.model.height'], function (newValues, oldValues) {
-            //calculating weight
-            if (!utility.isEmpty(vm.model.length) && !utility.isEmpty(vm.model.width) && !utility.isEmpty(vm.model.height)) {
-                vm.model.weight = Math.round((vm.model.length * vm.model.width * vm.model.height * 2) * 100) / 100;
-            }
-        });
-
+        quarryUtility.addMaterialWatchers($scope, vm.model); 
     }
 
     function updateDropDownText() {
