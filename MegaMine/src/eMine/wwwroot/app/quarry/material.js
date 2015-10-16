@@ -105,6 +105,9 @@ function material($scope, $mdDialog, $filter, quarryService, gridUtility, utilit
     function editRowMaterial(row, ev) {
         vm.previousModel = angular.copy(vm.model);
         angular.extend(vm.model, row);
+        //bypassing watchers that calculate product type and weight
+        vm.model.bypassWeightWatcher = true;
+        vm.model.bypassProductTypeWatcher = true;
         vm.editMode = true;
     }
 
