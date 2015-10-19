@@ -99,6 +99,15 @@ namespace eMine.Lib.Domain
             return await StockGet(yardId);
         }
 
-        #endregion 
+        #endregion
+
+        #region Reports
+        public async Task<List<Dictionary<string, string>>> Summary()
+        {
+            quarryRepository.Summary();
+            return null;
+        }
+        #endregion
+
     }
 }

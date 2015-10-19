@@ -133,6 +133,12 @@ namespace eMine.Controllers
         {
             return await AjaxHelper.SaveGetAsync<List<StockModel>>(m => domain.MaterialUpdate(model, yardId), Messages.Quarry.MaterialUpdateSuccess);
         }
+
+        [HttpGet]
+        public async Task<AjaxModel<List<Dictionary<string, string>>>> Summary()
+        {
+            return await AjaxHelper.GetAsync<List<Dictionary<string, string>>>(m => domain.Summary());
+        }
         #endregion
     }
 }

@@ -8,6 +8,6 @@ namespace eMine.Models.Quarry
 {
     public class SummaryModel
     {
-        public List<ProductTypeModel> ProductTypes { get; set; }
+        public string QuarryName { get; set; }
     }
 }

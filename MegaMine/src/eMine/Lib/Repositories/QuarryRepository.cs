@@ -400,5 +400,16 @@ namespace eMine.Lib.Repositories
 
         #endregion
 
+        #region Reports
+
+        public List<Dictionary<string, string>> Summary()
+        {
+            //var UserType = dbcontext.Set().FromSql("dbo.SomeSproc @p0, @p1", 45, "Ada")
+            var data = dbContext.Set<Dictionary<string, string>>().FromSql("dbo.GetQuarrySummary");
+
+            return null;
+        }
+
+        #endregion
     }
 }
