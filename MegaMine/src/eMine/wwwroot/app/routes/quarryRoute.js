@@ -86,5 +86,16 @@ function quarryRoute($stateProvider) {
                 return quarryService.getYards();
             }]
         })
+        .state("quarrysummary", {
+            url: window.virtualDirectory + "/quarrysummary",
+            title: "Summary",
+            previousState: "dashboard",
+            templateUrl: "/app/quarry/quarrysummary.html",
+            controller: "quarrysummary",
+            controllerAs: "vm",
+            resolve: ['quarryService', function (quarryService) {
+                return quarryService.getYards();
+            }]
+        })
 
 }

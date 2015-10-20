@@ -36,7 +36,11 @@ function quarryService($http) {
         stock: [],
         getStock: getStock,
         moveMaterial: moveMaterial,
-        materialUpdate: materialUpdate
+        materialUpdate: materialUpdate,
+
+        //reports
+        summary: [],
+        summaryGet: summaryGet
     };
 
     return service;
@@ -166,4 +170,15 @@ function quarryService($http) {
                     return response.data;
                 });
     }
+
+    function summaryGet() {
+        return $http.post("/api/quarry/summary")
+            .then(function (data) {
+                service.summary.splice(0, service.summary.length);
+                angular.extend(service.summary, data);
+                return data;
+            });
+    }
+
+
 }
