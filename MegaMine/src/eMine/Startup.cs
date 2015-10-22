@@ -90,7 +90,7 @@ namespace eMine
             //    app.UseErrorHandler("/Error");
             //}
 
-            app.UseErrorPage();
+            //app.UseErrorPage();
 
             app.UseStaticFiles();
             app.UseIdentity();

@@ -80,7 +80,7 @@ function quarryRoute($stateProvider) {
             title: "Material Movement",
             previousState: "dashboard",
             templateUrl: "/app/quarry/materialmovement.html",
-            controller: "materialmovement",
+            controller: "materialMovement",
             controllerAs: "vm",
             resolve: ['quarryService', function (quarryService) {
                 return quarryService.getYards();
@@ -91,11 +91,8 @@ function quarryRoute($stateProvider) {
             title: "Summary",
             previousState: "dashboard",
             templateUrl: "/app/quarry/quarrysummary.html",
-            controller: "quarrysummary",
-            controllerAs: "vm",
-            resolve: ['quarryService', function (quarryService) {
-                return quarryService.getYards();
-            }]
+            controller: "quarrySummary",
+            controllerAs: "vm"
         })
 
 }

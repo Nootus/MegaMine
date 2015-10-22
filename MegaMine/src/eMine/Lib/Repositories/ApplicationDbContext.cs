@@ -48,6 +48,12 @@ namespace eMine.Lib.Repositories
         
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            //stored procedures
+            //builder.Entity<Models.Quarry.SummaryModel>().ToTable("GetQuarrySummary");
+
+            builder.Entity<IdentityRoleHierarchyEntity>().HasKey(e => new { e.RoleId, e.ChildRoleId });
+            builder.Entity<UserCompanyEntity>().HasKey(e => new { e.UserProfileId, e.CompanyId });
+
             base.OnModelCreating(builder);
 
             //renaming identity tables

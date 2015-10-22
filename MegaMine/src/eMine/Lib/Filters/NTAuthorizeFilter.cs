@@ -1,13 +1,11 @@
 ﻿using Microsoft.AspNet.Mvc;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Framework.Internal;
 using eMine.Lib.Shared;
 using System.Security.Claims;
 using eMine.Lib.Middleware;
 using eMine.Models.Shared;
+using Microsoft.AspNet.Mvc.Filters;
 
 namespace eMine.Lib.Filters
 {
@@ -38,7 +36,7 @@ namespace eMine.Lib.Filters
 
             //checking the companyid passed in headers
             string companies = userClaims.Where(c => c.Type == NTClaimTypes.Companies).Select(c => c.Value).FirstOrDefault();
-            string companyId = context.HttpContext.Request.Headers.Get(Constants.HeaderCompanyId);
+            string companyId = context.HttpContext.Request.Headers[Constants.HeaderCompanyId];
             companyId = companyId ?? userClaims.Where(c => c.Type == NTClaimTypes.CompanyId).Select(c => c.Value).FirstOrDefault();
 
             if (companies == null || companyId == null || !companies.Split(',').Contains(companyId))

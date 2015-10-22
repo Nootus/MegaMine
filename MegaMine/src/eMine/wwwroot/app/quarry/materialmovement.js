@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('emine').controller('materialmovement', materialmovement)
-materialmovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants'];
+angular.module('emine').controller('materialMovement', materialMovement)
+materialMovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants'];
 
-function materialmovement($scope, $mdDialog, quarryService, gridUtility, constants) {
+function materialMovement($scope, $mdDialog, quarryService, gridUtility, constants) {
 
     var gridOptions = {
         columnDefs: [

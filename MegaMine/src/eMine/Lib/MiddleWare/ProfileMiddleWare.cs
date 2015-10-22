@@ -34,7 +34,7 @@ namespace eMine.Lib.Middleware
             {
                 var claims = context.User.Claims;
 
-                string companyId = context.Request.Headers.Get(Constants.HeaderCompanyId);
+                string companyId = context.Request.Headers[Constants.HeaderCompanyId];
                 companyId = companyId ?? context.User.Claims.Where(c => c.Type == NTClaimTypes.CompanyId).Select(c => c.Value).FirstOrDefault();
 
                 ProfileModel profile = new ProfileModel()
