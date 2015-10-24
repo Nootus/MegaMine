@@ -171,8 +171,8 @@ function quarryService($http) {
                 });
     }
 
-    function summaryGet() {
-        return $http.post("/api/quarry/summary")
+    function summaryGet(startDate, endDate) {
+        return $http.post("/api/quarry/summary", { startDate: startDate, endDate: endDate })
             .then(function (data) {
                 service.summary.splice(0, service.summary.length);
                 angular.extend(service.summary, JSON.parse(data));

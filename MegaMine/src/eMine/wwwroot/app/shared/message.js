@@ -6,7 +6,7 @@ message.$inject = [];
 function message() {
     var vm = {
         unAuthorized: 'Unauthorized',
-        noStockMessage: 'No Stock'
+        noStockMessage: 'No Stock at the selected yard'
     };
 
     return vm;

@@ -15,6 +15,8 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
     var vm = {
         summary: [],
         gridOptions: gridOptions,
+        startDate: undefined,
+        endDate: undefined,
         getSummary: getSummary,
     };
 
@@ -35,7 +37,7 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
 
     function getSummary(form) {
         if (form.$valid) {
-            quarryService.summaryGet();
+            quarryService.summaryGet(vm.startDate, vm.endDate);
         }
     }
 }

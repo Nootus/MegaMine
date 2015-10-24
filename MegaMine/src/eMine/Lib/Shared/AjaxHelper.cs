@@ -82,7 +82,7 @@ namespace eMine.Lib.Shared
 
                 ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = message };
             }
-            catch(eMineException exp)
+            catch(NTException exp)
             {
                 ajax = new AjaxModel<T>() { Result = AjaxResult.ValidationException, Model = null, Message = exp.GetBaseException().Message };
             }

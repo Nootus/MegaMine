@@ -102,9 +102,9 @@ namespace eMine.Lib.Domain
         #endregion
 
         #region Reports
-        public async Task<string> Summary()
+        public async Task<string> Summary(SummarySearchModel search)
         {
-            return await quarryRepository.Summary();
+            return await quarryRepository.Summary(search);
         }
         #endregion
 

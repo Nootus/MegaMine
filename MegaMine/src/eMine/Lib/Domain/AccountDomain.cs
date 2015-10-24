@@ -41,7 +41,7 @@ namespace eMine.Lib.Domain
             }
             else
             {
-                throw new eMineException("Invalid Username and/or Password");
+                throw new NTException(Messages.Account.InvalidUsernamePassword);
             }
 
             return profile;

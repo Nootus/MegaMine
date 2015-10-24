@@ -407,11 +407,25 @@ namespace eMine.Lib.Repositories
 
         #region Reports
 
-        public async Task<string> Summary()
+        private SqlParameter CreateParameter(SqlCommand command, string parameterName, DbType type, object value)
+        {
+            SqlParameter parameter = command.CreateParameter();
+            parameter.ParameterName = parameterName;
+            parameter.DbType = type;
+            parameter.Value = value == null ? DBNull.Value : value;
+            return parameter;
+        }
+
+        public async Task<string> Summary(SummarySearchModel search)
         {
             SqlConnection connection = (SqlConnection)dbContext.Database.GetDbConnection();
             connection.Open();
-            SqlCommand command = new SqlCommand("dbo.GetQuarrySummary", connection);
+            SqlCommand command = new SqlCommand("dbo.GetQuarrySummary @CompanyId, @StartDate, @EndDate", connection);
+
+            command.Parameters.Add(CreateParameter(command, "@CompanyId", DbType.Int32, profile.CompanyId));
+            command.Parameters.Add(CreateParameter(command, "@StartDate", DbType.DateTime, search.StartDate));
+            command.Parameters.Add(CreateParameter(command, "@EndDate", DbType.DateTime, search.EndDate));
+
             SqlDataReader reader = await command.ExecuteReaderAsync(System.Data.CommandBehavior.CloseConnection);
 
             StringBuilder builder = new StringBuilder();
@@ -437,7 +451,8 @@ namespace eMine.Lib.Repositories
             }
             connection.Close();
             connection.Dispose();
-            builder.Append("]");
+            if(builder.Length > 0)
+                builder.Append("]");
 
             return builder.ToString();
         }

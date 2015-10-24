@@ -345,7 +345,7 @@ namespace eMine.Lib.Repositories.Fleet
 
             if(vehicleFuelEntity != null)
             {
-                throw new eMineException(Messages.Fleet.FuelInvalidOdometer);
+                throw new NTException(Messages.Fleet.FuelInvalidOdometer);
             }
 
             if (model.VehicleFuelId == 0)
@@ -409,7 +409,7 @@ namespace eMine.Lib.Repositories.Fleet
         {
             if (model.AssignmentStartDate > model.AssignmentEndDate)
             {
-                throw new eMineException(Messages.Fleet.DriveAssessmentDateError);
+                throw new NTException(Messages.Fleet.DriveAssessmentDateError);
             }
 
             if (model.VehicleDriverAssignmentId == 0)
@@ -440,7 +440,7 @@ namespace eMine.Lib.Repositories.Fleet
                 VehicleEntity vehicle = await (from v in dbContext.Vehicles where v.VehicleId == model.VehicleId select v).SingleAsync();
                 if(vehicle.VehicleDriverId != null)
                 {
-                    throw new eMineException(Messages.Fleet.DriveAssessmentError);
+                    throw new NTException(Messages.Fleet.DriveAssessmentError);
                 }
                 else
                 {

@@ -10,6 +10,7 @@ create procedure [dbo].[GetQuarrySummary]
 )
 as
 begin
+
 	set nocount on
 
 	if(@StartDate is null)

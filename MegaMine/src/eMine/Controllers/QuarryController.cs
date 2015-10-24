@@ -135,9 +135,9 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<string>> Summary()
+        public async Task<AjaxModel<string>> Summary([FromBody] SummarySearchModel search)
         {
-            return await AjaxHelper.GetAsync<string>(m => domain.Summary());
+            return await AjaxHelper.GetAsync<string>(m => domain.Summary(search));
         }
         #endregion
     }

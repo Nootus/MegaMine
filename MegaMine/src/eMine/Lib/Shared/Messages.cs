@@ -42,12 +42,14 @@ namespace eMine.Lib.Shared
             public const string MaterialSaveSuccess = "Material Successfully Added";
             public const string MaterialUpdateSuccess = "Material Saved Successfully";
             public const string MaterialMovementSuccess = "Material Movement Successfully";
+
         }
         #endregion
 
         public static class Account
         {
             public const string LogoutSuccess = "Successfully logged out";
+            public const string InvalidUsernamePassword = "Invalid Username and/or Password";
         }
     }
 }
