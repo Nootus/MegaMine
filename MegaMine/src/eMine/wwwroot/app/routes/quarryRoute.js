@@ -92,7 +92,9 @@ function quarryRoute($stateProvider) {
             previousState: "dashboard",
             templateUrl: "/app/quarry/quarrysummary.html",
             controller: "quarrySummary",
-            controllerAs: "vm"
+            controllerAs: "vm",
+            resolve: ['quarryService', function (quarryService) {
+                return quarryService.getProductTypes();
+            }]
         })
-
 }

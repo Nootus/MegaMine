@@ -7,6 +7,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
+using System.Data.SqlClient;
+using System.Data;
+using System.Text;
 
 namespace eMine.Lib.Repositories
 {
@@ -402,14 +407,39 @@ namespace eMine.Lib.Repositories
 
         #region Reports
 
-        public List<Dictionary<string, string>> Summary()
+        public async Task<string> Summary()
         {
-            //var UserType = dbcontext.Set().FromSql("dbo.SomeSproc @p0, @p1", 45, "Ada")
-            var data = dbContext.Set<SummaryModel>().FromSql("dbo.GetQuarrySummary");
+            SqlConnection connection = (SqlConnection)dbContext.Database.GetDbConnection();
+            connection.Open();
+            SqlCommand command = new SqlCommand("dbo.GetQuarrySummary", connection);
+            SqlDataReader reader = await command.ExecuteReaderAsync(System.Data.CommandBehavior.CloseConnection);
 
-            var list = data.ToList();
+            StringBuilder builder = new StringBuilder();
+            DataTable schema = reader.GetSchemaTable();
+            while (reader.Read())
+            {
+                if(builder.Length == 0)
+                {
+                    builder.Append("[{");
+                }
+                else
+                {
+                    builder.Append(",{");
+                }
+                for(int counter = 0; counter < schema.Rows.Count; counter++)
+                {
+                    object value = reader[counter];
+                    if (counter > 0)
+                        builder.Append(",");
+                    builder.Append(String.Format(@"""{0}"":{1}", schema.Rows[counter]["ColumnName"], value == null || value.ToString() == "" ? "null" : @"""" + value.ToString() + @""""));
+                }
+                builder.Append("}");
+            }
+            connection.Close();
+            connection.Dispose();
+            builder.Append("]");
 
-            return null;
+            return builder.ToString();
         }
 
         #endregion

@@ -135,9 +135,9 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<List<Dictionary<string, string>>>> Summary()
+        public async Task<AjaxModel<string>> Summary()
         {
-            return await AjaxHelper.GetAsync<List<Dictionary<string, string>>>(m => domain.Summary());
+            return await AjaxHelper.GetAsync<string>(m => domain.Summary());
         }
         #endregion
     }

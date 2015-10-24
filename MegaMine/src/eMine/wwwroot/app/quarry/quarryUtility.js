@@ -6,14 +6,20 @@ quarryUtility.$inject = ['$filter', 'quarryService', 'utility'];
 function quarryUtility($filter, quarryService, utility) {
 
     var util = {
-        addMaterialWatchers: addMaterialWatchers
+        addMaterialWatchers: addMaterialWatchers,
+        sortProductTypeByFormula: sortProductTypeByFormula
     };
 
     return util;
 
+    function sortProductTypeByFormula(productTypes) {
+        var sortedProductTypes = $filter('orderBy')(productTypes, ['formulaOrder', 'productTypeName']);
+        return sortedProductTypes;
+    }
+
     function addMaterialWatchers(scope, model) {
         scope.model = model;
-        var productTypes = $filter('orderBy')(quarryService.materialViewModel.productType, ['formulaOrder', 'productTypeName']);
+        var productTypes = sortProductTypeByFormula(quarryService.materialViewModel.productType);
         angular.forEach(productTypes, function (item) {
             item.formulaJson = JSON.parse(item.formula);
             var formulaEval = '';

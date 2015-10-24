@@ -1,17 +1,13 @@
 ﻿'use strict';
 angular.module('emine').controller('quarrySummary', quarrySummary)
-quarrySummary.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'quarryUtility', 'constants', 'dialogService', 'template', 'message'];
+quarrySummary.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'quarryUtility', 'dialogService', 'template', 'message'];
 
-function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtility, constants, dialogService, template, message) {
+function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtility, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'quarryName', field: 'quarryName', displayName: 'Quarry Name', type: 'string', enableHiding: false },
-                    { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'slab', field: 'slab', type: 'number', displayName: 'Slab', enableHiding: false },
-                    { name: 'tile', field: 'tile', type: 'number', displayName: 'Tile', enableHiding: false },
-                    { name: 'reject', field: 'reject', type: 'number', displayName: 'Reject', enableHiding: false },
-                    { name: 'total', field: 'total', type: 'number', displayName: 'Total', enableHiding: false },
+                    { name: 'QuarryName', field: 'QuarryName', displayName: 'Quarry Name', type: 'string', enableHiding: false },
+                    { name: 'Colour', field: 'Colours', type: 'string', displayName: 'Colour', enableHiding: false },
        ]
     };
 
@@ -27,6 +23,13 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
     return vm;
 
     function init() {
+        var productTypes = quarryUtility.sortProductTypeByFormula(quarryService.productTypes);
+        angular.forEach(productTypes, function (item) {
+            vm.gridOptions.columnDefs.push({ name: item.productTypeName, field: item.productTypeName, type: 'number', displayName: item.productTypeName, enableHiding: false });
+        });
+        vm.gridOptions.columnDefs.push({ name: 'Total', field: 'Total', type: 'number', displayName: 'Total', enableHiding: false });
+        //clearing up the previous search
+        quarryService.summary.splice(0, quarryService.summary.length);
         gridUtility.initializeGrid(vm, $scope, quarryService.summary);
     }
 

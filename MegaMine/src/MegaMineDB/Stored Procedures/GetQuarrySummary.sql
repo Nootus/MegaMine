@@ -3,14 +3,36 @@
 go
 
 create procedure [dbo].[GetQuarrySummary]
+(
+	@CompanyId int,
+	@StartDate datetime,
+	@EndDate datetime
+)
 as
 begin
 	set nocount on
+
+	if(@StartDate is null)
+	begin
+		select @StartDate = min(MaterialDate) from Material where CompanyId = @CompanyId
+	end
+
+	if(	@EndDate is null)
+	begin
+		select @EndDate = max(MaterialDate) from Material where CompanyId = @CompanyId
+	end
+	else
+	begin
+		select @EndDate = DATEADD(SECOND, -1, DATEADD(DAY, 1, @EndDate))
+	end
+
 	declare @columns nvarchar(500),
 		@totals nvarchar(1000)
 	select @columns = isnull(@columns + ', ', '') + quotename(ProductTypeName),
 		@totals = isnull(@totals + ' + ', '') + 'coalesce(' + quotename(ProductTypeName) + ', 0)'
-	from ProductType order by DisplayOrder;
+	from ProductType 
+	where DeletedInd = 0 and CompanyId = @CompanyId
+	order by DisplayOrder;
 
 	create table #Quarry
 	(
@@ -25,6 +47,7 @@ begin
 		from QuarryMaterialColour qmc
 		inner join Quarry q on qmc.QuarryId = q.QuarryId
 		inner join MaterialColour mc on qmc.MaterialColourId = mc.MaterialColourId
+		where q.DeletedInd = 0 and q.CompanyId = @CompanyId
 	)
 	insert into #Quarry
 	select QuarryId, QuarryName,  
@@ -39,6 +62,7 @@ begin
 		from #Quarry q
 		left join Material m on q.QuarryId = m.QuarryId
 		left join ProductType pt on m.ProductTypeId = pt.ProductTypeId 
+		where MaterialDate between ''' + convert(varchar(50), @StartDate, 121) + ''' and ''' + convert(varchar(50), @EndDate, 121) + '''
 		group by pt.ProductTypeName, QuarryName, q.Colours
 	)
 	select QuarryName, Colours, ' + @columns + ', Total = ' + @totals + ' from SummaryData
