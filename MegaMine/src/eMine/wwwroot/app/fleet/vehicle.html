@@ -14,7 +14,15 @@
         <em-input flex="20" label="Driver" control-name="driver" ng-model="vm.model.driver" ng-disabled="true"></em-input>
     </div>
     <div layout="row">
-        <ul flex="20" id="left-menu" class="left-menu menu" kendo-menu k-data-source="vm.menuItems" k-select="vm.menuSelect"></ul>
+        <div class="left-menu" flex="20">
+            <ul class="left-menu">
+                <li class="{{menuItem.cssClass}}" ng-repeat="menuItem in vm.menuItems track by $index">
+                    <md-button ng-href="{{menuItem.url}}" ng-click="vm.menuSelect(menuItem)">
+                        <md-icon class="{{menuItem.iconCssClass}}"></md-icon> {{menuItem.text}}
+                    </md-button>
+                </li>
+            </ul>
+        </div>
         <div flex ui-view></div>
     </div>
 </md-content>

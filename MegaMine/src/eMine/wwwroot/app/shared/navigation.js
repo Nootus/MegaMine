@@ -103,13 +103,13 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
 
     function getVehicleMenuItem(vehicleId, text, url, iconCss) {
         var cssClass = "";
-        var spriteCssClass = "icon-menu icon-" + iconCss
+        var iconCssClass = "icon-menu icon-" + iconCss
         var hash = utility.routePath("vehicle/" + vehicleId + "/" + url);
         var currentHash = $state.href($state.current.name, $state.params);
         if (hash === currentHash) {
-            cssClass = "k-state-highlight";
+            cssClass = "highlight";
         }
-        return { text: text, url: hash, state: url, cssClass: cssClass, spriteCssClass: spriteCssClass };
+        return { text: text, url: hash, state: url, cssClass: cssClass, iconCssClass: iconCssClass };
     }
 
 
