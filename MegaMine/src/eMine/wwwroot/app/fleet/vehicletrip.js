@@ -46,7 +46,7 @@ function vehicleTrip($scope, vehicleService, gridUtility, constants, dialogServi
         .then(function (dialogModel) {
             vehicleService.saveTrip(dialogModel).then(function () {
                 //update the grid values
-                if (dialogModel.VehicleTripId === 0) {
+                if (dialogModel.vehicleTripId === 0) {
                     vehicleService.getTripList(dialogModel.vehicleId);
                 }
                 else {

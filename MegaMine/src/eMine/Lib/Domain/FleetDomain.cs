@@ -183,9 +183,9 @@ namespace eMine.Lib.Domain
         //    return await vehicleRepository.VehicleTripListItemGet(VehicleId);
         //}
 
-        public async Task<List<VehicleTripModel>> VehicleTripListGet(int VehicleId = 0)
+        public async Task<List<VehicleTripModel>> VehicleTripListGet(int vehicleId)
         {
-            return await vehicleRepository.VehicleTripListGet(VehicleId);
+            return await vehicleRepository.VehicleTripListGet(vehicleId);
         }
         
         public async Task <VehicleTripModel> VehicleTripGet(int VehicleTripId)

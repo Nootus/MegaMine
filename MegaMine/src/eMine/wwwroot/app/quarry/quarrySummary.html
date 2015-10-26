@@ -2,8 +2,8 @@
 <md-content layout-padding>
     <form name="summaryForm" novalidate>
         <div layout="row">
-            <em-input flex="15" form="summaryForm" type="date" label="Start Date" control-name="startDate" ng-model="vm.startDate"></em-input>
-            <em-input flex="15" form="summaryForm" type="date" label="End Date" control-name="endDate" ng-model="vm.endDate"></em-input>
+            <em-input flex="15" form="summaryForm" type="date" label="Start Date" control-name="startDate" ng-model="vm.searchParams.startDate"></em-input>
+            <em-input flex="15" form="summaryForm" type="date" label="End Date" control-name="endDate" ng-model="vm.searchParams.endDate"></em-input>
             <div flex="10" layout-align="center">
                 <nt-button ng-click="vm.getSummary(summaryForm)" button-icon="save" button-text="Get Summary" ng-disabled="summaryForm.$invalid && summaryForm.$submitted"></nt-button>
             </div>
@@ -11,3 +11,12 @@
     </form>
 </md-content>
 <nt-grid vm="vm"></nt-grid>
+<script type="text/ng-template" id="quarry_summary_dialog">
+    <md-dialog aria-label="Quarry Summary" class="dialog full-width">
+        <nt-dialog form="summaryForm" title="{{vm.quarryModel.QuarryName}}">
+            <div layout="row">
+                <nt-grid vm="vm" class="full-width"></nt-grid>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

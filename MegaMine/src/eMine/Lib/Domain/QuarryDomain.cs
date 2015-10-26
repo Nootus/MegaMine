@@ -106,6 +106,10 @@ namespace eMine.Lib.Domain
         {
             return await quarryRepository.Summary(search);
         }
+        public async Task<List<StockModel>> SummaryDetails(SummarySearchModel search)
+        {
+            return await quarryRepository.SummaryDetails(search);
+        }
         #endregion
 
     }

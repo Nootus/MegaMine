@@ -373,6 +373,9 @@ div.type-formula select{
     font-size: 0.85em;
 }
 
+.full-width{
+    width: 100% !important;
+}
 
 /*em toolbar & buttons*/
 em-toolbar.title > md-toolbar{
@@ -393,7 +396,6 @@ em-toolbar.dialog > md-toolbar{
 button{
     background-color: transparent !important;
 }
-
 
 /*Material design overrides*/
 
@@ -425,14 +427,6 @@ md-input-container:not(.md-input-invalid).md-input-has-value label {
 md-input-container .md-input[disabled], [disabled] md-input-container .md-input {
   color: black;
 }
-
-/*md-select.md-default-theme[disabled] .md-select-label {
-  color: black;
-}
-
-md-select.md-default-theme[disabled] .md-select-icon {
-  display: none;
-}*/
 
 container data-ng-message, md-input-container x-ng-message, md-input-container [ng-message], md-input-container [data-ng-message], md-input-container [x-ng-message], md-input-container .md-char-counter {
   font-size: 11px;
@@ -470,7 +464,9 @@ md-dialog.dialog{
     width: 600px;
     overflow: hidden;
 }
-
+md-dialog md-dialog-content{
+    padding: 0px;
+}
 /*Material design overrides ends*/
 
 /* UI Grid overrides*/

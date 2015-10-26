@@ -20,11 +20,11 @@ namespace eMine.Lib.Repositories.Fleet
         }
 
         #region Vehicle Trip
-        public async Task<List<VehicleTripModel>> VehicleTripListGet(int VehicleId)
+        public async Task<List<VehicleTripModel>> VehicleTripListGet(int vehicleId)
         {
             var query = from trips in dbContext.VehicleTrips
                         where trips.DeletedInd == false
-                        && trips.VehicleId == VehicleId
+                        && trips.VehicleId == vehicleId
                         orderby trips.StartingTime descending
                         select new VehicleTripModel
                         {

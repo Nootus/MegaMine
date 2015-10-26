@@ -134,11 +134,19 @@ namespace eMine.Controllers
             return await AjaxHelper.SaveGetAsync<List<StockModel>>(m => domain.MaterialUpdate(model, yardId), Messages.Quarry.MaterialUpdateSuccess);
         }
 
+        //reports
         [HttpPost]
         public async Task<AjaxModel<string>> Summary([FromBody] SummarySearchModel search)
         {
             return await AjaxHelper.GetAsync<string>(m => domain.Summary(search));
         }
+
+        [HttpPost]
+        public async Task<AjaxModel<List<StockModel>>> SummaryDetails([FromBody] SummarySearchModel search)
+        {
+            return await AjaxHelper.GetAsync<List<StockModel>>(m => domain.SummaryDetails(search));
+        }
+        
         #endregion
     }
 }

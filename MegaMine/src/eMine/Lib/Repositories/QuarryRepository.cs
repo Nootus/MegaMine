@@ -291,8 +291,9 @@ namespace eMine.Lib.Repositories
 
         #region Stock & Move Material
         //Material Movement
-        public async Task<List<StockModel>> StockGet(int yardId)
+        public async Task<List<StockModel>> StockGet(int yardId, DateTime? startDate = null, DateTime? endDate = null)
         {
+            endDate = endDate == null ? endDate : endDate.Value.AddDays(1).AddSeconds(-1);
             var query = from mm in dbContext.MaterialMovements
                         join mt in dbContext.Materials on mm.MaterialId equals mt.MaterialId
                         join qry in dbContext.Quarries on mt.QuarryId equals qry.QuarryId
@@ -301,6 +302,8 @@ namespace eMine.Lib.Repositories
                         where mm.CurrentInd == true
                          && mt.DeletedInd == false
                          && mm.ToYardId == yardId
+                         && (startDate == null || mt.MaterialDate >= startDate)
+                         && (endDate == null || mt.MaterialDate <= endDate)
                         select new StockModel()
                         {
                             MaterialMovementId = mm.MaterialMovementId,
@@ -457,6 +460,12 @@ namespace eMine.Lib.Repositories
             return builder.ToString();
         }
 
+        public async Task<List<StockModel>> SummaryDetails(SummarySearchModel search)
+        {
+            //getting the yardid and then calling the stockget
+            YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == search.QuarryId select yd).SingleAsync();
+            return await StockGet(yard.YardId, search.StartDate, search.EndDate);
+        }
         #endregion
     }
 }

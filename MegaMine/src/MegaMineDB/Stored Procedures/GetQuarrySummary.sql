@@ -59,14 +59,14 @@ begin
 	declare @query nvarchar(4000) = '
 	with SummaryData as
 	(
-		select QuarryName, q.Colours, pt.ProductTypeName, MaterialCount = count(MaterialId)
+		select q.QuarryId, QuarryName, q.Colours, pt.ProductTypeName, MaterialCount = count(MaterialId)
 		from #Quarry q
 		left join Material m on q.QuarryId = m.QuarryId
 		left join ProductType pt on m.ProductTypeId = pt.ProductTypeId 
 		where MaterialDate between ''' + convert(varchar(50), @StartDate, 121) + ''' and ''' + convert(varchar(50), @EndDate, 121) + '''
-		group by pt.ProductTypeName, QuarryName, q.Colours
+		group by pt.ProductTypeName, QuarryName, q.QuarryId, q.Colours
 	)
-	select QuarryName, Colours, ' + @columns + ', Total = ' + @totals + ' from SummaryData
+	select QuarryId, QuarryName, Colours, ' + @columns + ', Total = ' + @totals + ' from SummaryData
 	pivot(sum(MaterialCount) for ProductTypeName IN (' + @columns + ')) as SummaryPivot
 	order by QuarryName';
 
