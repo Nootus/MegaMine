@@ -26,7 +26,7 @@
                     <em-input form="serviceForm" label="Description" control-name="description" ng-model="model.description" ng-disabled="!editMode"></em-input>
                 </div>
                 <div layout="row">
-                    <div flex="70">
+                    <!--<div flex="70">
                         <table>
                             <tbody>
                                 <tr>
@@ -58,11 +58,9 @@
                                 </tr>
                             </tbody>
                         </table>
-                    </div>
-                    <div flex>
-                        <em-input form="serviceForm" label="Misc Cost" control-name="miscCost" type="number" ng-model="model.miscCost" ng-required="false" ng-disabled="!editMode"></em-input>
-                        <em-input form="serviceForm" label="Reason" control-name="reason" ng-model="model.reason" ng-disabled="!editMode"></em-input>
-                    </div>
+                    </div>-->
+                    <em-input flex="20" form="serviceForm" label="Service Cost" control-name="miscCost" type="number" ng-model="model.miscCost" ng-required="false" ng-disabled="!editMode"></em-input>
+                    <em-input flex form="serviceForm" label="Comments" control-name="reason" ng-model="model.reason" ng-disabled="!editMode"></em-input>
                 </div>
             </div>
         </md-dialog-content>
