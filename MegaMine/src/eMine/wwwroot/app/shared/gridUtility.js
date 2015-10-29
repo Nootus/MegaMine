@@ -8,67 +8,48 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
     var grid = {
         initializeGrid: initializeGrid,
         initializeSubGrid: initializeSubGrid,
+        initializeDialogGrid: initializeDialogGrid,
     };
 
     return grid;
 
     function initializeGrid(vm, scope, model) {
-        vm.gridOptions.enableColumnResizing = true,
-        vm.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
-        vm.gridOptions.data = model;
-        resizeMainGrid(vm);
+        initialize(vm.gridOptions, scope, model, 'main-content', 'main-grid', 24);
+    }
+
+    function initializeSubGrid(vm, scope, model) {
+        initialize(vm.gridOptions, scope, model, 'main-content', 'sub-grid', 41);
+    }
+
+    function initializeDialogGrid(vm, scope, model) {
+        initialize(vm.gridOptions, scope, model, 'dialog', 'dialog-grid', 75);
+    }
+
+    function initialize(gridOptions, scope, model, contentClass, gridClass, bottomOffset) {
+        gridOptions.enableColumnResizing = true,
+        gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
+        gridOptions.data = model;
+        resizeGrid(gridOptions, contentClass, gridClass, bottomOffset);
 
         angular.element($window).bind('resize', function () {
-            vm.gridHeight = getMainGridHeight('main-grid');
+            gridOptions.gridHeight = getGridHeight(contentClass, gridClass, bottomOffset);
         });
         scope.$on('$destroy', function (e) {
             angular.element($window).unbind('resize');
         });
     }
 
-    function resizeMainGrid(vm, currentHeight) {
-        vm.gridHeight = getMainGridHeight('main-grid');
-        if (vm.gridHeight !== currentHeight || currentHeight === undefined) {
+    function resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, currentHeight) {
+        gridOptions.gridHeight = getGridHeight(contentClass, gridClass, bottomOffset);
+        if (gridOptions.gridHeight !== currentHeight || currentHeight === undefined) {
             $timeout(function () {
-                resizeMainGrid(vm, vm.gridHeight);
+                resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, gridOptions.gridHeight);
             }, 50);
         }
     }
 
-    function resizeSubGrid(vm, currentHeight) {
-        vm.gridHeight = getSubGridHeight('sub-grid');
-        if (vm.gridHeight !== currentHeight || currentHeight === undefined) {
-            $timeout(function () {
-                resizeSubGrid(vm, vm.gridHeight);
-            }, 100);
-        }
-    }
-
-    function initializeSubGrid(vm, scope, model) {
-        vm.gridOptions.enableColumnResizing = true,
-        vm.gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
-        vm.gridOptions.data = model;
-        resizeSubGrid(vm);
-
-        angular.element($window).bind('resize', function () {
-            vm.gridHeight = getSubGridHeight('sub-grid');
-        });
-        scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-    }
-
-
-    function getMainGridHeight(gridClass) {
-        return getGridHeight(gridClass, 24);
-    }
-
-    function getSubGridHeight(gridClass) {
-        return getGridHeight(gridClass, 41);
-    }
-
-    function getGridHeight(gridClass, bottomOffset) {
-        var viewHeight = angular.element(document.getElementsByClassName('view-content')[0]).offset();
+    function getGridHeight(contentClass, gridClass, bottomOffset) {
+        //var viewHeight = angular.element(document.getElementsByClassName('view-content')[0]).offset();
         var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
         var gridOffset = angular.element(document.getElementsByClassName(gridClass)[0]).offset();
         if (gridOffset !== undefined) {

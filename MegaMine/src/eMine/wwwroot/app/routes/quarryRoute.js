@@ -35,7 +35,8 @@ function quarryRoute($stateProvider) {
             templateUrl: "/app/quarry/quarry.html",
             controller: "quarry",
             controllerAs: "vm",
-            resolve: { quarries: ['quarryService', function (quarryService) {
+            resolve: {
+                quarries: ['quarryService', function (quarryService) {
                     return quarryService.getQuarries();
                      }],
                 colours: ['quarryService', function (quarryService) {
@@ -93,8 +94,13 @@ function quarryRoute($stateProvider) {
             templateUrl: "/app/quarry/quarrysummary.html",
             controller: "quarrySummary",
             controllerAs: "vm",
-            resolve: ['quarryService', function (quarryService) {
-                return quarryService.getProductTypes();
-            }]
+            resolve: {
+                productTypes: ['quarryService', function (quarryService) {
+                    return quarryService.getProductTypes();
+                }],
+                summaryDaya: ['quarryService', function (quarryService) {
+                    return quarryService.summaryGet({ startDate: undefined, endDate: undefined, quarryId: 0 });
+            }]}
+
         })
 }
