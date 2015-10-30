@@ -29,7 +29,7 @@ function sparePart($scope, vehicleService, sparePartDialog, gridUtility, constan
 
     function init() {
         vm.model = vehicleService.sparePart;
-        gridUtility.initializeSubGrid(vm, $scope, vehicleService.ordersList);
+        gridUtility.initializeSubGrid(vm.gridOptions, $scope, vehicleService.ordersList);
     }
 
     function editSparePart(ev) {

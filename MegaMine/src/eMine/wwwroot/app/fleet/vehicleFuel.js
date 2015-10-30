@@ -25,7 +25,7 @@ function vehicleFuel($scope, $mdDialog, vehicleService, gridUtility, constants, 
     return vm;
 
     function init() {
-        gridUtility.initializeSubGrid(vm, $scope, vehicleService.fuelList);
+        gridUtility.initializeSubGrid(vm.gridOptions, $scope, vehicleService.fuelList);
     }
 
     function addFuel(ev) {

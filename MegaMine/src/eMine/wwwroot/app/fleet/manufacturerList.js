@@ -24,7 +24,7 @@ function manufacturerList($scope, vehicleService, manufacturerDialog, gridUtilit
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm, $scope, vehicleService.manufacturerList);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, vehicleService.manufacturerList);
     }
 
     function navigateToManufacturer(row) {

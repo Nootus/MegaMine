@@ -24,7 +24,7 @@ function vehicleType($scope, vehicleService, gridUtility, constants, dialogServi
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm, $scope, vehicleService.vehicleTypes);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, vehicleService.vehicleTypes);
     }
 
     function addVehicleType(ev) {

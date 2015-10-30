@@ -24,7 +24,7 @@ function yard($scope, quarryService, gridUtility, constants, dialogService, temp
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm, $scope, quarryService.yards);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.yards);
     }
 
     function addYard(ev) {

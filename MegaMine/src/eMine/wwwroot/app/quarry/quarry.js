@@ -25,7 +25,7 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm, $scope, quarryService.quarries);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.quarries);
     }
 
     function addQuarry(ev) {

@@ -28,7 +28,7 @@ function vehicleList($scope, vehicleService, vehicleDialog, gridUtility, navigat
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm, $scope, vehicleService.vehicleList);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, vehicleService.vehicleList);
     }
 
     function navigateToVehicle(row) {

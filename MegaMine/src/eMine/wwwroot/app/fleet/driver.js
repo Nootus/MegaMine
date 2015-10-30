@@ -24,7 +24,7 @@ function driver($scope, vehicleService, gridUtility, constants, dialogService, t
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm, $scope, vehicleService.drivers);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, vehicleService.drivers);
     }
 
     function addDriver(ev) {

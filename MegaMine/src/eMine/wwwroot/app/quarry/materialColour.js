@@ -24,7 +24,7 @@ function materialColour($scope, quarryService, gridUtility, constants, dialogSer
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm, $scope, quarryService.colours);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.colours);
     }
 
     function addMaterialColour(ev) {

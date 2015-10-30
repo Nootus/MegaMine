@@ -492,7 +492,7 @@ md-dialog md-dialog-content{
 
 
 /* UI-Router animation*/
-.content[ui-view]{
+/*.content[ui-view]{
  height: 100%; 
 }
 
@@ -526,7 +526,6 @@ md-dialog md-dialog-content{
 
 [ui-view].ng-leave {
   opacity: 1;
-  /*padding-left: 0px;*/  
   -webkit-transform:translate3d(0, 0, 0);
   -moz-transform:translate3d(0, 0, 0);
   transform:translate3d(0, 0, 0);
@@ -534,10 +533,9 @@ md-dialog md-dialog-content{
 
 [ui-view].ng-leave-active {
   opacity: 0;
-  /*padding-left: 100px;*/
   -webkit-transform:translate3d(100px, 0, 0);
   -moz-transform:translate3d(100px, 0, 0);
   transform:translate3d(100px, 0, 0);
-}
+}*/
 /* UI-Router animation ends*/
 

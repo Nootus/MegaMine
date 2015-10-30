@@ -30,7 +30,7 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
         angular.forEach(quarryService.productTypes, function (item) {
             initializeModel(item);
         });
-        gridUtility.initializeGrid(vm, $scope, quarryService.productTypes);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.productTypes);
     }
 
     function initializeModel(model) {

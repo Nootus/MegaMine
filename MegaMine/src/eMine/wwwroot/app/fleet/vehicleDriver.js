@@ -32,7 +32,7 @@ function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, gri
         vm.vehicleId = vehicleService.vehicle.vehicleId;
         vm.editMode = vehicleService.vehicle.driver === null ? 2 : 3;
 
-        gridUtility.initializeSubGrid(vm, $scope, vehicleService.vehicleDriverList);
+        gridUtility.initializeSubGrid(vm.gridOptions, $scope, vehicleService.vehicleDriverList);
     }
 
     function unAssignDriver(ev) {

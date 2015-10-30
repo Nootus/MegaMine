@@ -31,7 +31,7 @@ function serviceRecord($scope, $window, vehicleService, vehicleServiceDialog, gr
     return vm;
 
     function init() {
-        gridUtility.initializeSubGrid(vm, $scope, vehicleService.vehicle.serviceRecord);
+        gridUtility.initializeSubGrid(vm.gridOptions, $scope, vehicleService.vehicle.serviceRecord);
     }
 
     function addService(ev) {

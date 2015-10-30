@@ -13,16 +13,16 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
 
     return grid;
 
-    function initializeGrid(vm, scope, model) {
-        initialize(vm.gridOptions, scope, model, 'main-content', 'main-grid', 24);
+    function initializeGrid(gridOptions, scope, model) {
+        initialize(gridOptions, scope, model, 'main-content', 'main-grid', 24);
     }
 
-    function initializeSubGrid(vm, scope, model) {
-        initialize(vm.gridOptions, scope, model, 'main-content', 'sub-grid', 41);
+    function initializeSubGrid(gridOptions, scope, model) {
+        initialize(gridOptions, scope, model, 'main-content', 'sub-grid', 41);
     }
 
-    function initializeDialogGrid(vm, scope, model) {
-        initialize(vm.gridOptions, scope, model, 'dialog', 'dialog-grid', 75);
+    function initializeDialogGrid(gridOptions, scope, model) {
+        initialize(gridOptions, scope, model, 'dialog', 'dialog-grid', 75);
     }
 
     function initialize(gridOptions, scope, model, contentClass, gridClass, bottomOffset) {

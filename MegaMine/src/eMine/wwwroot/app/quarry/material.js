@@ -44,7 +44,7 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, quarry
         vm.model = vm.viewModel.model;
         vm.model.materialDate = new Date();
 
-        gridUtility.initializeGrid(vm, $scope, vm.list);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, vm.list);
 
         quarryUtility.addMaterialWatchers($scope, vm.model); 
     }

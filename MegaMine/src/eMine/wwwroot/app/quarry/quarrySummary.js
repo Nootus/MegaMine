@@ -47,7 +47,7 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
         vm.gridOptions.columnDefs.push(template.getButtonColumnDefs('QuarryId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.vm.showSummaryDetails(row.entity, $event)' }]));
 
         //clearing up the previous search
-        gridUtility.initializeGrid(vm, $scope, quarryService.summary);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.summary);
     }
 
     function getSummary(form) {
@@ -57,8 +57,7 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
     }
 
     function dialogInit(dialogScope, dialogModel) {
-        var dialogVm = { gridOptions: dialogGridOptions}
-        gridUtility.initializeDialogGrid(dialogVm, dialogScope, dialogModel);
+        gridUtility.initializeDialogGrid(dialogGridOptions, dialogScope, dialogModel);
     }
 
     function showSummaryDetails(quarry, ev) {

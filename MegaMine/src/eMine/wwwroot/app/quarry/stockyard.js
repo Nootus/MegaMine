@@ -38,7 +38,7 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility,
         vm.yards = quarryService.yards;
         quarryService.stock.splice(0, quarryService.stock.length);
 
-        gridUtility.initializeGrid(vm, $scope, quarryService.stock);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.stock);
     }
 
     function getStock(form) {

@@ -27,7 +27,7 @@ function manufacturer($scope, vehicleService, manufacturerDialog, gridUtility, c
 
     function init(){
         vm.model = vehicleService.manufacturer;
-        gridUtility.initializeSubGrid(vm, $scope, vehicleService.modelsList);
+        gridUtility.initializeSubGrid(vm.gridOptions, $scope, vehicleService.modelsList);
     }
 
     function viewManufacturer(ev) {

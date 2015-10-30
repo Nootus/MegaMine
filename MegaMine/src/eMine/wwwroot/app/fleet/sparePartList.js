@@ -24,7 +24,7 @@ function sparePartList($scope, vehicleService, sparePartDialog, gridUtility, nav
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm, $scope, vehicleService.sparePartList);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, vehicleService.sparePartList);
     }
 
     function navigateToSparePart(row) {

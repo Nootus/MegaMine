@@ -27,7 +27,7 @@ function vehicleTrip($scope, vehicleService, gridUtility, constants, dialogServi
 
     function init()
     {
-        gridUtility.initializeSubGrid(vm, $scope, vehicleService.tripsList);
+        gridUtility.initializeSubGrid(vm.gridOptions, $scope, vehicleService.tripsList);
     }
 
     function addTrip(ev)
