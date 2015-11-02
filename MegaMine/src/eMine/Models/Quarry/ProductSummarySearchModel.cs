@@ -5,9 +5,10 @@ using System.Threading.Tasks;
 
 namespace eMine.Models.Quarry
 {
-    public class SummarySearchModel
+    public class ProductSummarySearchModel
     {
-        public int QuarryId { get; set; }
+        public int[] QuarryIds { get; set; }
+        public int[] ProductTypeIds { get; set; }
         public DateTime? StartDate { get; set; }
         public DateTime? EndDate { get; set; }
     }

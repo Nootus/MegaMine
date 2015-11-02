@@ -175,7 +175,7 @@ function quarryService($http) {
 
     //reports
     function summaryGet(searchParams) {
-        return $http.post("/api/quarry/summary", searchParams)
+        return $http.post("/api/quarry/quarrysummary", searchParams)
             .then(function (data) {
                 service.summary.splice(0, service.summary.length);
                 angular.extend(service.summary, JSON.parse(data));
@@ -184,7 +184,7 @@ function quarryService($http) {
     }
 
     function getSummaryDetails(searchParams) {
-        return $http.post("/api/quarry/summarydetails", searchParams)
+        return $http.post("/api/quarry/quarrysummarydetails", searchParams)
             .then(function (data) {
                 service.summaryDetails.splice(0, service.summaryDetails.length);
                 angular.extend(service.summaryDetails, data);

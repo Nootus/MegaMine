@@ -134,19 +134,28 @@ namespace eMine.Controllers
             return await AjaxHelper.SaveGetAsync<List<StockModel>>(m => domain.MaterialUpdate(model, yardId), Messages.Quarry.MaterialUpdateSuccess);
         }
 
+        #endregion
+
+        #region Reports
         //reports
         [HttpPost]
-        public async Task<AjaxModel<string>> Summary([FromBody] SummarySearchModel search)
+        public async Task<AjaxModel<string>> QuarrySummary([FromBody] QuarrySummarySearchModel search)
         {
             return await AjaxHelper.GetAsync<string>(m => domain.Summary(search));
         }
 
         [HttpPost]
-        public async Task<AjaxModel<List<StockModel>>> SummaryDetails([FromBody] SummarySearchModel search)
+        public async Task<AjaxModel<List<StockModel>>> QuarrySummaryDetails([FromBody] QuarrySummarySearchModel search)
         {
             return await AjaxHelper.GetAsync<List<StockModel>>(m => domain.SummaryDetails(search));
         }
-        
+
+        [HttpPost]
+        public async Task<AjaxModel<string>> ProductSummary([FromBody] QuarrySummarySearchModel search)
+        {
+            return await AjaxHelper.GetAsync<string>(m => domain.Summary(search));
+        }
+
         #endregion
     }
 }
