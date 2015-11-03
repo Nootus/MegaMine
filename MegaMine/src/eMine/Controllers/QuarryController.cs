@@ -141,19 +141,19 @@ namespace eMine.Controllers
         [HttpPost]
         public async Task<AjaxModel<string>> QuarrySummary([FromBody] QuarrySummarySearchModel search)
         {
-            return await AjaxHelper.GetAsync<string>(m => domain.Summary(search));
+            return await AjaxHelper.GetAsync<string>(m => domain.QuarrySummary(search));
         }
 
         [HttpPost]
         public async Task<AjaxModel<List<StockModel>>> QuarrySummaryDetails([FromBody] QuarrySummarySearchModel search)
         {
-            return await AjaxHelper.GetAsync<List<StockModel>>(m => domain.SummaryDetails(search));
+            return await AjaxHelper.GetAsync<List<StockModel>>(m => domain.QuarrySummaryDetails(search));
         }
 
         [HttpPost]
         public async Task<AjaxModel<string>> ProductSummary([FromBody] QuarrySummarySearchModel search)
         {
-            return await AjaxHelper.GetAsync<string>(m => domain.Summary(search));
+            return await AjaxHelper.GetAsync<string>(m => domain.QuarrySummary(search));
         }
 
         #endregion

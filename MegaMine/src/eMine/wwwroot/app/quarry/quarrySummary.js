@@ -26,12 +26,12 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
 
 
     var vm = {
-        summary: [],
+        quarrySummary: [],
         gridOptions: gridOptions,
         dialogVm: { gridOptions: dialogGridOptions },
         searchParams: { startDate: undefined, endDate: undefined, quarryId: 0 },
-        getSummary: getSummary,
-        showSummaryDetails: showSummaryDetails
+        getQuarrySummary: getQuarrySummary,
+        showQuarrySummaryDetails: showQuarrySummaryDetails
     };
 
     init();
@@ -44,15 +44,15 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
             vm.gridOptions.columnDefs.push({ name: item.productTypeName, field: item.productTypeName, type: 'number', displayName: item.productTypeName, enableHiding: false });
         });
         vm.gridOptions.columnDefs.push({ name: 'Total', field: 'Total', type: 'number', displayName: 'Total', enableHiding: false });
-        vm.gridOptions.columnDefs.push(template.getButtonColumnDefs('QuarryId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.vm.showSummaryDetails(row.entity, $event)' }]));
+        vm.gridOptions.columnDefs.push(template.getButtonColumnDefs('QuarryId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.vm.showQuarrySummaryDetails(row.entity, $event)' }]));
 
         //clearing up the previous search
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.summary);
+        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.quarrySummary);
     }
 
-    function getSummary(form) {
+    function getQuarrySummary(form) {
         if (form.$valid) {
-            quarryService.summaryGet(vm.searchParams);
+            quarryService.quarrySummaryGet(vm.searchParams);
         }
     }
 
@@ -60,15 +60,15 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
         gridUtility.initializeDialogGrid(dialogGridOptions, dialogScope, dialogModel);
     }
 
-    function showSummaryDetails(quarry, ev) {
+    function showQuarrySummaryDetails(quarry, ev) {
         vm.searchParams.quarryId = quarry.QuarryId
         dialogService.show({
             templateUrl: 'quarry_summary_dialog',
             targetEvent: ev,
-            data: { quarryModel: quarry, model: quarryService.summaryDetails, gridOptions: dialogGridOptions },
+            data: { quarryModel: quarry, model: quarryService.quarrySummaryDetails, gridOptions: dialogGridOptions },
             dialogMode: constants.enum.dialogMode.view,
             dialogInit: dialogInit,
-            resolve: { resolvemodel: function () { return quarryService.getSummaryDetails(vm.searchParams) } }
+            resolve: { resolvemodel: function () { return quarryService.getQuarrySummaryDetails(vm.searchParams) } }
         })
     }
 }

@@ -39,10 +39,10 @@ function quarryService($http) {
         materialUpdate: materialUpdate,
 
         //reports
-        summary: [],
-        summaryDetails: [],
-        summaryGet: summaryGet,
-        getSummaryDetails: getSummaryDetails
+        quarrySummary: [],
+        quarrySummaryDetails: [],
+        quarrySummaryGet: quarrySummaryGet,
+        getQuarrySummaryDetails: getQuarrySummaryDetails
     };
 
     return service;
@@ -174,20 +174,20 @@ function quarryService($http) {
     }
 
     //reports
-    function summaryGet(searchParams) {
+    function quarrySummaryGet(searchParams) {
         return $http.post("/api/quarry/quarrysummary", searchParams)
             .then(function (data) {
-                service.summary.splice(0, service.summary.length);
-                angular.extend(service.summary, JSON.parse(data));
+                service.quarrySummary.splice(0, service.quarrySummary.length);
+                angular.extend(service.quarrySummary, JSON.parse(data));
                 return data;
             });
     }
 
-    function getSummaryDetails(searchParams) {
+    function getQuarrySummaryDetails(searchParams) {
         return $http.post("/api/quarry/quarrysummarydetails", searchParams)
             .then(function (data) {
-                service.summaryDetails.splice(0, service.summaryDetails.length);
-                angular.extend(service.summaryDetails, data);
+                service.quarrySummaryDetails.splice(0, service.quarrySummaryDetails.length);
+                angular.extend(service.quarrySummaryDetails, data);
                 return data;
             });
     }

@@ -419,7 +419,7 @@ namespace eMine.Lib.Repositories
             return parameter;
         }
 
-        public async Task<string> Summary(QuarrySummarySearchModel search)
+        public async Task<string> QuarrySummary(QuarrySummarySearchModel search)
         {
             SqlConnection connection = (SqlConnection)dbContext.Database.GetDbConnection();
             connection.Open();
@@ -460,7 +460,7 @@ namespace eMine.Lib.Repositories
             return builder.ToString();
         }
 
-        public async Task<List<StockModel>> SummaryDetails(QuarrySummarySearchModel search)
+        public async Task<List<StockModel>> QuarrySummaryDetails(QuarrySummarySearchModel search)
         {
             //getting the yardid and then calling the stockget
             YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == search.QuarryId select yd).SingleAsync();
