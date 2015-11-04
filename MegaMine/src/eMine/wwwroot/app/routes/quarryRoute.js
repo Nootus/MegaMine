@@ -99,8 +99,20 @@ function quarryRoute($stateProvider) {
                     return quarryService.getProductTypes();
                 }],
                 quarrySummaryData: ['quarryService', function (quarryService) {
-                    return quarryService.quarrySummaryGet({ startDate: undefined, endDate: undefined, quarryId: 0 });
+                    return quarryService.quarrySummaryGet({ });
             }]}
-
+        })
+        .state("productsummary", {
+            url: window.virtualDirectory + "/productsummary",
+            title: "Product Summary",
+            previousState: "dashboard",
+            templateUrl: "/app/quarry/productsummary.html",
+            controller: "productSummary",
+            controllerAs: "vm",
+            resolve: {
+                productSummaryData: ['quarryService', function (quarryService) {
+                    return quarryService.productSummaryGet({ });
+                }]
+            }
         })
 }

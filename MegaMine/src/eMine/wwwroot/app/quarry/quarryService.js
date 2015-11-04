@@ -42,7 +42,12 @@ function quarryService($http) {
         quarrySummary: [],
         quarrySummaryDetails: [],
         quarrySummaryGet: quarrySummaryGet,
-        getQuarrySummaryDetails: getQuarrySummaryDetails
+        getQuarrySummaryDetails: getQuarrySummaryDetails,
+
+        //product summary
+        productSummary: [],
+        productSummaryGet: productSummaryGet,
+
     };
 
     return service;
@@ -188,6 +193,15 @@ function quarryService($http) {
             .then(function (data) {
                 service.quarrySummaryDetails.splice(0, service.quarrySummaryDetails.length);
                 angular.extend(service.quarrySummaryDetails, data);
+                return data;
+            });
+    }
+
+    function productSummaryGet(searchParams) {
+        return $http.post("/api/quarry/productsummary", searchParams)
+            .then(function (data) {
+                service.productSummary.splice(0, service.productSummary.length);
+                angular.extend(service.productSummary, JSON.parse(data));
                 return data;
             });
     }

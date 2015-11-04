@@ -421,6 +421,8 @@ namespace eMine.Lib.Repositories
 
         public async Task<string> QuarrySummary(QuarrySummarySearchModel search)
         {
+            search.EndDate = search.EndDate == null ? search.EndDate : search.EndDate.Value.AddDays(1).AddSeconds(-1);
+
             SqlConnection connection = (SqlConnection)dbContext.Database.GetDbConnection();
             connection.Open();
             SqlCommand command = new SqlCommand("dbo.GetQuarrySummary @CompanyId, @StartDate, @EndDate", connection);
@@ -465,6 +467,26 @@ namespace eMine.Lib.Repositories
             //getting the yardid and then calling the stockget
             YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == search.QuarryId select yd).SingleAsync();
             return await StockGet(yard.YardId, search.StartDate, search.EndDate);
+        }
+
+        public async Task<List<ProductSummaryModel>> ProductSummary(ProductSummarySearchModel search)
+        {
+
+            var query = from mt in dbContext.Materials
+                        join qry in dbContext.Quarries on mt.QuarryId equals qry.QuarryId
+                        join pt in dbContext.ProductTypes on mt.ProductTypeId equals pt.ProductTypeId
+                        group mt by new { pt.ProductTypeName, qry.QuarryName } into grp
+                        orderby new { grp.Key.ProductTypeName, grp.Key.QuarryName }
+                        select new ProductSummaryModel()
+                        {
+                            ProductTypeName = grp.Key.ProductTypeName,
+                            QuarryName = grp.Key.QuarryName,
+                            MaterialCount = grp.Count()
+                        };
+
+            var lst = query.ToList();
+
+            return lst;
         }
         #endregion
     }
