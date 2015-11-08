@@ -24,257 +24,257 @@ namespace eMine.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<VehicleListModel>>> VehicleList()
         {
-            return await AjaxHelper.GetAsync<List<VehicleListModel>>(m => domain.VehicleList());
+            return await AjaxHelper.GetAsync(m => domain.VehicleList());
         }
 
         [HttpGet]
         public async Task<AjaxModel<List<VehicleTypeModel>>> VehicleTypeListGet()
         {
-            return await AjaxHelper.GetAsync<List<VehicleTypeModel>>(m => domain.VehicleTypeListGet());
+            return await AjaxHelper.GetAsync(m => domain.VehicleTypeListGet());
         }
 
 
         [HttpGet]
         public async Task<AjaxModel<List<SparePartModel>>> SparePartListGet()
         {
-            return await  AjaxHelper.GetAsync<List<SparePartModel>>(m => domain.SparePartListGet());
+            return await  AjaxHelper.GetAsync(m => domain.SparePartListGet());
         }
 
         
         [HttpGet]
         public async Task<AjaxModel<VehicleDetailsModel>> VehicleDetailsGet(int vehicleId)
         {
-            return await AjaxHelper.GetAsync<VehicleDetailsModel>(m => domain.VehicleDetailsGet(vehicleId));
+            return await AjaxHelper.GetAsync(m => domain.VehicleDetailsGet(vehicleId));
         }
 
 
         [HttpGet]
         public async Task<AjaxModel<SparePartDetailsModel>>SparePartDetailsGet(int sparePartId)
         {
-            return await AjaxHelper.GetAsync<SparePartDetailsModel>(m =>domain.SparePartDetailsGet(sparePartId));
+            return await AjaxHelper.GetAsync(m =>domain.SparePartDetailsGet(sparePartId));
         }
 
         [HttpGet]
         public async Task<AjaxModel<ManufacturerDetailsModel>> ManufacturerDetailsGet(int manufacturerId)
         {
-            return await AjaxHelper.GetAsync<ManufacturerDetailsModel>(m => domain.ManufacturerDetailsGet(manufacturerId));
+            return await AjaxHelper.GetAsync(m => domain.ManufacturerDetailsGet(manufacturerId));
         }
         
         [HttpPost]
         public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceAdd([FromBody] VehicleServiceViewModel model)
         {
-            return await AjaxHelper.SaveGetAsync<VehicleDetailsModel>(m => domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
+            return await AjaxHelper.SaveGetAsync(m => domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceUpdate([FromBody] VehicleServiceViewModel model)
         {
-            return await AjaxHelper.SaveGetAsync<VehicleDetailsModel>(m => domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
+            return await AjaxHelper.SaveGetAsync(m => domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
         }
 
         [HttpGet]
         public async Task<AjaxModel<VehicleServiceViewModel>> VehicleServiceGet(int vehicleServiceId)
         {
-            return await  AjaxHelper.GetAsync<VehicleServiceViewModel>(m => domain.VehicleServiceGet(vehicleServiceId));
+            return await  AjaxHelper.GetAsync(m => domain.VehicleServiceGet(vehicleServiceId));
         }
 
         public async Task<AjaxModel<List<VehicleServiceViewModel>>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
         {
-            return await AjaxHelper.GetAsync<List<VehicleServiceViewModel>>(m => domain.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
+            return await AjaxHelper.GetAsync(m => domain.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
         }
 
         [HttpGet]
         public async Task<AjaxModel<SparePartModel>> SparePartGet(int sparePartId)
         {
-            return await  AjaxHelper.GetAsync<SparePartModel>(m => domain.SparePartGet(sparePartId));
+            return await  AjaxHelper.GetAsync(m => domain.SparePartGet(sparePartId));
         }
 
         [HttpPost]
-        public async Task<AjaxModel<SparePartModel>> SparePartAdd([FromBody] SparePartModel model)
+        public async Task<AjaxModel<EmptyModel>> SparePartAdd([FromBody] SparePartModel model)
         {
-            return await AjaxHelper.SaveAsync<SparePartModel>(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<SparePartModel>> SparePartUpdate([FromBody] SparePartModel model)
+        public async Task<AjaxModel<EmptyModel>> SparePartUpdate([FromBody] SparePartModel model)
         {
-            return await AjaxHelper.SaveAsync<SparePartModel>(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
         }
 
         [HttpGet]
         public async Task <AjaxModel<VehicleModel>> VehicleGet(int vehicleId)
         {
-            return await AjaxHelper.GetAsync<VehicleModel>(m => domain.VehicleGet(vehicleId));
+            return await AjaxHelper.GetAsync(m => domain.VehicleGet(vehicleId));
         }
 
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleModel>> VehicleAdd([FromBody] VehicleModel model)
+        public async Task<AjaxModel<EmptyModel>> VehicleAdd([FromBody] VehicleModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleModel>(m => domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleModel>> VehicleUpdate([FromBody] VehicleModel model)
+        public async Task<AjaxModel<EmptyModel>> VehicleUpdate([FromBody] VehicleModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleModel>(m => domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleManufactureModelModel>> ModelAdd([FromBody] VehicleManufactureModelModel model)
+        public async Task<AjaxModel<EmptyModel>> ModelAdd([FromBody] VehicleManufactureModelModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleManufactureModelModel>(m => domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleManufactureModelModel>> ModelUpdate([FromBody] VehicleManufactureModelModel model)
+        public async Task<AjaxModel<EmptyModel>> ModelUpdate([FromBody] VehicleManufactureModelModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleManufactureModelModel>(m => domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
         }
 
         [HttpGet]
         public async Task <AjaxModel<SparePartOrderModel>> SparePartOrderGet(int sparePartOrderId)
         {
-            return await AjaxHelper.GetAsync<SparePartOrderModel>(m => domain.SparePartOrderGet(sparePartOrderId));
+            return await AjaxHelper.GetAsync(m => domain.SparePartOrderGet(sparePartOrderId));
         }
 
         [HttpPost]
-        public async Task<AjaxModel<SparePartOrderModel>> SparePartOrderAdd([FromBody] SparePartOrderModel model)
+        public async Task<AjaxModel<EmptyModel>> SparePartOrderAdd([FromBody] SparePartOrderModel model)
         {
-            return await AjaxHelper.SaveAsync<SparePartOrderModel>(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<SparePartOrderModel>> SparePartOrderUpdate([FromBody] SparePartOrderModel model)
+        public async Task<AjaxModel<EmptyModel>> SparePartOrderUpdate([FromBody] SparePartOrderModel model)
         {
-            return await AjaxHelper.SaveAsync<SparePartOrderModel>(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleTypeModel>> VehicleTypeAdd([FromBody] VehicleTypeModel model)
+        public async Task<AjaxModel<EmptyModel>> VehicleTypeAdd([FromBody] VehicleTypeModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleTypeModel>(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleTypeModel>> VehicleTypeUpdate([FromBody] VehicleTypeModel model)
+        public async Task<AjaxModel<EmptyModel>> VehicleTypeUpdate([FromBody] VehicleTypeModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleTypeModel>(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
         }
 
         [HttpGet]
         public async Task <AjaxModel<List<VehicleDriverModel>>> DriversGet()
         {
-            return await AjaxHelper.GetAsync<List<VehicleDriverModel>>(m => domain.DriversGet());
+            return await AjaxHelper.GetAsync(m => domain.DriversGet());
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleDriverModel>> DriverAdd([FromBody] VehicleDriverModel model)
+        public async Task<AjaxModel<EmptyModel>> DriverAdd([FromBody] VehicleDriverModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleDriverModel>(m => domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleDriverModel>> DriverUpdate([FromBody] VehicleDriverModel model)
+        public async Task<AjaxModel<EmptyModel>> DriverUpdate([FromBody] VehicleDriverModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleDriverModel>(m => domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
         }
 
         [HttpGet]
         public async Task <AjaxModel<List<ListItem<int, string>>>> DriversListGet()
         {
-            return await AjaxHelper.GetAsync<List<ListItem<int, string>>>(m => domain.DriversListGet());
+            return await AjaxHelper.GetAsync(m => domain.DriversListGet());
         }
 
         [HttpGet]
         public async Task <AjaxModel<List<VehicleManufacturerModel>>> ManufacturersGet()
         {
-            return await AjaxHelper.GetAsync<List<VehicleManufacturerModel>>(m => domain.VehicleManufacturersGet());
+            return await AjaxHelper.GetAsync(m => domain.VehicleManufacturersGet());
         }
 
         [HttpGet]
         public async Task <AjaxModel<VehicleManufacturerModel>> ManufacturerGet(int manufacturerId)
         {
-            return await AjaxHelper.GetAsync<VehicleManufacturerModel>(m => domain.VehicleManufacturerGet(manufacturerId));
+            return await AjaxHelper.GetAsync(m => domain.VehicleManufacturerGet(manufacturerId));
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleTypeModel>> ManufacturerAdd([FromBody] VehicleManufacturerModel model)
+        public async Task<AjaxModel<EmptyModel>> ManufacturerAdd([FromBody] VehicleManufacturerModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleTypeModel>(m => domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleTypeModel>> ManufacturerUpdate([FromBody] VehicleManufacturerModel model)
+        public async Task<AjaxModel<EmptyModel>> ManufacturerUpdate([FromBody] VehicleManufacturerModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleTypeModel>(m => domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
         }
 
         [HttpGet]
         public async Task <AjaxModel<List<FuelModel>>> FuelGetList(int vehicleId)
         {
-            return await AjaxHelper.GetAsync<List<FuelModel>>(m => domain.FuelGetList(vehicleId));
+            return await AjaxHelper.GetAsync(m => domain.FuelGetList(vehicleId));
         }
 
         [HttpPost]
-        public async Task<AjaxModel<FuelModel>> FuelAdd([FromBody] FuelModel model)
+        public async Task<AjaxModel<EmptyModel>> FuelAdd([FromBody] FuelModel model)
         {
-            return await AjaxHelper.SaveAsync<FuelModel>(m => domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
         }
 
 
         [HttpPost]
-        public async Task<AjaxModel<FuelModel>> FuelUpdate([FromBody] FuelModel model)
+        public async Task<AjaxModel<EmptyModel>> FuelUpdate([FromBody] FuelModel model)
         {
-            return await AjaxHelper.SaveAsync<FuelModel>(m => domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleModel>> VehicleFuelReset([FromBody] int vehicleId)
+        public async Task<AjaxModel<EmptyModel>> VehicleFuelReset([FromBody] int vehicleId)
         {
-            return await AjaxHelper.SaveAsync<VehicleModel>(m => domain.VehicleFuelReset(vehicleId), Messages.Fleet.FuelResetSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleFuelReset(vehicleId), Messages.Fleet.FuelResetSuccess);
         }
 
         [HttpGet]
         public async Task<AjaxModel<List<VehicleDriverAssignmentModel>>> VehicleDriverGetList(int vehicleId)
         {
-            return await AjaxHelper.GetAsync<List<VehicleDriverAssignmentModel>>(m => domain.VehicleDriverGetList(vehicleId));
+            return await AjaxHelper.GetAsync(m => domain.VehicleDriverGetList(vehicleId));
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleDriverAssignmentModel>> VehicleDriverAdd([FromBody] VehicleDriverAssignmentModel model)
+        public async Task<AjaxModel<EmptyModel>> VehicleDriverAdd([FromBody] VehicleDriverAssignmentModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleDriverAssignmentModel>(m => domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleDriverAssignmentModel>> VehicleDriverUpdate([FromBody] VehicleDriverAssignmentModel model)
+        public async Task<AjaxModel<EmptyModel>> VehicleDriverUpdate([FromBody] VehicleDriverAssignmentModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleDriverAssignmentModel>(m => domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleTripModel>> VehicleTripAdd([FromBody] VehicleTripModel model)
+        public async Task<AjaxModel<EmptyModel>> VehicleTripAdd([FromBody] VehicleTripModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleTripModel>(m => domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleTripModel>> VehicleTripUpdate([FromBody] VehicleTripModel model)
+        public async Task<AjaxModel<EmptyModel>> VehicleTripUpdate([FromBody] VehicleTripModel model)
         {
-            return await AjaxHelper.SaveAsync<VehicleTripModel>(m => domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
         }
 
         [HttpGet]
         public async Task<AjaxModel<List<VehicleTripModel>>> VehicleTripListGet(int vehicleId)
         {
-            return await AjaxHelper.GetAsync<List<VehicleTripModel>>(m => domain.VehicleTripListGet(vehicleId));
+            return await AjaxHelper.GetAsync(m => domain.VehicleTripListGet(vehicleId));
         }
 
         [HttpGet]
         public async Task <AjaxModel<VehicleTripModel>> VehicleTripGet(int vehicleTripId)
         {
-            return await AjaxHelper.GetAsync<VehicleTripModel>(m => domain.VehicleTripGet(vehicleTripId));
+            return await AjaxHelper.GetAsync(m => domain.VehicleTripGet(vehicleTripId));
         }
     }
 }

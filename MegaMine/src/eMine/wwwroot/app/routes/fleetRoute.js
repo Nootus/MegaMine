@@ -13,9 +13,11 @@ function fleetRoute($stateProvider) {
             templateUrl: "/app/fleet/vehiclelist.html",
             controller: "vehicleList",
             controllerAs: "vm",
-            resolve: ['vehicleService', function (vehicleService) {
-                return vehicleService.getVehicleList();
-            }]
+            resolve: {
+                resolveModel: ['vehicleService', function (vehicleService) {
+                    return vehicleService.getVehicleList();
+                }]
+            }
         })
 
          .state("manufacturerlist", {
@@ -25,9 +27,11 @@ function fleetRoute($stateProvider) {
              templateUrl: "/app/fleet/manufacturerlist.html",
              controller: "manufacturerList",
              controllerAs: "vm",
-             resolve: ['vehicleService', function (vehicleService) {
-                 return vehicleService.getManufacturerList();
-             }]
+             resolve: {
+                 resolveModel: ['vehicleService', function (vehicleService) {
+                     return vehicleService.getManufacturerList();
+                 }]
+             }
          })         
 
         .state("vehicle", {
@@ -37,10 +41,11 @@ function fleetRoute($stateProvider) {
             templateUrl: "/app/fleet/vehicle.html",
             controller: "vehicle",
             controllerAs: "vm",
-            resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService)
-            {
-                return vehicleService.getVehicle($stateParams.vehicleid);
-            }]
+            resolve: {
+                resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
+                    return vehicleService.getVehicle($stateParams.vehicleid);
+                }]
+            }
         })
 
         .state("vehicle.service", {
@@ -59,9 +64,11 @@ function fleetRoute($stateProvider) {
             templateUrl: window.virtualDirectory + "/app/fleet/vehicleFuel.html",
             controller: "vehicleFuel",
             controllerAs: "vm",
-            resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                return vehicleService.getFuelList($stateParams.vehicleid);
-            }]
+            resolve: {
+                resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
+                    return vehicleService.getFuelList($stateParams.vehicleid);
+                }]
+            }
         })
 
         .state("vehicle.driver", {
@@ -71,9 +78,11 @@ function fleetRoute($stateProvider) {
             templateUrl: window.virtualDirectory + "/app/fleet/vehicleDriver.html",
             controller: "vehicleDriver",
             controllerAs: "vm",
-            resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                return vehicleService.getVehicleDriverList($stateParams.vehicleid);
-            }]
+            resolve: {
+                resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
+                    return vehicleService.getVehicleDriverList($stateParams.vehicleid);
+                }]
+            }
         })
 
           .state("vehicle.vehicletrip", {
@@ -83,9 +92,11 @@ function fleetRoute($stateProvider) {
               templateUrl: window.virtualDirectory + "/app/fleet/vehicleTrip.html",
               controller: "vehicleTrip",
               controllerAs: "vm",
-              resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                  return vehicleService.getTripList($stateParams.vehicleid);
-              }]
+              resolve: {
+                  resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
+                      return vehicleService.getTripList($stateParams.vehicleid);
+                  }]
+              }
           })
 
         .state("vehicletype", {
@@ -95,9 +106,11 @@ function fleetRoute($stateProvider) {
             templateUrl: "/app/fleet/vehicletype.html",
             controller: "vehicleType",
             controllerAs: "vm",
-            resolve: ['vehicleService', function (vehicleService) {
-                return vehicleService.getVehicleType();
-            }]
+            resolve: {
+                resolveModel: ['vehicleService', function (vehicleService) {
+                    return vehicleService.getVehicleType();
+                }]
+            }
         })
 
         .state("servicereport", {
@@ -107,9 +120,11 @@ function fleetRoute($stateProvider) {
             templateUrl: "/app/fleet/servicereport.html",
             controller: "servicereport",
             controllerAs: "vm",
-            resolve: ['vehicleService', function (vehicleService) {
-                return vehicleService.getVehicleList();
-            }]
+            resolve: {
+                resolveModel: ['vehicleService', function (vehicleService) {
+                    return vehicleService.getVehicleList();
+                }]
+            }
         })
 
         .state("sparepartlist", {
@@ -119,9 +134,11 @@ function fleetRoute($stateProvider) {
             templateUrl: "/app/fleet/sparepartlist.html",
             controller: "sparePartList",
             controllerAs: "vm",
-            resolve: ['vehicleService', function (vehicleService) {
-                return vehicleService.getSparePartList();
-            }]
+            resolve: {
+                resolveModel: ['vehicleService', function (vehicleService) {
+                    return vehicleService.getSparePartList();
+                }]
+            }
         })
 
         .state("driver", {
@@ -131,9 +148,11 @@ function fleetRoute($stateProvider) {
             templateUrl: "/app/fleet/driver.html",
             controller: "driver",
             controllerAs: "vm",
-            resolve: ['vehicleService', function (vehicleService) {
-                return vehicleService.getDrivers();
-            }]
+            resolve: {
+                resolveModel: ['vehicleService', function (vehicleService) {
+                    return vehicleService.getDrivers();
+                }]
+            }
         })
 
         .state("sparepart", {
@@ -143,9 +162,11 @@ function fleetRoute($stateProvider) {
               templateUrl: "/app/fleet/sparepart.html",
               controller: "sparePart",
               controllerAs: "vm",
-              resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                  return vehicleService.getSparePart($stateParams.sparepartid);
-              }]
+              resolve: {
+                  resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
+                      return vehicleService.getSparePart($stateParams.sparepartid);
+                  }]
+              }
           })
 
         .state("manufacturer", {
@@ -155,10 +176,11 @@ function fleetRoute($stateProvider) {
             templateUrl: "/app/fleet/manufacturer.html",
             controller: "manufacturer",
             controllerAs: "vm",
-            resolve: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService)
-            {
-                return vehicleService.getManufacturer($stateParams.manufacturerid);
-                //return vehicleService.getCurrentManufacturer(4);
-            }]
+            resolve: {
+                resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
+                    return vehicleService.getManufacturer($stateParams.manufacturerid);
+                    //return vehicleService.getCurrentManufacturer(4);
+                }]
+            }
         })
 }

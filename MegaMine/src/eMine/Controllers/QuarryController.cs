@@ -22,19 +22,19 @@ namespace eMine.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<MaterialColourModel>>> MaterialColoursGet()
         {
-            return await AjaxHelper.GetAsync<List<MaterialColourModel>>(m => domain.MaterialColoursGet());
+            return await AjaxHelper.GetAsync(m => domain.MaterialColoursGet());
         }
 
         [HttpPost]
-        public async Task<AjaxModel<MaterialColourModel>> MaterialColourAdd([FromBody] MaterialColourModel model)
+        public async Task<AjaxModel<EmptyModel>> MaterialColourAdd([FromBody] MaterialColourModel model)
         {
-            return await AjaxHelper.SaveAsync<MaterialColourModel>(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<MaterialColourModel>> MaterialColourUpdate([FromBody] MaterialColourModel model)
+        public async Task<AjaxModel<EmptyModel>> MaterialColourUpdate([FromBody] MaterialColourModel model)
         {
-            return await AjaxHelper.SaveAsync<MaterialColourModel>(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
         }
         #endregion
 
@@ -42,19 +42,19 @@ namespace eMine.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<ProductTypeModel>>> ProductTypesGet()
         {
-            return await AjaxHelper.GetAsync<List<ProductTypeModel>>(m => domain.ProductTypesGet());
+            return await AjaxHelper.GetAsync(m => domain.ProductTypesGet());
         }
 
         [HttpPost]
-        public async Task<AjaxModel<ProductTypeModel>> ProductTypeAdd([FromBody] ProductTypeModel model)
+        public async Task<AjaxModel<EmptyModel>> ProductTypeAdd([FromBody] ProductTypeModel model)
         {
-            return await AjaxHelper.SaveAsync<ProductTypeModel>(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<ProductTypeModel>> ProductTypeUpdate([FromBody] ProductTypeModel model)
+        public async Task<AjaxModel<EmptyModel>> ProductTypeUpdate([FromBody] ProductTypeModel model)
         {
-            return await AjaxHelper.SaveAsync<ProductTypeModel>(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
         }
         #endregion
 
@@ -62,19 +62,19 @@ namespace eMine.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<QuarryModel>>> QuarriesGet()
         {
-            return await AjaxHelper.GetAsync<List<QuarryModel>>(m => domain.QuarriesGet());
+            return await AjaxHelper.GetAsync(m => domain.QuarriesGet());
         }
 
         [HttpPost]
-        public async Task<AjaxModel<QuarryModel>> QuarryAdd([FromBody] QuarryModel model)
+        public async Task<AjaxModel<EmptyModel>> QuarryAdd([FromBody] QuarryModel model)
         {
-            return await AjaxHelper.SaveAsync<QuarryModel>(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<QuarryModel>> QuarryUpdate([FromBody] QuarryModel model)
+        public async Task<AjaxModel<EmptyModel>> QuarryUpdate([FromBody] QuarryModel model)
         {
-            return await AjaxHelper.SaveAsync<QuarryModel>(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
         }
         #endregion
 
@@ -82,19 +82,19 @@ namespace eMine.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<YardModel>>> YardsGet()
         {
-            return await AjaxHelper.GetAsync<List<YardModel>>(m => domain.YardsGet());
+            return await AjaxHelper.GetAsync(m => domain.YardsGet());
         }
 
         [HttpPost]
-        public async Task<AjaxModel<YardModel>> YardAdd([FromBody] YardModel model)
+        public async Task<AjaxModel<EmptyModel>> YardAdd([FromBody] YardModel model)
         {
-            return await AjaxHelper.SaveAsync<YardModel>(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<YardModel>> YardUpdate([FromBody] YardModel model)
+        public async Task<AjaxModel<EmptyModel>> YardUpdate([FromBody] YardModel model)
         {
-            return await AjaxHelper.SaveAsync<YardModel>(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
         }
         #endregion
 
@@ -103,13 +103,13 @@ namespace eMine.Controllers
         [HttpGet]
         public async Task<AjaxModel<MaterialViewModel>> MaterialViewModelGet()
         {
-            return await AjaxHelper.GetAsync<MaterialViewModel>(m => domain.MaterialViewModelGet());
+            return await AjaxHelper.GetAsync(m => domain.MaterialViewModelGet());
         }
 
         [HttpPost]
-        public async Task<AjaxModel<List<MaterialModel>>> MaterialSave([FromBody] List<MaterialModel> models)
+        public async Task<AjaxModel<EmptyModel>> MaterialSave([FromBody] List<MaterialModel> models)
         {
-            return await AjaxHelper.SaveAsync<List<MaterialModel>>(m => domain.MaterialSave(models), Messages.Quarry.MaterialSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.MaterialSave(models), Messages.Quarry.MaterialSaveSuccess);
         }
 
         #endregion
@@ -119,19 +119,19 @@ namespace eMine.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<StockModel>>> StockGet(int yardId)
         {
-            return await AjaxHelper.GetAsync<List<StockModel>>(m => domain.StockGet(yardId));
+            return await AjaxHelper.GetAsync(m => domain.StockGet(yardId));
         }
 
         [HttpPost]
         public async Task<AjaxModel<List<StockModel>>> MoveMaterial([FromBody] MaterialMovementModel model)
         {
-            return await AjaxHelper.SaveGetAsync<List<StockModel>>(m => domain.MoveMaterial(model), Messages.Quarry.MaterialMovementSuccess);
+            return await AjaxHelper.SaveGetAsync(m => domain.MoveMaterial(model), Messages.Quarry.MaterialMovementSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<List<StockModel>>> MaterialUpdate([FromBody] MaterialModel model, int yardId)
         {
-            return await AjaxHelper.SaveGetAsync<List<StockModel>>(m => domain.MaterialUpdate(model, yardId), Messages.Quarry.MaterialUpdateSuccess);
+            return await AjaxHelper.SaveGetAsync(m => domain.MaterialUpdate(model, yardId), Messages.Quarry.MaterialUpdateSuccess);
         }
 
         #endregion
@@ -141,19 +141,19 @@ namespace eMine.Controllers
         [HttpPost]
         public async Task<AjaxModel<string>> QuarrySummary([FromBody] QuarrySummarySearchModel search)
         {
-            return await AjaxHelper.GetAsync<string>(m => domain.QuarrySummary(search));
+            return await AjaxHelper.GetAsync(m => domain.QuarrySummary(search));
         }
 
         [HttpPost]
         public async Task<AjaxModel<List<StockModel>>> QuarrySummaryDetails([FromBody] QuarrySummarySearchModel search)
         {
-            return await AjaxHelper.GetAsync<List<StockModel>>(m => domain.QuarrySummaryDetails(search));
+            return await AjaxHelper.GetAsync(m => domain.QuarrySummaryDetails(search));
         }
 
         [HttpPost]
         public async Task<AjaxModel<List<ProductSummaryModel>>> ProductSummary([FromBody] ProductSummarySearchModel search)
         {
-            return await AjaxHelper.GetAsync<List<ProductSummaryModel>>(m => domain.ProductSummary(search));
+            return await AjaxHelper.GetAsync(m => domain.ProductSummary(search));
         }
 
         #endregion

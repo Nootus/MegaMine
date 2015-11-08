@@ -22,19 +22,19 @@ namespace eMine.Controllers
         [HttpPost]
         public async Task<AjaxModel<ProfileModel>> Validate([FromBody] LoginModel model)
         {
-            return await AjaxHelper.GetAsync<ProfileModel>(m => domain.Validate(model.UserName, model.UserPassword));
+            return await AjaxHelper.GetAsync(m => domain.Validate(model.UserName, model.UserPassword));
         }
 
         [HttpGet]
         public async Task<AjaxModel<string>> Logout()
         {
-            return await AjaxHelper.GetAsync<string>(m => domain.Logout(), Messages.Account.LogoutSuccess);
+            return await AjaxHelper.GetAsync(m => domain.Logout(), Messages.Account.LogoutSuccess);
         }
 
         [HttpGet]
         public async Task<AjaxModel<ProfileModel>> DefaultProfile()
         {
-            return await AjaxHelper.GetAsync<ProfileModel>(m => domain.DefaultProfile());
+            return await AjaxHelper.GetAsync(m => domain.DefaultProfile());
         }
     }
 }

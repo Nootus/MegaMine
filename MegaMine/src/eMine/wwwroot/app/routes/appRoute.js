@@ -13,9 +13,11 @@ function appRoute($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: "/app/dashboard/dashboard.html",
             controller: "dashboard",
             controllerAs: "vm",
-            resolve: ['dashboardService', function (dashboardService) {
-                return dashboardService.resolve();
-            }]
+            resolve: {
+                resolveModel: ['dashboardService', function (dashboardService) {
+                    return dashboardService.resolve();
+                }]
+            }
         })
         .state("login", {
             url: window.virtualDirectory + "/login",
@@ -32,15 +34,16 @@ function appRoute($stateProvider, $urlRouterProvider, $locationProvider) {
             templateUrl: "/app/account/login.html",
             controller: "login",
             controllerAs: "vm",
-            resolve: ['profile', 'accountService', function (profile, accountService) {
-                profile.logout();
-                return accountService.logout();
-            }]
+            resolve: {
+                resolveModel: ['profile', 'accountService', function (profile, accountService) {
+                    profile.logout();
+                    return accountService.logout();
+                }]
+            }
         })
 
     $locationProvider.html5Mode(true);
 
     $urlRouterProvider.when('', '/')
     $urlRouterProvider.when(window.virtualDirectory + '/', window.virtualDirectory);
-
 }

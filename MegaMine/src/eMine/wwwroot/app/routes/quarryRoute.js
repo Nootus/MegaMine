@@ -13,9 +13,11 @@ function quarryRoute($stateProvider) {
             templateUrl: "/app/quarry/materialColour.html",
             controller: "materialColour",
             controllerAs: "vm",
-            resolve: ['quarryService', function (quarryService) {
-                return quarryService.getMaterialColours();
-            }]
+            resolve: {
+                resolveModel: ['quarryService', function (quarryService) {
+                    return quarryService.getMaterialColours();
+                }]
+            }
         })
         .state("producttype", {
             url: window.virtualDirectory + "/producttype",
@@ -24,9 +26,11 @@ function quarryRoute($stateProvider) {
             templateUrl: "/app/quarry/productType.html",
             controller: "productType",
             controllerAs: "vm",
-            resolve: ['quarryService', function (quarryService) {
-                return quarryService.getProductTypes();
-            }]
+            resolve: {
+                resolveModel: ['quarryService', function (quarryService) {
+                    return quarryService.getProductTypes();
+                }]
+            }
         })
         .state("quarry", {
             url: window.virtualDirectory + "/quarry",
@@ -50,9 +54,11 @@ function quarryRoute($stateProvider) {
             templateUrl: "/app/quarry/yard.html",
             controller: "yard",
             controllerAs: "vm",
-            resolve: ['quarryService', function (quarryService) {
-                return quarryService.getYards();
-            }]
+            resolve: {
+                resolveModel: ['quarryService', function (quarryService) {
+                    return quarryService.getYards();
+                }]
+            }
         })
         .state("material", {
             url: window.virtualDirectory + "/material",
@@ -61,9 +67,11 @@ function quarryRoute($stateProvider) {
             templateUrl: "/app/quarry/material.html",
             controller: "material",
             controllerAs: "vm",
-            resolve: ['quarryService', function (quarryService) {
-                return quarryService.getMaterialViewModel();
-            }]
+            resolve: {
+                resolveModel: ['quarryService', function (quarryService) {
+                    return quarryService.getMaterialViewModel();
+                }]
+            }
         })
         .state("yardstock", {
             url: window.virtualDirectory + "/stockyard",
@@ -72,9 +80,11 @@ function quarryRoute($stateProvider) {
             templateUrl: "/app/quarry/stockyard.html",
             controller: "stockyard",
             controllerAs: "vm",
-            resolve: ['quarryService', function (quarryService) {
-                return quarryService.getYards();
-            }]
+            resolve: {
+                resolveModel: ['quarryService', function (quarryService) {
+                    return quarryService.getYards();
+                }]
+            }
         })
         .state("materialmovement", {
             url: window.virtualDirectory + "/materialmovement",
@@ -83,9 +93,11 @@ function quarryRoute($stateProvider) {
             templateUrl: "/app/quarry/materialmovement.html",
             controller: "materialMovement",
             controllerAs: "vm",
-            resolve: ['quarryService', function (quarryService) {
-                return quarryService.getYards();
-            }]
+            resolve: {
+                resolveModel: ['quarryService', function (quarryService) {
+                    return quarryService.getYards();
+                }]
+            }
         })
         .state("quarrysummary", {
             url: window.virtualDirectory + "/quarrysummary",
@@ -110,7 +122,7 @@ function quarryRoute($stateProvider) {
             controller: "productSummary",
             controllerAs: "vm",
             resolve: {
-                productSummaryData: ['quarryService', function (quarryService) {
+                resolveModel: ['quarryService', function (quarryService) {
                     return quarryService.productSummaryGet({ });
                 }]
             }
