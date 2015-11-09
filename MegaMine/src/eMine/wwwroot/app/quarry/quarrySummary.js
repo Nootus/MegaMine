@@ -28,7 +28,6 @@ function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtil
     var vm = {
         quarrySummary: [],
         gridOptions: gridOptions,
-        dialogVm: { gridOptions: dialogGridOptions },
         searchParams: { startDate: undefined, endDate: undefined, quarryId: 0 },
         getQuarrySummary: getQuarrySummary,
         showQuarrySummaryDetails: showQuarrySummaryDetails

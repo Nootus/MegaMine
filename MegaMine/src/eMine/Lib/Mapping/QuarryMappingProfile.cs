@@ -27,6 +27,8 @@ namespace eMine.Lib.Mapping
 
             Mapper.CreateMap<MaterialEntity, MaterialModel>();
             Mapper.CreateMap<MaterialModel, MaterialEntity>();
+
+            Mapper.CreateMap<ProductSummaryEntity, ProductSummaryModel>();
         }
     }
 }

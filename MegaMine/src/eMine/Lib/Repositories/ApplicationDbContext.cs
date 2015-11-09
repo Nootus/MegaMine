@@ -45,11 +45,14 @@ namespace eMine.Lib.Repositories
         public DbSet<YardEntity> Yards { get; set; }
         public DbSet<MaterialEntity> Materials { get; set; }
         public DbSet<MaterialMovementEntity> MaterialMovements { get; set; }
-        
+        public DbSet<ProductSummaryEntity> ProductSummary { get; set; }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<IdentityRoleHierarchyEntity>().HasKey(e => new { e.RoleId, e.ChildRoleId });
             builder.Entity<UserCompanyEntity>().HasKey(e => new { e.UserProfileId, e.CompanyId });
+
+
 
             base.OnModelCreating(builder);
 

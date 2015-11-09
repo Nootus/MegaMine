@@ -1,10 +1,41 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="utf-8" />
-    <title></title>
-</head>
-<body>
+﻿<em-toolbar title="Product Summary" class="title"></em-toolbar>
+<md-content layout-padding>
 
-</body>
-</html>
+    <md-chips ng-model="vm.selectedVegetables" 
+              md-require-match="true">
+        <md-autocomplete md-selected-item="vm.selectedItemNew"
+                         md-items="item in vm.fruitNames"
+                         md-item-text="item"
+                     md-min-length="0"
+                         placeholder="Search for a vegetable">
+            <md-item-template>
+                <span>{{item}}</span>
+            </md-item-template>
+        </md-autocomplete>
+        <md-chip-template>
+            <span>
+                <strong>{{$chip}}</strong>
+            </span>
+        </md-chip-template>
+    </md-chips>
+
+    <form name="summaryForm" novalidate>
+        <div layout="row">
+            <em-input flex="15" form="summaryForm" type="date" label="Start Date" control-name="startDate" ng-model="vm.searchParams.startDate"></em-input>
+            <em-input flex="15" form="summaryForm" type="date" label="End Date" control-name="endDate" ng-model="vm.searchParams.endDate"></em-input>
+            <div flex="10" layout-align="center">
+                <nt-button ng-click="vm.getSummary(summaryForm)" button-icon="save" button-text="Get Summary" ng-disabled="summaryForm.$invalid && summaryForm.$submitted"></nt-button>
+            </div>
+        </div>
+    </form>
+</md-content>
+<nt-grid vm="vm"></nt-grid>
+<script type="text/ng-template" id="product_summary_dialog">
+    <md-dialog aria-label="Product Type Summary" class="dialog full-width">
+        <nt-dialog form="summaryForm" title="{{vm.summaryModel.productTypeName}}({{vm.summaryModel.quarryName}})">
+            <div layout="row">
+                <nt-grid vm="vm" class="full-width" grid-class="dialog-grid"></nt-grid>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

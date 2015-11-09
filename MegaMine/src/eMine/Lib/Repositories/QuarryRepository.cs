@@ -291,7 +291,7 @@ namespace eMine.Lib.Repositories
 
         #region Stock & Move Material
         //Material Movement
-        public async Task<List<StockModel>> StockGet(int yardId, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<List<StockModel>> StockGet(int yardId, int? productTypeId = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             endDate = endDate == null ? endDate : endDate.Value.AddDays(1).AddSeconds(-1);
             var query = from mm in dbContext.MaterialMovements
@@ -302,6 +302,7 @@ namespace eMine.Lib.Repositories
                         where mm.CurrentInd == true
                          && mt.DeletedInd == false
                          && mm.ToYardId == yardId
+                         && (productTypeId == null || pt.ProductTypeId == productTypeId)
                          && (startDate == null || mt.MaterialDate >= startDate)
                          && (endDate == null || mt.MaterialDate <= endDate)
                         select new StockModel()
@@ -421,8 +422,6 @@ namespace eMine.Lib.Repositories
 
         public async Task<string> QuarrySummary(QuarrySummarySearchModel search)
         {
-            search.EndDate = search.EndDate == null ? search.EndDate : search.EndDate.Value.AddDays(1).AddSeconds(-1);
-
             SqlConnection connection = (SqlConnection)dbContext.Database.GetDbConnection();
             connection.Open();
             SqlCommand command = new SqlCommand("dbo.GetQuarrySummary @CompanyId, @StartDate, @EndDate", connection);
@@ -435,7 +434,7 @@ namespace eMine.Lib.Repositories
 
             StringBuilder builder = new StringBuilder();
             DataTable schema = reader.GetSchemaTable();
-            while (reader.Read())
+            while (await reader.ReadAsync())
             {
                 if(builder.Length == 0)
                 {
@@ -466,28 +465,24 @@ namespace eMine.Lib.Repositories
         {
             //getting the yardid and then calling the stockget
             YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == search.QuarryId select yd).SingleAsync();
-            return await StockGet(yard.YardId, search.StartDate, search.EndDate);
+            return await StockGet(yard.YardId, null, search.StartDate, search.EndDate);
         }
 
         public async Task<List<ProductSummaryModel>> ProductSummary(ProductSummarySearchModel search)
         {
 
-            var query = from mt in dbContext.Materials
-                        join qry in dbContext.Quarries on mt.QuarryId equals qry.QuarryId
-                        join pt in dbContext.ProductTypes on mt.ProductTypeId equals pt.ProductTypeId
-                        group mt by new { pt.ProductTypeName, qry.QuarryName } into grp
-                        orderby new { grp.Key.ProductTypeName, grp.Key.QuarryName }
-                        select new ProductSummaryModel()
-                        {
-                            ProductTypeName = grp.Key.ProductTypeName,
-                            QuarryName = grp.Key.QuarryName,
-                            MaterialCount = grp.Count()
-                        };
-
-            var lst = query.ToList();
-
-            return lst;
+            return await dbContext.Set<ProductSummaryEntity>().FromSql("dbo.ProductSummaryGet @CompanyId = {0}, @StartDate = {1}, @EndDate = {2}"
+                                 , profile.CompanyId, search.StartDate, search.EndDate
+                                 ).Select(m => Mapper.Map<ProductSummaryEntity, ProductSummaryModel>(m)).ToListAsync();
         }
+
+        public async Task<List<StockModel>> ProductSummaryDetails(ProductSummarySearchModel search)
+        {
+            //getting the yardid and then calling the stockget
+            YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == search.QuarryIds[0] select yd).SingleAsync();
+            return await StockGet(yard.YardId, search.ProductTypeIds[0], search.StartDate, search.EndDate);
+        }
+
         #endregion
     }
 }

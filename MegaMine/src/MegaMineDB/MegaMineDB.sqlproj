@@ -62,5 +62,6 @@
   <ItemGroup>
     <Build Include="Stored Procedures\GetQuarrySummary.sql" />
     <Build Include="Stored Procedures\QuarryIngest.sql" />
+    <Build Include="Stored Procedures\ProductSummaryGet.sql" />
   </ItemGroup>
 </Project>

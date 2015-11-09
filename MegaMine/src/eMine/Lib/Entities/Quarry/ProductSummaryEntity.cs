@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace eMine.Models.Quarry
+namespace eMine.Lib.Entities.Quarry
 {
-    public class ProductSummaryModel
+    public class ProductSummaryEntity
     {
+        [Key]
         public long RowId { get; set; }
         public int ProductTypeId { get; set; }
         public string ProductTypeName { get; set; }

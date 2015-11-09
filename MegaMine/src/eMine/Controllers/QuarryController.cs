@@ -156,6 +156,12 @@ namespace eMine.Controllers
             return await AjaxHelper.GetAsync(m => domain.ProductSummary(search));
         }
 
+        [HttpPost]
+        public async Task<AjaxModel<List<StockModel>>> ProductSummaryDetails([FromBody] ProductSummarySearchModel search)
+        {
+            return await AjaxHelper.GetAsync(m => domain.ProductSummaryDetails(search));
+        }
+
         #endregion
     }
 }
