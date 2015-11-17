@@ -123,7 +123,7 @@ function quarryRoute($stateProvider) {
             controllerAs: "vm",
             resolve: {
                 resolveModel: ['quarryService', function (quarryService) {
-                    return quarryService.productSummaryGet({ });
+                    return quarryService.productSummaryGet();
                 }]
             }
         })

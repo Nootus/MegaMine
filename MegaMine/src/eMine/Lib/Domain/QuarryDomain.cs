@@ -112,9 +112,20 @@ namespace eMine.Lib.Domain
             return await quarryRepository.QuarrySummaryDetails(search);
         }
 
-        public async Task<List<ProductSummaryModel>> ProductSummary(ProductSummarySearchModel search)
+        public async Task<ProductSummaryViewModel> ProductSummary()
         {
-            return await quarryRepository.ProductSummary(search);
+            return new ProductSummaryViewModel()
+            {
+                ProductTypes = await quarryRepository.ProductTypeListItemGet(),
+                Quarries = await quarryRepository.QuarryListItemGet(),
+                Summary = await quarryRepository.ProductSummarySearch(new ProductSummarySearchModel())
+            };
+        }
+
+
+        public async Task<List<ProductSummaryModel>> ProductSummarySearch(ProductSummarySearchModel search)
+        {
+            return await quarryRepository.ProductSummarySearch(search);
         }
 
         public async Task<List<StockModel>> ProductSummaryDetails(ProductSummarySearchModel search)

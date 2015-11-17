@@ -28,12 +28,9 @@ function productSummary($scope, $mdDialog, quarryService, gridUtility, quarryUti
 
 
     var vm = {
-        fruitNames: ['Apple', 'Banana', 'Orange'],
-        selectedVegetables: [],
-        selectedItem: null,
-        selectedItemNew: null,
-        searchText: null,
-        transformChip: transformChip,
+        quarries: undefined,
+        selectedQuarries: [],
+        productTypes: undefined,
         summary: [],
         gridOptions: gridOptions,
         dialogVm: { gridOptions: dialogGridOptions },
@@ -47,22 +44,15 @@ function productSummary($scope, $mdDialog, quarryService, gridUtility, quarryUti
 
     return vm;
 
-    function transformChip(chip) {
-        // If it is an object, it's already a known chip
-        if (angular.isObject(chip)) {
-            return chip;
-        }
-        // Otherwise, create a new one
-        return { name: chip, type: 'new' }
-    }
-
     function init() {
         gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.productSummary);
+        vm.quarries = quarryService.productSummaryVM.quarries;
+        vm.productTypes = quarryService.productSummaryVM.productTypes;
     }
 
     function getSummary(form) {
         if (form.$valid) {
-            quarryService.productSummaryGet(vm.searchParams);
+            quarryService.productSummarySearch(vm.searchParams);
         }
     }
 

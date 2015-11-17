@@ -75,6 +75,21 @@ namespace eMine.Lib.Repositories
             return await query.ToListAsync();
         }
 
+        public async Task<List<ListItem<int, string>>> ProductTypeListItemGet()
+        {
+
+            var query = from pt in dbContext.ProductTypes
+                        where pt.DeletedInd == false
+                            && pt.CompanyId == profile.CompanyId
+                        orderby pt.ProductTypeName ascending
+                        select new ListItem<int, string>()
+                        {
+                            Key = pt.ProductTypeId,
+                            Item = pt.ProductTypeName
+                        };
+            return await query.ToListAsync();
+        }
+
         public async Task ProductTypeAdd(ProductTypeModel model)
         {
             ProductTypeEntity entity = Mapper.Map<ProductTypeModel, ProductTypeEntity>(model);
@@ -107,6 +122,23 @@ namespace eMine.Lib.Repositories
         #endregion
 
         #region Quarry
+        public async Task<List<ListItem<int, string>>> QuarryListItemGet()
+        {
+            var query = from qry in dbContext.Quarries
+                                where qry.DeletedInd == false
+                                    && qry.CompanyId == profile.CompanyId
+                                orderby qry.QuarryName ascending
+                                select new ListItem<int, string>()
+                                {
+                                    Key = qry.QuarryId,
+                                    Item = qry.QuarryName
+                                };
+
+            return await query.ToListAsync();
+        }
+
+
+
         public async Task<List<QuarryModel>> QuarriesGet()
         {
             var quarry = await (from qry in dbContext.Quarries
@@ -468,7 +500,7 @@ namespace eMine.Lib.Repositories
             return await StockGet(yard.YardId, null, search.StartDate, search.EndDate);
         }
 
-        public async Task<List<ProductSummaryModel>> ProductSummary(ProductSummarySearchModel search)
+        public async Task<List<ProductSummaryModel>> ProductSummarySearch(ProductSummarySearchModel search)
         {
 
             return await dbContext.Set<ProductSummaryEntity>().FromSql("dbo.ProductSummaryGet @CompanyId = {0}, @StartDate = {1}, @EndDate = {2}"
