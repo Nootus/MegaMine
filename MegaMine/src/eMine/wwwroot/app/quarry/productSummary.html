@@ -1,7 +1,9 @@
 ﻿<em-toolbar title="Product Summary" class="title"></em-toolbar>
-<md-content layout-padding>
-
-    <nt-multi-select ng-model="vm.selectedQuarries" nt-items="vm.quarries"></nt-multi-select>
+<md-content>
+    <div layout="row">
+        <nt-multi-select flex="30" label="Product Types" ng-model="vm.selectedProductTypes" nt-items="vm.productTypes"></nt-multi-select>
+        <nt-multi-select flex="50" label="Quarries" ng-model="vm.selectedQuarries" nt-items="vm.quarries"></nt-multi-select>
+    </div>
 
     <form name="summaryForm" novalidate>
         <div layout="row">

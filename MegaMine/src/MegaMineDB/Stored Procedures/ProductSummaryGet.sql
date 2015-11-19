@@ -23,10 +23,10 @@ begin
 	end
 	else
 	begin
-		select @EndDate = DATEADD(SECOND, -1, DATEADD(DAY, 1, @EndDate))
+		select @EndDate = dateadd(second, -1, dateadd(day, 1, @EndDate))
 	end
 
-    select RowId = ROW_NUMBER() OVER (order by pt.DisplayOrder, pt.ProductTypeName, qry.QuarryName),  pt.ProductTypeId, pt.ProductTypeName, qry.QuarryId, qry.QuarryName, MaterialCount = count(mt.MaterialId)
+    select RowId = row_number() over (order by pt.DisplayOrder, pt.ProductTypeName, qry.QuarryName),  pt.ProductTypeId, pt.ProductTypeName, qry.QuarryId, qry.QuarryName, MaterialCount = count(mt.MaterialId)
 	from Material mt
 	inner join Quarry qry on mt.QuarryId = qry.QuarryId
 	inner join ProductType pt on mt.ProductTypeId = pt.ProductTypeId

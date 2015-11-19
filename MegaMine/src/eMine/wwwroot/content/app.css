@@ -303,6 +303,10 @@ img.splash-loading{
     width: 100px;
 }
 
+label.label_header{
+    font-size: 11px;
+}
+
 div.type-formula{
     padding: 1px;
 }
@@ -467,6 +471,27 @@ md-dialog.dialog{
 md-dialog md-dialog-content{
     padding: 0px;
 }
+
+.md-chips{
+    padding: 0 0 0px 3px;
+    font-size: 0.85em;
+    height: 30px;
+}
+.md-chips .md-chip{
+    height: 25px;
+    line-height: 25px;
+    margin: 2px 2px 0 0;
+}
+.md-chips .md-chip .md-chip-remove{
+    height: 25px;
+}
+
+.md-autocomplete-suggestions li {
+    font-size: 12px;
+    line-height: 32px;
+    height: 32px;
+}
+
 /*Material design overrides ends*/
 
 /* UI Grid overrides*/

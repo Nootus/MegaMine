@@ -31,10 +31,11 @@ function productSummary($scope, $mdDialog, quarryService, gridUtility, quarryUti
         quarries: undefined,
         selectedQuarries: [],
         productTypes: undefined,
+        selectedProductTypes: [],
         summary: [],
         gridOptions: gridOptions,
         dialogVm: { gridOptions: dialogGridOptions },
-        searchParams: { startDate: undefined, endDate: undefined, quarryId: 0 },
+        searchParams: { startDate: undefined, endDate: undefined },
         getSummary: getSummary,
         showSummaryDetails: showSummaryDetails,
 
@@ -52,6 +53,15 @@ function productSummary($scope, $mdDialog, quarryService, gridUtility, quarryUti
 
     function getSummary(form) {
         if (form.$valid) {
+            //populating the search params
+            vm.searchParams.quarryIds = [];
+            angular.forEach(vm.selectedQuarries, function (item) {
+                vm.searchParams.quarryIds.push(item.key);
+            });
+            vm.searchParams.productTypeIds = [];
+            angular.forEach(vm.selectedProductTypes, function (item) {
+                vm.searchParams.productTypeIds.push(item.key);
+            });
             quarryService.productSummarySearch(vm.searchParams);
         }
     }
