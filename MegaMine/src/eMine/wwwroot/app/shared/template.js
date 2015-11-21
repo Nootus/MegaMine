@@ -50,7 +50,7 @@ function template(constants) {
             if (button.claimModule !== undefined && button.claim !== undefined) {
                 buttonDef.cellTemplate += 'module="' + button.claimModule + '" claim="' + button.claim + '" ';
             }
-            buttonDef.cellTemplate += '><md-icon class="icon-button" md-svg-icon="content/images/icons/' + icon + '.svg"></md-icon></md-button>'
+            buttonDef.cellTemplate += '><md-icon class="icon-button" md-svg-icon="content/images/icons/common/' + icon + '.svg"></md-icon></md-button>'
         });
 
         if (hide !== undefined) {

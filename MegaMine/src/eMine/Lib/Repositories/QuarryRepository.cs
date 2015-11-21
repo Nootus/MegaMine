@@ -502,9 +502,10 @@ namespace eMine.Lib.Repositories
 
         public async Task<List<ProductSummaryModel>> ProductSummarySearch(ProductSummarySearchModel search)
         {
-
-            return await dbContext.Set<ProductSummaryEntity>().FromSql("dbo.ProductSummaryGet @CompanyId = {0}, @StartDate = {1}, @EndDate = {2}"
-                                 , profile.CompanyId, search.StartDate, search.EndDate
+            string quarryIds = search.QuarryIds == null || search.QuarryIds.Length == 0 ? null : String.Join(",", search.QuarryIds);
+            string productTypeIds = search.ProductTypeIds == null || search.ProductTypeIds.Length == 0 ? null : String.Join(",", search.ProductTypeIds);
+            return await dbContext.Set<ProductSummaryEntity>().FromSql("dbo.ProductSummaryGet @CompanyId = {0}, @QuarryIds = {1}, @ProductTypeIds = {2}, @StartDate = {3}, @EndDate = {4}"
+                                 , profile.CompanyId, quarryIds, productTypeIds, search.StartDate, search.EndDate
                                  ).Select(m => Mapper.Map<ProductSummaryEntity, ProductSummaryModel>(m)).ToListAsync();
         }
 

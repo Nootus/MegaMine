@@ -65,113 +65,6 @@ div.main-menu {
   margin: 0px 23px 0px 0px;
 }
 
-.icon-menu{
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-}
-
-.icon-fleet {
-    background: url('images/icons/fleet.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-spareparts {
-    background: url('images/icons/spareparts.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-vehiclelist {
-    background: url('images/icons/vehiclelist.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-quarry {
-    background: url('images/icons/quarry.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-vehicletypes {
-    background: url('images/icons/vehicletypes.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-report {
-    background: url('images/icons/report.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-movematerial {
-    background: url('images/icons/movematerial.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-quarries {
-    background: url('images/icons/quarries.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-stockatyard {
-    background: url('images/icons/stockatyard.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-addmaterial {
-    background: url('images/icons/addmaterial.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-yards {
-    background: url('images/icons/yards.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-colour {
-    background: url('images/icons/colour.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-stone {
-    background: url('images/icons/stone.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-fuel {
-    background: url('images/icons/fuel.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-driver {
-    background: url('images/icons/driver.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-trip {
-    background: url('images/icons/trip.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-service {
-    background: url('images/icons/service.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-manufacturer {
-    background: url('images/icons/manufacturer.svg') no-repeat;
-    background-size: cover;
-}
-
-
-.icon-changepassword {
-    background: url('images/icons/changepassword.svg') no-repeat;
-    background-size: cover;
-}
-
-.icon-logout {
-    background: url('images/icons/logout.svg') no-repeat;
-    background-size: cover;
-}
-
 .blank-menu-item{
     color: grey;
     border-top-width: 2px !important;
@@ -409,7 +302,8 @@ nt-button.[tabindex='0']:focus {
 .md-button{
     height: 35px;
     margin: 0;
-    padding: 0 10px 0 0;
+    padding: 0 10px 0 10px;
+    min-width: 32px;
 }
 
 md-content.md-default-theme {

@@ -16,7 +16,7 @@ function ntButton(profile) {
         },
         link: link,
         template: '<md-button class="{{class}}" ng-hide="hide" aria-label="{{buttonText}}" ng-disabled="ngDisabled">'
-                    + ' <md-icon class="icon-button" md-svg-icon="content/images/icons/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
+                    + ' <md-icon class="icon-button" md-svg-icon="content/images/icons/common/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
                     + '</md-button>'
 
     };

@@ -36,7 +36,7 @@
                 <div class="main-menu">
                     <md-menu-bar>
                         <md-menu ng-repeat="menu in vm.profile.menu">
-                            <button ng-mouseenter="$mdOpenMenu()">
+                            <button ng-click="$mdOpenMenu()">
                                 <md-icon class="{{menu.spriteCssClass}}"></md-icon> {{menu.text}}
                             </button>
                             <md-menu-content>
