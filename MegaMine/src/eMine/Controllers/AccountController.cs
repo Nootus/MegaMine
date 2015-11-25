@@ -26,9 +26,15 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public async Task<AjaxModel<string>> Logout()
+        public async Task<AjaxModel<NTModel>> Logout()
         {
-            return await AjaxHelper.GetAsync(m => domain.Logout(), Messages.Account.LogoutSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.Logout(), Messages.Account.LogoutSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> ChangePassword([FromBody] ChangePasswordModel model)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.ChangePassword(model), Messages.Account.ChangePasswordSuccess);
         }
 
         [HttpGet]

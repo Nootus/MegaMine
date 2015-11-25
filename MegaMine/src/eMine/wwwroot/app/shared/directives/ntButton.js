@@ -15,7 +15,7 @@ function ntButton(profile) {
             ngDisabled: '='
         },
         link: link,
-        template: '<md-button class="{{class}}" ng-hide="hide" aria-label="{{buttonText}}" ng-disabled="ngDisabled">'
+        template: '<md-button class="{{class}}" ng-hide="hide" aria-label="{{buttonText}}" ng-disabled="ngDisabled" ng-click="ntClick()">'
                     + ' <md-icon class="icon-button" md-svg-icon="content/images/icons/common/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
                     + '</md-button>'
 
@@ -30,5 +30,11 @@ function ntButton(profile) {
         }
 
         scope.class = scope.class === undefined ? 'md-raised md-primary md-default-theme' : scope.class;
+
+        scope.ntClick = function () {
+            if (scope.$parent.dialogForm != undefined) {
+                scope.$parent.dialogForm.$setSubmitted();
+            }
+        }
     }
 }

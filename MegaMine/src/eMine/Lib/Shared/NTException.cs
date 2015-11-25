@@ -7,17 +7,31 @@ namespace eMine.Lib.Shared
 {
     public class NTException : Exception
     {
-        string _message;
+        private string message;
+        private object model;
         public NTException(string message)
         {
-            _message = message;
+            this.message = message;
+        }
+
+        public NTException(string message, object model) : this(message)
+        {
+            this.model = model;
         }
 
         public override string Message
         {
             get
             {
-                return _message;
+                return message;
+            }
+        }
+
+        public object Model
+        {
+            get
+            {
+                return model;
             }
         }
     }

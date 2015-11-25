@@ -26,13 +26,13 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> MaterialColourAdd([FromBody] MaterialColourModel model)
+        public async Task<AjaxModel<NTModel>> MaterialColourAdd([FromBody] MaterialColourModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> MaterialColourUpdate([FromBody] MaterialColourModel model)
+        public async Task<AjaxModel<NTModel>> MaterialColourUpdate([FromBody] MaterialColourModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
         }
@@ -46,13 +46,13 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> ProductTypeAdd([FromBody] ProductTypeModel model)
+        public async Task<AjaxModel<NTModel>> ProductTypeAdd([FromBody] ProductTypeModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> ProductTypeUpdate([FromBody] ProductTypeModel model)
+        public async Task<AjaxModel<NTModel>> ProductTypeUpdate([FromBody] ProductTypeModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
         }
@@ -66,13 +66,13 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> QuarryAdd([FromBody] QuarryModel model)
+        public async Task<AjaxModel<NTModel>> QuarryAdd([FromBody] QuarryModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> QuarryUpdate([FromBody] QuarryModel model)
+        public async Task<AjaxModel<NTModel>> QuarryUpdate([FromBody] QuarryModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
         }
@@ -86,13 +86,13 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> YardAdd([FromBody] YardModel model)
+        public async Task<AjaxModel<NTModel>> YardAdd([FromBody] YardModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> YardUpdate([FromBody] YardModel model)
+        public async Task<AjaxModel<NTModel>> YardUpdate([FromBody] YardModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
         }
@@ -107,7 +107,7 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> MaterialSave([FromBody] List<MaterialModel> models)
+        public async Task<AjaxModel<NTModel>> MaterialSave([FromBody] List<MaterialModel> models)
         {
             return await AjaxHelper.SaveAsync(m => domain.MaterialSave(models), Messages.Quarry.MaterialSaveSuccess);
         }

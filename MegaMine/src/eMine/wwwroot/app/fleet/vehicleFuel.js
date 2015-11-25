@@ -55,7 +55,7 @@ function vehicleFuel($scope, $mdDialog, vehicleService, gridUtility, constants, 
 
                 dialogService.hide();
             }).catch(function (data) {
-                error.errorMessage = data.message;
+                error.message = data.message;
             });
         });
     }

@@ -9,6 +9,7 @@ function utility($window, $timeout, toastr, uiGridConstants) {
 
     var util = {
         virtualDirectory: virtualDirectory,
+        getTemplateUrl: getTemplateUrl,
         routePath: routePath,
         showInfo: showInfo,
         showError: showError,
@@ -16,13 +17,17 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         getItem: getItem,
         deleteProperties: deleteProperties,
         isEmpty: isEmpty,
-        isUndefined: isUndefined
+        isUndefined: isUndefined,
     };
 
     return util;
 
     function routePath(path) {
-        return window.virtualDirectory + "/" + path;
+        return util.virtualDirectory + '/' + path;
+    }
+
+    function getTemplateUrl(url) {
+        return util.virtualDirectory + '/app/' + url;
     }
 
     function showInfo(message) {
@@ -71,5 +76,6 @@ function utility($window, $timeout, toastr, uiGridConstants) {
     function isUndefined(value) {
         return typeof value === 'undefined';
     }
+
 };
 

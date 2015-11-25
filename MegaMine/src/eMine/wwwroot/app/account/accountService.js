@@ -13,7 +13,8 @@ function accountService($http, profile) {
     var service = {
         model: model,
         validate: validate,
-        logout: logout
+        logout: logout,
+        changePassword: changePassword
     };
 
     return service;
@@ -28,4 +29,10 @@ function accountService($http, profile) {
     function logout() {
         return $http.get("/api/account/logout");
     }
+
+    function changePassword(model) {
+        return $http.post("/api/account/changepassword", model);
+    }
+
+
 }

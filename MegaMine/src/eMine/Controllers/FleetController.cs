@@ -90,13 +90,13 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> SparePartAdd([FromBody] SparePartModel model)
+        public async Task<AjaxModel<NTModel>> SparePartAdd([FromBody] SparePartModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> SparePartUpdate([FromBody] SparePartModel model)
+        public async Task<AjaxModel<NTModel>> SparePartUpdate([FromBody] SparePartModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
         }
@@ -109,25 +109,25 @@ namespace eMine.Controllers
 
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleAdd([FromBody] VehicleModel model)
+        public async Task<AjaxModel<NTModel>> VehicleAdd([FromBody] VehicleModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleUpdate([FromBody] VehicleModel model)
+        public async Task<AjaxModel<NTModel>> VehicleUpdate([FromBody] VehicleModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> ModelAdd([FromBody] VehicleManufactureModelModel model)
+        public async Task<AjaxModel<NTModel>> ModelAdd([FromBody] VehicleManufactureModelModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> ModelUpdate([FromBody] VehicleManufactureModelModel model)
+        public async Task<AjaxModel<NTModel>> ModelUpdate([FromBody] VehicleManufactureModelModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
         }
@@ -139,25 +139,25 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> SparePartOrderAdd([FromBody] SparePartOrderModel model)
+        public async Task<AjaxModel<NTModel>> SparePartOrderAdd([FromBody] SparePartOrderModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> SparePartOrderUpdate([FromBody] SparePartOrderModel model)
+        public async Task<AjaxModel<NTModel>> SparePartOrderUpdate([FromBody] SparePartOrderModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleTypeAdd([FromBody] VehicleTypeModel model)
+        public async Task<AjaxModel<NTModel>> VehicleTypeAdd([FromBody] VehicleTypeModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleTypeUpdate([FromBody] VehicleTypeModel model)
+        public async Task<AjaxModel<NTModel>> VehicleTypeUpdate([FromBody] VehicleTypeModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
         }
@@ -169,13 +169,13 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> DriverAdd([FromBody] VehicleDriverModel model)
+        public async Task<AjaxModel<NTModel>> DriverAdd([FromBody] VehicleDriverModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> DriverUpdate([FromBody] VehicleDriverModel model)
+        public async Task<AjaxModel<NTModel>> DriverUpdate([FromBody] VehicleDriverModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
         }
@@ -199,13 +199,13 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> ManufacturerAdd([FromBody] VehicleManufacturerModel model)
+        public async Task<AjaxModel<NTModel>> ManufacturerAdd([FromBody] VehicleManufacturerModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> ManufacturerUpdate([FromBody] VehicleManufacturerModel model)
+        public async Task<AjaxModel<NTModel>> ManufacturerUpdate([FromBody] VehicleManufacturerModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
         }
@@ -217,20 +217,20 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> FuelAdd([FromBody] FuelModel model)
+        public async Task<AjaxModel<NTModel>> FuelAdd([FromBody] FuelModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
         }
 
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> FuelUpdate([FromBody] FuelModel model)
+        public async Task<AjaxModel<NTModel>> FuelUpdate([FromBody] FuelModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleFuelReset([FromBody] int vehicleId)
+        public async Task<AjaxModel<NTModel>> VehicleFuelReset([FromBody] int vehicleId)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleFuelReset(vehicleId), Messages.Fleet.FuelResetSuccess);
         }
@@ -242,25 +242,25 @@ namespace eMine.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleDriverAdd([FromBody] VehicleDriverAssignmentModel model)
+        public async Task<AjaxModel<NTModel>> VehicleDriverAdd([FromBody] VehicleDriverAssignmentModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleDriverUpdate([FromBody] VehicleDriverAssignmentModel model)
+        public async Task<AjaxModel<NTModel>> VehicleDriverUpdate([FromBody] VehicleDriverAssignmentModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleTripAdd([FromBody] VehicleTripModel model)
+        public async Task<AjaxModel<NTModel>> VehicleTripAdd([FromBody] VehicleTripModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<EmptyModel>> VehicleTripUpdate([FromBody] VehicleTripModel model)
+        public async Task<AjaxModel<NTModel>> VehicleTripUpdate([FromBody] VehicleTripModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
         }

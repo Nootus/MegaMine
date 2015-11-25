@@ -336,6 +336,10 @@ md-input-container {
   padding-bottom: 15px;
 }
 
+.full-width > md-input-container{
+    width: 100%;
+}
+
 md-progress-linear .md-dashed:before {
   background: radial-gradient(rgb(168,168,168) 0%, rgb(168,168,168) 16%, transparent 42%) !important;
 }

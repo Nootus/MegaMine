@@ -5,7 +5,8 @@ using System.Threading.Tasks;
 
 namespace eMine.Models.Shared
 {
-    public class EmptyModel
+    public class NTModel
     {
+        public object Data { get; set; }
     }
 }

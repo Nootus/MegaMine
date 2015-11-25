@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 
 namespace eMine.Lib.Domain
 {
-    public class AccountDomain
+    public class AccountDomain : BaseDomain
     {
         private UserManager<ApplicationUser> userManager;
         private SignInManager<ApplicationUser> signInManager;
@@ -69,10 +69,20 @@ namespace eMine.Lib.Domain
             return profile;
         }
 
-        public async Task<string> Logout()
+        public async Task Logout()
         {
             await signInManager.SignOutAsync();
-            return null;
+        }
+
+        public async Task ChangePassword(ChangePasswordModel model)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
+            IdentityResult result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                throw new NTException(Messages.Account.ChangePasswordSuccess, result.Errors);
+            }
         }
     }
 }

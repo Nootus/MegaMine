@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('emine').controller('materialMovement', materialMovement)
-materialMovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants'];
+materialMovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants', 'message'];
 
-function materialMovement($scope, $mdDialog, quarryService, gridUtility, constants) {
+function materialMovement($scope, $mdDialog, quarryService, gridUtility, constants, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -66,7 +66,7 @@ function materialMovement($scope, $mdDialog, quarryService, gridUtility, constan
         //checking the from & to yard
         if (vm.currentYardId === vm.toYardId) {
             vm.movementErrorMessages.splice(0, vm.movementErrorMessages.length);
-            vm.movementErrorMessages.push({ type: 'dupyard', text: 'From and To yards can\'t be same' });
+            vm.movementErrorMessages.push({ type: 'dupyard', text: message.dupYard });
 
             form.toYard.$setValidity('dupyard', false);
         }

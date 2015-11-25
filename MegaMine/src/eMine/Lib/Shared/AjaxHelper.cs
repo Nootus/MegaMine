@@ -71,23 +71,23 @@ namespace eMine.Lib.Shared
             return ajax;
         }
 
-        public static async Task<AjaxModel<EmptyModel>> SaveAsync(Func<string, Task> action, string message) 
+        public static async Task<AjaxModel<NTModel>> SaveAsync(Func<string, Task> action, string message) 
         {
-            AjaxModel<EmptyModel> ajax;
+            AjaxModel<NTModel> ajax;
 
             try
             {
                 await action(null);
 
-                ajax = new AjaxModel<EmptyModel>() { Result = AjaxResult.Success, Model = null, Message = message };
+                ajax = new AjaxModel<NTModel>() { Result = AjaxResult.Success, Model = null, Message = message };
             }
             catch (NTException exp)
             {
-                ajax = new AjaxModel<EmptyModel>() { Result = AjaxResult.ValidationException, Model = null, Message = exp.GetBaseException().Message };
+                ajax = new AjaxModel<NTModel>() { Result = AjaxResult.ValidationException, Model = new NTModel() { Data = exp.Model }, Message = exp.Message };
             }
             catch (Exception exp)
             {
-                ajax = new AjaxModel<EmptyModel>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
+                ajax = new AjaxModel<NTModel>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
             }
 
             return ajax;
