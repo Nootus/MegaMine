@@ -81,7 +81,7 @@ namespace eMine.Lib.Domain
 
             if (!result.Succeeded)
             {
-                throw new NTException(Messages.Account.ChangePasswordSuccess, result.Errors);
+                throw new NTException(Messages.Account.ChangePasswordError, result.Errors);
             }
         }
     }

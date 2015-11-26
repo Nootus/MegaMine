@@ -31,7 +31,9 @@ function changePasswordDialog(accountService, dialogService, utility, constants,
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            accountService.changePassword(dialogModel).catch(function (data) {
+            accountService.changePassword(dialogModel).then(function (data) {
+                dialogService.hide();
+            }).catch(function (data) {
                 error.message = data.message;
                 error.errors = data.model.data;
             });

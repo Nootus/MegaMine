@@ -265,7 +265,7 @@ div.type-formula select{
 
 .dialog_error{
     color: red;
-    text-align: center;
+    /*text-align: center;*/
     width: 100%;
     font-size: 0.85em;
 }
