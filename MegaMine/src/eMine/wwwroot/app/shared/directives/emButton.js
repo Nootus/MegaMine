@@ -8,12 +8,13 @@ function emButton(profile) {
         transclude: true,
         scope: {
             class: '@',
+            title: '@',
             module: '@',
             claim: '@',
             hide: '@'
         },
         link: link,
-        template: '<md-button class="{{class}}" ng-hide="hide"><ng-transclude />'
+        template: '<md-button title="{{title}}" class="{{class}}" ng-hide="hide" aria-label="{{title}}"><ng-transclude />'
                     + '</md-button>'
 
     };

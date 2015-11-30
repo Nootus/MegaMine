@@ -26,7 +26,7 @@ namespace eMine.Lib.Filters
                 return;
             }
 
-            //if page claim is null then it is allow anonymous
+            //checking for annonymous claim
             if(page.PageClaims.Any(p => p.ClaimValue == AccountSettings.AnonymousClaim))
             {
                 return;

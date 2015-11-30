@@ -12,12 +12,17 @@ namespace eMine.Lib.Entities.Account
         public int PageId { get; set; }
         public int ClaimId { get; set; }
         public bool PrimaryClaimInd { get; set; }
-        public string ClaimType { get; set; }
+        //public string ClaimType { get; set; }
 
         [ForeignKey("ClaimId")]
         public IdentityClaimEntity Claim { get; set; }
 
         [ForeignKey("PageId")]
         public IdentityPageEntity Page { get; set; }
+
+        public override string ToString()
+        {
+            return Page.Text + " - " + Claim.ClaimType + " - " + Claim.ClaimValue;
+        }
     }
 }

@@ -18,8 +18,6 @@ namespace eMine.Lib.Entities.Account
         public int? ParentId { get; set; }
         public bool MenuInd { get; set; }
         public int DisplayOrder { get; set; }
-        public string Module { get; set; }
-        public string Claim { get; set; }
         public string Controller { get; set; }
         public string ActionMethod { get; set; }
 
@@ -31,6 +29,11 @@ namespace eMine.Lib.Entities.Account
             {
                 return Claims.Select(s => s.Claim);
             }
+        }
+
+        public override string ToString()
+        {
+            return Text;
         }
     }
 }

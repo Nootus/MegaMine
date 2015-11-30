@@ -11,5 +11,10 @@ namespace eMine.Lib.Entities.Account
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
         public string Description { get; set; }
+
+        public override string ToString()
+        {
+            return ClaimType + " - " + ClaimValue;
+        }
     }
 }

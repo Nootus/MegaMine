@@ -26,7 +26,7 @@ namespace eMine.Lib.Shared
             //checking for name
             var userquery = from page in pages
                             where page.MenuInd == true
-                            && page.Claims.Any(p => profile.Claims.Any(c => p.PrimaryClaimInd == true && (c.ClaimType == p.ClaimType || (c.ClaimType == p.Claim.ClaimType && c.ClaimValue == p.Claim.ClaimValue))))
+                            && page.Claims.Any(p => profile.Claims.Any(c => p.PrimaryClaimInd == true && c.ClaimType == p.Claim.ClaimType && (p.Claim.ClaimValue == AccountSettings.AnonymousClaim || c.ClaimValue == p.Claim.ClaimValue)))
                             select page;
 
                             //join pc in profile.Claims on page.Claims.Any(c => c.Claim.ClaimType .Module equals pc.ClaimType
@@ -50,6 +50,7 @@ namespace eMine.Lib.Shared
             foreach (var tree in treeMenu)
             {
                 tree.Items = menu.Where(m => m.ParentId == tree.PageId).OrderBy(o => o.DisplayOrder).ToList();
+                //remove the
             }
 
             profile.Menu = treeMenu;
