@@ -10,12 +10,14 @@ namespace eMine.Lib.Middleware
 {
     public class PageService
     {
-        public static List<IdentityPageEntity> PageClaims { get; set; }
+        public static List<IdentityPageEntity> Pages { get; set; }
+        //public static List<IdentityClaimEntity> PageClaims { get; set; }
         public static List<ListItem<string, string>> Roles { get; set; }
 
         public static void CachePageClaimsRoles(AccountRepository repository)
         {
-            PageClaims = repository.IdentityPagesGet();
+            Pages = repository.IdentityPagesGet();
+            //PageClaims = Pages.SelectMany(p => p.Claims.Select(c => c.Claim )).Distinct().ToList();
             Roles = repository.IdentityRolesGet();
         }
     }

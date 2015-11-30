@@ -8,6 +8,7 @@ namespace eMine.Lib.Shared
 {
     public static class AccountSettings
     {
+        public const string AnonymousClaim = "Anonymous";
         public const string AdminSuffix = "Admin";
         public const string DenySuffix = "_Deny";
 

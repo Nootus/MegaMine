@@ -81,8 +81,7 @@ namespace eMine.Lib.Repositories
 
         public List<IdentityPageEntity> IdentityPagesGet()
         {
-            var query = from page in dbContext.IdentityPages select page;
-
+            var query = from page in dbContext.IdentityPages.Include(c => c.Claims).ThenInclude(c => c.Claim) select page;
             return query.ToList();
         }
 

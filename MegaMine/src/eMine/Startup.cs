@@ -1,5 +1,6 @@
 ﻿using eMine.Lib.Domain;
 using eMine.Lib.Entities.Account;
+using eMine.Lib.Filters;
 using eMine.Lib.Mapping;
 using eMine.Lib.Middleware;
 using eMine.Lib.Repositories;
@@ -35,6 +36,9 @@ namespace eMine
             Configuration = configBuilder.Build();
 
             services.AddMvc()
+                .AddMvcOptions(options => {
+                    options.Filters.Add(new NTAuthorizeFilter());
+                })
                 .AddJsonOptions(options =>
                 {
                     options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();

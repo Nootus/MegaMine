@@ -18,16 +18,16 @@ namespace eMine.Lib.Filters
             string action = context.RouteData.Values["action"].ToString().ToLower();
             string controller = context.RouteData.Values["controller"].ToString().ToLower() + "controller";
 
-            var pageClaim = PageService.PageClaims.Where(c => String.Compare(c.Controller, controller, true) == 0 && String.Compare(c.ActionMethod, action, true) == 0).Select(s=> new { s.Module, s.Claim }).FirstOrDefault();
+            var page = PageService.Pages.Where(c => String.Compare(c.Controller, controller, true) == 0 && String.Compare(c.ActionMethod, action, true) == 0).FirstOrDefault();
 
-            if(pageClaim == null)
+            if(page == null)
             {
                 context.Result = new HttpStatusCodeResult(403);
                 return;
             }
 
             //if page claim is null then it is allow anonymous
-            if(pageClaim.Claim == null)
+            if(page.PageClaims.Any(p => p.ClaimValue == AccountSettings.AnonymousClaim))
             {
                 return;
             }
@@ -50,15 +50,15 @@ namespace eMine.Lib.Filters
             roles = PageService.Roles.Where(r => roles.Contains(r.Key)).Select(r => r.Item).ToArray();
 
             //checking whether user is an admin
-            if (!roles.Contains(pageClaim.Module + AccountSettings.AdminSuffix))
+            if (!roles.Any(r => page.PageClaims.Any(p => r == p.ClaimType + AccountSettings.AdminSuffix)))
             {
                 //checking for deny claim
-                if (userClaims.Any(c => c.Type == pageClaim.Module + AccountSettings.DenySuffix && c.Value == pageClaim.Claim))
+                if (userClaims.Any(c => page.PageClaims.Any(p => c.Type == p.ClaimType + AccountSettings.DenySuffix && c.Value == p.ClaimValue)))
                 {
-                    context.Result = new HttpUnauthorizedResult();
+                    context.Result = new HttpStatusCodeResult(403);  //new HttpUnauthorizedResult();
                 }
                 //checking for current claim
-                else if (!userClaims.Any(c => c.Type == pageClaim.Module && c.Value == pageClaim.Claim))
+                else if (!userClaims.Any(c => page.PageClaims.Any(p => c.Type == p.ClaimType  && c.Value == p.ClaimValue )))
                 {
                     context.Result = new HttpStatusCodeResult(403);
                 }

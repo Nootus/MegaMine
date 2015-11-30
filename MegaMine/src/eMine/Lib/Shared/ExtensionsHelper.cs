@@ -12,23 +12,27 @@ namespace eMine.Lib.Shared
     {
         public static void SetMenu(this ProfileModel profile)
         {
-            List<IdentityPageEntity> pageClaims = PageService.PageClaims;
+            List<IdentityPageEntity> pages = PageService.Pages;
             List<IdentityPageEntity> menuClaims;
 
             //checking for the admins
-            var rolequery = from claims in pageClaims
-                            where profile.Roles.Contains(claims.Module + AccountSettings.AdminSuffix)
-                            && claims.MenuInd == true
-                            select claims;
+            var rolequery = from page in pages
+                            where profile.Roles.Any(r => page.PageClaims.Any(p => r == p.ClaimType + AccountSettings.AdminSuffix))
+                            && page.MenuInd == true
+                            select page;
 
             var roleClaims = rolequery.ToList();
 
             //checking for name
-            var userquery = from claims in pageClaims
-                                join pc in profile.Claims on claims.Module equals pc.ClaimType
-                            where claims.Claim == null || claims.Claim == pc.ClaimValue
-                            && claims.MenuInd == true
-                            select claims;
+            var userquery = from page in pages
+                            where page.MenuInd == true
+                            && page.Claims.Any(p => profile.Claims.Any(c => p.PrimaryClaimInd == true && (c.ClaimType == p.ClaimType || (c.ClaimType == p.Claim.ClaimType && c.ClaimValue == p.Claim.ClaimValue))))
+                            select page;
+
+                            //join pc in profile.Claims on page.Claims.Any(c => c.Claim.ClaimType .Module equals pc.ClaimType
+                            //where page.Claim == null || page.Claim == pc.ClaimValue
+                            //&& page.MenuInd == true
+                            //select page;
 
             var userClaims = userquery.ToList();
 

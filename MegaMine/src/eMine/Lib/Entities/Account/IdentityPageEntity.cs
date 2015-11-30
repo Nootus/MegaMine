@@ -1,5 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Linq;
 
 namespace eMine.Lib.Entities.Account
 {
@@ -20,5 +22,15 @@ namespace eMine.Lib.Entities.Account
         public string Claim { get; set; }
         public string Controller { get; set; }
         public string ActionMethod { get; set; }
+
+        public ICollection<IdentityPageClaimEntity> Claims { get; set; }
+
+        public IEnumerable<IdentityClaimEntity> PageClaims
+        {
+            get
+            {
+                return Claims.Select(s => s.Claim);
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
 ﻿{
-  "EnvironmentName":  "Development",
+  "EnvironmentName":  "UAT",
 	"Data": {
 		"DefaultConnection": {
 			"ConnectionString": "Server=.\\SQLExpress;Database=eMine;Trusted_Connection=True;"
