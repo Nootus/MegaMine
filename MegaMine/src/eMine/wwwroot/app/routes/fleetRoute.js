@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('emine').config(fleetRoute);
+angular.module('megamine').config(fleetRoute);
 fleetRoute.$inject = ['$stateProvider'];
 
 function fleetRoute($stateProvider) {

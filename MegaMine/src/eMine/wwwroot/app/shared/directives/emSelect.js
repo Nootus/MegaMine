@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').directive('emSelect', emSelect)
+angular.module('megamine').directive('emSelect', emSelect)
 emSelect.$inject = ['$compile', 'constants'];
 
 function emSelect($compile, constants) {

@@ -1,5 +1,5 @@
 ﻿'use strict'
-angular.module('emine').factory('changePasswordDialog', changePasswordDialog);
+angular.module('megamine').factory('changePasswordDialog', changePasswordDialog);
 changePasswordDialog.$inject = ['accountService', 'dialogService', 'utility', 'constants', 'message'];
 
 function changePasswordDialog(accountService, dialogService, utility, constants, message) {

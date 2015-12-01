@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('quarry', quarry)
+angular.module('megamine').controller('quarry', quarry)
 quarry.$inject = ['$scope', 'quarryService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
 
 function quarry($scope, quarryService, gridUtility, utility, constants, dialogService, template) {

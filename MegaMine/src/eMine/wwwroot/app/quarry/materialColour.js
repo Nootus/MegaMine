@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('materialColour', materialColour)
+angular.module('megamine').controller('materialColour', materialColour)
 materialColour.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
 
 function materialColour($scope, quarryService, gridUtility, constants, dialogService, template) {

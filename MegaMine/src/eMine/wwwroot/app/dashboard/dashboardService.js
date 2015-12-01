@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('dashboardService', dashboardService);
+angular.module('megamine').factory('dashboardService', dashboardService);
 
 dashboardService.$inject = ['$http'];
 

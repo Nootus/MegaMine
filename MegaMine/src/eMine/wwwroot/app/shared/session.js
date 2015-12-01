@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('session', session);
+angular.module('megamine').factory('session', session);
 session.$inject = [ '$window', 'toastr', 'navigation', 'constants'];
 
 function session($window, toastr, navigation, constants) {

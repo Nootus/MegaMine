@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('fleetUtility', fleetUtility);
+angular.module('megamine').factory('fleetUtility', fleetUtility);
 fleetUtility.$inject = ['$rootScope'];
 
 function fleetUtility($rootScope) {

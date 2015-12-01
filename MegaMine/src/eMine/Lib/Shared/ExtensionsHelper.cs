@@ -1,10 +1,9 @@
-﻿using eMine.Lib.Entities.Account;
+﻿using AutoMapper;
+using eMine.Lib.Entities.Account;
 using eMine.Lib.Middleware;
 using eMine.Models.Account;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace eMine.Lib.Shared
 {
@@ -13,7 +12,7 @@ namespace eMine.Lib.Shared
         public static void SetMenu(this ProfileModel profile)
         {
             List<IdentityPageEntity> pages = PageService.Pages;
-            List<IdentityPageEntity> menuClaims;
+            List<IdentityPageEntity> menuPages;
 
             //checking for the admins
             var rolequery = from page in pages
@@ -21,7 +20,7 @@ namespace eMine.Lib.Shared
                             && page.MenuInd == true
                             select page;
 
-            var roleClaims = rolequery.ToList();
+            var rolePages = rolequery.ToList();
 
             //checking for name
             var userquery = from page in pages
@@ -29,20 +28,12 @@ namespace eMine.Lib.Shared
                             && page.Claims.Any(p => profile.Claims.Any(c => p.PrimaryClaimInd == true && c.ClaimType == p.Claim.ClaimType && (p.Claim.ClaimValue == AccountSettings.AnonymousClaim || c.ClaimValue == p.Claim.ClaimValue)))
                             select page;
 
-                            //join pc in profile.Claims on page.Claims.Any(c => c.Claim.ClaimType .Module equals pc.ClaimType
-                            //where page.Claim == null || page.Claim == pc.ClaimValue
-                            //&& page.MenuInd == true
-                            //select page;
+            var userPages = userquery.ToList();
 
-            var userClaims = userquery.ToList();
-
-            menuClaims = roleClaims.Union(userClaims).ToList();
+            menuPages = rolePages.Union(userPages).ToList();
 
             //getting the menu model
-            List<MenuModel> menu = menuClaims.Select(claims => new MenuModel { Text =  claims.Text, Url = claims.Url, Disabled = claims.Disabled,
-                                                                                CssClass = claims.CssClass, SpriteCssClass = claims.SpriteCssClass,
-                                                                                ParentId = claims.ParentId, PageId = claims.PageId, DisplayOrder = claims.DisplayOrder }
-                                                    ).ToList();
+            List<MenuModel> menu = menuPages.Select(page => Mapper.Map<IdentityPageEntity, MenuModel>(page)).ToList();
 
             //converting this into tree
             List<MenuModel> treeMenu = menu.Where(m => m.ParentId == null).OrderBy(o => o.DisplayOrder).ToList();
@@ -50,7 +41,9 @@ namespace eMine.Lib.Shared
             foreach (var tree in treeMenu)
             {
                 tree.Items = menu.Where(m => m.ParentId == tree.PageId).OrderBy(o => o.DisplayOrder).ToList();
-                //remove the
+                //checking whether the last one is group menu and removing it
+                if (tree.Items[tree.Items.Count - 1].GroupMenuInd)
+                    tree.Items.RemoveAt(tree.Items.Count - 1);
             }
 
             profile.Menu = treeMenu;

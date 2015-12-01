@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('utility', utility);
+angular.module('megamine').factory('utility', utility);
 utility.$inject = ['$window', '$timeout', 'toastr', 'uiGridConstants'];
 
 function utility($window, $timeout, toastr, uiGridConstants) {

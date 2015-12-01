@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('productSummary', productSummary)
+angular.module('megamine').controller('productSummary', productSummary)
 productSummary.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'quarryUtility', 'dialogService', 'constants', 'template'];
 
 function productSummary($scope, $mdDialog, quarryService, gridUtility, quarryUtility, dialogService, constants, template) {

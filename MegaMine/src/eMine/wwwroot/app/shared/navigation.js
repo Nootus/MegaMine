@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').factory('navigation', navigation)
+angular.module('megamine').factory('navigation', navigation)
 navigation.$inject = ['$rootScope', '$state', '$window', '$location', '$http', 'profile', 'utility', 'constants'];
 
 function navigation($rootScope, $state, $window, $location, $http, profile, utility, constants) {

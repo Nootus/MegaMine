@@ -17,6 +17,7 @@ namespace eMine.Lib.Entities.Account
         public string Disabled { get; set; }
         public int? ParentId { get; set; }
         public bool MenuInd { get; set; }
+        public bool GroupMenuInd { get; set; }
         public int DisplayOrder { get; set; }
         public string Controller { get; set; }
         public string ActionMethod { get; set; }

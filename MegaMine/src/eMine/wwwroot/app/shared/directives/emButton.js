@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').directive('emButton', emButton)
+angular.module('megamine').directive('emButton', emButton)
 emButton.$inject = ['profile'];
 
 function emButton(profile) {

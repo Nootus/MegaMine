@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').directive('emToolbar', emToolbar)
+angular.module('megamine').directive('emToolbar', emToolbar)
 emToolbar.$inject = [];
 
 function emToolbar() {

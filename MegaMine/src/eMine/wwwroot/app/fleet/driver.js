@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('driver', driver)
+angular.module('megamine').controller('driver', driver)
 driver.$inject = ['$scope', 'vehicleService', 'gridUtility', 'constants', 'dialogService', 'template'];
 
 function driver($scope, vehicleService, gridUtility, constants, dialogService, template) {

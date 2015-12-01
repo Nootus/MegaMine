@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('dashboard', dashboard)
+angular.module('megamine').controller('dashboard', dashboard)
 dashboard.$inject = ['dashboardService', 'profile'];
 
 function dashboard(dashboardService, profile) {

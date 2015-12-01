@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').directive('emInput', emInput)
+angular.module('megamine').directive('emInput', emInput)
 emInput.$inject = ['moment', 'constants'];
 
 function emInput(moment, constants) {

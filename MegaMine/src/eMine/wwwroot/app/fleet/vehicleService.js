@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('vehicleService', vehicleService);
+angular.module('megamine').factory('vehicleService', vehicleService);
 
 vehicleService.$inject = ['$http'];
 

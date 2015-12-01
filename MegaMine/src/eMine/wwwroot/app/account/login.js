@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('emine').controller('login', login);
+angular.module('megamine').controller('login', login);
 login.$inject = ['$state', 'accountService'];
 
 function login($state, accountService) {

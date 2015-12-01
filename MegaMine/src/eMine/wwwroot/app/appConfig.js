@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('emine').config(appConfig);
+angular.module('megamine').config(appConfig);
 appConfig.$inject = ['$httpProvider', '$mdThemingProvider'];
 
 
@@ -14,7 +14,7 @@ function appConfig($httpProvider, $mdThemingProvider) {
       .primaryPalette('grey');
 }
 
-angular.module('emine').run(appRun);
+angular.module('megamine').run(appRun);
 appRun.$inject = ['session'];
 function appRun(session) {
     session.initialize();
@@ -22,7 +22,7 @@ function appRun(session) {
 
 
 //global variables
-angular.module('emine').value('toastr', toastr)
-angular.module('emine').value('moment', moment)
+angular.module('megamine').value('toastr', toastr)
+angular.module('megamine').value('moment', moment)
 
 

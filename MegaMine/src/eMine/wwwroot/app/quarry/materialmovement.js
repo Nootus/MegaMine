@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('materialMovement', materialMovement)
+angular.module('megamine').controller('materialMovement', materialMovement)
 materialMovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants', 'message'];
 
 function materialMovement($scope, $mdDialog, quarryService, gridUtility, constants, message) {

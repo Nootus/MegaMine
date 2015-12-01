@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('vehicle', vehicle)
+angular.module('megamine').controller('vehicle', vehicle)
 vehicle.$inject = ['$state', 'vehicleService', 'vehicleDialog', 'utility', 'profile', 'navigation'];
 
 function vehicle($state, vehicleService, vehicleDialog, utility, profile, navigation) {

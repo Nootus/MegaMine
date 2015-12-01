@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('dialogService', dialogService);
+angular.module('megamine').factory('dialogService', dialogService);
 dialogService.$inject = ['$timeout', '$q', '$mdDialog', 'utility'];
 
 function dialogService($timeout, $q, $mdDialog, utility) {

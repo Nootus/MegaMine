@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').directive('ntMultiSelect', ntMultiSelect)
+angular.module('megamine').directive('ntMultiSelect', ntMultiSelect)
 ntMultiSelect.$inject = [];
 
 function ntMultiSelect() {

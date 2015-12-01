@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('vehicleDialog', vehicleDialog);
+angular.module('megamine').factory('vehicleDialog', vehicleDialog);
 
 vehicleDialog.$inject = ['dialogService', 'vehicleService', 'utility', 'fleetUtility'];
 

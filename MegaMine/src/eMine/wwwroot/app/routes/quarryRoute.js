@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('emine').config(quarryRoute);
+angular.module('megamine').config(quarryRoute);
 quarryRoute.$inject = ['$stateProvider'];
 
 function quarryRoute($stateProvider) {

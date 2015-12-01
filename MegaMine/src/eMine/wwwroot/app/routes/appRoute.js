@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('emine').config(appRoute);
+angular.module('megamine').config(appRoute);
 appRoute.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
 function appRoute($stateProvider, $urlRouterProvider, $locationProvider) {

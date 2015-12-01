@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('emine').factory('apiInterceptor', apiInterceptor);
+angular.module('megamine').factory('apiInterceptor', apiInterceptor);
 apiInterceptor.$inject = ['$q', 'utility', 'message', 'profile'];
 
 function apiInterceptor($q, utility, message, profile) {
@@ -21,7 +21,7 @@ function apiInterceptor($q, utility, message, profile) {
             config.url = window.virtualDirectory + config.url;
 
         if (config.url.indexOf(apiUrl) === 0) {
-            //navigation.isLoading = true;
+            navigation.isLoading = true;
             config.headers.companyId = profile.companyId
         }
 

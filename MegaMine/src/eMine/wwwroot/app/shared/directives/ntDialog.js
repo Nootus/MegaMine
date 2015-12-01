@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').directive('ntDialog', ntDialog)
+angular.module('megamine').directive('ntDialog', ntDialog)
 ntDialog.$inject = ['$mdDialog', 'constants'];
 
 function ntDialog($mdDialog, constants) {

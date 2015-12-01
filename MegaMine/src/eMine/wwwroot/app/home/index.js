@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('index', index)
+angular.module('megamine').controller('index', index)
 index.$inject = ['$scope', '$interval', 'profile', 'navigation', 'changePasswordDialog'];
 
 function index($scope, $interval, profile, navigation, changePasswordDialog) {

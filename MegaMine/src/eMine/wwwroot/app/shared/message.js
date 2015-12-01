@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('message', message);
+angular.module('megamine').factory('message', message);
 message.$inject = [];
 
 function message() {

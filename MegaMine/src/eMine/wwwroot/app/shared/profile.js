@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('profile', profile);
+angular.module('megamine').factory('profile', profile);
 profile.$inject = [];
 
 function profile() {

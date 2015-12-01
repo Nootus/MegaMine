@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('servicereport', servicereport)
+angular.module('megamine').controller('servicereport', servicereport)
 servicereport.$inject = ['$state', 'vehicleService', 'vehicleServiceDialog'];
 
 function servicereport($state, vehicleService, vehicleServiceDialog) {

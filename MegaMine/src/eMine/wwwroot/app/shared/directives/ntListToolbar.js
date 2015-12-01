@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').directive('ntListToolbar', ntListToolbar)
+angular.module('megamine').directive('ntListToolbar', ntListToolbar)
 ntListToolbar.$inject = [];
 
 function ntListToolbar() {

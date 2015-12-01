@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('serviceRecord', serviceRecord)
+angular.module('megamine').controller('serviceRecord', serviceRecord)
 serviceRecord.$inject = ['$scope', '$window', 'vehicleService', 'vehicleServiceDialog', 'gridUtility', 'uiGridConstants', 'constants'];
 
 function serviceRecord($scope, $window, vehicleService, vehicleServiceDialog, gridUtility, uiGridConstants, constants) {

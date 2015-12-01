@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').directive('ntToolbarButton', ntToolbarButton)
+angular.module('megamine').directive('ntToolbarButton', ntToolbarButton)
 ntToolbarButton.$inject = [];
 
 function ntToolbarButton() {

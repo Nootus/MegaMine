@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('constants', constants);
+angular.module('megamine').factory('constants', constants);
 constants.$inject = [];
 
 function constants() {

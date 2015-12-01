@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('accountService', accountService);
+angular.module('megamine').factory('accountService', accountService);
 
 accountService.$inject = ['$http', 'profile'];
 

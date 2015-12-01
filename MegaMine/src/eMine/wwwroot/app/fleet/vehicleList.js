@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('vehicleList', vehicleList)
+angular.module('megamine').controller('vehicleList', vehicleList)
 vehicleList.$inject = ['$scope', 'vehicleService', 'vehicleDialog', 'gridUtility', 'navigation', 'constants', 'template'];
 
 function vehicleList($scope, vehicleService, vehicleDialog, gridUtility, navigation, constants, template) {

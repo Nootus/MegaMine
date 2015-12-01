@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('yard', yard)
+angular.module('megamine').controller('yard', yard)
 yard.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
 
 function yard($scope, quarryService, gridUtility, constants, dialogService, template) {

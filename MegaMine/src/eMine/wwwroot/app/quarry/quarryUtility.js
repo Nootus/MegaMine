@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('quarryUtility', quarryUtility);
+angular.module('megamine').factory('quarryUtility', quarryUtility);
 quarryUtility.$inject = ['$filter', 'quarryService', 'utility'];
 
 function quarryUtility($filter, quarryService, utility) {

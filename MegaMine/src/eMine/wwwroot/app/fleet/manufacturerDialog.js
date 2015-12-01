@@ -1,5 +1,5 @@
 ﻿'use strict'
-angular.module('emine').factory('manufacturerDialog', manufacturerDialog);
+angular.module('megamine').factory('manufacturerDialog', manufacturerDialog);
 manufacturerDialog.$inject = ['dialogService', 'vehicleService', 'utility'];
 
 function manufacturerDialog(dialogService, vehicleService, utility) {

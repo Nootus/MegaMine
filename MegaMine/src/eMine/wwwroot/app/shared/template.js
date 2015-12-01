@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('template', template);
+angular.module('megamine').factory('template', template);
 template.$inject = ['constants'];
 
 function template(constants) {

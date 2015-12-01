@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('emine').controller('stockyard', stockyard)
+angular.module('megamine').controller('stockyard', stockyard)
 stockyard.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'quarryUtility', 'constants', 'dialogService', 'template', 'message'];
 
 function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility, constants, dialogService, template, message) {

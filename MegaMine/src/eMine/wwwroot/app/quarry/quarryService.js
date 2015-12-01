@@ -1,6 +1,6 @@
 ﻿'use strict'
 
-angular.module('emine').factory('quarryService', quarryService);
+angular.module('megamine').factory('quarryService', quarryService);
 
 quarryService.$inject = ['$http'];
 
