@@ -411,6 +411,17 @@ md-dialog md-dialog-content{
 .ui-grid-row:nth-child(even) .ui-grid-cell {
   background-color: #f4f4f4;
 }
+
+.ui-grid-menu-button{
+    margin-top: -6px;
+    margin-right: -8px;
+    height: 31px;
+}
+
+.ui-grid-menu-button .ui-grid-menu .ui-grid-menu-mid {
+     overflow: auto; 
+}
+
 /* UI Grid overrides Ends*/
 
 

@@ -1,10 +1,10 @@
 ﻿'use strict';
 
 angular.module('megamine').config(appConfig);
-appConfig.$inject = ['$httpProvider', '$mdThemingProvider'];
+appConfig.$inject = ['$provide', '$httpProvider', '$mdThemingProvider'];
 
 
-function appConfig($httpProvider, $mdThemingProvider) {
+function appConfig($provide, $httpProvider, $mdThemingProvider) {
 
     // Add the interceptor to the $httpProvider.
     $httpProvider.interceptors.push('apiInterceptor');
@@ -12,6 +12,19 @@ function appConfig($httpProvider, $mdThemingProvider) {
 
     $mdThemingProvider.theme('default')
       .primaryPalette('grey');
+
+
+    $provide.decorator('GridOptions', function ($delegate) {
+        var gridOptions;
+        gridOptions = angular.copy($delegate);
+        gridOptions.initialize = function (options) {
+            var initOptions;
+            initOptions = $delegate.initialize(options);
+            angular.extend(initOptions, { enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: false, gridMenuShowHideColumns: false });
+            return initOptions;
+        };
+        return gridOptions;
+    });
 }
 
 angular.module('megamine').run(appRun);

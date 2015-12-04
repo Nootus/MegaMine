@@ -19,7 +19,7 @@ function ntGrid() {
 
     function link(scope, element, attrs, nullController, transclude) {
 
-        angular.extend(scope.vm.gridOptions,  { enableGridMenu: true, exporterMenuCsv:  true, exporterMenuPdf:  true});
+        //angular.extend(scope.vm.gridOptions, { enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: false, gridMenuShowHideColumns:false });
 
         scope.gridClass = scope.gridClass === undefined ? 'main-grid' : scope.gridClass;
     }
