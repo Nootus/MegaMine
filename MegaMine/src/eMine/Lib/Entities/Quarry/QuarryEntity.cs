@@ -12,6 +12,5 @@ namespace eMine.Lib.Entities.Quarry
         public int QuarryId { get; set; }
         public string QuarryName { get; set; }
         public string Location { get; set; }
-        public List<int> ProductType { get; set; }
     }
 }

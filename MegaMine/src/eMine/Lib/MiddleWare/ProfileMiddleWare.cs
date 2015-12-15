@@ -1,21 +1,15 @@
-﻿using eMine.Lib.Entities.Account;
+﻿using eMine.Lib.Domain;
+using eMine.Lib.Entities.Account;
 using eMine.Lib.Shared;
-using eMine.Models;
 using eMine.Models.Account;
 using eMine.Models.Shared;
 using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.Framework.DependencyInjection;
-using eMine.Lib.Repositories;
-using Newtonsoft.Json;
-using eMine.Lib.Domain;
 
 namespace eMine.Lib.Middleware
 {
@@ -51,9 +45,9 @@ namespace eMine.Lib.Middleware
             //automatically loggin in in the dev mode
             else if (SiteSettings.IsEnvironment(Constants.DevEnvironment))
             {
-                SignInManager<ApplicationUser> signInManager = context.ApplicationServices.GetService<SignInManager<ApplicationUser>>();
-                UserManager<ApplicationUser> userManager = context.ApplicationServices.GetService<UserManager<ApplicationUser>>();
-                AccountDomain accountDomain = context.ApplicationServices.GetService<AccountDomain>();
+                SignInManager<ApplicationUser> signInManager = (SignInManager<ApplicationUser>) context.ApplicationServices.GetService(typeof(SignInManager<ApplicationUser>));
+                UserManager<ApplicationUser> userManager = (UserManager<ApplicationUser>) context.ApplicationServices.GetService(typeof(UserManager<ApplicationUser>));
+                AccountDomain accountDomain = (AccountDomain) context.ApplicationServices.GetService(typeof(AccountDomain));
 
                 ProfileModel profile = await accountDomain.ProfileGet(AccountSettings.DefaultProfileUserName);
 

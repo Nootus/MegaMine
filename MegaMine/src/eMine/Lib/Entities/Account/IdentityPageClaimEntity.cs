@@ -12,7 +12,6 @@ namespace eMine.Lib.Entities.Account
         public int PageId { get; set; }
         public int ClaimId { get; set; }
         public bool PrimaryClaimInd { get; set; }
-        //public string ClaimType { get; set; }
 
         [ForeignKey("ClaimId")]
         public IdentityClaimEntity Claim { get; set; }

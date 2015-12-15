@@ -2,10 +2,8 @@
 using eMine.Lib.Entities.Administration;
 using eMine.Lib.Entities.Fleet;
 using eMine.Lib.Entities.Quarry;
-using eMine.Lib.Shared;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
-using Microsoft.Framework.ConfigurationModel;
 
 namespace eMine.Lib.Repositories
 {
@@ -51,9 +49,15 @@ namespace eMine.Lib.Repositories
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<IdentityRoleHierarchyEntity>().HasKey(e => new { e.RoleId, e.ChildRoleId });
-            builder.Entity<UserCompanyEntity>().HasKey(e => new { e.UserProfileId, e.CompanyId });
+            builder.Entity<IdentityRoleHierarchyEntity>(entity =>
+            {
+                entity.HasKey(e => new { e.RoleId, e.ChildRoleId });
+            });
 
+            builder.Entity<UserCompanyEntity>(entity =>
+            {
+                entity.HasKey(e => new { e.UserProfileId, e.CompanyId });
+            });
 
 
             base.OnModelCreating(builder);

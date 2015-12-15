@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace eMine.Lib.Entities.Account
@@ -11,6 +12,8 @@ namespace eMine.Lib.Entities.Account
         public string ClaimType { get; set; }
         public string ClaimValue { get; set; }
         public string Description { get; set; }
+
+        public List<IdentityPageClaimEntity> Pages { get; set; }
 
         public override string ToString()
         {

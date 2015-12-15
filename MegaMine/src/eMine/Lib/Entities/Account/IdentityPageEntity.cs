@@ -22,7 +22,7 @@ namespace eMine.Lib.Entities.Account
         public string Controller { get; set; }
         public string ActionMethod { get; set; }
 
-        public ICollection<IdentityPageClaimEntity> Claims { get; set; }
+        public List<IdentityPageClaimEntity> Claims { get; set; }
 
         public IEnumerable<IdentityClaimEntity> PageClaims
         {

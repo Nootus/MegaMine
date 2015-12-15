@@ -11,9 +11,9 @@ using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
-using Microsoft.Dnx.Runtime;
-using Microsoft.Framework.Configuration;
-using Microsoft.Framework.DependencyInjection;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
 using System.IO;
 
@@ -21,19 +21,36 @@ namespace eMine
 {
     public class Startup
     {
-        public IConfiguration Configuration { get; set; }
+        public IConfigurationRoot Configuration { get; set; }
+
+        public Startup(IHostingEnvironment env)
+        {
+            // Set up configuration sources.
+            var builder = new ConfigurationBuilder()
+                .AddJsonFile("appsettings.json")
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+
+            //if (env.IsDevelopment())
+            //{
+            //    // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
+            //    builder.AddUserSecrets();
+            //}
+
+            builder.AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
 
         public void ConfigureServices(IServiceCollection services)
         {
             var applicationEnvironment = services.BuildServiceProvider().GetRequiredService<IApplicationEnvironment>();
             var configurationPath = Path.Combine(applicationEnvironment.ApplicationBasePath, "config.json");
 
-            // Set up configuration sources.
-            var configBuilder = new ConfigurationBuilder()
-                .AddJsonFile(configurationPath)
-                .AddEnvironmentVariables();
+            //// Set up configuration sources.
+            //var configBuilder = new ConfigurationBuilder()
+            //    .AddJsonFile(configurationPath)
+            //    .AddEnvironmentVariables();
 
-            Configuration = configBuilder.Build();
+            //Configuration = configBuilder.Build();
 
             services.AddMvc()
                 .AddMvcOptions(options => {
