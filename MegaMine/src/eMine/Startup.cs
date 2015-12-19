@@ -42,16 +42,6 @@ namespace eMine
 
         public void ConfigureServices(IServiceCollection services)
         {
-            var applicationEnvironment = services.BuildServiceProvider().GetRequiredService<IApplicationEnvironment>();
-            var configurationPath = Path.Combine(applicationEnvironment.ApplicationBasePath, "config.json");
-
-            //// Set up configuration sources.
-            //var configBuilder = new ConfigurationBuilder()
-            //    .AddJsonFile(configurationPath)
-            //    .AddEnvironmentVariables();
-
-            //Configuration = configBuilder.Build();
-
             services.AddMvc()
                 .AddMvcOptions(options => {
                     options.Filters.Add(new NTAuthorizeFilter());

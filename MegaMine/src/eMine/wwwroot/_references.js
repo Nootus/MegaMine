@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../gulpfile.js" />
 /// <reference path="app/account/accountService.js" />
 /// <reference path="app/account/changePasswordDialog.js" />
 /// <reference path="app/account/login.js" />

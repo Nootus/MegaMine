@@ -31,8 +31,5 @@
     "wwwroot",
     "node_modules",
     "bower_components"
-  ],
-  "scripts": {
-    "prepublish": [ "npm install", "bower install", "gulp clean", "gulp min" ]
-  }
+  ]
 }
