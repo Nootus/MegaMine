@@ -6,7 +6,7 @@
                 <em-select form="stockForm" label="Yard" control-name="yard" ng-model="vm.yardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></em-select>
             </div>
             <div flex="10" layout-align="center">
-                <nt-button ng-click="vm.getStock(stockForm)" button-icon="save" button-text="Get Stock" ng-disabled="stockForm.$invalid && stockForm.$submitted"></nt-button>
+                <nt-button ng-click="vm.getStock(stockForm)" button-icon="save" button-text="Get Stock" form="stockForm" ng-disabled="stockForm.$invalid && stockForm.$submitted"></nt-button>
             </div>
         </div>
     </form>

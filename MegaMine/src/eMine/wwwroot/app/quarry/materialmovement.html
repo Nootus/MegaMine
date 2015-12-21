@@ -1,15 +1,13 @@
 ﻿<em-toolbar title="Material Movement" class="title">
-    <md-button class="md-raised md-primary" aria-label="Add" ng-click="vm.moveMaterial(movementForm, $event)" ng-disabled="movementForm.$invalid && movementForm.$submitted">
-        <md-icon class="icon-button" md-svg-icon="content/images/icons/common/add.svg"></md-icon>Move Material
-    </md-button>
+    <nt-button ng-click="vm.moveMaterial(movementForm, $event)" button-icon="add" button-text="Move Material" form="movementForm"></nt-button>
 </em-toolbar>
 <md-content layout-padding>
         <div layout="row">
-            <form flex="50" name="stockForm" novalidate>
+            <form flex="50" name="materialStockForm" novalidate>
                 <div layout="row">
-                    <em-select flex="30" form="stockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></em-select>
+                    <em-select flex="30" form="materialStockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></em-select>
                     <div flex="70" layout-align="center">
-                        <nt-button ng-click="vm.getStock(stockForm)" button-icon="save" button-text="Get Stock" ng-disabled="stockForm.$invalid && stockForm.$submitted"></nt-button>
+                        <nt-button ng-click="vm.getStock(materialStockForm)" button-icon="save" button-text="Get Stock" form="materialStockForm"></nt-button>
                     </div>
                 </div>
             </form>

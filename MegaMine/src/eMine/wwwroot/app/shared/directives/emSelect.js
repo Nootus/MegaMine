@@ -23,7 +23,7 @@ function emSelect($compile, constants) {
     };
 
     function getTemplate(controlName, optValue, optText) {
-        return '<md-input-container class="emselect {{errorCss}}" md-is-error="isFieldError()" style="{{style}}">'
+        return '<md-input-container class="ntselect {{errorCss}}" md-is-error="isFieldError()" style="{{style}}">'
                     + '<label>{{label}}</label>'
                     + '<md-select name="' + controlName + '" ng-required="{{ngRequired}}" ng-disabled="ngDisabled" ng-model="ngModel" ng-change="ngChange" aria-label="{{controlName}}">'
                     + '<md-option ng-value="opt.' + optValue + '" ng-repeat="opt in optList">{{ opt.' + optText + ' }}</md-option>'
@@ -31,7 +31,7 @@ function emSelect($compile, constants) {
                     + '<div ng-messages="form[controlName].$error" ng-show="isFieldError()">'
                     + '<span ng-message="required">Required!</span>'
                     + '<span ng-repeat="errorMessage in errorMessages">'
-                        + '<span ng-message-exp="errorMessage.type">{{ errorMessage.text }}</span>'
+                        + '<span class="md-input-message-animation" ng-message-exp="errorMessage.type">{{ errorMessage.text }}</span>'
                     + '</span>'
                     + '</div>'
                     + '</md-input-container>'
@@ -64,7 +64,7 @@ function emSelect($compile, constants) {
                 var control = scope.form[scope.controlName];
                 var isError = scope.form.$submitted && !control.$valid;
                 if (isError)
-                    scope.errorCss = "emselect-invalid";
+                    scope.errorCss = "ntselect-invalid";
                 else
                     scope.errorCss = "";
 
