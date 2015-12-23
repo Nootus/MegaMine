@@ -31,6 +31,12 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
         gridOptions.data = model;
         resizeGrid(gridOptions, contentClass, gridClass, bottomOffset);
 
+        //setting the grid API
+        gridOptions.onRegisterApi = function(gridApi){
+            gridOptions.gridApi = gridApi;
+        };
+
+
         angular.element($window).bind('resize', function () {
             gridOptions.gridHeight = getGridHeight(contentClass, gridClass, bottomOffset);
         });

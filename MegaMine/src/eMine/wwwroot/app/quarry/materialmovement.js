@@ -6,11 +6,6 @@ function materialMovement($scope, $mdDialog, quarryService, gridUtility, constan
 
     var gridOptions = {
         columnDefs: [
-                    {
-                        name: 'materialMovementId', field: 'materialMovementId', displayName: '', enableColumnMenu: false, type: 'string',
-                        cellTemplate: "<md-checkbox ng-model=\"row.entity.selected\" aria-label=\"{{row.entity.materialMovementId}}\" class=\"md-primary\"></md-checkbox>",
-                        cellClass: "text-center", enableHiding: false
-                    },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
                     { name: 'length', field: 'length', type: 'number', displayName: 'Length', enableHiding: false },
@@ -73,10 +68,8 @@ function materialMovement($scope, $mdDialog, quarryService, gridUtility, constan
 
         if (form.$valid) {
             var selectedIds = [];
-            angular.forEach(quarryService.stock, function (item) {
-                if (item.selected === true) {
-                    selectedIds.push(item.materialMovementId)
-                }
+            angular.forEach(vm.gridOptions.gridApi.selection.getSelectedRows(), function (item) {
+                selectedIds.push(item.materialMovementId)
             });
 
             if (selectedIds.length === 0) {
