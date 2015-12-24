@@ -63,6 +63,7 @@
 /// <reference path="app/shared/session.js" />
 /// <reference path="app/shared/template.js" />
 /// <reference path="app/shared/utility.js" />
+/// <reference path="js/site.min.js" />
 /// <reference path="scripts/angular/angular.js" />
 /// <reference path="scripts/angular/angular-animate.js" />
 /// <reference path="scripts/angular/angular-aria.js" />

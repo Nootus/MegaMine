@@ -17,15 +17,9 @@
   </PropertyGroup>
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
-    <DevelopmentServerPort>50064</DevelopmentServerPort>
   </PropertyGroup>
   <ItemGroup>
     <DnxInvisibleFolder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DNX\Microsoft.DNX.targets" Condition="'$(VSToolsPath)' != ''" />
-  <ProjectExtensions>
-    <VisualStudio>
-      <UserProperties project_1json__JSONSchema="http://json.schemastore.org/project-1.0.0-beta6" />
-    </VisualStudio>
-  </ProjectExtensions>
 </Project>
