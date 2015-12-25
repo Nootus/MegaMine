@@ -18,7 +18,7 @@ function sparePartDialog(dialogService, vehicleService, utility, fleetUtility) {
             targetEvent: ev,
             data: { model: vehicleService.currentSparePart },
             dialogMode: dialogMode,
-            resolve: { function () { return vehicleService.getCurrentSparePart(model.sparePartId) } }
+            resolve: { resolveModel : function () { return vehicleService.getCurrentSparePart(model.sparePartId) } }
         })
         .then(function (dialogModel) {
             vehicleService.saveSparePart(dialogModel).then(function () {

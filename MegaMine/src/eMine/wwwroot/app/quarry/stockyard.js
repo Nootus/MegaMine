@@ -72,7 +72,7 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility,
             dialogMode: dialogMode,
             dialogInit: dialogInit,
             resolve: {
-                function () {
+                resolveModel: function () {
                     if (Object.getOwnPropertyNames(quarryService.materialViewModel).length === 0) {
                         return quarryService.getMaterialViewModel()
                     }
