@@ -13,9 +13,7 @@ using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.PlatformAbstractions;
 using Newtonsoft.Json.Serialization;
-using System.IO;
 
 namespace eMine
 {
@@ -89,7 +87,7 @@ namespace eMine
             //saving the site settgins
             SiteSettings.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
             SiteSettings.WebPath = Configuration["DNX_APPBASE"];
-            SiteSettings.EnvironmentName = Configuration["EnvironmentName"];
+            SiteSettings.EnvironmentName = env.EnvironmentName;
 
             // Add the following to the request pipeline only in development environment.
             //if (env.IsEnvironment(Constants.DevEnvironment))
@@ -98,7 +96,7 @@ namespace eMine
             //    app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
             //}
             //else
-            //{
+            //{ 
             //    app.UseErrorHandler("/Error");
             //}
 
