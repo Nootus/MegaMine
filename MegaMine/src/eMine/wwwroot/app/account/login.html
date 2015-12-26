@@ -1,15 +1,15 @@
 ﻿<div layout="row">
     <div flex="30"></div>
-    <div flex="40">
+    <div flex="45">
         <md-toolbar>
             <div class="md-toolbar-tools">
                 <h2 class="md-flex">Login</h2>
             </div>
         </md-toolbar>
-        <md-content layout-padding>
+        <md-content layout-padding> 
             <form name="loginForm" novalidate>
                 <em-input form="loginForm" label="Username" control-name="userName" ng-model="vm.model.UserName" ng-required="true" em-maxlength="50"></em-input>
-                <em-input form="loginForm" label="Password" control-name="userPassword" ng-model="vm.model.UserPassword" type="password" ng-required="true"></em-input>
+                <em-input form="loginForm" label="Password" control-name="userPassword" ng-model="vm.model.UserPassword" type="password" ng-required="true" em-maxlength="20"></em-input>
                 <md-button ng-click="vm.validate(loginForm)" class="md-raised md-primary" ng-disabled="loginForm.$invalid && loginForm.$submitted">Log In</md-button>
             </form>
         </md-content>
