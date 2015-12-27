@@ -59,11 +59,17 @@
     <Folder Include="Properties" />
     <Folder Include="Stored Procedures" />
     <Folder Include="Functions" />
+    <Folder Include="Scripts" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Stored Procedures\GetQuarrySummary.sql" />
     <Build Include="Stored Procedures\QuarryIngest.sql" />
     <Build Include="Stored Procedures\ProductSummaryGet.sql" />
     <Build Include="Functions\SplitCsv.sql" />
+    <Build Include="Scripts\InitialSchema.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Scripts\InitialMasterData.sql" />
+    <None Include="Scripts\QuarryData.sql" />
   </ItemGroup>
 </Project>

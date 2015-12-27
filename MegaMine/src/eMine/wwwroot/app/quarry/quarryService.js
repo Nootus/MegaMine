@@ -187,7 +187,8 @@ function quarryService($http) {
         return $http.post("/api/quarry/quarrysummary", searchParams)
             .then(function (data) {
                 service.quarrySummary.splice(0, service.quarrySummary.length);
-                angular.extend(service.quarrySummary, JSON.parse(data));
+                if(data !== "")
+                    angular.extend(service.quarrySummary, JSON.parse(data));
                 return data;
             });
     }
