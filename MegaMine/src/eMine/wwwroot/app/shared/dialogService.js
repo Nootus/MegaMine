@@ -13,7 +13,6 @@ function dialogService($timeout, $q, $mdDialog, utility) {
 
     init();
 
-    return vm;
 
     function init() {
 
@@ -27,7 +26,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             controllerAs: "vm",
             templateUrl: options.templateUrl,
             targetEvent: options.targetEvent,
-            locals: { $mdDialog: $mdDialog, dialogOptions: options },
+            locals: { dialogOptions: options },
             resolve: options.resolve
         });
 
@@ -38,6 +37,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
         $mdDialog.hide();
     }
 
+    dialogController.$inject = ['$scope', '$mdDialog', 'dialogOptions']
     function dialogController($scope, $mdDialog, dialogOptions) {
 
 
@@ -90,5 +90,6 @@ function dialogService($timeout, $q, $mdDialog, utility) {
         }
     }
 
+    return vm;
 
 }

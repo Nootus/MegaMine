@@ -14,7 +14,7 @@ function appConfig($provide, $httpProvider, $mdThemingProvider) {
       .primaryPalette('grey');
 
 
-    $provide.decorator('GridOptions', function ($delegate) {
+    $provide.decorator('GridOptions', ['$delegate', function ($delegate) {
         var gridOptions;
         gridOptions = angular.copy($delegate);
         gridOptions.initialize = function (options) {
@@ -24,7 +24,7 @@ function appConfig($provide, $httpProvider, $mdThemingProvider) {
             return initOptions;
         };
         return gridOptions;
-    });
+    }]);
 }
 
 angular.module('megamine').run(appRun);

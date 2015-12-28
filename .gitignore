@@ -3,7 +3,9 @@
 ################################################################################
 
 /gitpush.bat
-/MegaMine/src/MegaMineDB/obj/Debug/MegaMineDB.sqlproj.FileListAbsolute.txt
-/MegaMine/src/MegaMineDB/obj/Debug/MegaMineDB.pdb
-/MegaMine/src/MegaMineDB/obj/Debug/MegaMineDB.dll
+/MegaMine/src/MegaMineDB/obj
 /MegaMine/src/MegaMineDB/MegaMineDB.dbmdl
+/MegaMine/src/eMine/Properties/PublishProfiles
+/MegaMine/src/eMine/node_modules
+/MegaMine/src/eMine/wwwroot/js
+h/MegaMine/src/eMine/wwwroot/css

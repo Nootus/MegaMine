@@ -1,121 +1,133 @@
-﻿<html ng-app="megamine">
+﻿@addTagHelper "*, Microsoft.AspNet.Mvc.TagHelpers"
+
+<html ng-app="megamine">
 <head>
     <meta name="viewport" content="width=device-width" />
     <base href="/" target="_blank">
     <title>Mega Mine</title>
-    <link href="content/ui-grid/ui-grid.css" rel="stylesheet" />
-    <link href="content/angular-material.css" rel="stylesheet" />
+    <environment names="Staging,Production">
+        <link href="content/app.min.css" rel="stylesheet" asp-append-version="true" />
+    </environment>
+    <environment names="Development">
+        <link href="content/ui-grid/ui-grid.css" rel="stylesheet" />
+        <link href="content/angular-material.css" rel="stylesheet" />
 
-    <link href="content/toastr.css" rel="stylesheet" />
+        <link href="content/toastr.css" rel="stylesheet" />
 
-    <link href="content/app.css" rel="stylesheet" />
-    <link href="content/icons.css" rel="stylesheet" />
+        <link href="content/app.css" rel="stylesheet" />
+        <link href="content/icons.css" rel="stylesheet" />
+    </environment>
 </head>
 <body>
     <div ng-include="'app/home/index.html'"></div>
-
-
 
     <script>
         window.virtualDirectory = "";
         window.environmentName = '@ViewBag.EnvironmentName';
     </script>
 
-    <script src="scripts/jquery.js"></script>
+    <environment names="Staging,Production">
 
-    <script src="scripts/angular/angular.js"></script>
-    <script src="scripts/angular/angular-messages.js"></script>
-    <script src="scripts/angular/angular-animate.js"></script>
-    <script src="scripts/angular/angular-aria.js"></script>
-    <script src="scripts/angular/angular-material.js"></script>
-    <script src="scripts/angular/angular-ui-router.js"></script>
+        <script src="js/scripts.min.js" asp-append-version="true"></script>
+        <script src="js/app.min.js" asp-append-version="true"></script>
+    </environment>
+    <environment names="Development">
+        <script src="scripts/jquery.js"></script>
 
-    <script src="scripts/ui-grid.js"></script>
-    <script src="scripts/moment.js"></script>
-    <script src="scripts/toastr.js"></script>
+        <script src="scripts/angular/angular.js"></script>
+        <script src="scripts/angular/angular-messages.js"></script>
+        <script src="scripts/angular/angular-animate.js"></script>
+        <script src="scripts/angular/angular-aria.js"></script>
+        <script src="scripts/angular/angular-material.js"></script>
+        <script src="scripts/angular/angular-ui-router.js"></script>
 
-    <!--MegaMine application include files-->
-    <script src="app/app.js"></script>
-    <script src="app/appconfig.js"></script>
+        <script src="scripts/ui-grid.js"></script>
+        <script src="scripts/moment.js"></script>
+        <script src="scripts/toastr.js"></script>
 
-    <!-- Routes -->
-    <script src="app/routes/approute.js"></script>
-    <script src="app/routes/fleetroute.js"></script>
-    <script src="app/routes/quarryroute.js"></script>
+        <!--MegaMine application include files-->
+        <script src="app/app.js"></script>
+        <script src="app/appconfig.js"></script>
 
-
-    <script src="app/home/index.js"></script>
-
-    <!--Shared Services-->
-    <script src="app/shared/apiinterceptor.js"></script>
-    <script src="app/shared/navigation.js"></script>
-    <script src="app/shared/profile.js"></script>
-    <script src="app/shared/session.js"></script>
-    <script src="app/shared/utility.js"></script>
-    <script src="app/shared/gridUtility.js"></script>
-    <script src="app/shared/constants.js"></script>
-    <script src="app/shared/template.js"></script>
-    <script src="app/shared/message.js"></script>
-    <script src="app/shared/dialogService.js"></script>
-
-    <script src="app/dashboard/dashboard.js"></script>
-    <script src="app/dashboard/dashboardservice.js"></script>
-
-    <script src="app/account/login.js"></script>
-    <script src="app/account/accountservice.js"></script>
-
-    <!-- Directives -->
-    <script src="app/shared/directives/emInput.js"></script>
-    <script src="app/shared/directives/emSelect.js"></script>
-    <script src="app/shared/directives/emToolbar.js"></script>
-    <script src="app/shared/directives/ntToolbarButton.js"></script>
-    <script src="app/shared/directives/ntListToolbar.js"></script>
-    <script src="app/shared/directives/ntButton.js"></script>
-    <script src="app/shared/directives/emButton.js"></script>
-    <script src="app/shared/directives/ntDialog.js"></script>
-    <script src="app/shared/directives/ntGrid.js"></script>
-    <script src="app/shared/directives/ntMultiSelect.js"></script>
-
-    <!-- Account script files -->
-    <script src="app/account/changePasswordDialog.js"></script>
+        <!-- Routes -->
+        <script src="app/routes/approute.js"></script>
+        <script src="app/routes/fleetroute.js"></script>
+        <script src="app/routes/quarryroute.js"></script>
 
 
-    <!-- Fleet script files -->
-    <script src="app/fleet/fleetUtility.js"></script>
-    <script src="app/fleet/vehicleType.js"></script>
-    <script src="app/fleet/driver.js"></script>
+        <script src="app/home/index.js"></script>
 
-    <script src="app/fleet/vehicleService.js"></script>
-    <script src="app/fleet/vehicleList.js"></script>
-    <script src="app/fleet/vehicle.js"></script>
-    <script src="app/fleet/vehicleDialog.js"></script>
-    <script src="app/fleet/serviceHistory.js"></script>
-    <script src="app/fleet/vehicleFuel.js"></script>
-    <script src="app/fleet/vehicleDriver.js"></script>
-    <script src="app/fleet/vehicleDriverDialog.js"></script>
-    <script src="app/fleet/vehicleServiceDialog.js"></script>
-    <script src="app/fleet/vehicletrip.js"></script>
+        <!--Shared Services-->
+        <script src="app/shared/apiinterceptor.js"></script>
+        <script src="app/shared/navigation.js"></script>
+        <script src="app/shared/profile.js"></script>
+        <script src="app/shared/session.js"></script>
+        <script src="app/shared/utility.js"></script>
+        <script src="app/shared/gridUtility.js"></script>
+        <script src="app/shared/constants.js"></script>
+        <script src="app/shared/template.js"></script>
+        <script src="app/shared/message.js"></script>
+        <script src="app/shared/dialogService.js"></script>
 
-    <script src="app/fleet/sparePartList.js"></script>
-    <script src="app/fleet/sparePart.js"></script>
-    <script src="app/fleet/sparePartDialog.js"></script>
-    <script src="app/fleet/manufacturerList.js"></script>
-    <script src="app/fleet/manufacturerDialog.js"></script>
-    <script src="app/fleet/manufacturer.js"></script>
-    <script src="app/fleet/servicereport.js"></script>
+        <script src="app/dashboard/dashboard.js"></script>
+        <script src="app/dashboard/dashboardservice.js"></script>
 
-    <!-- Quarry script files  -->
-    <script src="app/quarry/quarryService.js"></script>
-    <script src="app/quarry/quarryUtility.js"></script>
-    <script src="app/quarry/materialColour.js"></script>
-    <script src="app/quarry/productType.js"></script>
-    <script src="app/quarry/quarry.js"></script>
-    <script src="app/quarry/yard.js"></script>
-    <script src="app/quarry/material.js"></script>
-    <script src="app/quarry/stockyard.js"></script>
-    <script src="app/quarry/materialmovement.js"></script>
-    <script src="app/quarry/quarrySummary.js"></script>
-    <script src="app/quarry/productSummary.js"></script>
+        <script src="app/account/login.js"></script>
+        <script src="app/account/accountservice.js"></script>
+
+        <!-- Directives -->
+        <script src="app/shared/directives/emInput.js"></script>
+        <script src="app/shared/directives/emSelect.js"></script>
+        <script src="app/shared/directives/emToolbar.js"></script>
+        <script src="app/shared/directives/ntToolbarButton.js"></script>
+        <script src="app/shared/directives/ntListToolbar.js"></script>
+        <script src="app/shared/directives/ntButton.js"></script>
+        <script src="app/shared/directives/emButton.js"></script>
+        <script src="app/shared/directives/ntDialog.js"></script>
+        <script src="app/shared/directives/ntGrid.js"></script>
+        <script src="app/shared/directives/ntMultiSelect.js"></script>
+
+        <!-- Account script files -->
+        <script src="app/account/changePasswordDialog.js"></script>
+
+
+        <!-- Fleet script files -->
+        <script src="app/fleet/fleetUtility.js"></script>
+        <script src="app/fleet/vehicleType.js"></script>
+        <script src="app/fleet/driver.js"></script>
+
+        <script src="app/fleet/vehicleService.js"></script>
+        <script src="app/fleet/vehicleList.js"></script>
+        <script src="app/fleet/vehicle.js"></script>
+        <script src="app/fleet/vehicleDialog.js"></script>
+        <script src="app/fleet/serviceHistory.js"></script>
+        <script src="app/fleet/vehicleFuel.js"></script>
+        <script src="app/fleet/vehicleDriver.js"></script>
+        <script src="app/fleet/vehicleDriverDialog.js"></script>
+        <script src="app/fleet/vehicleServiceDialog.js"></script>
+        <script src="app/fleet/vehicletrip.js"></script>
+
+        <script src="app/fleet/sparePartList.js"></script>
+        <script src="app/fleet/sparePart.js"></script>
+        <script src="app/fleet/sparePartDialog.js"></script>
+        <script src="app/fleet/manufacturerList.js"></script>
+        <script src="app/fleet/manufacturerDialog.js"></script>
+        <script src="app/fleet/manufacturer.js"></script>
+        <script src="app/fleet/servicereport.js"></script>
+
+        <!-- Quarry script files  -->
+        <script src="app/quarry/quarryService.js"></script>
+        <script src="app/quarry/quarryUtility.js"></script>
+        <script src="app/quarry/materialColour.js"></script>
+        <script src="app/quarry/productType.js"></script>
+        <script src="app/quarry/quarry.js"></script>
+        <script src="app/quarry/yard.js"></script>
+        <script src="app/quarry/material.js"></script>
+        <script src="app/quarry/stockyard.js"></script>
+        <script src="app/quarry/materialmovement.js"></script>
+        <script src="app/quarry/quarrySummary.js"></script>
+        <script src="app/quarry/productSummary.js"></script>
+    </environment>
 </body>
 </html>
 
