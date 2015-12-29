@@ -8,4 +8,7 @@
 /MegaMine/src/eMine/Properties/PublishProfiles
 /MegaMine/src/eMine/node_modules
 /MegaMine/src/eMine/wwwroot/js
-h/MegaMine/src/eMine/wwwroot/css
+/MegaMine/src/eMine/wwwroot/css
+/MegaMine/src/eMine/appsettings.Production.json
+/MegaMine/src/eMine/appsettings.Staging.json
+/MegaMine/src/eMine/Properties/launchSettings.json

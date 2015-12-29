@@ -32,5 +32,8 @@
     "wwwroot",
     "node_modules",
     "bower_components"
-  ]
+  ],
+  "scripts": {
+    "prepublish": [ "gulp clean", "gulp all" ]
+  }
 }

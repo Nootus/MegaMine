@@ -34,49 +34,33 @@ var paths = {
     destCss: webroot + "css/app.min.css",
 };
 
-//gulp.task("clean:all", function (cb) {
-//    rimraf([paths.destAppJs, paths.destScriptJs, paths.destCss], cb);
-//    //return gulp.src([paths.destAppJs, paths.destScriptJs, paths.destCss], { read: false })
-//    //   .pipe(rimraf());
-//})
-
-gulp.task("clean:app:js", function (cb) {
-    rimraf(paths.destAppJs, cb);
+gulp.task("clean", function (cb) {
+    rimraf(paths.destAppJs, function (err) { });
+    rimraf(paths.destScriptJs, function (err) { });
+    rimraf(paths.destCss, function (err) { });
+    rimraf(webroot + "css/**/*", function (err) { });
 });
 
-gulp.task("clean:scripts:js", function (cb) {
-    rimraf(paths.destScriptJs, cb);
-});
+gulp.task("copy", function (cb) {
+    gulp.src([webroot + "content/images/**/*"], { base: webroot + "content" })
+       .pipe(gulp.dest(webroot + "css"));
+    gulp.src([webroot + "content/ui-grid/**/*", "!" + webroot + "content/ui-grid/**/*.css"], { base: webroot + "content/ui-grid" })
+       .pipe(gulp.dest(webroot + "css"));
+})
 
-gulp.task("clean:js", ["clean:app:js", "clean:scripts:js"]);
-
-
-gulp.task("clean:css", function (cb) {
-    rimraf(paths.destCss, cb);
-});
-
-gulp.task("clean", ["clean:js", "clean:css"]);
-
-gulp.task("app:min:js", function () {
-    return gulp.src(paths.appJs, { base: "." })
+gulp.task("min", function () {
+    gulp.src(paths.appJs, { base: "." })
             .pipe(concat(paths.destAppJs))
             .pipe(uglify().on('error', gutil.log))
             .pipe(gulp.dest("."));
-});
-
-gulp.task("scripts:min:js", function () {
-    return gulp.src(paths.scriptsJs, { base: "." })
+    gulp.src(paths.scriptsJs, { base: "." })
             .pipe(concat(paths.destScriptJs))
             .pipe(uglify().on('error', gutil.log))
             .pipe(gulp.dest("."));
-});
-
-gulp.task("min:css", function () { 
-    return gulp.src(paths.appCss)
+    gulp.src(paths.appCss)
             .pipe(concat(paths.destCss))
             .pipe(cssmin())
             .pipe(gulp.dest("."));
 });
 
-gulp.task("min", ["app:min:js", "scripts:min:js", "min:css"]);
-gulp.task("all", ["clean", "min"]);
+gulp.task("all", ["clean", "min", "copy"]);
