@@ -6,8 +6,8 @@ function driver($scope, vehicleService, gridUtility, constants, dialogService, t
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'driverName', field: 'driverName', displayName: 'Name', type: 'string', enableHiding: false },
-                    { name: 'contact', field: 'contact', displayName: 'Contact', type: 'string', enableHiding: false },
+                    { name: 'driverName', field: 'driverName', displayName: 'Name', type: 'string' },
+                    { name: 'contact', field: 'contact', displayName: 'Contact', type: 'string' },
                     template.getButtonDefaultColumnDefs('vehicleDriverId', 'Fleet', 'DriverEdit')
                     ]
     };

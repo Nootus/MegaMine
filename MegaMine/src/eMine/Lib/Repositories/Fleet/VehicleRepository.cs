@@ -747,7 +747,7 @@ namespace eMine.Lib.Repositories.Fleet
                             TotalServiceCost = vehicles.TotalServiceCost,
                             VehicleModel = model.Name,
                             FuelAverage = vehicles.FuelAverage,
-                            Driver = (vehicledriver == null ? null : vehicledriver.DriverName)
+                            //Driver = (vehicledriver == null ? null : vehicledriver.DriverName)
                         };
 
             return await query.ToListAsync();

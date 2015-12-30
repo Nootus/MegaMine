@@ -6,9 +6,9 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'quarryName', field: 'quarryName', displayName: 'Name', type: 'string', enableHiding: false },
-                    { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'location', field: 'location', type: 'string', displayName: 'Location', enableHiding: false },
+                    { name: 'quarryName', field: 'quarryName', displayName: 'Name', type: 'string' },
+                    { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour' },
+                    { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
                     template.getButtonDefaultColumnDefs('quarryId', 'Quarry', 'QuarryEdit')
         ]
     };

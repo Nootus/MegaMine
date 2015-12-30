@@ -6,14 +6,14 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility,
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
-                    { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'length', field: 'length', type: 'number', displayName: 'Length', enableHiding: false },
-                    { name: 'width', field: 'width', type: 'number', displayName: 'Width', enableHiding: false },
-                    { name: 'height', field: 'height', type: 'number', displayName: 'Height', enableHiding: false },
-                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', enableHiding: false },
+                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
+                    { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour' },
+                    { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
+                    { name: 'width', field: 'width', type: 'number', displayName: 'Width' },
+                    { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
+                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
+                    { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' },
                     template.getButtonColumnDefs('materialMovementId', [{ buttonType: constants.enum.buttonType.edit, claimModule: 'Quarry', claim: 'MaterialUpdate', ngClick: 'grid.appScope.vm.editStock(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, claimModule: 'Quarry', claim: 'MaterialUpdate', ngClick: 'grid.appScope.vm.deleteStock(row.entity, $event)' }]),
         ]
     };

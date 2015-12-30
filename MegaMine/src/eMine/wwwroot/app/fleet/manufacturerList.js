@@ -6,8 +6,8 @@ function manufacturerList($scope, vehicleService, manufacturerDialog, gridUtilit
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'name', field: 'name', displayName: 'Name', type: 'string', enableHiding: false },
-                    { name: 'description', field: 'description', displayName: 'Description', type: 'string', enableHiding: false },
+                    { name: 'name', field: 'name', displayName: 'Name', type: 'string' },
+                    { name: 'description', field: 'description', displayName: 'Description', type: 'string' },
                     template.getButtonColumnDefs('vehicleManufacturerId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.vm.navigateToManufacturer(row.entity)' }])
                     ]
     };

@@ -6,14 +6,14 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, quarry
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry', enableHiding: false },
+                    { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                    { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour', enableHiding: false },
-                    { name: 'length', field: 'length', type: 'number', displayName: 'Length', enableHiding: false },
-                    { name: 'width', field: 'width', type: 'number', displayName: 'Width', enableHiding: false },
-                    { name: 'height', field: 'height', type: 'number', displayName: 'Height', enableHiding: false },
-                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', enableHiding: false },
-                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string', enableHiding: false },
+                    { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour' },
+                    { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
+                    { name: 'width', field: 'width', type: 'number', displayName: 'Width' },
+                    { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
+                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
+                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
                     template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.vm.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.vm.deleteRowMaterial(row.entity, $event)' }])
         ]
     };

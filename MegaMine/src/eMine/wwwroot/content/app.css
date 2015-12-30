@@ -446,6 +446,10 @@ md-dialog md-dialog-content{
      overflow: auto; 
 }
 
+.ui-grid-menu {
+    width: 250px;
+}
+
 /* UI Grid overrides Ends*/
 
 

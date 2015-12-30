@@ -20,7 +20,7 @@ function appConfig($provide, $httpProvider, $mdThemingProvider) {
         gridOptions.initialize = function (options) {
             var initOptions;
             initOptions = $delegate.initialize(options);
-            angular.extend(initOptions, { enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: false, gridMenuShowHideColumns: false });
+            angular.extend(initOptions, { enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: true, gridMenuShowHideColumns: true });
             return initOptions;
         };
         return gridOptions;

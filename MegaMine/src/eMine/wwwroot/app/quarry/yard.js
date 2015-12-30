@@ -6,8 +6,8 @@ function yard($scope, quarryService, gridUtility, constants, dialogService, temp
 
     var gridOptions = {
         columnDefs: [
-                        { name: 'yardName', field: 'yardName', displayName: 'Name', type: 'string', enableHiding: false },
-                        { name: 'location', field: 'location', type: 'string', displayName: 'Location', enableHiding: false },
+                        { name: 'yardName', field: 'yardName', displayName: 'Name', type: 'string' },
+                        { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
                         template.getButtonDefaultColumnDefs('yardId', 'Quarry', 'YardEdit', 'row.entity.quarryId !== null')
                     ]
     };

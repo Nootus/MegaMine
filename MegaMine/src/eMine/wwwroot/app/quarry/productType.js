@@ -6,10 +6,10 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string', enableHiding: false },
-                    { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description', enableHiding: false },
-                    { name: 'formulaString', field: 'formulaString', type: 'string', displayName: 'Formula', enableHiding: false },
-                    { name: 'formulaOrder', field: 'formulaOrder', type: 'string', displayName: 'Formula Order', enableHiding: false },
+                    { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string' },
+                    { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description' },
+                    { name: 'formulaString', field: 'formulaString', type: 'string', displayName: 'Formula' },
+                    { name: 'formulaOrder', field: 'formulaOrder', type: 'string', displayName: 'Formula Order' },
                     template.getButtonDefaultColumnDefs('productTypeId', 'Quarry', 'ProductTypeEdit')
                 ]
     };

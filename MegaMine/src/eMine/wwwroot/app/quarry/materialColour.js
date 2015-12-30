@@ -6,8 +6,8 @@ function materialColour($scope, quarryService, gridUtility, constants, dialogSer
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string', enableHiding: false },
-                    { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description', enableHiding: false },
+                    { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string' },
+                    { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description' },
                     template.getButtonDefaultColumnDefs('materialColourId', 'Quarry', 'MaterialColourEdit')
                 ]
     };

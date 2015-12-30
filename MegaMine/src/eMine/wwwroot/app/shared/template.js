@@ -22,6 +22,7 @@ function template(constants) {
     function getButtonColumnDefs(field, buttons, hide) {
         var buttonDef =  {
             name: field, field: field, displayName: '', enableColumnMenu: false, type: 'string',
+            exporterSuppressExport: true,
             cellTemplate: '',
             cellClass: 'text-center', enableHiding: false
         }

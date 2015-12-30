@@ -6,9 +6,9 @@ function sparePartList($scope, vehicleService, sparePartDialog, gridUtility, nav
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'name', field: 'name', displayName: 'Part Name', type: 'string', enableHiding: false },
-                    { name: 'description', field: 'description', displayName: 'Description', type: 'string', enableHiding: false },
-                    { name: 'quantity', field: 'quantity', displayName: 'Available Quantity', type: 'number', enableHiding: false },
+                    { name: 'name', field: 'name', displayName: 'Part Name', type: 'string' },
+                    { name: 'description', field: 'description', displayName: 'Description', type: 'string' },
+                    { name: 'quantity', field: 'quantity', displayName: 'Available Quantity', type: 'number' },
                     template.getButtonColumnDefs('sparePartId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.vm.navigateToSparePart(row.entity)' }])
                     ]
     };

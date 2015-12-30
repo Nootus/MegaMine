@@ -6,8 +6,8 @@ function vehicleType($scope, vehicleService, gridUtility, constants, dialogServi
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'vehicleTypeName', field: 'vehicleTypeName', displayName: 'Vehicle Type', type: 'string', enableHiding: false },
-                    { name: 'vehicleTypeDescription', field: 'vehicleTypeDescription', type: 'string', displayName: 'Description', enableHiding: false },
+                    { name: 'vehicleTypeName', field: 'vehicleTypeName', displayName: 'Vehicle Type', type: 'string' },
+                    { name: 'vehicleTypeDescription', field: 'vehicleTypeDescription', type: 'string', displayName: 'Description' },
                     template.getButtonDefaultColumnDefs('vehicleTypeId', 'Fleet', 'VehicleTypeEdit')
                     ]
     };

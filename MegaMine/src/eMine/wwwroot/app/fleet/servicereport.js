@@ -16,7 +16,7 @@ function servicereport($state, vehicleService, vehicleServiceDialog) {
                      {
                          name: 'vehicleserviceid', field: 'vehicleServiceId', displayName: '', enableColumnMenu: false,
                          cellTemplate: "<md-button class=\"md-raised\" ng-click=\"grid.appScope.vm.viewService(row.entity.vehicleServiceId, false, $event)\" aria-label=\"View\"><md-icon class=\"icon-button\" md-svg-icon=\"content/images/icons/common/eye.svg\"></md-icon> View</md-button>",
-                         cellClass: "text-center", enableHiding: false
+                         cellClass: "text-center"
                      },
 
         ]
