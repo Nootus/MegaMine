@@ -18,6 +18,8 @@ var paths = {
                     , webroot + "scripts/angular/angular-aria.js"
                     , webroot + "scripts/angular/angular-material.js"
                     , webroot + "scripts/angular/angular-ui-router.js"
+                    , webroot + "scripts/pdfmake/pdfmake.js"
+                    , webroot + "scripts/pdfmake/vfs_fonts.js"
                     , webroot + "scripts/ui-grid.js"
                     , webroot + "scripts/moment.js"
                     , webroot + "scripts/toastr.js"
