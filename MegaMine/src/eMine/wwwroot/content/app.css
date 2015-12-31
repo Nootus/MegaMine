@@ -465,7 +465,7 @@ md-dialog md-dialog-content{
 }
 
 .ui-grid-row:nth-child(odd) .ui-grid-cell {
-  background-color: #   ;
+  background-color: #eaf4f9;
 }
 .ui-grid-row:nth-child(even) .ui-grid-cell {
   background-color: #ffffff;
