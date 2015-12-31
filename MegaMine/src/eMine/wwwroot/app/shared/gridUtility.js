@@ -22,7 +22,7 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
     }
 
     function initializeDialogGrid(gridOptions, scope, model) {
-        initialize(gridOptions, scope, model, 'dialog', 'dialog-grid', 75);
+        initialize(gridOptions, scope, model, 'dialog', 'dialog-grid', 100);
     }
 
     function initialize(gridOptions, scope, model, contentClass, gridClass, bottomOffset) {

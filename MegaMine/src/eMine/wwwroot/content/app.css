@@ -384,6 +384,10 @@ md-select.ng-invalid.ng-dirty .md-select-value, md-select[disabled] .md-select-v
     color: rgba(0,0,0,0.87) !important;
 }
 
+md-input-container.md-input-invalid .md-select-placeholder{
+    color: red;
+    border-bottom-color: red;
+}
 
 
 md-dialog.dialog{
@@ -429,11 +433,42 @@ md-dialog md-dialog-content{
     background-color: #d4d4d4 !important;
 }
 
+.ui-grid-top-panel {
+    background: #daecf4;
+    background: -webkit-gradient(linear, left bottom, left top, color-stop(0, #daecf4), color-stop(1, #fff));
+    background: -ms-linear-gradient(bottom, #daecf4, #fff);
+    background: -moz-linear-gradient(center bottom, #daecf4 0, #fff 100%);
+    background: -o-linear-gradient(#fff, #daecf4);
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffff', endColorstr='#daecf4', GradientType=0);
+    -webkit-border-top-right-radius: -1px;
+    -webkit-border-bottom-right-radius: 0;
+    -webkit-border-bottom-left-radius: 0;
+    -webkit-border-top-left-radius: -1px;
+    -moz-border-radius-topright: -1px;
+    -moz-border-radius-bottomright: 0;
+    -moz-border-radius-bottomleft: 0;
+    -moz-border-radius-topleft: -1px;
+    border-top-right-radius: -1px;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-top-left-radius: -1px;
+    -moz-background-clip: padding-box;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+}
+.ui-grid-header-cell{
+    border-color: #94c0d2;
+}
+
+.ui-grid-cell{
+    border-color: #94c0d2;
+}
+
 .ui-grid-row:nth-child(odd) .ui-grid-cell {
-  background-color: #e4e4e4;
+  background-color: #   ;
 }
 .ui-grid-row:nth-child(even) .ui-grid-cell {
-  background-color: #f4f4f4;
+  background-color: #ffffff;
 }
 
 .ui-grid-menu-button {

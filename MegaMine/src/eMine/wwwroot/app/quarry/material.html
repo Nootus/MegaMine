@@ -11,8 +11,8 @@
             <em-input flex="10" form="materialForm" type="number" label="Weight" control-name="weight" ng-model="vm.model.weight" ng-required="true"></em-input>
             <em-select flex="10" form="materialForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productType" opt-value="productTypeId" opt-text="productTypeName" ng-required="true"></em-select>
             <div flex="15" layout-align="center">
-                <nt-button ng-click="vm.addMaterial(materialForm)" button-icon="save" button-text="Add" ng-disabled="materialForm.$invalid && materialForm.$submitted" ng-show="!vm.editMode"></nt-button>
-                <nt-button ng-click="vm.updateMaterial(materialForm)" button-icon="save" button-text="Update" ng-disabled="materialForm.$invalid && materialForm.$submitted" ng-show="vm.editMode"></nt-button>
+                <nt-button ng-click="vm.addMaterial(materialForm)" button-icon="save" button-text="Add" form="materialForm" ng-show="!vm.editMode"></nt-button>
+                <nt-button ng-click="vm.updateMaterial(materialForm)" button-icon="save" button-text="Update" form="materialForm" ng-show="vm.editMode"></nt-button>
                 <nt-button ng-click="vm.cancelMaterial(materialForm)" button-icon="cancel" button-text="Cancel" ng-show="vm.editMode"></nt-button>
             </div>
         </div>
