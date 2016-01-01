@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('fleetUtility', fleetUtility);
-fleetUtility.$inject = ['$rootScope'];
+fleetUtility.$inject = [];
 
-function fleetUtility($rootScope) {
+function fleetUtility() {
     var vm = {
         watchManufacturerModel: watchManufacturerModel,
         manufacturerModelLists: {}
@@ -11,11 +11,9 @@ function fleetUtility($rootScope) {
 
     return vm;
 
-    function watchManufacturerModel(model) {
+    function watchManufacturerModel(scope, model) {
         vm.manufacturerModelLists = model;
-        $rootScope.$watch(function () {
-            return model.vehicleManufacturerId;
-        }, bindModelDropDown);
+        scope.$watch('model.vehicleManufacturerId', bindModelDropDown);
     }
 
     function bindModelDropDown(manufacturerId, oldmanufacturerId) {

@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('vehicle', vehicle)
-vehicle.$inject = ['$state', 'vehicleService', 'vehicleDialog', 'utility', 'profile', 'navigation'];
+vehicle.$inject = ['$state', 'vehicleService', 'vehicleDialog', 'utility', 'profile', 'navigation', 'constants'];
 
-function vehicle($state, vehicleService, vehicleDialog, utility, profile, navigation) {
+function vehicle($state, vehicleService, vehicleDialog, utility, profile, navigation, constants) {
 
     var vm = {
         model: {},
@@ -21,7 +21,7 @@ function vehicle($state, vehicleService, vehicleDialog, utility, profile, naviga
     }
 
     function viewVehicle(ev) {
-        vehicleDialog.viewDialog(vm.model.vehicleId, true, ev);
+        vehicleDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
     }
 
     function menuInitialize() {

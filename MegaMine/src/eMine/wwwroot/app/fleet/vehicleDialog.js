@@ -18,6 +18,7 @@ function vehicleDialog(dialogService, vehicleService, utility, fleetUtility) {
             targetEvent: ev,
             data: { model: vehicleService.currentVehicle },
             dialogMode: dialogMode,
+            dialogInit: dialogInit,
             resolve: { resolvemodel: function () { return vehicleService.getCurrentVehicle(model.vehicleId) } }
         })
         .then(function (dialogModel) {
@@ -39,6 +40,10 @@ function vehicleDialog(dialogService, vehicleService, utility, fleetUtility) {
             });
         });
 
-        fleetUtility.watchManufacturerModel(dialogService.dialogModel);
     }
+
+    function dialogInit(dialogScope, dialogModel) {
+        fleetUtility.watchManufacturerModel(dialogScope, dialogModel);
+    }
+
 }

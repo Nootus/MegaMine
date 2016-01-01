@@ -670,7 +670,7 @@ namespace eMine.Lib.Repositories.Fleet
                                    VehicleType = vehicleType.VehicleTypeName,
                                    Manufacturer = manufacurer.Name,
                                    VehicleModel = vehicleModel.Name,
-                                   Driver = (vehicledriver == null ? null : vehicledriver.DriverName),
+                                   //Driver = (vehicledriver == null ? null : vehicledriver.DriverName),
                                    VehicleDriverAssignmentId = vehicle.VehicleDriverAssignmentId,
                                    FuelAverage = vehicle.FuelAverage,
                                    FuelResetDate = vehicle.FuelResetDate,
