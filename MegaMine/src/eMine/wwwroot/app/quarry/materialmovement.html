@@ -5,7 +5,7 @@
         <div layout="row">
             <form flex="50" name="materialStockForm" novalidate>
                 <div layout="row">
-                    <em-select flex="30" form="materialStockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></em-select>
+                    <nt-select flex="30" form="materialStockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></nt-select>
                     <div flex="70" layout-align="center">
                         <nt-button ng-click="vm.getStock(materialStockForm)" button-icon="save" button-text="Get Stock" form="materialStockForm"></nt-button>
                     </div>
@@ -13,8 +13,8 @@
             </form>
             <form flex="50" name="movementForm" novalidate>
                 <div layout="row">
-                    <em-select flex="30" form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true" ng-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></em-select>
-                    <em-input flex="30" form="movementForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></em-input>
+                    <nt-select flex="30" form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true" ng-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></nt-select>
+                    <nt-input flex="30" form="movementForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></nt-input>
                 </div>
             </form>
         </div>

@@ -4,8 +4,8 @@
     <md-dialog aria-label="Product Type" class="dialog">
         <nt-dialog form="productTypeForm" title="Product Type">
             <div layout="row">
-                <em-input flex="30" form="productTypeForm" label="Product Type" control-name="productTypeName" ng-model="vm.model.productTypeName" ng-required="true" em-maxlength="20"></em-input>
-                <em-input flex="70" form="productTypeForm" label="Description" control-name="productTypeDescription" ng-model="vm.model.productTypeDescription" ng-required="false" em-maxlength="100"></em-input>
+                <nt-input flex="30" form="productTypeForm" label="Product Type" control-name="productTypeName" ng-model="vm.model.productTypeName" ng-required="true" em-maxlength="20"></nt-input>
+                <nt-input flex="70" form="productTypeForm" label="Description" control-name="productTypeDescription" ng-model="vm.model.productTypeDescription" ng-required="false" em-maxlength="100"></nt-input>
             </div>
             <div layout="row">
                 <div flex="80">
@@ -27,7 +27,7 @@
                         </div>
                     </div>
                 </div>
-                <em-input flex="20" form="productTypeForm" type="number" label="Formula Order" control-name="formulaOrder" ng-model="vm.model.formulaOrder" error-messages="vm.validator.orderErrorMessages" ng-change="vm.validator.validateFormulaOrder(productTypeForm)"></em-input>
+                <nt-input flex="20" form="productTypeForm" type="number" label="Formula Order" control-name="formulaOrder" ng-model="vm.model.formulaOrder" error-messages="vm.validator.orderErrorMessages" ng-change="vm.validator.validateFormulaOrder(productTypeForm)"></nt-input>
             </div>
         </nt-dialog>
     </md-dialog>

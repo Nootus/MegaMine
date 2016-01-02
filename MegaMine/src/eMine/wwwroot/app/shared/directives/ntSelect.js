@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('megamine').directive('emSelect', emSelect)
-emSelect.$inject = ['$compile', 'constants'];
+angular.module('megamine').directive('ntSelect', ntSelect)
+ntSelect.$inject = ['$compile', 'constants'];
 
-function emSelect($compile, constants) {
+function ntSelect($compile, constants) {
     return {
         restrict: 'E',
         scope: {

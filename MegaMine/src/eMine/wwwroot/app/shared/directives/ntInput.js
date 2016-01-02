@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('megamine').directive('emInput', emInput)
-emInput.$inject = ['moment', 'constants'];
+angular.module('megamine').directive('ntInput', ntInput)
+ntInput.$inject = ['moment', 'constants'];
 
-function emInput(moment, constants) {
+function ntInput(moment, constants) {
     return {
         restrict: 'E',
         scope: {

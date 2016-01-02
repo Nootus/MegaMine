@@ -47,11 +47,11 @@ function template(constants) {
                     button.ngClick = button.ngClick === undefined ? 'grid.appScope.vm.viewDialog(row.entity, ' + constants.enum.dialogMode.delete + ', $event)' : button.ngClick;
                     break;
             }
-            buttonDef.cellTemplate += '<em-button class="md-raised" title="' + title + '" ng-click="' + button.ngClick + '" ';
+            buttonDef.cellTemplate += '<nt-button class="md-raised" title="' + title + '" ng-click="' + button.ngClick + '" ';
             if (button.claimModule !== undefined && button.claim !== undefined) {
                 buttonDef.cellTemplate += 'module="' + button.claimModule + '" claim="' + button.claim + '" ';
             }
-            buttonDef.cellTemplate += '><md-icon class="icon-button" md-svg-icon="content/images/icons/common/' + icon + '.svg"></md-icon></em-button>'
+            buttonDef.cellTemplate += ' button-icon="' + icon + '"></nt-button>'
         });
 
         if (hide !== undefined) {

@@ -7,6 +7,7 @@ function ntButton(profile) {
         restrict: 'E',
         scope: {
             class: '@',
+            title: '@',
             buttonIcon: '@',
             buttonText: '@',
             module: '@',
@@ -16,7 +17,7 @@ function ntButton(profile) {
             form: '='
         },
         link: link,
-        template: '<md-button class="{{class}}" ng-hide="hide" aria-label="{{buttonText}}" ng-click="ntClick($event)"'
+        template: '<md-button title="{{title}}" class="{{class}}" ng-hide="hide" aria-label="{{title}}" ng-click="ntClick($event)"'
                     + ' ng-disabled="form.$invalid && form.$submitted && ntDisabled">'
                     + ' <md-icon class="icon-button" md-svg-icon="content/images/icons/common/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
                     + '</md-button>'
@@ -34,6 +35,7 @@ function ntButton(profile) {
         //setting the default values
         scope.class = scope.class === undefined ? 'md-raised md-primary md-default-theme' : scope.class;
         scope.ntDisabled = scope.ntDisabled === undefined ? true : scope.ntDisabled;
+        scope.title = scope.title === undefined ? scope.buttonText : scope.title;
 
         scope.ntClick = function (ev) {
             if (scope.form === undefined) {
