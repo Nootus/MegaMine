@@ -1,8 +1,8 @@
 ﻿'use strict';
-angular.module('megamine').directive('emToolbar', emToolbar)
-emToolbar.$inject = [];
+angular.module('megamine').directive('ntToolbar', ntToolbar)
+ntToolbar.$inject = [];
 
-function emToolbar() {
+function ntToolbar() {
     return {
         restrict: 'E',
         transclude: true,

@@ -1,6 +1,6 @@
 ﻿<md-dialog aria-label="Service Details" class="dialog">
     <form name="serviceForm" novalidate>
-        <em-toolbar title="Service Details" class="dialog">
+        <nt-toolbar title="Service Details" class="dialog">
             <md-button ng-click="save(serviceForm)" class="md-raised md-primary" ng-show="editMode" ng-disabled="serviceForm.$invalid && serviceForm.$submitted" aria-label="Save">
                 <md-icon class="icon-button" md-svg-icon="content/images/icons/common/save.svg"></md-icon>Save
             </md-button>
@@ -10,7 +10,7 @@
             <md-button ng-click="cancel()" class="md-raised md-primary" ng-hide="editMode">
                 <md-icon class="icon-button" md-svg-icon="content/images/icons/common/cancel.svg"></md-icon>Close
             </md-button>
-        </em-toolbar>
+        </nt-toolbar>
 
         <md-dialog-content class="dialog-content">
             <div>
@@ -31,10 +31,10 @@
                             <tbody>
                                 <tr>
                                     <td colspan="3">
-                                        <em-toolbar title="Parts Used &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " class="subtitle subtitle-table">
+                                        <nt-toolbar title="Parts Used &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; " class="subtitle subtitle-table">
                                             <md-button ng-click="addPart()" class="md-raised md-primary em-button" ng-show="editMode" aria-label="Add Part">
                                                 <md-icon class="icon-button" md-svg-icon="content/images/icons/add.svg"></md-icon>
-                                        </em-toolbar>
+                                        </nt-toolbar>
                                     </td>
                                 </tr>
                                 <tr ng-repeat="part in model.SpareParts track by $index" class="ui-grid-row">

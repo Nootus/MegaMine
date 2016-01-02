@@ -275,18 +275,18 @@ div.type-formula select{
 }
 
 /*em toolbar & buttons*/
-em-toolbar.title > md-toolbar{
+nt-toolbar.title > md-toolbar{
     background-color: rgb(158,158,158);
 }
-em-toolbar.subtitle > md-toolbar{
+nt-toolbar.subtitle > md-toolbar{
     background-color: rgb(208,208,208);
 }
 
-em-toolbar.subtitle-table > md-toolbar{
+nt-toolbar.subtitle-table > md-toolbar{
     font-size: 1em;
 }
 
-em-toolbar.dialog > md-toolbar{
+nt-toolbar.dialog > md-toolbar{
     background-color: rgb(168,168,168);
 }
 

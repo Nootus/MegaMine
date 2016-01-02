@@ -1,4 +1,4 @@
-﻿<nt-toolbar-button title="Spare Part Details" button-text="Edit Spare Part" button-icon="edit" claim-module="Fleet" claim="SparePartEdit" ng-click="vm.editSparePart"></nt-toolbar-button>
+﻿<nt-toolbar-button title="Spare Part Details" button-text="Edit Spare Part" button-icon="edit" button-click="vm.editSparePart($event)" claim-module="Fleet" claim="SparePartEdit"></nt-toolbar-button>
 <md-content layout-padding>
     <div layout="row">
         <em-input flex="20" label="Part Name" control-name="partName" ng-model="vm.model.name" ng-disabled="true"></em-input>
@@ -8,7 +8,7 @@
         <em-input flex="20" label="manufacturer" control-name="manufacturer" ng-model="vm.model.vehicleManufacturer" ng-disabled="true"></em-input>
         <em-input flex="15" label="vehicleModel" control-name="vehicleModel" ng-model="vm.model.vehicleModel" ng-disabled="true"></em-input>
     </div>
-    <nt-list-toolbar vm="vm" title="Orders" add-text="Order" claim-module="Fleet" claim="SparePartOrderAdd" ng-click="vm.addOrder" grid-class="sub-grid"></nt-list-toolbar>
+    <nt-list-toolbar vm="vm" title="Orders" add-text="Order" add-button-click="vm.addOrder($event)" claim-module="Fleet" claim="SparePartOrderAdd" grid-class="sub-grid"></nt-list-toolbar>
 </md-content>
 
 <script type="text/ng-template" id="spare_part_order_dialog">

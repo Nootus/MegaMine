@@ -1,11 +1,11 @@
-﻿<nt-toolbar-button title="Manufacturer Details" button-text="Edit Manufacturer" button-icon="edit" claim-module="Fleet" claim="ManufacturerEdit" ng-click="vm.viewManufacturer"></nt-toolbar-button>
+﻿<nt-toolbar-button title="Manufacturer Details" button-text="Edit Manufacturer" button-icon="edit" button-click="vm.viewManufacturer($event)" claim-module="Fleet" claim="ManufacturerEdit"></nt-toolbar-button>
 
 <md-content layout-padding>
     <div layout="row">
         <em-input flex="20" label="Name" control-name="Name" ng-model="vm.model.name" ng-disabled="true"></em-input>
         <em-input flex="20" label="Description" control-name="Description" ng-model="vm.model.description" ng-disabled="true"></em-input>
     </div>
-    <nt-list-toolbar vm="vm" title="Models" add-text="Model" claim-module="Fleet" claim="ManufacturerModelAdd" ng-click="vm.addModel" grid-class="sub-grid"></nt-list-toolbar>
+    <nt-list-toolbar vm="vm" title="Models" add-text="Model" add-button-click="vm.addModel($event)" claim-module="Fleet" claim="ManufacturerModelAdd" grid-class="sub-grid"></nt-list-toolbar>
 </md-content>
 
 <script type="text/ng-template" id="vehicle_model_dialog">

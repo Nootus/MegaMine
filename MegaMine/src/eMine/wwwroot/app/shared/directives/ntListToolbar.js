@@ -6,16 +6,16 @@ function ntListToolbar() {
     return {
         restrict: 'E',
         scope: {
-            title: '@',
-            addText: '@',
             vm: '=',
+            title: '@',
             claimModule: '@',
             claim: '@',
-            ngClick: '=',
+            addText: '@',
+            addButtonClick: '&',
             gridClass: '@'
         },
         link: link,
-        template: '<nt-toolbar-button title="{{title}}" button-text="Add {{addText}}" button-icon="add" claim-module="{{claimModule}}" claim="{{claim}}" ng-click="ngClick"></nt-toolbar-button>'
+        template: '<nt-toolbar-button title="{{title}}" button-text="Add {{addText}}" button-icon="add" button-click="addButtonClick({$event: $event})" claim-module="{{claimModule}}" claim="{{claim}}"></nt-toolbar-button>'
                     + '<nt-grid vm="vm" grid-class="{{gridClass}}"></nt-grid>'
 
     };

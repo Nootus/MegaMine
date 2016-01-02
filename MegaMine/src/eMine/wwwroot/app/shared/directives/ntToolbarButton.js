@@ -11,12 +11,12 @@ function ntToolbarButton() {
             buttonIcon: '@',
             claimModule: '@',
             claim: '@',
-            ngClick: '='
+            buttonClick: '&'
         },
         link: link,
-        template: '<em-toolbar title="{{title}}" class="title">'
-                        + '<nt-button ng-click="ngClick($event)" button-icon="{{buttonIcon}}" button-text="{{buttonText}}" module="{{claimModule}}" claim="{{claim}}"></nt-button>'
-                    + '</em-toolbar>'
+        template: '<nt-toolbar title="{{title}}" class="title">'
+                        + '<nt-button ng-click="buttonClick({$event: $event})" button-icon="{{buttonIcon}}" button-text="{{buttonText}}" module="{{claimModule}}" claim="{{claim}}"></nt-button>'
+                    + '</nt-toolbar>'
 
     };
 

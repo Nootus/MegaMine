@@ -1,22 +1,22 @@
 ﻿<div>
-    <em-toolbar title="Driver History" class="subtitle">
+    <nt-toolbar title="Driver History" class="subtitle">
         <nt-button ng-click="vm.assignDriver($event)" ng-show="vm.editMode === 2" button-icon="add" button-text="Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
         <nt-button ng-click="vm.unAssignDriver($event)" ng-show="vm.editMode === 3" button-icon="add" button-text="Un Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
         <nt-button ng-click="vm.addDriver($event)" button-icon="add" button-text="Add Driver" module="Fleet" claim="VehicleDriverAdd"></nt-button>
-    </em-toolbar>
+    </nt-toolbar>
     <nt-grid vm="vm" grid-class="sub-grid"></nt-grid>
 </div>
 
 <script type="text/ng-template" id="vehicle_driver_dialog">
     <md-dialog aria-label="Driver" class="dialog">
         <form name="driverForm" novalidate>
-            <em-toolbar title="Driver" class="dialog">
+            <nt-toolbar title="Driver" class="dialog">
                 <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 1" button-icon="save" button-text="Save" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
                 <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 2" button-icon="save" button-text="Assign" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
                 <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 3" button-icon="save" button-text="Un Assign" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
                 <nt-button ng-click="cancel($event)" ng-show="vm.editMode !== 0" button-icon="cancel" button-text="Cancel"></nt-button>
                 <nt-button ng-click="cancel($event)" ng-show="vm.editMode === 0" button-icon="cancel" button-text="Close"></nt-button>
-            </em-toolbar>
+            </nt-toolbar>
 
             <md-dialog-content class="dialog-content">
                 <div>

@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('vehicleDriver', vehicleDriver)
-vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'vehicleDriverDialog', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
+vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function vehicleDriver($scope, $window, vehicleService, vehicleDriverDialog, gridUtility, utility, constants, dialogService, template) {
+function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
