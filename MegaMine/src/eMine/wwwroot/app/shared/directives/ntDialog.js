@@ -5,7 +5,9 @@ ntDialog.$inject = ['$mdDialog', 'constants'];
 function ntDialog($mdDialog, constants) {
     return {
         restrict: 'E',
-        transclude: true,
+        transclude: {
+            'dialogButtons': '?dialogButtons'
+        },
         scope: {
             form: '@',
             title: '@',
@@ -16,6 +18,7 @@ function ntDialog($mdDialog, constants) {
                     + '<form name="{{form}}" novalidate>'
                     + '    <nt-toolbar title="{{title}}" class="dialog">'
                     + '      <md-dialog-actions>'
+                    + '       <span ng-transclude="dialogButtons"></span>'
                     + '       <nt-button ng-click="save(dialogForm)" button-icon="save" button-text="{{saveText}}" ng-show="dialogMode === dialogModeEnum.save" ng-disabled="dialogForm.$invalid && dialogForm.$submitted""></nt-button>'
                     + '       <nt-button ng-click="deleteItem($event)" button-icon="delete" button-text="Delete" ng-show="dialogMode === dialogModeEnum.delete"></nt-button>'
                     + '       <nt-button ng-click="cancel($event)" button-icon="cancel" button-text="Cancel" ng-show="dialogMode !== dialogModeEnum.view" nt-disabled="false"></nt-button>'

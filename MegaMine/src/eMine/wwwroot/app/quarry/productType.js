@@ -104,10 +104,12 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
             validateFormulaOrder: validateFormulaOrder
         }
 
+        var disabled = dialogMode !== constants.enum.dialogMode.save
+
         dialogService.show({
             templateUrl: 'product_type_dialog',
             targetEvent: ev,
-            data: { model: model, validator: validator },
+            data: { model: model, validator: validator, disabled: disabled },
             dialogMode: dialogMode,
             returnForm: true,
             parentVm: vm

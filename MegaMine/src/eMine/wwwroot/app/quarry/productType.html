@@ -14,14 +14,14 @@
                         <div layout="row">
                             <div flex="45" ng-repeat-start="item in vm.model.formulaJson track by $id(item)">
                                 <label>{{item.field}}</label>
-                                <select ng-model="item.operand">
+                                <select ng-model="item.operand" ng-disabled="vm.disabled">
                                     <option value="<"><</option>
                                     <option value="<="><=</option>
                                     <option value="=">=</option>
                                     <option value=">">></option>
                                     <option value=">=">>=</option>
                                 </select>
-                                <input name="formulaValue_{{$index}}" type="number" ng-model="item.value" />
+                                <input name="formulaValue_{{$index}}" type="number" ng-model="item.value" ng-disabled="vm.disabled" />
                             </div>
                             <div flex="10" ng-repeat-end ng-hide="$last"><label>And</label></div>
                         </div>

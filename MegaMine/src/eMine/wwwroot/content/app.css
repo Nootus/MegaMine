@@ -236,6 +236,9 @@ div.type-formula input:focus {
     outline: none;
 }
 
+div.type-formula input:disabled{
+    background-color: inherit;
+}
 div.type-formula select{
     order: 2;
     padding-top: 2px;

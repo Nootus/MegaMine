@@ -7,17 +7,17 @@ function ntSelect($compile, constants) {
         restrict: 'E',
         scope: {
             ngModel: "=",
-            ngChange: "=",
-            optList: "=",
+            ngChange: "=?",
+            optList: "=?",
             optValue: "@",
             optText: "@",
-            form: "=",
+            form: "=?",
             label: '@',
             controlName: "@",
-            ngRequired: '=',
-            ngDisabled: '=',
+            ngRequired: '=?',
+            ngDisabled: '=?',
             style: '@',
-            errorMessages: '='
+            errorMessages: '=?'
     },
         link: link,
     };

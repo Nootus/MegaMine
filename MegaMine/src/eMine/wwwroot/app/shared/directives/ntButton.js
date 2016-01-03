@@ -13,8 +13,8 @@ function ntButton(profile) {
             module: '@',
             claim: '@',
             hide: '@',
-            ntDisabled: '=',
-            form: '='
+            ntDisabled: '=?',
+            form: '=?'
         },
         link: link,
         template: '<md-button title="{{title}}" class="{{class}}" ng-hide="hide" aria-label="{{title}}" ng-click="ntClick($event)"'
