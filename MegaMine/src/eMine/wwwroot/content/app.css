@@ -250,7 +250,7 @@ div.type-formula select{
 .icon-button {
   height: 32px;
   width: 32px;
-  color: grey !important;
+  color: rgba(0, 0, 0, 0.61) !important;
   margin-top: -5px; 
 }
 
@@ -279,10 +279,10 @@ div.type-formula select{
 
 /*em toolbar & buttons*/
 nt-toolbar.title > md-toolbar{
-    background-color: rgb(158,158,158);
+    background-color: rgb(148,148,148) !important;
 }
 nt-toolbar.subtitle > md-toolbar{
-    background-color: rgb(208,208,208);
+    background-color: rgb(208,208,208) !important;
 }
 
 nt-toolbar.subtitle-table > md-toolbar{
@@ -291,6 +291,11 @@ nt-toolbar.subtitle-table > md-toolbar{
 
 nt-toolbar.dialog > md-toolbar{
     background-color: rgb(168,168,168);
+}
+
+nt-toolbar nt-button > button{
+    background-color: #eaf4f9 !important;
+    /*background-color: rgba(33, 150, 243, 0.35) !important;*/
 }
 
 button{
@@ -311,6 +316,10 @@ nt-button.[tabindex='0']:focus {
     margin: 0;
     padding: 0 10px 0 10px;
     min-width: 32px;
+}
+
+.md-button.md-raised:not([disabled]) {
+    box-shadow: 0 2px 5px 0 rgb(0, 0, 0);
 }
 
 md-content.md-default-theme {
@@ -396,6 +405,7 @@ md-input-container.md-input-invalid .md-select-placeholder{
 md-dialog.dialog{
     width: 600px;
     overflow: hidden;
+    padding-bottom: 5px;
 }
 md-dialog md-dialog-content{
     padding: 0px;

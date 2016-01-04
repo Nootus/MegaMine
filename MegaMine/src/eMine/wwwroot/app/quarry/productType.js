@@ -100,7 +100,7 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
 
     function viewDialog(model, dialogMode, ev) {
         var validator = {
-            orderErrorMessages: [{ type: 'orderRequired', text: 'Required!', }],
+            orderErrorMessages: [{ type: 'orderRequired', text: 'Required!' }],
             validateFormulaOrder: validateFormulaOrder
         }
 

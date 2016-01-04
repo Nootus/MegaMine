@@ -1,34 +1,19 @@
-﻿<div>
-    <nt-toolbar title="Driver History" class="subtitle">
-        <nt-button ng-click="vm.assignDriver($event)" ng-show="vm.editMode === 2" button-icon="add" button-text="Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
-        <nt-button ng-click="vm.unAssignDriver($event)" ng-show="vm.editMode === 3" button-icon="add" button-text="Un Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
-        <nt-button ng-click="vm.addDriver($event)" button-icon="add" button-text="Add Driver" module="Fleet" claim="VehicleDriverAdd"></nt-button>
-    </nt-toolbar>
-    <nt-grid vm="vm" grid-class="sub-grid"></nt-grid>
-</div>
+﻿<nt-list-toolbar vm="vm" title="Driver History" toolbar-class="subtitle" grid-class="sub-grid">
+    <nt-button ng-click="vm.assignDriver($event)" ng-show="vm.assignMode === vm.enum.assignMode.assign" button-icon="add" button-text="Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
+    <nt-button ng-click="vm.unAssignDriver($event)" ng-show="vm.assignMode === vm.enum.assignMode.unassign" button-icon="add" button-text="Un Assign Driver" module="Fleet" claim="VehicleDriverAssign"></nt-button>
+    <nt-button ng-click="vm.addDriver($event)" button-icon="add" button-text="Add Driver" module="Fleet" claim="VehicleDriverAdd"></nt-button>
+</nt-list-toolbar>
 
 <script type="text/ng-template" id="vehicle_driver_dialog">
     <md-dialog aria-label="Driver" class="dialog">
-        <form name="driverForm" novalidate>
-            <nt-toolbar title="Driver" class="dialog">
-                <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 1" button-icon="save" button-text="Save" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
-                <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 2" button-icon="save" button-text="Assign" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
-                <nt-button ng-click="save(driverForm)" ng-show="vm.editMode === 3" button-icon="save" button-text="Un Assign" ng-disabled="driverForm.$invalid && driverForm.$submitted"></nt-button>
-                <nt-button ng-click="cancel($event)" ng-show="vm.editMode !== 0" button-icon="cancel" button-text="Cancel"></nt-button>
-                <nt-button ng-click="cancel($event)" ng-show="vm.editMode === 0" button-icon="cancel" button-text="Close"></nt-button>
-            </nt-toolbar>
-
-            <md-dialog-content class="dialog-content">
-                <div>
-                    <div layout="row">
-                        <nt-select flex="50" form="driverForm" label="Driver" control-name="driverName" ng-model="vm.model.vehicleDriverId" opt-list="service.driverListItems" ng-required="true" ng-disabled="vm.editMode === 0 || vm.editMode === 3"></nt-select>
-                    </div>
-                    <div layout="row">
-                        <nt-input flex="50" form="driverForm" type="datetime-local" label="Start Time" control-name="assignmentStartDate" ng-model="vm.model.assignmentStartDate" ng-required="true" ng-disabled="vm.editMode === 0" ng-hide="vm.editMode === 3"></nt-input>
-                        <nt-input flex="50" form="driverForm" type="datetime-local" label="End Time" control-name="assignmentEndDate" ng-model="vm.model.assignmentEndDate" ng-required="editMode !== 2" ng-disabled="vm.editMode === 0" ng-hide="vm.editMode === 2"></nt-input>
-                    </div>
-                </div>
-            </md-dialog-content>
-        </form>
+        <nt-dialog form="driverForm" title="Driver" save-text="{{vm.options.saveText}}">
+            <div layout="row">
+                <nt-select flex="50" form="driverForm" label="Driver" control-name="driverName" ng-model="vm.model.vehicleDriverId" opt-list="service.driverListItems" ng-required="true" ng-disabled="{{ vm.options.assignMode === vm.options.assignModeEnum.unassign }}"></nt-select>
+            </div>
+            <div layout="row">
+                <nt-input flex="45" form="driverForm" type="datetime-local" label="Start Time" control-name="assignmentStartDate" ng-model="vm.model.assignmentStartDate" ng-required="true" ng-disabled="{{ vm.options.assignMode === vm.options.assignModeEnum.unassign }}" ng-change="vm.validator.validateDates(driverForm)"></nt-input>
+                <nt-input flex="45" form="driverForm" type="datetime-local" label="End Time" control-name="assignmentEndDate" ng-model="vm.model.assignmentEndDate" ng-required="{{ vm.options.assignMode !== vm.options.assignModeEnum.assign }}" ng-hide="{{vm.options.assignMode === vm.options.assignModeEnum.assign}}"  error-messages="vm.validator.endDateMessages" ng-change="vm.validator.validateDates(driverForm)"></nt-input>
+            </div>
+        </nt-dialog>
     </md-dialog>
 </script>

@@ -20,8 +20,9 @@ function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, co
         viewDialog: viewDialog,
         addDriver: addDriver,
         assignDriver: assignDriver,
-        unAssignDriver:unAssignDriver,
-        editMode: 0,
+        unAssignDriver: unAssignDriver,
+        assignMode: undefined,
+        enum: { assignMode: { none: 0, assign: 1, unassign: 2 } }
     };
 
     init();
@@ -30,7 +31,7 @@ function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, co
 
     function init() {
         vm.vehicleId = vehicleService.vehicle.vehicleId;
-        vm.editMode = vehicleService.vehicle.driver === null ? 2 : 3;
+        vm.assignMode = vehicleService.vehicle.driver === null ? vm.enum.assignMode.assign : vm.enum.assignMode.unassign;
 
         gridUtility.initializeSubGrid(vm.gridOptions, $scope, vehicleService.vehicleDriverList);
     }
@@ -54,39 +55,52 @@ function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, co
                 }
             }
         }
-        viewDialog(model, 3, ev);
+        viewDialog(model, constants.enum.dialogMode.save, ev, "Unassign", vm.enum.assignMode.unassign);
     }
 
     function assignDriver(ev) {
         var model = { vehicleDriverAssignmentId: 0, vehicleId: vm.vehicleId }
-        viewDialog(model, 2, ev);
+        viewDialog(model, constants.enum.dialogMode.save, ev, "Assign", vm.enum.assignMode.assign);
     }
 
     function addDriver(ev) {
         var model = { vehicleDriverAssignmentId: 0, vehicleId: vm.vehicleId }
-        viewDialog(model, 1, ev);
+        viewDialog(model, constants.enum.dialogMode.save, ev, "Save");
     }
 
-    function viewDialog(model, editMode, ev) {
+    function validateDates(form) {
+
+    }
+
+    function viewDialog(model, dialogMode, ev, saveText, assignMode) {
+        saveText = saveText === undefined ? "Save" : saveText;
+        assignMode = assignMode === undefined ? vm.enum.assignMode.none : assignMode;
+
+        var validator = {
+            endDateMessages: [{ type: 'invalidEndDate', text: 'End time should be more than start time' }],
+            validateDates: validateDates
+        }
+
         dialogService.show({
             templateUrl: 'vehicle_driver_dialog',
             targetEvent: ev,
-            data: { service: vehicleService, model: model, editMode: editMode },
-            dialogMode: undefined,
+            data: { service: vehicleService, model: model, validator: validator, options: { saveText: saveText, assignMode: assignMode, assignModeEnum: vm.enum.assignMode } },
+            dialogMode: dialogMode,
+            returnForm: true,
             resolve: { resolvemodel: function () { return vehicleService.getDriversListItems() } }
         })
         .then(function (dialogModel) {
             vehicleService.saveVehiceDriver(dialogModel).then(function () {
                 var driverName = utility.getListItem(vehicleService.driverListItems, dialogModel.vehicleDriverId);
 
-                if (editMode === 2) {
+                if (assignMode === vm.enum.assignMode.assign) {
                     vehicleService.vehicle.driver = driverName;
-                    vm.editMode = 3;
+                    vm.assignMode = vm.enum.assignMode.unassign;
                 }
-                else if (editMode === 3 || vehicleService.vehicle.vehicleDriverAssignmentId === dialogModel.vehicleDriverAssignmentId) {
+                else if (assignMode === vm.enum.assignMode.unassign || vehicleService.vehicle.vehicleDriverAssignmentId === dialogModel.vehicleDriverAssignmentId) {
                     vehicleService.vehicle.driver = undefined;
                     vehicleService.vehicle.vehicleDriverAssignmentId = undefined;
-                    vm.editMode = 2;
+                    vm.assignMode = vm.enum.assignMode.assign;
                 }
                 //update the grid values
                 if (dialogModel.vehicleDriverAssignmentId === 0) {

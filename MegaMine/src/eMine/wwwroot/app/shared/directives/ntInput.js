@@ -11,8 +11,8 @@ function ntInput(moment, constants) {
             label: '@',
             controlName: '@',
             type: '@',
-            ngRequired: '=?',
-            ngDisabled: '=?',
+            ngRequired: '@',
+            ngDisabled: '@',
             ngChange: '=?',
             emMaxlength: '@',
             style: '@',
@@ -21,7 +21,7 @@ function ntInput(moment, constants) {
         link: link,
         template: '<md-input-container md-is-error="isFieldError()" style="{{style}}">'
                     + '<label>{{label}}</label>'
-                    + '<input name="{{controlName}}" type="{{type}}" ng-required="{{ngRequired}}" ng-disabled="ngDisabled" md-maxlength="{{emMaxlength}}" ng-model="ngModel" ng-change="ngChange" >'
+                    + '<input name="{{controlName}}" type="{{type}}" ng-required="{{ngRequired}}" ng-disabled="isDisabled" md-maxlength="{{emMaxlength}}" ng-model="ngModel" ng-change="ngChange" >'
                     + '<div ng-messages="form[controlName].$error" ng-show="isFieldError()">'
                     + '<span ng-message="required">Required!</span>'
                     + '<span ng-message="md-maxlength">Text is too long!</span>'
@@ -47,8 +47,14 @@ function ntInput(moment, constants) {
         if (scope.type === undefined)
             scope.type = "text";
         if (scope.$parent.dialogMode !== undefined) {
-            scope.ngDisabled = scope.$parent.dialogMode !== constants.enum.dialogMode.save
+            scope.isDisabled = scope.$parent.dialogMode !== constants.enum.dialogMode.save;
         }
+
+        if (scope.ngDisabled === "true") {
+            scope.isDisabled = true;
+        }
+
+
         scope.isFieldError = function () {
             if (scope.form === undefined) {
                 scope.form = scope.$parent.dialogForm;
