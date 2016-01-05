@@ -13,6 +13,7 @@ namespace eMine.Models.Fleet
         public string Manufacturer { get; set; }
         public string VehicleModel { get; set; }
         public string Driver { get; set; }
+        public int? VehicleDriverId { get; set; }
         public int? VehicleDriverAssignmentId { get; set; }
         public decimal? FuelAverage { get; set; }
         public DateTime? FuelResetDate { get; set; }

@@ -671,6 +671,7 @@ namespace eMine.Lib.Repositories.Fleet
                                    Manufacturer = manufacurer.Name,
                                    VehicleModel = vehicleModel.Name,
                                    //Driver = (vehicledriver == null ? null : vehicledriver.DriverName),
+                                   VehicleDriverId = vehicle.VehicleDriverId,
                                    VehicleDriverAssignmentId = vehicle.VehicleDriverAssignmentId,
                                    FuelAverage = vehicle.FuelAverage,
                                    FuelResetDate = vehicle.FuelResetDate,
@@ -679,6 +680,9 @@ namespace eMine.Lib.Repositories.Fleet
 
                                };
             VehicleDetailsModel model = await vehicleQuery.SingleAsync();
+
+            //TODO: due to the RC1 bug calling the Driver separately
+            model.Driver = await (from driver in dbContext.VehicleDrivers where driver.VehicleDriverId == model.VehicleDriverId select driver.DriverName).SingleOrDefaultAsync();
 
             var serviceQuery = from service in dbContext.VehicleServices
                                where service.VehicleId == vehicleId
