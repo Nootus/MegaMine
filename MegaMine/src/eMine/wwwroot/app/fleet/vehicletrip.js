@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('vehicleTrip', vehicleTrip)
-vehicleTrip.$inject = ['$scope', 'vehicleService', 'gridUtility', 'constants', 'dialogService', 'template'];
+vehicleTrip.$inject = ['$scope', 'vehicleService', 'gridUtility', 'constants', 'dialogService', 'template', 'message'];
 
-function vehicleTrip($scope, vehicleService, gridUtility, constants, dialogService, template) {
+function vehicleTrip($scope, vehicleService, gridUtility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [                    
@@ -36,11 +36,41 @@ function vehicleTrip($scope, vehicleService, gridUtility, constants, dialogServi
         viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
+    function validateDates(form) {
+        if (form !== undefined) {
+            if (form.startingTime.$modelValue > form.reachingTime.$modelValue) {
+                form.reachingTime.$setValidity('invalidEndDate', false)
+            }
+            else {
+                form.reachingTime.$setValidity('invalidEndDate', true)
+            }
+        }
+    }
+
+    function validateOdometer(form) {
+        if (form !== undefined) {
+            if (form.odometerStart.$modelValue > form.odometerEnd.$modelValue) {
+                form.odometerEnd.$setValidity('invalidEndOdometer', false)
+            }
+            else {
+                form.odometerEnd.$setValidity('invalidEndOdometer', true)
+            }
+        }
+    }
+
+
     function viewDialog(model, dialogMode, ev) {
+        var validator = {
+            endDateMessages: [{ type: 'invalidEndDate', text: message.invalidEndDate }],
+            validateDates: validateDates,
+            endOdometerMessages: [{ type: 'invalidEndOdometer', text: message.invalidEndOdometer }],
+            validateOdometer: validateOdometer
+        }
+
         dialogService.show({
             templateUrl: 'vehicle_trip_dialog',
             targetEvent: ev,
-            data: { model: model },
+            data: { model: model, validator: validator },
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {

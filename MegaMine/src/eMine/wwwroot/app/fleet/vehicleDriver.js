@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('vehicleDriver', vehicleDriver)
-vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
+vehicleDriver.$inject = ['$scope', '$window', 'vehicleService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template', 'message'];
 
-function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, constants, dialogService, template) {
+function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -69,7 +69,14 @@ function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, co
     }
 
     function validateDates(form) {
-
+        if (form !== undefined) {
+            if (form.assignmentStartDate.$modelValue > form.assignmentEndDate.$modelValue) {
+                form.assignmentEndDate.$setValidity('invalidEndDate', false)
+            }
+            else {
+                form.assignmentEndDate.$setValidity('invalidEndDate', true)
+            }
+        }
     }
 
     function viewDialog(model, dialogMode, ev, saveText, assignMode) {
@@ -77,7 +84,7 @@ function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, co
         assignMode = assignMode === undefined ? vm.enum.assignMode.none : assignMode;
 
         var validator = {
-            endDateMessages: [{ type: 'invalidEndDate', text: 'End time should be more than start time' }],
+            endDateMessages: [{ type: 'invalidEndDate', text: message.invalidEndTime }],
             validateDates: validateDates
         }
 
@@ -86,7 +93,6 @@ function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, co
             targetEvent: ev,
             data: { service: vehicleService, model: model, validator: validator, options: { saveText: saveText, assignMode: assignMode, assignModeEnum: vm.enum.assignMode } },
             dialogMode: dialogMode,
-            returnForm: true,
             resolve: { resolvemodel: function () { return vehicleService.getDriversListItems() } }
         })
         .then(function (dialogModel) {

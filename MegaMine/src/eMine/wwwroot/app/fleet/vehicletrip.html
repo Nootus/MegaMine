@@ -5,12 +5,12 @@
         <nt-dialog form="tripForm" title="Trip">
             <div layout="row">
                 <nt-input flex="33" form="tripForm" type="string" label="TripName" control-name="vehicleTripName" ng-model="vm.model.vehicleTripName" ng-required="true"></nt-input>
-                <nt-input flex="33" form="tripForm" type="date" label="Start" control-name="vtartingTime" ng-model="vm.model.startingTime" ng-required="true"></nt-input>
-                <nt-input flex="33" form="tripForm" type="date" label="Reached" control-name="reachingTime" ng-model="vm.model.reachingTime" ng-required="true"></nt-input>
+                <nt-input flex="33" form="tripForm" type="date" label="Start" control-name="startingTime" ng-model="vm.model.startingTime" ng-required="true" ng-change="vm.validator.validateDates(tripForm)"></nt-input>
+                <nt-input flex="33" form="tripForm" type="date" label="Reached" control-name="reachingTime" ng-model="vm.model.reachingTime" ng-required="true" error-messages="vm.validator.endDateMessages" ng-change="vm.validator.validateDates(tripForm)"></nt-input>
             </div>
             <div layout="row">
-                <nt-input flex="33" form="tripForm" type="number" label="Odometer Start" control-name="odometerStart" ng-model="vm.model.odometerStart" ng-required="true"></nt-input>
-                <nt-input flex="33" form="tripForm" type="number" label="Odometer End" control-name="odometer" ng-model="vm.model.odometerEnd" ng-required="true"></nt-input>
+                <nt-input flex="33" form="tripForm" type="number" label="Odometer Start" control-name="odometerStart" ng-model="vm.model.odometerStart" ng-required="true" ng-change="vm.validator.validateOdometer(tripForm)"></nt-input>
+                <nt-input flex="33" form="tripForm" type="number" label="Odometer End" control-name="odometerEnd" ng-model="vm.model.odometerEnd" ng-required="true" error-messages="vm.validator.endOdometerMessages" ng-change="vm.validator.validateOdometer(tripForm)"></nt-input>
             </div>
         </nt-dialog>
     </md-dialog>

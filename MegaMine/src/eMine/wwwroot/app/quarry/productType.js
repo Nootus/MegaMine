@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('productType', productType)
-productType.$inject = ['$scope', 'quarryService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
+productType.$inject = ['$scope', 'quarryService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template', 'message'];
 
-function productType($scope, quarryService, gridUtility, utility, constants, dialogService, template) {
+function productType($scope, quarryService, gridUtility, utility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -100,7 +100,7 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
 
     function viewDialog(model, dialogMode, ev) {
         var validator = {
-            orderErrorMessages: [{ type: 'orderRequired', text: 'Required!' }],
+            orderErrorMessages: [{ type: 'orderRequired', text: message.required }],
             validateFormulaOrder: validateFormulaOrder
         }
 
