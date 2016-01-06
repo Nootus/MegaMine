@@ -245,7 +245,7 @@ function vehicleService($http) {
         return $http.post(url, model)
             .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
-                service.vehicle.ServiceRecord.splice(0, service.vehicle.serviceRecord.length);
+                service.vehicle.serviceRecord.splice(0, service.vehicle.serviceRecord.length);
                 angular.extend(service.vehicle.serviceRecord, data.serviceRecord);
             })
     }

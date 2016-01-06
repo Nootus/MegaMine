@@ -52,8 +52,8 @@ function fleetRoute($stateProvider) {
             url: "/service",
             title: "Vehicle",
             previousState: "vehiclelist",
-            templateUrl: window.virtualDirectory + "/app/fleet/serviceHistory.html",
-            controller: "serviceRecord",
+            templateUrl: window.virtualDirectory + "/app/fleet/vehicleServiceRecord.html",
+            controller: "vehicleServiceRecord",
             controllerAs: "vm",
         })
 

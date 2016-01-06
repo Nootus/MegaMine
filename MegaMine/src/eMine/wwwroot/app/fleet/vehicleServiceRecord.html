@@ -1,0 +1,20 @@
+﻿<nt-list-toolbar vm="vm" title="Service History" button-text="Add Service" button-click="vm.addService($event)" claim-module="Fleet" claim="VehicleServiceAdd" toolbar-class="subtitle" grid-class="sub-grid"></nt-list-toolbar>
+
+<script type="text/ng-template" id="service_record_dialog">
+    <md-dialog aria-label="Service Details" class="dialog">
+        <nt-dialog form="serviceForm" title="Service Details">
+            <div layout="row">
+                <nt-input flex="30" form="serviceForm" type="date" label="Service Date" control-name="serviceDate" ng-model="vm.model.serviceDate" ng-required="true"></nt-input>
+                <nt-input flex="70" form="serviceForm" type="string" label="Compliant" control-name="compliant" ng-model="vm.model.compliant" em-maxlength="100" ng-required="true"></nt-input>
+            </div>         
+            <div layout="row">
+                <nt-input flex form="serviceForm" type="string" label="Description" control-name="description" ng-model="vm.model.description" em-maxlength="300"></nt-input>
+            </div>
+            <div layout="row">
+                <nt-input flex="30" form="serviceForm" type="number" label="Service Cost" control-name="miscServiceCost" ng-model="vm.model.miscServiceCost" ng-required="true"></nt-input>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>
+
+

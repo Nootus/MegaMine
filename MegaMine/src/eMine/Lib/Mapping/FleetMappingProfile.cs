@@ -14,6 +14,10 @@ namespace eMine.Lib.Mapping
         protected override void Configure()
         {
             Mapper.CreateMap<VehicleTypeEntity, VehicleTypeModel>();
+            Mapper.CreateMap<VehicleServiceViewModel, VehicleServiceEntity>()
+                .ForMember(dest => dest.ServiceStartDate, opt => opt.MapFrom(origin => origin.ServiceDate))
+                .ForMember(dest => dest.ServiceDeliveryDate, opt => opt.MapFrom(origin => origin.ServiceDate))
+                ;
         }
     }
 }

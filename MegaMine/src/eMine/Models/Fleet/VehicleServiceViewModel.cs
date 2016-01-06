@@ -12,14 +12,10 @@ namespace eMine.Models.Fleet
         public int VehicleId { get; set; }
         public string Compliant { get; set; }
         public string Description { get; set; }
-        public decimal? MiscCost { get; set; }
+        public decimal? MiscServiceCost { get; set; }
         public string Reason { get; set; }
         public DateTime? ServiceDate { get; set; }
-        public decimal? ServiceCost { get; set; }
-
-        public List<SparePartModel> SpareParts { get; set; }
-
-        public List<ListItem<int, string>> SparePartsLookup { get; set; }
+        public decimal? TotalServiceCost { get; set; }
     }
 }
 

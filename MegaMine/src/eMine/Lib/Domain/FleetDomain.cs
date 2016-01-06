@@ -140,7 +140,6 @@ namespace eMine.Lib.Domain
 
         public async Task <VehicleDetailsModel> VehicleServiceSave(VehicleServiceViewModel model)
         {
-            if (model.MiscCost.Equals(DBNull.Value)) model.MiscCost = 0;
             return await  vehicleRepository.VehicleServiceSave(model);
         }
 

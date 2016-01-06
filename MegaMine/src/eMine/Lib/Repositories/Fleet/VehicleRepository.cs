@@ -759,68 +759,6 @@ namespace eMine.Lib.Repositories.Fleet
         #endregion
 
         #region Vehicle Service
-        public async Task VehicleServiceAdd(VehicleServiceViewModel model)
-        {
-            VehicleServiceEntity service = new VehicleServiceEntity()
-            {
-                VehicleId = model.VehicleId,
-                Compliant = model.Compliant,
-                Description = model.Description,
-                MiscServiceCost = model.MiscCost,
-                ServiceStartDate = model.ServiceDate
-            };
-            SparePartRepository sparepartRepository = new SparePartRepository(dbContext);
-
-            foreach (var part in model.SpareParts)
-            {
-                decimal  partsCost = await sparepartRepository.GetSparePartsCost(part, model, part.Quantity);
-
-                //THrow the error to indicate that the parts are not sufficient.
-                if (partsCost < 0)
-                {
-                    throw  new Exception(string.Format("There is a deficiency of the {0} of {1}", part.Description, partsCost));
-                }
-            }
-
-            dbContext.VehicleServices.Add(service);
-            dbContext.SaveChanges();
-            model.VehicleServiceId = service.VehicleServiceId;
-
-            decimal totalCost = 0;
-            foreach (var part in model.SpareParts)
-            {
-                decimal partsCost = await sparepartRepository.GetSparePartsCost(part, model, part.Quantity, true);
-
-                //Update the total available spare parts
-                SparePartEntity result = await (from p in dbContext.SpareParts
-                                          where p.SparePartId == part.SparePartId
-                                          select p).SingleOrDefaultAsync();
-
-                result.AvailableQuantity -= part.Quantity;
-
-
-                totalCost += partsCost;
-
-                VehicleServiceSparePartEntity servicePart = new VehicleServiceSparePartEntity()
-                {
-                    SparePartId = part.SparePartId,
-                    ConsumedUnits = part.Quantity,
-                    VehicleService = service
-                };
-
-                dbContext.VehicleServiceSpareParts.Add(servicePart);
-            }
-
-
-            if (!service.MiscServiceCost.HasValue)
-                service.MiscServiceCost = 0;
-            service.TotalServiceCost = totalCost + service.MiscServiceCost;
-            service.UpdateAuditFields();
-            dbContext.VehicleServices.Update(service);
-            await dbContext.SaveChangesAsync();
-
-        }
-
         public async Task <VehicleServiceViewModel> VehicleServiceGet(int vehicleServiceId)
         {
             var serviceQuery = from service in dbContext.VehicleServices
@@ -832,8 +770,8 @@ namespace eMine.Lib.Repositories.Fleet
                                    VehicleId = service.VehicleId,
                                    Compliant = service.Compliant,
                                    Description = service.Description,
-                                   MiscCost = service.MiscServiceCost,
-                                   ServiceCost = service.TotalServiceCost
+                                   MiscServiceCost = service.MiscServiceCost,
+                                   TotalServiceCost = service.TotalServiceCost
                                };
             VehicleServiceViewModel model = await serviceQuery.SingleOrDefaultAsync();
 
@@ -850,11 +788,6 @@ namespace eMine.Lib.Repositories.Fleet
                                       SparePartId = parts.SparePartId,
                                       Quantity = parts.ConsumedUnits
                                   };
-
-            model.SpareParts = sparePartsQuery.ToList();
-
-            SparePartRepository sparePartRepository = new SparePartRepository(dbContext);
-            model.SparePartsLookup =await sparePartRepository.SparePartListItemGet();
 
             return  model;
         }
@@ -873,8 +806,8 @@ namespace eMine.Lib.Repositories.Fleet
                                    VehicleId = service.VehicleId,
                                    Compliant = service.Compliant,
                                    Description = service.Description,
-                                   MiscCost = service.MiscServiceCost,
-                                   ServiceCost = service.TotalServiceCost
+                                   MiscServiceCost = service.MiscServiceCost,
+                                   TotalServiceCost = service.TotalServiceCost
                                };
             return await  serviceQuery.ToListAsync();
                      
@@ -894,64 +827,58 @@ namespace eMine.Lib.Repositories.Fleet
             return await  VehicleDetailsGet(model.VehicleId);
         }
 
+        private async Task VehicleServiceVehicleUpdate(VehicleServiceEntity service)
+        {
+            //Updating Vehicle
+            VehicleEntity vehicle = await(from vh in dbContext.Vehicles where vh.VehicleId == service.VehicleId select vh).SingleAsync();
+            vehicle.TotalServiceCost += service.TotalServiceCost.Value;
+            vehicle.LastServiceDate = service.ServiceStartDate;
+
+            dbContext.Vehicles.Update(vehicle);
+        }
+
+        private async Task VehicleServiceAdd(VehicleServiceViewModel model)
+        {
+            VehicleServiceEntity service = new VehicleServiceEntity()
+            {
+                VehicleId = model.VehicleId,
+                Compliant = model.Compliant,
+                Description = model.Description,
+                MiscServiceCost = model.MiscServiceCost,
+                ServiceStartDate = model.ServiceDate,
+                ServiceDeliveryDate = model.ServiceDate,
+                TotalServiceCost = model.TotalServiceCost
+            };
+
+            dbContext.VehicleServices.Add(service);
+
+            //updating the Vehicle
+            await VehicleServiceVehicleUpdate(service);
+
+            await dbContext.SaveChangesAsync();
+
+        }
+
         public async Task VehicleServiceUpdate(VehicleServiceViewModel model)
         {
-            VehicleServiceEntity vsEntity = await
+            VehicleServiceEntity service = await
                 (from vsm in dbContext.VehicleServices
                  where vsm.VehicleServiceId == model.VehicleServiceId
                  select vsm).SingleAsync();
-            vsEntity.Compliant = model.Compliant;
-            vsEntity.MiscServiceCost = model.MiscCost;
-            vsEntity.ServiceDeliveryDate = model.ServiceDate;
-            vsEntity.ServiceStartDate = model.ServiceDate;
-            vsEntity.Description = model.Description;
-            vsEntity.UpdateAuditFields();
-            dbContext.VehicleServices.Update(vsEntity);
-            dbContext.SaveChanges();
 
-            //Get the current links from the database for the data integrity
-            var query = from vs in dbContext.VehicleServiceSpareParts where vs.VehicleServiceId == model.VehicleServiceId && vs.DeletedInd == false select vs;
-            List<VehicleServiceSparePartEntity> spareParts = query.ToList();
+            service.Compliant = model.Compliant;
+            service.MiscServiceCost = model.MiscServiceCost;
+            service.ServiceDeliveryDate = model.ServiceDate;
+            service.ServiceStartDate = model.ServiceDate;
+            service.Description = model.Description;
+            service.UpdateAuditFields();
+            dbContext.VehicleServices.Update(service);
 
-            //updating and deleting the existing VehicleServiceSpareParts in DB
-            SparePartModel currentPart;
-            foreach (var part in spareParts)
-            {
-                currentPart = model.SpareParts.SingleOrDefault(p => p.VehicleServiceSparePartId == part.VehicleServiceSparePartId && part.DeletedInd == false);
-                if (currentPart == null)
-                {
-                    //user deleted this in the UI
-                    part.DeletedInd = true;
-                    part.UpdateAuditFields();
-                    dbContext.VehicleServiceSpareParts.Update(part);
-                }
-                else if (currentPart.SparePartId != part.SparePartId || currentPart.Quantity != part.ConsumedUnits)
-                {
-                    //updating those that have changed
-                    part.SparePartId = currentPart.SparePartId;
-                    part.ConsumedUnits = currentPart.Quantity;
-                    part.UpdateAuditFields();
-                    dbContext.VehicleServiceSpareParts.Update(part);
-                }
-            }
-
-            //finally adding new ones
-            List<SparePartModel> newParts = model.SpareParts.FindAll(p => p.VehicleServiceSparePartId == 0);
-            foreach (var part in newParts)
-            {
-                dbContext.VehicleServiceSpareParts.Add(
-                    new VehicleServiceSparePartEntity()
-                    {
-                        VehicleServiceId = model.VehicleServiceId,
-                        SparePartId = part.SparePartId,
-                        ConsumedUnits = part.Quantity
-                    }
-                    );
-            }
+            //updating the Vehicle
+            await VehicleServiceVehicleUpdate(service);
 
             await dbContext.SaveChangesAsync();
         }
-
         #endregion
     }
 }
