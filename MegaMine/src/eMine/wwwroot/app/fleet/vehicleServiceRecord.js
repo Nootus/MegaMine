@@ -7,7 +7,7 @@ function vehicleServiceRecord($scope, vehicleService, gridUtility, constants, di
         columnDefs: [
                     { name: 'serviceDate', field: 'serviceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'compliant', field: 'compliant', displayName: 'Compliant', type: 'string' },
-                    { name: 'serviceCost', field: 'serviceCost', displayName: 'Service Cost', type: 'number' },
+                    { name: 'totalServiceCost', field: 'totalServiceCost', displayName: 'Service Cost', type: 'number' },
                     template.getButtonDefaultColumnDefs('vehicleServiceId', 'Fleet', 'VehicleServiceEdit')
         ]
     };

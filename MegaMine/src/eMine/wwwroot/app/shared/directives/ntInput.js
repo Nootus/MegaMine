@@ -40,7 +40,8 @@ function ntInput(moment, constants) {
 
         if (scope.type === "date" || scope.type === "time" || scope.type === "datetime-local") {
             if (scope.ngModel !== null && scope.ngModel !== undefined) {
-                scope.ngModel = new Date(moment(scope.ngModel).format(constants.momentDateTimeFormat));
+                //scope.ngModel = new Date(moment(scope.ngModel).format(constants.momentDateTimeFormat));
+                scope.ngModel = new Date(scope.ngModel);
             }
         }
 

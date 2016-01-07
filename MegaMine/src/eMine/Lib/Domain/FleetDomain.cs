@@ -138,17 +138,20 @@ namespace eMine.Lib.Domain
             return await vehicleRepository.VehicleDetailsGet(vehicleId);
         }
 
-        public async Task <VehicleDetailsModel> VehicleServiceSave(VehicleServiceViewModel model)
+        public async Task <VehicleDetailsModel> VehicleServiceSave(VehicleServiceModel model)
         {
+            //calculating the total cost
+            model.TotalServiceCost = model.MiscServiceCost;
+
             return await  vehicleRepository.VehicleServiceSave(model);
         }
 
-        public async Task <VehicleServiceViewModel> VehicleServiceGet(int vehicleServiceId)
+        public async Task <VehicleServiceModel> VehicleServiceGet(int vehicleServiceId)
         {
             return await vehicleRepository.VehicleServiceGet(vehicleServiceId);
         }
 
-        public async Task<List<VehicleServiceViewModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
+        public async Task<List<VehicleServiceModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
         {
             return await vehicleRepository.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate);
         }

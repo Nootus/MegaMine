@@ -446,7 +446,7 @@ namespace eMine.Lib.Repositories.Fleet
 
 
         //RamPras algorithm to get the total cost
-        public async Task<decimal> GetSparePartsCost(SparePartModel spvm, VehicleServiceViewModel vsvm, int totalparts, bool bUpdate = false)
+        public async Task<decimal> GetSparePartsCost(SparePartModel spvm, VehicleServiceModel vsvm, int totalparts, bool bUpdate = false)
         {
             decimal totalcost = 0;
 
@@ -493,7 +493,7 @@ namespace eMine.Lib.Repositories.Fleet
         }
 
         //Create the VehicleService and SparePartOrders link table
-        public async Task CreateVehicleServiceSparePartOrderLink(SparePartModel spvm, VehicleServiceViewModel model, SparePartOrderEntity order, int nUnitsToconsume)
+        public async Task CreateVehicleServiceSparePartOrderLink(SparePartModel spvm, VehicleServiceModel model, SparePartOrderEntity order, int nUnitsToconsume)
         {
             VehicleServiceSparePartOrderEntity servicePartOrder = null;
             servicePartOrder =

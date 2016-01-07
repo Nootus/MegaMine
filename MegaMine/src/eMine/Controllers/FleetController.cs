@@ -61,24 +61,24 @@ namespace eMine.Controllers
         }
         
         [HttpPost]
-        public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceAdd([FromBody] VehicleServiceViewModel model)
+        public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceAdd([FromBody] VehicleServiceModel model)
         {
             return await AjaxHelper.SaveGetAsync(m => domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceUpdate([FromBody] VehicleServiceViewModel model)
+        public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceUpdate([FromBody] VehicleServiceModel model)
         {
             return await AjaxHelper.SaveGetAsync(m => domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
         }
 
         [HttpGet]
-        public async Task<AjaxModel<VehicleServiceViewModel>> VehicleServiceGet(int vehicleServiceId)
+        public async Task<AjaxModel<VehicleServiceModel>> VehicleServiceGet(int vehicleServiceId)
         {
             return await  AjaxHelper.GetAsync(m => domain.VehicleServiceGet(vehicleServiceId));
         }
 
-        public async Task<AjaxModel<List<VehicleServiceViewModel>>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
+        public async Task<AjaxModel<List<VehicleServiceModel>>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
         {
             return await AjaxHelper.GetAsync(m => domain.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
         }

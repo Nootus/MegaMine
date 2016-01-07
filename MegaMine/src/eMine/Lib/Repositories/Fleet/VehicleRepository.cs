@@ -692,7 +692,8 @@ namespace eMine.Lib.Repositories.Fleet
                                {
                                    VehicleServiceId = service.VehicleServiceId,
                                    ServiceDate = service.ServiceStartDate,
-                                   ServiceCost = service.TotalServiceCost,
+                                   TotalServiceCost = service.TotalServiceCost,
+                                   MiscServiceCost = service.MiscServiceCost,
                                    Compliant = service.Compliant
                                };
 
@@ -759,11 +760,11 @@ namespace eMine.Lib.Repositories.Fleet
         #endregion
 
         #region Vehicle Service
-        public async Task <VehicleServiceViewModel> VehicleServiceGet(int vehicleServiceId)
+        public async Task <VehicleServiceModel> VehicleServiceGet(int vehicleServiceId)
         {
             var serviceQuery = from service in dbContext.VehicleServices
                                where service.VehicleServiceId == vehicleServiceId
-                               select new VehicleServiceViewModel
+                               select new VehicleServiceModel
                                {
                                    VehicleServiceId = service.VehicleServiceId,
                                    ServiceDate = service.ServiceStartDate,
@@ -773,33 +774,23 @@ namespace eMine.Lib.Repositories.Fleet
                                    MiscServiceCost = service.MiscServiceCost,
                                    TotalServiceCost = service.TotalServiceCost
                                };
-            VehicleServiceViewModel model = await serviceQuery.SingleOrDefaultAsync();
+            VehicleServiceModel model = await serviceQuery.SingleOrDefaultAsync();
 
             //for adding return blank model
             if (model == null)
-                model = new VehicleServiceViewModel() { ServiceDate = DateTime.Now };
-
-            var sparePartsQuery = from parts in dbContext.VehicleServiceSpareParts
-                                  where parts.VehicleServiceId == vehicleServiceId 
-                                  && parts.DeletedInd == false
-                                  select new SparePartModel
-                                  {
-                                      VehicleServiceSparePartId = parts.VehicleServiceSparePartId,
-                                      SparePartId = parts.SparePartId,
-                                      Quantity = parts.ConsumedUnits
-                                  };
+                model = new VehicleServiceModel() { ServiceDate = DateTime.Now };
 
             return  model;
         }
 
-        public async Task<List<VehicleServiceViewModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate )
+        public async Task<List<VehicleServiceModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate )
         {
             var serviceQuery = from service in dbContext.VehicleServices
                                where (vehicleServiceId == 0 || service.VehicleServiceId == vehicleServiceId )
                                &&  (service.ServiceStartDate > StartDate)
                                &&  (service.ServiceStartDate < EndDate)
                                && service.DeletedInd == false
-                               select new VehicleServiceViewModel
+                               select new VehicleServiceModel
                                {
                                    VehicleServiceId = service.VehicleServiceId,
                                    ServiceDate = service.ServiceStartDate,
@@ -813,7 +804,7 @@ namespace eMine.Lib.Repositories.Fleet
                      
         }
 
-        public async Task <VehicleDetailsModel>  VehicleServiceSave(VehicleServiceViewModel model)
+        public async Task <VehicleDetailsModel>  VehicleServiceSave(VehicleServiceModel model)
         {
             if (model.VehicleServiceId == 0)
             {
@@ -827,55 +818,39 @@ namespace eMine.Lib.Repositories.Fleet
             return await  VehicleDetailsGet(model.VehicleId);
         }
 
-        private async Task VehicleServiceVehicleUpdate(VehicleServiceEntity service)
+        private async Task VehicleServiceVehicleUpdate(VehicleServiceEntity entity, decimal serviceCost)
         {
             //Updating Vehicle
-            VehicleEntity vehicle = await(from vh in dbContext.Vehicles where vh.VehicleId == service.VehicleId select vh).SingleAsync();
-            vehicle.TotalServiceCost += service.TotalServiceCost.Value;
-            vehicle.LastServiceDate = service.ServiceStartDate;
+            VehicleEntity vehicle = await(from vh in dbContext.Vehicles where vh.VehicleId == entity.VehicleId select vh).SingleAsync();
+            vehicle.TotalServiceCost += serviceCost;
+            vehicle.LastServiceDate = entity.ServiceStartDate;
 
             dbContext.Vehicles.Update(vehicle);
         }
 
-        private async Task VehicleServiceAdd(VehicleServiceViewModel model)
+        private async Task VehicleServiceAdd(VehicleServiceModel model)
         {
-            VehicleServiceEntity service = new VehicleServiceEntity()
-            {
-                VehicleId = model.VehicleId,
-                Compliant = model.Compliant,
-                Description = model.Description,
-                MiscServiceCost = model.MiscServiceCost,
-                ServiceStartDate = model.ServiceDate,
-                ServiceDeliveryDate = model.ServiceDate,
-                TotalServiceCost = model.TotalServiceCost
-            };
-
-            dbContext.VehicleServices.Add(service);
+            VehicleServiceEntity entity = Mapper.Map<VehicleServiceModel, VehicleServiceEntity>(model);
+            dbContext.VehicleServices.Add(entity);
 
             //updating the Vehicle
-            await VehicleServiceVehicleUpdate(service);
+            await VehicleServiceVehicleUpdate(entity, model.TotalServiceCost);
 
             await dbContext.SaveChangesAsync();
 
         }
 
-        public async Task VehicleServiceUpdate(VehicleServiceViewModel model)
+        public async Task VehicleServiceUpdate(VehicleServiceModel model)
         {
-            VehicleServiceEntity service = await
-                (from vsm in dbContext.VehicleServices
-                 where vsm.VehicleServiceId == model.VehicleServiceId
-                 select vsm).SingleAsync();
+            VehicleServiceEntity entity = await (from vsm in dbContext.VehicleServices where vsm.VehicleServiceId == model.VehicleServiceId select vsm).SingleAsync();
+            decimal serviceCost = model.TotalServiceCost - entity.TotalServiceCost;
+            Mapper.Map<VehicleServiceModel, VehicleServiceEntity>(model, entity);
 
-            service.Compliant = model.Compliant;
-            service.MiscServiceCost = model.MiscServiceCost;
-            service.ServiceDeliveryDate = model.ServiceDate;
-            service.ServiceStartDate = model.ServiceDate;
-            service.Description = model.Description;
-            service.UpdateAuditFields();
-            dbContext.VehicleServices.Update(service);
+            entity.UpdateAuditFields();
+            dbContext.VehicleServices.Update(entity);
 
             //updating the Vehicle
-            await VehicleServiceVehicleUpdate(service);
+            await VehicleServiceVehicleUpdate(entity, serviceCost);
 
             await dbContext.SaveChangesAsync();
         }
