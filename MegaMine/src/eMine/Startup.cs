@@ -69,7 +69,7 @@ namespace eMine
             //Fleet
             services.AddTransient<FleetDomain>();
             services.AddTransient<VehicleRepository>();
-            services.AddTransient<SparePartRepository>();
+            //services.AddTransient<SparePartRepository>();
 
             //Quarry
             services.AddTransient<QuarryDomain>();

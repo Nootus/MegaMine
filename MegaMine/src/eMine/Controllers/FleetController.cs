@@ -34,11 +34,11 @@ namespace eMine.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<AjaxModel<List<SparePartModel>>> SparePartListGet()
-        {
-            return await  AjaxHelper.GetAsync(m => domain.SparePartListGet());
-        }
+        //[HttpGet]
+        //public async Task<AjaxModel<List<SparePartModel>>> SparePartListGet()
+        //{
+        //    return await  AjaxHelper.GetAsync(m => domain.SparePartListGet());
+        //}
 
         
         [HttpGet]
@@ -48,11 +48,11 @@ namespace eMine.Controllers
         }
 
 
-        [HttpGet]
-        public async Task<AjaxModel<SparePartDetailsModel>>SparePartDetailsGet(int sparePartId)
-        {
-            return await AjaxHelper.GetAsync(m =>domain.SparePartDetailsGet(sparePartId));
-        }
+        //[HttpGet]
+        //public async Task<AjaxModel<SparePartDetailsModel>>SparePartDetailsGet(int sparePartId)
+        //{
+        //    return await AjaxHelper.GetAsync(m =>domain.SparePartDetailsGet(sparePartId));
+        //}
 
         [HttpGet]
         public async Task<AjaxModel<ManufacturerDetailsModel>> ManufacturerDetailsGet(int manufacturerId)
@@ -83,23 +83,23 @@ namespace eMine.Controllers
             return await AjaxHelper.GetAsync(m => domain.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
         }
 
-        [HttpGet]
-        public async Task<AjaxModel<SparePartModel>> SparePartGet(int sparePartId)
-        {
-            return await  AjaxHelper.GetAsync(m => domain.SparePartGet(sparePartId));
-        }
+        //[HttpGet]
+        //public async Task<AjaxModel<SparePartModel>> SparePartGet(int sparePartId)
+        //{
+        //    return await  AjaxHelper.GetAsync(m => domain.SparePartGet(sparePartId));
+        //}
 
-        [HttpPost]
-        public async Task<AjaxModel<NTModel>> SparePartAdd([FromBody] SparePartModel model)
-        {
-            return await AjaxHelper.SaveAsync(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
-        }
+        //[HttpPost]
+        //public async Task<AjaxModel<NTModel>> SparePartAdd([FromBody] SparePartModel model)
+        //{
+        //    return await AjaxHelper.SaveAsync(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
+        //}
 
-        [HttpPost]
-        public async Task<AjaxModel<NTModel>> SparePartUpdate([FromBody] SparePartModel model)
-        {
-            return await AjaxHelper.SaveAsync(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
-        }
+        //[HttpPost]
+        //public async Task<AjaxModel<NTModel>> SparePartUpdate([FromBody] SparePartModel model)
+        //{
+        //    return await AjaxHelper.SaveAsync(m => domain.SparePartSave(model), Messages.Fleet.SparePartSaveSuccess);
+        //}
 
         [HttpGet]
         public async Task <AjaxModel<VehicleModel>> VehicleGet(int vehicleId)
@@ -132,23 +132,23 @@ namespace eMine.Controllers
             return await AjaxHelper.SaveAsync(m => domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
         }
 
-        [HttpGet]
-        public async Task <AjaxModel<SparePartOrderModel>> SparePartOrderGet(int sparePartOrderId)
-        {
-            return await AjaxHelper.GetAsync(m => domain.SparePartOrderGet(sparePartOrderId));
-        }
+        //[HttpGet]
+        //public async Task <AjaxModel<SparePartOrderModel>> SparePartOrderGet(int sparePartOrderId)
+        //{
+        //    return await AjaxHelper.GetAsync(m => domain.SparePartOrderGet(sparePartOrderId));
+        //}
 
-        [HttpPost]
-        public async Task<AjaxModel<NTModel>> SparePartOrderAdd([FromBody] SparePartOrderModel model)
-        {
-            return await AjaxHelper.SaveAsync(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
-        }
+        //[HttpPost]
+        //public async Task<AjaxModel<NTModel>> SparePartOrderAdd([FromBody] SparePartOrderModel model)
+        //{
+        //    return await AjaxHelper.SaveAsync(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
+        //}
 
-        [HttpPost]
-        public async Task<AjaxModel<NTModel>> SparePartOrderUpdate([FromBody] SparePartOrderModel model)
-        {
-            return await AjaxHelper.SaveAsync(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
-        }
+        //[HttpPost]
+        //public async Task<AjaxModel<NTModel>> SparePartOrderUpdate([FromBody] SparePartOrderModel model)
+        //{
+        //    return await AjaxHelper.SaveAsync(m => domain.SparePartOrderSave(model), Messages.Fleet.SparePartOrderSaveSuccess);
+        //}
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleTypeAdd([FromBody] VehicleTypeModel model)
