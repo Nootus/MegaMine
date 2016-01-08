@@ -271,10 +271,5 @@ namespace eMine.Controllers
             return await AjaxHelper.GetAsync(m => domain.VehicleTripListGet(vehicleId));
         }
 
-        [HttpGet]
-        public async Task <AjaxModel<VehicleTripModel>> VehicleTripGet(int vehicleTripId)
-        {
-            return await AjaxHelper.GetAsync(m => domain.VehicleTripGet(vehicleTripId));
-        }
     }
 }

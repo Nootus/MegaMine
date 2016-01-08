@@ -11,7 +11,7 @@ namespace eMine.Models.Fleet
         public int VehicleDriverId { get; set; }
         public string DriverName { get; set; } 
         public string Contact { get; set; } 
-        public string PhotoUrl { get; set; }
+        //public string PhotoUrl { get; set; }
 
     }
 }

@@ -9,6 +9,7 @@ using eMine.Lib.Shared;
 using System.Data.SqlTypes;
 using Microsoft.Data.Entity;
 using AutoMapper;
+using Microsoft.Data.Entity.Metadata;
 
 namespace eMine.Lib.Repositories.Fleet
 {
@@ -26,84 +27,14 @@ namespace eMine.Lib.Repositories.Fleet
                         where trips.DeletedInd == false
                         && trips.VehicleId == vehicleId
                         orderby trips.StartingTime descending
-                        select new VehicleTripModel
-                        {
-                            VehicleTripName= trips.VehicleTripName,
-                            VehicleTripId = trips.VehicleTripId,
-                            VehicleId = trips.VehicleId,
-                            VehicleDriverId = trips.VehicleDriverId,
-                            OdometerStart = trips.OdometerStart,
-                            OdometerEnd = trips.OdometerEnd,
-                            StartingTime = trips.StartingTime,
-                            ReachingTime = trips.ReachingTime
-
-                        };
+                        select Mapper.Map<VehicleTripEntity, VehicleTripModel>(trips);
 
             return await  query.ToListAsync();
         }
         
-        public async Task <VehicleTripModel> VehicleTripGet(int vehicleTripId)
-        {
-            var query = from trip in dbContext.VehicleTrips
-                        where trip.VehicleTripId == vehicleTripId
-                        select new VehicleTripModel
-                        {
-                            VehicleTripName = trip.VehicleTripName,
-                            VehicleTripId = trip.VehicleTripId,
-                            VehicleId = trip.VehicleId,
-                            VehicleDriverId = trip.VehicleDriverId,
-                            OdometerStart = trip.OdometerStart,
-                            OdometerEnd = trip.OdometerEnd,
-                            StartingTime = trip.StartingTime,
-                            ReachingTime = trip.ReachingTime
-                        };
-
-            return await query.SingleAsync();
-        }
-
-        public async Task  VehicleTripAdd(VehicleTripModel model)
-        {
-            VehicleTripEntity entity = new VehicleTripEntity()
-            {
-                VehicleTripName = model.VehicleTripName,
-                VehicleTripId = model.VehicleTripId,
-                VehicleId = model.VehicleId,
-                VehicleDriverId = model.VehicleDriverId,
-                OdometerStart = model.OdometerStart,
-                OdometerEnd = model.OdometerEnd,
-                StartingTime = model.StartingTime,
-                ReachingTime = model.ReachingTime
-            };
-            dbContext.VehicleTrips.Add(entity);
-            await dbContext.SaveChangesAsync();
-        }
-
-        public async Task VehicleTripUpdate(VehicleTripModel model)
-        {
-            VehicleTripEntity entity = await (from trip in dbContext.VehicleTrips where trip.VehicleTripId == model.VehicleTripId select trip).SingleAsync();
-            entity.VehicleTripName = model.VehicleTripName;
-            entity.VehicleTripId = model.VehicleTripId;
-            entity.VehicleId = model.VehicleId;
-            entity.VehicleDriverId = model.VehicleDriverId;
-            entity.OdometerStart = model.OdometerStart;
-            entity.OdometerEnd = model.OdometerEnd;
-            entity.StartingTime = model.StartingTime;
-            entity.ReachingTime = model.ReachingTime;
-            entity.UpdateAuditFields();
-            dbContext.VehicleTrips.Update(entity);
-            await dbContext.SaveChangesAsync();
-        }
-
         public async Task VehicleTripSave(VehicleTripModel model)
         {
-            if (model.VehicleTripId == 0)
-            {
-              await VehicleTripAdd(model);
-            }
-            else
-            {
-               await VehicleTripUpdate(model);
-            }
+            await SaveEntity<VehicleTripEntity, VehicleTripModel>(model);
         }
         #endregion
 
@@ -134,39 +65,10 @@ namespace eMine.Lib.Repositories.Fleet
             return await query.ToListAsync();
         }
 
-        public async Task VehicleTypeAdd(VehicleTypeModel model)
-        {
-            VehicleTypeEntity entity = new VehicleTypeEntity()
-            {
-                VehicleTypeName = model.VehicleTypeName,
-                VehicleTypeDescription = model.VehicleTypeDescription
-            };
-            dbContext.VehicleTypes.Add(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
-        public async Task VehicleTypeUpdate(VehicleTypeModel model)
-        {
-            VehicleTypeEntity entity = await (from vt in dbContext.VehicleTypes where vt.VehicleTypeId == model.VehicleTypeId select vt).SingleAsync();
-            entity.VehicleTypeName = model.VehicleTypeName;
-            entity.VehicleTypeDescription = model.VehicleTypeDescription;
-            entity.UpdateAuditFields();
-            dbContext.VehicleTypes.Update(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
 
         public async Task VehicleTypeSave(VehicleTypeModel model)
         {
-            if (model.VehicleTypeId == 0)
-            {
-                await VehicleTypeAdd(model);
-            }
-            else
-            {
-                await VehicleTypeUpdate(model);
-            }
+            await SaveEntity<VehicleTypeEntity, VehicleTypeModel>(model);
         }
         #endregion
 
@@ -177,95 +79,23 @@ namespace eMine.Lib.Repositories.Fleet
             var query = from vd in dbContext.VehicleDrivers
                         where vd.DeletedInd == false
                         && vd.CompanyId == profile.CompanyId
-                        select new VehicleDriverModel
-                        {
-                            VehicleDriverId = vd.VehicleDriverId,
-                            DriverName = vd.DriverName,
-                            Contact = vd.Contact,
-                            PhotoUrl = vd.PhotoUrl
-                        };
-
+                        select Mapper.Map<VehicleDriverEntity, VehicleDriverModel>(vd);
 
             return await query.ToListAsync();
         }
 
-        public async Task DriverAdd(VehicleDriverModel model)
-        {
-            VehicleDriverEntity entity = new VehicleDriverEntity()
-            {
-                VehicleDriverId = model.VehicleDriverId,
-                DriverName = model.DriverName,
-                Contact = model.Contact,
-                PhotoUrl = model.PhotoUrl
-            };
-            dbContext.VehicleDrivers.Add(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
-        public async Task DriverUpdate(VehicleDriverModel model)
-        {
-            VehicleDriverEntity entity = await (from vd in dbContext.VehicleDrivers where vd.VehicleDriverId == model.VehicleDriverId select vd).SingleAsync();
-            entity.DriverName = model.DriverName;
-            entity.Contact = model.Contact;
-            entity.PhotoUrl = model.PhotoUrl;
-            entity.UpdateAuditFields();
-            dbContext.VehicleDrivers.Update(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
         public async Task  DriverSave(VehicleDriverModel model)
         {
-            if (model.VehicleDriverId == 0)
-            {
-               await DriverAdd(model);
-            }
-            else
-            {
-               await DriverUpdate(model);
-            }
+            await SaveEntity<VehicleDriverEntity, VehicleDriverModel>(model);
         }
         #endregion
 
         #region Vehicle Model
         public async Task  ModelSave(VehicleManufactureModelModel model)
         {
-            if (model.VehicleModelId == 0)
-            {
-              await ModelAdd(model);
-            }
-            else
-            {
-               await ModelUpdate(model);
-            }
+            await SaveEntity<VehicleModelEntity, VehicleManufactureModelModel>(model);
         }
 
-
-        public async Task ModelAdd(VehicleManufactureModelModel model)
-        {
-            VehicleModelEntity entity = new VehicleModelEntity()
-            {
-                VehicleManufacturerId = model.VehicleManufacturerId,
-                Name = model.Name,
-                Description = model.Description
-            };
-            dbContext.VehicleModels.Add(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
-
-        public async Task ModelUpdate(VehicleManufactureModelModel model)
-        {
-            VehicleModelEntity entity = await (from vm in dbContext.VehicleModels where vm.VehicleModelId == model.VehicleModelId select vm).SingleAsync();
-            entity.Name = model.Name;
-            entity.Description = model.Description;
-            entity.UpdateAuditFields();
-            dbContext.VehicleModels.Update(entity);
-            await dbContext.SaveChangesAsync();            
-        }
-        
         #endregion
 
         #region Fuel
@@ -275,47 +105,9 @@ namespace eMine.Lib.Repositories.Fleet
                         where vf.VehicleId == vehicleId
                         && vf.DeletedInd == false
                         orderby vf.FuelDate descending
-                        select new FuelModel
-                        {
-                            VehicleFuelId = vf.VehicleFuelId,
-                            VehicleId = vf.VehicleId,
-                            Odometer = vf.Odometer,
-                            Quantity = vf.Fuel,
-                            FuelDate = vf.FuelDate
-                        };
+                        select Mapper.Map<VehicleFuelEntity, FuelModel>(vf);
 
             return await  query.ToListAsync();
-        }
-
-        public async Task FuelAdd(FuelModel model)
-        {
-            VehicleFuelEntity entity = new VehicleFuelEntity()
-            {
-                VehicleFuelId = model.VehicleFuelId,
-                VehicleId = model.VehicleId,
-                Odometer = model.Odometer,
-                Fuel = model.Quantity,
-                FuelDate = model.FuelDate
-            };
-            dbContext.VehicleFuels.Add(entity);
-            await dbContext.SaveChangesAsync();
-
-            await FuelAverage(model.VehicleId);
-        }
-
-        public async Task FuelUpdate(FuelModel model)
-        {
-            VehicleFuelEntity entity = await (from vehicleFuel in dbContext.VehicleFuels where vehicleFuel.VehicleFuelId == model.VehicleFuelId select vehicleFuel).SingleAsync();
-            decimal currentQuantity = entity.Fuel;
-            entity.FuelDate = model.FuelDate;
-            entity.Odometer = model.Odometer;
-            entity.Fuel = model.Quantity;
-            entity.UpdateAuditFields();
-            dbContext.VehicleFuels.Update(entity);
-            await dbContext.SaveChangesAsync();
-
-            await FuelAverage(model.VehicleId);
-
         }
 
         public async Task FuelAverage(int vehicleId)
@@ -330,7 +122,7 @@ namespace eMine.Lib.Repositories.Fleet
             if(minOdometer != null && minOdometer != maxOdometer)
             {
                 //calculating the average
-                decimal quantity = await (from fuel in dbContext.VehicleFuels where fuel.VehicleId == vehicleId && fuel.Odometer >= minOdometer && fuel.Odometer < maxOdometer select fuel.Fuel).SumAsync();
+                decimal quantity = await (from fuel in dbContext.VehicleFuels where fuel.VehicleId == vehicleId && fuel.Odometer >= minOdometer && fuel.Odometer < maxOdometer select fuel.Quantity).SumAsync();
                 vehicleEntity.FuelAverage = (maxOdometer - minOdometer) / quantity;
             }
 
@@ -338,7 +130,7 @@ namespace eMine.Lib.Repositories.Fleet
             await dbContext.SaveChangesAsync();
         }
 
-        public async Task  FuelSave(FuelModel model)
+        public async Task FuelSave(FuelModel model)
         {
             //validating Odometer reading
             VehicleFuelEntity vehicleFuelEntity = await (from fuel in dbContext.VehicleFuels where fuel.VehicleFuelId != model.VehicleFuelId && ((fuel.Odometer >= model.Odometer && fuel.FuelDate < model.FuelDate) || (fuel.Odometer <= model.Odometer && fuel.FuelDate > model.FuelDate)) select fuel).FirstOrDefaultAsync();
@@ -348,14 +140,8 @@ namespace eMine.Lib.Repositories.Fleet
                 throw new NTException(Messages.Fleet.FuelInvalidOdometer);
             }
 
-            if (model.VehicleFuelId == 0)
-            {
-               await FuelAdd(model);
-            }
-            else
-            {
-              await FuelUpdate(model);
-            }
+            await SaveEntity<VehicleFuelEntity, FuelModel>(model);
+            await FuelAverage(model.VehicleId);
         }
 
         public async Task VehicleFuelReset(int vehicleId)

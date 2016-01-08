@@ -12,7 +12,7 @@ namespace eMine.Lib.Entities.Fleet
         public int VehicleFuelId { get; set; }
         public int VehicleId { get; set; }
         public Decimal Odometer { get; set; }
-        public Decimal Fuel { get; set; }
+        public Decimal Quantity { get; set; }
         public DateTime FuelDate { get; set; }
     }
 }
