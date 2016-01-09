@@ -210,15 +210,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task VehicleDriverAdd(VehicleDriverAssignmentModel model)
         {
-            VehicleDriverAssignmentEntity entity = new VehicleDriverAssignmentEntity()
-            {
-                VehicleDriverAssignmentId = model.VehicleDriverAssignmentId,
-                VehicleDriverId = model.VehicleDriverId,
-                VehicleId = model.VehicleId,
-                AssignmentStartDate = model.AssignmentStartDate,
-                AssignmentEndDate = model.AssignmentEndDate
-            };
-            dbContext.VehicleDriverAssignments.Add(entity);
+            VehicleDriverAssignmentEntity entity = await AddEntity<VehicleDriverAssignmentEntity, VehicleDriverAssignmentModel>(model, false);
 
             if(model.AssignmentEndDate == null)
             {
@@ -242,12 +234,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task VehicleDriverUpdate(VehicleDriverAssignmentModel model)
         {
-            VehicleDriverAssignmentEntity entity = await (from vd in dbContext.VehicleDriverAssignments where vd.VehicleDriverAssignmentId == model.VehicleDriverAssignmentId select vd).SingleAsync();
-            entity.VehicleDriverId = model.VehicleDriverId;
-            entity.AssignmentStartDate = model.AssignmentStartDate;
-            entity.AssignmentEndDate = model.AssignmentEndDate;
-            entity.UpdateAuditFields();
-            dbContext.VehicleDriverAssignments.Update(entity);
+            VehicleDriverAssignmentEntity entity = await UpdateEntity<VehicleDriverAssignmentEntity, VehicleDriverAssignmentModel>(model, false);
 
             //checking if the current driver is assigned to the vehicle
             VehicleEntity vehicle = await (from v in dbContext.Vehicles where v.VehicleId == model.VehicleId select v).SingleAsync();
@@ -285,67 +272,25 @@ namespace eMine.Lib.Repositories.Fleet
 
             var query = from vm in dbContext.VehicleManufacturers
                         where vm.VehicleManufacturerId == vehicleManufacturerId
-                        select new VehicleManufacturerModel()
-                        {
-                            VehicleManufacturerId = vm.VehicleManufacturerId,
-                            Name = vm.Name,
-                            Description = vm.Description
-                        };
+                        select Mapper.Map<VehicleManufacturerEntity, VehicleManufacturerModel>(vm);
 
             return await query.SingleAsync();
         }
 
         public async Task<List<VehicleManufacturerModel>> VehicleManufacturersGet()
         {
-
             var query = from vm in dbContext.VehicleManufacturers
                         where vm.DeletedInd == false
                         && vm.CompanyId == profile.CompanyId
                         orderby vm.Name
-                        select new VehicleManufacturerModel()
-                        {
-                            VehicleManufacturerId = vm.VehicleManufacturerId,
-                            Name = vm.Name,
-                            Description = vm.Description
-                        };
+                        select Mapper.Map<VehicleManufacturerEntity, VehicleManufacturerModel>(vm);
 
             return await  query.ToListAsync();
         }
 
-        public async Task VehicleManufacturerAdd(VehicleManufacturerModel model)
-        {
-            VehicleManufacturerEntity entity = new VehicleManufacturerEntity()
-            {
-                VehicleManufacturerId = model.VehicleManufacturerId,
-                Name = model.Name,
-                Description = model.Description
-            };
-            dbContext.VehicleManufacturers.Add(entity);
-            await  dbContext.SaveChangesAsync();
-
-        }
-
-        public async Task VehicleManufacturerUpdate(VehicleManufacturerModel model)
-        {
-            VehicleManufacturerEntity entity = await (from vm in dbContext.VehicleManufacturers where vm.VehicleManufacturerId == model.VehicleManufacturerId select vm).SingleAsync();
-            entity.Name = model.Name;
-            entity.Description = model.Description;
-            entity.UpdateAuditFields();
-            dbContext.VehicleManufacturers.Update(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
         public async Task VehicleManufacturerSave(VehicleManufacturerModel model)
         {
-            if (model.VehicleManufacturerId == 0)
-            {
-               await VehicleManufacturerAdd(model);
-            }
-            else
-            {
-               await VehicleManufacturerUpdate(model);
-            }
+            await SaveEntity<VehicleManufacturerEntity, VehicleManufacturerModel>(model);
         }
 
 
@@ -355,57 +300,17 @@ namespace eMine.Lib.Repositories.Fleet
                         where vm.DeletedInd == false
                         && vm.CompanyId == profile.CompanyId
                         orderby vm.Name ascending
-                        select new VehicleManufactureModelModel
-                        {
-                            VehicleManufacturerId = vm.VehicleManufacturerId,
-                            VehicleModelId = vm.VehicleModelId,
-                            Name = vm.Name
-                        };
+                        select Mapper.Map<VehicleModelEntity, VehicleManufactureModelModel>(vm);
 
             return await  query.ToListAsync();
         }
         #endregion
 
         #region Vehicle
-        public async Task VehicleUpdate(VehicleModel model)
-        {
-            VehicleEntity entity = await (from vehicle in dbContext.Vehicles where vehicle.VehicleId == model.VehicleId select vehicle).SingleAsync();
-            entity.RegistrationNumber = model.RegistrationNumber;
-            entity.VehicleTypeId = model.VehicleTypeId;
-            entity.VehicleManufacturerId = model.VehicleManufacturerId;
-            entity.VehicleModelId = model.VehicleModelId;
-            entity.UpdateAuditFields();
-
-            dbContext.Vehicles.Update(entity);
-            await dbContext.SaveChangesAsync();
-        }
-
-        public async Task VehicleAdd(VehicleModel model)
-        {
-            VehicleEntity entity = new VehicleEntity()
-            {
-                RegistrationNumber = model.RegistrationNumber,
-                VehicleTypeId = model.VehicleTypeId,
-                TotalServiceCost = 0,
-                VehicleManufacturerId = model.VehicleManufacturerId,
-                VehicleModelId = model.VehicleModelId
-        };
-
-            dbContext.Vehicles.Add(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
 
         public async Task  VehicleSave(VehicleModel model)
         {
-            if (model.VehicleId == 0)
-            {
-               await VehicleAdd(model);
-            }
-            else
-            {
-               await VehicleUpdate(model);
-            }
+            await SaveEntity<VehicleEntity, VehicleModel>(model);
         }
 
         public async Task <VehicleModel> VehicleGet(int vehicleId)
@@ -422,14 +327,7 @@ namespace eMine.Lib.Repositories.Fleet
             {
                 var vehicleGetQuery = from vehicle in dbContext.Vehicles
                                       where vehicle.VehicleId == vehicleId
-                                      select new VehicleModel
-                                      {
-                                          VehicleId = vehicle.VehicleId,
-                                          RegistrationNumber = vehicle.RegistrationNumber,
-                                          VehicleTypeId = vehicle.VehicleTypeId,
-                                          VehicleManufacturerId = vehicle.VehicleManufacturerId,
-                                          VehicleModelId = vehicle.VehicleModelId
-                                      };
+                                      select Mapper.Map<VehicleEntity, VehicleModel>(vehicle);
 
                 model = await vehicleGetQuery.SingleAsync();
             }
@@ -474,14 +372,7 @@ namespace eMine.Lib.Repositories.Fleet
                                where service.VehicleId == vehicleId
                                && service.DeletedInd == false
                                orderby service.ServiceStartDate descending
-                               select new VehicleServiceModel
-                               {
-                                   VehicleServiceId = service.VehicleServiceId,
-                                   ServiceDate = service.ServiceStartDate,
-                                   TotalServiceCost = service.TotalServiceCost,
-                                   MiscServiceCost = service.MiscServiceCost,
-                                   Compliant = service.Compliant
-                               };
+                               select Mapper.Map<VehicleServiceEntity, VehicleServiceModel>(service);
 
             model.ServiceRecord = await serviceQuery.ToListAsync();
 
@@ -493,27 +384,14 @@ namespace eMine.Lib.Repositories.Fleet
         {
             var manQuery = from manufacturer in dbContext.VehicleManufacturers
                            where manufacturer.VehicleManufacturerId == manufacturerId
-                           select new ManufacturerDetailsModel
-                           {
-                               VehicleManufacturerId = manufacturer.VehicleManufacturerId,
-                               Description = manufacturer.Description,
-                               Name = manufacturer.Name
-                           };
+                           select Mapper.Map<VehicleManufacturerEntity, ManufacturerDetailsModel>(manufacturer);
 
             ManufacturerDetailsModel model = await manQuery.SingleAsync();
 
-            var modelsQuery = from vmodel in dbContext.VehicleModels
-                              where vmodel.VehicleManufacturerId == manufacturerId
-                              && vmodel.DeletedInd == false
-                              select new VehicleManufactureModelModel
-                              {
-                                  Name = vmodel.Name,
-                                  Description = vmodel.Description,
-                                  VehicleModelId = vmodel.VehicleModelId,
-                                  VehicleManufacturerId = vmodel.VehicleManufacturerId
-
-                              };
-
+            var modelsQuery = from vm in dbContext.VehicleModels
+                              where vm.VehicleManufacturerId == manufacturerId
+                              && vm.DeletedInd == false
+                              select Mapper.Map<VehicleModelEntity, VehicleManufactureModelModel>(vm);
 
             model.Models = await modelsQuery.ToListAsync();
 
@@ -550,16 +428,7 @@ namespace eMine.Lib.Repositories.Fleet
         {
             var serviceQuery = from service in dbContext.VehicleServices
                                where service.VehicleServiceId == vehicleServiceId
-                               select new VehicleServiceModel
-                               {
-                                   VehicleServiceId = service.VehicleServiceId,
-                                   ServiceDate = service.ServiceStartDate,
-                                   VehicleId = service.VehicleId,
-                                   Compliant = service.Compliant,
-                                   Description = service.Description,
-                                   MiscServiceCost = service.MiscServiceCost,
-                                   TotalServiceCost = service.TotalServiceCost
-                               };
+                               select Mapper.Map<VehicleServiceEntity, VehicleServiceModel>(service);
             VehicleServiceModel model = await serviceQuery.SingleOrDefaultAsync();
 
             //for adding return blank model
@@ -576,30 +445,24 @@ namespace eMine.Lib.Repositories.Fleet
                                &&  (service.ServiceStartDate > StartDate)
                                &&  (service.ServiceStartDate < EndDate)
                                && service.DeletedInd == false
-                               select new VehicleServiceModel
-                               {
-                                   VehicleServiceId = service.VehicleServiceId,
-                                   ServiceDate = service.ServiceStartDate,
-                                   VehicleId = service.VehicleId,
-                                   Compliant = service.Compliant,
-                                   Description = service.Description,
-                                   MiscServiceCost = service.MiscServiceCost,
-                                   TotalServiceCost = service.TotalServiceCost
-                               };
+                               select Mapper.Map<VehicleServiceEntity, VehicleServiceModel>(service);
             return await  serviceQuery.ToListAsync();
                      
         }
 
         public async Task <VehicleDetailsModel>  VehicleServiceSave(VehicleServiceModel model)
         {
-            if (model.VehicleServiceId == 0)
+            decimal serviceCost = model.TotalServiceCost;
+            if (model.VehicleServiceId != 0)
             {
-               await VehicleServiceAdd(model);
+                VehicleServiceEntity currentService = await (from vsm in dbContext.VehicleServices where vsm.VehicleServiceId == model.VehicleServiceId select vsm).SingleAsync();
+                serviceCost = model.TotalServiceCost - currentService.TotalServiceCost;
             }
-            else
-            {
-              await VehicleServiceUpdate(model);
-            }
+
+            //saving vehicle service and updating the vehicle details
+            VehicleServiceEntity entity = await SaveEntity<VehicleServiceEntity, VehicleServiceModel>(model, false);
+            await VehicleServiceVehicleUpdate(entity, serviceCost);
+            await dbContext.SaveChangesAsync();
 
             return await  VehicleDetailsGet(model.VehicleId);
         }
@@ -612,33 +475,6 @@ namespace eMine.Lib.Repositories.Fleet
             vehicle.LastServiceDate = entity.ServiceStartDate;
 
             dbContext.Vehicles.Update(vehicle);
-        }
-
-        private async Task VehicleServiceAdd(VehicleServiceModel model)
-        {
-            VehicleServiceEntity entity = Mapper.Map<VehicleServiceModel, VehicleServiceEntity>(model);
-            dbContext.VehicleServices.Add(entity);
-
-            //updating the Vehicle
-            await VehicleServiceVehicleUpdate(entity, model.TotalServiceCost);
-
-            await dbContext.SaveChangesAsync();
-
-        }
-
-        public async Task VehicleServiceUpdate(VehicleServiceModel model)
-        {
-            VehicleServiceEntity entity = await (from vsm in dbContext.VehicleServices where vsm.VehicleServiceId == model.VehicleServiceId select vsm).SingleAsync();
-            decimal serviceCost = model.TotalServiceCost - entity.TotalServiceCost;
-            Mapper.Map<VehicleServiceModel, VehicleServiceEntity>(model, entity);
-
-            entity.UpdateAuditFields();
-            dbContext.VehicleServices.Update(entity);
-
-            //updating the Vehicle
-            await VehicleServiceVehicleUpdate(entity, serviceCost);
-
-            await dbContext.SaveChangesAsync();
         }
         #endregion
     }

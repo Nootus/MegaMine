@@ -12,6 +12,7 @@ using Newtonsoft.Json.Serialization;
 using System.Data.SqlClient;
 using System.Data;
 using System.Text;
+using System.Linq.Expressions;
 
 namespace eMine.Lib.Repositories
 {
@@ -25,41 +26,31 @@ namespace eMine.Lib.Repositories
         #region MaterialColour
         public async Task<List<MaterialColourModel>> MaterialColoursGet()
         {
-            var query = from mc in dbContext.MaterialColours
-                        where mc.DeletedInd == false
-                            && mc.CompanyId == profile.CompanyId
-                        orderby mc.ColourName ascending
-                        select Mapper.Map<MaterialColourEntity, MaterialColourModel>(mc);
+            //var query = from mc in dbContext.MaterialColours
+            //            where mc.DeletedInd == false
+            //                && mc.CompanyId == profile.CompanyId
+            //            orderby mc.ColourName ascending
+            //            select Mapper.Map<MaterialColourEntity, MaterialColourModel>(mc);
+
+
+            //return await query.ToListAsync();
+
+            return await GetList<MaterialColourEntity, MaterialColourModel>(dbContext.MaterialColours);
+        }
+
+        protected async Task<List<TModel>> GetList<TEnitity, TModel>(DbSet<TEnitity> table) where TEnitity : BaseEntity
+        {
+            var query = from md in table
+                        where md.DeletedInd == false && md.CompanyId == profile.CompanyId
+                        select Mapper.Map<TEnitity, TModel>(md);
 
             return await query.ToListAsync();
         }
 
-        public async Task MaterialColourAdd(MaterialColourModel model)
-        {
-            MaterialColourEntity entity = Mapper.Map<MaterialColourModel, MaterialColourEntity>(model);
-            dbContext.MaterialColours.Add(entity);
-            await dbContext.SaveChangesAsync();
-        }
-
-        public async Task MaterialColourUpdate(MaterialColourModel model)
-        {
-            MaterialColourEntity entity = await (from mc in dbContext.MaterialColours where mc.MaterialColourId == model.MaterialColourId select mc).SingleAsync();
-            Mapper.Map<MaterialColourModel, MaterialColourEntity>(model, entity);
-            entity.UpdateAuditFields();
-            dbContext.MaterialColours.Update(entity);
-            await dbContext.SaveChangesAsync();
-        }
 
         public async Task MaterialColourSave(MaterialColourModel model)
         {
-            if (model.MaterialColourId == 0)
-            {
-                await MaterialColourAdd(model);
-            }
-            else
-            {
-                await MaterialColourUpdate(model);
-            }
+            await SaveEntity<MaterialColourEntity, MaterialColourModel>(model);
         }
         #endregion
 
@@ -90,34 +81,9 @@ namespace eMine.Lib.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task ProductTypeAdd(ProductTypeModel model)
-        {
-            ProductTypeEntity entity = Mapper.Map<ProductTypeModel, ProductTypeEntity>(model);
-            dbContext.ProductTypes.Add(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
-        public async Task ProductTypeUpdate(ProductTypeModel model)
-        {
-            ProductTypeEntity entity = await (from pt in dbContext.ProductTypes where pt.ProductTypeId == model.ProductTypeId select pt).SingleAsync();
-            Mapper.Map<ProductTypeModel, ProductTypeEntity>(model, entity);
-            entity.UpdateAuditFields();
-            dbContext.ProductTypes.Update(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
         public async Task ProductTypeSave(ProductTypeModel model)
         {
-            if (model.ProductTypeId == 0)
-            {
-                await ProductTypeAdd(model);
-            }
-            else
-            {
-                await ProductTypeUpdate(model);
-            }
+            await SaveEntity<ProductTypeEntity, ProductTypeModel>(model);
         }
         #endregion
 
@@ -136,8 +102,6 @@ namespace eMine.Lib.Repositories
 
             return await query.ToListAsync();
         }
-
-
 
         public async Task<List<QuarryModel>> QuarriesGet()
         {
@@ -164,8 +128,7 @@ namespace eMine.Lib.Repositories
 
         public async Task QuarryAdd(QuarryModel model)
         {
-            QuarryEntity entity = Mapper.Map<QuarryModel, QuarryEntity>(model);
-            dbContext.Quarries.Add(entity);
+            QuarryEntity entity = await AddEntity<QuarryEntity, QuarryModel>(model, false);
 
             //adding colours ids
             model.ColourIds.ForEach(cId => dbContext.QuarryMaterialColours.Add(new QuarryMaterialColourEntity() { Quarry = entity, MaterialColourId = cId }));
@@ -179,10 +142,7 @@ namespace eMine.Lib.Repositories
 
         public async Task QuarryUpdate(QuarryModel model)
         {
-            QuarryEntity entity = await (from qry in dbContext.Quarries where qry.QuarryId == model.QuarryId select qry).SingleAsync();
-            Mapper.Map<QuarryModel, QuarryEntity>(model, entity);
-            entity.UpdateAuditFields();
-            dbContext.Quarries.Update(entity);
+            await UpdateEntity<QuarryEntity, QuarryModel>(model, false);
 
             //getting the existing colours
             List<QuarryMaterialColourEntity> colours = await (from clr in dbContext.QuarryMaterialColours where clr.QuarryId == model.QuarryId select clr).ToListAsync();
@@ -228,34 +188,9 @@ namespace eMine.Lib.Repositories
             return await query.ToListAsync();
         }
 
-        public async Task YardAdd(YardModel model)
-        {
-            YardEntity entity = Mapper.Map<YardModel, YardEntity>(model);
-            dbContext.Yards.Add(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
-        public async Task YardUpdate(YardModel model)
-        {
-            YardEntity entity = await (from yd in dbContext.Yards where yd.YardId == model.YardId select yd).SingleAsync();
-            Mapper.Map<YardModel, YardEntity>(model, entity);
-            entity.UpdateAuditFields();
-            dbContext.Yards.Update(entity);
-            await dbContext.SaveChangesAsync();
-
-        }
-
         public async Task YardSave(YardModel model)
         {
-            if (model.YardId == 0)
-            {
-                await YardAdd(model);
-            }
-            else
-            {
-                await YardUpdate(model);
-            }
+            await SaveEntity<YardEntity, YardModel>(model);
         }
         #endregion
 

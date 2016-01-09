@@ -19,6 +19,8 @@ namespace eMine.Lib.Mapping
             Mapper.CreateMap<VehicleServiceModel, VehicleServiceEntity>()
                 .ForMember(dest => dest.ServiceStartDate, opt => opt.MapFrom(origin => origin.ServiceDate))
                 .ForMember(dest => dest.ServiceDeliveryDate, opt => opt.MapFrom(origin => origin.ServiceDate));
+            Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>()
+                .ForMember(dest => dest.ServiceDate, opt => opt.MapFrom(origin => origin.ServiceDeliveryDate));
 
             Mapper.CreateMap<VehicleTripEntity, VehicleTripModel>();
             Mapper.CreateMap<VehicleTripModel, VehicleTripEntity>();
@@ -34,6 +36,17 @@ namespace eMine.Lib.Mapping
 
             Mapper.CreateMap<VehicleDriverAssignmentEntity, VehicleDriverAssignmentModel>();
             Mapper.CreateMap<VehicleDriverAssignmentModel, VehicleDriverAssignmentEntity>();
+
+            Mapper.CreateMap<VehicleManufacturerEntity, VehicleManufacturerModel>();
+            Mapper.CreateMap<VehicleManufacturerModel, VehicleManufacturerEntity>();
+            Mapper.CreateMap<VehicleManufacturerEntity, ManufacturerDetailsModel>();
+
+            Mapper.CreateMap<VehicleEntity, VehicleModel>();
+            Mapper.CreateMap<VehicleModel, VehicleEntity>();
+
+            Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>();
+            Mapper.CreateMap<VehicleServiceModel, VehicleServiceEntity>();
+
         }
     }
 }
