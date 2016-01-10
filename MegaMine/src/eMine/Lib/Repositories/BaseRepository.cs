@@ -1,10 +1,14 @@
 ﻿using AutoMapper;
+using eMine.Lib.Entities;
 using eMine.Lib.Shared;
 using eMine.Models.Account;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System;
+using System.Linq.Expressions;
 
 namespace eMine.Lib.Repositories
 {
@@ -58,6 +62,54 @@ namespace eMine.Lib.Repositories
             return entity;
         }
 
+        protected async Task<List<TModel>> GetList<TEntity, TModel>(Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
+        {
+            var query = dbContext.Set<TEntity>().Where(ent => ent.DeletedInd == false && ent.CompanyId == profile.CompanyId)
+                                .OrderBy(sortExpression)
+                                .Select(ent => Mapper.Map<TEntity, TModel>(ent));
+
+            return await query.ToListAsync();
+        }
+
+
+        protected async Task<List<ListItem<int, string>>> GetListItems<TEntity>(Expression<Func<TEntity, ListItem<int, string>>> selectExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
+        {
+            var query = dbContext.Set<TEntity>().Where(ent => ent.DeletedInd == false && ent.CompanyId == profile.CompanyId)
+                        .OrderBy(sortExpression)
+                        .Select(selectExpression);
+
+            return await query.ToListAsync();
+
+        }
+
+        protected void GetSingle<TEntity>(int id) where TEntity : BaseEntity
+        {
+            var entityParam = Expression.Parameter(typeof(IQueryable<TEntity>), "entity");
+            var aliasParam = Expression.Parameter(typeof(TEntity), "e");
+
+
+            Expression query = entityParam;
+
+
+            var whereClause = Expression.Lambda(
+                Expression.MakeBinary(
+                    ExpressionType.Equal,
+                    Expression.PropertyOrField(aliasParam, "QuarryId"),
+                    Expression.Constant(id)
+                ),
+                aliasParam
+            );
+
+
+            //var columnLambda = Expression.Lambda(Expression.Property(aliasParam, "QuarryId"), aliasParam);
+
+            //query = Expression.Call(typeof(Queryable), "Where", new[] { typeof(TEntity) }, query, whereClause);
+            ////query = Expression.Call(typeof(Queryable), "Count", new[] { typeof(TEntity) }, query);
+            //query = Expression.Call(typeof(Queryable), "Select", new[] { typeof(TEntity), columnLambda.Body.Type }, query, columnLambda);
+            //Expression.Lambda(query, entityParam).Compile().DynamicInvoke(dbContext.Set<TEntity>());
+
+            //var query = dbContext.Set<TEntity>().Where(whereClause)
+        }
 
     }
 }

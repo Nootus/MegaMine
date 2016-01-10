@@ -26,25 +26,7 @@ namespace eMine.Lib.Repositories
         #region MaterialColour
         public async Task<List<MaterialColourModel>> MaterialColoursGet()
         {
-            //var query = from mc in dbContext.MaterialColours
-            //            where mc.DeletedInd == false
-            //                && mc.CompanyId == profile.CompanyId
-            //            orderby mc.ColourName ascending
-            //            select Mapper.Map<MaterialColourEntity, MaterialColourModel>(mc);
-
-
-            //return await query.ToListAsync();
-
-            return await GetList<MaterialColourEntity, MaterialColourModel>(dbContext.MaterialColours);
-        }
-
-        protected async Task<List<TModel>> GetList<TEnitity, TModel>(DbSet<TEnitity> table) where TEnitity : BaseEntity
-        {
-            var query = from md in table
-                        where md.DeletedInd == false && md.CompanyId == profile.CompanyId
-                        select Mapper.Map<TEnitity, TModel>(md);
-
-            return await query.ToListAsync();
+            return await GetList<MaterialColourEntity, MaterialColourModel>(sort => sort.ColourName);
         }
 
 
@@ -57,28 +39,12 @@ namespace eMine.Lib.Repositories
         #region ProductType
         public async Task<List<ProductTypeModel>> ProductTypesGet()
         {
-            var query = from pt in dbContext.ProductTypes
-                        where pt.DeletedInd == false
-                            && pt.CompanyId == profile.CompanyId
-                        orderby pt.ProductTypeName ascending
-                        select Mapper.Map<ProductTypeEntity, ProductTypeModel>(pt);
-
-            return await query.ToListAsync();
+            return await GetList<ProductTypeEntity, ProductTypeModel>(sort => sort.ProductTypeName);
         }
 
         public async Task<List<ListItem<int, string>>> ProductTypeListItemGet()
         {
-
-            var query = from pt in dbContext.ProductTypes
-                        where pt.DeletedInd == false
-                            && pt.CompanyId == profile.CompanyId
-                        orderby pt.ProductTypeName ascending
-                        select new ListItem<int, string>()
-                        {
-                            Key = pt.ProductTypeId,
-                            Item = pt.ProductTypeName
-                        };
-            return await query.ToListAsync();
+            return await GetListItems<ProductTypeEntity>(e => new ListItem<int, string> { Key = e.ProductTypeId, Item = e.ProductTypeName }, s => s.ProductTypeName);
         }
 
         public async Task ProductTypeSave(ProductTypeModel model)
@@ -90,26 +56,12 @@ namespace eMine.Lib.Repositories
         #region Quarry
         public async Task<List<ListItem<int, string>>> QuarryListItemGet()
         {
-            var query = from qry in dbContext.Quarries
-                                where qry.DeletedInd == false
-                                    && qry.CompanyId == profile.CompanyId
-                                orderby qry.QuarryName ascending
-                                select new ListItem<int, string>()
-                                {
-                                    Key = qry.QuarryId,
-                                    Item = qry.QuarryName
-                                };
-
-            return await query.ToListAsync();
+            return await GetListItems<QuarryEntity>(e => new ListItem<int, string> { Key = e.QuarryId, Item = e.QuarryName }, s => s.QuarryName);
         }
 
         public async Task<List<QuarryModel>> QuarriesGet()
         {
-            var quarry = await (from qry in dbContext.Quarries
-                        where qry.DeletedInd == false
-                            && qry.CompanyId == profile.CompanyId
-                        orderby qry.QuarryName ascending
-                                select Mapper.Map<QuarryEntity, QuarryModel>(qry)).ToListAsync();
+            var quarry = await GetList<QuarryEntity, QuarryModel>(sort => sort.QuarryName);
 
             var quarryColours = await (from clr in dbContext.QuarryMaterialColours
                                         join mc in dbContext.MaterialColours on clr.MaterialColourId equals mc.MaterialColourId
@@ -160,7 +112,6 @@ namespace eMine.Lib.Repositories
             dbContext.Yards.Update(yard);
 
             await dbContext.SaveChangesAsync();
-
         }
 
         public async Task QuarrySave(QuarryModel model)
