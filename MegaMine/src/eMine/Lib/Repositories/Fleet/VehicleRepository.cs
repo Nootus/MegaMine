@@ -269,23 +269,12 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task <VehicleManufacturerModel> VehicleManufacturerGet(int vehicleManufacturerId)
         {
-
-            var query = from vm in dbContext.VehicleManufacturers
-                        where vm.VehicleManufacturerId == vehicleManufacturerId
-                        select Mapper.Map<VehicleManufacturerEntity, VehicleManufacturerModel>(vm);
-
-            return await query.SingleAsync();
+            return Mapper.Map <VehicleManufacturerEntity, VehicleManufacturerModel>(await GetSingleAsync<VehicleManufacturerEntity>(vehicleManufacturerId));
         }
 
         public async Task<List<VehicleManufacturerModel>> VehicleManufacturersGet()
         {
-            var query = from vm in dbContext.VehicleManufacturers
-                        where vm.DeletedInd == false
-                        && vm.CompanyId == profile.CompanyId
-                        orderby vm.Name
-                        select Mapper.Map<VehicleManufacturerEntity, VehicleManufacturerModel>(vm);
-
-            return await  query.ToListAsync();
+            return await GetListAsync<VehicleManufacturerEntity, VehicleManufacturerModel>(sort => sort.Name);
         }
 
         public async Task VehicleManufacturerSave(VehicleManufacturerModel model)
@@ -296,13 +285,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task<List<VehicleManufactureModelModel>> VehicleManufactureModelGet()
         {
-            var query = from vm in dbContext.VehicleModels
-                        where vm.DeletedInd == false
-                        && vm.CompanyId == profile.CompanyId
-                        orderby vm.Name ascending
-                        select Mapper.Map<VehicleModelEntity, VehicleManufactureModelModel>(vm);
-
-            return await  query.ToListAsync();
+            return await GetListAsync<VehicleModelEntity, VehicleManufactureModelModel>(sort => sort.Name);
         }
         #endregion
 
@@ -325,11 +308,7 @@ namespace eMine.Lib.Repositories.Fleet
             }
             else
             {
-                var vehicleGetQuery = from vehicle in dbContext.Vehicles
-                                      where vehicle.VehicleId == vehicleId
-                                      select Mapper.Map<VehicleEntity, VehicleModel>(vehicle);
-
-                model = await vehicleGetQuery.SingleAsync();
+                model = Mapper.Map<VehicleEntity, VehicleModel>(await GetSingleAsync<VehicleEntity>(vehicleId));
             }
 
             model.VehicleTypeList = await VehicleTypeListItemGet();
@@ -382,11 +361,7 @@ namespace eMine.Lib.Repositories.Fleet
 
         public async Task <ManufacturerDetailsModel> ManufacturerDetailsGet(int manufacturerId)
         {
-            var manQuery = from manufacturer in dbContext.VehicleManufacturers
-                           where manufacturer.VehicleManufacturerId == manufacturerId
-                           select Mapper.Map<VehicleManufacturerEntity, ManufacturerDetailsModel>(manufacturer);
-
-            ManufacturerDetailsModel model = await manQuery.SingleAsync();
+            ManufacturerDetailsModel model = Mapper.Map<VehicleManufacturerEntity, ManufacturerDetailsModel>(await GetSingleAsync<VehicleManufacturerEntity>(manufacturerId));
 
             var modelsQuery = from vm in dbContext.VehicleModels
                               where vm.VehicleManufacturerId == manufacturerId

@@ -25,10 +25,8 @@ namespace eMine.Lib.Repositories
         protected async Task<TEntity> SaveEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : class
         {
             //checking for add or update
-            IEntityType entityType = dbContext.Model.FindEntityType(typeof(TEntity));
-
-            IKey key = entityType.FindPrimaryKey();
-            int primaryKey = (int)typeof(TModel).GetProperty(key.Properties.First().Name).GetValue(model);
+            string keyName = GetKeyName<TEntity>();
+            int primaryKey = (int)typeof(TModel).GetProperty(keyName).GetValue(model);
 
             if (primaryKey == 0)
             {
@@ -62,7 +60,7 @@ namespace eMine.Lib.Repositories
             return entity;
         }
 
-        protected async Task<List<TModel>> GetList<TEntity, TModel>(Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
             var query = dbContext.Set<TEntity>().Where(ent => ent.DeletedInd == false && ent.CompanyId == profile.CompanyId)
                                 .OrderBy(sortExpression)
@@ -71,8 +69,16 @@ namespace eMine.Lib.Repositories
             return await query.ToListAsync();
         }
 
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression) where TEntity : BaseEntity
+        {
+            var query = dbContext.Set<TEntity>().Where(whereExpression)
+                                .Select(ent => Mapper.Map<TEntity, TModel>(ent));
 
-        protected async Task<List<ListItem<int, string>>> GetListItems<TEntity>(Expression<Func<TEntity, ListItem<int, string>>> selectExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
+            return await query.ToListAsync();
+        }
+
+
+        protected async Task<List<ListItem<int, string>>> GetListItemsAsync<TEntity>(Expression<Func<TEntity, ListItem<int, string>>> selectExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
             var query = dbContext.Set<TEntity>().Where(ent => ent.DeletedInd == false && ent.CompanyId == profile.CompanyId)
                         .OrderBy(sortExpression)
@@ -82,33 +88,40 @@ namespace eMine.Lib.Repositories
 
         }
 
-        protected void GetSingle<TEntity>(int id) where TEntity : BaseEntity
+        protected async Task<TEntity> GetSingleAsync<TEntity>(int id) where TEntity : BaseEntity
         {
-            var entityParam = Expression.Parameter(typeof(IQueryable<TEntity>), "entity");
+            var entity = dbContext.Set<TEntity>().AsQueryable();
+
+            //building where clause
+            string keyName = GetKeyName<TEntity>();
             var aliasParam = Expression.Parameter(typeof(TEntity), "e");
-
-
-            Expression query = entityParam;
-
-
-            var whereClause = Expression.Lambda(
-                Expression.MakeBinary(
+            var whereExpression = Expression.Lambda(
+            Expression.MakeBinary(
                     ExpressionType.Equal,
-                    Expression.PropertyOrField(aliasParam, "QuarryId"),
+                    Expression.PropertyOrField(aliasParam, keyName),
                     Expression.Constant(id)
                 ),
                 aliasParam
             );
 
+            var whereQuery = (IQueryable<TEntity>) entity.Provider.CreateQuery(
+                Expression.Call(
+                    typeof(Queryable), "Where",
+                    new Type[] { entity.ElementType },
+                    entity.Expression, Expression.Quote(whereExpression)));
 
-            //var columnLambda = Expression.Lambda(Expression.Property(aliasParam, "QuarryId"), aliasParam);
+            var query = whereQuery.Select(e => e);
 
-            //query = Expression.Call(typeof(Queryable), "Where", new[] { typeof(TEntity) }, query, whereClause);
-            ////query = Expression.Call(typeof(Queryable), "Count", new[] { typeof(TEntity) }, query);
-            //query = Expression.Call(typeof(Queryable), "Select", new[] { typeof(TEntity), columnLambda.Body.Type }, query, columnLambda);
-            //Expression.Lambda(query, entityParam).Compile().DynamicInvoke(dbContext.Set<TEntity>());
+            return await query.SingleAsync(); ;
+        }
 
-            //var query = dbContext.Set<TEntity>().Where(whereClause)
+        private string GetKeyName<TEntity>()
+        {
+            IEntityType entityType = dbContext.Model.FindEntityType(typeof(TEntity));
+ 
+            IKey key = entityType.FindPrimaryKey();
+
+            return key.Properties.First().Name;
         }
 
     }
