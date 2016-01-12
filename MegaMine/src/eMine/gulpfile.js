@@ -1,4 +1,4 @@
-/// <binding />
+/// <binding BeforeBuild='index' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -6,7 +6,10 @@ var gulp = require("gulp"),
         concat = require("gulp-concat"),
         cssmin = require("gulp-cssmin"),
         uglify = require("gulp-uglify"),
-        gutil = require('gulp-util');
+        gutil = require('gulp-util'),
+        inject = require('gulp-inject'),
+        sourcemaps = require('gulp-sourcemaps'),
+        tsc = require('gulp-typescript');
 
 var webroot = "./wwwroot/";
 var paths = {
@@ -64,5 +67,47 @@ gulp.task("min", function () {
             .pipe(cssmin())
             .pipe(gulp.dest("."));
 });
+
+
+gulp.task('index', function () {
+    //console.log(allJsRefs);
+    var target = gulp.src('./views/home/index.cshtml');
+    // It's not necessary to read the files (will speed up things), we're only after their paths: 
+    var sources = gulp.src(paths.appJs, { read: false });
+    return target.pipe(inject(sources, {
+        transform: function (filepath, file, i, length) {
+            return '<script src="' + filepath.replace('/wwwroot/','') + '"></script>';
+        }
+    }))
+      .pipe(gulp.dest('./views/home'));
+});
+
+var config = require('./gulp.config')(),
+    tsProject = require(webroot + 'app/tsconfig.json');
+
+gulp.task('compile-ts', function () {
+    var sourceTsFiles = [
+        config.allTs
+    ];
+
+    var tsResult = gulp
+        .src(sourceTsFiles)
+        .pipe(sourcemaps.init())
+        .pipe(tsc(tsProject));
+
+    return tsResult.js
+        .pipe(sourcemaps.write('.'))
+        .pipe(gulp.dest(config.tsOutputPath));
+});
+
+
+gulp.task('watch', ['compile-ts'], function () {
+
+    gulp.watch([config.allTs], ['compile-ts']);
+
+});
+
+gulp.task('default', ['watch']);
+
 
 gulp.task("all", ["clean", "min", "copy"]);
