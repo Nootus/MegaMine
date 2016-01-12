@@ -60,9 +60,18 @@ namespace eMine.Lib.Repositories
             return entity;
         }
 
+        public async Task DeleteEntity<TEntity>(int entityId) where TEntity : BaseEntity
+        {
+            var entity = await GetSingleAsync<TEntity>(entityId);
+
+            entity.DeletedInd = true;
+            dbContext.Set<TEntity>().Update(entity);
+            await dbContext.SaveChangesAsync();
+        }
+
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
-            var query = dbContext.Set<TEntity>().Where(ent => ent.DeletedInd == false && ent.CompanyId == profile.CompanyId)
+            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == profile.CompanyId)
                                 .OrderBy(sortExpression)
                                 .Select(ent => Mapper.Map<TEntity, TModel>(ent));
 
@@ -80,7 +89,7 @@ namespace eMine.Lib.Repositories
 
         protected async Task<List<ListItem<int, string>>> GetListItemsAsync<TEntity>(Expression<Func<TEntity, ListItem<int, string>>> selectExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
-            var query = dbContext.Set<TEntity>().Where(ent => ent.DeletedInd == false && ent.CompanyId == profile.CompanyId)
+            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == profile.CompanyId)
                         .OrderBy(sortExpression)
                         .Select(selectExpression);
 

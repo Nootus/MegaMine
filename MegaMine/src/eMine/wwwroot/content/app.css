@@ -295,7 +295,10 @@ nt-toolbar.dialog > md-toolbar{
 
 nt-toolbar nt-button > button{
     background-color: #eaf4f9 !important;
-    /*background-color: rgba(33, 150, 243, 0.35) !important;*/
+}
+
+nt-toolbar nt-button > button.delete{
+    background-color: #971834 !important;
 }
 
 button{

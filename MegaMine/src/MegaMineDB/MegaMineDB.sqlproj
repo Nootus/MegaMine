@@ -67,10 +67,11 @@
     <Build Include="Stored Procedures\ProductSummaryGet.sql" />
     <Build Include="Functions\SplitCsv.sql" />
     <Build Include="Scripts\InitialSchema.sql" />
-    <Build Include="Scripts\Changes.sql" />
+    <Build Include="Scripts\ChangesSchema.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\InitialMasterData.sql" />
     <None Include="Scripts\QuarryData.sql" />
+    <None Include="Scripts\ChangesMasterData.sql" />
   </ItemGroup>
 </Project>

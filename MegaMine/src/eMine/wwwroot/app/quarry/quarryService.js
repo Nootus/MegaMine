@@ -21,6 +21,7 @@ function quarryService($http) {
         quarries: [],
         getQuarries: getQuarries,
         saveQuarry: saveQuarry,
+        deleteQuarry: deleteQuarry,
 
         //yards
         yards: [],
@@ -120,6 +121,10 @@ function quarryService($http) {
         }
 
         return $http.post(url, model);
+    }
+
+    function deleteQuarry(quarryId) {
+        return $http.post("/api/quarry/quarrydelete", quarryId);
     }
 
     //Yardsrry

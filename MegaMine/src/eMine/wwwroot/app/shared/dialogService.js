@@ -73,6 +73,13 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             $mdDialog.cancel();
         }
         function save(form) {
+            resolveDialog(form);
+        }
+        function deleteItem(form) {
+            resolveDialog(form);
+        }
+
+        function resolveDialog(form) {
             if (form.$valid) {
                 if (dialog.deferredPromiseState === undefined)
                     dialog.deferredPromiseState = angular.copy(vm.deferred.promise.$$state);
@@ -84,9 +91,6 @@ function dialogService($timeout, $q, $mdDialog, utility) {
                     vm.deferred.resolve(dialog.model)
                 }
             }
-        }
-        function deleteItem(ev) {
-            vm.deferred.resolve(dialog.model)
         }
     }
 
