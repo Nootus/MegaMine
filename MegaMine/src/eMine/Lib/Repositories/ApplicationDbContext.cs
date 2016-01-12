@@ -7,7 +7,7 @@ using Microsoft.Data.Entity;
 
 namespace eMine.Lib.Repositories
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
         //Account
         public DbSet<IdentityClaimEntity> IdentityClaims { get; set; }
@@ -64,7 +64,7 @@ namespace eMine.Lib.Repositories
 
             //renaming identity tables
             builder.Entity<ApplicationUser>().ToTable("IdentityUser");
-            builder.Entity<IdentityRole>().ToTable("IdentityRole");
+            builder.Entity<ApplicationRole>().ToTable("IdentityRole");
             builder.Entity<IdentityRoleClaim<string>>().ToTable("IdentityRoleClaim");
             builder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
             builder.Entity<IdentityUserLogin<string>>().ToTable("IdentityUserLogin");
