@@ -76,6 +76,10 @@ namespace eMine.Controllers
         {
             return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
         }
+        public async Task<AjaxModel<NTModel>> QuarryDelete([FromBody] int quarryId)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.QuarryDelete(quarryId), Messages.Quarry.QuarryDeleteSuccess);
+        }
         #endregion
 
         #region Yard

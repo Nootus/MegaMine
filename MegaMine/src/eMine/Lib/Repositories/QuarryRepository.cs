@@ -122,9 +122,14 @@ namespace eMine.Lib.Repositories
                 await QuarryUpdate(model);
             }
         }
+
+        public async Task QuarryDelete(int quarryId)
+        {
+            await DeleteEntity<QuarryEntity>(quarryId);
+        }
         #endregion
 
-        #region Yard
+            #region Yard
         public async Task<List<YardModel>> YardsGet()
         {
             return await GetListAsync<YardEntity, YardModel>(s => s.YardName);

@@ -20,7 +20,7 @@ function ntDialog($mdDialog, constants) {
                     + '      <md-dialog-actions>'
                     + '       <span ng-transclude="dialogButtons"></span>'
                     + '       <nt-button ng-click="save(dialogForm)" button-icon="save" button-text="{{saveText}}" ng-show="dialogMode === dialogModeEnum.save" ng-disabled="dialogForm.$invalid && dialogForm.$submitted""></nt-button>'
-                    + '       <nt-button ng-click="deleteItem($event)" button-icon="delete" button-text="Delete" ng-show="dialogMode === dialogModeEnum.delete"></nt-button>'
+                    + '       <nt-button ng-click="deleteItem(dialogForm)" button-icon="delete" button-text="Delete" css-class="delete" ng-show="dialogMode === dialogModeEnum.delete"></nt-button>'
                     + '       <nt-button ng-click="cancel($event)" button-icon="cancel" button-text="Cancel" ng-show="dialogMode !== dialogModeEnum.view" override-disabled="true"></nt-button>'
                     + '       <nt-button ng-click="cancel($event)" button-icon="cancel" button-text="Close" ng-show="dialogMode === dialogModeEnum.view" override-disabled="true"></nt-button>'
                     + '      </md-dialog-actions>'

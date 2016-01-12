@@ -52,6 +52,10 @@ namespace eMine.Lib.Domain
         {
             await quarryRepository.QuarrySave(model);
         }
+        public async Task QuarryDelete(int quarryId)
+        {
+            await quarryRepository.QuarryDelete(quarryId);
+        }
         #endregion
 
         #region Yard

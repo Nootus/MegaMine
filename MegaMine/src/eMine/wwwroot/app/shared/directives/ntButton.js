@@ -6,7 +6,7 @@ function ntButton(profile) {
     return {
         restrict: 'E',
         scope: {
-            class: '@',
+            cssClass: '@',
             title: '@',
             buttonIcon: '@',
             buttonText: '@',
@@ -17,7 +17,7 @@ function ntButton(profile) {
             form: '=?'
         },
         link: link,
-        template: '<md-button title="{{title}}" class="{{class}}" ng-hide="hide" aria-label="{{title}}" ng-click="ntClick($event)"'
+        template: '<md-button title="{{title}}" class="{{cssClass}}" ng-hide="hide" aria-label="{{title}}" ng-click="ntClick($event)"'
                     + ' ng-disabled="form.$invalid && form.$submitted && bypassDisabled">'
                     + ' <md-icon class="icon-button" md-svg-icon="content/images/icons/common/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
                     + '</md-button>'
