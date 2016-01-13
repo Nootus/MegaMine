@@ -18,3 +18,10 @@ begin
 	Set IDENTITY_INSERT IdentityPageClaim Off
 end
 -- end Quarry Delete
+
+-- Role IsAdmin
+update IdentityRole set IsAdmin = 0
+update IdentityRole set IsAdmin = 1 where Name in ('SuperAdmin', 'QuarryAdmin', 'GroupAdmin')
+-- end
+
+
