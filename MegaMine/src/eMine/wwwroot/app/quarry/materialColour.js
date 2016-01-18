@@ -8,7 +8,7 @@ function materialColour($scope, quarryService, gridUtility, constants, dialogSer
         columnDefs: [
                     { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string' },
                     { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description' },
-                    template.getButtonDefaultColumnDefs('materialColourId', 'Quarry', 'MaterialColourEdit')
+                    template.getButtonDefaultColumnDefs('materialColourId', 'Quarry', 'MaterialColourEdit', 'MaterialColourDelete')
                 ]
     };
 
@@ -40,18 +40,26 @@ function materialColour($scope, quarryService, gridUtility, constants, dialogSer
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            quarryService.saveMaterialColour(dialogModel).then(function () {
-                //update the grid values
-                if (dialogModel.materialColourId === 0) {
+            if (dialogMode === constants.enum.buttonType.delete) {
+                quarryService.deleteMaterialColour(dialogModel.materialColourId).then(function () {
                     quarryService.getMaterialColours();
-                }
-                else {
-                    model.colourName = dialogModel.colourName
-                    model.colourDescription = dialogModel.colourDescription
-                }
+                    dialogService.hide();
+                });
+            }
+            else {
+                quarryService.saveMaterialColour(dialogModel).then(function () {
+                    //update the grid values
+                    if (dialogModel.materialColourId === 0) {
+                        quarryService.getMaterialColours();
+                    }
+                    else {
+                        model.colourName = dialogModel.colourName
+                        model.colourDescription = dialogModel.colourDescription
+                    }
 
-                dialogService.hide();
-            });
+                    dialogService.hide();
+                });
+            }
         });
     }
 }

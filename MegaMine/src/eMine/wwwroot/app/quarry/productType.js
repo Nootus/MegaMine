@@ -10,7 +10,7 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
                     { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description' },
                     { name: 'formulaString', field: 'formulaString', type: 'string', displayName: 'Formula' },
                     { name: 'formulaOrder', field: 'formulaOrder', type: 'string', displayName: 'Formula Order' },
-                    template.getButtonDefaultColumnDefs('productTypeId', 'Quarry', 'ProductTypeEdit')
+                    template.getButtonDefaultColumnDefs('productTypeId', 'Quarry', 'ProductTypeEdit', 'ProductTypeDelete')
                 ]
     };
 
@@ -111,34 +111,38 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
             targetEvent: ev,
             data: { model: model, validator: validator, disabled: disabled },
             dialogMode: dialogMode,
-            returnForm: true,
             parentVm: vm
         })
-        .then(function (response) {
-            var dialogModel = response.dialogModel;
-            var form = response.form;
-            dialogModel.formula = JSON.stringify(dialogModel.formulaJson);
-            
-            quarryService.saveProductType(dialogModel).then(function () {
-                //update the grid values
-                if (dialogModel.productTypeId === 0) {
-                    quarryService.getProductTypes().then(function () {
-                        angular.forEach(quarryService.productTypes, function (item) {
-                            initializeModel(item);
+        .then(function (dialogModel) {
+            if (dialogMode === constants.enum.buttonType.delete) {
+                quarryService.deleteProductType(dialogModel.productTypeId).then(function () {
+                    quarryService.getProductTypes();
+                    dialogService.hide();
+                });
+            }
+            else {
+                dialogModel.formula = JSON.stringify(dialogModel.formulaJson);
+                quarryService.saveProductType(dialogModel).then(function () {
+                    //update the grid values
+                    if (dialogModel.productTypeId === 0) {
+                        quarryService.getProductTypes().then(function () {
+                            angular.forEach(quarryService.productTypes, function (item) {
+                                initializeModel(item);
+                            });
                         });
-                    });
-                }
-                else {
-                    model.productTypeName = dialogModel.productTypeName
-                    model.productTypeDescription = dialogModel.productTypeDescription
-                    model.formulaString = getFormulaString(dialogModel.formulaJson);
-                    model.formula = JSON.stringify(dialogModel.formulaJson);
-                    model.formulaJson = angular.copy(dialogModel.formulaJson);
-                    model.formulaOrder = dialogModel.formulaOrder
-                }
+                    }
+                    else {
+                        model.productTypeName = dialogModel.productTypeName
+                        model.productTypeDescription = dialogModel.productTypeDescription
+                        model.formulaString = getFormulaString(dialogModel.formulaJson);
+                        model.formula = JSON.stringify(dialogModel.formulaJson);
+                        model.formulaJson = angular.copy(dialogModel.formulaJson);
+                        model.formulaOrder = dialogModel.formulaOrder
+                    }
 
-                dialogService.hide();
-            });
+                    dialogService.hide();
+                });
+            }
         });
     }
 }

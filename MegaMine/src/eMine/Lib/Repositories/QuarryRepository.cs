@@ -26,10 +26,14 @@ namespace eMine.Lib.Repositories
             return await GetListAsync<MaterialColourEntity, MaterialColourModel>(s => s.ColourName);
         }
 
-
         public async Task MaterialColourSave(MaterialColourModel model)
         {
             await SaveEntity<MaterialColourEntity, MaterialColourModel>(model);
+        }
+
+        public async Task MaterialColourDelete(int materialColourId)
+        {
+            await DeleteEntity<MaterialColourEntity>(materialColourId);
         }
         #endregion
 
@@ -47,6 +51,10 @@ namespace eMine.Lib.Repositories
         public async Task ProductTypeSave(ProductTypeModel model)
         {
             await SaveEntity<ProductTypeEntity, ProductTypeModel>(model);
+        }
+        public async Task ProductTypeDelete(int productTypeId)
+        {
+            await DeleteEntity<ProductTypeEntity>(productTypeId);
         }
         #endregion
 
@@ -126,10 +134,17 @@ namespace eMine.Lib.Repositories
         public async Task QuarryDelete(int quarryId)
         {
             await DeleteEntity<QuarryEntity>(quarryId);
+
+            //deleting the YardId
+            var yard = await (from yd in dbContext.Yards where yd.QuarryId == quarryId select yd).SingleAsync();
+            yard.DeletedInd = true;
+            yard.UpdateAuditFields();
+            dbContext.Yards.Update(yard);
+            await dbContext.SaveChangesAsync();
         }
         #endregion
 
-            #region Yard
+        #region Yard
         public async Task<List<YardModel>> YardsGet()
         {
             return await GetListAsync<YardEntity, YardModel>(s => s.YardName);
@@ -138,6 +153,10 @@ namespace eMine.Lib.Repositories
         public async Task YardSave(YardModel model)
         {
             await SaveEntity<YardEntity, YardModel>(model);
+        }
+        public async Task YardDelete(int yardId)
+        {
+            await DeleteEntity<YardEntity>(yardId);
         }
         #endregion
 

@@ -8,7 +8,7 @@ function yard($scope, quarryService, gridUtility, constants, dialogService, temp
         columnDefs: [
                         { name: 'yardName', field: 'yardName', displayName: 'Name', type: 'string' },
                         { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
-                        template.getButtonDefaultColumnDefs('yardId', 'Quarry', 'YardEdit', 'row.entity.quarryId !== null')
+                        template.getButtonDefaultColumnDefs('yardId', 'Quarry', 'YardEdit', 'YardDelete', 'row.entity.quarryId !== null')
                     ]
     };
 
@@ -40,18 +40,26 @@ function yard($scope, quarryService, gridUtility, constants, dialogService, temp
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
-            quarryService.saveYard(dialogModel).then(function () {
-                //update the grid values
-                if (dialogModel.yardId === 0) {
+            if (dialogMode === constants.enum.buttonType.delete) {
+                quarryService.deleteYard(dialogModel.yardId).then(function () {
                     quarryService.getYards();
-                }
-                else {
-                    model.yardName = dialogModel.yardName
-                    model.location = dialogModel.location
-                }
+                    dialogService.hide();
+                });
+            }
+            else {
+                quarryService.saveYard(dialogModel).then(function () {
+                    //update the grid values
+                    if (dialogModel.yardId === 0) {
+                        quarryService.getYards();
+                    }
+                    else {
+                        model.yardName = dialogModel.yardName
+                        model.location = dialogModel.location
+                    }
 
-                dialogService.hide();
-            });
+                    dialogService.hide();
+                });
+            }
         });
     }
 }

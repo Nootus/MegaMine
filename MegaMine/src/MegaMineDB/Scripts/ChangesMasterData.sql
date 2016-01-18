@@ -1,4 +1,9 @@
-﻿-- Not primary claim for Material Colour (being called from QuarryView)
+﻿-- Role IsAdmin
+update IdentityRole set IsAdmin = 0
+update IdentityRole set IsAdmin = 1 where Name in ('SuperAdmin', 'QuarryAdmin', 'GroupAdmin')
+-- end
+
+-- Not primary claim for Material Colour (being called from QuarryView)
 if not exists(select 1 from IdentityPageClaim where id = 171)
 begin
 	set identity_insert IdentityPageClaim on
@@ -8,7 +13,7 @@ end
 -- end
 
 -- Quarry Delete
-if not exists(select 1 from IdentityClaim where id = 1)
+if not exists(select 1 from IdentityClaim where id = 62)
 begin
 	insert into IdentityClaim(id, ClaimType, ClaimValue, Description) values(62, 'Quarry', 'QuarryDelete', 'Quarry Delete')
 	insert into IdentityPage(PageId, [Text], Url, CssClass, SpriteCssClass, Disabled, ParentId, MenuInd, GroupMenuInd, DisplayOrder, Controller, ActionMethod) 
@@ -19,9 +24,42 @@ begin
 end
 -- end Quarry Delete
 
--- Role IsAdmin
-update IdentityRole set IsAdmin = 0
-update IdentityRole set IsAdmin = 1 where Name in ('SuperAdmin', 'QuarryAdmin', 'GroupAdmin')
--- end
+-- Yard Delete
+if not exists(select 1 from IdentityClaim where id = 63)
+begin
+	insert into IdentityClaim(id, ClaimType, ClaimValue, Description) values(63, 'Quarry', 'YardDelete', 'Yard Delete')
+	insert into IdentityPage(PageId, [Text], Url, CssClass, SpriteCssClass, Disabled, ParentId, MenuInd, GroupMenuInd, DisplayOrder, Controller, ActionMethod) 
+	values(75, 'Yard Delete', null, null, null, null, 9, 0, 0, 0, 'QuarryController', 'YardDelete')
+	Set IDENTITY_INSERT IdentityPageClaim ON
+	insert into IdentityPageClaim(Id, PageId, ClaimId, PrimaryClaimInd) values(172, 75, 63, 1)
+	Set IDENTITY_INSERT IdentityPageClaim Off
+end
+-- End Delete
+
+-- Product Type Delete
+if not exists(select 1 from IdentityClaim where id = 64)
+begin
+	insert into IdentityClaim(id, ClaimType, ClaimValue, Description) values(64, 'Quarry', 'ProductTypeDelete', 'Product Type Delete')
+	insert into IdentityPage(PageId, [Text], Url, CssClass, SpriteCssClass, Disabled, ParentId, MenuInd, GroupMenuInd, DisplayOrder, Controller, ActionMethod) 
+	values(76, 'Product Type Delete', null, null, null, null, 9, 0, 0, 0, 'QuarryController', 'ProductTypeDelete')
+	Set IDENTITY_INSERT IdentityPageClaim ON
+	insert into IdentityPageClaim(Id, PageId, ClaimId, PrimaryClaimInd) values(173, 76, 64, 1)
+	Set IDENTITY_INSERT IdentityPageClaim Off
+end
+-- End Delete
+
+-- Colour Delete
+if not exists(select 1 from IdentityClaim where id = 65)
+begin
+	insert into IdentityClaim(id, ClaimType, ClaimValue, Description) values(65, 'Quarry', 'MaterialColourDelete', 'Material Colour Delete')
+	insert into IdentityPage(PageId, [Text], Url, CssClass, SpriteCssClass, Disabled, ParentId, MenuInd, GroupMenuInd, DisplayOrder, Controller, ActionMethod) 
+	values(77, 'Material Colour Delete', null, null, null, null, 9, 0, 0, 0, 'QuarryController', 'MaterialColourDelete')
+	Set IDENTITY_INSERT IdentityPageClaim ON
+	insert into IdentityPageClaim(Id, PageId, ClaimId, PrimaryClaimInd) values(174, 77, 65, 1)
+	Set IDENTITY_INSERT IdentityPageClaim Off
+end
+-- End Delete
+
+
 
 

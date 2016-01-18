@@ -11,11 +11,13 @@ function quarryService($http) {
         colours: [],
         getMaterialColours: getMaterialColours,
         saveMaterialColour: saveMaterialColour,
+        deleteMaterialColour: deleteMaterialColour,
 
         //product types
         productTypes: [],
         getProductTypes: getProductTypes,
         saveProductType: saveProductType,
+        deleteProductType: deleteProductType,
 
         //quarries
         quarries: [],
@@ -27,6 +29,7 @@ function quarryService($http) {
         yards: [],
         getYards: getYards,
         saveYard: saveYard,
+        deleteYard: deleteYard,
 
         //material
         materialViewModel: {},
@@ -79,6 +82,10 @@ function quarryService($http) {
         return $http.post(url, model);
     }
 
+    function deleteMaterialColour(materialColourId) {
+        return $http.post("/api/quarry/materialcolourdelete", materialColourId);
+    }
+
     //Product Types
     function getProductTypes() {
         return $http.get("/api/quarry/producttypesget")
@@ -99,6 +106,10 @@ function quarryService($http) {
         }
 
         return $http.post(url, model);
+    }
+
+    function deleteProductType(productTypeId) {
+        return $http.post("/api/quarry/producttypedelete", productTypeId);
     }
 
     //Quarry
@@ -127,7 +138,7 @@ function quarryService($http) {
         return $http.post("/api/quarry/quarrydelete", quarryId);
     }
 
-    //Yardsrry
+    //Yards
     function getYards() {
         return $http.get("/api/quarry/yardsget")
             .then(function (data) {
@@ -148,6 +159,11 @@ function quarryService($http) {
 
         return $http.post(url, model);
     }
+
+    function deleteYard(yardId) {
+        return $http.post("/api/quarry/yarddelete", yardId);
+    }
+
 
     //material
     function getMaterialViewModel() {

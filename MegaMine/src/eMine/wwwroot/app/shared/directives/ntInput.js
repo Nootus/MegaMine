@@ -19,7 +19,7 @@ function ntInput(moment, constants) {
             errorMessages: '=?',
         },
         link: link,
-        template: '<md-input-container md-is-error="isFieldError()" style="{{style}}">'
+        template: '<md-input-container md-is-error="isFieldError()" style="{{style}}" ng-trim="true">'
                     + '<label>{{label}}</label>'
                     + '<input name="{{controlName}}" type="{{type}}" ng-required="{{ngRequired}}" ng-disabled="isDisabled" md-maxlength="{{emMaxlength}}" ng-model="ngModel" ng-change="ngChange" >'
                     + '<div ng-messages="form[controlName].$error" ng-show="isFieldError()">'

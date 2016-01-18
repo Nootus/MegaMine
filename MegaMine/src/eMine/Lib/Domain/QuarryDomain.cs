@@ -26,6 +26,10 @@ namespace eMine.Lib.Domain
         {
             await quarryRepository.MaterialColourSave(model);
         }
+        public async Task MaterialColourDelete(int materialColourId)
+        {
+            await quarryRepository.MaterialColourDelete(materialColourId);
+        }
         #endregion
 
         #region Product Type
@@ -38,6 +42,10 @@ namespace eMine.Lib.Domain
         public async Task ProductTypeSave(ProductTypeModel model)
         {
             await quarryRepository.ProductTypeSave(model);
+        }
+        public async Task ProductTypeDelete(int productTypeId)
+        {
+            await quarryRepository.ProductTypeDelete(productTypeId);
         }
         #endregion
 
@@ -68,6 +76,10 @@ namespace eMine.Lib.Domain
         public async Task YardSave(YardModel model)
         {
             await quarryRepository.YardSave(model);
+        }
+        public async Task YardDelete(int yardId)
+        {
+            await quarryRepository.YardDelete(yardId);
         }
         #endregion
 

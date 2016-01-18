@@ -60,13 +60,16 @@ namespace eMine.Lib.Repositories
             return entity;
         }
 
-        public async Task DeleteEntity<TEntity>(int entityId) where TEntity : BaseEntity
+        public async Task DeleteEntity<TEntity>(int entityId, bool commit = true) where TEntity : BaseEntity
         {
             var entity = await GetSingleAsync<TEntity>(entityId);
 
             entity.DeletedInd = true;
+            entity.UpdateAuditFields();
             dbContext.Set<TEntity>().Update(entity);
-            await dbContext.SaveChangesAsync();
+
+            if(commit)
+                await dbContext.SaveChangesAsync();
         }
 
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity

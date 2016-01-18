@@ -36,6 +36,11 @@ namespace eMine.Controllers
         {
             return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
         }
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> MaterialColourDelete([FromBody] int materialColourId)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.MaterialColourDelete(materialColourId), Messages.Quarry.MaterialColourDeleteSuccess);
+        }
         #endregion
 
         #region Product Type
@@ -55,6 +60,12 @@ namespace eMine.Controllers
         public async Task<AjaxModel<NTModel>> ProductTypeUpdate([FromBody] ProductTypeModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> ProductTypeDelete([FromBody] int productTypeId)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.ProductTypeDelete(productTypeId), Messages.Quarry.ProductTypeDeleteSuccess);
         }
         #endregion
 
@@ -76,6 +87,8 @@ namespace eMine.Controllers
         {
             return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
         }
+
+        [HttpPost]
         public async Task<AjaxModel<NTModel>> QuarryDelete([FromBody] int quarryId)
         {
             return await AjaxHelper.SaveAsync(m => domain.QuarryDelete(quarryId), Messages.Quarry.QuarryDeleteSuccess);
@@ -99,6 +112,12 @@ namespace eMine.Controllers
         public async Task<AjaxModel<NTModel>> YardUpdate([FromBody] YardModel model)
         {
             return await AjaxHelper.SaveAsync(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> YardDelete([FromBody] int yardId)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.YardDelete(yardId), Messages.Quarry.YardDeleteSuccess);
         }
         #endregion
 

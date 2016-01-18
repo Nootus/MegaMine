@@ -16,7 +16,12 @@ function template(constants) {
     }
 
     function getButtonDefaultColumnDefs(field, claimModule, editClaim, deleteClaim, hide) {
-        return getButtonColumnDefs(field, [{ buttonType: constants.enum.buttonType.view }, { buttonType: constants.enum.buttonType.edit, claimModule: claimModule, claim: editClaim }, { buttonType: constants.enum.buttonType.delete, claimModule: claimModule, claim: deleteClaim }], hide);
+        var buttons = [{ buttonType: constants.enum.buttonType.view }, { buttonType: constants.enum.buttonType.edit, claimModule: claimModule, claim: editClaim }];
+        if (deleteClaim !== undefined) {
+            buttons.push({ buttonType: constants.enum.buttonType.delete, claimModule: claimModule, claim: deleteClaim });
+        }
+            
+        return getButtonColumnDefs(field, buttons, hide);
     }
 
     function getButtonColumnDefs(field, buttons, hide) {
@@ -59,7 +64,7 @@ function template(constants) {
         });
 
         if (hide !== undefined) {
-        buttonDef.cellTemplate = '<span ng-hide="{{' + hide + '}}">' + buttonDef.cellTemplate + '</span>';
+            buttonDef.cellTemplate = '<span ng-hide="' + hide + '">' + buttonDef.cellTemplate + '</span>';
         }
 
         return buttonDef;
