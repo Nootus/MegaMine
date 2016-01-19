@@ -133,13 +133,11 @@ namespace eMine.Lib.Repositories
 
         public async Task QuarryDelete(int quarryId)
         {
-            await DeleteEntity<QuarryEntity>(quarryId);
+            await DeleteEntity<QuarryEntity>(quarryId, false);
 
             //deleting the YardId
-            var yard = await (from yd in dbContext.Yards where yd.QuarryId == quarryId select yd).SingleAsync();
-            yard.DeletedInd = true;
-            yard.UpdateAuditFields();
-            dbContext.Yards.Update(yard);
+            await DeleteEntity<YardEntity>(yd => yd.QuarryId == quarryId, false);
+
             await dbContext.SaveChangesAsync();
         }
         #endregion

@@ -63,12 +63,22 @@ namespace eMine.Lib.Repositories
         public async Task DeleteEntity<TEntity>(int entityId, bool commit = true) where TEntity : BaseEntity
         {
             var entity = await GetSingleAsync<TEntity>(entityId);
+            await DeleteEntity(entity, commit);
+        }
 
+        public async Task DeleteEntity<TEntity>(Expression<Func<TEntity, bool>> whereExpression, bool commit = true) where TEntity : BaseEntity
+        {
+            var entity = await dbContext.Set<TEntity>().Where(whereExpression).Select(ent => ent).SingleAsync();
+            await DeleteEntity(entity, commit);
+        }
+
+        public async Task DeleteEntity<TEntity>(TEntity entity, bool commit = true) where TEntity : BaseEntity
+        {
             entity.DeletedInd = true;
             entity.UpdateAuditFields();
             dbContext.Set<TEntity>().Update(entity);
 
-            if(commit)
+            if (commit)
                 await dbContext.SaveChangesAsync();
         }
 

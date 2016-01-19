@@ -92,6 +92,8 @@ namespace eMine
             SiteSettings.EnvironmentName = env.EnvironmentName;
 
             // Add the following to the request pipeline only in development environment.
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
             //if (env.IsEnvironment(Constants.DevEnvironment))
             //{
             //    app.UseErrorPage(ErrorPageOptions.ShowAll);
@@ -101,8 +103,6 @@ namespace eMine
             //{ 
             //    app.UseErrorHandler("/Error");
             //}
-
-            //app.UseErrorPage();
 
             app.UseStaticFiles();
             app.UseIdentity();
