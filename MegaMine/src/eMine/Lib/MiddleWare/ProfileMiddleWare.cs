@@ -22,7 +22,7 @@ namespace eMine.Lib.Middleware
             this.next = next;
         }
 
-        public async Task Invoke(HttpContext context)
+        public async Task Invoke(HttpContext context, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, AccountDomain accountDomain)
         {
             if (context.User.Identity.IsAuthenticated)
             {
@@ -45,9 +45,9 @@ namespace eMine.Lib.Middleware
             //automatically loggin in in the dev mode
             else if (SiteSettings.IsEnvironment(Constants.DevEnvironment))
             {
-                SignInManager<ApplicationUser> signInManager = (SignInManager<ApplicationUser>) context.ApplicationServices.GetService(typeof(SignInManager<ApplicationUser>));
-                UserManager<ApplicationUser> userManager = (UserManager<ApplicationUser>) context.ApplicationServices.GetService(typeof(UserManager<ApplicationUser>));
-                AccountDomain accountDomain = (AccountDomain) context.ApplicationServices.GetService(typeof(AccountDomain));
+                //SignInManager<ApplicationUser> signInManager = (SignInManager<ApplicationUser>) context.ApplicationServices.GetService(typeof(SignInManager<ApplicationUser>));
+                //UserManager<ApplicationUser> userManager = (UserManager<ApplicationUser>) context.ApplicationServices.GetService(typeof(UserManager<ApplicationUser>));
+                //AccountDomain accountDomain = (AccountDomain) context.ApplicationServices.GetService(typeof(AccountDomain));
 
                 ProfileModel profile = await accountDomain.ProfileGet(AccountSettings.DefaultProfileUserName);
 
@@ -56,7 +56,7 @@ namespace eMine.Lib.Middleware
                     ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
                     await signInManager.SignInAsync(user, false);
                 }
-                catch
+                catch(Exception exp)
                 {
                     //ignore exception
                 }

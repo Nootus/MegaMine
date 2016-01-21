@@ -41,6 +41,17 @@ namespace eMine
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddEntityFramework()
+            .AddSqlServer()
+            .AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
+            });
+
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddDefaultTokenProviders();
+
             services.AddMvc()
                 .AddMvcOptions(options => {
                     options.Filters.Add(new NTAuthorizeFilter());
@@ -51,19 +62,6 @@ namespace eMine
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
                     options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
                 });
-
-
-            services.AddEntityFramework()
-                .AddSqlServer()
-            .AddDbContext<ApplicationDbContext>(options =>
-            {
-                options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
-            });
-
-            // Add Identity services to the services container.
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
-                .AddEntityFrameworkStores<ApplicationDbContext>()
-                .AddDefaultTokenProviders();
 
 
             //Dependency Injection
@@ -86,14 +84,17 @@ namespace eMine
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
+
             //saving the site settgins
             SiteSettings.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
             SiteSettings.WebPath = Configuration["DNX_APPBASE"];
             SiteSettings.EnvironmentName = env.EnvironmentName;
 
             // Add the following to the request pipeline only in development environment.
-            app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
+            //app.UseDeveloperExceptionPage();
+            //app.UseDatabaseErrorPage();
             //if (env.IsEnvironment(Constants.DevEnvironment))
             //{
             //    app.UseErrorPage(ErrorPageOptions.ShowAll);
