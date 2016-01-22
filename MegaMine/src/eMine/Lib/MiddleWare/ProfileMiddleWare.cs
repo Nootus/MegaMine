@@ -45,21 +45,9 @@ namespace eMine.Lib.Middleware
             //automatically loggin in in the dev mode
             else if (SiteSettings.IsEnvironment(Constants.DevEnvironment))
             {
-                //SignInManager<ApplicationUser> signInManager = (SignInManager<ApplicationUser>) context.ApplicationServices.GetService(typeof(SignInManager<ApplicationUser>));
-                //UserManager<ApplicationUser> userManager = (UserManager<ApplicationUser>) context.ApplicationServices.GetService(typeof(UserManager<ApplicationUser>));
-                //AccountDomain accountDomain = (AccountDomain) context.ApplicationServices.GetService(typeof(AccountDomain));
-
                 ProfileModel profile = await accountDomain.ProfileGet(AccountSettings.DefaultProfileUserName);
-
-                try
-                {
-                    ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
-                    await signInManager.SignInAsync(user, false);
-                }
-                catch(Exception exp)
-                {
-                    //ignore exception
-                }
+                ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
+                await signInManager.SignInAsync(user, false);
                 context.Items[Constants.ProfileString] = profile;
 
             }

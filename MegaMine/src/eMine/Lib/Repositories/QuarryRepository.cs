@@ -227,6 +227,7 @@ namespace eMine.Lib.Repositories
                             ProductType = pt.ProductTypeName,
                             MaterialColour = mc.ColourName,
                             MaterialId = mt.MaterialId,
+                            BlockNumber = mt.BlockNumber,
                             QuarryId = mt.QuarryId,
                             ProductTypeId = mt.ProductTypeId,
                             MaterialColourId = mt.MaterialColourId,

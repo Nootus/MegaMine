@@ -9,7 +9,6 @@ using eMine.Lib.Shared;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
-using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -84,17 +83,14 @@ namespace eMine
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
-
             //saving the site settgins
             SiteSettings.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
             SiteSettings.WebPath = Configuration["DNX_APPBASE"];
             SiteSettings.EnvironmentName = env.EnvironmentName;
 
             // Add the following to the request pipeline only in development environment.
-            //app.UseDeveloperExceptionPage();
-            //app.UseDatabaseErrorPage();
+            app.UseDeveloperExceptionPage();
+            app.UseDatabaseErrorPage();
             //if (env.IsEnvironment(Constants.DevEnvironment))
             //{
             //    app.UseErrorPage(ErrorPageOptions.ShowAll);

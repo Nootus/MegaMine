@@ -8,6 +8,7 @@ namespace eMine.Models.Quarry
     public class MaterialModel
     {
         public int MaterialId { get; set; }
+        public string BlockNumber { get; set; }
         public int QuarryId { get; set; }
         public int ProductTypeId { get; set; }
         public int MaterialColourId { get; set; }

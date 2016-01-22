@@ -18,7 +18,8 @@
     <md-dialog aria-label="Material" class="dialog">
         <nt-dialog form="stockyardForm" title="Material">
             <div layout="row">
-                <nt-select flex="30" form="stockyardForm" label="Quarry" control-name="quarry" ng-model="vm.model.quarryId" opt-list="vm.viewModel.quarry" ng-required="true"></nt-select>
+                <nt-input flex="20" form="stockyardForm" label="Block Number" control-name="blockNumber" ng-model="vm.model.blockNumber" ng-required="true" em-maxlength="20"></nt-input>
+                <nt-select flex="25" form="stockyardForm" label="Quarry" control-name="quarry" ng-model="vm.model.quarryId" opt-list="vm.viewModel.quarry" ng-required="true"></nt-select>
                 <nt-select flex="25" form="stockyardForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productType" opt-value="productTypeId" opt-text="productTypeName" ng-required="true"></nt-select>
                 <nt-select flex="30" form="stockyardForm" label="Colour" control-name="materialColour" ng-model="vm.model.materialColourId" opt-list="vm.viewModel.materialColour" ng-required="true"></nt-select>
             </div>

@@ -9,6 +9,7 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, quarry
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour' },
+                    { name: 'blockNumber', field: 'blockNumber', type: 'string', displayName: 'Block Number' },
                     { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
                     { name: 'width', field: 'width', type: 'number', displayName: 'Width' },
                     { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
@@ -56,6 +57,7 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, quarry
     }
 
     function resetModel() {
+        vm.model.blockNumber = "";
         vm.model.length = "";
         vm.model.width = "";
         vm.model.height = "";
