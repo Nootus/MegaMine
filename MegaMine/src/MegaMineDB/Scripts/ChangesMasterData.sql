@@ -60,6 +60,19 @@ begin
 end
 -- End Delete
 
+-- Material Delete
+if not exists(select 1 from IdentityClaim where id = 66)
+begin
+	insert into IdentityClaim(id, ClaimType, ClaimValue, Description) values(66, 'Quarry', 'MaterialDelete', 'Material Delete')
+	insert into IdentityPage(PageId, [Text], Url, CssClass, SpriteCssClass, Disabled, ParentId, MenuInd, GroupMenuInd, DisplayOrder, Controller, ActionMethod) 
+	values(78, 'Material Delete', null, null, null, null, 9, 0, 0, 0, 'QuarryController', 'MaterialDelete')
+	Set IDENTITY_INSERT IdentityPageClaim ON
+	insert into IdentityPageClaim(Id, PageId, ClaimId, PrimaryClaimInd) values(175, 78, 66, 1)
+	insert into IdentityPageClaim(Id, PageId, ClaimId, PrimaryClaimInd) values(176, 66, 66, 1)
+	Set IDENTITY_INSERT IdentityPageClaim Off
+end
+-- End Delete
+
 
 
 

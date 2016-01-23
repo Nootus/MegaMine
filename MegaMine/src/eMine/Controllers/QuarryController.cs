@@ -135,6 +135,11 @@ namespace eMine.Controllers
             return await AjaxHelper.SaveAsync(m => domain.MaterialSave(models), Messages.Quarry.MaterialSaveSuccess);
         }
 
+        [HttpPost]
+        public async Task<AjaxModel<List<StockModel>>> MaterialDelete(int materialId, int yardId)
+        {
+            return await AjaxHelper.SaveGetAsync(m => domain.MaterialDelete(materialId, yardId), Messages.Quarry.MaterialDeleteSuccess);
+        }
         #endregion
 
         #region Stock & Material Movement

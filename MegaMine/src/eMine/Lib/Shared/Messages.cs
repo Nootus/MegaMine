@@ -44,6 +44,7 @@ namespace eMine.Lib.Shared
             public const string YardSaveSuccess = "Yard Saved Successfully";
             public const string YardDeleteSuccess = "Yard Deleted Successfully";
             public const string MaterialSaveSuccess = "Material Successfully Added";
+            public const string MaterialDeleteSuccess = "Material Deleted Successfully";
             public const string MaterialUpdateSuccess = "Material Saved Successfully";
             public const string MaterialMovementSuccess = "Material Movement Successfully";
 

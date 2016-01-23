@@ -95,6 +95,11 @@ namespace eMine.Lib.Domain
             await quarryRepository.MaterialSave(models);
         }
 
+        public async Task<List<StockModel>> MaterialDelete(int materialId, int yardId)
+        {
+            await quarryRepository.MaterialDelete(materialId);
+            return await StockGet(yardId);
+        }
         #endregion 
 
         #region Stockyard

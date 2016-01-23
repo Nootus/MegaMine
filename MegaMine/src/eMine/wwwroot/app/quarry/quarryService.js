@@ -41,6 +41,7 @@ function quarryService($http) {
         getStock: getStock,
         moveMaterial: moveMaterial,
         materialUpdate: materialUpdate,
+        materialDelete: materialDelete,
 
         //reports
         quarrySummary: [],
@@ -196,10 +197,19 @@ function quarryService($http) {
 
     function materialUpdate(model) {
         return $http.post("/api/quarry/materialupdate", model, { params: { "yardId": model.currentYardId } })
-                .then(function (response) {
+                .then(function (data) {
                     service.stock.splice(0, service.stock.length);
-                    angular.extend(service.stock, response.data);
-                    return response.data;
+                    angular.extend(service.stock, data);
+                    return data;
+                });
+    }
+
+    function materialDelete(materialId, yardId) {
+        return $http.post("/api/quarry/materialdelete", null, { params: { "materialId": materialId, "yardId": yardId } })
+                .then(function (data) {
+                    service.stock.splice(0, service.stock.length);
+                    angular.extend(service.stock, data);
+                    return data;
                 });
     }
 

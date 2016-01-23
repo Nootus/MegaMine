@@ -189,6 +189,11 @@ namespace eMine.Lib.Repositories
             await dbContext.SaveChangesAsync();
         }
 
+        public async Task MaterialDelete(int materialId)
+        {
+            await DeleteEntity<MaterialEntity>(materialId);
+        }
+
         public async Task<MaterialViewModel> MaterialViewModelGet()
         {
             MaterialViewModel viewModel = new MaterialViewModel();

@@ -15,7 +15,7 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility,
                     { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' },
-                    template.getButtonColumnDefs('materialMovementId', [{ buttonType: constants.enum.buttonType.edit, claimModule: 'Quarry', claim: 'MaterialUpdate', ngClick: 'grid.appScope.vm.editStock(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, claimModule: 'Quarry', claim: 'MaterialUpdate', ngClick: 'grid.appScope.vm.deleteStock(row.entity, $event)' }]),
+                    template.getButtonColumnDefs('materialMovementId', [{ buttonType: constants.enum.buttonType.edit, claimModule: 'Quarry', claim: 'MaterialUpdate', ngClick: 'grid.appScope.vm.editStock(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, claimModule: 'Quarry', claim: 'MaterialDelete', ngClick: 'grid.appScope.vm.deleteStock(row.entity, $event)' }]),
         ]
     };
 
@@ -85,8 +85,9 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility,
         })
         .then(function (dialogModel) {
             if (dialogMode === constants.enum.dialogMode.delete) {
-                alert('delete functionality yet to be implemented');
-                //dialogService.hide();
+                quarryService.materialDelete(dialogModel.materialId, model.currentYardId).then(function () {
+                    dialogService.hide();
+                });
             }
             else {
                 quarryService.materialUpdate(dialogModel).then(function () {

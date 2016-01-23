@@ -17,7 +17,7 @@
                     </div>
                     <md-menu-bar>
                         <md-menu>
-                            <button ng-mouseenter="$mdOpenMenu()">{{vm.profile.firstName}}</button>
+                            <button ng-click="$mdOpenMenu()">{{vm.profile.firstName}}</button>
                             <md-menu-content>
                                 <md-menu-item>
                                     <md-button ng-href="#" ng-click="vm.showChangePasswordDialog($event)">
