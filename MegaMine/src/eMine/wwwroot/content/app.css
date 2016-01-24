@@ -76,7 +76,6 @@ div.profile-menu {
   font-size: 13px;
   cursor: default;
   margin: 15px 20px 0px 0px;
-  text-align: right;
 }
 
 div.profile-menu, a.breadcrumb {
@@ -88,6 +87,9 @@ div.profile-menu > div  {
     margin-top: 4px;
 }
 
+div.profile-company {
+    margin-top: -20px !important;
+}
 
 
 .logo{
@@ -261,6 +263,10 @@ div.type-formula select{
 
 .text-left{
     text-align: left;
+}
+
+.text-right{
+    text-align: right;
 }
 
 .view-error{

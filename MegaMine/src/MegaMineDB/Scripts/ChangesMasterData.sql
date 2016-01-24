@@ -73,6 +73,11 @@ begin
 end
 -- End Delete
 
-
+--Default Company (Nootus)
+	Set IDENTITY_INSERT Company ON
+	insert into Company(CompanyId, CompanyName, CompanyEmailAddress, CompanyPhoneNumber, GroupInd, ParentCompanyId, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd)
+			values(1, 'Nootus', null, null, 0, null, 'prasanna@nootus.com', cast('2016-01-24' as datetime), 'prasanna@nootus.com', cast('2016-01-24' as datetime), 0)
+	Set IDENTITY_INSERT Company OFF
+-- End
 
 

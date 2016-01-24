@@ -9,7 +9,10 @@
             </div>
             <div flex layout="column" ng-show="vm.profile.isAuthenticated">
                 <div class="profile-menu" layout="row" layout-alignment="center">
-                    <div flex>
+                    <div class="profile-company" flex="15">
+                        <nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true"></nt-select>
+                    </div>
+                    <div flex class="text-right">
                         <span ng-repeat="crumb in vm.navigation.breadcrumbs">
                             <a href="{{crumb.url}}" class="breadcrumb">{{crumb.title}}</a> &gt;
                         </span>
