@@ -4,6 +4,7 @@ using eMine.Lib.Repositories;
 using eMine.Lib.Shared;
 using eMine.Models;
 using eMine.Models.Account;
+using eMine.Models.Shared;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -29,42 +30,21 @@ namespace eMine.Lib.Domain
 
         public async Task<ProfileModel> Validate(string userName, string password)
         {
-            ProfileModel profile = null;
-
             //await userManager.CreateAsync(new ApplicationUser() { UserName = "megamine@nootus.com" }, "Nootus@123");
 
             var result = await signInManager.PasswordSignInAsync(userName, password, false, false);
 
-            if (result.Succeeded)
-            {
-                profile = await ProfileGet(userName);
-            }
-            else
+            if (!result.Succeeded)
             {
                 throw new NTException(Messages.Account.InvalidUsernamePassword);
             }
 
-            return profile;
-        }
-
-        internal async Task<ProfileModel> ProfileGet(string userName)
-        {
-            ProfileModel profile = await accountRepository.UserProfileGet(userName);
-            //setting all the roles
-            profile.Roles = PageService.Roles.Where(r => profile.Roles.Contains(r.Key)).Select(r => r.Item).ToArray();
-            profile.SetMenu();
-
-            //setting the claims on to the context'
-            Profile.SetCurrent(profile);
-
-            return profile;
+            return Profile.Current;
         }
 
         public async Task<ProfileModel> DefaultProfile()
         {
-            var profile = Profile.Current;
-
-            profile = await ProfileGet(profile.UserName);
+            var profile = await Profile.Get(Profile.Current.UserName, accountRepository);
 
             return profile;
         }

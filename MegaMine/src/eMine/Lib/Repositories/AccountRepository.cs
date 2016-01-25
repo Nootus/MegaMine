@@ -32,7 +32,6 @@ namespace eMine.Lib.Repositories
                             FirstName = users.FirstName,
                             LastName = users.LastName,
                             UserName = idn.UserName,
-                            DefaultCompanyId = users.CompanyId,
                             CompanyId = users.CompanyId
                         };
 

@@ -22,34 +22,17 @@ namespace eMine.Lib.Middleware
             this.next = next;
         }
 
-        public async Task Invoke(HttpContext context, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager, AccountDomain accountDomain)
+        public async Task Invoke(HttpContext context, SignInManager<ApplicationUser> signInManager, UserManager<ApplicationUser> userManager)
         {
             if (context.User.Identity.IsAuthenticated)
             {
-                var claims = context.User.Claims;
-
-                string companyId = context.Request.Headers[Constants.HeaderCompanyId];
-                companyId = companyId ?? context.User.Claims.Where(c => c.Type == NTClaimTypes.CompanyId).Select(c => c.Value).FirstOrDefault();
-
-                ProfileModel profile = new ProfileModel()
-                {
-                    UserID = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
-                    UserName = context.User.Identity.Name,
-                    FirstName = claims.First(c => c.Type == NTClaimTypes.FirstName).Value,
-                    LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value,
-                    CompanyId = Convert.ToInt32(companyId ?? "0")
-                };
-
-                context.Items[Constants.ProfileString] = profile;
+                Profile.Set(context);
             }
-            //automatically loggin in in the dev mode
+            //automatically logging in in the dev mode
             else if (SiteSettings.IsEnvironment(Constants.DevEnvironment))
             {
-                ProfileModel profile = await accountDomain.ProfileGet(AccountSettings.DefaultProfileUserName);
-                ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
+                ApplicationUser user = await userManager.FindByNameAsync(AccountSettings.DefaultProfileUserName);
                 await signInManager.SignInAsync(user, false);
-                context.Items[Constants.ProfileString] = profile;
-
             }
 
             await next(context);
