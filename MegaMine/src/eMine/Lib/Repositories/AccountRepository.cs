@@ -84,6 +84,12 @@ namespace eMine.Lib.Repositories
             return query.ToList();
         }
 
+        public List<IdentityMenuPageEntity> IdentityMenuPagesGet()
+        {
+            var query = from menuPage in dbContext.IdentityMenuPages select menuPage;
+            return query.ToList();
+        }
+
         public List<ListItem<string, string>> IdentityRolesGet()
         {
             var dbroles = (from roles in dbContext.IdentityRoleHierarchies

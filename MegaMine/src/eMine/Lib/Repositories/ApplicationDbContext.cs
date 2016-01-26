@@ -12,6 +12,7 @@ namespace eMine.Lib.Repositories
         //Account
         public DbSet<IdentityClaimEntity> IdentityClaims { get; set; }
         public DbSet<IdentityPageEntity> IdentityPages { get; set; }
+        public DbSet<IdentityMenuPageEntity> IdentityMenuPages { get; set; }
         public DbSet<IdentityPageClaimEntity> IdentityPageClaims { get; set; }
         public DbSet<IdentityRoleHierarchyEntity> IdentityRoleHierarchies { get; set; }
         public DbSet<UserProfileEntity> UserProfiles { get; set; }

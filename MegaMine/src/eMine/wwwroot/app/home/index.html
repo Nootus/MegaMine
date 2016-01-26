@@ -40,15 +40,15 @@
                     <md-menu-bar>
                         <md-menu ng-repeat="menu in vm.profile.menu">
                             <button ng-click="$mdOpenMenu()">
-                                <md-icon class="{{menu.spriteCssClass}}"></md-icon> {{menu.text}}
+                                <md-icon class="{{menu.iconCss}}"></md-icon> {{menu.menuText}}
                             </button>
                             <md-menu-content>
-                                <md-menu-item ng-repeat-start="item in menu.items" ng-hide="item.cssClass === 'blank-menu-item'">
-                                    <md-button ng-href="{{item.url}}" ng-hide="item.cssClass === 'blank-menu-item'">
-                                        <md-icon class="{{item.spriteCssClass}}"></md-icon> {{item.text}}
+                                <md-menu-item ng-repeat-start="item in menu.items" ng-hide="item.groupMenuInd === true">
+                                    <md-button ng-href="{{item.url}}" ng-hide="item.groupMenuInd === true">
+                                        <md-icon class="{{item.iconCss}}"></md-icon> {{item.menuText}}
                                     </md-button>
                                 </md-menu-item>
-                                <md-menu-divider ng-repeat-end ng-show="item.cssClass === 'blank-menu-item'"></md-menu-divider>
+                                <md-menu-divider ng-repeat-end ng-show="item.groupMenuInd === true"></md-menu-divider>
                             </md-menu-content>
                         </md-menu>
                     </md-menu-bar>

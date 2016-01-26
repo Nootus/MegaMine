@@ -17,7 +17,7 @@ namespace eMine.Lib.Mapping
         protected override void Configure()
         {
             Mapper.CreateMap<CompanyEntity, CompanyModel>();
-            Mapper.CreateMap<IdentityPageEntity, MenuModel>();
+            Mapper.CreateMap<IdentityMenuPageEntity, MenuModel>();
             Mapper.CreateMap<IdentityRoleClaim<string>, ClaimModel>();
             Mapper.CreateMap<IdentityUserClaim<string>, ClaimModel>();
         }
