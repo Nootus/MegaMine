@@ -20,5 +20,6 @@ namespace eMine.Lib.Entities.Account
         public int DisplayOrder { get; set; }
         public string Url { get; set; }
         public string IconCss { get; set; }
+        public bool DeletedInd { get; set; }
     }
 }

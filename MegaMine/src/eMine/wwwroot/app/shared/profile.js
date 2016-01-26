@@ -43,19 +43,27 @@ function profile() {
         vm.isAuthenticated = false;
     };
 
-    function isAuthorized(module, claim) {
+    function isAuthorized(authorizeClaims) {
         var response = false;
 
-        if (vm.roles.indexOf(module + "Admin") === -1) {
-            for(var counter = 0; counter < vm.claims.length; counter ++){
-                if (vm.claims[counter].claimType === module && vm.claims[counter].claimValue === claim) {
-                    response = true;
-                    break;
+        for (var claimCounter = 0; claimCounter < authorizeClaims.length; claimCounter++) {
+            var arr = authorizeClaims[claimCounter].split(":");
+            var claimModule = arr[0];
+            var claim = arr[1];
+            if (vm.roles.indexOf(claimModule + "Admin") === -1) {
+                for (var counter = 0; counter < vm.claims.length; counter++) {
+                    if (vm.claims[counter].claimType === claimModule && vm.claims[counter].claimValue === claim) {
+                        response = true;
+                        break;
+                    }
                 }
             }
-        }
-        else {
-            response = true;
+            else {
+                response = true;
+            }
+
+            if (response)
+                break;
         }
 
         return response;

@@ -11,13 +11,12 @@ function ntToolbarButton() {
             buttonText: '@',
             buttonIcon: '@',
             buttonClick: '&',
-            claimModule: '@',
             claim: '@'
         },
         link: link,
         template: '<nt-toolbar title="{{title}}" class="title">'
                         + '<span ng-transclude>'
-                        +       '<nt-button ng-click="buttonClick({$event: $event})" button-icon="{{buttonIcon}}" button-text="{{buttonText}}" module="{{claimModule}}" claim="{{claim}}"></nt-button>'
+                        +       '<nt-button ng-click="buttonClick({$event: $event})" button-icon="{{buttonIcon}}" button-text="{{buttonText}}" claim="{{claim}}"></nt-button>'
                         + '</span>'
                     + '</nt-toolbar>'
 

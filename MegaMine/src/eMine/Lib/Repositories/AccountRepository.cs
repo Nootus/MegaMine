@@ -86,7 +86,7 @@ namespace eMine.Lib.Repositories
 
         public List<IdentityMenuPageEntity> IdentityMenuPagesGet()
         {
-            var query = from menuPage in dbContext.IdentityMenuPages select menuPage;
+            var query = from menuPage in dbContext.IdentityMenuPages where menuPage.DeletedInd == false select menuPage;
             return query.ToList();
         }
 

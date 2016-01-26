@@ -10,7 +10,6 @@ function ntButton(profile) {
             title: '@',
             buttonIcon: '@',
             buttonText: '@',
-            module: '@',
             claim: '@',
             hide: '@',
             overrideDisabled: '@',
@@ -25,11 +24,11 @@ function ntButton(profile) {
     };
 
     function link(scope, element, attrs, nullController) {
-        if (scope.module === undefined || scope.claim === undefined || scope.module === '' || scope.claim === '') {
+        if (scope.claim === undefined || scope.claim === '') {
             scope.hide = false;
         }
         else {
-            scope.hide = !profile.isAuthorized(scope.module, scope.claim);
+            scope.hide = !profile.isAuthorized(scope.claim.split(","));
         }
 
         //setting the default values

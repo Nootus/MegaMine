@@ -8,7 +8,7 @@ function manufacturer($scope, vehicleService, manufacturerDialog, gridUtility, c
         columnDefs: [
                     { name: 'name', field: 'name', displayName: 'Name', type: 'string' },
                     { name: 'description', field: 'description', displayName: 'Description', type: 'string' },
-                    template.getButtonDefaultColumnDefs('vehicleModelId', 'Fleet', 'ManufacturerModelEdit')
+                    template.getButtonDefaultColumnDefs('vehicleModelId', 'Fleet:ManufacturerModelEdit')
                     ]
     };
 

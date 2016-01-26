@@ -10,7 +10,7 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
                     { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description' },
                     { name: 'formulaString', field: 'formulaString', type: 'string', displayName: 'Formula' },
                     { name: 'formulaOrder', field: 'formulaOrder', type: 'string', displayName: 'Formula Order' },
-                    template.getButtonDefaultColumnDefs('productTypeId', 'Quarry', 'ProductTypeEdit', 'ProductTypeDelete')
+                    template.getButtonDefaultColumnDefs('productTypeId', 'Quarry:ProductTypeEdit', 'Quarry:ProductTypeDelete')
                 ]
     };
 

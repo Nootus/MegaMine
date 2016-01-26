@@ -10,7 +10,7 @@ function sparePart($scope, vehicleService, sparePartDialog, gridUtility, constan
                     { name: 'orderedUnits', field: 'orderedUnits', displayName: 'Quantity', type: 'number' },
                     { name: 'consumedUnits', field: 'consumedUnits', displayName: 'ConsumedUnits', type: 'number' },
                     { name: 'unitCost', field: 'unitCost', displayName: 'Unit Cost', type: 'number' },
-                    template.getButtonDefaultColumnDefs('sparePartOrderId', 'Fleet', 'SparePartOrderEdit')
+                    template.getButtonDefaultColumnDefs('sparePartOrderId', 'Fleet:SparePartOrderEdit')
                     ]
         };
 

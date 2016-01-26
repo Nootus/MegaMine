@@ -9,7 +9,7 @@ function vehicleFuel($scope, $mdDialog, vehicleService, gridUtility, constants, 
                     { name: 'fuelDate', field: 'fuelDate', displayName: 'Fuel Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'quantity', field: 'quantity', displayName: 'Quantity', type: 'number' },
                     { name: 'odometer', field: 'odometer', displayName: 'Odometer', type: 'number' },
-                    template.getButtonDefaultColumnDefs('vehicleFuelId', 'Fleet', 'VehicleFuelEdit')
+                    template.getButtonDefaultColumnDefs('vehicleFuelId', 'Fleet:VehicleFuelEdit')
                     ]
         };
 

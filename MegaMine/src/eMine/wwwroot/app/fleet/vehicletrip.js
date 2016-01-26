@@ -11,7 +11,7 @@ function vehicleTrip($scope, vehicleService, gridUtility, constants, dialogServi
                     { name: 'reachingTime', field: 'reachingTime', displayName: 'End', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'odometerStart', field: 'odometerStart', displayName: 'Odometer Start', type: 'number' },
                     { name: 'odometerEnd', field: 'odometerEnd', displayName: 'Odometer End', type: 'number' },
-                    template.getButtonDefaultColumnDefs('vehicleTripId', 'Fleet', 'VehicleTripEdit')
+                    template.getButtonDefaultColumnDefs('vehicleTripId', 'Fleet:VehicleTripEdit')
                     ]
         };
 

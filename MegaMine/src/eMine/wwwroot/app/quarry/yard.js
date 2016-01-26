@@ -8,7 +8,7 @@ function yard($scope, quarryService, gridUtility, constants, dialogService, temp
         columnDefs: [
                         { name: 'yardName', field: 'yardName', displayName: 'Name', type: 'string' },
                         { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
-                        template.getButtonDefaultColumnDefs('yardId', 'Quarry', 'YardEdit', 'YardDelete', 'row.entity.quarryId !== null')
+                        template.getButtonDefaultColumnDefs('yardId', 'Quarry:YardEdit,Plant:YardEdit', 'Quarry:YardDelete,Plant:YardDelete', 'row.entity.quarryId !== null')
                     ]
     };
 

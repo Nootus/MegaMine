@@ -88,16 +88,16 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
     function populateVehicleMenu(vehicleId) {
         vm.vehicleMenuItems.splice(0, vm.vehicleMenuItems.length);
 
-        if (profile.isAuthorized("Fleet", "VehicleServiceView"))
+        if (profile.isAuthorized(["Fleet:VehicleServiceView"]))
             vm.vehicleMenuItems.push(getVehicleMenuItem(vehicleId, " Service History", "service", "service"));
 
-        if (profile.isAuthorized("Fleet", "VehicleFuelView"))
+        if (profile.isAuthorized(["Fleet:VehicleFuelView"]))
             vm.vehicleMenuItems.push(getVehicleMenuItem(vehicleId, " Fuel History", "fuel", "fuel"));
 
-        if (profile.isAuthorized("Fleet", "VehicleDriverView"))
+        if (profile.isAuthorized(["Fleet:VehicleDriverView"]))
             vm.vehicleMenuItems.push(getVehicleMenuItem(vehicleId, " Driver History", "driver", "driver"));
 
-        if (profile.isAuthorized("Fleet", "VehicleTripView"))
+        if (profile.isAuthorized(["Fleet:VehicleTripView"]))
             vm.vehicleMenuItems.push(getVehicleMenuItem(vehicleId, " Trip History", "vehicletrip", "trip"));
     }
 

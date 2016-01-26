@@ -9,7 +9,7 @@ function vehicleDriver($scope, $window, vehicleService, gridUtility, utility, co
                     { name: 'driverName', field: 'driverName', displayName: 'Driver', type:'string' },
                     { name: 'assignmentStartDate', field: 'assignmentStartDate', displayName: 'Start Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
                     { name: 'assignmentEndDate', field: 'assignmentEndDate', displayName: 'End Time', type: 'date', cellFilter: 'date:"' + constants.dateTimeFormat + '"' },
-                    template.getButtonDefaultColumnDefs('vehicleDriverAssignmentId', 'Fleet', 'VehicleDriverEdit')
+                    template.getButtonDefaultColumnDefs('vehicleDriverAssignmentId', 'Fleet:VehicleDriverEdit')
                     ]
     };
 

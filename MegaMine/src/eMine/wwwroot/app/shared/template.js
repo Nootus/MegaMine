@@ -15,10 +15,11 @@ function template(constants) {
     function init() {
     }
 
-    function getButtonDefaultColumnDefs(field, claimModule, editClaim, deleteClaim, hide) {
-        var buttons = [{ buttonType: constants.enum.buttonType.view }, { buttonType: constants.enum.buttonType.edit, claimModule: claimModule, claim: editClaim }];
+    function getButtonDefaultColumnDefs(field, editClaim, deleteClaim, hide) {
+        
+        var buttons = [{ buttonType: constants.enum.buttonType.view }, { buttonType: constants.enum.buttonType.edit, claim: editClaim }];
         if (deleteClaim !== undefined) {
-            buttons.push({ buttonType: constants.enum.buttonType.delete, claimModule: claimModule, claim: deleteClaim });
+            buttons.push({ buttonType: constants.enum.buttonType.delete, claim: deleteClaim });
         }
             
         return getButtonColumnDefs(field, buttons, hide);
@@ -57,8 +58,8 @@ function template(constants) {
                     break;
             }
             buttonDef.cellTemplate += '<nt-button class="md-raised" title="' + title + '" ng-click="' + button.ngClick + '" ';
-            if (button.claimModule !== undefined && button.claim !== undefined) {
-                buttonDef.cellTemplate += 'module="' + button.claimModule + '" claim="' + button.claim + '" ';
+            if (button.claim !== undefined) {
+                buttonDef.cellTemplate += ' claim="' + button.claim + '"';
             }
             buttonDef.cellTemplate += ' button-icon="' + icon + '" css-class="' + cssClass + '"></nt-button>'
         });
