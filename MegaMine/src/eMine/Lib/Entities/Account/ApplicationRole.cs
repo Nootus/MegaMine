@@ -9,6 +9,7 @@ namespace eMine.Lib.Entities.Account
     public class ApplicationRole : IdentityRole
     {
         public bool IsAdmin { get; set; }
+        public int CompanyId { get; set; }
     }
 }
 

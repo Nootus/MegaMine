@@ -90,6 +90,12 @@ namespace eMine.Lib.Repositories
             return query.ToList();
         }
 
+        public List<CompanyEntity> IdentityCompanyClaimsGet()
+        {
+            var query = from company in dbContext.Companies.Include(c => c.Claims).ThenInclude(a => a.Claim) select company;
+            return query.ToList();
+        }
+
         public List<ListItem<string, string>> IdentityRolesGet()
         {
             var dbroles = (from roles in dbContext.IdentityRoleHierarchies

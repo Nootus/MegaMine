@@ -17,6 +17,7 @@ namespace eMine.Lib.Repositories
         public DbSet<IdentityRoleHierarchyEntity> IdentityRoleHierarchies { get; set; }
         public DbSet<UserProfileEntity> UserProfiles { get; set; }
         public DbSet<UserCompanyEntity> UserCompanies { get; set; }
+        public DbSet<IdentityCompanyClaimEntity> IdentityCompanyClaims { get; set; }
 
         //Administration
         public DbSet<CompanyEntity> Companies { get; set; }
