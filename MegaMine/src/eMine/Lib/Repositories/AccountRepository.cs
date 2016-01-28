@@ -28,7 +28,7 @@ namespace eMine.Lib.Repositories
                         && idn.UserName == userName
                         select new ProfileModel
                         {
-                            UserID = users.UserProfileId,
+                            UserId = users.UserProfileId,
                             FirstName = users.FirstName,
                             LastName = users.LastName,
                             UserName = idn.UserName,
@@ -39,29 +39,42 @@ namespace eMine.Lib.Repositories
 
             var companyQuery = from cmp in dbContext.Companies
                                join usrcmp in dbContext.UserCompanies on cmp.CompanyId equals usrcmp.CompanyId
-                               where usrcmp.UserProfileId == model.UserID
+                               where usrcmp.UserProfileId == model.UserId
                                && cmp.DeletedInd == false
                                select Mapper.Map<CompanyEntity, CompanyModel>(cmp);
             model.Companies = await companyQuery.ToListAsync();
 
+            //getting roles and claims
+            await UserProfileGetRolesClaims(model);
+
+            return model;
+        }
+
+        public async Task UserProfileGetRolesClaims(ProfileModel model)
+        {
+            int companyId = model.CompanyId;
+            string userId = model.UserId;
             //getting roles
             var roleQuery = from userRoles in dbContext.UserRoles
                             join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
-                            where userRoles.UserId == model.UserID
+                            where userRoles.UserId == userId
+                                && roles.CompanyId == companyId
                             select roles.Name;
             model.Roles = await roleQuery.ToArrayAsync();
 
             //getting roles claims
-            var rolesClaimsQuery = from roles in dbContext.UserRoles
-                                  join claims in dbContext.RoleClaims on roles.RoleId equals claims.RoleId
-                                  where roles.UserId == model.UserID
-                                  select Mapper.Map<IdentityRoleClaim<string>, ClaimModel>(claims);
+            var rolesClaimsQuery = from userRoles in dbContext.UserRoles
+                                   join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                                   join claims in dbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
+                                   where userRoles.UserId == userId
+                                         && roles.CompanyId == companyId
+                                   select Mapper.Map<IdentityRoleClaim<string>, ClaimModel>(claims);
 
             var roleClaims = await rolesClaimsQuery.ToListAsync();
 
             //getting user specific overrides
             var userClaimsQuery = from claim in dbContext.UserClaims
-                                  where claim.UserId == model.UserID
+                                  where claim.UserId == userId
                                   select Mapper.Map<IdentityUserClaim<string>, ClaimModel>(claim);
 
             var userClaims = await userClaimsQuery.ToListAsync();
@@ -74,8 +87,6 @@ namespace eMine.Lib.Repositories
             roleClaims = roleClaims.Except(denyRoleClaims, new ClaimModelComparer()).ToList();
 
             model.Claims = roleClaims.Union(userClaims).ToList();
-
-            return model;
         }
 
         public List<IdentityPageEntity> IdentityPagesGet()

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using eMine.Lib.Entities.Account;
+using eMine.Lib.Entities.Administration;
 using eMine.Lib.Middleware;
 using eMine.Models.Account;
 using System.Collections.Generic;
@@ -13,6 +14,7 @@ namespace eMine.Lib.Shared
         {
             List<IdentityPageEntity> pages = PageService.Pages;
             List<IdentityMenuPageEntity> menuPages = PageService.MenuPages;
+            CompanyEntity companyClaims = PageService.CompanyClaims[profile.CompanyId];
             List<IdentityMenuPageEntity> allPages;
 
             //checking for the admins
@@ -32,6 +34,13 @@ namespace eMine.Lib.Shared
             var userPages = userquery.ToList();
 
             allPages = rolePages.Union(userPages).ToList();
+
+            var qry = from all in allPages 
+                      join page in pages on all.PageId equals page.PageId
+                      where page.Claims.Any(p => companyClaims.Claims.Any(c => c.Claim.ClaimType == p.Claim.ClaimType && (p.Claim.ClaimValue == AccountSettings.AnonymousClaim || c.Claim.ClaimValue == p.Claim.ClaimValue)))
+                      select all;
+
+            allPages = qry.ToList();
 
             //getting the menu model
             List<MenuModel> menu = allPages.Select(page => Mapper.Map<IdentityMenuPageEntity, MenuModel>(page)).ToList();

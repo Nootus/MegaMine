@@ -34,7 +34,7 @@ namespace eMine.Lib.Shared
 
             ProfileModel profile = new ProfileModel()
             {
-                UserID = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
+                UserId = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
                 UserName = context.User.Identity.Name,
                 FirstName = claims.First(c => c.Type == NTClaimTypes.FirstName).Value,
                 LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value,

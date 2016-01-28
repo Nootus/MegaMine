@@ -56,7 +56,7 @@ namespace eMine.Lib.Domain
 
         public async Task ChangePassword(ChangePasswordModel model)
         {
-            ApplicationUser user = await userManager.FindByIdAsync(profile.UserID);
+            ApplicationUser user = await userManager.FindByIdAsync(profile.UserId);
             IdentityResult result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
 
             if (!result.Succeeded)
