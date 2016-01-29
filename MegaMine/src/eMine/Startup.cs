@@ -55,7 +55,7 @@ namespace eMine
 
             services.AddMvc()
                 .AddMvcOptions(options => {
-                    options.Filters.Add(new NTAuthorizeFilter());
+                    //options.Filters.Add(new NTAuthorizeFilter());
                 })
                 .AddJsonOptions(options =>
                 {

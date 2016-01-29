@@ -40,7 +40,7 @@ namespace eMine.Lib.Shared
                       where page.Claims.Any(p => companyClaims.Claims.Any(c => c.Claim.ClaimType == p.Claim.ClaimType && (p.Claim.ClaimValue == AccountSettings.AnonymousClaim || c.Claim.ClaimValue == p.Claim.ClaimValue)))
                       select all;
 
-            allPages = qry.ToList();
+            //allPages = qry.ToList();
 
             //getting the menu model
             List<MenuModel> menu = allPages.Select(page => Mapper.Map<IdentityMenuPageEntity, MenuModel>(page)).ToList();

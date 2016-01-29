@@ -54,39 +54,72 @@ namespace eMine.Lib.Repositories
         {
             int companyId = model.CompanyId;
             string userId = model.UserId;
-            //getting roles
-            var roleQuery = from userRoles in dbContext.UserRoles
-                            join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
-                            where userRoles.UserId == userId
-                                && roles.CompanyId == companyId
-                            select roles.Name;
-            model.Roles = await roleQuery.ToArrayAsync();
 
-            //getting roles claims
-            var rolesClaimsQuery = from userRoles in dbContext.UserRoles
-                                   join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
-                                   join claims in dbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
-                                   where userRoles.UserId == userId
-                                         && roles.CompanyId == companyId
-                                   select Mapper.Map<IdentityRoleClaim<string>, ClaimModel>(claims);
+            //getting SuperAdmin or GroupAdmin roles
+            var adminRoleQuery = from userRoles in dbContext.UserRoles
+                                    join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                                    where userRoles.UserId == userId
+                                        && new string[] { AccountSettings.SuperAdminRole, AccountSettings.GroupAdminRole }.Contains(roles.Name)
+                                    select roles.Name;
+            model.Roles = await adminRoleQuery.ToArrayAsync();
 
-            var roleClaims = await rolesClaimsQuery.ToListAsync();
+            //For SuperAdmin and GroupAdmin roles get the companies
+            if (model.Roles.Length >= 0)
+            {
+                if (model.Roles.Contains(AccountSettings.SuperAdminRole))
+                {
+                    //getting all companies
+                    model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
+                }
+                if (model.Roles.Contains(AccountSettings.GroupAdminRole))
+                {
+                    CompanyEntity company = await (from cmp in dbContext.Companies where cmp.CompanyId == companyId select cmp).SingleAsync();
 
-            //getting user specific overrides
-            var userClaimsQuery = from claim in dbContext.UserClaims
-                                  where claim.UserId == userId
-                                  select Mapper.Map<IdentityUserClaim<string>, ClaimModel>(claim);
+                    int groupCompanyId = company.ParentCompanyId ?? companyId;
 
-            var userClaims = await userClaimsQuery.ToListAsync();
+                    model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false 
+                                                && (cmp.CompanyId == companyId || cmp.ParentCompanyId == companyId)
+                                                select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
+                }
 
-            //get the deny claims and remove them from the main claims
-            var denyUserClaims = userClaims.Where(c => c.ClaimType.EndsWith(AccountSettings.DenySuffix)).ToList();
-            var denyRoleClaims = denyUserClaims.Select(c => new ClaimModel() { ClaimType = c.ClaimType.Replace(AccountSettings.DenySuffix, ""), ClaimValue = c.ClaimValue }).ToList();
+                model.Claims = new List<ClaimModel>();
+            }
+            else
+            {
+                //getting roles
+                var roleQuery = from userRoles in dbContext.UserRoles
+                                join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                                where userRoles.UserId == userId
+                                    && roles.CompanyId == companyId
+                                select roles.Name;
+                model.Roles = await roleQuery.ToArrayAsync();
 
-            userClaims = userClaims.Except(denyUserClaims).ToList();
-            roleClaims = roleClaims.Except(denyRoleClaims, new ClaimModelComparer()).ToList();
+                //getting roles claims
+                var rolesClaimsQuery = from userRoles in dbContext.UserRoles
+                                       join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                                       join claims in dbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
+                                       where userRoles.UserId == userId
+                                             && roles.CompanyId == companyId
+                                       select Mapper.Map<IdentityRoleClaim<string>, ClaimModel>(claims);
 
-            model.Claims = roleClaims.Union(userClaims).ToList();
+                var roleClaims = await rolesClaimsQuery.ToListAsync();
+
+                //getting user specific overrides
+                var userClaimsQuery = from claim in dbContext.UserClaims
+                                      where claim.UserId == userId
+                                      select Mapper.Map<IdentityUserClaim<string>, ClaimModel>(claim);
+
+                var userClaims = await userClaimsQuery.ToListAsync();
+
+                //get the deny claims and remove them from the main claims
+                var denyUserClaims = userClaims.Where(c => c.ClaimType.EndsWith(AccountSettings.DenySuffix)).ToList();
+                var denyRoleClaims = denyUserClaims.Select(c => new ClaimModel() { ClaimType = c.ClaimType.Replace(AccountSettings.DenySuffix, ""), ClaimValue = c.ClaimValue }).ToList();
+
+                userClaims = userClaims.Except(denyUserClaims).ToList();
+                roleClaims = roleClaims.Except(denyRoleClaims, new ClaimModelComparer()).ToList();
+
+                model.Claims = roleClaims.Union(userClaims).ToList();
+            }
         }
 
         public List<IdentityPageEntity> IdentityPagesGet()
