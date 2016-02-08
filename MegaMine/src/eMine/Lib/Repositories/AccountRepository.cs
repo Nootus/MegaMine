@@ -59,20 +59,21 @@ namespace eMine.Lib.Repositories
             var adminRoleQuery = from userRoles in dbContext.UserRoles
                                     join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
                                     where userRoles.UserId == userId
-                                        && new string[] { AccountSettings.SuperAdminRole, AccountSettings.GroupAdminRole }.Contains(roles.Name)
-                                    select roles.Name;
-            model.Roles = await adminRoleQuery.ToArrayAsync();
+                                        && new int[] { (int) RoleType.SuperAdmin, (int)RoleType.GroupAdmin }.Contains(roles.RoleType)
+                                    select new { roles.Name, roles.RoleType};
+            var adminRoles = await adminRoleQuery.ToArrayAsync();
 
             //For SuperAdmin and GroupAdmin roles get the companies
-            if (model.Roles.Length >= 0)
+            if (adminRoles.Length >= 0)
             {
-                if (model.Roles.Contains(AccountSettings.SuperAdminRole))
+                if (adminRoles.Any(r => r.RoleType == (int) RoleType.SuperAdmin))
                 {
                     //getting all companies
                     model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
                 }
-                if (model.Roles.Contains(AccountSettings.GroupAdminRole))
+                if (adminRoles.Any(r => r.RoleType == (int)RoleType.GroupAdmin))
                 {
+                    //getting all companies in that group
                     CompanyEntity company = await (from cmp in dbContext.Companies where cmp.CompanyId == companyId select cmp).SingleAsync();
 
                     int groupCompanyId = company.ParentCompanyId ?? companyId;
@@ -82,6 +83,7 @@ namespace eMine.Lib.Repositories
                                                 select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
                 }
 
+                model.Roles = adminRoleQuery.Select(s => s.Name).ToArray();
                 model.Claims = new List<ClaimModel>();
             }
             else
