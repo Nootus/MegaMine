@@ -15,8 +15,11 @@ namespace eMine.Lib.Shared
         public static async Task<ProfileModel> Get(string userName, AccountRepository accountRepository)
         {
             ProfileModel profile = await accountRepository.UserProfileGet(userName);
-            //setting all the roles
-            profile.Roles = PageService.Roles.Where(r => profile.Roles.Contains(r.Key)).Select(r => r.Item).ToArray();
+            //setting all the roles for admin roles
+            if(profile.Roles.Any(r => new int[] { (int)RoleType.SuperAdmin, (int)RoleType.GroupAdmin, (int)RoleType.CompanyAdmin }.Contains(r.RoleType)))
+            {
+                profile.Roles = PageService.AdminRoles.Where(r => profile.Roles.Contains(r.Key)).Select(r => r.Item).ToArray();
+            }
             profile.SetMenu();
 
             //setting the claims on to the context

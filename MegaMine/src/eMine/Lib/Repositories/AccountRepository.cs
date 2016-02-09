@@ -59,31 +59,31 @@ namespace eMine.Lib.Repositories
             var adminRoleQuery = from userRoles in dbContext.UserRoles
                                     join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
                                     where userRoles.UserId == userId
-                                        && new int[] { (int) RoleType.SuperAdmin, (int)RoleType.GroupAdmin }.Contains(roles.RoleType)
-                                    select new { roles.Name, roles.RoleType};
+                                        && new int[] { (int)RoleType.SuperAdmin, (int)RoleType.GroupAdmin }.Contains(roles.RoleType)
+                                    select new { roles.Id, roles.Name, roles.RoleType };
             var adminRoles = await adminRoleQuery.ToArrayAsync();
 
             //For SuperAdmin and GroupAdmin roles get the companies
             if (adminRoles.Length >= 0)
             {
-                if (adminRoles.Any(r => r.RoleType == (int) RoleType.SuperAdmin))
+                if (adminRoles.Any(r => r.RoleType == (int)RoleType.SuperAdmin))
                 {
                     //getting all companies
                     model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
                 }
-                if (adminRoles.Any(r => r.RoleType == (int)RoleType.GroupAdmin))
+                else if (adminRoles.Any(r => r.RoleType == (int)RoleType.GroupAdmin))
                 {
                     //getting all companies in that group
                     CompanyEntity company = await (from cmp in dbContext.Companies where cmp.CompanyId == companyId select cmp).SingleAsync();
 
                     int groupCompanyId = company.ParentCompanyId ?? companyId;
 
-                    model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false 
+                    model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false
                                                 && (cmp.CompanyId == companyId || cmp.ParentCompanyId == companyId)
-                                                select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
+                                             select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
                 }
 
-                model.Roles = adminRoleQuery.Select(s => s.Name).ToArray();
+                model.Roles = adminRoles.Select(s => new RoleModel { Id = s.Id, Name = s.Name, RoleType = s.RoleType }).ToArray();
                 model.Claims = new List<ClaimModel>();
             }
             else
@@ -93,34 +93,41 @@ namespace eMine.Lib.Repositories
                                 join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
                                 where userRoles.UserId == userId
                                     && roles.CompanyId == companyId
-                                select roles.Name;
+                                select new RoleModel { Id = roles.Id, Name = roles.Name, RoleType = roles.RoleType }; 
                 model.Roles = await roleQuery.ToArrayAsync();
 
-                //getting roles claims
-                var rolesClaimsQuery = from userRoles in dbContext.UserRoles
-                                       join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
-                                       join claims in dbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
-                                       where userRoles.UserId == userId
-                                             && roles.CompanyId == companyId
-                                       select Mapper.Map<IdentityRoleClaim<string>, ClaimModel>(claims);
+                //getting roles claims if user is not a company admin
+                if (model.Roles.Any(r => r.RoleType == (int)RoleType.CompanyAdmin))
+                {
+                    model.Claims = new List<ClaimModel>();
+                }
+                else
+                {
+                    var rolesClaimsQuery = from userRoles in dbContext.UserRoles
+                                           join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                                           join claims in dbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
+                                           where userRoles.UserId == userId
+                                                 && roles.CompanyId == companyId
+                                           select Mapper.Map<IdentityRoleClaim<string>, ClaimModel>(claims);
 
-                var roleClaims = await rolesClaimsQuery.ToListAsync();
+                    var roleClaims = await rolesClaimsQuery.ToListAsync();
 
-                //getting user specific overrides
-                var userClaimsQuery = from claim in dbContext.UserClaims
-                                      where claim.UserId == userId
-                                      select Mapper.Map<IdentityUserClaim<string>, ClaimModel>(claim);
+                    //getting user specific overrides
+                    var userClaimsQuery = from claim in dbContext.UserClaims
+                                          where claim.UserId == userId
+                                          select Mapper.Map<IdentityUserClaim<string>, ClaimModel>(claim);
 
-                var userClaims = await userClaimsQuery.ToListAsync();
+                    var userClaims = await userClaimsQuery.ToListAsync();
 
-                //get the deny claims and remove them from the main claims
-                var denyUserClaims = userClaims.Where(c => c.ClaimType.EndsWith(AccountSettings.DenySuffix)).ToList();
-                var denyRoleClaims = denyUserClaims.Select(c => new ClaimModel() { ClaimType = c.ClaimType.Replace(AccountSettings.DenySuffix, ""), ClaimValue = c.ClaimValue }).ToList();
+                    //get the deny claims and remove them from the main claims
+                    var denyUserClaims = userClaims.Where(c => c.ClaimType.EndsWith(AccountSettings.DenySuffix)).ToList();
+                    var denyRoleClaims = denyUserClaims.Select(c => new ClaimModel() { ClaimType = c.ClaimType.Replace(AccountSettings.DenySuffix, ""), ClaimValue = c.ClaimValue }).ToList();
 
-                userClaims = userClaims.Except(denyUserClaims).ToList();
-                roleClaims = roleClaims.Except(denyRoleClaims, new ClaimModelComparer()).ToList();
+                    userClaims = userClaims.Except(denyUserClaims).ToList();
+                    roleClaims = roleClaims.Except(denyRoleClaims, new ClaimModelComparer()).ToList();
 
-                model.Claims = roleClaims.Union(userClaims).ToList();
+                    model.Claims = roleClaims.Union(userClaims).ToList();
+                }
             }
         }
 
@@ -142,13 +149,15 @@ namespace eMine.Lib.Repositories
             return query.ToList();
         }
 
-        public List<ListItem<string, string>> IdentityRolesGet()
+        public List<ListItem<string, string>> IdentityAdminRolesGet()
         {
-            var dbroles = (from roles in dbContext.IdentityRoleHierarchies
-                        join role in dbContext.Roles on roles.RoleId equals role.Id
-                        join child in dbContext.Roles on roles.ChildRoleId equals child.Id
-                        select new ListItem<string, string>() { Key = role.Name, Item = child.Name }).ToList();
+            //var dbroles = (from roles in dbContext.IdentityRoleHierarchies
+            //            join role in dbContext.Roles on roles.RoleId equals role.Id
+            //            join child in dbContext.Roles on roles.ChildRoleId equals child.Id
+            //            select new ListItem<string, string>() { Key = role.Name, Item = child.Name }).ToList();
 
+            var dbroles = (from roles in dbContext.IdentityRoleHierarchies
+                           select new ListItem<string, string>() { Key = roles.RoleId, Item = roles.ChildRoleId }).ToList();
             var hierarchy = dbroles.SelectMany(r => GetChildren(dbroles, r)).Distinct(new ListItemStringComparer()).OrderBy( r => r.Key).ToList();
             return hierarchy;
         }

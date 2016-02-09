@@ -17,10 +17,10 @@ namespace eMine.Lib.Shared
             CompanyEntity companyClaims = PageService.CompanyClaims[profile.CompanyId];
             List<IdentityMenuPageEntity> allPages;
 
-            //checking for the admins
+            //checking for the module admins
             var rolequery = from menupage in menuPages
                             join page in pages on menupage.PageId equals page.PageId
-                            where profile.Roles.Any(r => page.PageClaims.Any(p => r == p.ClaimType + AccountSettings.AdminSuffix))
+                            where profile.Roles.Any(r => page.PageClaims.Any(p => r.Name == p.ClaimType + AccountSettings.AdminSuffix))
                             select menupage;
 
             var rolePages = rolequery.ToList();
