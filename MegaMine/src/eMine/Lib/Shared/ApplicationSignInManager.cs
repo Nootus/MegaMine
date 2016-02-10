@@ -30,6 +30,7 @@ namespace eMine.Lib.Shared
 
             //var profile = Profile.Current;
             string companies = String.Join(",", profile.Companies.Select(s => s.CompanyId.ToString()));
+            //string adminRoles = profile.Roles
 
             //adding custom claim
             identity.AddClaim(new Claim(NTClaimTypes.FirstName, profile.FirstName));

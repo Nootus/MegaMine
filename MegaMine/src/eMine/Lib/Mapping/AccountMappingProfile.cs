@@ -20,6 +20,7 @@ namespace eMine.Lib.Mapping
             Mapper.CreateMap<IdentityMenuPageEntity, MenuModel>();
             Mapper.CreateMap<IdentityRoleClaim<string>, ClaimModel>();
             Mapper.CreateMap<IdentityUserClaim<string>, ClaimModel>();
+            Mapper.CreateMap<ApplicationRole, RoleModel>();
         }
     }
 }
