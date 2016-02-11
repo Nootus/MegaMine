@@ -83,26 +83,29 @@ namespace eMine.Lib.Repositories
                                              select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
                 }
 
-                model.Roles = adminRoles.Select(s => s).ToArray();
+                model.Roles = adminRoles.Select(s => s).ToList();
                 model.Claims = new List<ClaimModel>();
             }
             else
             {
-                //getting roles
-                var roleQuery = from userRoles in dbContext.UserRoles
+                //getting company admin role
+                var companyRoleQuery = from userRoles in dbContext.UserRoles
                                 join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
                                 where userRoles.UserId == userId
                                     && roles.CompanyId == companyId
+                                    && roles.RoleType == (int)RoleType.CompanyAdmin
                                 select Mapper.Map<ApplicationRole, RoleModel>(roles); 
-                model.Roles = await roleQuery.ToArrayAsync();
+                model.Roles = await companyRoleQuery.ToListAsync();
 
                 //getting roles claims if user is not a company admin
-                if (model.Roles.Any(r => r.RoleType == (int)RoleType.CompanyAdmin))
+                if (model.Roles.Count > 0)
                 {
                     model.Claims = new List<ClaimModel>();
                 }
                 else
                 {
+                    model.Roles = new List<RoleModel>(); //setting a blank object
+
                     var rolesClaimsQuery = from userRoles in dbContext.UserRoles
                                            join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
                                            join claims in dbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
@@ -155,7 +158,8 @@ namespace eMine.Lib.Repositories
             //            join role in dbContext.Roles on roles.RoleId equals role.Id
             //            join child in dbContext.Roles on roles.ChildRoleId equals child.Id
             //            select new ListItem<string, string>() { Key = role.Name, Item = child.Name }).ToList();
-            var dbAdminRoles = (from roles in dbContext.Roles where roles.RoleType != (int)RoleType.UserDefined select Mapper.Map<ApplicationRole, RoleModel>(roles));
+            var dbAdminRoles = (from roles in dbContext.Roles where roles.RoleType != (int)RoleType.UserDefined
+                                      select Mapper.Map<ApplicationRole, RoleModel>(roles)).ToList();
 
             var dbrRoles = (from roles in dbContext.IdentityRoleHierarchies
                            select new ListItem<string, string>() { Key = roles.RoleId, Item = roles.ChildRoleId }).ToList();

@@ -79,6 +79,9 @@ namespace eMine
             services.AddTransient<AccountDomain>();
             services.AddTransient<AccountRepository>();
 
+            //Automapper configurations
+            MappingConfiguration.Configure();
+
             //caching page claims
             services.CachePageClaimsRoles();
         }
@@ -133,7 +136,6 @@ namespace eMine
 
             //storing the HttpContextAccessor
             HttpHelper.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
-            MappingConfiguration.Configure();
         }
     }
 }
