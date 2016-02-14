@@ -20,7 +20,7 @@ namespace eMine.Lib.Shared
             //checking for the module admins
             var rolequery = from menupage in menuPages
                             join page in pages on menupage.PageId equals page.PageId
-                            where profile.Roles.Any(r => page.PageClaims.Any(p => r.Name == p.ClaimType + AccountSettings.AdminSuffix))
+                            where profile.AdminRoles.Any(r => page.PageClaims.Any(p => r == p.ClaimType + AccountSettings.AdminSuffix))
                             select menupage;
 
             var rolePages = rolequery.ToList();

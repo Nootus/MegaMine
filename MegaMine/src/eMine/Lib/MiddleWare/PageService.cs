@@ -14,7 +14,7 @@ namespace eMine.Lib.Middleware
     {
         public static List<IdentityPageEntity> Pages { get; set; }
         public static List<IdentityMenuPageEntity> MenuPages { get; set; }
-        public static List<ListItem<string, RoleModel>> AdminRoles { get; set; }
+        public static List<ListItem<string, string>> AdminRoles { get; set; }
         public static Dictionary<int, CompanyEntity> CompanyClaims { get; set; }
 
         public static void CachePageClaimsRoles(AccountRepository repository)

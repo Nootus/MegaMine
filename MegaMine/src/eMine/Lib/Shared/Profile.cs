@@ -16,11 +16,9 @@ namespace eMine.Lib.Shared
         {
             ProfileModel profile = await accountRepository.UserProfileGet(userName);
             //setting all the roles for admin roles
-            if(profile.Roles.Count > 0)
+            if(profile.AdminRoles.Length > 0)
             {
-                profile.Roles = (from r in profile.Roles
-                                 join ar in PageService.AdminRoles on r.Id equals ar.Key
-                                 select ar.Item).ToList();
+                profile.AdminRoles = PageService.AdminRoles.Where(r => profile.AdminRoles.Contains(r.Key)).Select(r => r.Item).ToArray();
             }
             profile.SetMenu();
 

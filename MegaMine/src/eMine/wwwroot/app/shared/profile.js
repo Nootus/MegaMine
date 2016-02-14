@@ -13,7 +13,7 @@ function profile() {
         userName: undefined,
         companyId: undefined,
         companies: [],
-        roles: [],
+        adminRoles: [],
         claims: [],
         menu: [],
         isAuthenticated: false,
@@ -32,7 +32,7 @@ function profile() {
         vm.userName = data.userName;
         vm.companyId = data.companyId;
         vm.companies = data.companies;
-        vm.roles = data.roles;
+        vm.adminRoles = data.adminRoles;
         vm.claims = data.claims;
         vm.isAuthenticated = true;
         vm.menu.splice(0, vm.menu.length);
@@ -50,7 +50,7 @@ function profile() {
             var arr = authorizeClaims[claimCounter].split(":");
             var claimModule = arr[0];
             var claim = arr[1];
-            if (vm.roles.indexOf(claimModule + "Admin") === -1) {
+            if (vm.adminRoles.indexOf(claimModule + "Admin") === -1) {
                 for (var counter = 0; counter < vm.claims.length; counter++) {
                     if (vm.claims[counter].claimType === claimModule && vm.claims[counter].claimValue === claim) {
                         response = true;

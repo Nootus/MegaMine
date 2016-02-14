@@ -83,7 +83,7 @@ namespace eMine.Lib.Repositories
                                              select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
                 }
 
-                model.Roles = adminRoles.Select(s => s).ToList();
+                model.AdminRoles = adminRoles.Select(s => s.Name).ToArray();
                 model.Claims = new List<ClaimModel>();
             }
             else
@@ -94,18 +94,16 @@ namespace eMine.Lib.Repositories
                                 where userRoles.UserId == userId
                                     && roles.CompanyId == companyId
                                     && roles.RoleType == (int)RoleType.CompanyAdmin
-                                select Mapper.Map<ApplicationRole, RoleModel>(roles); 
-                model.Roles = await companyRoleQuery.ToListAsync();
+                                select roles.Name; 
+                model.AdminRoles = await companyRoleQuery.ToArrayAsync();
 
                 //getting roles claims if user is not a company admin
-                if (model.Roles.Count > 0)
+                if (model.AdminRoles.Length > 0)
                 {
                     model.Claims = new List<ClaimModel>();
                 }
                 else
                 {
-                    model.Roles = new List<RoleModel>(); //setting a blank object
-
                     var rolesClaimsQuery = from userRoles in dbContext.UserRoles
                                            join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
                                            join claims in dbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
@@ -152,35 +150,20 @@ namespace eMine.Lib.Repositories
             return query.ToList();
         }
 
-        public List<ListItem<string, RoleModel>> IdentityAdminRolesGet()
+        public List<ListItem<string, string>> IdentityAdminRolesGet()
         {
-            //var dbroles = (from roles in dbContext.IdentityRoleHierarchies
-            //            join role in dbContext.Roles on roles.RoleId equals role.Id
-            //            join child in dbContext.Roles on roles.ChildRoleId equals child.Id
-            //            select new ListItem<string, string>() { Key = role.Name, Item = child.Name }).ToList();
-            var dbAdminRoles = (from roles in dbContext.Roles where roles.RoleType != (int)RoleType.UserDefined
-                                      select Mapper.Map<ApplicationRole, RoleModel>(roles)).ToList();
+            var dbroles = (from roles in dbContext.IdentityRoleHierarchies
+                           join role in dbContext.Roles on roles.RoleId equals role.Id
+                           join child in dbContext.Roles on roles.ChildRoleId equals child.Id
+                           select new ListItem<string, string>() { Key = role.Name, Item = child.Name }).ToList();
 
-            var dbrRoles = (from roles in dbContext.IdentityRoleHierarchies
-                           select new ListItem<string, string>() { Key = roles.RoleId, Item = roles.ChildRoleId }).ToList();
-            var hierarchy = dbrRoles.SelectMany(r => GetChildren(dbrRoles, r)).Distinct(new ListItemStringComparer()).OrderBy( r => r.Key).ToList();
-
-            var hierarchyRole = (from roles in dbAdminRoles
-                                 join hier in hierarchy on roles.Id equals hier.Item
-                                 select new ListItem<string, RoleModel>
-                                 {
-                                     Key = hier.Key,
-                                     Item = roles
-                                 }
-                                ).ToList();
-
-            return hierarchyRole;
+            var hierarchy = dbroles.SelectMany(r => GetChildren(dbroles, r)).Distinct(new ListItemStringComparer()).OrderBy(r => r.Key).ToList();
+            return hierarchy;
         }
 
         private List<ListItem<string, string>> GetChildren(List<ListItem<string, string>>  roles, ListItem<string, string> parent)
         {
             var childroles = roles.Where(r => r.Key == parent.Item).SelectMany(r => GetChildren(roles, r));
-            //var childRoles = newroles.SelectMany(r => GetChildren(roles, r)).ToList();
             var newroles = childroles.Select(r => new ListItem<string, string>() { Key = parent.Key, Item = r.Item }).ToList();
 
             //adding itself
