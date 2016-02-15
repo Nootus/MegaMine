@@ -64,7 +64,7 @@ namespace eMine.Lib.Repositories
             var adminRoles = await adminRoleQuery.ToArrayAsync();
 
             //For SuperAdmin and GroupAdmin roles get the companies
-            if (adminRoles.Length >= 0)
+            if (adminRoles.Length > 0)
             {
                 if (adminRoles.Any(r => r.RoleType == (int)RoleType.SuperAdmin))
                 {
@@ -92,7 +92,6 @@ namespace eMine.Lib.Repositories
                 var companyRoleQuery = from userRoles in dbContext.UserRoles
                                 join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
                                 where userRoles.UserId == userId
-                                    && roles.CompanyId == companyId
                                     && roles.RoleType == (int)RoleType.CompanyAdmin
                                 select roles.Name; 
                 model.AdminRoles = await companyRoleQuery.ToArrayAsync();
