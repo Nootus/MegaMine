@@ -47,7 +47,6 @@ namespace eMine.Lib.Filters
 
             //getting current roles and then get all the child roles
             string[] roles = userClaims.Where(c => c.Type == ClaimTypes.Role).Select(c => c.Value).ToArray();
-            //roles = PageService.AdminRoles.Where(r => roles.Contains(r.Key)).Select(r => r.Item).ToArray();
 
             //checking whether user is an admin
             if (!roles.Any(r => page.PageClaims.Any(p => r == p.ClaimType + AccountSettings.AdminSuffix)))

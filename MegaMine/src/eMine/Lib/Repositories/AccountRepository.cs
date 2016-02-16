@@ -41,6 +41,7 @@ namespace eMine.Lib.Repositories
                                join usrcmp in dbContext.UserCompanies on cmp.CompanyId equals usrcmp.CompanyId
                                where usrcmp.UserProfileId == model.UserId
                                && cmp.DeletedInd == false
+                               orderby cmp.CompanyName
                                select Mapper.Map<CompanyEntity, CompanyModel>(cmp);
             model.Companies = await companyQuery.ToListAsync();
 
@@ -55,45 +56,41 @@ namespace eMine.Lib.Repositories
             int companyId = model.CompanyId;
             string userId = model.UserId;
 
-            //getting SuperAdmin or GroupAdmin roles
-            var adminRoleQuery = from userRoles in dbContext.UserRoles
-                                    join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
-                                    where userRoles.UserId == userId
-                                        && AccountSettings.SuperGroupAdminRoles.Contains(roles.RoleType)
-                                    select Mapper.Map<ApplicationRole, RoleModel>(roles);
-            var adminRoles = await adminRoleQuery.ToArrayAsync();
+            //getting all roles for the current user
+            var roleQuery = from userRoles in dbContext.UserRoles
+                            join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                            where userRoles.UserId == userId
+                                && AccountSettings.SuperGroupAdminRoles.Contains(roles.RoleType)
+                            select Mapper.Map<ApplicationRole, RoleModel>(roles);
+            var profileRoles = await roleQuery.ToListAsync();
 
-            //For SuperAdmin and GroupAdmin roles get the companies
-            if (adminRoles.Length > 0)
+            //checking for superadmin
+            if(profileRoles.Any(r => r.RoleType == (int)RoleType.SuperAdmin))
             {
-                if (adminRoles.Any(r => r.RoleType == (int)RoleType.SuperAdmin))
-                {
-                    //getting all companies
-                    model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
-                }
-                else if (adminRoles.Any(r => r.RoleType == (int)RoleType.GroupAdmin))
-                {
-                    //getting all companies in that group
-                    CompanyEntity company = await (from cmp in dbContext.Companies where cmp.CompanyId == companyId select cmp).SingleAsync();
-
-                    int groupCompanyId = company.ParentCompanyId ?? companyId;
-
-                    model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false
-                                                && (cmp.CompanyId == companyId || cmp.ParentCompanyId == companyId)
-                                             select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
-                }
-
-                model.AdminRoles = adminRoles.Select(s => s.Name).ToArray();
+                //getting all companies
+                model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false orderby cmp.CompanyName select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
+                model.AdminRoles = profileRoles.Where(r => r.RoleType == (int)RoleType.SuperAdmin).Select(r => r.Name).ToArray();
                 model.Claims = new List<ClaimModel>();
             }
-            else
+            else if(profileRoles.Any(r => r.RoleType == (int)RoleType.GroupAdmin))
+            {
+                int[] groupCompanyId = profileRoles.Where(r => r.RoleType == (int)RoleType.GroupAdmin).Select(r => r.CompanyId).ToArray();
+                var companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false && ((cmp.ParentCompanyId != null && groupCompanyId.Contains(cmp.ParentCompanyId.Value)) || groupCompanyId.Contains(cmp.CompanyId))
+                                       select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
+                model.Companies = companies.Union(model.Companies).OrderBy(c => c.CompanyName).ToList();
+                model.AdminRoles = profileRoles.Where(r => r.RoleType == (int)RoleType.GroupAdmin).Select(r => r.Name).ToArray();
+                model.Claims = new List<ClaimModel>();
+            }
+
+            if(model.AdminRoles == null)
             {
                 //getting company admin role
                 var companyRoleQuery = from userRoles in dbContext.UserRoles
-                                join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
-                                where userRoles.UserId == userId
-                                    && roles.RoleType == (int)RoleType.CompanyAdmin
-                                select roles.Name; 
+                                       join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                                       where userRoles.UserId == userId
+                                           && roles.CompanyId == companyId
+                                           && roles.RoleType == (int)RoleType.CompanyAdmin
+                                       select roles.Name;
                 model.AdminRoles = await companyRoleQuery.ToArrayAsync();
 
                 //getting roles claims if user is not a company admin

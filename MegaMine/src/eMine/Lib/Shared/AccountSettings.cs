@@ -12,7 +12,7 @@ namespace eMine.Lib.Shared
         public const string AdminSuffix = "Admin";
         public const string DenySuffix = "_Deny";
 
-        public static string DefaultProfileUserName = "PRASANNA@NOOTUS.COM";
+        public static string DefaultProfileUserName = "MEGAMINE@NOOTUS.COM";
 
         public static int[] AdminRoles = new int[] { (int)RoleType.SuperAdmin, (int)RoleType.GroupAdmin, (int)RoleType.CompanyAdmin };
         public static int[] SuperGroupAdminRoles = new int[] { (int)RoleType.SuperAdmin, (int)RoleType.GroupAdmin };
