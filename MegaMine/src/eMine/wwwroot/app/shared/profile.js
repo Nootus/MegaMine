@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('profile', profile);
-profile.$inject = [];
+profile.$inject = ['$http'];
 
-function profile() {
+function profile($http) {
 
     var vm = {
         userID: 1,
@@ -19,7 +19,8 @@ function profile() {
         isAuthenticated: false,
         populate: populate,
         logout: logout,
-        isAuthorized: isAuthorized
+        isAuthorized: isAuthorized,
+        get: get
     };
 
     return vm;
@@ -68,5 +69,12 @@ function profile() {
 
         return response;
     }
-};
+
+    function get() {
+        $http.get("/api/account/profileget")
+            .then(function (data) {
+                vm.populate(data);
+            });
+    }
+}
 

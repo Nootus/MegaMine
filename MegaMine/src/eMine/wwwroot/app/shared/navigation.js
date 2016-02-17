@@ -11,7 +11,8 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
         initialize: initialize,
         gotoVehicle: gotoVehicle,
         gotoSparePart: gotoSparePart,
-        gotomanufacturer: gotomanufacturer,
+        gotoManufacturer: gotoManufacturer,
+        gotoDashboard: gotoDashboard,
         go: go,
         breadcrumbs: [],
         vehicleMenuItems: [],
@@ -30,10 +31,7 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
             //checking whether user is authenticated
             if (profile.isAuthenticated === false && toState.name !== 'login') {
                 if (vm.environmentName.toLowerCase() === constants.devEnvironment) {
-                    $http.get("/api/account/defaultprofile")
-                        .then(function (data) {
-                            profile.populate(data);
-                        });
+                    profile.get();
                 }
                 else {
                     evt.preventDefault();
@@ -67,6 +65,10 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
         $state.go(stateName);
     }
 
+    function gotoDashboard() {
+        $state.go("dashboard");
+    }
+
     function gotoVehicle(vehicleId) {
         var state = "vehicle";
         populateVehicleMenu(vehicleId); //populating the vehicle menu items
@@ -80,7 +82,7 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
         $state.go("sparepart", { sparepartid: sparePartId });
     }
 
-    function gotomanufacturer(manufacturerId) {
+    function gotoManufacturer(manufacturerId) {
         $state.go("manufacturer", { manufacturerid: manufacturerId });
     }
 

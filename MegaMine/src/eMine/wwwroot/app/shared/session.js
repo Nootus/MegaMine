@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('session', session);
-session.$inject = [ '$window', 'toastr', 'navigation', 'constants'];
+session.$inject = [ '$window', 'toastr', 'navigation', 'profile', 'constants'];
 
-function session($window, toastr, navigation, constants) {
+function session($window, toastr, navigation, profile, constants) {
 
     var breadcrumbs = [];
     var breadcrumbsService = {};
@@ -11,7 +11,6 @@ function session($window, toastr, navigation, constants) {
 
     var vm = {
         navigation: navigation,
-        //profile: profile,
         initialize: initialize,
     };
 
@@ -25,6 +24,7 @@ function session($window, toastr, navigation, constants) {
 
         //global values
         $window.navigation = navigation;
+        $window.profile = profile;
         $window.constants = constants
     }
 };

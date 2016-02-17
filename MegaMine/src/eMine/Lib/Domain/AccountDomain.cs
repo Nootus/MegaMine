@@ -42,7 +42,7 @@ namespace eMine.Lib.Domain
             return Profile.Current;
         }
 
-        public async Task<ProfileModel> DefaultProfile()
+        public async Task<ProfileModel> ProfileGet()
         {
             var profile = await Profile.Get(Profile.Current.UserName, accountRepository);
 

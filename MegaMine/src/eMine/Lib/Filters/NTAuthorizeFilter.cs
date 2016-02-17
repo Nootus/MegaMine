@@ -27,7 +27,7 @@ namespace eMine.Lib.Filters
             }
 
             //checking for annonymous claim
-            if(page.PageClaims.Any(p => p.ClaimValue == AccountSettings.AnonymousClaim))
+            if(page.PageClaims.Any(p => p.ClaimType == AccountSettings.AnonymouseClaimType && p.ClaimValue == AccountSettings.AnonymousClaim))
             {
                 return;
             }
@@ -42,6 +42,12 @@ namespace eMine.Lib.Filters
             if (companies == null || companyId == null || !companies.Split(',').Contains(companyId))
             {
                 context.Result = new HttpStatusCodeResult(403);
+                return;
+            }
+
+            //checking for annonymous claim for each module
+            if (page.PageClaims.Any(p => p.ClaimValue == AccountSettings.AnonymousClaim))
+            {
                 return;
             }
 

@@ -1,9 +1,9 @@
 ﻿'use strict';
 
 angular.module('megamine').factory('apiInterceptor', apiInterceptor);
-apiInterceptor.$inject = ['$q', 'utility', 'message', 'profile'];
+apiInterceptor.$inject = ['$window', '$q', 'utility', 'message'];
 
-function apiInterceptor($q, utility, message, profile) {
+function apiInterceptor($window, $q, utility, message) {
 
     var rawapiUrl = '/api/';
     var apiUrl = window.virtualDirectory + '/api/';
@@ -22,7 +22,7 @@ function apiInterceptor($q, utility, message, profile) {
 
         if (config.url.indexOf(apiUrl) === 0) {
             navigation.isLoading = true;
-            config.headers.companyId = profile.companyId
+            config.headers.companyId = $window.profile.companyId
         }
 
         // Return the config or promise.

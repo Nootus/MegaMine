@@ -38,9 +38,9 @@ namespace eMine.Controllers
         }
 
         [HttpGet]
-        public async Task<AjaxModel<ProfileModel>> DefaultProfile()
+        public async Task<AjaxModel<ProfileModel>> ProfileGet()
         {
-            return await AjaxHelper.GetAsync(m => domain.DefaultProfile());
+            return await AjaxHelper.GetAsync(m => domain.ProfileGet());
         }
     }
 }

@@ -9,7 +9,8 @@ function index($scope, $interval, profile, navigation, changePasswordDialog) {
         profile: profile,
         startvalue: 0,
         buffervalue: 0,
-        showChangePasswordDialog: showChangePasswordDialog
+        showChangePasswordDialog: showChangePasswordDialog,
+        changeCompany: changeCompany
     };
 
 
@@ -39,5 +40,12 @@ function index($scope, $interval, profile, navigation, changePasswordDialog) {
 
     function showChangePasswordDialog(ev) {
         changePasswordDialog.viewDialog(ev);
+    }
+
+    function changeCompany() {
+        alert('changed');
+        //getting profile for the changed company
+        //profile.get();
+        //navigation.gotoDashboard();
     }
 }
