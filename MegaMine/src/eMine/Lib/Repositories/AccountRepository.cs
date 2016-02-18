@@ -20,7 +20,7 @@ namespace eMine.Lib.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<ProfileModel> UserProfileGet(string userName)
+        public async Task<ProfileModel> UserProfileGet(string userName, int? companyId)
         {
             var query = from users in dbContext.UserProfiles
                         join idn in dbContext.Users on users.UserProfileId equals idn.Id
@@ -36,6 +36,14 @@ namespace eMine.Lib.Repositories
                         };
 
             ProfileModel model = await query.FirstOrDefaultAsync();
+            if(companyId != null && model.CompanyId != companyId)
+            {
+                model.CompanyId = companyId.Value;
+                //updating the User Profile
+                UserProfileEntity entity = await GetSingleAsync<UserProfileEntity>(model.UserId);
+                entity.CompanyId = model.CompanyId;
+                await UpdateEntity<UserProfileEntity>(entity, false, true);
+            }
 
             var companyQuery = from cmp in dbContext.Companies
                                join usrcmp in dbContext.UserCompanies on cmp.CompanyId equals usrcmp.CompanyId

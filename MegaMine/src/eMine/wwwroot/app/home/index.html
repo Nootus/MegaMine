@@ -10,7 +10,7 @@
             <div flex layout="column" ng-show="vm.profile.isAuthenticated">
                 <div class="profile-menu" layout="row" layout-alignment="center">
                     <div class="profile-company" flex="15">
-                        <nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true"></nt-select>
+                        <nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select>
                     </div>
                     <div flex class="text-right">
                         <span ng-repeat="crumb in vm.navigation.breadcrumbs">

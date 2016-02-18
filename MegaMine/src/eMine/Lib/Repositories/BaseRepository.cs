@@ -22,7 +22,7 @@ namespace eMine.Lib.Repositories
             profile = Shared.Profile.Current;
         }
 
-        protected async Task<TEntity> SaveEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : class
+        protected async Task<TEntity> SaveEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : BaseEntity
         {
             //checking for add or update
             string keyName = GetKeyName<TEntity>();
@@ -38,7 +38,7 @@ namespace eMine.Lib.Repositories
             }
         }
 
-        protected async Task<TEntity> AddEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : class
+        protected async Task<TEntity> AddEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : BaseEntity
         {
             TEntity entity = Mapper.Map<TModel, TEntity>(model);
             dbContext.Add<TEntity>(entity);
@@ -49,30 +49,39 @@ namespace eMine.Lib.Repositories
             return entity;
         }
 
-        protected async Task<TEntity> UpdateEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : class
+        protected async Task<TEntity> UpdateEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : BaseEntity
         {
             TEntity entity = Mapper.Map<TModel, TEntity>(model);
+
+            return await UpdateEntity<TEntity>(entity, false, commit);
+        }
+
+        protected async Task<TEntity> UpdateEntity<TEntity>(TEntity entity, bool updateAuditFields, bool commit) where TEntity : BaseEntity
+        {
             dbContext.Update<TEntity>(entity);
 
-            if(commit)
+            if (updateAuditFields)
+                entity.UpdateAuditFields();
+
+            if (commit)
                 await dbContext.SaveChangesAsync();
 
             return entity;
         }
 
-        public async Task DeleteEntity<TEntity>(int entityId, bool commit = true) where TEntity : BaseEntity
+        protected async Task DeleteEntity<TEntity>(int entityId, bool commit = true) where TEntity : BaseEntity
         {
             var entity = await GetSingleAsync<TEntity>(entityId);
             await DeleteEntity(entity, commit);
         }
 
-        public async Task DeleteEntity<TEntity>(Expression<Func<TEntity, bool>> whereExpression, bool commit = true) where TEntity : BaseEntity
+        protected async Task DeleteEntity<TEntity>(Expression<Func<TEntity, bool>> whereExpression, bool commit = true) where TEntity : BaseEntity
         {
             var entity = await dbContext.Set<TEntity>().Where(whereExpression).Select(ent => ent).SingleAsync();
             await DeleteEntity(entity, commit);
         }
 
-        public async Task DeleteEntity<TEntity>(TEntity entity, bool commit = true) where TEntity : BaseEntity
+        protected async Task DeleteEntity<TEntity>(TEntity entity, bool commit = true) where TEntity : BaseEntity
         {
             entity.DeletedInd = true;
             entity.UpdateAuditFields();
@@ -110,7 +119,7 @@ namespace eMine.Lib.Repositories
 
         }
 
-        protected async Task<TEntity> GetSingleAsync<TEntity>(int id) where TEntity : BaseEntity
+        protected async Task<TEntity> GetSingleAsync<TEntity>(object id) where TEntity : BaseEntity
         {
             var entity = dbContext.Set<TEntity>().AsQueryable();
 

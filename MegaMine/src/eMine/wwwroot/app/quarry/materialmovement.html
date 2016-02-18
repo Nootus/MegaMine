@@ -13,7 +13,7 @@
             </form>
             <form flex="50" name="movementForm" novalidate>
                 <div layout="row">
-                    <nt-select flex="30" form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true" ng-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></nt-select>
+                    <nt-select flex="30" form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true" nt-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></nt-select>
                     <nt-input flex="30" form="movementForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></nt-input>
                 </div>
             </form>

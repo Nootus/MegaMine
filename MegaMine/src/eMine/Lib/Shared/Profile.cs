@@ -14,7 +14,9 @@ namespace eMine.Lib.Shared
     {
         public static async Task<ProfileModel> Get(string userName, AccountRepository accountRepository)
         {
-            ProfileModel profile = await accountRepository.UserProfileGet(userName);
+            int? companyId = Profile.Current?.CompanyId;
+
+            ProfileModel profile = await accountRepository.UserProfileGet(userName, companyId);
             //setting all the roles for admin roles
             if(profile.AdminRoles.Length > 0)
             {

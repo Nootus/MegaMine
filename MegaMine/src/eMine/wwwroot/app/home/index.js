@@ -43,9 +43,9 @@ function index($scope, $interval, profile, navigation, changePasswordDialog) {
     }
 
     function changeCompany() {
-        alert('changed');
         //getting profile for the changed company
-        //profile.get();
-        //navigation.gotoDashboard();
+        profile.get();
+        navigation.gotoDashboard();
+        return true;
     }
 }

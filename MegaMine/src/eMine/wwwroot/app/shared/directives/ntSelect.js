@@ -1,13 +1,13 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntSelect', ntSelect)
-ntSelect.$inject = ['$compile', 'constants'];
+ntSelect.$inject = ['$compile', '$timeout', 'constants'];
 
-function ntSelect($compile, constants) {
+function ntSelect($compile, $timeout, constants) {
     return {
         restrict: 'E',
         scope: {
             ngModel: "=",
-            ngChange: "=?",
+            ntChange: "&",
             optList: "=?",
             optValue: "@",
             optText: "@",
@@ -18,14 +18,15 @@ function ntSelect($compile, constants) {
             ngDisabled: '@',
             style: '@',
             errorMessages: '=?'
-    },
+        },
         link: link,
     };
 
     function getTemplate(controlName, optValue, optText) {
         return '<md-input-container class="ntselect {{errorCss}}" md-is-error="isFieldError()" style="{{style}}">'
                     + '<label>{{label}}</label>'
-                    + '<md-select name="' + controlName + '" ng-required="{{ngRequired}}" ng-disabled="isDisabled" ng-model="ngModel" ng-change="ngChange" aria-label="{{controlName}}">'
+                    + '<md-select name="' + controlName + '" ng-required="{{ngRequired}}" ng-disabled="isDisabled" ng-model="ngModel" '
+                    + 'ng-change="change()" ng-model-options="{ updateOn: \'default blur\', debounce: { default: 500, blur: 0 } }" aria-label="{{controlName}}">'
                     + '<md-option ng-value="opt.' + optValue + '" ng-repeat="opt in optList">{{ opt.' + optText + ' }}</md-option>'
                     + '</md-select>'
                     + '<div ng-messages="form[controlName].$error" ng-show="isFieldError()">'
@@ -74,6 +75,12 @@ function ntSelect($compile, constants) {
 
                 return isError;
             }
+        }
+
+        scope.change = function () {
+            $timeout(function () {
+                scope.ntChange();
+            });
         }
     }
 }
