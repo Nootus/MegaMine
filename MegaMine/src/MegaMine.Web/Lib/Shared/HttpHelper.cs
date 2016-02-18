@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Shared
+namespace MegaMine.Web.Lib.Shared
 {
     public static class HttpHelper
     {

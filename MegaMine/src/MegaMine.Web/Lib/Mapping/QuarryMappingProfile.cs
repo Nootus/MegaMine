@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using eMine.Lib.Entities.Quarry;
-using eMine.Models.Quarry;
+using MegaMine.Web.Lib.Entities.Quarry;
+using MegaMine.Web.Models.Quarry;
 
-namespace eMine.Lib.Mapping
+namespace MegaMine.Web.Lib.Mapping
 {
     public class QuarryMappingProfile : Profile
     {

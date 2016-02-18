@@ -1,12 +1,12 @@
-﻿using eMine.Lib.Entities;
-using eMine.Lib.Entities.Fleet;
-using eMine.Models;
+﻿using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Lib.Entities.Fleet;
+using MegaMine.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Repositories.Administration
+namespace MegaMine.Web.Lib.Repositories.Administration
 {
     public class AdminRepository : BaseRepository
     {

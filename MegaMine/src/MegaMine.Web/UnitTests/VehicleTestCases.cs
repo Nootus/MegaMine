@@ -2,14 +2,14 @@
 //using System.Collections.Generic;
 //using System.Linq;
 //using System.Threading.Tasks;
-//using eMine.Controllers;
-//using eMine.Models;
-//using eMine.Models.Fleet;
-//using eMine.Lib.Domain;
-//using eMine.Lib.Shared;
-//using eMine.Models.Shared;
+//using MegaMine.Web.Controllers;
+//using MegaMine.Web.Models;
+//using MegaMine.Web.Models.Fleet;
+//using MegaMine.Web.Lib.Domain;
+//using MegaMine.Web.Lib.Shared;
+//using MegaMine.Web.Models.Shared;
 
-//namespace eMine.UnitTests
+//namespace MegaMine.Web.UnitTests
 //{
 //    public class VehicleTestCases
 //    {

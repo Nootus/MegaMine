@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eMine.Lib.Entities.Quarry
+namespace MegaMine.Web.Lib.Entities.Quarry
 {
     [Table("MaterialMovement")]
     public class MaterialMovementEntity : BaseEntity

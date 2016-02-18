@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using eMine.Lib.Shared;
+using MegaMine.Web.Lib.Shared;
 
-namespace eMine.Controllers
+namespace MegaMine.Web.Controllers
 {
     public class HomeController : Controller
     {

@@ -1,14 +1,14 @@
-﻿using eMine.Lib.Middleware;
-using eMine.Lib.Repositories;
-using eMine.Models.Account;
-using eMine.Models.Shared;
+﻿using MegaMine.Web.Lib.Middleware;
+using MegaMine.Web.Lib.Repositories;
+using MegaMine.Web.Models.Account;
+using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Http;
 using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Shared
+namespace MegaMine.Web.Lib.Shared
 {
     public static class Profile
     {

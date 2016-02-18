@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Entities.Account
+namespace MegaMine.Web.Lib.Entities.Account
 {
     [Table("IdentityMenuPage")]
     public class IdentityMenuPageEntity

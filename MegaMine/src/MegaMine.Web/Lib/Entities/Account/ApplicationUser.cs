@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Entities.Account
+namespace MegaMine.Web.Lib.Entities.Account
 {
     public class ApplicationUser : IdentityUser
     {

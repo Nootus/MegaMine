@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using eMine.Lib.Entities;
-using eMine.Lib.Shared;
-using eMine.Models.Account;
+using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models.Account;
 using Microsoft.Data.Entity;
 using Microsoft.Data.Entity.Metadata;
 using System.Collections.Generic;
@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System;
 using System.Linq.Expressions;
 
-namespace eMine.Lib.Repositories
+namespace MegaMine.Web.Lib.Repositories
 {
     public class BaseRepository
     {

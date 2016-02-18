@@ -1,14 +1,14 @@
-﻿using eMine.Lib.Domain;
-using eMine.Lib.Shared;
-using eMine.Models.Quarry;
-using eMine.Models.Shared;
+﻿using MegaMine.Web.Lib.Domain;
+using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models.Quarry;
+using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Controllers
+namespace MegaMine.Web.Controllers
 {
     public class QuarryController
     {

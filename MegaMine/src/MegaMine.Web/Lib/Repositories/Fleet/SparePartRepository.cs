@@ -1,12 +1,12 @@
-﻿using eMine.Lib.Entities;
-using eMine.Lib.Entities.Fleet;
-using eMine.Models.Fleet;
+﻿using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Lib.Entities.Fleet;
+using MegaMine.Web.Models.Fleet;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 
-namespace eMine.Lib.Repositories.Fleet
+namespace MegaMine.Web.Lib.Repositories.Fleet
 {
     //public class SparePartRepository : BaseRepository
     //{

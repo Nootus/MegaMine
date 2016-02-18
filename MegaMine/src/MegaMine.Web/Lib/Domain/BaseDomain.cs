@@ -1,11 +1,11 @@
-﻿using eMine.Lib.Shared;
-using eMine.Models.Account;
+﻿using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Domain
+namespace MegaMine.Web.Lib.Domain
 {
     public class BaseDomain
     {

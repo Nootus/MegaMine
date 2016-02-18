@@ -1,12 +1,12 @@
-﻿using eMine.Lib.Shared;
-using eMine.Models;
-using eMine.Models.Account;
+﻿using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models;
+using MegaMine.Web.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Entities
+namespace MegaMine.Web.Lib.Entities
 {
     public class BaseEntity
     {

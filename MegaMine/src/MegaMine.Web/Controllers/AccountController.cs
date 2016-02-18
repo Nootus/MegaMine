@@ -1,15 +1,15 @@
 ﻿using Microsoft.AspNet.Mvc;
-using eMine.Models;
-using eMine.Models.Shared;
+using MegaMine.Web.Models;
+using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Identity;
-using eMine.Lib.Entities.Account;
+using MegaMine.Web.Lib.Entities.Account;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Http;
-using eMine.Lib.Domain;
-using eMine.Lib.Shared;
-using eMine.Models.Account;
+using MegaMine.Web.Lib.Domain;
+using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models.Account;
 
-namespace eMine.Controllers
+namespace MegaMine.Web.Controllers
 {
     public class AccountController : Controller
     {

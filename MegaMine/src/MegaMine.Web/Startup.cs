@@ -1,11 +1,10 @@
-﻿using eMine.Lib.Domain;
-using eMine.Lib.Entities.Account;
-using eMine.Lib.Filters;
-using eMine.Lib.Mapping;
-using eMine.Lib.Middleware;
-using eMine.Lib.Repositories;
-using eMine.Lib.Repositories.Fleet;
-using eMine.Lib.Shared;
+﻿using MegaMine.Web.Lib.Domain;
+using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Mapping;
+using MegaMine.Web.Lib.Middleware;
+using MegaMine.Web.Lib.Repositories;
+using MegaMine.Web.Lib.Repositories.Fleet;
+using MegaMine.Web.Lib.Shared;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
 using Microsoft.AspNet.Http;
@@ -16,7 +15,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 
-namespace eMine
+namespace MegaMine.Web
 {
     public class Startup
     {

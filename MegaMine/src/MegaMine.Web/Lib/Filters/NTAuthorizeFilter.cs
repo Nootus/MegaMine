@@ -1,13 +1,13 @@
 ﻿using Microsoft.AspNet.Mvc;
 using System;
 using System.Linq;
-using eMine.Lib.Shared;
+using MegaMine.Web.Lib.Shared;
 using System.Security.Claims;
-using eMine.Lib.Middleware;
-using eMine.Models.Shared;
+using MegaMine.Web.Lib.Middleware;
+using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc.Filters;
 
-namespace eMine.Lib.Filters
+namespace MegaMine.Web.Lib.Filters
 {
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class NTAuthorizeFilter : Attribute, IAuthorizationFilter

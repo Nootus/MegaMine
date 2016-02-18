@@ -1,14 +1,14 @@
-﻿using eMine.Lib.Repositories;
-using eMine.Lib.Repositories.Fleet;
-using eMine.Models;
-using eMine.Models.Fleet;
+﻿using MegaMine.Web.Lib.Repositories;
+using MegaMine.Web.Lib.Repositories.Fleet;
+using MegaMine.Web.Models;
+using MegaMine.Web.Models.Fleet;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eMine.Lib.Entities;
+using MegaMine.Web.Lib.Entities;
 
-namespace eMine.Lib.Domain
+namespace MegaMine.Web.Lib.Domain
 {
     public class FleetDomain
     {

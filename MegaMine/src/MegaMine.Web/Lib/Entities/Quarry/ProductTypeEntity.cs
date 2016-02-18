@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eMine.Lib.Entities.Quarry
+namespace MegaMine.Web.Lib.Entities.Quarry
 {
     [Table("ProductType")]
     public class ProductTypeEntity : BaseEntity

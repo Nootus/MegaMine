@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-using eMine.Lib.Entities;
-using eMine.Lib.Entities.Fleet;
-using eMine.Models;
+using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Lib.Entities.Fleet;
+using MegaMine.Web.Models;
 
-namespace eMine.Models.Fleet
+namespace MegaMine.Web.Models.Fleet
 {
     public class VehicleModel
     {

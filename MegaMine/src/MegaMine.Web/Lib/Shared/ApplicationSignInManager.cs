@@ -1,6 +1,6 @@
-﻿using eMine.Lib.Entities.Account;
-using eMine.Lib.Repositories;
-using eMine.Models.Shared;
+﻿using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Repositories;
+using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.Extensions.Logging;
@@ -10,7 +10,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Shared
+namespace MegaMine.Web.Lib.Shared
 {
     public class ApplicationSignInManager : SignInManager<ApplicationUser>
     {

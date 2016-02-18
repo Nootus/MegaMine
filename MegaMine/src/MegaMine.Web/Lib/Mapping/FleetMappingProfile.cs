@@ -1,8 +1,8 @@
 ﻿using AutoMapper;
-using eMine.Lib.Entities.Fleet;
-using eMine.Models.Fleet;
+using MegaMine.Web.Lib.Entities.Fleet;
+using MegaMine.Web.Models.Fleet;
 
-namespace eMine.Lib.Mapping
+namespace MegaMine.Web.Lib.Mapping
 {
     public class FleetMappingProfile : Profile
     {

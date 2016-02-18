@@ -1,10 +1,10 @@
-﻿using eMine.Lib.Entities.Account;
-using eMine.Lib.Middleware;
-using eMine.Lib.Repositories;
-using eMine.Lib.Shared;
-using eMine.Models;
-using eMine.Models.Account;
-using eMine.Models.Shared;
+﻿using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Middleware;
+using MegaMine.Web.Lib.Repositories;
+using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models;
+using MegaMine.Web.Models.Account;
+using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Domain
+namespace MegaMine.Web.Lib.Domain
 {
     public class AccountDomain : BaseDomain
     {

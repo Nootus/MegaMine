@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
-using eMine.Lib.Entities.Account;
-using eMine.Lib.Entities.Administration;
-using eMine.Lib.Middleware;
-using eMine.Models.Account;
+using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Entities.Administration;
+using MegaMine.Web.Lib.Middleware;
+using MegaMine.Web.Models.Account;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace eMine.Lib.Shared
+namespace MegaMine.Web.Lib.Shared
 {
     public static class ExtensionsHelper
     {

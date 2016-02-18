@@ -1,8 +1,8 @@
-﻿using eMine.Lib.Domain;
-using eMine.Lib.Entities.Account;
-using eMine.Lib.Shared;
-using eMine.Models.Account;
-using eMine.Models.Shared;
+﻿using MegaMine.Web.Lib.Domain;
+using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models.Account;
+using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Middleware
+namespace MegaMine.Web.Lib.Middleware
 {
     public class ProfileMiddleware
     {

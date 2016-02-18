@@ -1,4 +1,4 @@
-﻿using eMine.Lib.Repositories;
+﻿using MegaMine.Web.Lib.Repositories;
 using Microsoft.AspNet.Builder;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Middleware
+namespace MegaMine.Web.Lib.Middleware
 {
     public static class MiddlewareExtensions
     {

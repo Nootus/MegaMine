@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Entities
+namespace MegaMine.Web.Lib.Entities
 {
     public class ListItem<K, T>
     {

@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eMine.Lib.Entities.Account
+namespace MegaMine.Web.Lib.Entities.Account
 {
     [Table("IdentityClaim")]
     public class IdentityClaimEntity

@@ -1,10 +1,10 @@
-﻿using eMine.Lib.Entities;
+﻿using MegaMine.Web.Lib.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Models.Quarry
+namespace MegaMine.Web.Models.Quarry
 {
     public class ProductSummaryViewModel
     {

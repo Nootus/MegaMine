@@ -1,10 +1,10 @@
-﻿using eMine.Models.Administration;
+﻿using MegaMine.Web.Models.Administration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Models.Account
+namespace MegaMine.Web.Models.Account
 {
     public class ProfileModel
     {

@@ -1,11 +1,11 @@
-﻿using eMine.Lib.Entities.Account;
-using eMine.Lib.Entities.Administration;
-using eMine.Lib.Entities.Fleet;
-using eMine.Lib.Entities.Quarry;
+﻿using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Entities.Administration;
+using MegaMine.Web.Lib.Entities.Fleet;
+using MegaMine.Web.Lib.Entities.Quarry;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
-namespace eMine.Lib.Repositories
+namespace MegaMine.Web.Lib.Repositories
 {
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {

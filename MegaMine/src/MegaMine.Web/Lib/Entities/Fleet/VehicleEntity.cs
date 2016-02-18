@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eMine.Lib.Entities.Fleet
+namespace MegaMine.Web.Lib.Entities.Fleet
 {
     [Table("Vehicle")]
     public class VehicleEntity : BaseEntity

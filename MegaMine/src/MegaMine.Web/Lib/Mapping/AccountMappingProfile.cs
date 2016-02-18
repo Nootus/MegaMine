@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
-using eMine.Lib.Entities.Account;
-using eMine.Lib.Entities.Administration;
-using eMine.Models.Account;
-using eMine.Models.Administration;
+using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Entities.Administration;
+using MegaMine.Web.Models.Account;
+using MegaMine.Web.Models.Administration;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace eMine.Lib.Mapping
+namespace MegaMine.Web.Lib.Mapping
 {
     public class AccountMappingProfile : Profile
     {

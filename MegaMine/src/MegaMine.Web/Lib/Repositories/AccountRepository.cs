@@ -1,17 +1,17 @@
-﻿using eMine.Lib.Entities;
-using eMine.Lib.Entities.Account;
-using eMine.Lib.Shared;
-using eMine.Models.Account;
-using eMine.Models.Administration;
+﻿using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models.Account;
+using MegaMine.Web.Models.Administration;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.Data.Entity;
 using AutoMapper;
-using eMine.Lib.Entities.Administration;
+using MegaMine.Web.Lib.Entities.Administration;
 using Microsoft.AspNet.Identity.EntityFramework;
 
-namespace eMine.Lib.Repositories
+namespace MegaMine.Web.Lib.Repositories
 {
     public class AccountRepository : BaseRepository
     {

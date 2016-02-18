@@ -1,11 +1,11 @@
-﻿using eMine.Lib.Repositories;
-using eMine.Models.Quarry;
+﻿using MegaMine.Web.Lib.Repositories;
+using MegaMine.Web.Models.Quarry;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Domain
+namespace MegaMine.Web.Lib.Domain
 {
     public class QuarryDomain
     {

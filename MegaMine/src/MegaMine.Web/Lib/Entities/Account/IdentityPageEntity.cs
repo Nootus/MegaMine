@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace eMine.Lib.Entities.Account
+namespace MegaMine.Web.Lib.Entities.Account
 {
     [Table("IdentityPage")]
     public class IdentityPageEntity

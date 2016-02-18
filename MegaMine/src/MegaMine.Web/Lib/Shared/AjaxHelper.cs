@@ -1,11 +1,11 @@
-﻿using eMine.Models;
-using eMine.Models.Shared;
+﻿using MegaMine.Web.Models;
+using MegaMine.Web.Models.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Shared
+namespace MegaMine.Web.Lib.Shared
 {
     public static class AjaxHelper
     {

@@ -1,9 +1,9 @@
-﻿using eMine.Lib.Entities.Account;
+﻿using MegaMine.Web.Lib.Entities.Account;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace eMine.Lib.Entities.Administration
+namespace MegaMine.Web.Lib.Entities.Administration
 {
     [Table("Company")]
     public class CompanyEntity : BaseEntity

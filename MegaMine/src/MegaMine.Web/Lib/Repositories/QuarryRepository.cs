@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
-using eMine.Lib.Entities;
-using eMine.Lib.Entities.Quarry;
-using eMine.Models.Quarry;
+using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Lib.Entities.Quarry;
+using MegaMine.Web.Models.Quarry;
 using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Repositories
+namespace MegaMine.Web.Lib.Repositories
 {
     public class QuarryRepository : BaseRepository
     {

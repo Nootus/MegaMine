@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Models.Administration
+namespace MegaMine.Web.Models.Administration
 {
     public class CompanyModel 
     {

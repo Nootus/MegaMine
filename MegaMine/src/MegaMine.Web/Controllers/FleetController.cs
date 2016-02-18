@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Mvc;
-using eMine.Models;
-using eMine.Lib.Domain;
-using eMine.Lib.Shared;
-using eMine.Models.Fleet;
-using eMine.Lib.Entities;
-using eMine.Models.Shared;
-using eMine.Lib.Filters;
+using MegaMine.Web.Models;
+using MegaMine.Web.Lib.Domain;
+using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models.Fleet;
+using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Models.Shared;
+using MegaMine.Web.Lib.Filters;
 
-namespace eMine.Controllers
+namespace MegaMine.Web.Controllers
 {
     public class FleetController : Controller
     {

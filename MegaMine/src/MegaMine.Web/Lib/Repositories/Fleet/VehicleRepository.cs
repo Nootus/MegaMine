@@ -2,16 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using eMine.Models.Fleet;
-using eMine.Lib.Entities.Fleet;
-using eMine.Lib.Entities;
-using eMine.Lib.Shared;
+using MegaMine.Web.Models.Fleet;
+using MegaMine.Web.Lib.Entities.Fleet;
+using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Lib.Shared;
 using System.Data.SqlTypes;
 using Microsoft.Data.Entity;
 using AutoMapper;
 using Microsoft.Data.Entity.Metadata;
 
-namespace eMine.Lib.Repositories.Fleet
+namespace MegaMine.Web.Lib.Repositories.Fleet
 {
     public class VehicleRepository : BaseRepository
     {

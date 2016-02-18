@@ -1,14 +1,14 @@
-﻿using eMine.Lib.Entities;
-using eMine.Lib.Entities.Account;
-using eMine.Lib.Entities.Administration;
-using eMine.Lib.Repositories;
-using eMine.Models.Account;
+﻿using MegaMine.Web.Lib.Entities;
+using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Entities.Administration;
+using MegaMine.Web.Lib.Repositories;
+using MegaMine.Web.Models.Account;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Lib.Middleware
+namespace MegaMine.Web.Lib.Middleware
 {
     public class PageService
     {

@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 
-namespace eMine.Lib.Mapping
+namespace MegaMine.Web.Lib.Mapping
 {
     public class MappingConfiguration
     {

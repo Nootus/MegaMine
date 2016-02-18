@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace eMine.Models.Shared
+namespace MegaMine.Web.Models.Shared
 {
     public enum AjaxResult
     {
