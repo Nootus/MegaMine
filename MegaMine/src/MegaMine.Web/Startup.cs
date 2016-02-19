@@ -1,5 +1,6 @@
 ﻿using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Filters;
 using MegaMine.Web.Lib.Mapping;
 using MegaMine.Web.Lib.Middleware;
 using MegaMine.Web.Lib.Repositories;
@@ -54,7 +55,7 @@ namespace MegaMine.Web
 
             services.AddMvc()
                 .AddMvcOptions(options => {
-                    //options.Filters.Add(new NTAuthorizeFilter());
+                    options.Filters.Add(new NTAuthorizeFilter());
                 })
                 .AddJsonOptions(options =>
                 {
