@@ -9,11 +9,8 @@ namespace MegaMine.Web.Lib.Domain
 {
     public class BaseDomain
     {
-        protected ProfileModel profile;
-
         public BaseDomain()
         {
-            profile = Profile.Current;
         }
     }
 }

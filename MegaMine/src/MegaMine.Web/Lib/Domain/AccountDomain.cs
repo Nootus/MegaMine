@@ -1,4 +1,5 @@
-﻿using MegaMine.Web.Lib.Entities.Account;
+﻿using MegaMine.Web.Lib.Context;
+using MegaMine.Web.Lib.Entities.Account;
 using MegaMine.Web.Lib.Middleware;
 using MegaMine.Web.Lib.Repositories;
 using MegaMine.Web.Lib.Shared;
@@ -30,8 +31,6 @@ namespace MegaMine.Web.Lib.Domain
 
         public async Task<ProfileModel> Validate(string userName, string password)
         {
-            //await userManager.CreateAsync(new ApplicationUser() { UserName = "megamine@nootus.com" }, "Nootus@123");
-
             var result = await signInManager.PasswordSignInAsync(userName, password, false, false);
 
             if (!result.Succeeded)
@@ -39,12 +38,14 @@ namespace MegaMine.Web.Lib.Domain
                 throw new NTException(Messages.Account.InvalidUsernamePassword);
             }
 
-            return Profile.Current;
+            var profile = await Profile.Get(userName, accountRepository);
+
+            return profile;
         }
 
         public async Task<ProfileModel> ProfileGet()
         {
-            var profile = await Profile.Get(Profile.Current.UserName, accountRepository);
+            var profile = await Profile.Get(NTContext.Profile.UserName, accountRepository);
 
             return profile;
         }
@@ -56,7 +57,7 @@ namespace MegaMine.Web.Lib.Domain
 
         public async Task ChangePassword(ChangePasswordModel model)
         {
-            ApplicationUser user = await userManager.FindByIdAsync(profile.UserId);
+            ApplicationUser user = await userManager.FindByIdAsync(NTContext.Profile.UserId);
             IdentityResult result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
 
             if (!result.Succeeded)

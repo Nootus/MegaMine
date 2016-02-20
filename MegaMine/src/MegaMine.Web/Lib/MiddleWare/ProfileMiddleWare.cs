@@ -1,4 +1,5 @@
-﻿using MegaMine.Web.Lib.Domain;
+﻿using MegaMine.Web.Lib.Context;
+using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Entities.Account;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Account;
@@ -26,7 +27,7 @@ namespace MegaMine.Web.Lib.Middleware
         {
             if (context.User.Identity.IsAuthenticated)
             {
-                Profile.Set(context);
+                SetNTContext(context);
             }
             //automatically logging in in the dev mode
             else if (SiteSettings.IsEnvironment(Constants.DevEnvironment))
@@ -39,6 +40,24 @@ namespace MegaMine.Web.Lib.Middleware
 
         }
 
+        public void SetNTContext(HttpContext context)
+        {
+            var claims = context.User.Claims;
+
+            string companyId = context.Request.Headers[Constants.HeaderCompanyId];
+            companyId = companyId ?? context.User.Claims.Where(c => c.Type == NTClaimTypes.CompanyId).Select(c => c.Value).FirstOrDefault();
+
+            NTContextProfileModel model = new NTContextProfileModel()
+            {
+                UserId = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
+                UserName = context.User.Identity.Name,
+                FirstName = claims.First(c => c.Type == NTClaimTypes.FirstName).Value,
+                LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value,
+                CompanyId = Convert.ToInt32(companyId ?? "0")
+            };
+
+            NTContext.SetProfile(model);
+        }
     }
 }
 

@@ -9,17 +9,18 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using System.Linq.Expressions;
+using MegaMine.Web.Lib.Context;
 
 namespace MegaMine.Web.Lib.Repositories
 {
     public class BaseRepository
     {
         protected ApplicationDbContext dbContext;
-        protected ProfileModel profile;
+        protected NTContextProfileModel profile;
 
         public BaseRepository()
         {
-            profile = Shared.Profile.Current;
+            profile = NTContext.Profile;
         }
 
         protected async Task<TEntity> SaveEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : BaseEntity

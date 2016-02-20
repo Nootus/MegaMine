@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width" />
     <base href="/" target="_blank">
     <title>Mega Mine</title>
-    <environment names="Staging,Production">
+    <environment names="Production">
         <link href="css/app.min.css" rel="stylesheet" asp-append-version="true" />
     </environment>
-    <environment names="Development">
+    <environment names="Development,Staging">
         <link href="content/ui-grid/ui-grid.css" rel="stylesheet" />
         <link href="content/angular-material.css" rel="stylesheet" />
 
@@ -26,12 +26,12 @@
         window.environmentName = '@ViewBag.EnvironmentName';
     </script>
 
-    <environment names="Staging,Production">
+    <environment names="Production">
 
         <script src="js/scripts.min.js" asp-append-version="true"></script>
         <script src="js/app.min.js" asp-append-version="true"></script>
     </environment>
-    <environment names="Development">
+    <environment names="Development,Staging">
         <script src="scripts/jquery.js"></script>
 
         <script src="scripts/angular/angular.js"></script>

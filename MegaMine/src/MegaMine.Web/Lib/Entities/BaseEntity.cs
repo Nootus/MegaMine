@@ -1,4 +1,5 @@
-﻿using MegaMine.Web.Lib.Shared;
+﻿using MegaMine.Web.Lib.Context;
+using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models;
 using MegaMine.Web.Models.Account;
 using System;
@@ -19,13 +20,13 @@ namespace MegaMine.Web.Lib.Entities
 
         public BaseEntity()
         {
-            var profile = Profile.Current;
+            var contextProfileModel = NTContext.Profile;
 
-            if(profile != null)
+            if (contextProfileModel != null)
             {
-                CreatedUserId = profile.UserName;
-                LastModifiedUserId = profile.UserName;
-                CompanyId = profile.CompanyId;
+                CreatedUserId = contextProfileModel.UserName;
+                LastModifiedUserId = contextProfileModel.UserName;
+                CompanyId = contextProfileModel.CompanyId;
             }
             CreatedDate = DateTime.UtcNow;
             LastModifiedDate = DateTime.UtcNow;
@@ -34,10 +35,10 @@ namespace MegaMine.Web.Lib.Entities
 
         public virtual void UpdateAuditFields()
         {
-            var profile = Profile.Current;
+            var contextProfileModel = NTContext.Profile;
 
             LastModifiedDate = DateTime.UtcNow;
-            LastModifiedUserId = profile.UserName;  //TODO: Change this get the current user
+            LastModifiedUserId = contextProfileModel.UserName;  //TODO: Change this get the current user
         }
     }
 }

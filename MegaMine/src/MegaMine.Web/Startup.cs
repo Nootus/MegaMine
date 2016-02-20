@@ -132,10 +132,6 @@ namespace MegaMine.Web
                 //    defaults: new { controller = "Home", action = "Index" });
 
             });
-
-
-            //storing the HttpContextAccessor
-            HttpHelper.Configure(app.ApplicationServices.GetRequiredService<IHttpContextAccessor>());
         }
     }
 }
