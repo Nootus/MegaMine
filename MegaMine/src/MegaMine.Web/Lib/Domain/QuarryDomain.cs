@@ -1,5 +1,5 @@
 ﻿using MegaMine.Web.Lib.Repositories;
-using MegaMine.Web.Models.Quarry;
+using MegaMine.Models.Quarry;
 using System;
 using System.Collections.Generic;
 using System.Linq;

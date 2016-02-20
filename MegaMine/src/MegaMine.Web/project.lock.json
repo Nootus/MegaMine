@@ -112,6 +112,14 @@
           "lib/net45/System.Interactive.Async.dll": {}
         }
       },
+      "MegaMine.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1"
+      },
+      "MegaMine.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1"
+      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -1896,6 +1904,14 @@
         "runtime": {
           "lib/net45/System.Interactive.Async.dll": {}
         }
+      },
+      "MegaMine.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1"
+      },
+      "MegaMine.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1"
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
@@ -3685,6 +3701,14 @@
           "lib/net45/System.Interactive.Async.dll": {}
         }
       },
+      "MegaMine.Core/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1"
+      },
+      "MegaMine.Models/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1"
+      },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -5365,6 +5389,14 @@
     }
   },
   "libraries": {
+    "MegaMine.Core/1.0.0": {
+      "type": "project",
+      "path": "../MegaMine.Core/project.json"
+    },
+    "MegaMine.Models/1.0.0": {
+      "type": "project",
+      "path": "../MegaMine.Models/project.json"
+    },
     "AutoMapper/4.0.4": {
       "type": "package",
       "sha512": "7EJaXSD7mI/T1nwlAgsUcxiuSW4zAY8cQy52/onmc8+lM4T9XqVlDqvFuY9pzcNxI1c2X3GD47G8qDO0hcip1g==",
@@ -7397,7 +7429,9 @@
       "EntityFramework.MicrosoftSqlServer >= 7.0.0-rc1-final",
       "AutoMapper >= 4.0.4",
       "Microsoft.AspNet.Diagnostics >= 1.0.0-rc1-final",
-      "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-rc1-final"
+      "Microsoft.AspNet.Diagnostics.Entity >= 7.0.0-rc1-final",
+      "MegaMine.Models >= 1.0.0-*",
+      "MegaMine.Core >= 1.0.0-*"
     ],
     "DNX,Version=v4.5.1": []
   }

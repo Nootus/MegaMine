@@ -1,4 +1,5 @@
-﻿using MegaMine.Web.Lib.Entities;
+﻿using MegaMine.Models.Common;
+using MegaMine.Web.Lib.Entities;
 using MegaMine.Web.Lib.Entities.Account;
 using MegaMine.Web.Lib.Entities.Administration;
 using MegaMine.Web.Lib.Repositories;

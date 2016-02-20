@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Threading.Tasks;
 
-namespace MegaMine.Web.Lib.Context
+namespace MegaMine.Common.Context
 {
     public static class NTContext
     {

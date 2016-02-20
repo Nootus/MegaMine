@@ -10,6 +10,7 @@ using Microsoft.Data.Entity;
 using AutoMapper;
 using MegaMine.Web.Lib.Entities.Administration;
 using Microsoft.AspNet.Identity.EntityFramework;
+using MegaMine.Models.Common;
 
 namespace MegaMine.Web.Lib.Repositories
 {

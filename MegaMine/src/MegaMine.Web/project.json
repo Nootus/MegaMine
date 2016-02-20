@@ -12,7 +12,9 @@
     "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
     "AutoMapper": "4.0.4",
     "Microsoft.AspNet.Diagnostics": "1.0.0-rc1-final",
-    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final"
+    "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
+    "MegaMine.Models": "1.0.0-*",
+    "MegaMine.Core": "1.0.0-*"
   },
 
   "commands": {

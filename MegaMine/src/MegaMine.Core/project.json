@@ -1,0 +1,12 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "MegaMine.Common Class Library",
+  "authors": [ "prasanna" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net451": { }
+  }
+}

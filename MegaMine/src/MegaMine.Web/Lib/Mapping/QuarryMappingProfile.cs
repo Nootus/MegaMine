@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MegaMine.Web.Lib.Entities.Quarry;
-using MegaMine.Web.Models.Quarry;
+using MegaMine.Models.Quarry;
 
 namespace MegaMine.Web.Lib.Mapping
 {

@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using MegaMine.Web.Lib.Entities;
 using MegaMine.Web.Lib.Entities.Fleet;
 using MegaMine.Web.Models;
+using MegaMine.Models.Common;
 
 namespace MegaMine.Web.Models.Fleet
 {

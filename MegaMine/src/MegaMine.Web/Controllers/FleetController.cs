@@ -10,6 +10,7 @@ using MegaMine.Web.Models.Fleet;
 using MegaMine.Web.Lib.Entities;
 using MegaMine.Web.Models.Shared;
 using MegaMine.Web.Lib.Filters;
+using MegaMine.Models.Common;
 
 namespace MegaMine.Web.Controllers
 {

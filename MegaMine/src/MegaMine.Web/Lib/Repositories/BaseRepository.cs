@@ -9,7 +9,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System;
 using System.Linq.Expressions;
-using MegaMine.Web.Lib.Context;
+using MegaMine.Common.Context;
+using MegaMine.Models.Common;
 
 namespace MegaMine.Web.Lib.Repositories
 {

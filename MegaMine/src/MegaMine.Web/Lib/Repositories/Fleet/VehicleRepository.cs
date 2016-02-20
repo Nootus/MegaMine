@@ -10,6 +10,7 @@ using System.Data.SqlTypes;
 using Microsoft.Data.Entity;
 using AutoMapper;
 using Microsoft.Data.Entity.Metadata;
+using MegaMine.Models.Common;
 
 namespace MegaMine.Web.Lib.Repositories.Fleet
 {

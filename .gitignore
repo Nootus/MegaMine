@@ -5,10 +5,9 @@
 /gitpush.bat
 /MegaMine/src/MegaMineDB/obj
 /MegaMine/src/MegaMineDB/MegaMineDB.dbmdl
-/MegaMine/src/eMine/Properties/PublishProfiles
-/MegaMine/src/eMine/node_modules
-/MegaMine/src/eMine/wwwroot/js
-/MegaMine/src/eMine/wwwroot/css
-/MegaMine/src/eMine/appsettings.Production.json
-/MegaMine/src/eMine/appsettings.Staging.json
-/MegaMine/src/eMine/Properties/launchSettings.json
+/MegaMine/src/MegaMine.Web/Properties/PublishProfiles
+/MegaMine/src/MegaMine.Web/node_modules
+/MegaMine/src/MegaMine.Web/wwwroot/js
+/MegaMine/src/MegaMine.Web/wwwroot/css
+/MegaMine/src/MegaMine.Web/appsettings.Production.json
+/MegaMine/src/MegaMine.Web/appsettings.Staging.json

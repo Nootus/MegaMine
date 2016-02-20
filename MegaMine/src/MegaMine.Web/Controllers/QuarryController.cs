@@ -1,6 +1,6 @@
 ﻿using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Shared;
-using MegaMine.Web.Models.Quarry;
+using MegaMine.Models.Quarry;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;
 using System;
