@@ -1,4 +1,4 @@
-﻿using MegaMine.Common.Context;
+﻿using MegaMine.Core.Context;
 using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Entities.Account;
 using MegaMine.Web.Lib.Shared;

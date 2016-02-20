@@ -1,12 +1,19 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "MegaMine.Common Class Library",
   "authors": [ "prasanna" ],
   "tags": [ "" ],
   "projectUrl": "",
   "licenseUrl": "",
-
   "frameworks": {
-    "net451": { }
+    "net451": {
+      "dependencies": {
+        "AutoMapper": "4.0.4",
+        "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final"
+      }
+    }
+  },
+  "dependencies": {
+    "System.Runtime": "4.0.21-beta-23516"
   }
 }

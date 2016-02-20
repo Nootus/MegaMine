@@ -1,4 +1,4 @@
-﻿using MegaMine.Common.Context;
+﻿using MegaMine.Core.Context;
 using MegaMine.Web.Lib.Middleware;
 using MegaMine.Web.Lib.Repositories;
 using MegaMine.Web.Models.Account;

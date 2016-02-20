@@ -10,11 +10,11 @@ using Microsoft.Data.Entity;
 using AutoMapper;
 using MegaMine.Web.Lib.Entities.Administration;
 using Microsoft.AspNet.Identity.EntityFramework;
-using MegaMine.Models.Common;
+using MegaMine.Core.Models;
 
 namespace MegaMine.Web.Lib.Repositories
 {
-    public class AccountRepository : BaseRepository
+    public class AccountRepository : BaseRepository<ApplicationDbContext>
     {
         public AccountRepository(ApplicationDbContext dbContext)
         {

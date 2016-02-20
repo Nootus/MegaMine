@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaMine.Web.Lib.Entities;
-using MegaMine.Models.Common;
+using MegaMine.Core.Models;
 
 namespace MegaMine.Web.Lib.Domain
 {

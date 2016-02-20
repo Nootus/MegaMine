@@ -1,4 +1,5 @@
-﻿using MegaMine.Web.Lib.Entities.Account;
+﻿using MegaMine.Core.Entities;
+using MegaMine.Web.Lib.Entities.Account;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

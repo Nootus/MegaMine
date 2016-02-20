@@ -1,4 +1,4 @@
-﻿using MegaMine.Models.Common;
+﻿using MegaMine.Core.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

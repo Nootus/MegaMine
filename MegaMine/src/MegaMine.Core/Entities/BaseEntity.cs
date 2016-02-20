@@ -1,10 +1,10 @@
-﻿using MegaMine.Common.Context;
+﻿using MegaMine.Core.Context;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MegaMine.Web.Lib.Entities
+namespace MegaMine.Core.Entities
 {
     public class BaseEntity
     {

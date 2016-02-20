@@ -10,11 +10,11 @@ using System.Data.SqlTypes;
 using Microsoft.Data.Entity;
 using AutoMapper;
 using Microsoft.Data.Entity.Metadata;
-using MegaMine.Models.Common;
+using MegaMine.Core.Models;
 
 namespace MegaMine.Web.Lib.Repositories.Fleet
 {
-    public class VehicleRepository : BaseRepository
+    public class VehicleRepository : BaseRepository<ApplicationDbContext>
     {
         public VehicleRepository(ApplicationDbContext dbContext)
         {

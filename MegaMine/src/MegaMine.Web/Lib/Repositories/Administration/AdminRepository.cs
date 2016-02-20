@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Web.Lib.Repositories.Administration
 {
-    public class AdminRepository : BaseRepository
+    public class AdminRepository : BaseRepository<ApplicationDbContext>
     {
     }
 }

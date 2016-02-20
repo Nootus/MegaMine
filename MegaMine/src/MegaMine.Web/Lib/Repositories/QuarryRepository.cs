@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MegaMine.Models.Common;
+using MegaMine.Core.Models;
 using MegaMine.Web.Lib.Entities;
 using MegaMine.Web.Lib.Entities.Quarry;
 using MegaMine.Models.Quarry;
@@ -14,7 +14,7 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Web.Lib.Repositories
 {
-    public class QuarryRepository : BaseRepository
+    public class QuarryRepository : BaseRepository<ApplicationDbContext>
     {
         public QuarryRepository(ApplicationDbContext dbContext)
         {
