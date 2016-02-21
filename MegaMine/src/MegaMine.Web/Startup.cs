@@ -15,6 +15,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using QuarryStartup = MegaMine.Modules.Quarry.Startup;
 
 namespace MegaMine.Web
 {
@@ -48,6 +49,8 @@ namespace MegaMine.Web
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
             });
 
+            QuarryStartup.ConfigureServices(services, Configuration);
+
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
@@ -71,9 +74,6 @@ namespace MegaMine.Web
             services.AddTransient<VehicleRepository>();
             //services.AddTransient<SparePartRepository>();
 
-            //Quarry
-            services.AddTransient<QuarryDomain>();
-            services.AddTransient<QuarryRepository>();
 
             //Accout
             services.AddTransient<AccountDomain>();

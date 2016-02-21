@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using MegaMine.Modules.Quarry.Mapping;
 
 namespace MegaMine.Web.Lib.Mapping
 {

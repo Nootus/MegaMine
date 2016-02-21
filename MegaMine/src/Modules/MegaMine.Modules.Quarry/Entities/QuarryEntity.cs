@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace MegaMine.Web.Lib.Entities.Quarry
+namespace MegaMine.Modules.Quarry.Entities
 {
     [Table("Quarry")]
     public class QuarryEntity : BaseEntity

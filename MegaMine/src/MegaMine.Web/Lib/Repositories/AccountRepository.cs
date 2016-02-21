@@ -11,6 +11,7 @@ using AutoMapper;
 using MegaMine.Web.Lib.Entities.Administration;
 using Microsoft.AspNet.Identity.EntityFramework;
 using MegaMine.Core.Models;
+using MegaMine.Core.Repositories;
 
 namespace MegaMine.Web.Lib.Repositories
 {

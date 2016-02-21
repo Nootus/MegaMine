@@ -10,7 +10,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
-namespace MegaMine.Web.Lib.Repositories
+namespace MegaMine.Core.Repositories
 {
     public class BaseRepository<T> where T: DbContext
     {

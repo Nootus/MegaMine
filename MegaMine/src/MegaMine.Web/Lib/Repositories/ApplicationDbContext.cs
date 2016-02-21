@@ -1,7 +1,7 @@
 ﻿using MegaMine.Web.Lib.Entities.Account;
 using MegaMine.Web.Lib.Entities.Administration;
 using MegaMine.Web.Lib.Entities.Fleet;
-using MegaMine.Web.Lib.Entities.Quarry;
+using MegaMine.Modules.Quarry.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
@@ -38,16 +38,6 @@ namespace MegaMine.Web.Lib.Repositories
         public DbSet<VehicleDriverAssignmentEntity> VehicleDriverAssignments{ get; set; }
         public DbSet<SparePartManufacturerEntity> SparePartManufacturers { get; set; }
         public DbSet<VehicleTripEntity> VehicleTrips{ get; set; }
-
-        //Quarry
-        public DbSet<MaterialColourEntity> MaterialColours { get; set; }
-        public DbSet<ProductTypeEntity> ProductTypes { get; set; }
-        public DbSet<QuarryEntity> Quarries { get; set; }
-        public DbSet<QuarryMaterialColourEntity> QuarryMaterialColours { get; set; }
-        public DbSet<YardEntity> Yards { get; set; }
-        public DbSet<MaterialEntity> Materials { get; set; }
-        public DbSet<MaterialMovementEntity> MaterialMovements { get; set; }
-        public DbSet<ProductSummaryEntity> ProductSummary { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

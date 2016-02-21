@@ -11,6 +11,7 @@ using Microsoft.Data.Entity;
 using AutoMapper;
 using Microsoft.Data.Entity.Metadata;
 using MegaMine.Core.Models;
+using MegaMine.Core.Repositories;
 
 namespace MegaMine.Web.Lib.Repositories.Fleet
 {

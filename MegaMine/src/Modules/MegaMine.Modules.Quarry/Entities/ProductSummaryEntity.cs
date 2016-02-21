@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace MegaMine.Web.Lib.Entities.Quarry
+namespace MegaMine.Modules.Quarry.Entities
 {
     public class ProductSummaryEntity
     {

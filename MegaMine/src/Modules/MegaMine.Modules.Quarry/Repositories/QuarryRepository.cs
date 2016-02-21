@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using MegaMine.Core.Models;
-using MegaMine.Web.Lib.Entities;
-using MegaMine.Web.Lib.Entities.Quarry;
+using MegaMine.Modules.Quarry.Entities;
 using MegaMine.Models.Quarry;
 using Microsoft.Data.Entity;
 using System;
@@ -11,12 +10,13 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using MegaMine.Core.Repositories;
 
-namespace MegaMine.Web.Lib.Repositories
+namespace MegaMine.Modules.Quarry.Repositories
 {
-    public class QuarryRepository : BaseRepository<ApplicationDbContext>
+    public class QuarryRepository : BaseRepository<QuarryDbContext>
     {
-        public QuarryRepository(ApplicationDbContext dbContext)
+        public QuarryRepository(QuarryDbContext dbContext)
         {
             this.dbContext = dbContext;
         }

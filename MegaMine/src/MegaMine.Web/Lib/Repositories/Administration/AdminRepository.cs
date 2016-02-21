@@ -1,4 +1,5 @@
-﻿using MegaMine.Web.Lib.Entities;
+﻿using MegaMine.Core.Repositories;
+using MegaMine.Web.Lib.Entities;
 using MegaMine.Web.Lib.Entities.Fleet;
 using MegaMine.Web.Models;
 using System;
