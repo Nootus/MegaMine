@@ -1,4 +1,7 @@
-﻿using MegaMine.Web.Lib.Domain;
+﻿using AutoMapper;
+using MegaMine.Core;
+using MegaMine.Modules.Quarry;
+using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Entities.Account;
 using MegaMine.Web.Lib.Filters;
 using MegaMine.Web.Lib.Mapping;
@@ -8,20 +11,20 @@ using MegaMine.Web.Lib.Repositories.Fleet;
 using MegaMine.Web.Lib.Shared;
 using Microsoft.AspNet.Builder;
 using Microsoft.AspNet.Hosting;
-using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Identity;
 using Microsoft.Data.Entity;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
-using QuarryStartup = MegaMine.Modules.Quarry.Startup;
 
 namespace MegaMine.Web
 {
     public class Startup
     {
         public IConfigurationRoot Configuration { get; set; }
+
+        private IModuleStartup[] modules = { new QuarryStartup() };
 
         public Startup(IHostingEnvironment env)
         {
@@ -38,6 +41,10 @@ namespace MegaMine.Web
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+
+            //initializing all modules
+            foreach (var module in modules)
+                module.Initialize(Configuration);
         }
 
         public void ConfigureServices(IServiceCollection services)
@@ -49,12 +56,15 @@ namespace MegaMine.Web
                 options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
             });
 
-            QuarryStartup.ConfigureServices(services, Configuration);
-
             services.AddIdentity<ApplicationUser, ApplicationRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             services.AddScoped<SignInManager<ApplicationUser>, ApplicationSignInManager>();
+
+            //configuring services for all modules
+            foreach (var module in modules)
+                module.ConfigureServices(services);
+
 
             services.AddMvc()
                 .AddMvcOptions(options => {
@@ -69,6 +79,9 @@ namespace MegaMine.Web
 
 
             //Dependency Injection
+            foreach (var module in modules)
+                module.ConfigureDependencyInjection(services);
+
             //Fleet
             services.AddTransient<FleetDomain>();
             services.AddTransient<VehicleRepository>();
@@ -80,7 +93,13 @@ namespace MegaMine.Web
             services.AddTransient<AccountRepository>();
 
             //Automapper configurations
-            MappingConfiguration.Configure();
+            Mapper.Initialize(x =>
+            {
+                foreach (var module in modules)
+                    module.ConfigureMapping(x);
+                x.AddProfile<FleetMappingProfile>();
+                x.AddProfile<AccountMappingProfile>();
+            });
 
             //caching page claims
             services.CachePageClaimsRoles();

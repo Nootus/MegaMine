@@ -32,25 +32,6 @@ namespace MegaMine.Web.Lib.Shared
         }
         #endregion
 
-        #region Quarry Messages
-        public static class Quarry
-        {
-            public const string MaterialColourSaveSuccess = "Colour Saved Successfully";
-            public const string MaterialColourDeleteSuccess = "Colour Deleted Successfully";
-            public const string ProductTypeSaveSuccess = "Product Type Saved Successfully";
-            public const string ProductTypeDeleteSuccess = "Product Type Deleted Successfully";
-            public const string QuarrySaveSuccess = "Quarry Saved Successfully";
-            public const string QuarryDeleteSuccess = "Quarry Deleted Successfully";
-            public const string YardSaveSuccess = "Yard Saved Successfully";
-            public const string YardDeleteSuccess = "Yard Deleted Successfully";
-            public const string MaterialSaveSuccess = "Material Successfully Added";
-            public const string MaterialDeleteSuccess = "Material Deleted Successfully";
-            public const string MaterialUpdateSuccess = "Material Saved Successfully";
-            public const string MaterialMovementSuccess = "Material Movement Successfully";
-
-        }
-        #endregion
-
         public static class Account
         {
             public const string LogoutSuccess = "Successfully logged out";

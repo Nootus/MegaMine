@@ -1,6 +1,4 @@
-﻿using MegaMine.Web.Lib.Domain;
-using MegaMine.Web.Lib.Shared;
-using MegaMine.Models.Quarry;
+﻿using MegaMine.Models.Quarry;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;
 using System;
@@ -8,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaMine.Modules.Quarry.Domain;
+using MegaMine.Modules.Quarry.Common;
+using MegaMine.Web.Lib.Shared;
 
 namespace MegaMine.Web.Controllers
 {
@@ -29,18 +29,18 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> MaterialColourAdd([FromBody] MaterialColourModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), QuarryMessages.MaterialColourSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> MaterialColourUpdate([FromBody] MaterialColourModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), Messages.Quarry.MaterialColourSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.MaterialColourSave(model), QuarryMessages.MaterialColourSaveSuccess);
         }
         [HttpPost]
         public async Task<AjaxModel<NTModel>> MaterialColourDelete([FromBody] int materialColourId)
         {
-            return await AjaxHelper.SaveAsync(m => domain.MaterialColourDelete(materialColourId), Messages.Quarry.MaterialColourDeleteSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.MaterialColourDelete(materialColourId), QuarryMessages.MaterialColourDeleteSuccess);
         }
         #endregion
 
@@ -54,19 +54,19 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> ProductTypeAdd([FromBody] ProductTypeModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), QuarryMessages.ProductTypeSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> ProductTypeUpdate([FromBody] ProductTypeModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), Messages.Quarry.ProductTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ProductTypeSave(model), QuarryMessages.ProductTypeSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> ProductTypeDelete([FromBody] int productTypeId)
         {
-            return await AjaxHelper.SaveAsync(m => domain.ProductTypeDelete(productTypeId), Messages.Quarry.ProductTypeDeleteSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ProductTypeDelete(productTypeId), QuarryMessages.ProductTypeDeleteSuccess);
         }
         #endregion
 
@@ -80,19 +80,19 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> QuarryAdd([FromBody] QuarryModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), QuarryMessages.QuarrySaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> QuarryUpdate([FromBody] QuarryModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), Messages.Quarry.QuarrySaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.QuarrySave(model), QuarryMessages.QuarrySaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> QuarryDelete([FromBody] int quarryId)
         {
-            return await AjaxHelper.SaveAsync(m => domain.QuarryDelete(quarryId), Messages.Quarry.QuarryDeleteSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.QuarryDelete(quarryId), QuarryMessages.QuarryDeleteSuccess);
         }
         #endregion
 
@@ -106,19 +106,19 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> YardAdd([FromBody] YardModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.YardSave(model), QuarryMessages.YardSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> YardUpdate([FromBody] YardModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.YardSave(model), Messages.Quarry.YardSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.YardSave(model), QuarryMessages.YardSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> YardDelete([FromBody] int yardId)
         {
-            return await AjaxHelper.SaveAsync(m => domain.YardDelete(yardId), Messages.Quarry.YardDeleteSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.YardDelete(yardId), QuarryMessages.YardDeleteSuccess);
         }
         #endregion
 
@@ -133,13 +133,13 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> MaterialSave([FromBody] List<MaterialModel> models)
         {
-            return await AjaxHelper.SaveAsync(m => domain.MaterialSave(models), Messages.Quarry.MaterialSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.MaterialSave(models), QuarryMessages.MaterialSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<List<StockModel>>> MaterialDelete(int materialId, int yardId)
         {
-            return await AjaxHelper.SaveGetAsync(m => domain.MaterialDelete(materialId, yardId), Messages.Quarry.MaterialDeleteSuccess);
+            return await AjaxHelper.SaveGetAsync(m => domain.MaterialDelete(materialId, yardId), QuarryMessages.MaterialDeleteSuccess);
         }
         #endregion
 
@@ -154,13 +154,13 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<List<StockModel>>> MoveMaterial([FromBody] MaterialMovementModel model)
         {
-            return await AjaxHelper.SaveGetAsync(m => domain.MoveMaterial(model), Messages.Quarry.MaterialMovementSuccess);
+            return await AjaxHelper.SaveGetAsync(m => domain.MoveMaterial(model), QuarryMessages.MaterialMovementSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<List<StockModel>>> MaterialUpdate([FromBody] MaterialModel model, int yardId)
         {
-            return await AjaxHelper.SaveGetAsync(m => domain.MaterialUpdate(model, yardId), Messages.Quarry.MaterialUpdateSuccess);
+            return await AjaxHelper.SaveGetAsync(m => domain.MaterialUpdate(model, yardId), QuarryMessages.MaterialUpdateSuccess);
         }
 
         #endregion

@@ -1,7 +1,6 @@
 ﻿using MegaMine.Web.Lib.Entities.Account;
 using MegaMine.Web.Lib.Entities.Administration;
 using MegaMine.Web.Lib.Entities.Fleet;
-using MegaMine.Modules.Quarry.Entities;
 using Microsoft.AspNet.Identity.EntityFramework;
 using Microsoft.Data.Entity;
 
