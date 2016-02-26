@@ -32,7 +32,7 @@ namespace MegaMine.Web.Lib.Middleware
             //automatically logging in in the dev mode
             else if (SiteSettings.IsEnvironment(Constants.DevEnvironment))
             {
-                ApplicationUser user = await userManager.FindByNameAsync(AccountSettings.DefaultProfileUserName);
+                ApplicationUser user = await userManager.FindByNameAsync(AccountSettings.NootusProfileUserName);
                 await signInManager.SignInAsync(user, false);
             }
 
