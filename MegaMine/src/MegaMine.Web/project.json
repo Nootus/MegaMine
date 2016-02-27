@@ -15,7 +15,8 @@
     "Microsoft.AspNet.Diagnostics.Entity": "7.0.0-rc1-final",
     "MegaMine.Models": "1.0.0-*",
     "MegaMine.Core": "1.0.0-*",
-    "MegaMine.Modules.Quarry": "1.0.0-*"
+    "MegaMine.Modules.Quarry": "1.0.0-*",
+    "MegaMine.Modules.Plant": "1.0.0-*"
   },
 
   "commands": {

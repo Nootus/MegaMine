@@ -1,9 +1,7 @@
 ﻿using MegaMine.Models.Quarry;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MegaMine.Modules.Quarry.Repositories;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MegaMine.Modules.Quarry.Domain
 {

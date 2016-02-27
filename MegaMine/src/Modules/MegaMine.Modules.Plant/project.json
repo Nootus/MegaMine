@@ -1,0 +1,20 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "MegaMine.Modules.Plant Class Library",
+  "authors": [ "prasanna" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net451": { }
+  },
+  "dependencies": {
+    "AutoMapper": "4.0.4",
+    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "System.Runtime": "4.0.21-beta-23516",
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+    "MegaMine.Core": "1.0.0-*",
+    "MegaMine.Models": "1.0.0-*"
+  }
+}

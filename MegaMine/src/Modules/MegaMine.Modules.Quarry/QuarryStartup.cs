@@ -1,14 +1,9 @@
-﻿using MegaMine.Core;
+﻿using AutoMapper;
+using MegaMine.Core;
 using MegaMine.Modules.Quarry.Domain;
-using MegaMine.Modules.Quarry.Repositories;
-using Microsoft.Data.Entity;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
 using MegaMine.Modules.Quarry.Mapping;
+using MegaMine.Modules.Quarry.Repositories;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MegaMine.Modules.Quarry
 {

@@ -1,7 +1,8 @@
 ﻿using AutoMapper;
 using MegaMine.Core.Models;
-using MegaMine.Modules.Quarry.Entities;
+using MegaMine.Core.Repositories;
 using MegaMine.Models.Quarry;
+using MegaMine.Modules.Quarry.Entities;
 using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;
@@ -10,7 +11,6 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using MegaMine.Core.Repositories;
 
 namespace MegaMine.Modules.Quarry.Repositories
 {

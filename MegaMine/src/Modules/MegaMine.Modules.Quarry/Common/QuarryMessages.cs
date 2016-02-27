@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MegaMine.Modules.Quarry.Common
+﻿namespace MegaMine.Modules.Quarry.Common
 {
     public static class QuarryMessages
     {
