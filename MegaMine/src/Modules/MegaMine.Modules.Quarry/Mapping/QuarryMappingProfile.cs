@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using MegaMine.Models.Quarry;
+using MegaMine.Modules.Quarry.Models;
 using MegaMine.Modules.Quarry.Entities;
 
 namespace MegaMine.Modules.Quarry.Mapping
@@ -13,21 +13,11 @@ namespace MegaMine.Modules.Quarry.Mapping
 
         protected override void Configure()
         {
-            Mapper.CreateMap<MaterialColourEntity, MaterialColourModel>();
-            Mapper.CreateMap<MaterialColourModel, MaterialColourEntity>();
-
-            Mapper.CreateMap<ProductTypeEntity, ProductTypeModel>();
-            Mapper.CreateMap<ProductTypeModel, ProductTypeEntity>();
-
-            Mapper.CreateMap<QuarryEntity, QuarryModel>();
-            Mapper.CreateMap<QuarryModel, QuarryEntity>();
-
-            Mapper.CreateMap<YardEntity, YardModel>();
-            Mapper.CreateMap<YardModel, YardEntity>();
-
-            Mapper.CreateMap<MaterialEntity, MaterialModel>();
-            Mapper.CreateMap<MaterialModel, MaterialEntity>();
-
+            Mapper.CreateMap<MaterialColourEntity, MaterialColourModel>().ReverseMap();
+            Mapper.CreateMap<ProductTypeEntity, ProductTypeModel>().ReverseMap();
+            Mapper.CreateMap<QuarryEntity, QuarryModel>().ReverseMap();
+            Mapper.CreateMap<YardEntity, YardModel>().ReverseMap();
+            Mapper.CreateMap<MaterialEntity, MaterialModel>().ReverseMap();
             Mapper.CreateMap<ProductSummaryEntity, ProductSummaryModel>();
         }
     }

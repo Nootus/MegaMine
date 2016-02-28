@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
-namespace MegaMine.Models.Quarry
+namespace MegaMine.Modules.Quarry.Models
 {
     public class QuarryModel
     {

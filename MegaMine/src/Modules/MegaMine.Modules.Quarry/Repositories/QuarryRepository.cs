@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MegaMine.Core.Models;
 using MegaMine.Core.Repositories;
-using MegaMine.Models.Quarry;
+using MegaMine.Modules.Quarry.Models;
 using MegaMine.Modules.Quarry.Entities;
 using Microsoft.Data.Entity;
 using System;

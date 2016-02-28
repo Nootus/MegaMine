@@ -1,4 +1,4 @@
-﻿using MegaMine.Models.Quarry;
+﻿using MegaMine.Modules.Quarry.Models;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;
 using System;

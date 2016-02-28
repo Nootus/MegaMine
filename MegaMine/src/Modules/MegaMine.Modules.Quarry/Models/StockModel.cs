@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MegaMine.Models.Quarry
+﻿namespace MegaMine.Modules.Quarry.Models
 {
     public class StockModel : MaterialModel
     {
