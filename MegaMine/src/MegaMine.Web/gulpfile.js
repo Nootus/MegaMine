@@ -69,7 +69,7 @@ gulp.task("min", function () {
 });
 
 
-gulp.task('index', function () {
+gulp.task('InjectJS', function () {
     //console.log(allJsRefs);
     var target = gulp.src('./views/home/index.cshtml');
     // It's not necessary to read the files (will speed up things), we're only after their paths: 

@@ -1,0 +1,12 @@
+﻿<nt-list-toolbar vm="vm" title="Machines" button-text="Add Machine" button-click="vm.machineAdd($event)" claim="Plant:MachineAdd"></nt-list-toolbar>
+
+<script type="text/ng-template" id="machine_dialog">
+    <md-dialog aria-label="Machine" class="dialog">
+        <nt-dialog form="machineForm" title="Machine">
+            <div layout="row">
+                <nt-input flex="30" form="machineForm" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="20"></nt-input>
+                <nt-input flex="70" form="machineForm" label="Description" control-name="description" ng-model="vm.model.description" ng-required="false" em-maxlength="100"></nt-input>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

@@ -1,0 +1,12 @@
+﻿<nt-list-toolbar vm="vm" title="Blades" button-text="Add Blade" button-click="vm.bladeAdd($event)" claim="Plant:BladeAdd"></nt-list-toolbar>
+
+<script type="text/ng-template" id="blade_dialog">
+    <md-dialog aria-label="Blade" class="dialog">
+        <nt-dialog form="bladeForm" title="Blade">
+            <div layout="row">
+                <nt-input flex="30" form="bladeForm" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="20"></nt-input>
+                <nt-input flex="70" form="bladeForm" label="Description" control-name="description" ng-model="vm.model.description" ng-required="false" em-maxlength="100"></nt-input>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

@@ -30,5 +30,38 @@ namespace MegaMine.Modules.Plant.Repositories
         }
         #endregion
 
+        #region Blade
+        public async Task<List<BladeModel>> BladesGet()
+        {
+            return await GetListAsync<BladeEntity, BladeModel>(s => s.Name);
+        }
+
+        public async Task BladeSave(BladeModel model)
+        {
+            await SaveEntity<BladeEntity, BladeModel>(model);
+        }
+
+        public async Task BladeDelete(int bladeId)
+        {
+            await DeleteEntity<BladeEntity>(bladeId);
+        }
+        #endregion
+
+        #region Operator
+        public async Task<List<OperatorModel>> OperatorsGet()
+        {
+            return await GetListAsync<OperatorEntity, OperatorModel>(s => s.Name);
+        }
+
+        public async Task OperatorSave(OperatorModel model)
+        {
+            await SaveEntity<OperatorEntity, OperatorModel>(model);
+        }
+
+        public async Task OperatorDelete(int operatorId)
+        {
+            await DeleteEntity<OperatorEntity>(operatorId);
+        }
+        #endregion
     }
 }

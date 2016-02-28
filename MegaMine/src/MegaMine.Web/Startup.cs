@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using MegaMine.Core;
+using MegaMine.Modules.Plant;
 using MegaMine.Modules.Quarry;
 using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Entities.Account;
@@ -24,7 +25,7 @@ namespace MegaMine.Web
     {
         public IConfigurationRoot Configuration { get; set; }
 
-        private IModuleStartup[] modules = { new QuarryStartup() };
+        private IModuleStartup[] modules = { new QuarryStartup(), new PlantStartup() };
 
         public Startup(IHostingEnvironment env)
         {

@@ -1,0 +1,11 @@
+﻿<nt-list-toolbar vm="vm" title="Operators" button-text="Add Operator" button-click="vm.operatorAdd($event)" claim="Plant:OperatorAdd"></nt-list-toolbar>
+
+<script type="text/ng-template" id="operator_dialog">
+    <md-dialog aria-label="Operator" class="dialog">
+        <nt-dialog form="operatorForm" title="Operator">
+            <div layout="row">
+                <nt-input flex="90" form="operatorForm" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="20"></nt-input>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

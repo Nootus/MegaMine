@@ -9,5 +9,9 @@ namespace MegaMine.Modules.Plant.Common
     {
         public const string MachineSaveSuccess = "Machine Info Saved Successfully";
         public const string MachineDeleteSuccess = "Machine Info Deleted Successfully";
+        public const string BladeSaveSuccess = "Blade Info Saved Successfully";
+        public const string BladeDeleteSuccess = "Blade Info Deleted Successfully";
+        public const string OperatorSaveSuccess = "Operator Info Saved Successfully";
+        public const string OperatorDeleteSuccess = "Operator Info Deleted Successfully";
     }
 }

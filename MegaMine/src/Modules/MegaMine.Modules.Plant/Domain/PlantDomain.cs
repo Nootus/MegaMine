@@ -14,7 +14,6 @@ namespace MegaMine.Modules.Plant.Domain
         }
 
         #region Machine
-        //Machine
         public async Task<List<MachineModel>> MachinesGet()
         {
             return await plantRepository.MachinesGet();
@@ -27,6 +26,38 @@ namespace MegaMine.Modules.Plant.Domain
         public async Task MachineDelete(int machineId)
         {
             await plantRepository.MachineDelete(machineId);
+        }
+        #endregion
+
+        #region Blade
+        public async Task<List<BladeModel>> BladesGet()
+        {
+            return await plantRepository.BladesGet();
+        }
+
+        public async Task BladeSave(BladeModel model)
+        {
+            await plantRepository.BladeSave(model);
+        }
+        public async Task BladeDelete(int bladeId)
+        {
+            await plantRepository.BladeDelete(bladeId);
+        }
+        #endregion
+
+        #region Operator
+        public async Task<List<OperatorModel>> OperatorsGet()
+        {
+            return await plantRepository.OperatorsGet();
+        }
+
+        public async Task OperatorSave(OperatorModel model)
+        {
+            await plantRepository.OperatorSave(model);
+        }
+        public async Task OperatorDelete(int operatorId)
+        {
+            await plantRepository.OperatorDelete(operatorId);
         }
         #endregion
     }
