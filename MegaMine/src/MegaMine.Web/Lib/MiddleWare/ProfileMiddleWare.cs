@@ -56,6 +56,9 @@ namespace MegaMine.Web.Lib.Middleware
                 CompanyId = Convert.ToInt32(companyId ?? "0")
             };
 
+            //setting the Group CompanyId
+            model.GroupCompanyId = PageService.CompanyClaims[model.CompanyId]?.ParentCompanyId ?? model.CompanyId;
+
             NTContext.SetProfile(model);
         }
     }

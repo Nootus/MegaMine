@@ -13,5 +13,6 @@ namespace MegaMine.Core.Context
         public string UserName { get; set; }
         public string FullName { get { return FirstName + " " + LastName; } }
         public int CompanyId { get; set; }
+        public int GroupCompanyId { get; set; }
     }
 }

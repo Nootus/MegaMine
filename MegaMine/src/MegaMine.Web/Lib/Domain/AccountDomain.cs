@@ -65,5 +65,10 @@ namespace MegaMine.Web.Lib.Domain
                 throw new NTException(Messages.Account.ChangePasswordError, result.Errors);
             }
         }
+
+        public async Task<int[]> GetGroupCompanyIds()
+        {
+            return await accountRepository.GetGroupCompanyIds();
+        }
     }
 }

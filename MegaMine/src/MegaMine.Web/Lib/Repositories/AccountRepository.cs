@@ -1,17 +1,16 @@
-﻿using MegaMine.Web.Lib.Entities;
+﻿using AutoMapper;
+using MegaMine.Core.Models;
+using MegaMine.Core.Repositories;
 using MegaMine.Web.Lib.Entities.Account;
+using MegaMine.Web.Lib.Entities.Administration;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Account;
 using MegaMine.Web.Models.Administration;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.Data.Entity;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.Data.Entity;
-using AutoMapper;
-using MegaMine.Web.Lib.Entities.Administration;
-using Microsoft.AspNet.Identity.EntityFramework;
-using MegaMine.Core.Models;
-using MegaMine.Core.Repositories;
 
 namespace MegaMine.Web.Lib.Repositories
 {
@@ -178,5 +177,13 @@ namespace MegaMine.Web.Lib.Repositories
             newroles.Add(parent);
             return newroles;
         }
+
+        public async Task<int[]> GetGroupCompanyIds()
+        {
+            return await (from cmp in dbContext.Companies
+                               where cmp.CompanyId == profile.GroupCompanyId || cmp.ParentCompanyId == profile.GroupCompanyId
+                               select cmp.CompanyId).ToArrayAsync();
+        }
+
     }
 }

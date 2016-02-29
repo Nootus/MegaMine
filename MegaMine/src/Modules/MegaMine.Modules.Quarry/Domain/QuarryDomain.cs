@@ -71,6 +71,11 @@ namespace MegaMine.Modules.Quarry.Domain
             return await quarryRepository.YardsGet();
         }
 
+        public async Task<List<YardModel>> YardsGet(int[] companies)
+        {
+            return await quarryRepository.YardsGet(companies);
+        }
+
         public async Task YardSave(YardModel model)
         {
             await quarryRepository.YardSave(model);

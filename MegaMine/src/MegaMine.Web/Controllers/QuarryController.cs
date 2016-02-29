@@ -8,10 +8,12 @@ using System.Threading.Tasks;
 using MegaMine.Modules.Quarry.Domain;
 using MegaMine.Modules.Quarry.Common;
 using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Lib.Domain;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace MegaMine.Web.Controllers
 {
-    public class QuarryController
+    public class QuarryController : Controller
     {
         private QuarryDomain domain;
         public QuarryController(QuarryDomain domain)
@@ -101,6 +103,19 @@ namespace MegaMine.Web.Controllers
         public async Task<AjaxModel<List<YardModel>>> YardsGet()
         {
             return await AjaxHelper.GetAsync(m => domain.YardsGet());
+        }
+
+        [HttpGet]
+        public async Task<AjaxModel<List<YardModel>>> GroupYardsGet()
+        {
+
+            return await AjaxHelper.GetAsync(async (m) =>
+                                        {
+                                            AccountDomain accountDomain = HttpContext.ApplicationServices.GetRequiredService<AccountDomain>();
+                                            var companies = await accountDomain.GetGroupCompanyIds();
+                                            return await domain.YardsGet(companies);
+                                        }
+                                    );
         }
 
         [HttpPost]

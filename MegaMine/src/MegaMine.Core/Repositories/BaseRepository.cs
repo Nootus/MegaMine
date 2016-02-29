@@ -100,9 +100,10 @@ namespace MegaMine.Core.Repositories
             return await query.ToListAsync();
         }
 
-        protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression) where TEntity : BaseEntity
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
             var query = dbContext.Set<TEntity>().Where(whereExpression)
+                                .OrderBy(sortExpression)
                                 .Select(ent => Mapper.Map<TEntity, TModel>(ent));
 
             return await query.ToListAsync();
