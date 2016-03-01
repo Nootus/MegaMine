@@ -9,6 +9,7 @@ namespace MegaMine.Modules.Plant.Repositories
         public DbSet<MachineEntity> Machines { get; set; }
         public DbSet<BladeEntity> Blades { get; set; }
         public DbSet<OperatorEntity> Operators { get; set; }
+        public DbSet<DressingEntity> Dressings { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -16,6 +17,7 @@ namespace MegaMine.Modules.Plant.Repositories
             IgnoreAuditFields<MachineEntity>(builder);
             IgnoreAuditFields<BladeEntity>(builder);
             IgnoreAuditFields<OperatorEntity>(builder);
+            IgnoreAuditFields<DressingEntity>(builder);
 
             base.OnModelCreating(builder);
         }

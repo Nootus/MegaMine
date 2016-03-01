@@ -6,6 +6,19 @@ plantRoute.$inject = ['$stateProvider'];
 function plantRoute($stateProvider) {
 
     $stateProvider
+        .state("dressing", {
+            url: window.virtualDirectory + "/dressing",
+            title: "Machine",
+            previousState: "dashboard",
+            templateUrl: "/app/plant/dressing.html",
+            controller: "dressing",
+            controllerAs: "vm",
+            resolve: {
+                resolveModel: ['plantService', function (plantService) {
+                    return plantService.machinesGet();
+                }]
+            }
+        })
         .state("machine", {
             url: window.virtualDirectory + "/machine",
             title: "Machine",

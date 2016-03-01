@@ -94,8 +94,11 @@ function quarryRoute($stateProvider) {
             controller: "materialMovement",
             controllerAs: "vm",
             resolve: {
-                resolveModel: ['quarryService', function (quarryService) {
+                yards: ['quarryService', function (quarryService) {
                     return quarryService.getYards();
+                }],
+                groupYards: ['quarryService', function (quarryService) {
+                    return quarryService.getGroupYards();
                 }]
             }
         })

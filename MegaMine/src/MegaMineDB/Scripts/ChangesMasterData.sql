@@ -1,4 +1,20 @@
-﻿-- Role IsAdmin
+﻿delete from IdentityCompanyClaim where CompanyId = 5
+and ClaimId in (select id from IdentityClaim where ClaimType = 'Plant')
+
+insert into IdentityCompanyClaim(CompanyId, ClaimId)
+select 5, Id from IdentityClaim where ClaimType = 'Plant'
+
+
+
+
+
+
+
+
+
+
+
+-- Role IsAdmin
 update IdentityRole set IsAdmin = 0
 update IdentityRole set IsAdmin = 1 where Name in ('SuperAdmin', 'QuarryAdmin', 'GroupAdmin')
 -- end

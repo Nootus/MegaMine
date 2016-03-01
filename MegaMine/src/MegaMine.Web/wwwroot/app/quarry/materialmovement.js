@@ -21,6 +21,7 @@ function materialMovement($scope, $mdDialog, quarryService, gridUtility, constan
 
     var vm = {
         yards: [],
+        groupYards: [],
         fromYardId: undefined,
         toYardId: undefined,
         currentYardId: undefined,
@@ -38,6 +39,7 @@ function materialMovement($scope, $mdDialog, quarryService, gridUtility, constan
 
     function init() {
         vm.yards = quarryService.yards;
+        vm.groupYards = quarryService.groupYards;
         quarryService.stock.splice(0, quarryService.stock.length);
 
         gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.stock);

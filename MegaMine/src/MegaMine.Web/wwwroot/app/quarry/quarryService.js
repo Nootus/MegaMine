@@ -27,9 +27,11 @@ function quarryService($http) {
 
         //yards
         yards: [],
+        groupYards: [],
         getYards: getYards,
         saveYard: saveYard,
         deleteYard: deleteYard,
+        getGroupYards: getGroupYards,
 
         //material
         materialViewModel: {},
@@ -148,6 +150,16 @@ function quarryService($http) {
                 angular.extend(service.yards, data);
             });
     }
+
+    function getGroupYards() {
+        return $http.get("/api/quarry/groupyardsget")
+            .then(function (data) {
+                //in order to refresh the grid, we need to remove all the elements and readd them
+                service.groupYards.splice(0, service.groupYards.length);
+                angular.extend(service.groupYards, data);
+            });
+    }
+    
 
     function saveYard(model) {
         var url;

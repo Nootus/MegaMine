@@ -151,7 +151,7 @@ namespace MegaMine.Modules.Quarry.Repositories
 
         public async Task<List<YardModel>> YardsGet(int[] companies)
         {
-            return await GetListAsync<YardEntity, YardModel>(w => companies.Contains(w.CompanyId), s => s.YardName);
+            return await GetListAsync<YardEntity, YardModel>(w => companies.Contains(w.CompanyId) && w.DeletedInd == false, s => s.YardName);
         }
 
         public async Task YardSave(YardModel model)
