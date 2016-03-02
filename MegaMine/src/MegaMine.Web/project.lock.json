@@ -128,8 +128,7 @@
           "AutoMapper": "4.0.4",
           "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
           "MegaMine.Core": "1.0.0",
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "System.Runtime": "4.0.21-beta-23516"
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
         }
       },
       "MegaMine.Modules.Quarry/1.0.0": {
@@ -1944,8 +1943,7 @@
           "AutoMapper": "4.0.4",
           "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
           "MegaMine.Core": "1.0.0",
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "System.Runtime": "4.0.21-beta-23516"
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
         }
       },
       "MegaMine.Modules.Quarry/1.0.0": {
@@ -3763,8 +3761,7 @@
           "AutoMapper": "4.0.4",
           "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
           "MegaMine.Core": "1.0.0",
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
-          "System.Runtime": "4.0.21-beta-23516"
+          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
         }
       },
       "MegaMine.Modules.Quarry/1.0.0": {

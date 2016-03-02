@@ -8,7 +8,10 @@ namespace MegaMine.Modules.Plant.Models
     public class MachineModel
     {
         public int MachineId { get; set; }
+        public int BladeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        public string BladeName { get; set; }
     }
 }

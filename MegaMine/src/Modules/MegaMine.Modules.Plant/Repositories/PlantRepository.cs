@@ -22,6 +22,12 @@ namespace MegaMine.Modules.Plant.Repositories
         public async Task<List<MachineModel>> MachinesGet()
         {
             return await GetListAsync<MachineEntity, MachineModel>(s => s.Name);
+            //var query = from mac in dbContext.Machines
+            //            join bld in dbContext.Blades on mac.BladeId equals bld.BaldeId;
+
+            //var abc = from clr in dbContext.Machines
+            //          join mc in dbContext.Blades on clr.MaterialColourId equals mc.MaterialColourId
+
         }
 
         public async Task MachineSave(MachineModel model)
