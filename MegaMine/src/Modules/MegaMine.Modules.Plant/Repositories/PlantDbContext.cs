@@ -10,6 +10,11 @@ namespace MegaMine.Modules.Plant.Repositories
         public DbSet<BladeEntity> Blades { get; set; }
         public DbSet<OperatorEntity> Operators { get; set; }
         public DbSet<DressingEntity> Dressings { get; set; }
+        public DbSet<BlockDressingEntity> BlockDressings { get; set; }
+        public DbSet<CuttingEntity> Cuttings { get; set; }
+        public DbSet<BlockCuttingEntity> BlockCuttings { get; set; }
+        public DbSet<MachineStoppageEntity> MachineStoppages { get; set; }
+        public DbSet<MachineOperatorEntity> MachineOperators { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -18,6 +23,11 @@ namespace MegaMine.Modules.Plant.Repositories
             IgnoreAuditFields<BladeEntity>(builder);
             IgnoreAuditFields<OperatorEntity>(builder);
             IgnoreAuditFields<DressingEntity>(builder);
+            IgnoreAuditFields<BlockDressingEntity>(builder);
+            IgnoreAuditFields<CuttingEntity>(builder);
+            IgnoreAuditFields<BlockCuttingEntity>(builder);
+            IgnoreAuditFields<MachineStoppageEntity>(builder);
+            IgnoreAuditFields<MachineOperatorEntity>(builder);
 
             base.OnModelCreating(builder);
         }

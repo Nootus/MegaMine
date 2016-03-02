@@ -1,4 +1,5 @@
-﻿using MegaMine.Core.Repositories;
+﻿using MegaMine.Core.Models;
+using MegaMine.Core.Repositories;
 using MegaMine.Modules.Plant.Entities;
 using MegaMine.Modules.Plant.Models;
 using System.Collections.Generic;
@@ -14,6 +15,10 @@ namespace MegaMine.Modules.Plant.Repositories
         }
 
         #region Machine
+        public async Task<List<ListItem<int, string>>> MachineListItemGet()
+        {
+            return await GetListItemsAsync<MachineEntity>(e => new ListItem<int, string> { Key = e.MachineId, Item = e.Name}, s => s.Name);
+        }
         public async Task<List<MachineModel>> MachinesGet()
         {
             return await GetListAsync<MachineEntity, MachineModel>(s => s.Name);
@@ -31,6 +36,10 @@ namespace MegaMine.Modules.Plant.Repositories
         #endregion
 
         #region Blade
+        public async Task<List<ListItem<int, string>>> BladeListItemGet()
+        {
+            return await GetListItemsAsync<BladeEntity>(e => new ListItem<int, string> { Key = e.BladeId, Item = e.Name }, s => s.Name);
+        }
         public async Task<List<BladeModel>> BladesGet()
         {
             return await GetListAsync<BladeEntity, BladeModel>(s => s.Name);
@@ -48,6 +57,10 @@ namespace MegaMine.Modules.Plant.Repositories
         #endregion
 
         #region Operator
+        public async Task<List<ListItem<int, string>>> OperatorListItemGet()
+        {
+            return await GetListItemsAsync<OperatorEntity>(e => new ListItem<int, string> { Key = e.OperatorId, Item = e.Name }, s => s.Name);
+        }
         public async Task<List<OperatorModel>> OperatorsGet()
         {
             return await GetListAsync<OperatorEntity, OperatorModel>(s => s.Name);

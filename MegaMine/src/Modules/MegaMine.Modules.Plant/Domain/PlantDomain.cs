@@ -1,5 +1,6 @@
 ﻿using MegaMine.Modules.Plant.Models;
 using MegaMine.Modules.Plant.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -58,6 +59,34 @@ namespace MegaMine.Modules.Plant.Domain
         public async Task OperatorDelete(int operatorId)
         {
             await plantRepository.OperatorDelete(operatorId);
+        }
+        #endregion
+
+        #region Dressing
+        public async Task<DressingViewModel> DressingGet(int? machineId, DateTime? processDate)
+        {
+            var viewModel = new DressingViewModel();
+            if(machineId == null || processDate == null)
+            {
+                //returning blank model
+                viewModel.Model = new DressingModel() { Blocks = new List<BlockDressingModel>() };
+                viewModel.MachineOperators = new List<MachineOperatorModel>();
+                viewModel.MachineStoppages = new List<MachineStoppageModel>();
+
+                for(int counter = 0; counter < 6; counter++)
+                {
+                    //6 blank blocks
+                    viewModel.Model.Blocks.Add(new BlockDressingModel());
+                }
+            }
+            else
+            {
+            }
+
+            viewModel.Machines = await plantRepository.MachineListItemGet();
+            viewModel.Operators = await plantRepository.OperatorListItemGet();
+
+            return viewModel;
         }
         #endregion
     }

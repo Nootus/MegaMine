@@ -1,14 +1,12 @@
-﻿using MegaMine.Core.Entities;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
-namespace MegaMine.Modules.Plant.Entities
+namespace MegaMine.Modules.Plant.Models
 {
-    [Table("BlockDressing", Schema = "plant")]
-    public class BlockDressingEntity : BaseEntity
+    public class BlockDressingModel
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int BlockDressingId { get; set; }
         public int DressingId { get; set; }
         public int BlockId { get; set; }
