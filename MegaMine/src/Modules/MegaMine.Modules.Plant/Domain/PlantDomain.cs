@@ -15,9 +15,12 @@ namespace MegaMine.Modules.Plant.Domain
         }
 
         #region Machine
-        public async Task<List<MachineModel>> MachinesGet()
+        public async Task<MachineViewModel> MachinesGet()
         {
-            return await plantRepository.MachinesGet();
+            MachineViewModel viewModel = new MachineViewModel();
+            viewModel.Machines = await plantRepository.MachinesGet();
+            viewModel.Blades = await plantRepository.BladeListItemGet();
+            return viewModel;
         }
 
         public async Task MachineSave(MachineModel model)

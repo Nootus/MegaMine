@@ -1,12 +1,13 @@
 ﻿'use strict';
 angular.module('megamine').controller('machine', machine)
-machine.$inject = ['$scope', 'plantService', 'gridUtility', 'constants', 'dialogService', 'template'];
+machine.$inject = ['$scope', 'plantService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function machine($scope, plantService, gridUtility, constants, dialogService, template) {
+function machine($scope, plantService, gridUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'name', field: 'name', displayName: 'Name', type: 'string' },
+                    { name: 'bladeName', field: 'bladeName', displayName: 'Blade', type: 'string' },
                     { name: 'description', field: 'description', type: 'string', displayName: 'Description' },
                     template.getButtonDefaultColumnDefs('machineId', 'Plant:MachineEdit', 'Plant:MachineDelete')
         ]
@@ -36,7 +37,7 @@ function machine($scope, plantService, gridUtility, constants, dialogService, te
         dialogService.show({
             templateUrl: 'machine_dialog',
             targetEvent: ev,
-            data: { model: model },
+            data: { model: model, service: plantService },
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
@@ -53,8 +54,9 @@ function machine($scope, plantService, gridUtility, constants, dialogService, te
                         plantService.machinesGet();
                     }
                     else {
-                        model.name = dialogModel.name
-                        model.description = dialogModel.description
+                        model.name = dialogModel.name;
+                        model.description = dialogModel.description;
+                        model.bladeName = utility.getItem(plantService.blades, dialogModel.bladeId, "key", "item");
                     }
 
                     dialogService.hide();

@@ -13,5 +13,8 @@ namespace MegaMine.Modules.Plant.Entities
         public int BladeId { get; set; }
         public string Name { get; set; }
         public string Description { get; set; }
+
+        [ForeignKey("BladeId")]
+        public BladeEntity Blade { get; set; }
     }
 }

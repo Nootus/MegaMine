@@ -34,7 +34,9 @@ function plantService($http) {
             .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
                 service.machines.splice(0, service.machines.length);
-                angular.extend(service.machines, data);
+                angular.extend(service.machines, data.machines);
+                service.blades.splice(0, service.blades.length);
+                angular.extend(service.blades, data.blades);
             });
     }
 

@@ -4,6 +4,8 @@ using MegaMine.Modules.Plant.Entities;
 using MegaMine.Modules.Plant.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using System.Linq;
+using Microsoft.Data.Entity;
 
 namespace MegaMine.Modules.Plant.Repositories
 {
@@ -21,13 +23,21 @@ namespace MegaMine.Modules.Plant.Repositories
         }
         public async Task<List<MachineModel>> MachinesGet()
         {
-            return await GetListAsync<MachineEntity, MachineModel>(s => s.Name);
-            //var query = from mac in dbContext.Machines
-            //            join bld in dbContext.Blades on mac.BladeId equals bld.BaldeId;
+            //return await GetListAsync<MachineEntity, MachineModel>(s => s.Name);
+            var query = from mac in dbContext.Machines
+                        join bld in dbContext.Blades on mac.BladeId equals bld.BladeId
+                        where mac.CompanyId == profile.CompanyId
+                        && mac.DeletedInd == false
+                        select new MachineModel()
+                        {
+                            MachineId = mac.MachineId,
+                            Name = mac.Name,
+                            BladeId = mac.BladeId,
+                            BladeName = bld.Name,
+                            Description = mac.Description
+                        };
 
-            //var abc = from clr in dbContext.Machines
-            //          join mc in dbContext.Blades on clr.MaterialColourId equals mc.MaterialColourId
-
+            return await query.ToListAsync();
         }
 
         public async Task MachineSave(MachineModel model)

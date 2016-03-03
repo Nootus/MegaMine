@@ -19,7 +19,7 @@ namespace MegaMine.Web.Controllers
 
         #region Machine
         [HttpGet]
-        public async Task<AjaxModel<List<MachineModel>>> MachinesGet()
+        public async Task<AjaxModel<MachineViewModel>> MachinesGet()
         {
             return await AjaxHelper.GetAsync(m => domain.MachinesGet());
         }
