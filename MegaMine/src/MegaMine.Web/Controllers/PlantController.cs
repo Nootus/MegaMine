@@ -4,6 +4,7 @@ using MegaMine.Modules.Plant.Models;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -91,5 +92,14 @@ namespace MegaMine.Web.Controllers
             return await AjaxHelper.SaveAsync(m => domain.OperatorDelete(operatorId), PlantMessages.OperatorDeleteSuccess);
         }
         #endregion
+
+        #region Block Dressing
+        [HttpPost]
+        public async Task<AjaxModel<DressingViewModel>> DressingGet(int? machineId, DateTime? processDate)
+        {
+            return await AjaxHelper.GetAsync(m => domain.DressingGet(machineId, processDate));
+        }
+        #endregion
+
     }
 }

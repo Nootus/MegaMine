@@ -111,7 +111,7 @@ namespace MegaMine.Web.Controllers
 
             return await AjaxHelper.GetAsync(async (m) =>
                                         {
-                                            AccountDomain accountDomain = HttpContext.ApplicationServices.GetRequiredService<AccountDomain>();
+                                            AccountDomain accountDomain = HttpContext.RequestServices.GetRequiredService<AccountDomain>();
                                             var companies = await accountDomain.GetGroupCompanyIds();
                                             return await domain.YardsGet(companies);
                                         }

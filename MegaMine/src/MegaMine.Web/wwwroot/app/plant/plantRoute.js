@@ -15,7 +15,7 @@ function plantRoute($stateProvider) {
             controllerAs: "vm",
             resolve: {
                 resolveModel: ['plantService', function (plantService) {
-                    return plantService.machinesGet();
+                    return plantService.dressingGet();
                 }]
             }
         })

@@ -2,11 +2,21 @@
 
 angular.module('megamine').factory('plantService', plantService);
 
-plantService.$inject = ['$http'];
+plantService.$inject = ['$http', 'utility'];
 
-function plantService($http) {
+function plantService($http, utility) {
 
     var service = {
+        //dressing
+        dressingModel: {
+            model: {},
+            machineStoppages: [],
+            machineOperators: [],
+            machines: [],
+            operators: []
+        },
+        dressingGet: dressingGet,
+
         //machine
         machines: [],
         machinesGet: machinesGet,
@@ -28,15 +38,21 @@ function plantService($http) {
 
     return service;
 
-    //Machine
+    //dressing
+    function dressingGet(machineId, processDate) {
+        return $http.post("/api/plant/dressingget", { machineId: machineId, processDate: processDate })
+            .then(function (data) {
+                //utilit.extend(service.dressingModel.)
+            });
+    }
+
+    //machine
     function machinesGet() {
         return $http.get("/api/plant/machinesget")
             .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
-                service.machines.splice(0, service.machines.length);
-                angular.extend(service.machines, data.machines);
-                service.blades.splice(0, service.blades.length);
-                angular.extend(service.blades, data.blades);
+                utility.extend(service.machines, data.machines);
+                utility.extend(service.blades, data.blades);
             });
     }
 
@@ -61,8 +77,7 @@ function plantService($http) {
         return $http.get("/api/plant/bladesget")
             .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
-                service.blades.splice(0, service.blades.length);
-                angular.extend(service.blades, data);
+                utility.extend(service.blades, data);
             });
     }
 
@@ -87,8 +102,7 @@ function plantService($http) {
         return $http.get("/api/plant/operatorsget")
             .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
-                service.operators.splice(0, service.operators.length);
-                angular.extend(service.operators, data);
+                utility.extend(service.operators, data);
             });
     }
 

@@ -18,6 +18,7 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         deleteProperties: deleteProperties,
         isEmpty: isEmpty,
         isUndefined: isUndefined,
+        extend: extend
     };
 
     return util;
@@ -77,5 +78,9 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         return typeof value === 'undefined';
     }
 
-};
+    function extend(dest, source){
+        dest.splice(0, dest.length);
+        angular.extend(dest, source);
+    }
+}
 
