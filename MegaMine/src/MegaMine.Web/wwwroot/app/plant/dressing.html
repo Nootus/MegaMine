@@ -1,1 +1,26 @@
-﻿This is dressing
+﻿<nt-toolbar title="Block Dressing" class="title">
+    <nt-button ng-click="vm.saveDressing(dressingForm, $event)" button-icon="edit" button-text="Edit Dressing" form="editDressingForm" claim="Plant:DressingEdit"></nt-button>
+    <nt-button ng-click="vm.saveDressing(dressingForm, $event)" button-icon="add" button-text="Save Dressing" form="dressingForm"></nt-button>
+</nt-toolbar>
+<form name="dressingForm" novalidate>
+    <md-content layout-padding>
+        <div layout="row">
+            <nt-input flex="20" form="dressingForm" type="date" label="Process Date" control-name="processDate" ng-model="vm.dressingModel.model.processDate" ng-required="true"></nt-input>
+            <nt-select flex="20" form="dressingForm" label="Machine" control-name="fromYard" ng-model="vm.dressingModel.model.machineId" opt-list="vm.dressingModel.machines" opt-value="key" opt-text="item" ng-required="true"></nt-select>
+            <nt-button flex="60" class="text-right" ng-click="vm.addBlocks()" button-icon="add" button-text="Add Blocks"></nt-button>
+        </div>
+    </md-content>
+    <md-content layout-padding>
+        <div ui-grid="vm.dressingGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ng-class="gridClass"></div>
+    </md-content>
+    <md-content layout-padding>
+        <div ui-grid="vm.stoppageGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ng-class="gridClass"></div>
+    </md-content>
+</form>
+<form name="editDressingForm" novalidate ng-hide="true">
+    <div layout="row">
+        <nt-select flex="30" form="editDressingForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.groupYards" opt-value="yardId" opt-text="yardName" ng-required="true"></nt-select>
+        <nt-input flex="30" form="editDressingForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></nt-input>
+    </div>
+</form>
+

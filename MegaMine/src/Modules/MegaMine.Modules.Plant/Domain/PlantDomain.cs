@@ -72,7 +72,7 @@ namespace MegaMine.Modules.Plant.Domain
             if(machineId == null || processDate == null)
             {
                 //returning blank model
-                viewModel.Model = new DressingModel() { Blocks = new List<BlockDressingModel>() };
+                viewModel.Model = new DressingModel() { ProcessDate = DateTime.Now.Date, Blocks = new List<BlockDressingModel>() };
                 viewModel.MachineOperators = new List<MachineOperatorModel>();
                 viewModel.MachineStoppages = new List<MachineStoppageModel>();
 

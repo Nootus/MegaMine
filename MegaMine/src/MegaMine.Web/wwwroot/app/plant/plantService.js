@@ -9,7 +9,9 @@ function plantService($http, utility) {
     var service = {
         //dressing
         dressingModel: {
-            model: {},
+            model: {
+                blocks: []
+            },
             machineStoppages: [],
             machineOperators: [],
             machines: [],
@@ -42,7 +44,15 @@ function plantService($http, utility) {
     function dressingGet(machineId, processDate) {
         return $http.post("/api/plant/dressingget", { machineId: machineId, processDate: processDate })
             .then(function (data) {
-                //utilit.extend(service.dressingModel.)
+                service.dressingModel.model.dressingId = data.model.dressingId;
+                service.dressingModel.model.machineId = data.model.machineId;
+                service.dressingModel.model.processDate = data.model.processDate;
+
+                utility.extend(service.dressingModel.model.blocks, data.model.blocks);
+                utility.extend(service.dressingModel.machineStoppages, data.machineStoppages);
+                utility.extend(service.dressingModel.machineOperators, data.machineOperators);
+                utility.extend(service.dressingModel.machines, data.machines);
+                utility.extend(service.dressingModel.operators, data.operators);
             });
     }
 

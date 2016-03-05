@@ -8,7 +8,7 @@ function plantRoute($stateProvider) {
     $stateProvider
         .state("dressing", {
             url: window.virtualDirectory + "/dressing",
-            title: "Machine",
+            title: "Block Dressing",
             previousState: "dashboard",
             templateUrl: "/app/plant/dressing.html",
             controller: "dressing",
@@ -47,7 +47,7 @@ function plantRoute($stateProvider) {
         })
         .state("operator", {
             url: window.virtualDirectory + "/operator",
-            title: "Balde",
+            title: "Operator",
             previousState: "dashboard",
             templateUrl: "/app/plant/operator.html",
             controller: "operator",
