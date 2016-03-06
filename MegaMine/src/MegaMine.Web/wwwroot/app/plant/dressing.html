@@ -4,18 +4,41 @@
 </nt-toolbar>
 <form name="dressingForm" novalidate>
     <md-content layout-padding>
-        <div layout="row">
+        <div layout="row" layout-align="end end">
             <nt-input flex="20" form="dressingForm" type="date" label="Process Date" control-name="processDate" ng-model="vm.dressingModel.model.processDate" ng-required="true"></nt-input>
             <nt-select flex="20" form="dressingForm" label="Machine" control-name="fromYard" ng-model="vm.dressingModel.model.machineId" opt-list="vm.dressingModel.machines" opt-value="key" opt-text="item" ng-required="true"></nt-select>
-            <nt-button flex="60" class="text-right" ng-click="vm.addBlocks()" button-icon="add" button-text="Add Blocks"></nt-button>
+            <div flex>&nbsp;</div>
         </div>
     </md-content>
-    <md-content layout-padding>
-        <div ui-grid="vm.dressingGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ng-class="gridClass"></div>
+    <md-content>
+        <nt-toolbar title="Blocks" class="subtitle">
+            <nt-button class="text-right" ng-click="vm.removeBlocks()" button-icon="delete" button-text="Remove"></nt-button>
+            <nt-button class="text-right" ng-click="vm.addBlocks()" button-icon="add" button-text="Add"></nt-button>
+        </nt-toolbar>
+        <div ui-grid="vm.blockGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ui-grid-validate ng-class="gridClass" style="height:220px;width:99.5%"></div>
     </md-content>
-    <md-content layout-padding>
-        <div ui-grid="vm.stoppageGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ng-class="gridClass"></div>
-    </md-content>
+    <div style="height:5px"></div>
+    <div layout="row">
+        <div flex="50">
+            <md-content>
+                <nt-toolbar title="Stoppages" class="subtitle">
+                    <nt-button class="text-right" ng-click="vm.removeStoppage()" button-icon="delete" button-text="Remove"></nt-button>
+                    <nt-button class="text-right" ng-click="vm.addStoppage()" button-icon="add" button-text="Add"></nt-button>
+                </nt-toolbar>
+                <div ui-grid="vm.stoppageGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ng-class="gridClass" style="height:150px;width:99%"></div>
+            </md-content>
+        </div>
+        <div style="width:5px">&nbsp;</div>
+        <div flex="50">
+            <md-content>
+                <nt-toolbar title="Operators" class="subtitle">
+                    <nt-button class="text-right" ng-click="vm.removeOperator()" button-icon="delete" button-text="Remove"></nt-button>
+                    <nt-button class="text-right" ng-click="vm.addOperator()" button-icon="add" button-text="Add"></nt-button>
+                </nt-toolbar>
+                <div ui-grid="vm.operatorGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ng-class="gridClass" style="height:150px;width:99%"></div>
+            </md-content>
+        </div>
+    </div>
 </form>
 <form name="editDressingForm" novalidate ng-hide="true">
     <div layout="row">

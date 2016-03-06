@@ -76,7 +76,7 @@ namespace MegaMine.Modules.Plant.Domain
                 viewModel.MachineOperators = new List<MachineOperatorModel>();
                 viewModel.MachineStoppages = new List<MachineStoppageModel>();
 
-                for(int counter = 0; counter < 6; counter++)
+                for(int counter = 0; counter < 2; counter++)
                 {
                     //6 blank blocks
                     viewModel.Model.Blocks.Add(new BlockDressingModel());
