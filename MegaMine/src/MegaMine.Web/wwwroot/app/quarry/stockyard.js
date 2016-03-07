@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('stockyard', stockyard)
-stockyard.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'quarryUtility', 'constants', 'dialogService', 'template', 'message'];
+stockyard.$inject = ['$scope', 'quarryService', 'gridUtility', 'quarryUtility', 'constants', 'dialogService', 'template', 'message'];
 
-function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility, constants, dialogService, template, message) {
+function stockyard($scope, quarryService, gridUtility, quarryUtility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -15,7 +15,7 @@ function stockyard($scope, $mdDialog, quarryService, gridUtility, quarryUtility,
                     { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' },
-                    template.getButtonColumnDefs('materialMovementId', [{ buttonType: constants.enum.buttonType.edit, claimModule: 'Quarry', claim: 'MaterialUpdate', ngClick: 'grid.appScope.vm.editStock(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, claimModule: 'Quarry', claim: 'MaterialDelete', ngClick: 'grid.appScope.vm.deleteStock(row.entity, $event)' }]),
+                    template.getButtonColumnDefs('materialMovementId', [{ buttonType: constants.enum.buttonType.edit, claim: 'Quarry:MaterialUpdate', ngClick: 'grid.appScope.vm.editStock(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, claim: 'Quarry:MaterialDelete', ngClick: 'grid.appScope.vm.deleteStock(row.entity, $event)' }]),
         ]
     };
 
