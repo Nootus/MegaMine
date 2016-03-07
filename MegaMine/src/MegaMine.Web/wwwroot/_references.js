@@ -51,6 +51,7 @@
 /// <reference path="app/shared/apiInterceptor.js" />
 /// <reference path="app/shared/constants.js" />
 /// <reference path="app/shared/dialogService.js" />
+/// <reference path="app/shared/dialogutility.js" />
 /// <reference path="app/shared/directives/ntButton.js" />
 /// <reference path="app/shared/directives/ntDialog.js" />
 /// <reference path="app/shared/directives/ntGrid.js" />

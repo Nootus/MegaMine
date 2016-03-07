@@ -25,7 +25,7 @@
                     <nt-button class="text-right" ng-click="vm.removeStoppage()" button-icon="delete" button-text="Remove"></nt-button>
                     <nt-button class="text-right" ng-click="vm.addStoppage()" button-icon="add" button-text="Add"></nt-button>
                 </nt-toolbar>
-                <div ui-grid="vm.stoppageGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ng-class="gridClass" style="height:150px;width:99%"></div>
+                <div ui-grid="vm.stoppageGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ui-grid-validate ng-class="gridClass" style="height:150px;width:99%"></div>
             </md-content>
         </div>
         <div style="width:5px">&nbsp;</div>
@@ -35,7 +35,7 @@
                     <nt-button class="text-right" ng-click="vm.removeOperator()" button-icon="delete" button-text="Remove"></nt-button>
                     <nt-button class="text-right" ng-click="vm.addOperator()" button-icon="add" button-text="Add"></nt-button>
                 </nt-toolbar>
-                <div ui-grid="vm.operatorGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ng-class="gridClass" style="height:150px;width:99%"></div>
+                <div ui-grid="vm.operatorGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ui-grid-validate ng-class="gridClass" style="height:150px;width:99%"></div>
             </md-content>
         </div>
     </div>

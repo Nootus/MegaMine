@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('dressing', dressing)
-dressing.$inject = ['$scope', '$mdDialog', 'uiGridConstants', 'uiGridValidateService', 'plantService', 'gridUtility', 'constants', 'message'];
+dressing.$inject = ['$scope', 'uiGridConstants', 'uiGridValidateService', 'moment', 'plantService', 'gridUtility', 'dialogUtility', 'constants', 'message'];
 
-function dressing($scope, $mdDialog, uiGridConstants, uiGridValidateService, plantService, gridUtility, constants, message) {
+function dressing($scope, uiGridConstants, uiGridValidateService, moment,plantService, gridUtility, dialogUtility, constants, message) {
     var blockGridOptions = {
         columnDefs: [
                     { name: 'blockNumber', field: 'blockNumber', type: 'string', displayName: 'Block Number', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
@@ -19,8 +19,8 @@ function dressing($scope, $mdDialog, uiGridConstants, uiGridValidateService, pla
 
     var stoppageGridOptions = {
         columnDefs: [
-                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time' },
-                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time' },
+                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
                     { name: 'reason', field: 'reason', type: 'string', displayName: 'Reason' },
         ]
     };
@@ -48,7 +48,8 @@ function dressing($scope, $mdDialog, uiGridConstants, uiGridValidateService, pla
         removeOperator: removeOperator,
         blankBlockRow: undefined,
         blankStoppageRow: undefined,
-        blankOperatorRow: undefined
+        blankOperatorRow: undefined,
+        gridsValid: true
     }
     init();
 
@@ -61,8 +62,8 @@ function dressing($scope, $mdDialog, uiGridConstants, uiGridValidateService, pla
         removeZeros();
 
         vm.blankBlockRow = angular.copy(vm.dressingModel.model.blocks[0]);
-        vm.blankStoppageRow = { startTime: undefined, endTime: undefined, reason: undefined };
-        vm.blankOperatorRow = { operator: undefined, startTime: undefined, endTime: undefined };
+        vm.blankStoppageRow = { startTime: null, endTime: null, reason: null };
+        vm.blankOperatorRow = { operator: null, startTime: null, endTime: null };
 
         //grid options
         setGridOptions(vm.blockGridOptions, vm.dressingModel.model.blocks);
@@ -76,11 +77,27 @@ function dressing($scope, $mdDialog, uiGridConstants, uiGridValidateService, pla
         uiGridValidateService.setValidator('number',
           function (argument) {
               return function (oldValue, newValue, rowEntity, colDef) {
-                  return isFinite(newValue);
+                  if (argument) {
+                      return isFinite(newValue);
+                  }
+                  return true;
               };
           },
           function (argument) {
-              return 'Must be a number';
+              return 'Invalid number';
+          }
+        );
+        uiGridValidateService.setValidator('time',
+          function (argument) {
+              return function (oldValue, newValue, rowEntity, colDef) {
+                  if (argument && newValue) {
+                      return moment(newValue, 'h:mm A', true).isValid();
+                  }
+                  return true;
+              };
+          },
+          function (argument) {
+              return 'Invalid time';
           }
         );
     }
@@ -104,22 +121,37 @@ function dressing($scope, $mdDialog, uiGridConstants, uiGridValidateService, pla
 
         gridOptions.onRegisterApi = function(gridApi){
             gridOptions.gridApi = gridApi;
-            //vm.blockGridOptions.gridApi.validate.on.validationFailed($scope, function (rowEntity, colDef, newValue, oldValue) {
-            //    alert('rowEntity: ' + rowEntity + '\n' +
-            //                  'colDef: ' + colDef + '\n' +
-            //                  'newValue: ' + newValue + '\n' +
-            //                  'oldValue: ' + oldValue);
-            //});
+            gridApi.validate.on.validationFailed($scope, function (rowEntity, colDef, newValue, oldValue) {
+                vm.gridsValid = false;
+            });
         };
 
     }
 
-    function saveDressing() {
-        //alert(vm.blockGridOptions.gridApi.validate.isInvalid(vm.blockGridOptions.data[0], vm.blockGridOptions.columnDefs[0]));
-        var gridOptions = vm.blockGridOptions;
+    function saveDressing(form, ev) {
+        vm.gridsValid = true;
+        validateGrid(vm.blockGridOptions);
+        validateGrid(vm.stoppageGridOptions);
+        validateGrid(vm.operatorGridOptions);
 
-        //idOptions.gridApi.grid.validate.runValidators(gridOptions.data[0], gridOptions.columnDefs[0], gridOptions.data[0]["blockNumber"], undefined, gridOptions.gridApi.grid)
+        dialogUtility.confirm('Confirm Save', 'Please confirm to save the Dressing info', ev )
+            .then(function () {
+                //validating form
+                if (vm.dressingModel.model.blocks.length === 0 || vm.dressingModel.machineStoppages.length === 0 || vm.dressingModel.machineOperators.length === 0) {
+                    vm.gridsValid = false;
+                }
 
+                if (!form.$valid || !vm.gridsValid) {
+                    dialogUtility.alert('Errors', 'Please fix the errors before saving', ev);
+                }
+                else {
+                    //saving the model
+                }
+        });
+
+    }
+
+    function validateGrid(gridOptions) {
         angular.forEach(gridOptions.data, function (rowEntity) {
             angular.forEach(gridOptions.columnDefs, function (colDef) {
                 gridOptions.gridApi.grid.validate.runValidators(rowEntity, colDef, rowEntity[colDef.field], undefined, gridOptions.gridApi.grid)
