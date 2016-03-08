@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('material', material)
-material.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'utility', 'quarryUtility', 'constants', 'template'];
+material.$inject = ['$scope', 'quarryService', 'quarryUtility', 'gridUtility', 'dialogUtility', 'utility', 'constants', 'template'];
 
-function material($scope, $mdDialog, quarryService, gridUtility, utility, quarryUtility, constants, template) {
+function material($scope, quarryService, quarryUtility, gridUtility, dialogUtility, utility, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -75,26 +75,12 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, quarry
 
     function saveMaterial(ev) {
         if (vm.list.length === 0) {
-            $mdDialog.show(
-              $mdDialog.alert()
-                .parent(angular.element(document.body))
-                .title('No Materials')
-                .content('Please add materials to save')
-                .ariaLabel('No Materials')
-                .ok('Ok')
-                .targetEvent(ev)
-            );
+            dialogUtility.alert('No Materials', 'Please add materials to save', ev);
         }
         else {
-            var confirm = $mdDialog.confirm()
-              .parent(angular.element(document.body))
-              .title('Confirm Save')
-              .content('Please confirm to save the material')
-              .ariaLabel('Save Material')
-              .ok('Yes')
-              .cancel('No')
-              .targetEvent(ev);
-            $mdDialog.show(confirm).then(function () {
+
+            dialogUtility.confirm('Confirm Save', 'Please confirm to save the material', ev)
+                .then(function () {
                 quarryService.saveMaterial(vm.list)
                     .then(function (data) {
                             vm.list.splice(0, vm.list.length);
@@ -114,16 +100,8 @@ function material($scope, $mdDialog, quarryService, gridUtility, utility, quarry
     }
 
     function deleteRowMaterial(row, ev) {
-        var message = "Are you sure you want to delete the material";
-        var confirm = $mdDialog.confirm()
-          .parent(angular.element(document.body))
-          .title('Delete Material')
-          .content(message)
-          .ariaLabel('Delete Material')
-          .ok('Yes')
-          .cancel('No')
-          .targetEvent(ev);
-        $mdDialog.show(confirm).then(function () {
+        dialogUtility.confirm('Delete Material', 'Are you sure you want to delete the material', ev)
+            .then(function () {
             vm.list.splice(row.index, 1);
         });
     }

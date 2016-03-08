@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('dressing', dressing)
-dressing.$inject = ['$scope', 'uiGridConstants', 'uiGridValidateService', 'moment', 'plantService', 'gridUtility', 'dialogUtility', 'constants', 'message'];
+dressing.$inject = ['$scope', 'uiGridConstants', 'uiGridValidateService', 'moment', 'plantService', 'gridUtility', 'dialogUtility', 'utility', 'constants', 'message'];
 
-function dressing($scope, uiGridConstants, uiGridValidateService, moment,plantService, gridUtility, dialogUtility, constants, message) {
+function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantService, gridUtility, dialogUtility, utility, constants, message) {
     var blockGridOptions = {
         columnDefs: [
                     { name: 'blockNumber', field: 'blockNumber', type: 'string', displayName: 'Block Number', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
@@ -21,15 +21,15 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment,plantSe
         columnDefs: [
                     { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
                     { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
-                    { name: 'reason', field: 'reason', type: 'string', displayName: 'Reason' },
+                    { name: 'reason', field: 'reason', type: 'string', displayName: 'Reason', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
         ]
     };
 
     var operatorGridOptions = {
         columnDefs: [
-                    { name: 'operatorId', field: 'operatorId', type: 'string', displayName: 'Operator' },
-                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time' },
-                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time' },
+                    { name: 'operatorId', field: 'operatorId', type: 'string', displayName: 'Operator', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator', editableCellTemplate: 'ui-grid/dropdownEditor', editDropdownOptionsArray: plantService.dressingModel.operators, editDropdownValueLabel: 'item', editDropdownIdLabel: 'key' },
+                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
                 ]
         };
 
@@ -49,7 +49,8 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment,plantSe
         blankBlockRow: undefined,
         blankStoppageRow: undefined,
         blankOperatorRow: undefined,
-        gridsValid: true
+        gridsValid: true,
+        validationErrors: { message: undefined, errors: []}
     }
     init();
 
@@ -59,11 +60,11 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment,plantSe
         setValidators();
 
         vm.dressingModel = plantService.dressingModel;
-        removeZeros();
+        removeBlockModelZeros();
 
         vm.blankBlockRow = angular.copy(vm.dressingModel.model.blocks[0]);
         vm.blankStoppageRow = { startTime: null, endTime: null, reason: null };
-        vm.blankOperatorRow = { operator: null, startTime: null, endTime: null };
+        vm.blankOperatorRow = { operatorId: null, startTime: null, endTime: null };
 
         //grid options
         setGridOptions(vm.blockGridOptions, vm.dressingModel.model.blocks);
@@ -102,7 +103,7 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment,plantSe
         );
     }
 
-    function removeZeros(){
+    function removeBlockModelZeros(){
         angular.forEach(vm.dressingModel.model.blocks, function (item) {
             item.lengthBefore = null;
             item.widthBefore = null;
@@ -124,6 +125,9 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment,plantSe
             gridApi.validate.on.validationFailed($scope, function (rowEntity, colDef, newValue, oldValue) {
                 vm.gridsValid = false;
             });
+            gridApi.rowEdit.on.saveRow($scope,function(rowEntity){
+                alert('change');
+            })
         };
 
     }
@@ -134,18 +138,40 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment,plantSe
         validateGrid(vm.stoppageGridOptions);
         validateGrid(vm.operatorGridOptions);
 
+        vm.validationErrors.message = undefined;
+        var errors = vm.validationErrors.errors;
+        errors.splice(0, errors.length);
+
         dialogUtility.confirm('Confirm Save', 'Please confirm to save the Dressing info', ev )
             .then(function () {
                 //validating form
-                if (vm.dressingModel.model.blocks.length === 0 || vm.dressingModel.machineStoppages.length === 0 || vm.dressingModel.machineOperators.length === 0) {
+                if (vm.dressingModel.model.blocks.length === 0) {
+                    errors.push({ description: 'There should be at least one block' });
+                    vm.gridsValid = false;
+                }
+                if (vm.dressingModel.machineStoppages.length === 0) {
+                    errors.push({ description: 'There should be at least one stoppage' });
+                    vm.gridsValid = false;
+                }
+                if (vm.dressingModel.machineOperators.length === 0) {
+                    errors.push({ description: 'There should be at least one operator' });
                     vm.gridsValid = false;
                 }
 
                 if (!form.$valid || !vm.gridsValid) {
                     dialogUtility.alert('Errors', 'Please fix the errors before saving', ev);
+                    if (errors.length > 0) {
+                        vm.validationErrors.message = 'Please fix the below errors before saving';
+                    }
                 }
                 else {
                     //saving the model
+                    plantService.dressingSave(vm.dressingModel).then(function(data){
+
+                    }).catch(function (data) {
+                        vm.validationErrors.message = data.message;
+                        utility.extend(vm.validationErrors.errors, data.model.data);
+                    })
                 }
         });
 

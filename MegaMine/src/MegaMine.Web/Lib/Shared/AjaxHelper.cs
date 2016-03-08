@@ -1,8 +1,6 @@
-﻿using MegaMine.Web.Models;
+﻿using MegaMine.Core.Exception;
 using MegaMine.Web.Models.Shared;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MegaMine.Web.Lib.Shared

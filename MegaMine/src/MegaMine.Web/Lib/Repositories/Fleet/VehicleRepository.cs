@@ -1,17 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MegaMine.Web.Models.Fleet;
-using MegaMine.Web.Lib.Entities.Fleet;
-using MegaMine.Web.Lib.Entities;
-using MegaMine.Web.Lib.Shared;
-using System.Data.SqlTypes;
-using Microsoft.Data.Entity;
-using AutoMapper;
-using Microsoft.Data.Entity.Metadata;
+﻿using AutoMapper;
+using MegaMine.Core.Exception;
 using MegaMine.Core.Models;
 using MegaMine.Core.Repositories;
+using MegaMine.Web.Lib.Entities.Fleet;
+using MegaMine.Web.Lib.Shared;
+using MegaMine.Web.Models.Fleet;
+using Microsoft.Data.Entity;
+using System;
+using System.Collections.Generic;
+using System.Data.SqlTypes;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace MegaMine.Web.Lib.Repositories.Fleet
 {

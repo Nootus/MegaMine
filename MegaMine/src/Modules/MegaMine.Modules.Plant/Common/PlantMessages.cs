@@ -13,5 +13,7 @@ namespace MegaMine.Modules.Plant.Common
         public const string BladeDeleteSuccess = "Blade Info Deleted Successfully";
         public const string OperatorSaveSuccess = "Operator Info Saved Successfully";
         public const string OperatorDeleteSuccess = "Operator Info Deleted Successfully";
+        public const string DressingSaveSuccess = "Block Dressing data saved successfully";
+        public const string DressingError = "Please fix the errors";
     }
 }

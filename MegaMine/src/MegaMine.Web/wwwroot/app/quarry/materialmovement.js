@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('materialMovement', materialMovement)
-materialMovement.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'constants', 'message'];
+materialMovement.$inject = ['$scope', 'quarryService', 'gridUtility', 'dialogUtility', 'constants', 'message'];
 
-function materialMovement($scope, $mdDialog, quarryService, gridUtility, constants, message) {
+function materialMovement($scope, quarryService, gridUtility, dialogUtility, constants, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -76,15 +76,7 @@ function materialMovement($scope, $mdDialog, quarryService, gridUtility, constan
             });
 
             if (selectedIds.length === 0) {
-                $mdDialog.show(
-                  $mdDialog.alert()
-                    .parent(angular.element(document.body))
-                    .title('No Materials Selected')
-                    .content('Please select materials to move')
-                    .ariaLabel('No Materials Selected')
-                    .ok('Ok')
-                    .targetEvent(ev)
-                );
+                dialogUtility.alert('No Materials Selected', 'Please select materials to move', ev);
             }
             else {
                 quarryService.moveMaterial({ materialMovementIds: selectedIds, fromYardId: vm.currentYardId, toYardId: vm.toYardId, movementDate: vm.movementDate })

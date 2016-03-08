@@ -99,6 +99,10 @@ namespace MegaMine.Web.Controllers
         {
             return await AjaxHelper.GetAsync(m => domain.DressingGet(machineId, processDate));
         }
+        public async Task<AjaxModel<NTModel>> DressingSave([FromBody] DressingViewModel viewModel)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.DressingSave(viewModel), PlantMessages.DressingSaveSuccess);
+        }
         #endregion
 
     }

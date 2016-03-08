@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('vehicleFuel', vehicleFuel)
-vehicleFuel.$inject = ['$scope', '$mdDialog', 'vehicleService', 'gridUtility', 'constants', 'dialogService', 'template'];
+vehicleFuel.$inject = ['$scope', 'vehicleService', 'gridUtility', 'dialogUtility', 'constants', 'dialogService', 'template'];
 
-function vehicleFuel($scope, $mdDialog, vehicleService, gridUtility, constants, dialogService, template) {
+function vehicleFuel($scope, vehicleService, gridUtility, dialogUtility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -61,15 +61,8 @@ function vehicleFuel($scope, $mdDialog, vehicleService, gridUtility, constants, 
     }
 
     function resetFuel(ev) {
-        var confirm = $mdDialog.confirm()
-          .parent(angular.element(document.body))
-          .title('Reset Average')
-          .content('Please confirm to reset fuel average')
-          .ariaLabel('Reset Average')
-          .ok('Yes')
-          .cancel('No')
-          .targetEvent(ev);
-        $mdDialog.show(confirm).then(function () {
+        dialogUtility.confirm('Reset Average', 'Please confirm to reset fuel average', ev)
+            .then(function () {
             vehicleService.resetFuelAverage(vehicleService.vehicle.vehicleId)
                 .then(function () {
                     vehicleService.vehicle.fuelAverage = null;

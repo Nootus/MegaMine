@@ -18,6 +18,7 @@ function plantService($http, utility) {
             operators: []
         },
         dressingGet: dressingGet,
+        dressingSave: dressingSave,
 
         //machine
         machines: [],
@@ -54,6 +55,11 @@ function plantService($http, utility) {
                 utility.extend(service.dressingModel.machines, data.machines);
                 utility.extend(service.dressingModel.operators, data.operators);
             });
+    }
+
+    function dressingSave(dressingModel) {
+        var viewModel = { model: dressingModel.model, machineStoppages: dressingModel.machineStoppages, machineOperators: dressingModel.machineOperators };
+        return $http.post("/api/plant/dressingsave", viewModel);
     }
 
     //machine

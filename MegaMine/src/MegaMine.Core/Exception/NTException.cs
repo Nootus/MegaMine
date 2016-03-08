@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MegaMine.Web.Lib.Shared
+﻿namespace MegaMine.Core.Exception
 {
-    public class NTException : Exception
+    public class NTException : System.Exception
     {
         private string message;
         private object model;

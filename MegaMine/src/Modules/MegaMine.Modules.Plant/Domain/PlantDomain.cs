@@ -1,4 +1,6 @@
-﻿using MegaMine.Modules.Plant.Models;
+﻿using MegaMine.Core.Exception;
+using MegaMine.Modules.Plant.Common;
+using MegaMine.Modules.Plant.Models;
 using MegaMine.Modules.Plant.Repositories;
 using System;
 using System.Collections.Generic;
@@ -91,6 +93,21 @@ namespace MegaMine.Modules.Plant.Domain
 
             return viewModel;
         }
+
+        public async Task DressingSave(DressingViewModel viewModel)
+        {
+            List<NTError> errors = new List<NTError>()
+            {
+                new NTError() {Description = "one" },
+                new NTError() {Description = "Two" }
+            };
+
+            if(errors.Count > 0)
+            {
+                throw new NTException(PlantMessages.DressingError, errors);
+            }
+        }
+
         #endregion
     }
 }

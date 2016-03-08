@@ -1,16 +1,10 @@
 ﻿using MegaMine.Core.Context;
+using MegaMine.Core.Exception;
 using MegaMine.Web.Lib.Entities.Account;
-using MegaMine.Web.Lib.Middleware;
 using MegaMine.Web.Lib.Repositories;
 using MegaMine.Web.Lib.Shared;
-using MegaMine.Web.Models;
 using MegaMine.Web.Models.Account;
-using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace MegaMine.Web.Lib.Domain

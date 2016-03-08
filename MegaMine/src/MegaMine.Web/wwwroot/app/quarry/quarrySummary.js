@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarrySummary', quarrySummary)
-quarrySummary.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'quarryUtility', 'dialogService', 'constants', 'template'];
+quarrySummary.$inject = ['$scope', 'quarryService', 'gridUtility', 'quarryUtility', 'dialogService', 'constants', 'template'];
 
-function quarrySummary($scope, $mdDialog, quarryService, gridUtility, quarryUtility, dialogService, constants, template) {
+function quarrySummary($scope, quarryService, gridUtility, quarryUtility, dialogService, constants, template) {
 
     var gridOptions = {
         columnDefs: [

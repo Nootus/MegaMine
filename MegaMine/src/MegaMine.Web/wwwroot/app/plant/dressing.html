@@ -4,8 +4,15 @@
 </nt-toolbar>
 <form name="dressingForm" novalidate>
     <md-content layout-padding>
+        <div flex-offset="40" class="dialog_error" ng-show="vm.validationErrors.errors.length > 0">
+            {{vm.validationErrors.message}}
+            <ul>
+                <li ng-repeat="error in vm.validationErrors.errors">{{ error.description }}</li>
+            </ul>
+        </div>
+
         <div layout="row" layout-align="end end">
-            <nt-input flex="20" form="dressingForm" type="date" label="Process Date" control-name="processDate" ng-model="vm.dressingModel.model.processDate" ng-required="true"></nt-input>
+            <nt-input flex="15" form="dressingForm" type="date" label="Process Date" control-name="processDate" ng-model="vm.dressingModel.model.processDate" ng-required="true"></nt-input>
             <nt-select flex="20" form="dressingForm" label="Machine" control-name="fromYard" ng-model="vm.dressingModel.model.machineId" opt-list="vm.dressingModel.machines" opt-value="key" opt-text="item" ng-required="true"></nt-select>
             <div flex>&nbsp;</div>
         </div>

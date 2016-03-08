@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('productSummary', productSummary)
-productSummary.$inject = ['$scope', '$mdDialog', 'quarryService', 'gridUtility', 'quarryUtility', 'dialogService', 'constants', 'template'];
+productSummary.$inject = ['$scope', 'quarryService', 'gridUtility', 'quarryUtility', 'dialogService', 'constants', 'template'];
 
-function productSummary($scope, $mdDialog, quarryService, gridUtility, quarryUtility, dialogService, constants, template) {
+function productSummary($scope, quarryService, gridUtility, quarryUtility, dialogService, constants, template) {
 
     var gridOptions = {
         columnDefs: [
