@@ -19,17 +19,17 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
 
     var stoppageGridOptions = {
         columnDefs: [
-                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
-                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
                     { name: 'reason', field: 'reason', type: 'string', displayName: 'Reason', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
         ]
     };
 
     var operatorGridOptions = {
         columnDefs: [
-                    { name: 'operatorId', field: 'operatorId', type: 'string', displayName: 'Operator', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator', editableCellTemplate: 'ui-grid/dropdownEditor', editDropdownOptionsArray: plantService.dressingModel.operators, editDropdownValueLabel: 'item', editDropdownIdLabel: 'key' },
-                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
-                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'operatorName', field: 'operatorName', type: 'string', displayName: 'Operator', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator', editableCellTemplate: 'ui-grid/dropdownEditor', editDropdownOptionsArray: plantService.dressingModel.operators, editDropdownValueLabel: 'item', editDropdownIdLabel: 'key', editModelField: 'operatorId' },
+                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
                 ]
         };
 
@@ -64,14 +64,14 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
 
         vm.blankBlockRow = angular.copy(vm.dressingModel.model.blocks[0]);
         vm.blankStoppageRow = { startTime: null, endTime: null, reason: null };
-        vm.blankOperatorRow = { operatorId: null, startTime: null, endTime: null };
+        vm.blankOperatorRow = { operatorId: null, opeartorName: null, startTime: null, endTime: null };
 
         //grid options
         setGridOptions(vm.blockGridOptions, vm.dressingModel.model.blocks);
         setGridOptions(vm.stoppageGridOptions, vm.dressingModel.machineStoppages);
         setGridOptions(vm.operatorGridOptions, vm.dressingModel.machineOperators);
 
-
+        //operator Grid showing operator name
     }
 
     function setValidators() {
@@ -101,6 +101,24 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
               return 'Invalid time';
           }
         );
+        uiGridValidateService.setValidator('timeRange',
+          function (argument) {
+              return function (oldValue, newValue, rowEntity, colDef) {
+                  if (argument && rowEntity.startTime && rowEntity.endTime) {
+                      var startTime = moment(rowEntity.startTime, 'h:mm A', true);
+                      var endTime = moment(rowEntity.endTime, 'h:mm A', true);
+                      if (startTime.isValid() && endTime.isValid())
+                          return startTime.isBefore(endTime);
+                      else
+                          return true;
+                  }
+                  return true;
+              };
+          },
+          function (argument) {
+              return 'Start time should be before end time';
+          }
+        );
     }
 
     function removeBlockModelZeros(){
@@ -125,9 +143,12 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
             gridApi.validate.on.validationFailed($scope, function (rowEntity, colDef, newValue, oldValue) {
                 vm.gridsValid = false;
             });
-            gridApi.rowEdit.on.saveRow($scope,function(rowEntity){
-                alert('change');
-            })
+
+            gridApi.edit.on.afterCellEdit($scope, function (rowEntity, colDef, newValue, oldValue) {
+                if (colDef.field === 'operatorName') {
+                    rowEntity.operatorName = utility.getItem(vm.dressingModel.operators, rowEntity.operatorId, "key", "item");;
+                }
+            });
         };
 
     }
