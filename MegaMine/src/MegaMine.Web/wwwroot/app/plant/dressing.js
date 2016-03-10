@@ -19,8 +19,8 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
 
     var stoppageGridOptions = {
         columnDefs: [
-                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
-                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator', gridOptions: 'stoppageGridOptions' },
+                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator', gridOptions: 'stoppageGridOptions' },
                     { name: 'reason', field: 'reason', type: 'string', displayName: 'Reason', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
         ]
     };
@@ -107,8 +107,22 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
                   if (argument && rowEntity.startTime && rowEntity.endTime) {
                       var startTime = moment(rowEntity.startTime, 'h:mm A', true);
                       var endTime = moment(rowEntity.endTime, 'h:mm A', true);
-                      if (startTime.isValid() && endTime.isValid())
-                          return startTime.isBefore(endTime);
+                      if (startTime.isValid() && endTime.isValid()){
+                          var result = startTime.isBefore(endTime);
+                          if (result) {
+                              var gridOptions = vm[colDef.gridOptions];
+                              var columnDefs = gridOptions.columnDefs;
+                              //clearing the error for start or end time set earlier
+                              for (var counter = 0; counter < columnDefs.length; counter++) {
+                                  uiGridValidateService.clearError(rowEntity, columnDefs[counter], 'timeRange');
+                                  //ToDo: workaround for bug in UI grid
+                                  if (rowEntity['$$errors' + columnDefs[counter].name] !== undefined && Object.getOwnPropertyNames(rowEntity['$$errors' + columnDefs[counter].name]).length === 0) {
+                                      delete rowEntity['$$invalid' + columnDefs[counter].name];
+                                  }
+                              }
+                          }
+                          return result;
+                      }
                       else
                           return true;
                   }
@@ -174,8 +188,17 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
                     errors.push({ description: 'There should be at least one stoppage' });
                     vm.gridsValid = false;
                 }
+                else if (!validateTimeOverlap(vm.dressingModel.machineStoppages)) {
+                    errors.push({ description: 'Time should not overlap in stoppages' });
+                    vm.gridsValid = false;
+                }
+
                 if (vm.dressingModel.machineOperators.length === 0) {
                     errors.push({ description: 'There should be at least one operator' });
+                    vm.gridsValid = false;
+                }
+                else if (!validateTimeOverlap(vm.dressingModel.machineOperators)) {
+                    errors.push({ description: 'Time should not overlap for operators' });
                     vm.gridsValid = false;
                 }
 
@@ -196,6 +219,22 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
                 }
         });
 
+    }
+
+    function validateTimeOverlap(data) {
+        for (var counter = 0; counter < data.length; counter++) {
+            var startTime = moment(data[counter].startTime, 'h:mm A', true);
+            var endTime = moment(data[counter].endTime, 'h:mm A', true);
+            for (var subCounter = counter + 1; subCounter < data.length; subCounter++) {
+                var subStartTime = moment(data[subCounter].startTime, 'h:mm A', true);
+                var subEndTime = moment(data[subCounter].endTime, 'h:mm A', true);
+                if (startTime.isBetween(subStartTime, subEndTime) || endTime.isBetween(subStartTime, subEndTime)) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 
     function validateGrid(gridOptions) {
