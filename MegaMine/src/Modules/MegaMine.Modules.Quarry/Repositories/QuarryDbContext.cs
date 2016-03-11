@@ -1,9 +1,10 @@
-﻿using MegaMine.Modules.Quarry.Entities;
+﻿using MegaMine.Core.Repositories;
+using MegaMine.Modules.Quarry.Entities;
 using Microsoft.Data.Entity;
 
 namespace MegaMine.Modules.Quarry.Repositories
 {
-    public class QuarryDbContext : DbContext
+    public class QuarryDbContext : BaseDbContext
     {
         public DbSet<MaterialColourEntity> MaterialColours { get; set; }
         public DbSet<ProductTypeEntity> ProductTypes { get; set; }

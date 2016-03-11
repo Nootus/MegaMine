@@ -7,13 +7,13 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
         columnDefs: [
                     { name: 'blockNumber', field: 'blockNumber', type: 'string', displayName: 'Block Number', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
                     { name: 'lengthBefore', field: 'lengthBefore', type: 'number', displayName: 'Length(Before)', validators: { required: true, number: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
-                    { name: 'widthBefore', field: 'widthBefore', type: 'number', displayName: 'Width(Before)' },
-                    { name: 'heightBefore', field: 'heightBefore', type: 'number', displayName: 'Height(Before)' },
-                    { name: 'weightBefore', field: 'weightBefore', type: 'number', displayName: 'Weight(Before)' },
-                    { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
-                    { name: 'width', field: 'width', type: 'number', displayName: 'Width' },
-                    { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
-                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
+                    { name: 'widthBefore', field: 'widthBefore', type: 'number', displayName: 'Width(Before)', validators: { required: true, number: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'heightBefore', field: 'heightBefore', type: 'number', displayName: 'Height(Before)', validators: { required: true, number: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'weightBefore', field: 'weightBefore', type: 'number', displayName: 'Weight(Before)', validators: { number: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'length', field: 'length', type: 'number', displayName: 'Length', validators: { required: true, number: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'width', field: 'width', type: 'number', displayName: 'Width', validators: { required: true, number: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'height', field: 'height', type: 'number', displayName: 'Height', validators: { required: true, number: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', validators: { number: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
         ]
     };
 
@@ -28,8 +28,8 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
     var operatorGridOptions = {
         columnDefs: [
                     { name: 'operatorName', field: 'operatorName', type: 'string', displayName: 'Operator', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator', editableCellTemplate: 'ui-grid/dropdownEditor', editDropdownOptionsArray: plantService.dressingModel.operators, editDropdownValueLabel: 'item', editDropdownIdLabel: 'key', editModelField: 'operatorId' },
-                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
-                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator' },
+                    { name: 'startTime', field: 'startTime', type: 'time', displayName: 'Start Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator', gridOptions: 'operatorGridOptions' },
+                    { name: 'endTime', field: 'endTime', type: 'time', displayName: 'End Time', validators: { required: true, time: true, timeRange: true }, cellTemplate: 'ui-grid/cellTitleValidator', gridOptions: 'operatorGridOptions' },
                 ]
         };
 
@@ -228,7 +228,7 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
             for (var subCounter = counter + 1; subCounter < data.length; subCounter++) {
                 var subStartTime = moment(data[subCounter].startTime, 'h:mm A', true);
                 var subEndTime = moment(data[subCounter].endTime, 'h:mm A', true);
-                if (startTime.isBetween(subStartTime, subEndTime) || endTime.isBetween(subStartTime, subEndTime)) {
+                if (startTime.isBetween(subStartTime, subEndTime) || endTime.isBetween(subStartTime, subEndTime) || (startTime.isSameOrBefore(subStartTime) && endTime.isSameOrAfter(subEndTime))) {
                     return false;
                 }
             }

@@ -2,6 +2,7 @@
 using MegaMine.Core;
 using MegaMine.Modules.Plant;
 using MegaMine.Modules.Quarry;
+using MegaMine.Modules.Shared;
 using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Entities.Account;
 using MegaMine.Web.Lib.Filters;
@@ -25,7 +26,7 @@ namespace MegaMine.Web
     {
         public IConfigurationRoot Configuration { get; set; }
 
-        private IModuleStartup[] modules = { new QuarryStartup(), new PlantStartup() };
+        private IModuleStartup[] modules = { new QuarryStartup(), new PlantStartup(), new SharedStartup() };
 
         public Startup(IHostingEnvironment env)
         {

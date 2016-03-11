@@ -1,6 +1,6 @@
-﻿{
+{
   "version": "1.0.0-*",
-  "description": "MegaMine.Modules.Plant Class Library",
+  "description": "MegaMine.Modules.Shared Class Library",
   "authors": [ "prasanna" ],
   "tags": [ "" ],
   "projectUrl": "",

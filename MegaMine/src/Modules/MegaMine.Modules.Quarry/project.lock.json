@@ -712,7 +712,7 @@
           "lib/net45/_._": {}
         }
       },
-      "System.Runtime/4.0.21-beta-23516": {
+      "System.Runtime/4.0.0": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -1441,7 +1441,7 @@
           "lib/net45/_._": {}
         }
       },
-      "System.Runtime/4.0.21-beta-23516": {
+      "System.Runtime/4.0.0": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -2170,7 +2170,7 @@
           "lib/net45/_._": {}
         }
       },
-      "System.Runtime/4.0.21-beta-23516": {
+      "System.Runtime/4.0.0": {
         "type": "package",
         "compile": {
           "ref/net45/_._": {}
@@ -2847,54 +2847,30 @@
         "System.Diagnostics.Tracing.nuspec"
       ]
     },
-    "System.Runtime/4.0.21-beta-23516": {
+    "System.Runtime/4.0.0": {
       "type": "package",
-      "serviceable": true,
-      "sha512": "R174ctQjJnCIVxA2Yzp1v68wfLfPSROZWrbaSBcnEzHAQbOjprBQi37aWdr5y05Pq2J/O7h6SjTsYhVOLdiRYQ==",
+      "sha512": "Uq9epame8hEqJlj4KaWb67dDJvj4IM37jRFGVeFbugRdPz48bR0voyBhrbf3iSa2tAmlkg4lsa6BUOL9iwlMew==",
       "files": [
-        "lib/DNXCore50/System.Runtime.dll",
         "lib/MonoAndroid10/_._",
         "lib/MonoTouch10/_._",
         "lib/net45/_._",
-        "lib/netcore50/System.Runtime.dll",
         "lib/win8/_._",
         "lib/wp80/_._",
         "lib/wpa81/_._",
         "lib/xamarinios10/_._",
         "lib/xamarinmac20/_._",
-        "ref/dotnet5.1/de/System.Runtime.xml",
-        "ref/dotnet5.1/es/System.Runtime.xml",
-        "ref/dotnet5.1/fr/System.Runtime.xml",
-        "ref/dotnet5.1/it/System.Runtime.xml",
-        "ref/dotnet5.1/ja/System.Runtime.xml",
-        "ref/dotnet5.1/ko/System.Runtime.xml",
-        "ref/dotnet5.1/ru/System.Runtime.xml",
-        "ref/dotnet5.1/System.Runtime.dll",
-        "ref/dotnet5.1/System.Runtime.xml",
-        "ref/dotnet5.1/zh-hans/System.Runtime.xml",
-        "ref/dotnet5.1/zh-hant/System.Runtime.xml",
-        "ref/dotnet5.3/de/System.Runtime.xml",
-        "ref/dotnet5.3/es/System.Runtime.xml",
-        "ref/dotnet5.3/fr/System.Runtime.xml",
-        "ref/dotnet5.3/it/System.Runtime.xml",
-        "ref/dotnet5.3/ja/System.Runtime.xml",
-        "ref/dotnet5.3/ko/System.Runtime.xml",
-        "ref/dotnet5.3/ru/System.Runtime.xml",
-        "ref/dotnet5.3/System.Runtime.dll",
-        "ref/dotnet5.3/System.Runtime.xml",
-        "ref/dotnet5.3/zh-hans/System.Runtime.xml",
-        "ref/dotnet5.3/zh-hant/System.Runtime.xml",
-        "ref/dotnet5.4/de/System.Runtime.xml",
-        "ref/dotnet5.4/es/System.Runtime.xml",
-        "ref/dotnet5.4/fr/System.Runtime.xml",
-        "ref/dotnet5.4/it/System.Runtime.xml",
-        "ref/dotnet5.4/ja/System.Runtime.xml",
-        "ref/dotnet5.4/ko/System.Runtime.xml",
-        "ref/dotnet5.4/ru/System.Runtime.xml",
-        "ref/dotnet5.4/System.Runtime.dll",
-        "ref/dotnet5.4/System.Runtime.xml",
-        "ref/dotnet5.4/zh-hans/System.Runtime.xml",
-        "ref/dotnet5.4/zh-hant/System.Runtime.xml",
+        "License.rtf",
+        "ref/dotnet/de/System.Runtime.xml",
+        "ref/dotnet/es/System.Runtime.xml",
+        "ref/dotnet/fr/System.Runtime.xml",
+        "ref/dotnet/it/System.Runtime.xml",
+        "ref/dotnet/ja/System.Runtime.xml",
+        "ref/dotnet/ko/System.Runtime.xml",
+        "ref/dotnet/ru/System.Runtime.xml",
+        "ref/dotnet/System.Runtime.dll",
+        "ref/dotnet/System.Runtime.xml",
+        "ref/dotnet/zh-hans/System.Runtime.xml",
+        "ref/dotnet/zh-hant/System.Runtime.xml",
         "ref/MonoAndroid10/_._",
         "ref/MonoTouch10/_._",
         "ref/net45/_._",
@@ -2914,9 +2890,8 @@
         "ref/wpa81/_._",
         "ref/xamarinios10/_._",
         "ref/xamarinmac20/_._",
-        "runtimes/win8-aot/lib/netcore50/System.Runtime.dll",
-        "System.Runtime.4.0.21-beta-23516.nupkg",
-        "System.Runtime.4.0.21-beta-23516.nupkg.sha512",
+        "System.Runtime.4.0.0.nupkg",
+        "System.Runtime.4.0.0.nupkg.sha512",
         "System.Runtime.nuspec"
       ]
     },
@@ -2973,8 +2948,6 @@
     "": [
       "AutoMapper >= 4.0.4",
       "EntityFramework.MicrosoftSqlServer >= 7.0.0-rc1-final",
-      "System.Runtime >= 4.0.21-beta-23516",
-      "Microsoft.AspNet.Identity.EntityFramework >= 3.0.0-rc1-final",
       "MegaMine.Core >= 1.0.0-*"
     ],
     ".NETFramework,Version=v4.5.1": []

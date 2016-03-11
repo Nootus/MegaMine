@@ -1,10 +1,10 @@
-﻿using MegaMine.Core.Entities;
+﻿using MegaMine.Core.Repositories;
 using MegaMine.Modules.Plant.Entities;
 using Microsoft.Data.Entity;
 
 namespace MegaMine.Modules.Plant.Repositories
 {
-    public class PlantDbContext : DbContext
+    public class PlantDbContext : BaseDbContext
     {
         public DbSet<MachineEntity> Machines { get; set; }
         public DbSet<BladeEntity> Blades { get; set; }
@@ -32,15 +32,5 @@ namespace MegaMine.Modules.Plant.Repositories
             base.OnModelCreating(builder);
         }
 
-        private void IgnoreAuditFields<TEntity>(ModelBuilder builder) where TEntity: BaseEntity
-        {
-            builder.Entity<TEntity>(e =>
-            {
-                e.Ignore(p => p.CreatedDate);
-                e.Ignore(p => p.CreatedUserId);
-                e.Ignore(p => p.LastModifiedDate);
-                e.Ignore(p => p.LastModifiedUserId);
-            });
-        }
     }
 }
