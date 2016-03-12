@@ -13,7 +13,7 @@ namespace MegaMine.Modules.Shared.Entities
     {
         [Key]
         public int BlockId { get; set; }
-        public string BlockName { get; set; }
+        public string BlockNumber { get; set; }
         public int State { get; set; }
     }
 }

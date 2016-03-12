@@ -107,6 +107,15 @@
           "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
         }
       },
+      "MegaMine.Modules.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "AutoMapper": "4.0.4",
+          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+          "MegaMine.Core": "1.0.0"
+        }
+      },
       "Microsoft.AspNet.Authentication/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -834,6 +843,15 @@
           "AutoMapper": "4.0.4",
           "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
           "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
+        }
+      },
+      "MegaMine.Modules.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "AutoMapper": "4.0.4",
+          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+          "MegaMine.Core": "1.0.0"
         }
       },
       "Microsoft.AspNet.Authentication/1.0.0-rc1-final": {
@@ -1565,6 +1583,15 @@
           "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
         }
       },
+      "MegaMine.Modules.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "AutoMapper": "4.0.4",
+          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+          "MegaMine.Core": "1.0.0"
+        }
+      },
       "Microsoft.AspNet.Authentication/1.0.0-rc1-final": {
         "type": "package",
         "dependencies": {
@@ -2194,6 +2221,10 @@
     "MegaMine.Core/1.0.0": {
       "type": "project",
       "path": "../../MegaMine.Core/project.json"
+    },
+    "MegaMine.Modules.Shared/1.0.0": {
+      "type": "project",
+      "path": "../MegaMine.Modules.Shared/project.json"
     },
     "AutoMapper/4.0.4": {
       "type": "package",
@@ -2948,7 +2979,8 @@
     "": [
       "AutoMapper >= 4.0.4",
       "EntityFramework.MicrosoftSqlServer >= 7.0.0-rc1-final",
-      "MegaMine.Core >= 1.0.0-*"
+      "MegaMine.Core >= 1.0.0-*",
+      "MegaMine.Modules.Shared >= 1.0.0-*"
     ],
     ".NETFramework,Version=v4.5.1": []
   }

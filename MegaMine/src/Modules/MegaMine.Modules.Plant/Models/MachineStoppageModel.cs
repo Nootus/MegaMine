@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MegaMine.Core.Models;
+using System;
 
 namespace MegaMine.Modules.Plant.Models
 {
-    public class MachineStoppageModel
+    public class MachineStoppageModel : ITimeRange
     {
         public int MachineStoppageId { get; set; }
         public int MachineId { get; set; }

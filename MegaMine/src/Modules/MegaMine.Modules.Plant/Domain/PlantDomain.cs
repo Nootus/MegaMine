@@ -2,9 +2,12 @@
 using MegaMine.Modules.Plant.Common;
 using MegaMine.Modules.Plant.Models;
 using MegaMine.Modules.Plant.Repositories;
+using MegaMine.Modules.Shared;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
+using MegaMine.Core.Utilities;
 
 namespace MegaMine.Modules.Plant.Domain
 {
@@ -94,15 +97,32 @@ namespace MegaMine.Modules.Plant.Domain
             return viewModel;
         }
 
-        public async Task DressingSave(DressingViewModel viewModel)
+        public async Task DressingSave(DressingViewModel viewModel, SharedDomain sharedDomain)
         {
-            List<NTError> errors = new List<NTError>()
-            {
-                new NTError() {Description = "one" },
-                new NTError() {Description = "Two" }
-            };
+            List<NTError> errors = new List<NTError>();
+            //validating BlockNumbers
+            string[] blockNumbers = viewModel.Model.Blocks.Select(m => m.BlockNumber).ToArray();
+            string[] validBlockNumbers = await sharedDomain.GetExcavateValidBlocks(blockNumbers);
 
-            if(errors.Count > 0)
+            string[] invalidBlockNumbers = blockNumbers.Except(validBlockNumbers).ToArray();
+            if(invalidBlockNumbers.Length > 0)
+            {
+                errors.Add(new NTError() { Description = String.Format(PlantMessages.BlockNumbersInvalid, String.Join(", ", invalidBlockNumbers)) });
+            }
+
+            //validating time for Stoppages
+            if (!viewModel.MachineStoppages.ValidateTimeRange())
+            {
+                errors.Add(new NTError() { Description = PlantMessages.StoppageTimeRangeInvalid });
+            }
+
+            //validating time for Operators
+            if (!viewModel.MachineOperators.ValidateTimeRange())
+            {
+                errors.Add(new NTError() { Description = PlantMessages.OperatorTimeRangeInvalid });
+            }
+
+            if (errors.Count > 0)
             {
                 throw new NTException(PlantMessages.DressingError, errors);
             }
