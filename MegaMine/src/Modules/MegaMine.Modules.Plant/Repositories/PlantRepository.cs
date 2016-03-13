@@ -92,5 +92,46 @@ namespace MegaMine.Modules.Plant.Repositories
             await DeleteEntity<OperatorEntity>(operatorId);
         }
         #endregion
+
+        #region Dressing
+
+        public async Task DressingSave(DressingViewModel viewModel)
+        {
+            await dbContext.Database.BeginTransactionAsync();
+
+            //Saving Dressing Model
+            DressingEntity dressingEntity = await SaveEntity<DressingEntity, DressingModel>(viewModel.Model, false);
+            BlockDressingEntity blockDressingEntity;
+            foreach (var block in viewModel.Model.Blocks)
+            {
+                blockDressingEntity = await SaveEntity<BlockDressingEntity, BlockDressingModel>(block, false);
+                blockDressingEntity.Dressing = dressingEntity;
+            }
+
+            //saving Stoppages
+            await StoppagesSave(viewModel.MachineStoppages, viewModel.Model.MachineId);
+            await OperatorsSave(viewModel.MachineOperators, viewModel.Model.MachineId);
+
+        }
+
+        public async Task StoppagesSave(List<MachineStoppageModel> machineStoppages, int machineId)
+        {
+            foreach(var stoppage in machineStoppages)
+            {
+                stoppage.MachineId = machineId;
+                await SaveEntity<MachineStoppageEntity, MachineStoppageModel>(stoppage, false);
+            }
+        }
+
+        public async Task OperatorsSave(List<MachineOperatorModel> machineOperators, int machineId)
+        {
+            foreach (var machineOperator in machineOperators)
+            {
+                machineOperator.MachineId = machineId;
+                await SaveEntity<MachineOperatorEntity, MachineOperatorModel>(machineOperator, false);
+            }
+        }
+
+        #endregion
     }
 }

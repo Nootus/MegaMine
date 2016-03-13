@@ -1,15 +1,15 @@
 ﻿using MegaMine.Modules.Plant.Common;
 using MegaMine.Modules.Plant.Domain;
 using MegaMine.Modules.Plant.Models;
-using MegaMine.Modules.Shared;
+using MegaMine.Modules.Shared.Domain;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Http;
 using Microsoft.AspNet.Mvc;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace MegaMine.Web.Controllers
 {
@@ -102,6 +102,8 @@ namespace MegaMine.Web.Controllers
         {
             return await AjaxHelper.GetAsync(m => domain.DressingGet(machineId, processDate));
         }
+
+        [HttpPost]
         public async Task<AjaxModel<NTModel>> DressingSave([FromBody] DressingViewModel viewModel)
         {
             return await AjaxHelper.SaveAsync(m => domain.DressingSave(viewModel, HttpContext.RequestServices.GetRequiredService<SharedDomain>()), PlantMessages.DressingSaveSuccess);

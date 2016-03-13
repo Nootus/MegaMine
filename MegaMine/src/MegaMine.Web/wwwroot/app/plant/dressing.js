@@ -85,7 +85,7 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
               };
           },
           function (argument) {
-              return 'Invalid number';
+              return message.numberInvalid;
           }
         );
         uiGridValidateService.setValidator('time',
@@ -98,7 +98,7 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
               };
           },
           function (argument) {
-              return 'Invalid time';
+              return message.timeInvalid;
           }
         );
         uiGridValidateService.setValidator('timeRange',
@@ -130,7 +130,7 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
               };
           },
           function (argument) {
-              return 'Start time should be before end time';
+              return message.timeRangeInvalid;
           }
         );
     }
@@ -181,32 +181,31 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
             .then(function () {
                 //validating form
                 if (vm.dressingModel.model.blocks.length === 0) {
-                    errors.push({ description: 'There should be at least one block' });
+                    errors.push({ description: message.BlockRequired });
                     vm.gridsValid = false;
                 }
                 if (vm.dressingModel.machineStoppages.length === 0) {
-                    errors.push({ description: 'There should be at least one stoppage' });
-                    vm.gridsValid = false;
+                    //TODO: Check whether this validation is required
+                    //errors.push({ description: 'There should be at least one stoppage' });
+                    //vm.gridsValid = false;
                 }
                 else if (!validateTimeOverlap(vm.dressingModel.machineStoppages)) {
-                    errors.push({ description: 'Time should not overlap in stoppages' });
+                    errors.push({ description: message.StoppageTimeOverlapInvalid });
                     vm.gridsValid = false;
                 }
 
                 if (vm.dressingModel.machineOperators.length === 0) {
-                    errors.push({ description: 'There should be at least one operator' });
+                    errors.push({ description: message.OperatorRequired });
                     vm.gridsValid = false;
                 }
                 else if (!validateTimeOverlap(vm.dressingModel.machineOperators)) {
-                    errors.push({ description: 'Time should not overlap for operators' });
+                    errors.push({ description: message.OperatorTimeOverlapInvalid });
                     vm.gridsValid = false;
                 }
 
-                if (!form.$valid || !vm.gridsValid) {
-                    dialogUtility.alert('Errors', 'Please fix the errors before saving', ev);
-                    if (errors.length > 0) {
-                        vm.validationErrors.message = 'Please fix the below errors before saving';
-                    }
+                if (1 === 2) {
+                //if (!form.$valid || !vm.gridsValid) {
+                    vm.validationErrors.message = message.confirmError;
                 }
                 else {
                     //saving the model

@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using MegaMine.Core.Utilities;
+using MegaMine.Modules.Shared.Domain;
 
 namespace MegaMine.Modules.Plant.Domain
 {
@@ -116,8 +117,12 @@ namespace MegaMine.Modules.Plant.Domain
                 errors.Add(new NTError() { Description = PlantMessages.StoppageTimeRangeInvalid });
             }
 
-            //validating time for Operators
-            if (!viewModel.MachineOperators.ValidateTimeRange())
+            //checking for one operator
+            if(viewModel.MachineOperators.Count == 0)
+            {
+                errors.Add(new NTError() { Description = PlantMessages.OperatorRequired });
+            }
+            else if (!viewModel.MachineOperators.ValidateTimeRange())
             {
                 errors.Add(new NTError() { Description = PlantMessages.OperatorTimeRangeInvalid });
             }
@@ -126,6 +131,12 @@ namespace MegaMine.Modules.Plant.Domain
             {
                 throw new NTException(PlantMessages.DressingError, errors);
             }
+
+            //saving the Block Dressing
+
+
+            //finally saving the state info
+
         }
 
         #endregion

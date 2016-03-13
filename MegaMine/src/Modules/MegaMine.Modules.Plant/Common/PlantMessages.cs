@@ -16,7 +16,9 @@ namespace MegaMine.Modules.Plant.Common
         public const string DressingSaveSuccess = "Block Dressing data saved successfully";
         public const string DressingError = "Please fix the errors";
         public const string BlockNumbersInvalid = "Invalid block numbers: {0}";
+        public const string BlockRequired = "There should be at least one block";
         public const string StoppageTimeRangeInvalid = "Invalid start and end time for Stoppages";
         public const string OperatorTimeRangeInvalid = "Invalid start and end time for Operators";
+        public const string OperatorRequired = "There should be at least one operator";
     }
 }

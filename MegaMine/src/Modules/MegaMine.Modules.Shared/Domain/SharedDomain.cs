@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace MegaMine.Modules.Shared
+namespace MegaMine.Modules.Shared.Domain
 {
     public class SharedDomain
     {

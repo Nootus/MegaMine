@@ -21,5 +21,8 @@ namespace MegaMine.Modules.Plant.Entities
         public decimal Width { get; set; }
         public decimal Height { get; set; }
         public decimal? Weight { get; set; }
+
+        [ForeignKey("DressingId")]
+        public DressingEntity Dressing { get; set; }
     }
 }
