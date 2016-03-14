@@ -108,7 +108,7 @@ namespace MegaMine.Modules.Plant.Repositories
                 blockDressingEntity.Dressing = dressingEntity;
             }
 
-            //saving Stoppages
+            //saving Stoppages & Operators
             await StoppagesSave(viewModel.MachineStoppages, viewModel.Model.MachineId);
             await OperatorsSave(viewModel.MachineOperators, viewModel.Model.MachineId);
 

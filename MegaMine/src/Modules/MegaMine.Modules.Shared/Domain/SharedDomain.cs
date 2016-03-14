@@ -16,9 +16,18 @@ namespace MegaMine.Modules.Shared.Domain
         }
 
         #region Blocks
-        public async Task<string[]> GetExcavateValidBlocks(string[] blockNumbers)
+        public async Task<List<BlockStateModel>> BlockStatesGet(string[] blockNumbers)
         {
-            return await sharedRepository.GetValidBlocks(blockNumbers, (int)State.Excavate);
+            return await sharedRepository.BlockStatesGet(blockNumbers);
+        }
+
+        public async Task BlockStateSave(BlockStateModel model)
+        {
+            await sharedRepository.BlockStateSave(model);
+        }
+        public async Task BlockStatesSave(List<BlockStateModel> model)
+        {
+            await sharedRepository.BlockStatesSave(model);
         }
         #endregion
     }

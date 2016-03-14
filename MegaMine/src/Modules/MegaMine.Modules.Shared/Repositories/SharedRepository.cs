@@ -1,4 +1,5 @@
 ﻿using MegaMine.Core.Repositories;
+using MegaMine.Modules.Shared.Entities;
 using MegaMine.Modules.Shared.Models;
 using Microsoft.Data.Entity;
 using System;
@@ -15,16 +16,22 @@ namespace MegaMine.Modules.Shared.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<string[]> GetValidBlocks(string[] blockNumbers, int state)
+        public async Task<List<BlockStateModel>> BlockStatesGet(string[] blockNumbers)
         {
-            var query = from bs in dbContext.BlockStates
-                        where blockNumbers.Contains(bs.BlockNumber)
-                        && bs.State == state
-                        && bs.CompanyId == profile.CompanyId
-                        && bs.DeletedInd == false
-                        select bs.BlockNumber;
+            return await GetListAsync<BlockStateEntity, BlockStateModel>(e => blockNumbers.Contains(e.BlockNumber), s => s.BlockNumber);
+        }
 
-            return await query.ToArrayAsync();
+        public async Task BlockStateSave(BlockStateModel model)
+        {
+            await SaveEntity<BlockStateEntity, BlockStateModel>(model);
+        }
+        public async Task BlockStatesSave(List<BlockStateModel> models)
+        {
+            foreach(var model in models)
+            {
+                await SaveEntity<BlockStateEntity, BlockStateModel>(model, false);
+            }
+            await dbContext.SaveChangesAsync();
         }
     }
 }

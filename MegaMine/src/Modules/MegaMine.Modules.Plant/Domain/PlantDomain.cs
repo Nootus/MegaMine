@@ -9,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using MegaMine.Core.Utilities;
 using MegaMine.Modules.Shared.Domain;
+using MegaMine.Modules.Shared.Models;
 
 namespace MegaMine.Modules.Plant.Domain
 {
@@ -103,9 +104,9 @@ namespace MegaMine.Modules.Plant.Domain
             List<NTError> errors = new List<NTError>();
             //validating BlockNumbers
             string[] blockNumbers = viewModel.Model.Blocks.Select(m => m.BlockNumber).ToArray();
-            string[] validBlockNumbers = await sharedDomain.GetExcavateValidBlocks(blockNumbers);
+            List<BlockStateModel> blockStates = await sharedDomain.BlockStatesGet(blockNumbers);
 
-            string[] invalidBlockNumbers = blockNumbers.Except(validBlockNumbers).ToArray();
+            string[] invalidBlockNumbers = blockNumbers.Except(blockStates.Where(b => b.State == (int)State.Excavate).Select(b => b.BlockNumber)).ToArray();
             if(invalidBlockNumbers.Length > 0)
             {
                 errors.Add(new NTError() { Description = String.Format(PlantMessages.BlockNumbersInvalid, String.Join(", ", invalidBlockNumbers)) });
@@ -133,10 +134,14 @@ namespace MegaMine.Modules.Plant.Domain
             }
 
             //saving the Block Dressing
-
+            await plantRepository.DressingSave(viewModel);
 
             //finally saving the state info
-
+            foreach(var state in blockStates)
+            {
+                state.State = (int) State.Dress;
+            }
+            await sharedDomain.BlockStatesSave(blockStates);
         }
 
         #endregion
