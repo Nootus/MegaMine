@@ -35,13 +35,13 @@ h4{
 
 .container {
     width: 100%;
-    min-width: 1200px;
+    min-width: 1000px;
     display: table;
     margin: 0 auto;
 }
 
 .left-bar {
-    width: 200px;
+    width: 175px;
     background-color: #282d32;
 }
 
@@ -53,9 +53,10 @@ h4{
 .left-bar-item {
     color: #fff !important;
     border-bottom: 1px solid rgba(128,128,128,.4) !important;
-    padding-left: 20px;
+    padding-left: 15px;
     padding-top: 10px;
     min-height: 25px;
+    border-left: 5px solid transparent;
 }
 
 .left-bar-item  > a {
@@ -95,12 +96,11 @@ h4{
 
 .top-bar-title {
     color: #00bcf2;
+    width: 175px;
     font-size: 20px;
-    padding: 0 7px;
-    margin-left: 13px;
+    text-align: center;
     height: 100%;
     line-height: 40px;
-
 }
 
 .top-bar-menu {
@@ -116,6 +116,10 @@ h4{
 
 .has-hover:hover {
     background-color: #53575b;
+}
+
+.menu-hover:hover {
+    border-left: 5px solid #00bcf2;
 }
 
 .avatar {
@@ -168,30 +172,57 @@ div.breadcrumb,  div.breadcrumb a{
     padding: 15px 10px 10px 10px;
 }
 
-.header {
-	background-image: url('images/layout/header.gif');
-	background-repeat: no-repeat;
-	position: relative;
-	width: 100%;
-	height: 70px;
-	margin: 0 0 0px 0;
-	background-size: 100% 70px;
-    top: 3px;
-    left: 0px;
+.accordion {
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
-
-.top-header{
-    color: #FF8000;
-    font-size: 3em;
-    padding-left: 10px;
-    padding-bottom: 10px;
+.accordion .item {
+  margin-bottom: 10px;
 }
-
-div.main-menu {
-  text-transform: uppercase;
-  font-size: 13px;
-  cursor: default;
-  margin: 0px 23px 0px 0px;
+.accordion .item.open .content {
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+.accordion .item.open .title {
+  border-left-color: #e1e1e1;
+}
+.accordion .item.open .title:after {
+  -webkit-transform: rotate(180deg);
+      -ms-transform: rotate(180deg);
+          transform: rotate(180deg);
+}
+.accordion .item .content {
+  padding: 0 20px;
+  margin: 0;
+  background-color: #f3f3f3;
+  -webkit-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+  overflow: hidden;
+  font-size: 16px;
+  line-height: 24px;
+}
+.accordion .item .title {
+  margin: 0;
+  padding: 5px 40px 5px 20px;
+  position: relative;
+  cursor: pointer;
+  border: 1px solid #eeeded;
+  font-size: 18px;
+  font-weight: 300;
+  border-left: 5px solid #2980b8;
+}
+.accordion .item .title:after {
+  content: '\f078';
+  font-family: 'FontAwesome';
+  position: absolute;
+  top: 5px;
+  right: 20px;
+  -webkit-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+  color: #747474;
+  font-size: 14px;
 }
 
 .blank-menu-item{
@@ -199,30 +230,6 @@ div.main-menu {
     border-top-width: 2px !important;
 }
 
-div.profile-menu {
-  text-transform: uppercase;
-  font-size: 13px;
-  cursor: default;
-  margin: 15px 20px 0px 0px;
-}
-
-div.profile-menu, a.breadcrumb {
-	color: #DBB94F;
-    text-decoration: none;
-}
-
-div.profile-menu > div  {
-    margin-top: 4px;
-}
-
-/*div.profile-company {
-    margin-top: -20px !important;
-}*/
-
-
-.logo{
-    height: 75px;
-}
 
 /*menu styles*/
 md-menu-bar {
@@ -321,6 +328,13 @@ div.left-menu a.md-button{
 
 .splash-header{
     color: #FF8000;
+}
+
+.splash-main-header{
+    color: #FF8000;
+    font-size: 3em;
+    padding-left: 10px;
+    padding-bottom: 10px;
 }
 
 img.splash-loading{

@@ -55,8 +55,7 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
     }
 
     function getGridHeight(contentClass, gridClass, bottomOffset) {
-        //var viewHeight = angular.element(document.getElementsByClassName('view-content')[0]).offset();
-        var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
+        var contentHeight = angular.element(document.getElementsByClassName(contentClass)[0]).height();
         var gridOffset = angular.element(document.getElementsByClassName(gridClass)[0]).offset();
         if (gridOffset !== undefined) {
             var gridHeight = contentHeight - (gridOffset.top) - bottomOffset;
