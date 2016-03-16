@@ -5,14 +5,15 @@
     display: inline-block;
 }
 
-.icon-changepassword {
-    background: url('images/icons/common/changepassword.svg') no-repeat;
-    background-size: cover;
+.top-bar-menu-icon {
+    color: white;
+    font-size: 20px;
+    margin-top: 11px;
 }
-
-.icon-logout {
-    background: url('images/icons/common/logout.svg') no-repeat;
-    background-size: cover;
+.top-bar-menu-button:hover > .top-bar-menu-icon {
+    color: white;
+    font-size: 24px;
+    margin-top: 8px;
 }
 
 /*Fleet Icons*/

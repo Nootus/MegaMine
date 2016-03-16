@@ -1,14 +1,63 @@
 ﻿<div ng-controller="index as vm">
+    <div class="top-bar" layout="row">
+        <div class="top-bar-title has-hover">Prasanna Kumar</div>
+        <div flex layout="row" ng-show="vm.profile.isAuthenticated">
+            <div flex> </div>
+            <div class="top-bar-menu breadcrumb" ng-hide="vm.navigation.breadcrumbs.length <= 1">
+                <span ng-repeat="crumb in vm.navigation.breadcrumbs track by $index">
+                    <a class="has-hover" href="{{crumb.url}}">{{crumb.title}}</a> 
+                    <i class="fa fa-chevron-right" ng-hide="$last"></i>
+                </span>
+            </div>
+            <md-button class="top-bar-menu has-hover top-bar-menu-button" ng-href="#" ng-click="vm.showChangePasswordDialog($event)">
+                <md-tooltip>
+                    Change Password
+                </md-tooltip>
+                <md-icon class="fa fa-key top-bar-menu-icon" aria-label="Change Password"></md-icon>
+            </md-button>
+            <md-button class="top-bar-menu has-hover top-bar-menu-button" ng-href="/logout">
+                <md-tooltip>
+                    Sign out
+                </md-tooltip>
+                <md-icon class="fa fa-sign-out top-bar-menu-icon" aria-label="Sign out"></md-icon>
+            </md-button>
+            <div class="avatar top-bar-menu has-hover" layout="row">
+                <div>
+                    <div class="avatar-name">{{vm.profile.fullName}}</div>
+                    <div class="avatar-username">{{vm.profile.userName}}</div>
+                </div>
+                <img class="avatar-image" alt="" src="content/images/layout/avatar-small.png">
+            </div>
+        </div>
+    </div>
     <div layout="row">
-        <div flex="10">
-            <div>Mega Mine</div>
-            <div>
-
+        <div class="left-bar">
+            <div class="left-bar-company left-bar-item has-hover"">
+                <nt-select label="Company" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select>
+            </div>
+            <div class="left-bar-item has-hover">
+                <a href="/">Dashboard</a>
+            </div>
+            <div class="left-bar-item" flex layout="row">
+                <md-content flex>
+                    <section ng-repeat="menu in vm.profile.menu">
+                        <md-subheader class="md-primary">
+                            {{menu.menuText}}
+                        </md-subheader>
+                        <md-list>
+                            <md-list-item ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true">
+                                <md-button ng-href="{{item.url}}" ng-hide="item.groupMenuInd === true">
+                                    <md-icon class="{{item.iconCss}}"></md-icon> {{item.menuText}}
+                                </md-button>
+                            </md-list-item>
+                        </md-list>
+                    </section>
+                </md-content>
             </div>
         </div>
         <div flex>
             <div class="container" layout="column">
-                <div class="header" layout="row" ng-cloak>
+                <!--<div class="header" layout="row" ng-cloak ng-hide="true">
                     <div layout="row" flex="40">
                         <div layout="row" layout-align="start center" class="top-header" ng-hide="true">
                             <a href="/"><img class="logo" src="content/images/layout/quartzinc.png" /></a>
@@ -62,7 +111,7 @@
                             </md-menu-bar>
                         </div>
                     </div>
-                </div>
+                </div>-->
             </div>
             <div flex layout="row" class="container main-content ui-view-container">
                 <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.startvalue}}" md-buffer-value="{{vm.buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>
