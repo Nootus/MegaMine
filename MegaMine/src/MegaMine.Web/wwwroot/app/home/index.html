@@ -54,14 +54,6 @@
                     </section>
                 </md-content>
             </div>
-            <ul class="accordion" nt-accordion>
-                <li ng-repeat="menu in vm.profile.menu">
-                    <h2>{{menu.menuText}}</h2>
-                    <p>
-                        Content 1
-                    </p>
-                </li>
-            </ul>
 
             <!--<div>
                 <ul class="accordion">
@@ -77,7 +69,48 @@
                     </li>
                 </ul>
             </div>-->
-        </div>
+
+            <div bn-menu>
+                <ul>
+                    <li ng-repeat="menu in vm.profile.menu">
+                        {{ menu.menuText }} <em>(ng-repeat)</em>
+                    </li>
+                </ul>
+            </div>
+
+            <!--
+        In this component directive, we are going to try and do everything that we
+        need to do in the LINK function only.
+    -->
+            <div bn-menu-fail>
+                <ul>
+                    <li ng-repeat="menu in vm.profile.menu">
+                        {{ menu.menuText }} <em>(ng-repeat)</em>
+                    </li>
+                </ul>
+            </div>
+            Using NT Accordion
+            <div nt-accordion>
+                <ul>
+                    <li ng-repeat="menu in vm.profile.menu">
+                        {{ menu.menuText }} <em>(ng-repeat)</em>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!-- This is the template that we are going to use for our module directive. -->
+            <script type="text/ng-template" id="module.htm">
+
+                <div class="menu-root">
+                    <div class="root-option-label option-label">
+                        ( Menu Root - Dynamic )
+                    </div>
+                </div>
+            </script>
+                <!-- Original content to be transcluded here. -->
+
+</div>
         <div flex>
             <div flex layout="row" class="container main-content ui-view-container">
                 <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.startvalue}}" md-buffer-value="{{vm.buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>
