@@ -15,16 +15,22 @@ function ntAccordion($compile, $timeout) {
         var id = getId(attrs);
 
         var options = element
-            .children("li")
-                .addClass("menu-option option-label")
-                .attr('ng-click', id + '_alertDir()');
+            .children("li");
+
+        //for each children set the click events
+        angular.forEach(options, function (item) {
+            var headers = angular.element(item).children("h3")
+                            .attr('ng-click', id + '_toggle()');
+        });
+
+                //.addClass("menu-option option-label")
 
         return link;
     }
 
     function link(scope, element, attrs, controller) {
         var id = getId(attrs);
-        scope.$parent[id + '_alertDir'] = function () {
+        scope.$parent[id + '_toggle'] = function () {
             alert(id + ' with id');
         }
     }
