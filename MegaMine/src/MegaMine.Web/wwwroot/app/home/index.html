@@ -38,22 +38,22 @@
             <div class="left-bar-item has-hover menu-hover">
                 <a href="/">Dashboard</a>
             </div>
-            <div class="left-bar-item" flex layout="row" ng-hide="vm.profile.menu.length === 0">
+            <!--<div class="left-bar-item" flex layout="row" ng-hide="vm.profile.menu.length === 0">
                 <md-content flex>
                     <section ng-repeat="menu in vm.profile.menu">
                         <md-subheader class="md-primary">
                             {{menu.menuText}}
                         </md-subheader>
-                        <!--<md-list>
+                        <md-list>
                             <md-list-item ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true">
                                 <md-button ng-href="{{item.url}}" ng-hide="item.groupMenuInd === true">
                                     <md-icon class="{{item.iconCss}}"></md-icon> {{item.menuText}}
                                 </md-button>
                             </md-list-item>
-                        </md-list>-->
+                        </md-list>
                     </section>
                 </md-content>
-            </div>
+            </div>-->
 
             <!--<div>
                 <ul class="accordion">
@@ -70,47 +70,38 @@
                 </ul>
             </div>-->
 
-            <div bn-menu>
+            <!--<div bn-menu>
                 <ul>
                     <li ng-repeat="menu in vm.profile.menu">
                         {{ menu.menuText }} <em>(ng-repeat)</em>
                     </li>
                 </ul>
-            </div>
+            </div>-->
 
             <!--
         In this component directive, we are going to try and do everything that we
         need to do in the LINK function only.
     -->
-            <div bn-menu-fail>
+            <!--<div bn-menu-fail>
                 <ul>
                     <li ng-repeat="menu in vm.profile.menu">
                         {{ menu.menuText }} <em>(ng-repeat)</em>
                     </li>
                 </ul>
-            </div>
+            </div>-->
             Using NT Accordion
-            <div nt-accordion>
-                <ul>
+            <div >
+                <ul nt-accordion ="Hello">
                     <li ng-repeat="menu in vm.profile.menu">
-                        {{ menu.menuText }} <em>(ng-repeat)</em>
+                        <h3>{{ menu.menuText }}</h3> 
+                        <div>
+                            Child Items
+                        </div>
                     </li>
                 </ul>
             </div>
 
-
-            <!-- This is the template that we are going to use for our module directive. -->
-            <script type="text/ng-template" id="module.htm">
-
-                <div class="menu-root">
-                    <div class="root-option-label option-label">
-                        ( Menu Root - Dynamic )
-                    </div>
-                </div>
-            </script>
-                <!-- Original content to be transcluded here. -->
-
-</div>
+        </div>
         <div flex>
             <div flex layout="row" class="container main-content ui-view-container">
                 <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.startvalue}}" md-buffer-value="{{vm.buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>

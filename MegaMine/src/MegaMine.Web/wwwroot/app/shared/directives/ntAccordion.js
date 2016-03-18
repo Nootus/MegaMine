@@ -3,40 +3,35 @@ angular.module('megamine').directive('ntAccordion', ntAccordion)
 ntAccordion.$inject = ['$compile', '$timeout'];
 
 function ntAccordion($compile, $timeout) {
-    return {
-        restrict: 'AEC',
-        transclude: true,
-        priority: 1,
-        scope: {
-        },
-        link: link
+
+    return ({
+        compile: compile,
+        priority: 0,
+    });
+
+
+    function compile(element, attrs, transclude) {
+
+        var id = getId(attrs);
+
+        var options = element
+            .children("li")
+                .addClass("menu-option option-label")
+                .attr('ng-click', id + '_alertDir()');
+
+        return link;
     }
 
-    function link(scope, element, attributes, _controller, transclude) {
-
-        element.addClass("m-menu");
-
-        // Link and transclude the user-defined content into our component.
-        transclude(
-            function (userContent) {
-
-                var optionsList = userContent
-                    .eq(1)
-                        .addClass("menu-options")
-                ;
-
-                var options = optionsList
-                    .children("li")
-                        .addClass("menu-option option-label")
-                ;
-
-                element.append(userContent);
-
-            }
-        );
-
+    function link(scope, element, attrs, controller) {
+        var id = getId(attrs);
+        scope.$parent[id + '_alertDir'] = function () {
+            alert(id + ' with id');
+        }
     }
 
+    function getId(attrs) {
+        return attrs.ntAccordion || "accordion";
+    }
 
     //function link(scope, element, attrs, nullController, transclude) {
     //    transclude(scope, function (content) {
@@ -87,149 +82,3 @@ function ntAccordion($compile, $timeout) {
     //}
 }
 
-
-
-
-// Create an application module for our demo.
-var app = angular.module('megamine');
-
-
-// -------------------------------------------------- //
-// -------------------------------------------------- //
-
-
-// When a directive uses a TEMPLATE, the compile function will accept the
-// content of that template. But, in this case, what we actually want to do
-// is compile the transcluded content (pre-transclusion). As such, we need to
-// define this directive at two priorities, with this one executing before the
-// transclude one.
-app.directive(
-    "bnMenu",
-    function () {
-
-        // Return the directive configuration. Note that we are executing at
-        // priority 1 so that we execute before the transclude version.
-        return ({
-            compile: compile,
-            priority: 1501,
-        });
-
-
-        // I compile the directive element prior to trnasclusion. I add the
-        // necessary classes to the transcluded content for the CSS hooks and
-        // (not shown in this demo) the JavaScript event hooks (that will use
-        // event delegation based on event-target / CSS class).
-        function compile(tElement, tAttibutes) {
-
-
-            tElement.addClass("m-menu");
-
-            var optionsList = tElement
-                .children("ul")
-                    .addClass("menu-options")
-            ;
-
-            var options = optionsList
-                .children("li")
-                    .addClass("menu-option option-label")
-                    .attr('ng-click', 'toggle()')
-            ;
-
-        }
-    }
-);
-
-
-// Since this directive uses a TEMPLATE (url), any attempt to call the compile()
-// method will only give us access to the template content, not the transcluded
-// content. As such, this priority will only take care of transcluding the
-// content into the template.
-app.directive(
-    "bnMenu",
-    function ($compile, $timeout) {
-
-        // Return the directive configuration.
-        // --
-        // NOTE: Priority defaults to 0. I'm including it here for explicitness.
-        return ({
-            scope: {},
-            link: link,
-            priority: 1500,
-            transclude: true
-        });
-
-
-        // I bind the JavaScript events to the local scope.
-        function link(scope, element, attributes, _controller, transclude) {
-
-            scope.toggle = function () {
-                alert('hi');
-            }
-
-
-            $timeout(function () {
-                console.log(element.html());
-                transclude(
-                    function (content) {
-
-                        var linkFn = $compile(element.contents());
-                        var content = linkFn(scope.$parent);
-                        element.append(content);
-                        //element.append(userContent);
-
-                    }
-                );
-            });
-            // Link and transclude the user-defined content into our component.
-
-        }
-
-    }
-);
-
-
-// -------------------------------------------------- //
-// -------------------------------------------------- //
-
-
-// In this version of the menu component, we're going to forego the COMPILE step
-// and try to do everything in the LINK function.
-app.directive(
-    "bnMenuFail",
-    function () {
-
-        // Return the directive configuration.
-        return ({
-            link: link,
-            transclude: true
-        });
-
-
-        // I bind the JavaScript events to the local scope.
-        function link(scope, element, attributes, _controller, transclude) {
-
-            element.addClass("m-menu");
-
-            // Link and transclude the user-defined content into our component.
-            transclude(
-                function (userContent) {
-
-                    var optionsList = userContent
-                        .eq(1)
-                            .addClass("menu-options")
-                    ;
-
-                    var options = optionsList
-                        .children("li")
-                            .addClass("menu-option option-label")
-                    ;
-
-                    element.append(userContent);
-
-                }
-            );
-
-        }
-
-    }
-);

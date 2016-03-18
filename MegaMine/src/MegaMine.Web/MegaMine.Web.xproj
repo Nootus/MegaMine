@@ -17,6 +17,7 @@
   </PropertyGroup>
   <PropertyGroup>
     <SchemaVersion>2.0</SchemaVersion>
+    <DevelopmentServerPort>2824</DevelopmentServerPort>
   </PropertyGroup>
   <ItemGroup>
     <DnxInvisibleFolder Include="Properties\PublishProfiles\" />
