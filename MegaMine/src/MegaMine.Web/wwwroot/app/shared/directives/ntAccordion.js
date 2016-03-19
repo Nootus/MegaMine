@@ -14,24 +14,37 @@ function ntAccordion($compile, $timeout) {
 
         var id = getId(attrs);
 
+        element.addClass("accordion");
+
         var options = element
-            .children("li");
+            .children("li")
+            .addClass("item");
+    
+        //for children set the class and ng events events
+        var item = options[0];
+        var headers = angular.element(item).find("h3")
+                        .addClass("header")
+                        .attr('ng-click', id + '_toggle($index)')
+                        .attr('ng-class', id + '_data.current === $index ? \'expand\' : \'collapse\'');
 
-        //for each children set the click events
-        angular.forEach(options, function (item) {
-            var headers = angular.element(item).children("h3")
-                            .attr('ng-click', id + '_toggle()');
-        });
+        var content = angular.element(item).find("div")
+                        .addClass("content")
+                        .attr('ng-show', id + '_data.current === $index');
 
-                //.addClass("menu-option option-label")
 
         return link;
     }
 
     function link(scope, element, attrs, controller) {
         var id = getId(attrs);
-        scope.$parent[id + '_toggle'] = function () {
-            alert(id + ' with id');
+        var data = {
+            current: -1,
+            
+        };
+
+        scope.$parent[id + '_data'] = data;
+        scope.$parent[id + '_toggle'] = function (index) {
+            data.current = data.current === index? -1 : index;
         }
     }
 

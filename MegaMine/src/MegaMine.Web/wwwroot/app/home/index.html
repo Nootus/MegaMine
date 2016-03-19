@@ -36,71 +36,24 @@
                 <nt-select label="Company" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select>
             </div>
             <div class="left-bar-item has-hover menu-hover">
-                <a href="/">Dashboard</a>
+                <md-button ng-href="/"> Dashboard </md-button>
             </div>
-            <!--<div class="left-bar-item" flex layout="row" ng-hide="vm.profile.menu.length === 0">
-                <md-content flex>
-                    <section ng-repeat="menu in vm.profile.menu">
-                        <md-subheader class="md-primary">
-                            {{menu.menuText}}
-                        </md-subheader>
-                        <md-list>
-                            <md-list-item ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true">
-                                <md-button ng-href="{{item.url}}" ng-hide="item.groupMenuInd === true">
+            <div  ng-hide="vm.profile.menu.length === 0">
+                <ul nt-accordion>
+                    <li ng-repeat="menu in vm.profile.menu track by menu.pageId">
+                        <h3 class = "left-bar-item has-hover menu-hover">
+                            <md-button ng-href="#"> {{ menu.menuText }} </md-button>
+                        </h3> 
+                        <div>
+                            <div ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true" class = "left-bar-item has-hover menu-hover">
+                                <md-button ng-href="{{item.url}}">
                                     <md-icon class="{{item.iconCss}}"></md-icon> {{item.menuText}}
                                 </md-button>
-                            </md-list-item>
-                        </md-list>
-                    </section>
-                </md-content>
-            </div>-->
-
-            <!--<div>
-                <ul class="accordion">
-                    <li ng-repeat="menu in vm.profile.menu">
-                        <h2>{{menu.menuText}}</h2>
-                        <div>
-                            <ul>
-                                <li  ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true">
-                                    {{item.menuText}}
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>-->
-
-            <!--<div bn-menu>
-                <ul>
-                    <li ng-repeat="menu in vm.profile.menu">
-                        {{ menu.menuText }} <em>(ng-repeat)</em>
-                    </li>
-                </ul>
-            </div>-->
-
-            <!--
-        In this component directive, we are going to try and do everything that we
-        need to do in the LINK function only.
-    -->
-            <!--<div bn-menu-fail>
-                <ul>
-                    <li ng-repeat="menu in vm.profile.menu">
-                        {{ menu.menuText }} <em>(ng-repeat)</em>
-                    </li>
-                </ul>
-            </div>-->
-            Using NT Accordion
-            <div >
-                <ul nt-accordion ="Hello">
-                    <li ng-repeat="menu in vm.profile.menu">
-                        <h3>{{ menu.menuText }}</h3> 
-                        <div>
-                            Child Items
+                            </div>
                         </div>
                     </li>
                 </ul>
             </div>
-
         </div>
         <div flex>
             <div flex layout="row" class="container main-content ui-view-container">
