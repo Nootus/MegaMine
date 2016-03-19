@@ -10,13 +10,14 @@ function index($scope, $interval, profile, navigation, changePasswordDialog) {
         startvalue: 0,
         buffervalue: 0,
         showChangePasswordDialog: showChangePasswordDialog,
-        changeCompany: changeCompany
+        changeCompany: changeCompany,
+        resetMenu: resetMenu
     };
 
 
     init();
     angular.extend(this, vm);
-    vm = this;
+    //vm = this;
 
     function init() {
         configProgressBar();
@@ -46,6 +47,12 @@ function index($scope, $interval, profile, navigation, changePasswordDialog) {
         //getting profile for the changed company
         profile.get();
         navigation.gotoDashboard();
+        resetMenu();
         return true;
+    }
+
+    function resetMenu() {
+        var scope = $scope;
+        scope.accordion_data.current = -1;
     }
 }

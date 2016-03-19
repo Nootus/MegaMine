@@ -151,11 +151,15 @@ h3.left-bar-item.expand {
     border-bottom: 0px;
 }
 
-h3.left-bar-item.expand + div {
-    border-bottom: 1px solid rgba(128,128,128,.4);
+h3.left-bar-item:focus {
+    border: 0;
 }
 
-h3.left-bar-item.expand + div > div {
+h3.left-bar-item + div {
+    border-bottom: 1px solid rgba(128,128,128,.4) !important;
+}
+
+h3.left-bar-item + div > div {
     padding: 0;
     margin: 0;
     background-color: rgba(67, 116, 167, 0.25);
@@ -164,6 +168,20 @@ h3.left-bar-item.expand + div > div {
 
 /*End Left Bar*/
 
+/* accordion animation*/
+
+.ng-hide-add, .ng-hide-remove {
+    display: block !important;
+}
+
+.slideUp {
+    transition: .5s linear all;
+    max-height: 350px;
+    overflow: hidden;
+}
+.slideUp.ng-hide {
+    max-height:0;
+}
 
 .accordion {
     list-style: none;
@@ -173,9 +191,7 @@ h3.left-bar-item.expand + div > div {
 
 .accordion > .item > .content {
     margin: 0px;
-  -webkit-transition: all 0.5s ease;
-          transition: all 0.5s ease;
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .accordion > .item > .header {
@@ -196,52 +212,4 @@ h3.left-bar-item.expand + div > div {
     -webkit-transform: rotate(180deg) scaleY(0.6) scaleX(1);
     transform: rotate(180deg) scaleY(0.6) scaleX(1);
 }
-
-/*
-  .accordion .item {
-  margin-bottom: 10px;
-}
-.accordion .item.open .content {
-  height: auto;
-  padding-top: 10px;
-  padding-bottom: 20px;
-}
-.accordion .item.open .title {
-  border-left-color: #e1e1e1;
-}
-.accordion .item .content {
-  padding: 0 20px;
-  margin: 0;
-  background-color: #f3f3f3;
-  -webkit-transition: all 0.5s ease;
-          transition: all 0.5s ease;
-  overflow: hidden;
-  font-size: 16px;
-  line-height: 24px;
-}
-.accordion .item .title {
-  margin: 0;
-  padding: 5px 40px 5px 20px;
-  position: relative;
-  cursor: pointer;
-  border: 1px solid #eeeded;
-  font-size: 18px;
-  font-weight: 300;
-  border-left: 5px solid #2980b8;
-}
-.accordion .item .title:after {
-  content: '\f078';
-  font-family: 'FontAwesome';
-  position: absolute;
-  top: 5px;
-  right: 20px;
-  -webkit-transition: all 0.5s ease;
-          transition: all 0.5s ease;
-  color: #747474;
-  font-size: 14px;
-}*/
-
-/*.blank-menu-item{
-    color: grey;
-    border-top-width: 2px !important;
-}*/
+/* end accordion animation*/

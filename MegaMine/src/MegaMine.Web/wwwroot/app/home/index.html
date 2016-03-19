@@ -36,7 +36,7 @@
                 <nt-select label="Company" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select>
             </div>
             <div class="left-bar-item has-hover menu-hover">
-                <md-button ng-href="/"> Dashboard </md-button>
+                <md-button ng-href="/" ng-click="vm.resetMenu()"> Dashboard </md-button>
             </div>
             <div  ng-hide="vm.profile.menu.length === 0">
                 <ul nt-accordion>

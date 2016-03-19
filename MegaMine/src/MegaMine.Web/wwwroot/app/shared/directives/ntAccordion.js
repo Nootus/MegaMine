@@ -6,7 +6,7 @@ function ntAccordion($compile, $timeout) {
 
     return ({
         compile: compile,
-        priority: 0,
+        priority: 100,
     });
 
 
@@ -22,13 +22,14 @@ function ntAccordion($compile, $timeout) {
     
         //for children set the class and ng events events
         var item = options[0];
-        var headers = angular.element(item).find("h3")
+        var headers = angular.element(item).children("h3")
                         .addClass("header")
                         .attr('ng-click', id + '_toggle($index)')
-                        .attr('ng-class', id + '_data.current === $index ? \'expand\' : \'collapse\'');
+                        .attr('ng-class', id + '_data.current === $index ? \'expand\' : \'collapse\'')
 
-        var content = angular.element(item).find("div")
-                        .addClass("content")
+
+        var content = angular.element(item).children("div")
+                        .addClass("content slideUp")
                         .attr('ng-show', id + '_data.current === $index');
 
 
@@ -44,7 +45,7 @@ function ntAccordion($compile, $timeout) {
 
         scope.$parent[id + '_data'] = data;
         scope.$parent[id + '_toggle'] = function (index) {
-            data.current = data.current === index? -1 : index;
+            data.current = data.current === index ? -1 : index;
         }
     }
 

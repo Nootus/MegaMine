@@ -21,7 +21,7 @@ var megamime;
         }
         appConfig.$inject = ['$provide', '$httpProvider', '$mdThemingProvider'];
         return appConfig;
-    }());
+    })();
     megamime.appConfig = appConfig;
     angular.module('megamine').config(appConfig);
     var appRun = (function () {
@@ -30,11 +30,12 @@ var megamime;
         }
         appRun.$inject = ['session'];
         return appRun;
-    }());
+    })();
     megamime.appRun = appRun;
     angular.module('megamine').run(appRun);
     //global variables
     angular.module('megamine').value('toastr', toastr);
     angular.module('megamine').value('moment', moment);
 })(megamime || (megamime = {}));
+
 //# sourceMappingURL=appConfig.js.map
