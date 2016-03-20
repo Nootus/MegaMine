@@ -1,4 +1,46 @@
-﻿<nt-list-toolbar vm="vm" title="Quaries" button-text="Add Quarry" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd"></nt-list-toolbar>
+﻿<!--<nt-list-toolbar flex vm="vm" title="Quarries" button-text="Add Quarry" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd"></nt-list-toolbar>-->
+
+<nt-toolbar title="Quarries" class="command-bar">
+    <!--<ul>
+        <li>
+        </li>
+    </ul>-->
+    <md-button class="top-bar-menu has-hover top-bar-menu-button" ng-href="#" ng-click="vm.showChangePasswordDialog($event)">
+        <md-tooltip>
+            Change Password
+        </md-tooltip>
+        <div>
+            <md-icon class="fa fa-key top-bar-menu-icon" aria-label="Change Password"></md-icon>
+            <div>Add</div>
+        </div>
+    </md-button>
+    <nt-button ng-click="vm.addQuarry($event)" button-icon="add" button-text="Add" claim="Quarry:QuarryAdd" ng-hide="false"></nt-button>
+</nt-toolbar>
+<div layout="row" style="background-color: white">
+    <div flex>
+        <md-whiteframe class="md-whiteframe-24dp" flex>
+            <md-content flex style="height: 600px;">
+                Details
+            </md-content>
+                <nt-grid flex vm="vm" grid-class="main-grid" ng-hide="true"></nt-grid>
+        </md-whiteframe>
+    </div>
+    <div flex="25" layout="row">
+        <md-whiteframe class="md-whiteframe-24dp" flex>
+            <md-content flex  style="height: 600px;">
+                <md-list>
+                    <md-list-item class="md-3-line right-list" ng-repeat="item in vm.quarries">
+                        <div class="md-list-item-text right-list-item" layout="column">
+                            <h3>{{ item.quarryName }}</h3>
+                            <h4>{{ item.colours }}</h4>
+                            <p>{{ item.location }}</p>
+                        </div>
+                    </md-list-item>
+                </md-list>
+            </md-content>
+        </md-whiteframe>
+    </div>
+</div>
 
 <script type="text/ng-template" id="quarry_dialog">
     <md-dialog aria-label="Quarry" class="dialog">

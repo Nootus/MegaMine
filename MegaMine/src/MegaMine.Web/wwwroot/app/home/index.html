@@ -1,6 +1,6 @@
 ﻿<div ng-controller="index as vm">
     <div class="top-bar" layout="row">
-        <div class="top-bar-title has-hover">Prasanna Kumar</div>
+        <div class="top-bar-title has-hover">Mega Mine</div>
         <div flex layout="row" ng-show="vm.profile.isAuthenticated">
             <div flex> </div>
             <div class="top-bar-menu breadcrumb" ng-hide="vm.navigation.breadcrumbs.length <= 1">
@@ -57,7 +57,7 @@
         </div>
         <div flex>
             <div flex layout="row" class="container main-content ui-view-container">
-                <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.startvalue}}" md-buffer-value="{{vm.buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>
+                <!--<md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.startvalue}}" md-buffer-value="{{vm.buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>-->
                 <div flex ui-view class="view-content">
                     <div id="splash" class="splash">
                         <br /><br />

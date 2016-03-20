@@ -123,6 +123,7 @@ div.breadcrumb,  div.breadcrumb a{
 .left-bar-item {
     color: #fff !important;
     border-bottom: 1px solid rgba(128,128,128,.4);
+    border-right: 2px solid rgba(128,128,128,.4);
     min-height: 25px;
     border-left: 5px solid transparent;
 }
@@ -133,7 +134,7 @@ div.breadcrumb,  div.breadcrumb a{
     text-transform: none;
     width: 100%;
     text-align: left;
-    padding-left: 15px;
+    padding-left: 15px !important;
 }
 
 h3.left-bar-item {
@@ -213,3 +214,36 @@ h3.left-bar-item + div > div {
     transform: rotate(180deg) scaleY(0.6) scaleX(1);
 }
 /* end accordion animation*/
+
+/* Right bar in the grid page */
+.right-list {
+    min-height: initial !important;
+    border-left: 5px solid transparent;
+}
+
+.right-list:nth-child(odd) {
+    background-color: #eaf4f9;
+}
+
+.right-list:nth-child(even) {
+    background-color: #fff;
+}
+
+.right-list:hover {
+    background-color: #d4d4d4;
+    border-left: 5px solid #00bcf2;
+}
+/* End Right bar in the grid page */
+
+/* Command Bar */
+.command-bar > md-toolbar {
+    min-height: 46px;
+    background-color: rgba(67, 116, 167, 0.25) !important;
+    color: white;
+    height: 46px;
+
+}
+.command-bar > md-toolbar > .md-toolbar-tools {
+    padding: 0 5px 0 4px;
+}
+/* End Command Bar */
