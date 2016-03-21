@@ -21,14 +21,14 @@
     min-width: 40px;
 }
 
-.top-bar-menu-button {
+.top-bar-button {
     margin: 0px !important;
     height: 40px !important;
     width: 50px;
 }
 
 .has-hover:hover {
-    background-color: #53575b;
+    background-color: #53575b !important;
 }
 
 .menu-hover:hover {
@@ -76,7 +76,7 @@ div.breadcrumb{
     padding: 15px 10px 0px 15px;
 }
 
-div.breadcrumb,  div.breadcrumb a{
+div.breadcrumb, div.breadcrumb a{
 	color: white;
     font-size: 12px;
     text-decoration: none;
@@ -95,7 +95,7 @@ div.breadcrumb,  div.breadcrumb a{
 }
 
 .left-bar-company {
-    padding-left: 12px !important;
+    padding-left: 10px !important;
     padding-top: 0 !important;
 }
 
@@ -132,9 +132,9 @@ div.breadcrumb,  div.breadcrumb a{
     color: #fff;
     text-decoration: none;
     text-transform: none;
-    width: 100%;
+    width: 92%;
     text-align: left;
-    padding-left: 15px !important;
+    padding-left: 5px !important;
 }
 
 h3.left-bar-item {
@@ -245,5 +245,18 @@ h3.left-bar-item + div > div {
 }
 .command-bar > md-toolbar > .md-toolbar-tools {
     padding: 0 5px 0 4px;
+}
+
+.command-bar-button {
+    margin: 0 0 5px 0 !important;
+    height: 40px;
+    padding-top: 7px;
+    min-width: 50px;
+}
+
+.command-bar-button-text{
+    text-transform: none;
+    font-size: 10px;
+    line-height: 30px;
 }
 /* End Command Bar */

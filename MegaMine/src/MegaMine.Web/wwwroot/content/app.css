@@ -242,15 +242,16 @@ nt-button[tabindex='0']:focus {
 }
 
 .md-button{
-    height: 35px;
+    /*height: 35px;
     margin: 0;
-    padding: 2px 10px 0 0px !important;
-    min-width: 32px;
+    padding: 2px 5px 0 0px !important;
+    min-width: 32px;*/
 }
 
-.md-button.md-raised:not([disabled]) {
+
+/*.md-button.md-raised:not([disabled]) {
     box-shadow: 0 2px 5px 0 rgb(0, 0, 0);
-}
+}*/
 
 md-list-item {
     display: block;

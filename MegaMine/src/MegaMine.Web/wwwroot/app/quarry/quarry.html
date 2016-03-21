@@ -1,21 +1,15 @@
 ﻿<!--<nt-list-toolbar flex vm="vm" title="Quarries" button-text="Add Quarry" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd"></nt-list-toolbar>-->
 
 <nt-toolbar title="Quarries" class="command-bar">
-    <!--<ul>
-        <li>
-        </li>
-    </ul>-->
-    <md-button class="top-bar-menu has-hover top-bar-menu-button" ng-href="#" ng-click="vm.showChangePasswordDialog($event)">
+    <md-button class="command-bar-button has-hover" ng-click="vm.addQuarry($event)">
         <md-tooltip>
-            Change Password
+            Add Quarry
         </md-tooltip>
-        <div>
-            <md-icon class="fa fa-key top-bar-menu-icon" aria-label="Change Password"></md-icon>
-            <div>Add</div>
-        </div>
+        <md-icon class="fa fa-plus command-bar-button-icon" aria-label="Add Quarry"></md-icon>
+        <div class="command-bar-button-text">Add</div>
     </md-button>
-    <nt-button ng-click="vm.addQuarry($event)" button-icon="add" button-text="Add" claim="Quarry:QuarryAdd" ng-hide="false"></nt-button>
 </nt-toolbar>
+
 <div layout="row" style="background-color: white">
     <div flex>
         <md-whiteframe class="md-whiteframe-24dp" flex>
