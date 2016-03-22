@@ -10,7 +10,7 @@
             <nt-input flex="15" form="summaryForm" type="date" label="Start Date" control-name="startDate" ng-model="vm.searchParams.startDate"></nt-input>
             <nt-input flex="15" form="summaryForm" type="date" label="End Date" control-name="endDate" ng-model="vm.searchParams.endDate"></nt-input>
             <div flex="10" layout-align="center">
-                <nt-button ng-click="vm.getSummary(summaryForm)" button-icon="save" button-text="Get Summary" ng-disabled="summaryForm.$invalid && summaryForm.$submitted"></nt-button>
+                <nt-old-button ng-click="vm.getSummary(summaryForm)" button-icon="save" button-text="Get Summary" ng-disabled="summaryForm.$invalid && summaryForm.$submitted"></nt-old-button>
             </div>
         </div>
     </form>

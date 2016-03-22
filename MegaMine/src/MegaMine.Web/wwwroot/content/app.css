@@ -219,11 +219,11 @@ nt-toolbar.dialog > md-toolbar{
     background-color: rgb(168,168,168);
 }
 
-nt-toolbar nt-button > button{
+nt-toolbar nt-old-button > button{
     background-color: rgb(77, 157, 140) !important;
 }
 
-nt-toolbar nt-button > button.delete{
+nt-toolbar nt-old-button > button.delete{
     background-color: #971834 !important;
 }
 
@@ -237,7 +237,7 @@ button{
 
 /*Material design overrides*/
 
-nt-button[tabindex='0']:focus {
+nt-old-button[tabindex='0']:focus {
   outline: none; 
 }
 

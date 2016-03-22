@@ -1,8 +1,12 @@
-﻿'use strict';
-angular.module('megamine').directive('ntButton', ntButton)
-ntButton.$inject = ['profile'];
+﻿
+//TODO: This button will be replaced by new button. This needs to be deleted eventually
 
-function ntButton(profile) {
+
+'use strict';
+angular.module('megamine').directive('ntOldButton', ntOldButton)
+ntOldButton.$inject = ['profile'];
+
+function ntOldButton(profile) {
     return {
         restrict: 'E',
         scope: {

@@ -1,5 +1,5 @@
 ﻿<nt-toolbar title="Material Movement" class="title">
-    <nt-button ng-click="vm.moveMaterial(movementForm, $event)" button-icon="add" button-text="Move Material" form="movementForm"></nt-button>
+    <nt-old-button ng-click="vm.moveMaterial(movementForm, $event)" button-icon="add" button-text="Move Material" form="movementForm"></nt-old-button>
 </nt-toolbar>
 <md-content layout-padding>
         <div layout="row">
@@ -7,7 +7,7 @@
                 <div layout="row">
                     <nt-select flex="30" form="materialStockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></nt-select>
                     <div flex="70" layout-align="center">
-                        <nt-button ng-click="vm.getStock(materialStockForm)" button-icon="save" button-text="Get Stock" form="materialStockForm"></nt-button>
+                        <nt-old-button ng-click="vm.getStock(materialStockForm)" button-icon="save" button-text="Get Stock" form="materialStockForm"></nt-old-button>
                     </div>
                 </div>
             </form>

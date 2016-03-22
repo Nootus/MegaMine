@@ -267,7 +267,7 @@ h3.left-bar-item + div > div {
     height: 46px;
 
 }
-.command-bar > md-toolbar > .md-toolbar-tools {
+.command-bar > md-toolbar > div {
     padding: 0 5px 0 4px;
 }
 

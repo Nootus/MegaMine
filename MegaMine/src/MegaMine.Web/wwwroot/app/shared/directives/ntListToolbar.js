@@ -19,7 +19,7 @@ function ntListToolbar() {
         link: link,
         template: '<nt-toolbar title="{{title}}" class="{{toolbarClass}}">'
                         + '<span ng-transclude>'
-                        +       '<nt-button ng-click="buttonClick({$event: $event})" button-icon="{{buttonIcon}}" button-text="{{buttonText}}" claim="{{claim}}"></nt-button>'
+                        +       '<nt-old-button ng-click="buttonClick({$event: $event})" button-icon="{{buttonIcon}}" button-text="{{buttonText}}" claim="{{claim}}"></nt-button>'
                         + '</span>'
                     + '</nt-toolbar>'
                     + '<nt-grid vm="vm" grid-class="{{gridClass}}"></nt-grid>'
