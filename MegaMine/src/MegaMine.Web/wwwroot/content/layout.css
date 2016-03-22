@@ -27,6 +27,17 @@
     width: 50px;
 }
 
+.top-bar-button-icon {
+    color: white;
+    font-size: 20px;
+    margin-top: 11px;
+}
+.top-bar-button:hover > .top-bar-button-icon {
+    color: white;
+    font-size: 24px;
+    margin-top: 8px;
+}
+
 .has-hover:hover {
     background-color: #53575b !important;
 }
@@ -216,9 +227,17 @@ h3.left-bar-item + div > div {
 /* end accordion animation*/
 
 /* Right bar in the grid page */
+.right-bar {
+    padding-right: 5px;
+}
 .right-list {
     min-height: initial !important;
     border-left: 5px solid transparent;
+}
+
+.right-list h3 {
+    font-weight: bold !important;
+    font-size: 13px !important;
 }
 
 .right-list:nth-child(odd) {
@@ -233,6 +252,11 @@ h3.left-bar-item + div > div {
     background-color: #d4d4d4;
     border-left: 5px solid #00bcf2;
 }
+
+.right-list-item {
+    padding: 5px 0 5px 0;
+}
+
 /* End Right bar in the grid page */
 
 /* Command Bar */
@@ -259,4 +283,44 @@ h3.left-bar-item + div > div {
     font-size: 10px;
     line-height: 30px;
 }
+.command-bar-button[disabled], .command-bar-button[disabled] > .command-bar-button-icon {
+    color: black !important;
+}
+
+.command-bar-button-icon {
+    color: white !important;
+    font-size: 18px;
+    height: 10px;
+}
+.command-bar-button:hover > .command-bar-button-icon {
+    font-size: 20px;
+}
+ 
+
 /* End Command Bar */
+
+
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 7px;
+}
+::-webkit-scrollbar-button {
+	width: 7px;
+	height:5px;
+}
+::-webkit-scrollbar-track {
+	background:#eee;
+	border: thin solid lightgray;
+	box-shadow: 0px 0px 3px #dfdfdf inset;
+	border-radius:10px;
+}
+::-webkit-scrollbar-thumb {
+	background:#999;
+	border: thin solid gray;
+	border-radius:10px;
+}
+::-webkit-scrollbar-thumb:hover {
+	background:#7d7d7d;
+}			
+
+/* End Scrollbar */

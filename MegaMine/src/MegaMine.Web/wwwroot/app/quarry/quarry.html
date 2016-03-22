@@ -9,19 +9,31 @@
         <div class="command-bar-button-text">Add</div>
     </md-button>
 </nt-toolbar>
-
+<nt-grid flex vm="vm" grid-class="main-grid" ng-hide="true"></nt-grid>
 <div layout="row" style="background-color: white">
     <div flex>
         <md-whiteframe class="md-whiteframe-24dp" flex>
-            <md-content flex style="height: 600px;">
-                Details
+            <md-content flex style="height: 750px;">
+                <div layout="row">
+                    <div flex="33">
+                        <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>
+                    </div>
+                    <div flex="33">
+                        <nvd3 options="vm.barOptions" data="vm.barData"></nvd3>
+                    </div>
+                    <div flex="33">
+                        <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>
+                    </div>
+                </div>
+                <div>
+                    <nvd3 options="vm.stackOptions" data="vm.stackData"></nvd3>
+                </div>
             </md-content>
-                <nt-grid flex vm="vm" grid-class="main-grid" ng-hide="true"></nt-grid>
         </md-whiteframe>
     </div>
-    <div flex="25" layout="row">
+    <div flex="20" layout="row" class="right-bar">
         <md-whiteframe class="md-whiteframe-24dp" flex>
-            <md-content flex  style="height: 600px;">
+            <md-content flex  style="height: 750px;">
                 <md-list>
                     <md-list-item class="md-3-line right-list" ng-repeat="item in vm.quarries">
                         <div class="md-list-item-text right-list-item" layout="column">

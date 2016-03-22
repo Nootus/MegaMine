@@ -5,25 +5,7 @@
     display: inline-block;
 }
 
-.top-bar-button-icon {
-    color: white;
-    font-size: 20px;
-    margin-top: 11px;
-}
-.top-bar-button:hover > .top-bar-button-icon {
-    color: white;
-    font-size: 24px;
-    margin-top: 8px;
-}
 
-.command-bar-button-icon {
-    color: white !important;
-    font-size: 18px;
-    height: 10px;
-}
-.command-bar-button:hover > .command-bar-button-icon {
-    font-size: 20px;
-}
 
 
 /*Fleet Icons*/
