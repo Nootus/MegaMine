@@ -9,9 +9,9 @@
 
 .top-bar-title {
     color: #00bcf2;
-    width: 175px;
+    width: 160px;
     font-size: 20px;
-    text-align: center;
+    padding-left: 15px;
     height: 100%;
     line-height: 40px;
 }
@@ -106,8 +106,9 @@ div.breadcrumb, div.breadcrumb a{
 }
 
 .left-bar-company {
-    padding-left: 10px !important;
+    padding-left: 7px !important;
     padding-top: 0 !important;
+
 }
 
 .left-bar-company label {
@@ -122,6 +123,7 @@ div.breadcrumb, div.breadcrumb a{
 
 .left-bar-company md-select > .md-select-value {
     color: #fff !important;
+    font-size: 14px;
     border-bottom: none !important;
 }
 
@@ -143,9 +145,10 @@ div.breadcrumb, div.breadcrumb a{
     color: #fff;
     text-decoration: none;
     text-transform: none;
-    width: 92%;
+    width: 95%;
     text-align: left;
-    padding-left: 5px !important;
+    margin: 4px 5px;
+
 }
 
 h3.left-bar-item {
@@ -188,7 +191,7 @@ h3.left-bar-item + div > div {
 
 .slideUp {
     transition: .5s linear all;
-    max-height: 350px;
+    max-height: 400px;
     overflow: hidden;
 }
 .slideUp.ng-hide {
@@ -268,7 +271,14 @@ h3.left-bar-item + div > div {
 
 }
 .command-bar > md-toolbar > div {
-    padding: 0 5px 0 4px;
+    padding: 2px 5px 0 4px;
+}
+
+.command-bar > md-toolbar > div > h2 {
+    font-size: inherit;
+    font-weight: inherit;
+    margin: inherit;
+    padding-top: 8px;
 }
 
 .command-bar-button {
@@ -324,3 +334,17 @@ h3.left-bar-item + div > div {
 }			
 
 /* End Scrollbar */
+
+/* Grid */
+
+.grid-button {
+    padding: 0;
+    margin: 0;
+    min-width: 30px;
+}
+
+.grid-button-icon {
+    color:rgb(67, 116, 167);
+}
+
+/* End Grid */

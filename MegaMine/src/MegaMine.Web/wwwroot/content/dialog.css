@@ -1,0 +1,13 @@
+﻿.dialog{
+    min-width: 600px;
+    max-width: 95%;
+    overflow: hidden;
+    padding-bottom: 5px;
+    background-color: #282d32;
+}
+
+.dialog .dialog-content > div {
+    background-color: #eee;
+    padding: 0px;
+}
+

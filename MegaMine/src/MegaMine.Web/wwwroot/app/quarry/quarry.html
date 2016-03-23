@@ -1,37 +1,13 @@
-﻿<!--<nt-list-toolbar flex vm="vm" title="Quarries" button-text="Add Quarry" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd"></nt-list-toolbar>-->
+﻿<nt-list-toolbar flex vm="vm" header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd"></nt-list-toolbar>
 
-<nt-toolbar title="Quarries" class="command-bar">
-    <md-button class="command-bar-button has-hover" ng-click="vm.addQuarry($event)">
-        <md-tooltip>
-            Add Quarry
-        </md-tooltip>
-        <md-icon class="fa fa-plus command-bar-button-icon" aria-label="Add Quarry"></md-icon>
-        <div class="command-bar-button-text">Add</div>
-    </md-button>
-    <md-button class="command-bar-button has-hover" ng-click="vm.addQuarry($event)">
-        <md-tooltip>
-            Add Quarry
-        </md-tooltip>
-        <md-icon class="fa fa-plus command-bar-button-icon" aria-label="Add Quarry"></md-icon>
-        <div class="command-bar-button-text">Add</div>
-    </md-button>
-    <md-button class="command-bar-button has-hover" ng-click="vm.addQuarry($event)">
-        <md-tooltip>
-            Add Quarry
-        </md-tooltip>
-        <md-icon class="fa fa-plus command-bar-button-icon" aria-label="Add Quarry"></md-icon>
-        <div class="command-bar-button-text">Add</div>
-    </md-button>
-    <md-button class="command-bar-button has-hover" ng-click="vm.addQuarry($event)">
-        <md-tooltip>
-            Add Quarry
-        </md-tooltip>
-        <md-icon class="fa fa-plus command-bar-button-icon" aria-label="Add Quarry"></md-icon>
-        <div class="command-bar-button-text">Add</div>
-    </md-button>
+<!--<nt-toolbar header="Quarries" class="command-bar">
+    <nt-button type="command-bar" icon-css="plus" tool-tip="New Quarry" button-text="New" ng-click="vm.addQuarry($event)"></nt-button>
+    <nt-button type="command-bar" icon-css="th" tool-tip="Grid View" button-text="Grid" ng-click="vm.addQuarry($event)"></nt-button>
+    <nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" button-text="Dashboard" ng-click="vm.addQuarry($event)"></nt-button>
+    <nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" button-text="List" ng-click="vm.addQuarry($event)"></nt-button>
 </nt-toolbar>
-<nt-grid flex vm="vm" grid-class="main-grid" ng-hide="true"></nt-grid>
-<div layout="row" style="background-color: white">
+<nt-grid flex vm="vm" grid-class="main-grid" ng-hide="true"></nt-grid>-->
+<div layout="row" style="background-color: white" ng-hide="false">
     <div flex>
         <md-whiteframe class="md-whiteframe-24dp" flex>
             <md-content flex style="height: 750px;">

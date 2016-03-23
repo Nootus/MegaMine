@@ -2,7 +2,6 @@
   display: none !important;
 }
 
-
 html {
     height:100%;
     margin: 0;
@@ -10,9 +9,6 @@ html {
 
 body {
     background-color: #282d32;
-	/*background-color: #656565;
-	background-image: url(images/layout/background.gif);
-	background-repeat: repeat;*/
 	margin: 0 auto;
 	padding: 0;
 	font-family: 'Roboto', Verdana, Helvetica, sans-serif;
@@ -24,6 +20,15 @@ body {
 form {
     margin-bottom: 0;
 }
+
+
+
+
+
+
+
+
+/* TODO: CSS needs to be validated from this point on */
 
 h4{
     margin: 1em 0 0 0;
@@ -200,7 +205,7 @@ div.type-formula select{
 }
 
 /*em toolbar & buttons*/
-nt-toolbar.title > md-toolbar{
+/*nt-toolbar.title > md-toolbar{
     background-color: rgba(67, 116, 167, 0.25) !important;
     color: white;
     height: 46px;
@@ -229,7 +234,7 @@ nt-toolbar nt-old-button > button.delete{
 
 button{
     background-color: transparent !important;
-}
+}*/
 
 .ntselect {
     width: 98%;
@@ -263,13 +268,13 @@ md-content.md-default-theme {
   background-color: #e4e4e4;
 }
 
-md-toolbar{
+/*md-toolbar{
       min-height: 46px; 
       z-index: 1;
 }
 .md-toolbar-tools {
     padding: 0 5px 0 4px;
-}
+}*/
 
 md-input-container:not(.md-input-invalid).md-input-has-value label {
   font-size: 15px;
@@ -337,16 +342,6 @@ md-input-container.md-input-invalid .md-select-placeholder{
     border-bottom-color: red;
 }
 
-
-md-dialog.dialog{
-    min-width: 600px;
-    max-width: 95%;
-    overflow: hidden;
-    padding-bottom: 5px;
-}
-md-dialog md-dialog-content{
-    padding: 0px;
-}
 
 .md-chips{
     padding: 0 0 0px 3px;

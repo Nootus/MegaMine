@@ -16,6 +16,14 @@ function ntDialog($mdDialog, constants) {
         link: link,
         template: ''
                     + '<form name="{{form}}" novalidate>'
++ '<nt-toolbar header="Quarries" class="command-bar">'
++ '    <nt-button type="command-bar" icon-css="plus" tool-tip="New Quarry" button-text="New" ng-click="vm.addQuarry($event)"></nt-button>'
++ '    <nt-button type="command-bar" icon-css="th" tool-tip="Grid View" button-text="Grid" ng-click="vm.addQuarry($event)"></nt-button>'
++ '    <nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" button-text="Dashboard" ng-click="vm.addQuarry($event)"></nt-button>'
++ '    <nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" button-text="List" ng-click="vm.addQuarry($event)"></nt-button>'
++ '</nt-toolbar>'
+
+
                     + '    <nt-toolbar title="{{title}}" class="dialog">'
                     + '      <md-dialog-actions>'
                     + '       <span ng-transclude="dialogButtons"></span>'

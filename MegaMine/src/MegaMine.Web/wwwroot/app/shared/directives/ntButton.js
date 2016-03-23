@@ -1,14 +1,15 @@
 ﻿'use strict';
-angular.module('megamine').directive('ntCommandButton', ntCommandButton)
-ntCommandButton.$inject = ['profile'];
+angular.module('megamine').directive('ntButton', ntButton)
+ntButton.$inject = ['profile'];
 
-function ntCommandButton(profile) {
+function ntButton(profile) {
     return {
         restrict: 'E',
         scope: {
             cssClass: '@',
-            title: '@',
-            buttonIcon: '@',
+            type: '@',
+            toolTip: '@',
+            iconCss: '@',
             buttonText: '@',
             claim: '@',
             hide: '@',
@@ -16,9 +17,11 @@ function ntCommandButton(profile) {
             form: '=?'
         },
         link: link,
-        template: '<md-button title="{{title}}" class="{{cssClass}}" ng-hide="hide" aria-label="{{title}}" ng-click="ntClick($event)"'
+        template: '<md-button class="{{cssClass}} {{type}}-button has-hover" ng-hide="hide" aria-label="{{toolTip}}" ng-click="ntClick($event)"'
                     + ' ng-disabled="form.$invalid && form.$submitted && bypassDisabled">'
-                    + ' <md-icon class="icon-button" md-svg-icon="content/images/icons/common/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
+                    + ' <md-tooltip>{{toolTip}}</md-tooltip>'
+                    + ' <md-icon class="fa fa-{{iconCss}} {{type}}-button-icon" aria-label="{{toolTip}}"></md-icon>'
+                    + ' <div class="{{type}}-button-text">{{buttonText}}</div>'
                     + '</md-button>'
 
     };
@@ -33,7 +36,7 @@ function ntCommandButton(profile) {
 
         //setting the default values
         scope.bypassDisabled = scope.overrideDisabled === "true" ? false : true;
-        scope.title = scope.title === undefined ? scope.buttonText : scope.title;
+        scope.toolTip = scope.toolTip || scope.buttonText;
 
         scope.ntClick = function (ev) {
             if (scope.form === undefined) {

@@ -33,35 +33,32 @@ function template(constants) {
             cellClass: 'text-center', enableHiding: false
         }
 
-        var title;
-        var icon;
-        var cssClass;
+        var toolTip;
+        var iconCss;
         angular.forEach(buttons, function (button) {
             switch (button.buttonType) {
                 case constants.enum.buttonType.view:
-                    title = 'View';
-                    cssClass = 'view';
-                    icon = 'eye';
+                    toolTip = 'View';
+                    iconCss = 'eye';
                     button.ngClick = button.ngClick === undefined ? 'grid.appScope.vm.viewDialog(row.entity, ' + constants.enum.dialogMode.view + ', $event)' : button.ngClick;
                     break;
                 case constants.enum.buttonType.edit:
-                    title = 'Edit';
-                    cssClass = 'edit';
-                    icon = 'edit';
+                    toolTip = 'Edit';
+                    iconCss = 'pencil';
                     button.ngClick = button.ngClick === undefined ? 'grid.appScope.vm.viewDialog(row.entity, ' + constants.enum.dialogMode.save + ', $event)' : button.ngClick;
                     break;
                 case constants.enum.buttonType.delete:
-                    title = 'Delete';
-                    cssClass = 'delete';
-                    icon = 'delete';
+                    toolTip = 'Delete';
+                    iconCss = 'trash';
                     button.ngClick = button.ngClick === undefined ? 'grid.appScope.vm.viewDialog(row.entity, ' + constants.enum.dialogMode.delete + ', $event)' : button.ngClick;
                     break;
             }
-            buttonDef.cellTemplate += '<nt-old-button class="md-raised" title="' + title + '" ng-click="' + button.ngClick + '" ';
+
+            buttonDef.cellTemplate += '<nt-button type="grid" tool-tip="' + toolTip + '" icon-css="' + iconCss + '"';
             if (button.claim !== undefined) {
                 buttonDef.cellTemplate += ' claim="' + button.claim + '"';
             }
-            buttonDef.cellTemplate += ' button-icon="' + icon + '" css-class="' + cssClass + '"></nt-old-button>'
+            buttonDef.cellTemplate += ' ng-click="' + button.ngClick +  '"></nt-button>'
         });
 
         if (hide !== undefined) {

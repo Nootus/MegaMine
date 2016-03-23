@@ -1,7 +1,8 @@
 ﻿<div ng-controller="index as vm">
     <div class="top-bar" layout="row">
-        <div class="top-bar-title has-hover">Mega Mine</div>
+        <div class="top-bar-title has-hover">Prasanna Kumar</div>
         <div flex layout="row" ng-show="vm.profile.isAuthenticated">
+            <div class="left-bar-company has-hover"><nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select></div>
             <div flex> </div>
             <div class="top-bar-menu breadcrumb" ng-hide="vm.navigation.breadcrumbs.length <= 1">
                 <span ng-repeat="crumb in vm.navigation.breadcrumbs track by $index">
