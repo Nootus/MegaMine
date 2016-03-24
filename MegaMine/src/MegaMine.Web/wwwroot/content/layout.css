@@ -262,8 +262,8 @@ h3.left-bar-item + div > div {
 
 /* End Right bar in the grid page */
 
-/* Command Bar */
-.command-bar > md-toolbar {
+/* Command Bar & Dialog Bar */
+.command-bar > md-toolbar, .command-bar > md-toolbar {
     min-height: 46px;
     background-color: rgba(67, 116, 167, 0.25) !important;
     color: white;
@@ -278,11 +278,10 @@ h3.left-bar-item + div > div {
     font-size: inherit;
     font-weight: inherit;
     margin: inherit;
-    padding-top: 8px;
 }
 
 .command-bar-button {
-    margin: 0 0 5px 0 !important;
+    margin: 0 0 2px 0 !important;
     height: 40px;
     padding-top: 7px;
     min-width: 50px;

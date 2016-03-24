@@ -1,53 +1,38 @@
-﻿<nt-list-toolbar flex vm="vm" header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd"></nt-list-toolbar>
-
-<!--<nt-toolbar header="Quarries" class="command-bar">
-    <nt-button type="command-bar" icon-css="plus" tool-tip="New Quarry" button-text="New" ng-click="vm.addQuarry($event)"></nt-button>
-    <nt-button type="command-bar" icon-css="th" tool-tip="Grid View" button-text="Grid" ng-click="vm.addQuarry($event)"></nt-button>
-    <nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" button-text="Dashboard" ng-click="vm.addQuarry($event)"></nt-button>
-    <nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" button-text="List" ng-click="vm.addQuarry($event)"></nt-button>
-</nt-toolbar>
-<nt-grid flex vm="vm" grid-class="main-grid" ng-hide="true"></nt-grid>-->
-<div layout="row" style="background-color: white" ng-hide="false">
-    <div flex>
-        <md-whiteframe class="md-whiteframe-24dp" flex>
-            <md-content flex style="height: 750px;">
-                <div layout="row">
-                    <div flex="33">
-                        <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>
+﻿<nt-list-toolbar flex vm="vm" header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd">
+    <chart>
+        <div layout="row">
+            <div flex="33">
+                <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>
+            </div>
+            <div flex="33">
+                <nvd3 options="vm.barOptions" data="vm.barData" api="vm.barApi"></nvd3>
+            </div>
+            <div flex="33">
+                <nvd3 options="vm.chartOptions" data="vm.chartData" api="vm.chartApi"></nvd3>
+            </div>
+        </div>
+        <div>
+            <nvd3 options="vm.stackOptions" data="vm.stackData" api="vm.stackApi"></nvd3>
+        </div>
+    </chart>
+    <list>
+        <div class="class="full-width"">
+            <md-list>
+                <md-list-item class="md-3-line right-list" ng-repeat="item in vm.quarries">
+                    <div class="md-list-item-text right-list-item" layout="column">
+                        <h3>{{ item.quarryName }}</h3>
+                        <h4>{{ item.colours }}</h4>
+                        <p>{{ item.location }}</p>
                     </div>
-                    <div flex="33">
-                        <nvd3 options="vm.barOptions" data="vm.barData"></nvd3>
-                    </div>
-                    <div flex="33">
-                        <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>
-                    </div>
-                </div>
-                <div>
-                    <nvd3 options="vm.stackOptions" data="vm.stackData"></nvd3>
-                </div>
-            </md-content>
-        </md-whiteframe>
-    </div>
-    <div flex="20" layout="row" class="right-bar" ng-hide="true">
-        <md-whiteframe class="md-whiteframe-24dp" flex>
-            <md-content flex  style="height: 750px;">
-                <md-list>
-                    <md-list-item class="md-3-line right-list" ng-repeat="item in vm.quarries">
-                        <div class="md-list-item-text right-list-item" layout="column">
-                            <h3>{{ item.quarryName }}</h3>
-                            <h4>{{ item.colours }}</h4>
-                            <p>{{ item.location }}</p>
-                        </div>
-                    </md-list-item>
-                </md-list>
-            </md-content>
-        </md-whiteframe>
-    </div>
-</div>
+                </md-list-item>
+            </md-list>
+        </div>
+    </list>
+</nt-list-toolbar>
 
 <script type="text/ng-template" id="quarry_dialog">
     <md-dialog aria-label="Quarry" class="dialog">
-        <nt-dialog form="quarryForm" title="Quarry">
+        <nt-dialog form="quarryForm" header="Quarry">
             <div layout="row">
                     <nt-input flex="33" form="quarryForm" label="Quarry Name" control-name="quarryName" ng-model="vm.model.quarryName" ng-required="true" em-maxlength="20"></nt-input>
                     <nt-input flex="33" form="quarryForm" label="Location" control-name="Location" ng-model="vm.model.location" ng-required="false" em-maxlength="100"></nt-input>

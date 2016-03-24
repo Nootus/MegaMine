@@ -54,13 +54,5 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
         }
     }
 
-    function getGridHeight(contentClass, gridClass, bottomOffset) {
-        var contentHeight = angular.element(document.getElementsByClassName(contentClass)[0]).height();
-        var gridOffset = angular.element(document.getElementsByClassName(gridClass)[0]).offset();
-        if (gridOffset !== undefined) {
-            var gridHeight = contentHeight - (gridOffset.top) - bottomOffset;
-            return gridHeight + 'px';
-        }
-    }
 }
 

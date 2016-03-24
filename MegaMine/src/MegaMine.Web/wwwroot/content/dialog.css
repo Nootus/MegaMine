@@ -11,3 +11,6 @@
     padding: 0px;
 }
 
+.delete, .delete > .command-bar-button-icon {
+    color: red !important;
+}

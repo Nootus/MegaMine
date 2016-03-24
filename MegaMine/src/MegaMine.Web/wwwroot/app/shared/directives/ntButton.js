@@ -19,7 +19,7 @@ function ntButton(profile) {
         link: link,
         template: '<md-button class="{{cssClass}} {{type}}-button has-hover" ng-hide="hide" aria-label="{{toolTip}}" ng-click="ntClick($event)"'
                     + ' ng-disabled="form.$invalid && form.$submitted && bypassDisabled">'
-                    + ' <md-tooltip>{{toolTip}}</md-tooltip>'
+                    + ' <md-tooltip ng-style="toolTipStyle">{{toolTip}}</md-tooltip>'
                     + ' <md-icon class="fa fa-{{iconCss}} {{type}}-button-icon" aria-label="{{toolTip}}"></md-icon>'
                     + ' <div class="{{type}}-button-text">{{buttonText}}</div>'
                     + '</md-button>'
@@ -36,7 +36,13 @@ function ntButton(profile) {
 
         //setting the default values
         scope.bypassDisabled = scope.overrideDisabled === "true" ? false : true;
-        scope.toolTip = scope.toolTip || scope.buttonText;
+        //scope.toolTip = scope.toolTip || scope.buttonText;
+        scope.hideToolTip = scope.toolTip === undefined ? true : false;
+        if (scope.hideToolTip) {
+            scope.toolTipStyle = {
+                display: 'none'
+            };
+        }
 
         scope.ntClick = function (ev) {
             if (scope.form === undefined) {

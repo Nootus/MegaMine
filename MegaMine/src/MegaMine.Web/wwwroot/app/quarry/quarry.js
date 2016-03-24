@@ -21,11 +21,15 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
         quarries: [],
         chartOptions: undefined,
         chartData: undefined,
+        chartApi: undefined,
         stackOptions: undefined,
         stackData: undefined,
+        stackApi: undefined,
         barOptions: undefined,
-        barData: undefined
-
+        barData: undefined,
+        barApi: undefined,
+        refreshCharts: refreshCharts,
+        refresh: refresh
     };
 
     init();
@@ -270,6 +274,16 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
                 });
             }
         });
+    }
+    
+    function refresh() {
+        return quarryService.getQuarries();
+    }
+
+    function refreshCharts() {
+        vm.stackApi.refresh();
+        vm.barApi.refresh();
+        vm.chartApi.refresh();
     }
 }
 
