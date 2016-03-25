@@ -1,5 +1,5 @@
-﻿<nt-toolbar title="Dashboard" class="title"></nt-toolbar>
-<md-content layout-padding>
+﻿<nt-toolbar header="Dashboard"></nt-toolbar>
+<md-content layout-padding ng-hide="true">
     <div layout="row">
         <div flex="25" ng-repeat="menuItem in vm.menu track by menuItem.pageId">
             <span class="{{menuItem.iconCss}}"></span><b>{{menuItem.menuText}}</b>

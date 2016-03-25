@@ -31,6 +31,9 @@ var paths = {
                 , webroot + "content/angular-material.css"
                 , webroot + "content/toastr.css"
                 , webroot + "content/app.css"
+                , webroot + "content/layout.css"
+                , webroot + "content/grid.css"
+                , webroot + "content/dialog.css"
                 , webroot + "content/icons.css"
     ],
 

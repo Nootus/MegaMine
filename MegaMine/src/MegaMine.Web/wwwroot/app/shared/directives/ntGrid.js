@@ -12,7 +12,7 @@ function ntGrid() {
         },
         link: link,
         template: '<md-content layout-padding>'
-                        + '<div ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-exporter ui-grid-selection ng-style="{\'height\' : vm.gridOptions.gridHeight }" ng-class="gridClass"></div>'
+                        + '<div class="nt-grid" ui-grid="vm.gridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-exporter ui-grid-selection ng-class="gridClass"></div>'
                     + '</md-content>'
 
     };

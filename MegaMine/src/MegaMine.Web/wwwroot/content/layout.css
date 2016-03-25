@@ -96,6 +96,14 @@ div.breadcrumb, div.breadcrumb a{
     padding: 15px 10px 10px 10px;
 }
 
+.top-bar-company md-select > .md-select-value {
+    color: #fff !important;
+    font-size: 14px;
+    border-bottom: none !important;
+}
+
+
+
 /*End Top Bar*/
 
 /*Left bar styles*/
@@ -105,7 +113,20 @@ div.breadcrumb, div.breadcrumb a{
     background-color: #282d32;
 }
 
-.left-bar-company {
+.left-bar-collapse {
+    width: 50px;
+}
+
+.left-bar-collapse .md-icon {
+    font-size: 24px;
+    color: white;
+}
+
+.left-bar-menu button, .left-bar-menu button:hover {
+    padding-top: 0px;
+}
+
+/*.left-bar-company {
     padding-left: 7px !important;
     padding-top: 0 !important;
 
@@ -121,16 +142,10 @@ div.breadcrumb, div.breadcrumb a{
     max-width: 146px;
 }
 
-.left-bar-company md-select > .md-select-value {
-    color: #fff !important;
-    font-size: 14px;
-    border-bottom: none !important;
-}
-
 .left-bar-company md-select:focus > .md-select-value {
     color: #fff !important;
     border-bottom: none !important;
-}
+}*/
 
 
 .left-bar-item {
@@ -151,6 +166,33 @@ div.breadcrumb, div.breadcrumb a{
 
 }
 
+.left-bar-collapse .left-bar-item {
+    border-right: none;
+}
+
+.left-bar-collapse .left-bar-item > a {
+    margin: 0;
+    padding: 14px 10px 10px 10px;
+    font-size: 20px;
+    min-width: 35px;
+}
+
+.left-bar-collapse .left-bar-item > a > md-icon {
+    color: #dbb94f;
+}
+
+.left-bar-collapse .left-bar-item > a:hover {
+    margin: 0;
+    padding: 12px 10px 12px 10px;
+    font-size: 24px
+}
+
+.left-bar-collapse .accordion > .item > .header:after {
+    top: 15px;
+    right: 0px;
+}
+
+
 h3.left-bar-item {
     margin: 0;
 }
@@ -166,9 +208,14 @@ h3.left-bar-item.expand {
     border-bottom: 0px;
 }
 
-h3.left-bar-item:focus {
-    border: 0;
+/*h3.left-bar-item:focus {
+    border: none !important;
 }
+
+h3.left-bar-item > a:focus {
+    border: none !important;
+}*/
+
 
 h3.left-bar-item + div {
     border-bottom: 1px solid rgba(128,128,128,.4) !important;
@@ -212,6 +259,7 @@ h3.left-bar-item + div > div {
 .accordion > .item > .header {
     position: relative;
 }
+
 .accordion > .item > .header:after {
     content: '\25BC';
     position: absolute;
@@ -303,7 +351,14 @@ h3.left-bar-item + div > div {
 }
 .command-bar-button:hover > .command-bar-button-icon {
     font-size: 20px;
+    margin-top: 0px;
 }
+
+.left-bar-item .command-bar-button:hover > .command-bar-button-icon {
+    font-size: 20px;
+    margin-top: -2px;
+}
+
  
 
 /* End Command Bar */
@@ -334,16 +389,3 @@ h3.left-bar-item + div > div {
 
 /* End Scrollbar */
 
-/* Grid */
-
-.grid-button {
-    padding: 0;
-    margin: 0;
-    min-width: 30px;
-}
-
-.grid-button-icon {
-    color:rgb(67, 116, 167);
-}
-
-/* End Grid */

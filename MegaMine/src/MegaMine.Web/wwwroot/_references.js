@@ -76,6 +76,7 @@
 /// <reference path="scripts/angular/angular-material.js" />
 /// <reference path="scripts/angular/angular-messages.js" />
 /// <reference path="scripts/angular/angular-ui-router.js" />
+/// <reference path="scripts/charting/nv.d3.js" />
 /// <reference path="scripts/jquery.js" />
 /// <reference path="scripts/moment.js" />
 /// <reference path="scripts/pdfmake/pdfmake.min.js" />

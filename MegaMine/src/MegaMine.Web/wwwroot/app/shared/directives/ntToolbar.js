@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntToolbar', ntToolbar)
-ntToolbar.$inject = [];
+ntToolbar.$inject = ['utility'];
 
-function ntToolbar() {
+function ntToolbar(utility) {
     return {
         restrict: 'E',
         transclude: true,
@@ -20,6 +20,8 @@ function ntToolbar() {
     };
 
     function link(scope, element, attrs, nullController, transclude) {
-
+        if(utility.isEmpty(attrs.class)) {
+            attrs.$addClass('command-bar');
+        }
     }
 }

@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('gridUtility', gridUtility);
-gridUtility.$inject = ['$window', '$timeout', 'toastr', 'uiGridConstants'];
+gridUtility.$inject = ['$window', '$timeout', 'toastr', 'utility', 'uiGridConstants'];
 
-function gridUtility($window, $timeout, toastr, uiGridConstants) {
+function gridUtility($window, $timeout, toastr, utility, uiGridConstants) {
 
     var grid = {
         initializeGrid: initializeGrid,
@@ -29,7 +29,7 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
         gridOptions.enableColumnResizing = true,
         gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
         gridOptions.data = model;
-        resizeGrid(gridOptions, contentClass, gridClass, bottomOffset);
+        //resizeGrid(gridOptions, contentClass, gridClass, bottomOffset);
 
         //setting the grid API
         gridOptions.onRegisterApi = function(gridApi){
@@ -37,19 +37,19 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
         };
 
 
-        angular.element($window).bind('resize', function () {
-            gridOptions.gridHeight = getGridHeight(contentClass, gridClass, bottomOffset);
-        });
-        scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
+        //angular.element($window).bind('resize', function () {
+        //    gridOptions.height = utility.getContentHeight(contentClass, gridClass, bottomOffset);
+        //});
+        //scope.$on('$destroy', function (e) {
+        //    angular.element($window).unbind('resize');
+        //});
     }
 
     function resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, currentHeight) {
-        gridOptions.gridHeight = getGridHeight(contentClass, gridClass, bottomOffset);
-        if (gridOptions.gridHeight !== currentHeight || currentHeight === undefined) {
+        gridOptions.height = utility.getContentHeight(contentClass, gridClass, bottomOffset);
+        if (gridOptions.height !== currentHeight || currentHeight === undefined) {
             $timeout(function () {
-                resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, gridOptions.gridHeight);
+                resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, gridOptions.height);
             }, 50);
         }
     }

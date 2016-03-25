@@ -2,7 +2,7 @@
     <div class="top-bar" layout="row">
         <div class="top-bar-title has-hover">Prasanna Kumar</div>
         <div flex layout="row" ng-show="vm.profile.isAuthenticated">
-            <div class="left-bar-company has-hover"><nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select></div>
+            <div class="top-bar-company has-hover"><nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select></div>
             <div flex> </div>
             <div class="top-bar-menu breadcrumb" ng-hide="vm.navigation.breadcrumbs.length <= 1">
                 <span ng-repeat="crumb in vm.navigation.breadcrumbs track by $index">
@@ -32,28 +32,33 @@
         </div>
     </div>
     <div layout="row">
-        <div class="left-bar">
-            <div class="left-bar-company left-bar-item has-hover menu-hover">
-                <nt-select label="Company" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select>
+        <div class="left-bar" ng-class="{ 'left-bar-collapse': vm.collapseMenu }">
+            <div ng-show="vm.collapseMenu">
+                <div class="left-bar-item has-hover menu-hover">
+                    <md-button ng-href="#" ng-click="vm.toggleMenu()">
+                        <md-icon class="fa fa-bars" aria-label="Dashboard"></md-icon>
+                    </md-button>
+                </div>
+                <div class="left-bar-item has-hover menu-hover">
+                    <md-button ng-href="/" ng-click="vm.resetMenu()">
+                        <md-tooltip>Dashboard</md-tooltip>
+                        <md-icon class="fa fa-tachometer" aria-label="Dashboard"></md-icon>
+                    </md-button>
+                </div>
+                <div>
+                    <div ng-include="'menu_accordion'"></div>
+                </div>
             </div>
-            <div class="left-bar-item has-hover menu-hover">
-                <md-button ng-href="/" ng-click="vm.resetMenu()"> Dashboard </md-button>
-            </div>
-            <div  ng-hide="vm.profile.menu.length === 0">
-                <ul nt-accordion>
-                    <li ng-repeat="menu in vm.profile.menu track by menu.pageId">
-                        <h3 class = "left-bar-item has-hover menu-hover">
-                            <md-button ng-href="#"> {{ menu.menuText }} </md-button>
-                        </h3> 
-                        <div>
-                            <div ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true" class = "left-bar-item has-hover menu-hover">
-                                <md-button ng-href="{{item.url}}">
-                                    <md-icon class="{{item.iconCss}}"></md-icon> {{item.menuText}}
-                                </md-button>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
+            <div ng-hide="vm.collapseMenu">
+                <div class="left-bar-menu left-bar-item has-hover menu-hover">
+                    <nt-button type="command-bar" icon-css="bars" tool-tip="Toggle Menu" button-text="" ng-click="vm.toggleMenu()"></nt-button>
+                </div>
+                <div class="left-bar-item has-hover menu-hover">
+                    <md-button ng-href="/" ng-click="vm.resetMenu()">Dashboard</md-button>
+                </div>
+                <div ng-hide="vm.profile.menu.length === 0">
+                    <div ng-include="'menu_accordion'"></div>
+                </div>
             </div>
         </div>
         <div flex>
@@ -72,3 +77,26 @@
         </div>
     </div>
 </div>
+
+<script type="text/ng-template" id="menu_accordion">
+    <ul nt-accordion>
+        <li ng-repeat="menu in vm.profile.menu track by menu.pageId">
+            <h3 class="left-bar-item has-hover menu-hover">
+                <md-button ng-href="#"> 
+                    <md-icon class="{{menu.iconCss}}" ng-show="vm.collapseMenu"></md-icon>
+                    <span ng-hide="vm.collapseMenu">{{menu.menuText}}</span>
+                    <md-tooltip ng-style="!vm.collapseMenu ? { 'display': 'none' } : ''">{{menu.menuText}}</md-tooltip>
+                </md-button>
+            </h3>
+            <div>
+                <div ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true" class="left-bar-item has-hover menu-hover">
+                    <md-button ng-href="{{item.url}}" ng-click="vm.menuClick(item)">
+                        <md-icon class="{{item.iconCss}}"></md-icon> 
+                        <span ng-hide="vm.collapseMenu">{{item.menuText}}</span>
+                        <md-tooltip ng-style="!vm.collapseMenu ? { 'display': 'none' } : ''">{{item.menuText}}</md-tooltip>
+                    </md-button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</script>

@@ -44,7 +44,7 @@ function template(constants) {
                     break;
                 case constants.enum.buttonType.edit:
                     toolTip = 'Edit';
-                    iconCss = 'pencil';
+                    iconCss = 'pencil-square-o';
                     button.ngClick = button.ngClick === undefined ? 'grid.appScope.vm.viewDialog(row.entity, ' + constants.enum.dialogMode.save + ', $event)' : button.ngClick;
                     break;
                 case constants.enum.buttonType.delete:
