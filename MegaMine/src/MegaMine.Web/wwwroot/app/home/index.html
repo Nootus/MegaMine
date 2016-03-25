@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div layout="row">
+    <div layout="row" ng-show="vm.profile.isAuthenticated">
         <div class="left-bar" ng-class="{ 'left-bar-collapse': vm.collapseMenu }">
             <div ng-show="vm.collapseMenu">
                 <div class="left-bar-item has-hover menu-hover">
@@ -89,7 +89,7 @@
                 </md-button>
             </h3>
             <div>
-                <div ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true" class="left-bar-item has-hover menu-hover">
+                <div ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true" class="left-bar-item has-hover menu-hover" ng-class="{ 'menu-selected': item.pageId === vm.currentMenuItem.pageId }">
                     <md-button ng-href="{{item.url}}" ng-click="vm.menuClick(item)">
                         <md-icon class="{{item.iconCss}}"></md-icon> 
                         <span ng-hide="vm.collapseMenu">{{item.menuText}}</span>

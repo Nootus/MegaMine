@@ -15,7 +15,7 @@ function index($scope, $interval, $timeout, profile, navigation, changePasswordD
         toggleMenu: toggleMenu,
         menuClick: menuClick,
         currentMenuItem: {},
-        collapseMenu: true
+        collapseMenu: false
     };
 
 

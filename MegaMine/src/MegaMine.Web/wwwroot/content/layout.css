@@ -46,6 +46,10 @@
     border-left: 5px solid #00bcf2 !important;
 }
 
+.menu-selected {
+    background-color: #202428 !important;
+}
+
 .avatar {
     z-index: 200;
     align-items: center;
@@ -190,6 +194,7 @@ div.breadcrumb, div.breadcrumb a{
 .left-bar-collapse .accordion > .item > .header:after {
     top: 15px;
     right: 0px;
+    color: #dbb94f;
 }
 
 
@@ -284,6 +289,7 @@ h3.left-bar-item + div > div {
 .right-list {
     min-height: initial !important;
     border-left: 5px solid transparent;
+    cursor: pointer;
 }
 
 .right-list h3 {
@@ -307,6 +313,28 @@ h3.left-bar-item + div > div {
 .right-list-item {
     padding: 5px 0 5px 0;
 }
+
+.right-list-menu {
+    background-color: #282d32;
+}
+
+
+.right-list-menu {
+    position: absolute;
+    top: 4px;
+    right: 20PX;
+    background-color: rgba(67, 116, 167, 0.75) !important;
+}
+
+.context-bar-button {
+    margin: 0;
+    height: 24px;
+    padding-top: 4px;
+    min-width: 15px;
+    min-height: 12px;
+    width: 30px;
+}
+
 
 /* End Right bar in the grid page */
 

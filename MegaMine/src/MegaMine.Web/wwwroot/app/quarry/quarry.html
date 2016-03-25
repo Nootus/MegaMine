@@ -1,33 +1,18 @@
 ﻿<nt-list-toolbar flex vm="vm" header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd">
-    <chart>
-        <div layout="row">
-            <div flex="33">
-                <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>
-            </div>
-            <div flex="33">
-                <nvd3 options="vm.barOptions" data="vm.barData" api="vm.barApi"></nvd3>
-            </div>
-            <div flex="33">
-                <nvd3 options="vm.chartOptions" data="vm.chartData" api="vm.chartApi"></nvd3>
-            </div>
+    <div layout="row">
+        <div flex="33">
+            <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>
         </div>
-        <div>
-            <nvd3 options="vm.stackOptions" data="vm.stackData" api="vm.stackApi"></nvd3>
+        <div flex="33">
+            <nvd3 options="vm.barOptions" data="vm.barData" api="vm.barApi"></nvd3>
         </div>
-    </chart>
-    <list>
-        <div class="class="full-width"">
-            <md-list>
-                <md-list-item class="md-3-line right-list" ng-repeat="item in vm.quarries">
-                    <div class="md-list-item-text right-list-item" layout="column">
-                        <h3>{{ item.quarryName }}</h3>
-                        <h4>{{ item.colours }}</h4>
-                        <p>{{ item.location }}</p>
-                    </div>
-                </md-list-item>
-            </md-list>
+        <div flex="33">
+            <nvd3 options="vm.chartOptions" data="vm.chartData" api="vm.chartApi"></nvd3>
         </div>
-    </list>
+    </div>
+    <div>
+        <nvd3 options="vm.stackOptions" data="vm.stackData" api="vm.stackApi"></nvd3>
+    </div>
 </nt-list-toolbar>
 
 <script type="text/ng-template" id="quarry_dialog">
