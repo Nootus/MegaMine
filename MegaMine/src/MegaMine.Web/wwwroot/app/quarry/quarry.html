@@ -1,4 +1,6 @@
-﻿<nt-list-toolbar flex vm="vm" header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd">
+﻿<nt-list-toolbar flex vm="vm" list-items="vm.quarries", list-fields="['quarryName', 'colours', 'location']"
+                 header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" 
+                 button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd">
     <div layout="row">
         <div flex="33">
             <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>

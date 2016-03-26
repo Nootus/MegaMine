@@ -3,7 +3,18 @@
         <div class="top-bar-title has-hover">Prasanna Kumar</div>
         <div flex layout="row" ng-show="vm.profile.isAuthenticated">
             <div class="top-bar-company has-hover"><nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select></div>
-            <div flex> </div>
+            <div flex style="text-align: center">
+                <div id="fountainG" ng-show="vm.navigation.isLoading">
+                    <div id="fountainG_1" class="fountainG"></div>
+                    <div id="fountainG_2" class="fountainG"></div>
+                    <div id="fountainG_3" class="fountainG"></div>
+                    <div id="fountainG_4" class="fountainG"></div>
+                    <div id="fountainG_5" class="fountainG"></div>
+                    <div id="fountainG_6" class="fountainG"></div>
+                    <div id="fountainG_7" class="fountainG"></div>
+                    <div id="fountainG_8" class="fountainG"></div>
+                </div>
+            </div>
             <div class="top-bar-menu breadcrumb" ng-hide="vm.navigation.breadcrumbs.length <= 1">
                 <span ng-repeat="crumb in vm.navigation.breadcrumbs track by $index">
                     <a class="has-hover" href="{{crumb.url}}">{{crumb.title}}</a> 

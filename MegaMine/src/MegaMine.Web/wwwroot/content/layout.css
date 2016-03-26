@@ -47,7 +47,35 @@
 }
 
 .menu-selected {
-    background-color: #202428 !important;
+    font-weight: bold;
+    background-color: #eee !important;
+    border-left: 5px solid #00bcf2 !important;
+    border-right: none !important;
+}
+
+.menu-selected > a:after {
+    content: '\25BC';
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    font-size: 15px; 
+    color: black;
+    background-color: transparent;
+    -webkit-transform: scaleY(0.6) scaleX(1);
+    transform: scaleY(0.6) scaleX(1);
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+    -webkit-transform: rotate(-90deg) scaleY(0.6) scaleX(1);
+    transform: rotate(-90deg) scaleY(0.6) scaleX(1);
+}
+
+
+.menu-selected  > a {
+    color: black !important;
+}
+
+.left-bar-collapse .menu-selected > a:after {
+    content: none;
 }
 
 .avatar {
@@ -167,6 +195,7 @@ div.breadcrumb, div.breadcrumb a{
     width: 95%;
     text-align: left;
     margin: 4px 5px;
+    text-overflow: ellipsis;
 
 }
 
@@ -268,12 +297,12 @@ h3.left-bar-item + div > div {
 .accordion > .item > .header:after {
     content: '\25BC';
     position: absolute;
-    top: 10px;
+    top: 14px;
     right: 5px;
     -webkit-transform: scaleY(0.6) scaleX(1);
     transform: scaleY(0.6) scaleX(1);
-      -webkit-transition: all 0.5s ease;
-          transition: all 0.5s ease;
+    -webkit-transition: all 0.5s ease;
+    transition: all 0.5s ease;
 }
 
 .accordion > .item > .header.expand:after {

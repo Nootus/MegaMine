@@ -19,8 +19,10 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
         gridOptions: gridOptions,
         viewDialog: viewDialog,
         addProductType: addProductType,
-        validateFormulaOrder: validateFormulaOrder
-    };
+        validateFormulaOrder: validateFormulaOrder,
+        productTypes: quarryService.productTypes,
+        refresh: refresh
+};
 
     init();
 
@@ -31,6 +33,10 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
             initializeModel(item);
         });
         gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.productTypes);
+    }
+
+    function refresh() {
+        return quarryService.getProductTypes();
     }
 
     function initializeModel(model) {

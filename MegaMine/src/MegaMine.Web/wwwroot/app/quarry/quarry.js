@@ -18,7 +18,7 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
         gridOptions: gridOptions,
         viewDialog: viewDialog,
         addQuarry: addQuarry,
-        quarries: [],
+        quarries: quarryService.quarries,
         chartOptions: undefined,
         chartData: undefined,
         chartApi: undefined,
@@ -37,7 +37,6 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
     return vm;
 
     function init() {
-        vm.quarries = quarryService.quarries;
         gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.quarries);
 
         vm.chartOptions = {
@@ -238,6 +237,10 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
         ]
     }
 
+    function refresh() {
+        return quarryService.getQuarries();
+    }
+
     function addQuarry(ev) {
         var model = { quarryId: 0, colourIds: [] }
         viewDialog(model, constants.enum.dialogMode.save, ev);
@@ -276,10 +279,6 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
         });
     }
     
-    function refresh() {
-        return quarryService.getQuarries();
-    }
-
     function refreshCharts() {
         vm.stackApi.refresh();
         vm.barApi.refresh();

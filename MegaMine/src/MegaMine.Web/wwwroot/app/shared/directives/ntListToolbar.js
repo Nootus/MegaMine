@@ -8,6 +8,8 @@ function ntListToolbar($window, $timeout, utility, constants) {
         transclude: true,
         scope: {
             vm: '=',
+            listItems: '=',
+            listFields: '=',
             header: '@',
             buttonType: '@',
             buttonText: '@',
@@ -40,14 +42,13 @@ function ntListToolbar($window, $timeout, utility, constants) {
                         + '<div flex="20" layout="row" class="right-bar" ng-show="viewType === viewTypeEnum.list">'
                             + '<md-whiteframe class="md-whiteframe-24dp" flex>'
                                 + '<md-content flex>'
-                                    + '<div ng-transclude="list"></div>'
                                     + '<div class="class="full-width">'
                                     + '<md-list>'
-                                        + '<md-list-item class="md-3-line right-list" ng-repeat="item in vm.quarries" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
+                                        + '<md-list-item class="md-3-line right-list" ng-repeat="item in listItems" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
                                             + '<div class="md-list-item-text right-list-item" layout="column">'
-                                                + '<h3>{{ item[abc] }}</h3>'
-                                                + '<h4>{{ item.colours }}</h4>'
-                                                + '<p>{{ item.location }}</p>'
+                                                + '<h3>{{ item[listFields[0]] }}</h3>'
+                                                + '<h4>{{ item[listFields[1]] }}</h4>'
+                                                + '<p>{{ item[listFields[2]] }}</p>'
                                             + '</div>'
                                             + '<div class="right-list-menu" ng-show="showContextMenu">'
                                                 + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
@@ -65,9 +66,6 @@ function ntListToolbar($window, $timeout, utility, constants) {
     };
 
     function link(scope, element, attrs, nullController, transclude) {
-
-        scope.abc = "quarryName";
-
         scope.toolbarCss = scope.toolbarCss === undefined ? 'command-bar' : scope.toolbarCss;
         scope.gridClass = scope.gridClass === undefined ? 'main-grid' : scope.gridClass;
         scope.buttonIconCss = scope.buttonIconCss === undefined ? 'plus' : scope.buttonIconCss;
