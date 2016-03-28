@@ -1,21 +1,24 @@
 ﻿<nt-list-toolbar flex vm="vm" list-items="vm.quarries", list-fields="['quarryName', 'colours', 'location']"
                  header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" 
                  button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd">
-    <div layout="row">
-        <div flex="33">
-            <nvd3 options="vm.chartOptions" data="vm.chartData"></nvd3>
-        </div>
-        <div flex="33">
-            <nvd3 options="vm.barOptions" data="vm.barData" api="vm.barApi"></nvd3>
-        </div>
-        <div flex="33">
-            <nvd3 options="vm.chartOptions" data="vm.chartData" api="vm.chartApi"></nvd3>
-        </div>
-    </div>
-    <div>
-        <nvd3 options="vm.stackOptions" data="vm.stackData" api="vm.stackApi"></nvd3>
-    </div>
-</nt-list-toolbar>
+    <div gridster="gridsterOptions">
+        <ul class="with-3d-shadow with-transitions">
+            <li gridster-item="widget" ng-repeat="widget in dashboard.widgets">
+                <div class="box">
+                    <div class="box-header">
+                        <h3>{{ widget.name }}</h3>
+                    </div>
+                    <div class="box-content">
+                        <nvd3 options="widget.chart.options"
+                              data="widget.chart.data"
+                              api="widget.chart.api"
+                              config="config"
+                              events="events"></nvd3>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div></nt-list-toolbar>
 
 <script type="text/ng-template" id="quarry_dialog">
     <md-dialog aria-label="Quarry" class="dialog">

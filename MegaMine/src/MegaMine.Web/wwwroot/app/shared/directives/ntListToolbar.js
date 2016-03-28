@@ -109,20 +109,20 @@ function ntListToolbar($window, $timeout, utility, constants) {
     }
 
     function refreshCharts(scope) {
-        if (scope.viewType === constants.enum.viewType.dashboard || scope.viewType === constants.enum.viewType.list) {
-            $timeout(function () {
-                if (scope.vm.refreshCharts)
-                    scope.vm.refreshCharts();
-            })
-        }
+        //if (scope.viewType === constants.enum.viewType.dashboard || scope.viewType === constants.enum.viewType.list) {
+        //    $timeout(function () {
+        //        if (scope.vm.refreshCharts)
+        //            scope.vm.refreshCharts();
+        //    })
+        //}
     }
 
     function refresh(scope) {
-        if (scope.vm.refresh) {
-            scope.vm.refresh().
-                then(function () {
-                    refreshCharts(scope);
-                })
-        }
+        //if (scope.vm.refresh) {
+        //    scope.vm.refresh().
+        //        then(function () {
+        //            refreshCharts(scope);
+        //        })
+        //}
     }
 }

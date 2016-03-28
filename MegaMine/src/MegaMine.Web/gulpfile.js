@@ -30,11 +30,17 @@ var paths = {
     appCss: [webroot + "content/ui-grid/ui-grid.css" 
                 , webroot + "content/angular-material.css"
                 , webroot + "content/toastr.css"
+                , webroot + "content/charting/nv.d3.css"
+                , webroot + "content/charting/angular-gridster.min.css"
+
                 , webroot + "content/app.css"
-                , webroot + "content/layout.css"
-                , webroot + "content/grid.css"
-                , webroot + "content/dialog.css"
-                , webroot + "content/icons.css"
+                , webroot + "content/app/layout.css"
+                , webroot + "content/app/grid.css"
+                , webroot + "content/app/dialog.css"
+                , webroot + "content/app/icons.css"
+                , webroot + "content/app/loading.css"
+                , webroot + "content/app/dashboard.css"
+                , webroot + "content/app/chart.css"
     ],
 
     destAppJs: webroot + "js/app.min.js",
