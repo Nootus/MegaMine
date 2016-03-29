@@ -4,18 +4,7 @@
     <div gridster="gridsterOptions">
         <ul class="with-3d-shadow with-transitions">
             <li gridster-item="widget" ng-repeat="widget in dashboard.widgets">
-                <div class="box">
-                    <div class="box-header">
-                        <h3>{{ widget.name }}</h3>
-                    </div>
-                    <div class="box-content">
-                        <nvd3 options="widget.chart.options"
-                              data="widget.chart.data"
-                              api="widget.chart.api"
-                              config="config"
-                              events="events"></nvd3>
-                    </div>
-                </div>
+                <nt-nvd3 widget="widget" events="events"></nt-nvd3>
             </li>
         </ul>
     </div></nt-list-toolbar>

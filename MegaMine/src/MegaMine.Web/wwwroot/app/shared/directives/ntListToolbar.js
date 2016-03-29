@@ -34,7 +34,7 @@ function ntListToolbar($window, $timeout, utility, constants) {
                     + '<div class="chart-content full-width" layout="row" ng-hide="viewType === viewTypeEnum.grid" ng-style="{\'height\' : height }" >'
                         + '<div flex>'
                             + '<md-whiteframe class="md-whiteframe-24dp" flex>'
-                                + '<md-content flex>'
+                                + '<md-content class="chart-bar">'
                                     + '<div ng-transclude></div>'
                                 + '</md-content>'
                             + '</md-whiteframe>'

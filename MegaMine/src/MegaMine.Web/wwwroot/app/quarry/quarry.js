@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarry', quarry)
-quarry.$inject = ['$scope', '$timeout', 'quarryService', 'quarryChart', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
+quarry.$inject = ['$rootScope', '$scope', '$timeout', 'quarryService', 'quarryChart', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utility, constants, dialogService, template) {
+function quarry($rootScope, $scope, $timeout, quarryService, quarryChart, gridUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -20,19 +20,6 @@ function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utili
         addQuarry: addQuarry,
         quarries: quarryService.quarries,
 
-        chartOptions: quarryChart.pieChart.options,
-        chartData: quarryChart.pieChart.data,
-        chartApi: undefined,
-
-        stackOptions: quarryChart.stackedAreaChart.options,
-        stackData: quarryChart.stackedAreaChart.data,
-        stackApi: undefined,
-
-        barOptions: quarryChart.discreteBarChart.options,
-        barData: quarryChart.discreteBarChart.data,
-        barApi: undefined,
-
-        refreshCharts: refreshCharts,
         refresh: refresh
     };
 
@@ -46,7 +33,6 @@ function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utili
 
         $scope.gridsterOptions = {
             margins: [5, 5],
-            columns: 4,
             mobileModeEnabled: false,
             draggable: {
                 handle: 'h3'
@@ -55,7 +41,7 @@ function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utili
                 enabled: true,
                 handles: ['n', 'e', 's', 'w', 'ne', 'se', 'sw', 'nw'],
 
-                // optional callback fired when resize is started
+                //// optional callback fired when resize is started
                 start: function (event, $element, widget) { },
 
                 // optional callback fired when item is resized,
@@ -77,7 +63,7 @@ function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utili
                 col: 0,
                 row: 0,
                 sizeY: 1,
-                sizeX: 1,
+                sizeX: 4,
                 name: "Discrete Bar Chart",
                 chart: {
                     options: quarryChart.discreteBarChart.options,
@@ -85,10 +71,10 @@ function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utili
                     api: {}
                 }
             }, {
-                col: 1,
+                col: 4,
                 row: 0,
-                sizeY: 1,
-                sizeX: 1,
+                sizeY: 2,
+                sizeX: 2,
                 name: "Pie Chart",
                 chart: {
                     options: quarryChart.pieChart.options,
@@ -96,10 +82,10 @@ function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utili
                     api: {}
                 }
             }, {
-                col: 2,
-                row: 0,
+                col: 0,
+                row: 1,
                 sizeY: 1,
-                sizeX: 2,
+                sizeX: 4,
                 name: "Line Chart",
                 chart: {
                     options: quarryChart.lineChart.options,
@@ -108,9 +94,9 @@ function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utili
                 }
             }, {
                 col: 0,
-                row: 1,
-                sizeY: 2,
-                sizeX: 4,
+                row: 2,
+                sizeY: 1,
+                sizeX: 6,
                 name: "Area Chart",
                 chart: {
                     options: quarryChart.stackedAreaChart.options,
@@ -139,9 +125,48 @@ function quarry($scope, $timeout, quarryService, quarryChart, gridUtility, utili
         $scope.config = {
             visible: false
         };
-        $timeout(function () {
-            $scope.config.visible = true;
-        }, 200);
+        //$timeout(function () {
+        //    $scope.config.visible = true;
+        //}, 400);
+
+    //    $rootScope.$on('gridster-resized', function (sizes, gridster) {
+    //        $timeout(function () {
+    //            $scope.config.visible = true;
+    //        }, 400);
+
+    //        //$scope.config.visible = true;
+    //        //alert('enter');
+    //        // sizes[0] = width
+    //        // sizes[1] = height
+    //        // gridster.
+    //    })
+    //    $rootScope.$on('gridster-resized', function (item) {
+    //        $scope.config.visible = true;
+    //        // item.$element
+    //        // item.gridster
+    //        // item.row
+    //        // item.col
+    //        // item.sizeX
+    //        // item.sizeY
+    //        // item.minSizeX
+    //        // item.minSizeY
+    //        // item.maxSizeX
+    //        // item.maxSizeY
+        //    })
+
+        $rootScope.$on('gridster-item-initialized', function (item) {
+            alert('hi');
+            // item.$element
+            // item.gridster
+            // item.row
+            // item.col
+            // item.sizeX
+            // item.sizeY
+            // item.minSizeX
+            // item.minSizeY
+            // item.maxSizeX
+            // item.maxSizeY
+        })
     }
 
     function refresh() {

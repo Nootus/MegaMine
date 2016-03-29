@@ -40,7 +40,8 @@ form {
     margin-bottom: 0;
 }*/
 .gridster {
-    border: 1px solid #ccc;
+    /*border: 1px solid #ccc;*/
+    /*padding-right: 20px;*/
 }
 .gridster-item {
     border: 1px solid #ccc;

@@ -59,6 +59,12 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
             vm.breadcrumbs.push({ name: toState.name, title: toState.title, url: $location.$$path });
         });
 
+        //window resize
+        angular.element($window).on('resize', function (e) {
+            $rootScope.$broadcast('resize');
+        });
+
+
     }
 
     function go(stateName) {

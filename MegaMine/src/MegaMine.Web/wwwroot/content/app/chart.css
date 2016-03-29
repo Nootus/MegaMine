@@ -1,3 +1,5 @@
-﻿.chart-content md-whiteframe {
-    width: 90%;
+﻿.chart-bar {
+    /*width: 500px !important;*/
+    padding-right: 5px;
+    overflow-x: hidden;
 }
