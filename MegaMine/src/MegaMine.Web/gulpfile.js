@@ -39,7 +39,7 @@ var paths = {
                 , webroot + "content/app/dialog.css"
                 , webroot + "content/app/icons.css"
                 , webroot + "content/app/loading.css"
-                , webroot + "content/app/dashboard.css"
+                , webroot + "content/app/widget.css"
                 , webroot + "content/app/chart.css"
     ],
 

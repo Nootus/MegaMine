@@ -5,7 +5,12 @@
     display: inline-block;
 }
 
-
+.fa-maximize {
+    background: url('../images/icons/common/maximize.svg') no-repeat;
+    background-size: cover;
+    height: 12px;
+    width: 12px;
+}
 
 
 /*Fleet Icons*/

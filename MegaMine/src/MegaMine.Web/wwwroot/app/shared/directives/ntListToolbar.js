@@ -10,6 +10,7 @@ function ntListToolbar($window, $timeout, utility, constants) {
             vm: '=',
             listItems: '=',
             listFields: '=',
+            primaryField: '@',
             header: '@',
             buttonType: '@',
             buttonText: '@',
@@ -44,7 +45,7 @@ function ntListToolbar($window, $timeout, utility, constants) {
                                 + '<md-content flex>'
                                     + '<div class="class="full-width">'
                                     + '<md-list>'
-                                        + '<md-list-item class="md-3-line right-list" ng-repeat="item in listItems" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
+                                        + '<md-list-item class="md-3-line right-list" ng-repeat="item in listItems  track by item[primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
                                             + '<div class="md-list-item-text right-list-item" layout="column">'
                                                 + '<h3>{{ item[listFields[0]] }}</h3>'
                                                 + '<h4>{{ item[listFields[1]] }}</h4>'
@@ -75,11 +76,9 @@ function ntListToolbar($window, $timeout, utility, constants) {
 
         scope.toggleView = function () {
             scope.viewType = scope.viewType === constants.enum.viewType.dashboard || scope.viewType === constants.enum.viewType.list ? constants.enum.viewType.grid : constants.enum.viewType.list;
-            refreshCharts(scope);
         }
         scope.toggleListView = function () {
             scope.viewType = scope.viewType === constants.enum.viewType.list ? constants.enum.viewType.dashboard : constants.enum.viewType.list;
-            refreshCharts(scope);
         }
 
         scope.refresh = function () {
@@ -88,14 +87,9 @@ function ntListToolbar($window, $timeout, utility, constants) {
 
         setHeight(scope);
 
-        angular.element($window).bind('resize', function () {
+        scope.$on('window_resize', function (sizes, gridster) {
             setHeight(scope);
-            refreshCharts(scope);
         });
-        scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
-
     }
 
     function setHeight(scope) {
@@ -108,21 +102,9 @@ function ntListToolbar($window, $timeout, utility, constants) {
         });
     }
 
-    function refreshCharts(scope) {
-        //if (scope.viewType === constants.enum.viewType.dashboard || scope.viewType === constants.enum.viewType.list) {
-        //    $timeout(function () {
-        //        if (scope.vm.refreshCharts)
-        //            scope.vm.refreshCharts();
-        //    })
-        //}
-    }
-
     function refresh(scope) {
-        //if (scope.vm.refresh) {
-        //    scope.vm.refresh().
-        //        then(function () {
-        //            refreshCharts(scope);
-        //        })
-        //}
+        if (scope.vm.refresh) {
+            scope.vm.refresh();
+        }
     }
 }

@@ -32,7 +32,7 @@ function quarry($rootScope, $scope, $timeout, quarryService, quarryChart, gridUt
 
 
         $scope.gridsterOptions = {
-            margins: [5, 5],
+            margins: [35, 5],
             mobileModeEnabled: false,
             draggable: {
                 handle: 'h3'
@@ -42,18 +42,21 @@ function quarry($rootScope, $scope, $timeout, quarryService, quarryChart, gridUt
                 handles: ['n', 'e', 's', 'w', 'ne', 'se', 'sw', 'nw'],
 
                 //// optional callback fired when resize is started
-                start: function (event, $element, widget) { },
+                start: function (event, $element, widget) {
+                },
 
                 // optional callback fired when item is resized,
                 resize: function (event, $element, widget) {
-                    if (widget.chart.api) widget.chart.api.update();
+                    $timeout(function () {
+                        if (widget.chart.api) widget.chart.api.update();
+                    }, 50)
                 },
 
                 // optional callback fired when item is finished resizing 
                 stop: function (event, $element, widget) {
                     $timeout(function () {
                         if (widget.chart.api) widget.chart.api.update();
-                    }, 400)
+                    }, 50)
                 }
             },
         };
@@ -105,68 +108,6 @@ function quarry($rootScope, $scope, $timeout, quarryService, quarryChart, gridUt
                 }
             }]
         };
-
-        // We want to manually handle `window.resize` event in each directive.
-        // So that we emulate `resize` event using $broadcast method and internally subscribe to this event in each directive
-        // Define event handler
-        $scope.events = {
-            resize: function (e, scope) {
-                $timeout(function () {
-                    scope.api.update()
-                }, 200)
-            }
-        };
-        angular.element(window).on('resize', function (e) {
-            $scope.$broadcast('resize');
-        });
-
-        // We want to hide the charts until the grid will be created and all widths and heights will be defined.
-        // So that use `visible` property in config attribute
-        $scope.config = {
-            visible: false
-        };
-        //$timeout(function () {
-        //    $scope.config.visible = true;
-        //}, 400);
-
-    //    $rootScope.$on('gridster-resized', function (sizes, gridster) {
-    //        $timeout(function () {
-    //            $scope.config.visible = true;
-    //        }, 400);
-
-    //        //$scope.config.visible = true;
-    //        //alert('enter');
-    //        // sizes[0] = width
-    //        // sizes[1] = height
-    //        // gridster.
-    //    })
-    //    $rootScope.$on('gridster-resized', function (item) {
-    //        $scope.config.visible = true;
-    //        // item.$element
-    //        // item.gridster
-    //        // item.row
-    //        // item.col
-    //        // item.sizeX
-    //        // item.sizeY
-    //        // item.minSizeX
-    //        // item.minSizeY
-    //        // item.maxSizeX
-    //        // item.maxSizeY
-        //    })
-
-        $rootScope.$on('gridster-item-initialized', function (item) {
-            alert('hi');
-            // item.$element
-            // item.gridster
-            // item.row
-            // item.col
-            // item.sizeX
-            // item.sizeY
-            // item.minSizeX
-            // item.minSizeY
-            // item.maxSizeX
-            // item.maxSizeY
-        })
     }
 
     function refresh() {
@@ -209,12 +150,6 @@ function quarry($rootScope, $scope, $timeout, quarryService, quarryChart, gridUt
                 });
             }
         });
-    }
-    
-    function refreshCharts() {
-        vm.stackApi.refresh();
-        vm.barApi.refresh();
-        vm.chartApi.refresh();
     }
 }
 

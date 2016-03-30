@@ -20,7 +20,7 @@ function pieChart() {
             duration: 500,
             labelThreshold: 0.01,
             labelSunbeamLayout: true,
-            showLegend: false
+            showLegend: true
         }
     }
 

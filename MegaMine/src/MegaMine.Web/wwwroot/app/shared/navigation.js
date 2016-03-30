@@ -61,7 +61,7 @@ function navigation($rootScope, $state, $window, $location, $http, profile, util
 
         //window resize
         angular.element($window).on('resize', function (e) {
-            $rootScope.$broadcast('resize');
+            $rootScope.$broadcast('window_resize');
         });
 
 

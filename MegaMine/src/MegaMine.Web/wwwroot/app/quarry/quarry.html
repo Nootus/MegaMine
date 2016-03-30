@@ -1,13 +1,8 @@
-﻿<nt-list-toolbar flex vm="vm" list-items="vm.quarries", list-fields="['quarryName', 'colours', 'location']"
+﻿<nt-list-toolbar flex vm="vm" list-items="vm.quarries" list-fields="['quarryName', 'colours', 'location']" primary-field="quarryId"
                  header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" 
                  button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd">
-    <div gridster="gridsterOptions">
-        <ul class="with-3d-shadow with-transitions">
-            <li gridster-item="widget" ng-repeat="widget in dashboard.widgets">
-                <nt-nvd3 widget="widget" events="events"></nt-nvd3>
-            </li>
-        </ul>
-    </div></nt-list-toolbar>
+    <nt-gridster widgets="dashboard.widgets"></nt-gridster>
+</nt-list-toolbar>
 
 <script type="text/ng-template" id="quarry_dialog">
     <md-dialog aria-label="Quarry" class="dialog">
