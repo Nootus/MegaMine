@@ -48,7 +48,13 @@ ul {
     border: 1px solid #ccc;
 }
 
-.top-z {
-    z-index: 999;
-    position: inherit !important;
+.gridster-item.hide {
+    display: none;
 }
+
+.gridster-item.show {
+    display: block;
+    position: initial;
+}
+
+

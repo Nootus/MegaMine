@@ -72,22 +72,28 @@ function ntWidget($timeout, utility) {
             scope.maxiInd = true;
 
             angular.extend(scope.maximizeStyle, {
-                                            position: 'absolute',
                                             width: scope.$parent.gridster.$element.width(),
-                                            height: utility.getContentHeight('main-content', 'portal-content', 10),
+                                            height: utility.getContentHeight('main-content', 'portal-content', 50),
+                                            position: 'absolute',
                                             top: '35px',
                                             left: '5px'
                                         });
 
-            //currentStyle = scope.$parent.gridsterItem.$element.attr('style');
-            scope.$parent.gridsterItem.$element.addClass('top-z');
+            angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
+                angular.element(item).addClass('hide')
+            })
+            scope.$parent.gridsterItem.$element.addClass('show');
             $timeout(function () {
                 nvd3Scope.api.update();
             }, 500)
         }
+
         scope.minimize = function () {
             scope.maxiInd = false;
-            scope.$parent.gridsterItem.$element.removeClass('top-z');
+            angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
+                angular.element(item).removeClass('hide')
+            })
+            scope.$parent.gridsterItem.$element.removeClass('show');
             Object.keys(scope.maximizeStyle).forEach(function (key) { delete scope.maximizeStyle[key]; });
             $timeout(function () {
                 nvd3Scope.api.update();

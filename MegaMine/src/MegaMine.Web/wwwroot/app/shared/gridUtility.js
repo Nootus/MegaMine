@@ -35,14 +35,6 @@ function gridUtility($window, $timeout, toastr, utility, uiGridConstants) {
         gridOptions.onRegisterApi = function(gridApi){
             gridOptions.gridApi = gridApi;
         };
-
-
-        //angular.element($window).bind('resize', function () {
-        //    gridOptions.height = utility.getContentHeight(contentClass, gridClass, bottomOffset);
-        //});
-        //scope.$on('$destroy', function (e) {
-        //    angular.element($window).unbind('resize');
-        //});
     }
 
     function resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, currentHeight) {
