@@ -31,39 +31,40 @@ function ntListToolbar($window, $timeout, utility, constants) {
                         + '<nt-button type="{{buttonType}}" icon-css="{{buttonIconCss}}" tool-tip="{{buttonToolTip}}" button-text="{{buttonText}}" ng-click="buttonClick({$event: $event})" claim="{{claim}}"></nt-button>'
                         + '</span>'
                     + '</nt-toolbar>'
-                    + '<nt-grid class="grid-content" vm="vm" grid-class="{{gridClass}}" ng-hide="viewType !== viewTypeEnum.grid" ng-style="{\'height\' : height }"></nt-grid>'
-                    + '<div class="chart-content full-width" layout="row" ng-hide="viewType === viewTypeEnum.grid" ng-style="{\'height\' : height }" >'
-                        + '<div flex>'
-                            + '<md-whiteframe class="md-whiteframe-24dp" flex>'
-                                + '<md-content class="chart-bar">'
-                                    + '<div ng-transclude></div>'
-                                + '</md-content>'
-                            + '</md-whiteframe>'
-                        + '</div>'
-                        + '<div flex="20" layout="row" class="right-bar" ng-show="viewType === viewTypeEnum.list">'
-                            + '<md-whiteframe class="md-whiteframe-24dp" flex>'
-                                + '<md-content flex>'
-                                    + '<div class="class="full-width">'
-                                    + '<md-list>'
-                                        + '<md-list-item class="md-3-line right-list" ng-repeat="item in listItems  track by item[primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
-                                            + '<div class="md-list-item-text right-list-item" layout="column">'
-                                                + '<h3>{{ item[listFields[0]] }}</h3>'
-                                                + '<h4>{{ item[listFields[1]] }}</h4>'
-                                                + '<p>{{ item[listFields[2]] }}</p>'
-                                            + '</div>'
-                                            + '<div class="right-list-menu" ng-show="showContextMenu">'
-                                                + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
-                                                + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
-                                                + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
-                                            + '</div>'
-                                        + '</md-list-item>'
-                                    + '</md-list>'
-                                + '</div>'
-                                + '</md-content>'
-                            + '</md-whiteframe>'
+                    + '<div class="portal-content">'
+                        + '<nt-grid class="grid-content" vm="vm" grid-class="{{gridClass}}" ng-hide="viewType !== viewTypeEnum.grid" ng-style="{\'height\' : height }"></nt-grid>'
+                        + '<div class="chart-content full-width" layout="row" ng-hide="viewType === viewTypeEnum.grid" ng-style="{\'height\' : height }" >'
+                            + '<div flex>'
+                                + '<md-whiteframe class="md-whiteframe-24dp" flex>'
+                                    + '<md-content class="chart-bar">'
+                                        + '<div ng-transclude></div>'
+                                    + '</md-content>'
+                                + '</md-whiteframe>'
+                            + '</div>'
+                            + '<div flex="20" layout="row" class="right-bar" ng-show="viewType === viewTypeEnum.list">'
+                                + '<md-whiteframe class="md-whiteframe-24dp" flex>'
+                                    + '<md-content flex>'
+                                        + '<div class="class="full-width">'
+                                        + '<md-list>'
+                                            + '<md-list-item class="md-3-line right-list" ng-repeat="item in listItems  track by item[primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
+                                                + '<div class="md-list-item-text right-list-item" layout="column">'
+                                                    + '<h3>{{ item[listFields[0]] }}</h3>'
+                                                    + '<h4>{{ item[listFields[1]] }}</h4>'
+                                                    + '<p>{{ item[listFields[2]] }}</p>'
+                                                + '</div>'
+                                                + '<div class="right-list-menu" ng-show="showContextMenu">'
+                                                    + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
+                                                + '</div>'
+                                            + '</md-list-item>'
+                                        + '</md-list>'
+                                    + '</div>'
+                                    + '</md-content>'
+                                + '</md-whiteframe>'
+                            + '</div>'
                         + '</div>'
                     + '</div>'
-
     };
 
     function link(scope, element, attrs, nullController, transclude) {
@@ -94,11 +95,7 @@ function ntListToolbar($window, $timeout, utility, constants) {
 
     function setHeight(scope) {
         $timeout(function () {
-            var contentClass = 'chart-content';
-            if (scope.viewType === constants.enum.viewType.grid) {
-                contentClass = 'grid-content';
-            }
-            scope.height = utility.getContentHeight('main-content', contentClass, 10);
+            scope.height = utility.getContentHeight('main-content', 'portal-content', 10);
         });
     }
 

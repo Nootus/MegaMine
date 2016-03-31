@@ -41,17 +41,14 @@ ul {
     color: #666;
 }
 
-/*a {
-    color: #ccc;
-}
-form {
-    margin-bottom: 0;
-}*/
-
 .gridster {
-    /*border: 1px solid #ccc;*/
-    /*padding-right: 20px;*/
+
 }
 .gridster-item {
     border: 1px solid #ccc;
+}
+
+.top-z {
+    z-index: 999;
+    position: inherit !important;
 }

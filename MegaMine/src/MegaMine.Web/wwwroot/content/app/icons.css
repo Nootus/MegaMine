@@ -12,6 +12,13 @@
     width: 12px;
 }
 
+.fa-minimize {
+    background: url('../images/icons/common/minimize.svg') no-repeat;
+    background-size: cover;
+    height: 12px;
+    width: 12px;
+}
+
 
 /*Fleet Icons*/
 .icon-fleet {
