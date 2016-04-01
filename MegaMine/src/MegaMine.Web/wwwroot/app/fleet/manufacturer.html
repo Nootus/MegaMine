@@ -6,7 +6,7 @@
         <nt-input flex="20" label="Name" control-name="Name" ng-model="vm.model.name" ng-disabled="true"></nt-input>
         <nt-input flex="20" label="Description" control-name="Description" ng-model="vm.model.description" ng-disabled="true"></nt-input>
     </div>
-    <nt-list-toolbar vm="vm" title="Models" button-text="Add Model" button-click="vm.addModel($event)" claim="Fleet:ManufacturerModelAdd" toolbar-class="subtitle"  grid-class="sub-grid"></nt-list-toolbar>
+    <nt-dashobard vm="vm" title="Models" button-text="Add Model" button-click="vm.addModel($event)" claim="Fleet:ManufacturerModelAdd" toolbar-class="subtitle"  grid-class="sub-grid"></nt-dashobard>
 </md-content>
 
 <script type="text/ng-template" id="vehicle_model_dialog">

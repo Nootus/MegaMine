@@ -1,8 +1,8 @@
-﻿<nt-list-toolbar vm="vm" title="Driver History" toolbar-class="subtitle" grid-class="sub-grid">
+﻿<nt-dashobard vm="vm" title="Driver History" toolbar-class="subtitle" grid-class="sub-grid">
     <nt-old-button ng-click="vm.assignDriver($event)" ng-show="vm.assignMode === vm.enum.assignMode.assign" button-icon="add" button-text="Assign Driver" claim="Fleet:VehicleDriverAssign"></nt-old-button>
     <nt-old-button ng-click="vm.unAssignDriver($event)" ng-show="vm.assignMode === vm.enum.assignMode.unassign" button-icon="add" button-text="Un Assign Driver" claim="Fleet:VehicleDriverAssign"></nt-old-button>
     <nt-old-button ng-click="vm.addDriver($event)" button-icon="add" button-text="Add Driver" claim="Fleet:VehicleDriverAdd"></nt-old-button>
-</nt-list-toolbar>
+</nt-dashobard>
 
 <script type="text/ng-template" id="vehicle_driver_dialog">
     <md-dialog aria-label="Driver" class="dialog">

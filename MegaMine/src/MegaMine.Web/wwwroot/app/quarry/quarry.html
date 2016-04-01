@@ -1,8 +1,8 @@
-﻿<nt-list-toolbar flex vm="vm" list-items="vm.quarries" list-fields="['quarryName', 'colours', 'location']" primary-field="quarryId"
+﻿<nt-dashobard flex vm="vm" list-items="vm.quarries" list-fields="['quarryName', 'colours', 'location']" primary-field="quarryId"
+                widgets="dashboard.widgets"
                  header="Quarries" button-type="command-bar" button-tool-tip="New Quarry" button-text="New" 
                  button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd">
-    <nt-gridster widgets="dashboard.widgets"></nt-gridster>
-</nt-list-toolbar>
+</nt-dashobard>
 
 <script type="text/ng-template" id="quarry_dialog">
     <md-dialog aria-label="Quarry" class="dialog">
