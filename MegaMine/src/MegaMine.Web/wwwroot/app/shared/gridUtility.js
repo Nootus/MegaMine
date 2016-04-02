@@ -13,19 +13,19 @@ function gridUtility($window, $timeout, toastr, utility, uiGridConstants) {
 
     return grid;
 
-    function initializeGrid(gridOptions, scope, model) {
-        initialize(gridOptions, scope, model, 'main-content', 'main-grid', 24);
+    function initializeGrid(gridOptions, model) {
+        initialize(gridOptions, model, 'main-content', 'main-grid', 24);
     }
 
-    function initializeSubGrid(gridOptions, scope, model) {
-        initialize(gridOptions, scope, model, 'main-content', 'sub-grid', 41);
+    function initializeSubGrid(gridOptions, model) {
+        initialize(gridOptions, model, 'main-content', 'sub-grid', 41);
     }
 
-    function initializeDialogGrid(gridOptions, scope, model) {
-        initialize(gridOptions, scope, model, 'dialog', 'dialog-grid', 100);
+    function initializeDialogGrid(gridOptions, model) {
+        initialize(gridOptions, model, 'dialog', 'dialog-grid', 100);
     }
 
-    function initialize(gridOptions, scope, model, contentClass, gridClass, bottomOffset) {
+    function initialize(gridOptions, model, contentClass, gridClass, bottomOffset) {
         gridOptions.enableColumnResizing = true,
         gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
         gridOptions.data = model;

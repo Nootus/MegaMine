@@ -5,42 +5,26 @@ ntDashobard.$inject = ['$window', '$timeout', '$state', '$stateParams', 'utility
 function ntDashobard($window, $timeout, $state, $stateParams, utility, constants) {
     return {
         restrict: 'E',
-        transclude: true,
         scope: {
-            vm: '=',
-            listItems: '=',
-            listFields: '=',
-            widgets: '=',
-            primaryField: '@',
-            header: '@',
-            buttonType: '@',
-            buttonText: '@',
-            buttonIconCss: '@',
-            buttonToolTip: '@',
-            buttonClick: '&',
-            claim: '@',
-            toolbarCss: '@',
-            gridClass: '@'
+            dashboard: '='
         },
         link: link,
-        template: '<nt-toolbar header="{{header}}" class="{{toolbarCss}}">'
-                        + '<span>'
-                        + '<nt-button type="{{buttonType}}" icon-css="plus-square-o" tool-tip="Add Widget" button-text="Widget" ng-click="addWidget()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="{{buttonType}}" icon-css="ban" tool-tip="Clear Widgets" button-text="Clear" ng-click="clearWidgets()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="{{buttonType}}" icon-css="list" tool-tip="Toogle List" button-text="List" ng-click="toggleListView()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="{{buttonType}}" icon-css="tachometer" tool-tip="Dashboard View" button-text="Dashboard" ng-click="toggleView()" ng-hide="viewType !== viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="{{buttonType}}" icon-css="th" tool-tip="Grid View" button-text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="{{buttonType}}" icon-css="refresh" tool-tip="Refresh Page" button-text="Refresh" ng-click="refresh()"></nt-button>'
-                        + '<nt-button type="{{buttonType}}" icon-css="{{buttonIconCss}}" tool-tip="{{buttonToolTip}}" button-text="{{buttonText}}" ng-click="buttonClick({$event: $event})" claim="{{claim}}"></nt-button>'
-                        + '</span>'
+        template: '<nt-toolbar header="{{dashboard.header}}" class="command-bar">'
+                        + '<nt-button type="command-bar" icon-css="plus-square-o" tool-tip="Add Widget" button-text="Widget" ng-click="addWidget()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="ban" tool-tip="Clear Widgets" button-text="Clear" ng-click="clearWidgets()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" button-text="List" ng-click="toggleListView()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" button-text="Dashboard" ng-click="toggleView()" ng-hide="viewType !== viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="th" tool-tip="Grid View" button-text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" button-text="Refresh" ng-click="refresh()"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.options.addOptions.toolTip}}" button-text="{{dashboard.options.addOptions.text}}" ng-click="dashboard.options.addOptions.add($event)" claim="{{dashboard.options.addOptions.claim}}"></nt-button>'
                     + '</nt-toolbar>'
                     + '<div class="portal-content">'
-                        + '<nt-grid class="grid-content" vm="vm" grid-class="{{gridClass}}" ng-hide="viewType !== viewTypeEnum.grid" ng-style="{\'height\' : height }"></nt-grid>'
+                        + '<nt-grid class="grid-content" vm="vm" grid-options="dashboard.options.gridOptions" grid-class="main-grid" ng-hide="viewType !== viewTypeEnum.grid" ng-style="{\'height\' : height }"></nt-grid>'
                         + '<div class="chart-content full-width" layout="row" ng-hide="viewType === viewTypeEnum.grid" ng-style="{\'height\' : height }" >'
                             + '<div flex>'
                                 + '<md-whiteframe class="md-whiteframe-24dp" flex>'
                                     + '<md-content class="chart-bar">'
-                                        + '<nt-gridster widgets="widgets"></nt-gridster>'
+                                        + '<nt-gridster widgets="dashboard.widgets"></nt-gridster>'
                                     + '</md-content>'
                                 + '</md-whiteframe>'
                             + '</div>'
@@ -49,16 +33,16 @@ function ntDashobard($window, $timeout, $state, $stateParams, utility, constants
                                     + '<md-content flex>'
                                         + '<div class="class="full-width">'
                                         + '<md-list>'
-                                            + '<md-list-item class="md-3-line right-list" ng-repeat="item in listItems  track by item[primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
+                                            + '<md-list-item class="md-3-line right-list" ng-repeat="item in dashboard.options.listOptions.data track by item[dashboard.options.listOptions.primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
                                                 + '<div class="md-list-item-text right-list-item" layout="column">'
-                                                    + '<h3>{{ item[listFields[0]] }}</h3>'
-                                                    + '<h4>{{ item[listFields[1]] }}</h4>'
-                                                    + '<p>{{ item[listFields[2]] }}</p>'
+                                                    + '<h3>{{ item[dashboard.options.listOptions.fields[0]] }}</h3>'
+                                                    + '<h4>{{ item[dashboard.options.listOptions.fields[1]] }}</h4>'
+                                                    + '<p>{{ item[dashboard.options.listOptions.fields[2]] }}</p>'
                                                 + '</div>'
                                                 + '<div class="right-list-menu" ng-show="showContextMenu">'
-                                                    + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" ng-click="vm.viewDialog(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="dashboard.options.addOptions.view(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" ng-click="dashboard.options.addOptions.view(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" ng-click="dashboard.options.addOptions.view(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
                                                 + '</div>'
                                             + '</md-list-item>'
                                         + '</md-list>'
@@ -70,10 +54,9 @@ function ntDashobard($window, $timeout, $state, $stateParams, utility, constants
                     + '</div>'
     };
 
-    function link(scope, element, attrs, nullController, transclude) {
-        scope.toolbarCss = scope.toolbarCss === undefined ? 'command-bar' : scope.toolbarCss;
-        scope.gridClass = scope.gridClass === undefined ? 'main-grid' : scope.gridClass;
-        scope.buttonIconCss = scope.buttonIconCss === undefined ? 'plus' : scope.buttonIconCss;
+    function link(scope, element, attrs, nullController) {
+
+        scope.dashboard.options.gridOptions.view = scope.dashboard.options.addOptions.view;
 
         scope.viewType = scope.viewType || constants.enum.viewType.list;
         scope.viewTypeEnum = constants.enum.viewType;
@@ -107,7 +90,7 @@ function ntDashobard($window, $timeout, $state, $stateParams, utility, constants
     }
 
     function addWidget(scope) {
-        scope.widgets.push({
+        scope.dashboard.widgets.push({
             name: "New Widget",
             sizeX: 1,
             sizeY: 1
@@ -115,7 +98,7 @@ function ntDashobard($window, $timeout, $state, $stateParams, utility, constants
     }
 
     function clearWidgets(scope) {
-        scope.widgets.splice(0, scope.widgets.length)
+        scope.dashboard.widgets.splice(0, scope.dashboard.widgets.length)
     }
 
     function refresh() {

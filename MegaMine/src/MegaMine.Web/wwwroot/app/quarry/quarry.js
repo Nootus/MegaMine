@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarry', quarry)
-quarry.$inject = ['$rootScope', '$scope', '$timeout', 'quarryService', 'quarryChart', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
+quarry.$inject = ['quarryService', 'quarryChart', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function quarry($rootScope, $scope, $timeout, quarryService, quarryChart, gridUtility, utility, constants, dialogService, template) {
+function quarry(quarryService, quarryChart, gridUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -15,12 +15,25 @@ function quarry($rootScope, $scope, $timeout, quarryService, quarryChart, gridUt
 
 
     var vm = {
-        gridOptions: gridOptions,
-        viewDialog: viewDialog,
-        addQuarry: addQuarry,
-        quarries: quarryService.quarries,
-
-        refresh: refresh
+        dashboard: {
+            header: 'Quarries',
+            widgets: [],
+            options: {
+                gridOptions: gridOptions,
+                listOptions: {
+                    data: quarryService.quarries,
+                    fields: ['quarryName', 'colours', 'location'],
+                    primaryField: 'quarryId'
+                },
+                addOptions: {
+                    text: 'New',
+                    toolTip: 'New Quarry',
+                    claim: 'Quarry:QuarryAdd',
+                    add: addQuarry,
+                    view: viewDialog
+                }
+            }
+        }
     };
 
     init();
@@ -28,90 +41,53 @@ function quarry($rootScope, $scope, $timeout, quarryService, quarryChart, gridUt
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.quarries);
+        gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.quarries);
 
-
-        $scope.gridsterOptions = {
-            margins: [35, 5],
-            mobileModeEnabled: false,
-            draggable: {
-                handle: 'h3'
-            },
-            resizable: {
-                enabled: true,
-                handles: ['n', 'e', 's', 'w', 'ne', 'se', 'sw', 'nw'],
-
-                //// optional callback fired when resize is started
-                start: function (event, $element, widget) {
-                },
-
-                // optional callback fired when item is resized,
-                resize: function (event, $element, widget) {
-                    $timeout(function () {
-                        if (widget.chart.api) widget.chart.api.update();
-                    }, 50)
-                },
-
-                // optional callback fired when item is finished resizing 
-                stop: function (event, $element, widget) {
-                    $timeout(function () {
-                        if (widget.chart.api) widget.chart.api.update();
-                    }, 50)
-                }
-            },
-        };
-
-        $scope.dashboard = {
-            widgets: [{
-                col: 0,
-                row: 0,
-                sizeY: 1,
-                sizeX: 4,
-                name: "Discrete Bar Chart",
-                chart: {
-                    options: quarryChart.discreteBarChart.options,
-                    data: quarryChart.discreteBarChart.data(),
-                    api: {}
-                }
-            }, {
-                col: 4,
-                row: 0,
-                sizeY: 2,
-                sizeX: 2,
-                name: "Pie Chart",
-                chart: {
-                    options: quarryChart.pieChart.options,
-                    data: quarryChart.pieChart.data(),
-                    api: {}
-                }
-            }, {
-                col: 0,
-                row: 1,
-                sizeY: 1,
-                sizeX: 4,
-                name: "Line Chart",
-                chart: {
-                    options: quarryChart.lineChart.options,
-                    data: quarryChart.lineChart.data(),
-                    api: {}
-                }
-            }, {
-                col: 0,
-                row: 2,
-                sizeY: 1,
-                sizeX: 6,
-                name: "Area Chart",
-                chart: {
-                    options: quarryChart.stackedAreaChart.options,
-                    data: quarryChart.stackedAreaChart.data(),
-                    api: {}
-                }
-            }]
-        };
-    }
-
-    function refresh() {
-        return quarryService.getQuarries();
+        vm.dashboard.widgets = [{
+            col: 0,
+            row: 0,
+            sizeY: 1,
+            sizeX: 4,
+            name: "Discrete Bar Chart",
+            chart: {
+                options: quarryChart.discreteBarChart.options,
+                data: quarryChart.discreteBarChart.data(),
+                api: {}
+            }
+        }, {
+            col: 4,
+            row: 0,
+            sizeY: 2,
+            sizeX: 2,
+            name: "Pie Chart",
+            chart: {
+                options: quarryChart.pieChart.options,
+                data: quarryChart.pieChart.data(),
+                api: {}
+            }
+        }, {
+            col: 0,
+            row: 1,
+            sizeY: 1,
+            sizeX: 4,
+            name: "Line Chart",
+            chart: {
+                options: quarryChart.lineChart.options,
+                data: quarryChart.lineChart.data(),
+                api: {}
+            }
+        }, {
+            col: 0,
+            row: 2,
+            sizeY: 1,
+            sizeX: 6,
+            name: "Area Chart",
+            chart: {
+                options: quarryChart.stackedAreaChart.options,
+                data: quarryChart.stackedAreaChart.data(),
+                api: {}
+            }
+        }];
     }
 
     function addQuarry(ev) {
