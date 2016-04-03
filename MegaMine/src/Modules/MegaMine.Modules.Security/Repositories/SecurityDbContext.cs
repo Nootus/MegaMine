@@ -11,9 +11,9 @@ namespace MegaMine.Modules.Security.Repositories
         public DbSet<IdentityMenuPageEntity> IdentityMenuPages { get; set; }
         public DbSet<IdentityPageClaimEntity> IdentityPageClaims { get; set; }
         public DbSet<IdentityRoleHierarchyEntity> IdentityRoleHierarchies { get; set; }
+        public DbSet<IdentityCompanyClaimEntity> IdentityCompanyClaims { get; set; }
         public DbSet<UserProfileEntity> UserProfiles { get; set; }
         public DbSet<UserCompanyEntity> UserCompanies { get; set; }
-        public DbSet<IdentityCompanyClaimEntity> IdentityCompanyClaims { get; set; }
         public DbSet<CompanyEntity> Companies { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -31,12 +31,12 @@ namespace MegaMine.Modules.Security.Repositories
             base.OnModelCreating(builder);
 
             //renaming identity tables
-            builder.Entity<ApplicationUser>().ToTable("IdentityUser");
-            builder.Entity<ApplicationRole>().ToTable("IdentityRole");
-            builder.Entity<IdentityRoleClaim<string>>().ToTable("IdentityRoleClaim");
-            builder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim");
-            builder.Entity<IdentityUserLogin<string>>().ToTable("IdentityUserLogin");
-            builder.Entity<IdentityUserRole<string>>().ToTable("IdentityUserRole");
+            builder.Entity<ApplicationUser>().ToTable("IdentityUser", "security");
+            builder.Entity<ApplicationRole>().ToTable("IdentityRole", "security");
+            builder.Entity<IdentityRoleClaim<string>>().ToTable("IdentityRoleClaim", "security");
+            builder.Entity<IdentityUserClaim<string>>().ToTable("IdentityUserClaim", "security");
+            builder.Entity<IdentityUserLogin<string>>().ToTable("IdentityUserLogin", "security");
+            builder.Entity<IdentityUserRole<string>>().ToTable("IdentityUserRole", "security");
         }
     }
 }

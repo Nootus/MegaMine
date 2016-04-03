@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMine.Modules.Security.Entities
 {
-    [Table("UserProfile")]
+    [Table("UserProfile", Schema = "security")]
     public class UserProfileEntity : BaseEntity
     {
         [Key]

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMine.Modules.Quarry.Entities
 {
-    [Table("ProductType")]
+    [Table("ProductType", Schema = "quarry")]
     public class ProductTypeEntity : BaseEntity
     {
         [Key]

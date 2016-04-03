@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMine.Modules.Security.Entities
 {
-    [Table("IdentityPageClaim")]
+    [Table("IdentityPageClaim", Schema = "security")]
     public class IdentityPageClaimEntity
     {
         [Key]

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMine.Modules.Security.Entities
 {
-    [Table("IdentityMenuPage")]
+    [Table("IdentityMenuPage", Schema = "security")]
     public class IdentityMenuPageEntity
     {
         [Key]

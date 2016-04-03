@@ -2,7 +2,7 @@
 
 namespace MegaMine.Modules.Security.Entities
 {
-    [Table("IdentityRoleHierarchy")]
+    [Table("IdentityRoleHierarchy", Schema = "security")]
     public class IdentityRoleHierarchyEntity
     {
         public string RoleId { get; set; }

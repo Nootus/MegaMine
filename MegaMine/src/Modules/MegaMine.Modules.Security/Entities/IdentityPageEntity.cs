@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace MegaMine.Modules.Security.Entities
 {
-    [Table("IdentityPage")]
+    [Table("IdentityPage", Schema = "security")]
     public class IdentityPageEntity
     {
         [Key]

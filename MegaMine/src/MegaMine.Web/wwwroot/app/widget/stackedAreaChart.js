@@ -9,7 +9,7 @@ function stackedAreaChart() {
         chart: {
             type: 'stackedAreaChart',
             tooltip: {
-                hideDelay: 5
+                hideDelay: 0
             },
             margin: {
                 top: 20,

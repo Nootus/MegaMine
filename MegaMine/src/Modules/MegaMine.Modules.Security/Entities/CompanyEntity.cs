@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMine.Modules.Security.Entities
 {
-    [Table("Company")]
+    [Table("Company", Schema = "security")]
     public class CompanyEntity : BaseEntity
     {
         [Key]

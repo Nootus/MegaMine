@@ -2,7 +2,7 @@
 
 namespace MegaMine.Modules.Security.Entities
 {
-    [Table("UserCompany")]
+    [Table("UserCompany", Schema = "security")]
     public class UserCompanyEntity
     {
         public string UserProfileId { get; set; }

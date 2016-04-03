@@ -349,7 +349,7 @@ namespace MegaMine.Modules.Quarry.Repositories
         {
             SqlConnection connection = (SqlConnection)dbContext.Database.GetDbConnection();
             connection.Open();
-            SqlCommand command = new SqlCommand("dbo.GetQuarrySummary @CompanyId, @StartDate, @EndDate", connection);
+            SqlCommand command = new SqlCommand("quarry.GetQuarrySummary @CompanyId, @StartDate, @EndDate", connection);
 
             command.Parameters.Add(CreateParameter(command, "@CompanyId", DbType.Int32, profile.CompanyId));
             command.Parameters.Add(CreateParameter(command, "@StartDate", DbType.DateTime, search.StartDate));
@@ -397,7 +397,7 @@ namespace MegaMine.Modules.Quarry.Repositories
         {
             string quarryIds = search.QuarryIds == null || search.QuarryIds.Length == 0 ? null : String.Join(",", search.QuarryIds);
             string productTypeIds = search.ProductTypeIds == null || search.ProductTypeIds.Length == 0 ? null : String.Join(",", search.ProductTypeIds);
-            return await dbContext.Set<ProductSummaryEntity>().FromSql("dbo.ProductSummaryGet @CompanyId = {0}, @QuarryIds = {1}, @ProductTypeIds = {2}, @StartDate = {3}, @EndDate = {4}"
+            return await dbContext.Set<ProductSummaryEntity>().FromSql("quarry.ProductSummaryGet @CompanyId = {0}, @QuarryIds = {1}, @ProductTypeIds = {2}, @StartDate = {3}, @EndDate = {4}"
                                  , profile.CompanyId, quarryIds, productTypeIds, search.StartDate, search.EndDate
                                  ).Select(m => Mapper.Map<ProductSummaryEntity, ProductSummaryModel>(m)).ToListAsync();
         }

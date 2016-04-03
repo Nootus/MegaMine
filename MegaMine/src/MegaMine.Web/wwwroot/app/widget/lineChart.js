@@ -9,7 +9,7 @@ function lineChart() {
         chart: {
             type: 'lineChart',
             tooltip: {
-                hideDelay: 5
+                hideDelay: 0
             },
             margin: {
                 top: 40,
