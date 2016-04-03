@@ -1,0 +1,69 @@
+﻿using MegaMine.Core.Context;
+using MegaMine.Core.Exception;
+using MegaMine.Modules.Security.Common;
+using MegaMine.Modules.Security.Entities;
+using MegaMine.Modules.Security.Identity;
+using MegaMine.Modules.Security.Models;
+using MegaMine.Modules.Security.Repositories;
+using Microsoft.AspNet.Identity;
+using System.Threading.Tasks;
+
+namespace MegaMine.Modules.Security.Domain
+{
+    public class AccountDomain
+    {
+        private UserManager<ApplicationUser> userManager;
+        private SignInManager<ApplicationUser> signInManager;
+        private SecurityRepository accountRepository;
+
+
+        public AccountDomain(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager, SecurityRepository accountRepository)
+        {
+            this.userManager = userManager;
+            this.signInManager = signInManager;
+            this.accountRepository = accountRepository;
+        }
+
+        public async Task<ProfileModel> Validate(string userName, string password)
+        {
+            var result = await signInManager.PasswordSignInAsync(userName, password, false, false);
+
+            if (!result.Succeeded)
+            {
+                throw new NTException(SecurityMessages.InvalidUsernamePassword);
+            }
+
+            var profile = await Profile.Get(userName, accountRepository);
+
+            return profile;
+        }
+
+        public async Task<ProfileModel> ProfileGet()
+        {
+            var profile = await Profile.Get(NTContext.Profile.UserName, accountRepository);
+
+            return profile;
+        }
+
+        public async Task Logout()
+        {
+            await signInManager.SignOutAsync();
+        }
+
+        public async Task ChangePassword(ChangePasswordModel model)
+        {
+            ApplicationUser user = await userManager.FindByIdAsync(NTContext.Profile.UserId);
+            IdentityResult result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
+
+            if (!result.Succeeded)
+            {
+                throw new NTException(SecurityMessages.ChangePasswordError, result.Errors);
+            }
+        }
+
+        public async Task<int[]> GetGroupCompanyIds()
+        {
+            return await accountRepository.GetGroupCompanyIds();
+        }
+    }
+}

@@ -1,15 +1,13 @@
-﻿using MegaMine.Modules.Quarry.Models;
+﻿using MegaMine.Modules.Quarry.Common;
+using MegaMine.Modules.Quarry.Domain;
+using MegaMine.Modules.Quarry.Models;
+using MegaMine.Modules.Security.Domain;
+using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MegaMine.Modules.Quarry.Domain;
-using MegaMine.Modules.Quarry.Common;
-using MegaMine.Web.Lib.Shared;
-using MegaMine.Web.Lib.Domain;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MegaMine.Web.Controllers
 {

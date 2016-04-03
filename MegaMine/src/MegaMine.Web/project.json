@@ -16,7 +16,8 @@
     "MegaMine.Core": "1.0.0-*",
     "MegaMine.Modules.Quarry": "1.0.0-*",
     "MegaMine.Modules.Plant": "1.0.0-*",
-    "MegaMine.Modules.Shared": "1.0.0-*"
+    "MegaMine.Modules.Shared": "1.0.0-*",
+    "MegaMine.Modules.Security": "1.0.0-*"
   },
 
   "commands": {

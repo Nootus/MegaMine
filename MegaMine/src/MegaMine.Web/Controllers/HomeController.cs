@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using MegaMine.Core.Common;
 using Microsoft.AspNet.Mvc;
-using MegaMine.Web.Lib.Shared;
 
 namespace MegaMine.Web.Controllers
 {

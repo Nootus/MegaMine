@@ -1,13 +1,10 @@
-﻿using Microsoft.AspNet.Mvc;
-using MegaMine.Web.Models;
-using MegaMine.Web.Models.Shared;
-using Microsoft.AspNet.Identity;
-using MegaMine.Web.Lib.Entities.Account;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Http;
-using MegaMine.Web.Lib.Domain;
+﻿using MegaMine.Modules.Security.Common;
+using MegaMine.Modules.Security.Domain;
+using MegaMine.Modules.Security.Models;
 using MegaMine.Web.Lib.Shared;
-using MegaMine.Web.Models.Account;
+using MegaMine.Web.Models.Shared;
+using Microsoft.AspNet.Mvc;
+using System.Threading.Tasks;
 
 namespace MegaMine.Web.Controllers
 {
@@ -28,13 +25,13 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<NTModel>> Logout()
         {
-            return await AjaxHelper.SaveAsync(m => domain.Logout(), Messages.Account.LogoutSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.Logout(), SecurityMessages.LogoutSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> ChangePassword([FromBody] ChangePasswordModel model)
         {
-            return await AjaxHelper.SaveAsync(m => domain.ChangePassword(model), Messages.Account.ChangePasswordSuccess);
+            return await AjaxHelper.SaveAsync(m => domain.ChangePassword(model), SecurityMessages.ChangePasswordSuccess);
         }
 
         [HttpGet]

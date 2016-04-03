@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Web.Lib.Repositories.Fleet
 {
-    public class VehicleRepository : BaseRepository<ApplicationDbContext>
+    public class VehicleRepository : BaseRepository<FleetDbContext>
     {
-        public VehicleRepository(ApplicationDbContext dbContext)
+        public VehicleRepository(FleetDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
