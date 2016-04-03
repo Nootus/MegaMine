@@ -25,6 +25,7 @@ function dialogService($timeout, $q, $mdDialog, utility) {
             controller: dialogController,
             controllerAs: "vm",
             templateUrl: options.templateUrl,
+            template: options.template,
             targetEvent: options.targetEvent,
             locals: { dialogOptions: options },
             resolve: options.resolve

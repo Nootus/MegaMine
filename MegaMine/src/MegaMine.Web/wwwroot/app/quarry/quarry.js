@@ -43,49 +43,88 @@ function quarry(quarryService, quarryChart, gridUtility, utility, constants, dia
     function init() {
         gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.quarries);
 
+        vm.dashboard.allWidgets = [
+                                    {
+                                        widgetId: 1,
+                                        name: "Discrete Bar Chart",
+                                        sizeX: 4,
+                                        sizeY: 1,
+                                        chart: {
+                                            type: 'discreteBarChart',
+                                            options: quarryChart.discreteBarChart.options,
+                                            data: quarryChart.discreteBarChart.data()
+                                        }
+                                    },
+                                    {
+                                        widgetId: 2,
+                                        name: "Pie Chart",
+                                        sizeX: 2,
+                                        sizeY: 2,
+                                        chart: {
+                                            type: 'pieChart',
+                                            options: quarryChart.pieChart.options,
+                                            data: quarryChart.pieChart.data(),
+                                        }
+                                    },
+                                    {
+                                        widgetId: 3,
+                                        name: "Line Chart",
+                                        sizeX: 4,
+                                        sizeY: 1,
+                                        chart: {
+                                            type: 'lineChart',
+                                            options: quarryChart.lineChart.options,
+                                            data: quarryChart.lineChart.data(),
+                                        }
+                                    },
+                                    {
+                                        widgetId: 4,
+                                        name: "Area Chart",
+                                        sizeX: 6,
+                                        sizeY: 1,
+                                        chart: {
+                                            type: 'stackedAreaChart',
+                                            options: quarryChart.stackedAreaChart.options,
+                                            data: quarryChart.stackedAreaChart.data(),
+                                        }
+                                    }
+                                ]
+
         vm.dashboard.widgets = [{
-            col: 0,
-            row: 0,
-            sizeY: 1,
-            sizeX: 4,
-            name: "Discrete Bar Chart",
-            chart: {
-                options: quarryChart.discreteBarChart.options,
-                data: quarryChart.discreteBarChart.data(),
-                api: {}
+            dashboardWidgetId: 1,
+            widgetId: 1,
+            widgetOptions: {
+                col: 0,
+                row: 0,
+                sizeX: 4,
+                sizeY: 1
             }
         }, {
-            col: 4,
-            row: 0,
-            sizeY: 2,
-            sizeX: 2,
-            name: "Pie Chart",
-            chart: {
-                options: quarryChart.pieChart.options,
-                data: quarryChart.pieChart.data(),
-                api: {}
+            dashboardWidgetId: 2,
+            widgetId: 2,
+            widgetOptions: {
+                col: 4,
+                row: 0,
+                sizeX: 2,
+                sizeY: 2
             }
         }, {
-            col: 0,
-            row: 1,
-            sizeY: 1,
-            sizeX: 4,
-            name: "Line Chart",
-            chart: {
-                options: quarryChart.lineChart.options,
-                data: quarryChart.lineChart.data(),
-                api: {}
+            dashboardWidgetId: 3,
+            widgetId: 3,
+            widgetOptions: {
+                col: 0,
+                row: 1,
+                sizeX: 4,
+                sizeY: 1
             }
         }, {
-            col: 0,
-            row: 2,
-            sizeY: 1,
-            sizeX: 6,
-            name: "Area Chart",
-            chart: {
-                options: quarryChart.stackedAreaChart.options,
-                data: quarryChart.stackedAreaChart.data(),
-                api: {}
+            dashboardWidgetId: 4,
+            widgetId: 4,
+            widgetOptions: {
+                col: 0,
+                row: 2,
+                sizeX: 6,
+                sizeY: 1
             }
         }];
     }

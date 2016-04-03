@@ -6,14 +6,15 @@ function ntWidget($timeout, utility) {
     return {
         restrict: 'E',
         scope: {
-            widget: '='
+            widget: '=',
+            id: '@'
         },
         link: link,
         template: '<div class="box" ng-style="maximizeStyle">'
                     + '<div class="box-header">'
                         + '<h3>{{ widget.name }}</h3>'
                             + '<div class="box-header-btns pull-right">'
-                                + '<a title="Settings" ng-click="openSettings()"><i class="fa fa-cog"></i></a>'
+                                + '<a title="Settings" ng-click="openSettings($event)"><i class="fa fa-cog"></i></a>'
                                 + '<a title="Maximize" ng-click="maximize()" ng-hide="maxiInd"><i class="fa fa-maximize"></i></a>'
                                 + '<a title="Minimize" ng-click="minimize()" ng-show="maxiInd"><i class="fa fa-minimize"></i></a>'
                                 + '<a title="Refresh" ng-click="refresh()"><i class="fa fa-refresh"></i></a>'
@@ -36,11 +37,23 @@ function ntWidget($timeout, utility) {
         var nvd3Scope = {};
 
         scope.remove = function () {
-            scope.widget.widgets.splice(scope.widget.widgets.indexOf(scope.widget), 1);
+            var index = 0;
+            var widgets = scope.widget.dashboard.widgets;
+            for (var index = 0; index < widgets.length; index++) {
+                if (scope.id == widgets[index].dashboardWidgetId)
+                    break;
+            }
+            widgets.splice(index, 1);
+        }
+
+        scope.refresh = function () {
+            nvd3Scope.api.update();
         }
 
         nvd3(scope, nvd3Scope);
         mixiMini(scope, nvd3Scope);
+
+        scope.openSettings = function (ev) { openSettings(scope, ev); };
     }
 
     function nvd3(scope, nvd3Scope) {
@@ -50,14 +63,14 @@ function ntWidget($timeout, utility) {
             $timeout(function () {
                 nvd3Scope.config.visible = true;
                 //nvd3Scope.api.update();
-            }, 50)
+            }, 100)
         }
 
         scope.$on('gridster-resized', function (sizes, gridster) {
             if (nvd3Scope !== undefined) {
                 $timeout(function () {
                     nvd3Scope.api.update();
-                })
+                }, 100)
             }
         })
     }
@@ -100,5 +113,9 @@ function ntWidget($timeout, utility) {
                 nvd3Scope.api.update();
             }, 500)
         }
+    }
+
+    function openSettings(scope, ev) {
+        scope.widget.dashboard.widgetSettings(ev, scope.widget, scope.widget.dashboard, scope.id)
     }
 }

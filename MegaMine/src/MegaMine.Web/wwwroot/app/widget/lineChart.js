@@ -8,6 +8,9 @@ function lineChart() {
     var options = {
         chart: {
             type: 'lineChart',
+            tooltip: {
+                hideDelay: 5
+            },
             margin: {
                 top: 40,
                 right: 20,
@@ -28,7 +31,7 @@ function lineChart() {
                 },
                 axisLabelDistance: -10
             },
-            showLegend: false
+            showLegend: true
         }
     }
 

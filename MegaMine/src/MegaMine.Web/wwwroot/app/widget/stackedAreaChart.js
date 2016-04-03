@@ -8,6 +8,9 @@ function stackedAreaChart() {
     var options = {
         chart: {
             type: 'stackedAreaChart',
+            tooltip: {
+                hideDelay: 5
+            },
             margin: {
                 top: 20,
                 right: 20,
