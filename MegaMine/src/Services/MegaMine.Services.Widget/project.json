@@ -1,0 +1,17 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "MegaMine.Services.Widget Class Library",
+  "authors": [ "prasanna" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net451": { }
+  },
+  "dependencies": {
+    "AutoMapper": "4.0.4",
+    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "MegaMine.Core": "1.0.0-*"
+  }
+}

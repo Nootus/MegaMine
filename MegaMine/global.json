@@ -1,5 +1,5 @@
 {
-  "projects": [ "src", "src/Modules" ],
+  "projects": [ "src", "src/Modules", "src/Services" ],
     "sdk": {
       "version": "1.0.0-rc1-update1"
     }

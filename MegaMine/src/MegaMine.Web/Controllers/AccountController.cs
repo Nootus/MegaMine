@@ -1,6 +1,6 @@
-﻿using MegaMine.Modules.Security.Common;
-using MegaMine.Modules.Security.Domain;
-using MegaMine.Modules.Security.Models;
+﻿using MegaMine.Services.Security.Common;
+using MegaMine.Services.Security.Domain;
+using MegaMine.Services.Security.Models;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;

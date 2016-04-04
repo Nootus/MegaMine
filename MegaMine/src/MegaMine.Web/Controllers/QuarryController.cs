@@ -1,7 +1,7 @@
 ﻿using MegaMine.Modules.Quarry.Common;
 using MegaMine.Modules.Quarry.Domain;
 using MegaMine.Modules.Quarry.Models;
-using MegaMine.Modules.Security.Domain;
+using MegaMine.Services.Security.Domain;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;

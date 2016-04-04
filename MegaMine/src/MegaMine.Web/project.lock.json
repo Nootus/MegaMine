@@ -140,7 +140,16 @@
           "MegaMine.Core": "1.0.0"
         }
       },
-      "MegaMine.Modules.Security/1.0.0": {
+      "MegaMine.Modules.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "AutoMapper": "4.0.4",
+          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+          "MegaMine.Core": "1.0.0"
+        }
+      },
+      "MegaMine.Services.Security/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
@@ -149,15 +158,6 @@
           "MegaMine.Core": "1.0.0",
           "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
           "Microsoft.AspNet.Mvc": "6.0.0-rc1-final"
-        }
-      },
-      "MegaMine.Modules.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "AutoMapper": "4.0.4",
-          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-          "MegaMine.Core": "1.0.0"
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -1973,7 +1973,16 @@
           "MegaMine.Core": "1.0.0"
         }
       },
-      "MegaMine.Modules.Security/1.0.0": {
+      "MegaMine.Modules.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "AutoMapper": "4.0.4",
+          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+          "MegaMine.Core": "1.0.0"
+        }
+      },
+      "MegaMine.Services.Security/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
@@ -1982,15 +1991,6 @@
           "MegaMine.Core": "1.0.0",
           "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
           "Microsoft.AspNet.Mvc": "6.0.0-rc1-final"
-        }
-      },
-      "MegaMine.Modules.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "AutoMapper": "4.0.4",
-          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-          "MegaMine.Core": "1.0.0"
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -3809,7 +3809,16 @@
           "MegaMine.Core": "1.0.0"
         }
       },
-      "MegaMine.Modules.Security/1.0.0": {
+      "MegaMine.Modules.Shared/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.5.1",
+        "dependencies": {
+          "AutoMapper": "4.0.4",
+          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+          "MegaMine.Core": "1.0.0"
+        }
+      },
+      "MegaMine.Services.Security/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.5.1",
         "dependencies": {
@@ -3818,15 +3827,6 @@
           "MegaMine.Core": "1.0.0",
           "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
           "Microsoft.AspNet.Mvc": "6.0.0-rc1-final"
-        }
-      },
-      "MegaMine.Modules.Shared/1.0.0": {
-        "type": "project",
-        "framework": ".NETFramework,Version=v4.5.1",
-        "dependencies": {
-          "AutoMapper": "4.0.4",
-          "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-          "MegaMine.Core": "1.0.0"
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -5521,13 +5521,13 @@
       "type": "project",
       "path": "../Modules/MegaMine.Modules.Quarry/project.json"
     },
-    "MegaMine.Modules.Security/1.0.0": {
-      "type": "project",
-      "path": "../Services/MegaMine.Modules.Security/project.json"
-    },
     "MegaMine.Modules.Shared/1.0.0": {
       "type": "project",
       "path": "../Modules/MegaMine.Modules.Shared/project.json"
+    },
+    "MegaMine.Services.Security/1.0.0": {
+      "type": "project",
+      "path": "../Services/MegaMine.Services.Security/project.json"
     },
     "AutoMapper/4.0.4": {
       "type": "package",
@@ -7566,7 +7566,7 @@
       "MegaMine.Modules.Quarry >= 1.0.0-*",
       "MegaMine.Modules.Plant >= 1.0.0-*",
       "MegaMine.Modules.Shared >= 1.0.0-*",
-      "MegaMine.Modules.Security >= 1.0.0-*"
+      "MegaMine.Services.Security >= 1.0.0-*"
     ],
     "DNX,Version=v4.5.1": []
   }
