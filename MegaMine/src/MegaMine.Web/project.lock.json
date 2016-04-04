@@ -5523,7 +5523,7 @@
     },
     "MegaMine.Modules.Security/1.0.0": {
       "type": "project",
-      "path": "../Modules/MegaMine.Modules.Security/project.json"
+      "path": "../Services/MegaMine.Modules.Security/project.json"
     },
     "MegaMine.Modules.Shared/1.0.0": {
       "type": "project",
