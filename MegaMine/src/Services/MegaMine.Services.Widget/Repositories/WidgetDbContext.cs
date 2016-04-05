@@ -6,13 +6,14 @@ namespace MegaMine.Services.Widget.Repositories
 {
     public class WidgetDbContext : BaseDbContext
     {
-        public DbSet<WidgetEntity> Machines { get; set; }
-        public DbSet<DashboardEntity> Blades { get; set; }
+        public DbSet<WidgetEntity> Widgets { get; set; }
+        public DbSet<DashboardEntity> Dashboards { get; set; }
+        public DbSet<DashboardWidgetEntity> DashboardWidgets { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             //TODO: ignoring audit fields for now. This code should be removed later
-            IgnoreAuditFields<WidgetEntity>(builder);
+            IgnoreAuditFields<DashboardWidgetEntity>(builder);
             IgnoreAuditFields<DashboardEntity>(builder);
 
             base.OnModelCreating(builder);

@@ -9,6 +9,6 @@ namespace MegaMine.Services.Widget.Entities
     {
         [Key]
         public int DashboardId { get; set; }
-        public string Name { get; set; }
+        public string PageId { get; set; }
     }
 }
