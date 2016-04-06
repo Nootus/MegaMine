@@ -15,9 +15,10 @@ namespace MegaMine.Services.Widget.Entities
         public int DashboardWidgetId { get; set; }
         public int DashboardId { get; set; }
         public int WidgetId { get; set; }
-        public int Columns { get; set; }
-        public int Rows { get; set; }
+        public int? Columns { get; set; }
+        public int? Rows { get; set; }
         public int SizeX { get; set; }
         public int SizeY { get; set; }
+        public bool DisplayInd { get; set; }
     }
 }

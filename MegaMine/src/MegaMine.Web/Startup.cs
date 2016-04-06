@@ -18,6 +18,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using MegaMine.Services.Widget;
 
 namespace MegaMine.Web
 {
@@ -25,7 +26,7 @@ namespace MegaMine.Web
     {
         public IConfigurationRoot Configuration { get; set; }
 
-        private IModuleStartup[] modules = { new QuarryStartup(), new PlantStartup(), new SharedStartup(), new SecurityStartup() };
+        private IModuleStartup[] modules = { new QuarryStartup(), new PlantStartup(), new SharedStartup(), new SecurityStartup(), new WidgetStartup() };
 
         public Startup(IHostingEnvironment env)
         {
