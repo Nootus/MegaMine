@@ -13,6 +13,7 @@ namespace MegaMine.Services.Security.Entities
         public string Text { get; set; }
         public string Controller { get; set; }
         public string ActionMethod { get; set; }
+        public bool DashboardInd { get; set;}
 
         public List<IdentityPageClaimEntity> Claims { get; set; }
 
@@ -24,9 +25,9 @@ namespace MegaMine.Services.Security.Entities
             }
         }
 
-        public override string ToString()
-        {
-            return Text;
-        }
+        //public override string ToString()
+        //{
+        //    return Text;
+        //}
     }
 }

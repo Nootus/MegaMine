@@ -14,7 +14,6 @@ namespace MegaMine.Services.Widget.Repositories
         {
             //TODO: ignoring audit fields for now. This code should be removed later
             IgnoreAuditFields<DashboardWidgetEntity>(builder);
-            IgnoreAuditFields<DashboardEntity>(builder);
 
             base.OnModelCreating(builder);
         }

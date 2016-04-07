@@ -17,10 +17,5 @@ namespace MegaMine.Services.Security.Entities
 
         [ForeignKey("PageId")]
         public IdentityPageEntity Page { get; set; }
-
-        public override string ToString()
-        {
-            return Page.Text + " - " + Claim.ClaimType + " - " + Claim.ClaimValue;
-        }
     }
 }
