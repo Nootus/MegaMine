@@ -59,7 +59,7 @@ namespace MegaMine.Services.Security.Middleware
             //setting the Group CompanyId
             model.GroupCompanyId = PageService.CompanyClaims[model.CompanyId]?.ParentCompanyId ?? model.CompanyId;
 
-            NTContext.SetProfile(model);
+            NTContext.SetContext(model);
         }
     }
 }

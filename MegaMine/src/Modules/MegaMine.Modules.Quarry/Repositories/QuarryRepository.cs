@@ -72,7 +72,7 @@ namespace MegaMine.Modules.Quarry.Repositories
             var quarryColours = await (from clr in dbContext.QuarryMaterialColours
                                         join mc in dbContext.MaterialColours on clr.MaterialColourId equals mc.MaterialColourId
                                        where clr.DeletedInd == false
-                                           && clr.CompanyId == profile.CompanyId
+                                           && clr.CompanyId == context.CompanyId
                                        select new { clr.QuarryId, clr.MaterialColourId, mc.ColourName }).ToListAsync();
 
 
@@ -268,7 +268,7 @@ namespace MegaMine.Modules.Quarry.Repositories
                 string sql = "INSERT INTO MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
                                 " SELECT MaterialId, ToYardId, @p0, @p1, 1, @p2, @p3, @p4, @p5, 0, @p6 FROM MaterialMovement WHERE MaterialMovementId in (" + ids + ")";
 
-                database.ExecuteSqlCommand(sql, model.ToYardId, model.MovementDate, profile.UserName, DateTime.UtcNow, profile.UserName, DateTime.UtcNow, profile.CompanyId.ToString());
+                database.ExecuteSqlCommand(sql, model.ToYardId, model.MovementDate, context.UserName, DateTime.UtcNow, context.UserName, DateTime.UtcNow, context.CompanyId.ToString());
 
                 sql = "UPDATE MaterialMovement SET CurrentInd = 0 WHERE MaterialMovementId in (" + ids + ")";
                 database.ExecuteSqlCommand(sql);
@@ -351,7 +351,7 @@ namespace MegaMine.Modules.Quarry.Repositories
             connection.Open();
             SqlCommand command = new SqlCommand("quarry.GetQuarrySummary @CompanyId, @StartDate, @EndDate", connection);
 
-            command.Parameters.Add(CreateParameter(command, "@CompanyId", DbType.Int32, profile.CompanyId));
+            command.Parameters.Add(CreateParameter(command, "@CompanyId", DbType.Int32, context.CompanyId));
             command.Parameters.Add(CreateParameter(command, "@StartDate", DbType.DateTime, search.StartDate));
             command.Parameters.Add(CreateParameter(command, "@EndDate", DbType.DateTime, search.EndDate));
 
@@ -398,7 +398,7 @@ namespace MegaMine.Modules.Quarry.Repositories
             string quarryIds = search.QuarryIds == null || search.QuarryIds.Length == 0 ? null : String.Join(",", search.QuarryIds);
             string productTypeIds = search.ProductTypeIds == null || search.ProductTypeIds.Length == 0 ? null : String.Join(",", search.ProductTypeIds);
             return await dbContext.Set<ProductSummaryEntity>().FromSql("quarry.ProductSummaryGet @CompanyId = {0}, @QuarryIds = {1}, @ProductTypeIds = {2}, @StartDate = {3}, @EndDate = {4}"
-                                 , profile.CompanyId, quarryIds, productTypeIds, search.StartDate, search.EndDate
+                                 , context.CompanyId, quarryIds, productTypeIds, search.StartDate, search.EndDate
                                  ).Select(m => Mapper.Map<ProductSummaryEntity, ProductSummaryModel>(m)).ToListAsync();
         }
 

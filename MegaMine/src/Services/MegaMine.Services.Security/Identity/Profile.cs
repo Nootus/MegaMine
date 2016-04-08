@@ -12,7 +12,7 @@ namespace MegaMine.Services.Security.Identity
     {
         public static async Task<ProfileModel> Get(string userName, SecurityRepository accountRepository)
         {
-            int companyId = NTContext.Profile.CompanyId;
+            int companyId = NTContext.Context.CompanyId;
 
             ProfileModel profile = await accountRepository.UserProfileGet(userName, companyId);
             //setting all the roles for admin roles
@@ -31,7 +31,7 @@ namespace MegaMine.Services.Security.Identity
                 LastName = profile.LastName,
                 CompanyId = profile.CompanyId
             };
-            NTContext.SetProfile(model);
+            NTContext.SetContext(model);
 
             return profile;
         }

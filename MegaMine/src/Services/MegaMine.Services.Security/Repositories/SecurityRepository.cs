@@ -179,7 +179,7 @@ namespace MegaMine.Services.Security.Repositories
         public async Task<int[]> GetGroupCompanyIds()
         {
             return await (from cmp in dbContext.Companies
-                               where cmp.CompanyId == profile.GroupCompanyId || cmp.ParentCompanyId == profile.GroupCompanyId
+                               where cmp.CompanyId == context.GroupCompanyId || cmp.ParentCompanyId == context.GroupCompanyId
                                select cmp.CompanyId).ToArrayAsync();
         }
 

@@ -17,13 +17,13 @@ namespace MegaMine.Core.Entities
 
         public BaseEntity()
         {
-            var contextProfileModel = NTContext.Profile;
+            var contextModel = NTContext.Context;
 
-            if (contextProfileModel != null)
+            if (contextModel != null)
             {
-                CreatedUserId = contextProfileModel.UserName;
-                LastModifiedUserId = contextProfileModel.UserName;
-                CompanyId = contextProfileModel.CompanyId;
+                CreatedUserId = contextModel.UserName;
+                LastModifiedUserId = contextModel.UserName;
+                CompanyId = contextModel.CompanyId;
             }
             CreatedDate = DateTime.UtcNow;
             LastModifiedDate = DateTime.UtcNow;
@@ -32,10 +32,10 @@ namespace MegaMine.Core.Entities
 
         public virtual void UpdateAuditFields()
         {
-            var contextProfileModel = NTContext.Profile;
+            var contextModel = NTContext.Context;
 
             LastModifiedDate = DateTime.UtcNow;
-            LastModifiedUserId = contextProfileModel.UserName;  //TODO: Change this get the current user
+            LastModifiedUserId = contextModel.UserName;  //TODO: Change this get the current user
         }
     }
 }

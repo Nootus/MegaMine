@@ -40,7 +40,7 @@ namespace MegaMine.Services.Security.Domain
 
         public async Task<ProfileModel> ProfileGet()
         {
-            var profile = await Profile.Get(NTContext.Profile.UserName, accountRepository);
+            var profile = await Profile.Get(NTContext.Context.UserName, accountRepository);
 
             return profile;
         }
@@ -52,7 +52,7 @@ namespace MegaMine.Services.Security.Domain
 
         public async Task ChangePassword(ChangePasswordModel model)
         {
-            ApplicationUser user = await userManager.FindByIdAsync(NTContext.Profile.UserId);
+            ApplicationUser user = await userManager.FindByIdAsync(NTContext.Context.UserId);
             IdentityResult result = await userManager.ChangePasswordAsync(user, model.CurrentPassword, model.NewPassword);
 
             if (!result.Succeeded)

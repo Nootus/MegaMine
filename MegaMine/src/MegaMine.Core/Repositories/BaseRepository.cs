@@ -15,11 +15,11 @@ namespace MegaMine.Core.Repositories
     public class BaseRepository<T> where T: DbContext
     {
         protected T dbContext;
-        protected NTContextModel profile;
+        protected NTContextModel context;
 
         public BaseRepository()
         {
-            profile = NTContext.Profile;
+            context = NTContext.Context;
         }
 
         protected async Task<TEntity> SaveEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : BaseEntity
@@ -93,7 +93,7 @@ namespace MegaMine.Core.Repositories
 
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
-            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == profile.CompanyId)
+            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == context.CompanyId)
                                 .OrderBy(sortExpression)
                                 .Select(ent => Mapper.Map<TEntity, TModel>(ent));
 
@@ -118,7 +118,7 @@ namespace MegaMine.Core.Repositories
 
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
-            var query = dbContext.Set<TEntity>().Where(whereExpression).Where(e => e.DeletedInd == false && e.CompanyId == profile.CompanyId)
+            var query = dbContext.Set<TEntity>().Where(whereExpression).Where(e => e.DeletedInd == false && e.CompanyId == context.CompanyId)
                                 .OrderBy(sortExpression)
                                 .Select(ent => Mapper.Map<TEntity, TModel>(ent));
 
@@ -128,7 +128,7 @@ namespace MegaMine.Core.Repositories
 
         protected async Task<List<ListItem<int, string>>> GetListItemsAsync<TEntity>(Expression<Func<TEntity, ListItem<int, string>>> selectExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
-            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == profile.CompanyId)
+            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == context.CompanyId)
                         .OrderBy(sortExpression)
                         .Select(selectExpression);
 

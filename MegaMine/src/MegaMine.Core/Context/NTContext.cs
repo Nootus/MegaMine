@@ -9,7 +9,7 @@ namespace MegaMine.Core.Context
 {
     public static class NTContext
     {
-        public static NTContextModel Profile
+        public static NTContextModel Context
         {
             get
             {
@@ -17,7 +17,7 @@ namespace MegaMine.Core.Context
             }
         }
 
-        public static void SetProfile(NTContextModel model)
+        public static void SetContext(NTContextModel model)
         {
             //CallContext.LogicalSetData("MegaMineContext", model);
             //return;
@@ -27,7 +27,7 @@ namespace MegaMine.Core.Context
                 model = new NTContextModel();
             }
 
-            NTContextModel contextModel = Profile;
+            NTContextModel contextModel = Context;
 
             if(contextModel == null)
             {
