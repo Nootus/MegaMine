@@ -12,14 +12,14 @@ namespace MegaMine.Services.Security.Models
         public string Controller { get; set; }
         public string ActionMethod { get; set; }
         public bool DashboardInd { get; set; }
-        //public List<PageClaimModel> Claims { get; set; }
+        public List<PageClaimModel> Claims { get; set; }
 
-        //public IEnumerable<ClaimModel> PageClaims
-        //{
-        //    get
-        //    {
-        //        return Claims.Select(s => s.Claim);
-        //    }
-        //}
+        public IEnumerable<ClaimModel> PageClaims
+        {
+            get
+            {
+                return Claims.Select(s => s.Claim);
+            }
+        }
     }
 }

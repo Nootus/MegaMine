@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Remoting.Messaging;
@@ -8,17 +9,34 @@ namespace MegaMine.Core.Context
 {
     public static class NTContext
     {
-        public static NTContextProfileModel Profile
+        public static NTContextModel Profile
         {
             get
             {
-                return (NTContextProfileModel)CallContext.LogicalGetData("ProfileContext");
+                return (NTContextModel)CallContext.LogicalGetData("MegaMineContext");
             }
         }
 
-        public static void SetProfile(NTContextProfileModel model)
+        public static void SetProfile(NTContextModel model)
         {
-            CallContext.LogicalSetData("ProfileContext", model);
+            //CallContext.LogicalSetData("MegaMineContext", model);
+            //return;
+
+            if (model == null)
+            {
+                model = new NTContextModel();
+            }
+
+            NTContextModel contextModel = Profile;
+
+            if(contextModel == null)
+            {
+                CallContext.LogicalSetData("MegaMineContext", model);
+            }
+            else
+            {
+                contextModel = Mapper.Map<NTContextModel, NTContextModel>(model, contextModel);
+            }
         }
     }
 }

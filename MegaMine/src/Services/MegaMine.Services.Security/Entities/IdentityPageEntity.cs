@@ -24,10 +24,5 @@ namespace MegaMine.Services.Security.Entities
                 return Claims.Select(s => s.Claim);
             }
         }
-
-        //public override string ToString()
-        //{
-        //    return Text;
-        //}
     }
 }

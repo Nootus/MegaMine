@@ -47,7 +47,7 @@ namespace MegaMine.Services.Security.Middleware
             string companyId = context.Request.Headers[SecurityConstants.HeaderCompanyId];
             companyId = companyId ?? context.User.Claims.Where(c => c.Type == NTClaimTypes.CompanyId).Select(c => c.Value).FirstOrDefault();
 
-            NTContextProfileModel model = new NTContextProfileModel()
+            NTContextModel model = new NTContextModel()
             {
                 UserId = claims.First(c => c.Type == ClaimTypes.NameIdentifier).Value,
                 UserName = context.User.Identity.Name,

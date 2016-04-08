@@ -5,7 +5,7 @@ using MegaMine.Modules.Plant;
 using MegaMine.Modules.Quarry;
 using MegaMine.Services.Security;
 using MegaMine.Services.Security.Filters;
-using MegaMine.Services.Security.Middleware;
+using MegaMine.Services.Security.Extensions;
 using MegaMine.Modules.Shared;
 using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Mapping;
@@ -19,6 +19,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using MegaMine.Services.Widget;
+using MegaMine.Core.Extensions;
+using MegaMine.Core.Mapping;
 
 namespace MegaMine.Web
 {
@@ -89,6 +91,7 @@ namespace MegaMine.Web
             //Automapper configurations
             Mapper.Initialize(x =>
             {
+                x.AddProfile<CoreMappingProfile>();
                 foreach (var module in modules)
                     module.ConfigureMapping(x);
                 x.AddProfile<FleetMappingProfile>();
@@ -98,6 +101,7 @@ namespace MegaMine.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UsecontextMiddleware();
             // Add the following to the request pipeline only in development environment.
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();

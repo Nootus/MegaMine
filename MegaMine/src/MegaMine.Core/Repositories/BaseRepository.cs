@@ -15,7 +15,7 @@ namespace MegaMine.Core.Repositories
     public class BaseRepository<T> where T: DbContext
     {
         protected T dbContext;
-        protected NTContextProfileModel profile;
+        protected NTContextModel profile;
 
         public BaseRepository()
         {

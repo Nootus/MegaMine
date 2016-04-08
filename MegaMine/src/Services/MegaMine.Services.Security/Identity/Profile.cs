@@ -1,5 +1,5 @@
 ﻿using MegaMine.Core.Context;
-using MegaMine.Services.Security.Common;
+using MegaMine.Services.Security.Extensions;
 using MegaMine.Services.Security.Middleware;
 using MegaMine.Services.Security.Models;
 using MegaMine.Services.Security.Repositories;
@@ -12,7 +12,7 @@ namespace MegaMine.Services.Security.Identity
     {
         public static async Task<ProfileModel> Get(string userName, SecurityRepository accountRepository)
         {
-            int? companyId = NTContext.Profile?.CompanyId;
+            int companyId = NTContext.Profile.CompanyId;
 
             ProfileModel profile = await accountRepository.UserProfileGet(userName, companyId);
             //setting all the roles for admin roles
@@ -23,7 +23,7 @@ namespace MegaMine.Services.Security.Identity
             profile.SetMenu();
 
             //setting the claims on to the context
-            NTContextProfileModel model = new NTContextProfileModel()
+            NTContextModel model = new NTContextModel()
             {
                 UserId = profile.UserId,
                 UserName = profile.UserName,

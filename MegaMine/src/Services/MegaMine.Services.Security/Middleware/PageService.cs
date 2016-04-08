@@ -1,5 +1,6 @@
 ﻿using MegaMine.Core.Models;
 using MegaMine.Services.Security.Entities;
+using MegaMine.Services.Security.Models;
 using MegaMine.Services.Security.Repositories;
 using System.Collections.Generic;
 
@@ -7,8 +8,8 @@ namespace MegaMine.Services.Security.Middleware
 {
     public class PageService
     {
-        public static List<IdentityPageEntity> Pages { get; set; }
-        public static List<IdentityMenuPageEntity> MenuPages { get; set; }
+        public static List<PageModel> Pages { get; set; }
+        public static List<MenuModel> MenuPages { get; set; }
         public static List<ListItem<string, string>> AdminRoles { get; set; }
         public static Dictionary<int, CompanyEntity> CompanyClaims { get; set; }
 

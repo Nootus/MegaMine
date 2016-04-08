@@ -3,7 +3,7 @@ using MegaMine.Services.Security.Repositories;
 using Microsoft.AspNet.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace MegaMine.Services.Security.Middleware
+namespace MegaMine.Services.Security.Extensions
 {
     public static class MiddlewareExtensions
     {

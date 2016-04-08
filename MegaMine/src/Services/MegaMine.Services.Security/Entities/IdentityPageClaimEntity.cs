@@ -15,7 +15,7 @@ namespace MegaMine.Services.Security.Entities
         [ForeignKey("ClaimId")]
         public IdentityClaimEntity Claim { get; set; }
 
-        [ForeignKey("PageId")]
-        public IdentityPageEntity Page { get; set; }
+        //[ForeignKey("PageId")]
+        //public IdentityPageEntity Page { get; set; }
     }
 }

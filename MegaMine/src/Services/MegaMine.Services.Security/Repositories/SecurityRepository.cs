@@ -19,7 +19,7 @@ namespace MegaMine.Services.Security.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<ProfileModel> UserProfileGet(string userName, int? companyId)
+        public async Task<ProfileModel> UserProfileGet(string userName, int companyId)
         {
             var query = from users in dbContext.UserProfiles
                         join idn in dbContext.Users on users.UserProfileId equals idn.Id
@@ -35,9 +35,9 @@ namespace MegaMine.Services.Security.Repositories
                         };
 
             ProfileModel model = await query.FirstOrDefaultAsync();
-            if(companyId != null && model.CompanyId != companyId)
+            if(companyId != 0 && model.CompanyId != companyId)
             {
-                model.CompanyId = companyId.Value;
+                model.CompanyId = companyId;
                 //updating the User Profile
                 UserProfileEntity entity = await GetSingleAsync<UserProfileEntity>(model.UserId);
                 entity.CompanyId = model.CompanyId;
@@ -135,15 +135,15 @@ namespace MegaMine.Services.Security.Repositories
             }
         }
 
-        public List<IdentityPageEntity> IdentityPagesGet()
+        public List<PageModel> IdentityPagesGet()
         {
             var query = from page in dbContext.IdentityPages.Include(c => c.Claims).ThenInclude(a => a.Claim) select page;
-            return query.ToList();
+            return Mapper.DynamicMap<List<IdentityPageEntity>, List<PageModel>>(query.ToList());
         }
 
-        public List<IdentityMenuPageEntity> IdentityMenuPagesGet()
+        public List<MenuModel> IdentityMenuPagesGet()
         {
-            var query = from menuPage in dbContext.IdentityMenuPages where menuPage.DeletedInd == false select menuPage;
+            var query = from menuPage in dbContext.IdentityMenuPages where menuPage.DeletedInd == false select Mapper.DynamicMap<IdentityMenuPageEntity, MenuModel>(menuPage);
             return query.ToList();
         }
 

@@ -1,20 +1,21 @@
 ﻿using AutoMapper;
+using MegaMine.Services.Security.Common;
 using MegaMine.Services.Security.Entities;
 using MegaMine.Services.Security.Middleware;
 using MegaMine.Services.Security.Models;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace MegaMine.Services.Security.Common
+namespace MegaMine.Services.Security.Extensions
 {
-    public static class ExtensionsHelper
+    public static class ProfileExtensions
     {
         public static void SetMenu(this ProfileModel profile)
         {
-            List<IdentityPageEntity> pages = PageService.Pages;
-            List<IdentityMenuPageEntity> menuPages = PageService.MenuPages;
+            List<PageModel> pages = PageService.Pages;
+            List<MenuModel> menuPages = PageService.MenuPages;
             CompanyEntity companyClaims = PageService.CompanyClaims[profile.CompanyId];
-            List<IdentityMenuPageEntity> allPages;
+            List<MenuModel> allPages;
 
             //checking for the module admins
             var rolequery = from menupage in menuPages
@@ -44,15 +45,13 @@ namespace MegaMine.Services.Security.Common
 
                 allPages = qry.ToList();
             }
-            //getting the menu model
-            List<MenuModel> menu = allPages.Select(page => Mapper.Map<IdentityMenuPageEntity, MenuModel>(page)).ToList();
 
             //converting this into tree
-            List<MenuModel> treeMenu = menu.Where(m => m.ParentPageId == null).OrderBy(o => o.DisplayOrder).ToList();
+            List<MenuModel> treeMenu = allPages.Where(m => m.ParentPageId == null).OrderBy(o => o.DisplayOrder).ToList();
 
             foreach (var tree in treeMenu)
             {
-                tree.Items = menu.Where(m => m.ParentPageId == tree.PageId).OrderBy(o => o.DisplayOrder).ToList();
+                tree.Items = allPages.Where(m => m.ParentPageId == tree.PageId).OrderBy(o => o.DisplayOrder).ToList();
                 //checking whether the last one is group menu and removing it
                 if (tree.Items[tree.Items.Count - 1].GroupMenuInd)
                     tree.Items.RemoveAt(tree.Items.Count - 1);
