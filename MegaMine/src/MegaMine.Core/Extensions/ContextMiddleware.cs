@@ -19,7 +19,8 @@ namespace MegaMine.Core.Extensions
 
         public async Task Invoke(HttpContext context)
         {
-            NTContext.SetContext(null);
+            NTContext.HttpContext = context;
+            NTContext.Context = null;
             await next(context);
         }
     }

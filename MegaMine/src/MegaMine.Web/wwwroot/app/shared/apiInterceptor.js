@@ -56,7 +56,17 @@ function apiInterceptor($window, $q, utility, message) {
                         break;
                     default:
                         utility.showInfo(response.data.message);
-                        response.data = response.data.model;
+                        var data = undefined;
+                        if (response.data.dashboard === null) {
+                            data = response.data.model;
+                        }
+                        else {
+                            data = {
+                                model: response.data.model,
+                                dashboard: response.data.dashboard
+                            }
+                        }
+                        response.data = data;
                         return $q.resolve(response.data)
                         break;
                 }

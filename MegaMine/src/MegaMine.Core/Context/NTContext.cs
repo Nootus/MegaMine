@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Microsoft.AspNet.Http;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,27 +16,37 @@ namespace MegaMine.Core.Context
             {
                 return (NTContextModel)CallContext.LogicalGetData("MegaMineContext");
             }
+            set
+            {
+                NTContextModel model = value;
+                if (model == null)
+                {
+                    model = new NTContextModel();
+                }
+
+                NTContextModel contextModel = Context;
+
+                if (contextModel == null)
+                {
+                    CallContext.LogicalSetData("MegaMineContext", model);
+                }
+                else
+                {
+                    contextModel = Mapper.Map<NTContextModel, NTContextModel>(model, contextModel);
+                }
+
+            }
         }
 
-        public static void SetContext(NTContextModel model)
+        public static HttpContext HttpContext
         {
-            //CallContext.LogicalSetData("MegaMineContext", model);
-            //return;
-
-            if (model == null)
+            get
             {
-                model = new NTContextModel();
+                return (HttpContext)CallContext.LogicalGetData("HttpContext");
             }
-
-            NTContextModel contextModel = Context;
-
-            if(contextModel == null)
+            set
             {
-                CallContext.LogicalSetData("MegaMineContext", model);
-            }
-            else
-            {
-                contextModel = Mapper.Map<NTContextModel, NTContextModel>(model, contextModel);
+                CallContext.LogicalSetData("HttpContext", value);
             }
         }
     }

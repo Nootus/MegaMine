@@ -86,9 +86,9 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
     }
 
     function preprocessWidgetItem(widgetItem, dashboard) {
-        for (var index = 0; index < dashboard.allWidgets.length; index++) {
-            if (widgetItem.widgetId === dashboard.allWidgets[index].widgetId) {
-                widgetItem.widget = dashboard.allWidgets[index];
+        for (var index = 0; index < dashboard.pageWidgets.length; index++) {
+            if (widgetItem.widgetId === dashboard.pageWidgets[index].widgetId) {
+                widgetItem.widget = dashboard.pageWidgets[index];
                 widgetItem.widget.dashboard = dashboard;
                 widgetItem.widgetOptions.chart = widgetItem.widget.chart;
                 widgetItem.widget.chart.api = {};
@@ -124,24 +124,24 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
         dialogService.show({
             template: getWidgetTemplate(header, buttonText),
             targetEvent: ev,
-            data: { model: id, allWidgets: dashboard.allWidgets },
+            data: { model: id, pageWidgets: dashboard.pageWidgets },
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
             var index = 0;
-            for (var index = 0; index < dashboard.allWidgets.length; index++) {
-                if (dialogModel == dashboard.allWidgets[index].widgetId)
+            for (var index = 0; index < dashboard.pageWidgets.length; index++) {
+                if (dialogModel == dashboard.pageWidgets[index].widgetId)
                     break;
             }
 
             var widgetItem = {
                 dashboardWidgetId: Math.random(),
-                widgetId: dashboard.allWidgets[index].widgetId,
+                widgetId: dashboard.pageWidgets[index].widgetId,
                 widgetOptions: {
                     col: undefined,
                     row: undefined,
-                    sizeX: dashboard.allWidgets[index].sizeX,
-                    sizeY: dashboard.allWidgets[index].sizeY,
+                    sizeX: dashboard.pageWidgets[index].sizeX,
+                    sizeY: dashboard.pageWidgets[index].sizeY,
                 },
             };
 
@@ -166,7 +166,7 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
         return '<md-dialog aria-label="' + title + '" class="dialog">'
                     + '<nt-dialog form="widgetForm" header="' + title + '" save-text="' + buttonText + '">'
                         + '<div layout="row">'
-                                + '<nt-select flex="50" form="widgetForm" label="Select Widget" control-name="widget" ng-model="vm.model" opt-list="allWidgets" opt-value="widgetId" opt-text="name" ng-required="true"></nt-select>'
+                                + '<nt-select flex="50" form="widgetForm" label="Select Widget" control-name="widget" ng-model="vm.model" opt-list="pageWidgets" opt-value="widgetId" opt-text="name" ng-required="true"></nt-select>'
                         + '</div>'
                     + '</nt-dialog>'
                 + '</md-dialog>'

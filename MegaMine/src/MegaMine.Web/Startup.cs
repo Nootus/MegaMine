@@ -101,7 +101,7 @@ namespace MegaMine.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UsecontextMiddleware();
+            app.UseContextMiddleware();
             // Add the following to the request pipeline only in development environment.
             app.UseDeveloperExceptionPage();
             app.UseDatabaseErrorPage();

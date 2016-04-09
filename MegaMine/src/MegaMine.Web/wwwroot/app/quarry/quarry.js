@@ -21,7 +21,7 @@ function quarry(quarryService, quarryChart, gridUtility, utility, constants, dia
             options: {
                 gridOptions: gridOptions,
                 listOptions: {
-                    data: quarryService.quarries,
+                    data: quarryService.quarries.list,
                     fields: ['quarryName', 'colours', 'location'],
                     primaryField: 'quarryId'
                 },
@@ -41,9 +41,9 @@ function quarry(quarryService, quarryChart, gridUtility, utility, constants, dia
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.quarries);
+        gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.quarries.list);
 
-        vm.dashboard.allWidgets = [
+        vm.dashboard.pageWidgets = [
                                     {
                                         widgetId: 1,
                                         name: "Discrete Bar Chart",

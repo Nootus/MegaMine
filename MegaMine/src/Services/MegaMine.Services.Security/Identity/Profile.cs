@@ -31,7 +31,7 @@ namespace MegaMine.Services.Security.Identity
                 LastName = profile.LastName,
                 CompanyId = profile.CompanyId
             };
-            NTContext.SetContext(model);
+            NTContext.Context = model;
 
             return profile;
         }

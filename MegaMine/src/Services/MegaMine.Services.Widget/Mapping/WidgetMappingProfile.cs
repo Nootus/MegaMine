@@ -1,4 +1,7 @@
 ﻿using AutoMapper;
+using MegaMine.Services.Widget.Entities;
+using MegaMine.Services.Widget.Models;
+using System.Collections.Generic;
 
 namespace MegaMine.Services.Widget.Mapping
 {
@@ -11,7 +14,9 @@ namespace MegaMine.Services.Widget.Mapping
 
         protected override void Configure()
         {
-            //Mapper.CreateMap<WidgetEntity, WidgetModel>().ReverseMap();
+            Mapper.CreateMap<WidgetEntity, WidgetModel>();
+            //.ForMember(model => model.Chart, opt => opt.MapFrom(src => src.Chart));
+            Mapper.CreateMap<ChartTypeEntity, ChartTypeModel>();
         }
     }
 }

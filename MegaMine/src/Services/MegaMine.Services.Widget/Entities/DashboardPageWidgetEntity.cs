@@ -4,18 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMine.Services.Widget.Entities
 {
-    [Table("Widget", Schema = "widget")]
-    public class WidgetEntity
+    [Table("DashboardPageWidget", Schema = "widget")]
+    public class DashboardPageWidgetEntity : BaseEntity
     {
         [Key]
+        public int DashboardWidgetId { get; set; }
+        public int DashboardId { get; set; }
         public int WidgetId { get; set; }
-        public string Name { get; set; }
-        public string Claim{ get; set; }
+        public int Columns { get; set; }
+        public int Rows { get; set; }
         public int SizeX { get; set; }
         public int SizeY { get; set; }
-        public int ChartTypeId { get; set; }
-
-        [ForeignKey("ChartTypeId")]
-        public ChartTypeEntity Chart { get; set; }
     }
 }

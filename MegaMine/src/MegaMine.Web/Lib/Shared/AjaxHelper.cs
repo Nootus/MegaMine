@@ -1,5 +1,9 @@
-﻿using MegaMine.Core.Exception;
+﻿using MegaMine.Core.Context;
+using MegaMine.Core.Exception;
+using MegaMine.Services.Widget.Domain;
+using MegaMine.Services.Widget.Models;
 using MegaMine.Web.Models.Shared;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Threading.Tasks;
 
@@ -7,48 +11,48 @@ namespace MegaMine.Web.Lib.Shared
 {
     public static class AjaxHelper
     {
-        public static AjaxModel<T> Get<T>(Func<string, T> action, string message = "") where T : class
-        {
-            AjaxModel<T> ajax;
+        //public static AjaxModel<T> Get<T>(Func<string, T> action, string message = "") where T : class
+        //{
+        //    AjaxModel<T> ajax;
 
-            try
-            {
+        //    try
+        //    {
 
-                T model = action(null);
+        //        T model = action(null);
 
-                ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
-            }
-            catch (Exception exp)
-            {
-                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
-            }
+        //        ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
+        //    }
+        //    catch (Exception exp)
+        //    {
+        //        ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
+        //    }
 
-            return ajax;
-        }
+        //    return ajax;
+        //}
 
-        public static AjaxModel<T> Save<T>(Action<string> action, string message) where T : class
-        {
-            AjaxModel<T> ajax;
+        //public static AjaxModel<T> Save<T>(Action<string> action, string message) where T : class
+        //{
+        //    AjaxModel<T> ajax;
 
-            try
-            {
+        //    try
+        //    {
 
-                action(null);
+        //        action(null);
 
-                ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = message };
-            }
-            catch (Exception exp)
-            {
-                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
-            }
+        //        ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = message };
+        //    }
+        //    catch (Exception exp)
+        //    {
+        //        ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
+        //    }
 
-            return ajax;
-        }
+        //    return ajax;
+        //}
 
-        public static AjaxModel<T> SaveGet<T>(Func<string, T> action, string message) where T : class
-        {
-            return Get(action, message);
-        }
+        //public static AjaxModel<T> SaveGet<T>(Func<string, T> action, string message) where T : class
+        //{
+        //    return Get(action, message);
+        //}
 
         public static async Task<AjaxModel<T>> GetAsync<T>(Func<string, Task<T>> action, string message = "") where T : class
         {
@@ -58,8 +62,8 @@ namespace MegaMine.Web.Lib.Shared
             {
 
                 T model = await action(null);
-
                 ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
+                ajax.Dashboard = await DashboardGet();
             }
             catch (Exception exp)
             {
@@ -94,6 +98,20 @@ namespace MegaMine.Web.Lib.Shared
         public static async Task<AjaxModel<T>> SaveGetAsync<T>(Func<string, Task<T>> action, string message) where T : class
         {
             return await GetAsync(action, message);
+        }
+
+        private static async Task<DashboardModel> DashboardGet()
+        {
+            int? dashboardPageId = NTContext.Context.DashboardPageId;
+            if (dashboardPageId != null)
+            {
+                WidgetDomain widgetDomain = NTContext.HttpContext.RequestServices.GetRequiredService<WidgetDomain>();
+                return await widgetDomain.DashboardGet(dashboardPageId.Value);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }

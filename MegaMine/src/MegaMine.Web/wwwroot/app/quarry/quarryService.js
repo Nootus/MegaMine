@@ -2,9 +2,9 @@
 
 angular.module('megamine').factory('quarryService', quarryService);
 
-quarryService.$inject = ['$http'];
+quarryService.$inject = ['$http', 'utility'];
 
-function quarryService($http) {
+function quarryService($http, utility) {
 
     var service = {
         //colours
@@ -20,7 +20,7 @@ function quarryService($http) {
         deleteProductType: deleteProductType,
 
         //quarries
-        quarries: [],
+        quarries: { list: [], dashboard: {}},
         getQuarries: getQuarries,
         saveQuarry: saveQuarry,
         deleteQuarry: deleteQuarry,
@@ -120,8 +120,8 @@ function quarryService($http) {
         return $http.get("/api/quarry/quarriesget")
             .then(function (data) {
                 //in order to refresh the grid, we need to remove all the elements and readd them
-                service.quarries.splice(0, service.quarries.length);
-                angular.extend(service.quarries, data);
+                utility.extend(service.quarries.list, data.model);
+                angular.extend(service.quarries.dashboard, data.dashboard);
             });
     }
 

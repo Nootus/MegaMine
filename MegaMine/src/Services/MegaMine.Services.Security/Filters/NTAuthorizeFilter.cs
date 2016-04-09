@@ -1,4 +1,5 @@
-﻿using MegaMine.Services.Security.Common;
+﻿using MegaMine.Core.Context;
+using MegaMine.Services.Security.Common;
 using MegaMine.Services.Security.Identity;
 using MegaMine.Services.Security.Middleware;
 using Microsoft.AspNet.Mvc;
@@ -26,8 +27,14 @@ namespace MegaMine.Services.Security.Filters
                 return;
             }
 
+            //setting the current DashbaordInd
+            if(page.DashboardInd)
+            {
+                NTContext.Context.DashboardPageId = page.PageId;
+            }
+
             //checking for annonymous claim
-            if(page.PageClaims.Any(p => p.ClaimType == SecuritySettings.AnonymouseClaimType && p.ClaimValue == SecuritySettings.AnonymousClaim))
+            if (page.PageClaims.Any(p => p.ClaimType == SecuritySettings.AnonymouseClaimType && p.ClaimValue == SecuritySettings.AnonymousClaim))
             {
                 return;
             }
