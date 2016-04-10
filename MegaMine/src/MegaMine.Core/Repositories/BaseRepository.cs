@@ -118,6 +118,11 @@ namespace MegaMine.Core.Repositories
 
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
+            return await GetListAsync<TEntity, TModel, string>(whereExpression, sortExpression);
+        }
+
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel, TSort>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TSort>> sortExpression) where TEntity : BaseEntity
+        {
             var query = dbContext.Set<TEntity>().Where(whereExpression).Where(e => e.DeletedInd == false && e.CompanyId == context.CompanyId)
                                 .OrderBy(sortExpression)
                                 .Select(ent => Mapper.Map<TEntity, TModel>(ent));

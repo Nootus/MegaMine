@@ -24,7 +24,7 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
                             + '<div flex>'
                                 + '<md-whiteframe class="md-whiteframe-24dp" flex>'
                                     + '<md-content class="chart-bar">'
-                                        + '<nt-gridster widgets="dashboard.widgets"></nt-gridster>'
+                                        + '<nt-gridster widgets="dashboard.pageWidgets"></nt-gridster>'
                                     + '</md-content>'
                                 + '</md-whiteframe>'
                             + '</div>'
@@ -80,15 +80,15 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
     }
 
     function preprocessWidgets(dashboard) {
-        angular.forEach(dashboard.widgets, function (item) {
+        angular.forEach(dashboard.pageWidgets, function (item) {
             preprocessWidgetItem(item, dashboard);
         })
     }
 
     function preprocessWidgetItem(widgetItem, dashboard) {
-        for (var index = 0; index < dashboard.pageWidgets.length; index++) {
-            if (widgetItem.widgetId === dashboard.pageWidgets[index].widgetId) {
-                widgetItem.widget = dashboard.pageWidgets[index];
+        for (var index = 0; index < dashboard.widgets.length; index++) {
+            if (widgetItem.widgetId === dashboard.widgets[index].widgetId) {
+                widgetItem.widget = dashboard.widgets[index];
                 widgetItem.widget.dashboard = dashboard;
                 widgetItem.widgetOptions.chart = widgetItem.widget.chart;
                 widgetItem.widget.chart.api = {};
@@ -124,38 +124,38 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
         dialogService.show({
             template: getWidgetTemplate(header, buttonText),
             targetEvent: ev,
-            data: { model: id, pageWidgets: dashboard.pageWidgets },
+            data: { model: id, widgets: dashboard.widgets },
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
             var index = 0;
-            for (var index = 0; index < dashboard.pageWidgets.length; index++) {
-                if (dialogModel == dashboard.pageWidgets[index].widgetId)
+            for (var index = 0; index < dashboard.widgets.length; index++) {
+                if (dialogModel == dashboard.widgets[index].widgetId)
                     break;
             }
 
             var widgetItem = {
                 dashboardWidgetId: Math.random(),
-                widgetId: dashboard.pageWidgets[index].widgetId,
+                widgetId: dashboard.widgets[index].widgetId,
                 widgetOptions: {
                     col: undefined,
                     row: undefined,
-                    sizeX: dashboard.pageWidgets[index].sizeX,
-                    sizeY: dashboard.pageWidgets[index].sizeY,
+                    sizeX: dashboard.widgets[index].sizeX,
+                    sizeY: dashboard.widgets[index].sizeY,
                 },
             };
 
             if (widget !== undefined) {
-                for (var current = 0; current < dashboard.widgets.length; current++) {
-                    if (id == dashboard.widgets[current].dashboardWidgetId)
+                for (var current = 0; current < dashboard.pageWidgets.length; current++) {
+                    if (id == dashboard.pageWidgets[current].dashboardWidgetId)
                         break;
                 }
-                angular.extend(widgetItem.widgetOptions, dashboard.widgets[current].widgetOptions);
-                dashboard.widgets.splice(current, 1);
+                angular.extend(widgetItem.widgetOptions, dashboard.pageWidgets[current].widgetOptions);
+                dashboard.pageWidgets.splice(current, 1);
             }
 
             preprocessWidgetItem(widgetItem, dashboard);
-            dashboard.widgets.push(widgetItem);
+            dashboard.pageWidgets.push(widgetItem);
 
             dialogService.hide();
         });
@@ -166,14 +166,14 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
         return '<md-dialog aria-label="' + title + '" class="dialog">'
                     + '<nt-dialog form="widgetForm" header="' + title + '" save-text="' + buttonText + '">'
                         + '<div layout="row">'
-                                + '<nt-select flex="50" form="widgetForm" label="Select Widget" control-name="widget" ng-model="vm.model" opt-list="pageWidgets" opt-value="widgetId" opt-text="name" ng-required="true"></nt-select>'
+                                + '<nt-select flex="50" form="widgetForm" label="Select Widget" control-name="widget" ng-model="vm.model" opt-list="widgets" opt-value="widgetId" opt-text="name" ng-required="true"></nt-select>'
                         + '</div>'
                     + '</nt-dialog>'
                 + '</md-dialog>'
     }
 
     function clearWidgets(scope) {
-        scope.dashboard.widgets.splice(0, scope.dashboard.widgets.length)
+        scope.dashboard.pageWidgets.splice(0, scope.dashboard.pageWidgets.length)
     }
 
     function refresh() {

@@ -12,12 +12,12 @@ namespace MegaMine.Services.Widget.Repositories
         public DbSet<DashboardPageWidgetEntity> DashboardPageWidgets { get; set; }
         public DbSet<ChartTypeEntity> ChartTypes { get; set; }
 
-        //protected override void OnModelCreating(ModelBuilder builder)
-        //{
-        //    //TODO: ignoring audit fields for now. This code should be removed later
-        //    IgnoreAuditFields<DashboardPageWidgetEntity>(builder);
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            //TODO: ignoring audit fields for now. This code should be removed later
+            IgnoreAuditFields<DashboardPageWidgetEntity>(builder);
 
-        //    base.OnModelCreating(builder);
-        //}
+            base.OnModelCreating(builder);
+        }
     }
 }

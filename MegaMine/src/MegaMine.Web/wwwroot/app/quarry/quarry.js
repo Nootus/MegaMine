@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarry', quarry)
-quarry.$inject = ['quarryService', 'quarryChart', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
+quarry.$inject = ['quarryService', 'quarryChart', 'gridUtility', 'widgetUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function quarry(quarryService, quarryChart, gridUtility, utility, constants, dialogService, template) {
+function quarry(quarryService, quarryChart, gridUtility, widgetUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -17,7 +17,7 @@ function quarry(quarryService, quarryChart, gridUtility, utility, constants, dia
     var vm = {
         dashboard: {
             header: 'Quarries',
-            widgets: [],
+            pageWidgets: [],
             options: {
                 gridOptions: gridOptions,
                 listOptions: {
@@ -42,91 +42,100 @@ function quarry(quarryService, quarryChart, gridUtility, utility, constants, dia
 
     function init() {
         gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.quarries.list);
+        widgetUtility.initialize(quarryService.quarries.dashboard);
 
-        vm.dashboard.pageWidgets = [
-                                    {
-                                        widgetId: 1,
-                                        name: "Discrete Bar Chart",
-                                        sizeX: 4,
-                                        sizeY: 1,
-                                        chart: {
-                                            type: 'discreteBarChart',
-                                            options: quarryChart.discreteBarChart.options,
-                                            data: quarryChart.discreteBarChart.data()
-                                        }
-                                    },
-                                    {
-                                        widgetId: 2,
-                                        name: "Pie Chart",
-                                        sizeX: 2,
-                                        sizeY: 2,
-                                        chart: {
-                                            type: 'pieChart',
-                                            options: quarryChart.pieChart.options,
-                                            data: quarryChart.pieChart.data(),
-                                        }
-                                    },
-                                    {
-                                        widgetId: 3,
-                                        name: "Line Chart",
-                                        sizeX: 4,
-                                        sizeY: 1,
-                                        chart: {
-                                            type: 'lineChart',
-                                            options: quarryChart.lineChart.options,
-                                            data: quarryChart.lineChart.data(),
-                                        }
-                                    },
-                                    {
-                                        widgetId: 4,
-                                        name: "Area Chart",
-                                        sizeX: 6,
-                                        sizeY: 1,
-                                        chart: {
-                                            type: 'stackedAreaChart',
-                                            options: quarryChart.stackedAreaChart.options,
-                                            data: quarryChart.stackedAreaChart.data(),
-                                        }
-                                    }
-                                ]
+        vm.dashboard.widgets = quarryService.quarries.dashboard.widgets;
+        vm.dashboard.widgets[0].chart.data = quarryChart.discreteBarChart.data();
+        vm.dashboard.widgets[1].chart.data = quarryChart.pieChart.data();
+        vm.dashboard.widgets[2].chart.data = quarryChart.lineChart.data();
+        vm.dashboard.widgets[3].chart.data = quarryChart.stackedAreaChart.data();
 
-        vm.dashboard.widgets = [{
-            dashboardWidgetId: 1,
-            widgetId: 1,
-            widgetOptions: {
-                col: 0,
-                row: 0,
-                sizeX: 4,
-                sizeY: 1
-            }
-        }, {
-            dashboardWidgetId: 2,
-            widgetId: 2,
-            widgetOptions: {
-                col: 4,
-                row: 0,
-                sizeX: 2,
-                sizeY: 2
-            }
-        }, {
-            dashboardWidgetId: 3,
-            widgetId: 3,
-            widgetOptions: {
-                col: 0,
-                row: 1,
-                sizeX: 4,
-                sizeY: 1
-            }
-        }, {
-            dashboardWidgetId: 4,
-            widgetId: 4,
-            widgetOptions: {
-                col: 0,
-                row: 2,
-                sizeX: 6,
-                sizeY: 1
-            }
-        }];
+        vm.dashboard.pageWidgets = quarryService.quarries.dashboard.pageWidgets;
+
+        //vm.dashboard.widgets = [
+        //                            {
+        //                                widgetId: 1,
+        //                                name: "Discrete Bar Chart",
+        //                                sizeX: 4,
+        //                                sizeY: 1,
+        //                                chart: {
+        //                                    type: 'discreteBarChart',
+        //                                    options: quarryChart.discreteBarChart.options,
+        //                                    data: quarryChart.discreteBarChart.data()
+        //                                }
+        //                            },
+        //                            {
+        //                                widgetId: 2,
+        //                                name: "Pie Chart",
+        //                                sizeX: 2,
+        //                                sizeY: 2,
+        //                                chart: {
+        //                                    type: 'pieChart',
+        //                                    options: quarryChart.pieChart.options,
+        //                                    data: quarryChart.pieChart.data(),
+        //                                }
+        //                            },
+        //                            {
+        //                                widgetId: 3,
+        //                                name: "Line Chart",
+        //                                sizeX: 4,
+        //                                sizeY: 1,
+        //                                chart: {
+        //                                    type: 'lineChart',
+        //                                    options: quarryChart.lineChart.options,
+        //                                    data: quarryChart.lineChart.data(),
+        //                                }
+        //                            },
+        //                            {
+        //                                widgetId: 4,
+        //                                name: "Area Chart",
+        //                                sizeX: 6,
+        //                                sizeY: 1,
+        //                                chart: {
+        //                                    type: 'stackedAreaChart',
+        //                                    options: quarryChart.stackedAreaChart.options,
+        //                                    data: quarryChart.stackedAreaChart.data(),
+        //                                }
+        //                            }
+        //                        ]
+
+        //vm.dashboard.pageWidgets = [{
+        //    dashboardWidgetId: 1,
+        //    widgetId: 1,
+        //    widgetOptions: {
+        //        col: 0,
+        //        row: 0,
+        //        sizeX: 4,
+        //        sizeY: 1
+        //    }
+        //}, {
+        //    dashboardWidgetId: 2,
+        //    widgetId: 2,
+        //    widgetOptions: {
+        //        col: 4,
+        //        row: 0,
+        //        sizeX: 2,
+        //        sizeY: 2
+        //    }
+        //}, {
+        //    dashboardWidgetId: 3,
+        //    widgetId: 3,
+        //    widgetOptions: {
+        //        col: 0,
+        //        row: 1,
+        //        sizeX: 4,
+        //        sizeY: 1
+        //    }
+        //}, {
+        //    dashboardWidgetId: 4,
+        //    widgetId: 4,
+        //    widgetOptions: {
+        //        col: 0,
+        //        row: 2,
+        //        sizeX: 6,
+        //        sizeY: 1
+        //    }
+        //}];
     }
 
     function addQuarry(ev) {

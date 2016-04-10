@@ -70,6 +70,7 @@
 /// <reference path="app/shared/session.js" />
 /// <reference path="app/shared/template.js" />
 /// <reference path="app/shared/utility.js" />
+/// <reference path="app/widget/chartoptions.js" />
 /// <reference path="app/widget/discreteBarChart.js" />
 /// <reference path="app/widget/lineChart.js" />
 /// <reference path="app/widget/ntdashobard.js" />

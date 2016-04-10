@@ -17,7 +17,7 @@ namespace MegaMine.Services.Widget.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<List<WidgetModel>> PageWidgetsGet(int pageId)
+        public async Task<List<WidgetModel>> WidgetsGet(int pageId)
         {
             var query = from dash in dbContext.Dashboards
                          join dashwid in dbContext.DashboardWidgets on dash.DashboardId equals dashwid.DashboardId
@@ -29,6 +29,11 @@ namespace MegaMine.Services.Widget.Repositories
 
 
             return Mapper.Map<List<WidgetEntity>, List<WidgetModel>>(entites);
+        }
+
+        public async Task<List<PageWidgetModel>> PageWidgetsGet(int dashboardId)
+        {
+            return await GetListAsync<DashboardPageWidgetEntity, PageWidgetModel, int>(where => where.DashboardId == dashboardId, order => order.DashboardPageWidgetId);
         }
     }
 }

@@ -15,8 +15,16 @@ namespace MegaMine.Services.Widget.Mapping
         protected override void Configure()
         {
             Mapper.CreateMap<WidgetEntity, WidgetModel>();
-            //.ForMember(model => model.Chart, opt => opt.MapFrom(src => src.Chart));
             Mapper.CreateMap<ChartTypeEntity, ChartTypeModel>();
+            Mapper.CreateMap<DashboardPageWidgetEntity, PageWidgetModel>(MemberList.Destination)
+                .ForMember(dest => dest.DashboardPageWidgetId, opts => opts.MapFrom(src => src.DashboardPageWidgetId))
+                .ForMember(dest => dest.WidgetId, opts => opts.MapFrom(src => src.WidgetId))
+                .ForMember(dest => dest.WidgetOptions, opts => opts.MapFrom(src => src));
+            Mapper.CreateMap<DashboardPageWidgetEntity, WidgetOptionsModel>()
+                .ForMember(dest => dest.Columns, opts => opts.MapFrom(src => src.Columns))
+                .ForMember(dest => dest.Rows, opts => opts.MapFrom(src => src.Rows))
+                .ForMember(dest => dest.SizeX, opts => opts.MapFrom(src => src.SizeX))
+                .ForMember(dest => dest.SizeY, opts => opts.MapFrom(src => src.SizeY));
         }
     }
 }

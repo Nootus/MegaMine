@@ -18,7 +18,8 @@ namespace MegaMine.Services.Widget.Domain
         public async Task<DashboardModel> DashboardGet(int pageId)
         {
             DashboardModel model = new DashboardModel();
-            model.PageWidgets = await widgetRepository.PageWidgetsGet(pageId);
+            model.Widgets = await widgetRepository.WidgetsGet(pageId);
+            model.PageWidgets = await widgetRepository.PageWidgetsGet(1);
             return model;
         }
     }

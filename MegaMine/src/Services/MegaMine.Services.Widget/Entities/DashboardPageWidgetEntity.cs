@@ -8,7 +8,7 @@ namespace MegaMine.Services.Widget.Entities
     public class DashboardPageWidgetEntity : BaseEntity
     {
         [Key]
-        public int DashboardWidgetId { get; set; }
+        public int DashboardPageWidgetId { get; set; }
         public int DashboardId { get; set; }
         public int WidgetId { get; set; }
         public int Columns { get; set; }
