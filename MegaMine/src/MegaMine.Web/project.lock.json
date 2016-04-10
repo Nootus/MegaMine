@@ -166,8 +166,7 @@
         "dependencies": {
           "AutoMapper": "4.0.4",
           "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-          "MegaMine.Core": "1.0.0",
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
+          "MegaMine.Core": "1.0.0"
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -2009,8 +2008,7 @@
         "dependencies": {
           "AutoMapper": "4.0.4",
           "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-          "MegaMine.Core": "1.0.0",
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
+          "MegaMine.Core": "1.0.0"
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {
@@ -3855,8 +3853,7 @@
         "dependencies": {
           "AutoMapper": "4.0.4",
           "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
-          "MegaMine.Core": "1.0.0",
-          "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final"
+          "MegaMine.Core": "1.0.0"
         }
       },
       "Microsoft.AspNet.Antiforgery/1.0.0-rc1-final": {

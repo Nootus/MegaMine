@@ -17,13 +17,18 @@ namespace MegaMine.Services.Widget.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<List<WidgetModel>> WidgetsGet(int pageId)
+        public async Task<int> GetDashboardId(int pageId)
         {
-            var query = from dash in dbContext.Dashboards
-                         join dashwid in dbContext.DashboardWidgets on dash.DashboardId equals dashwid.DashboardId
+            DashboardEntity entity = await GetSingleAsync<DashboardEntity>(ent => ent.PageId == pageId);
+            return entity.DashboardId;
+        }
+
+        public async Task<List<WidgetModel>> WidgetsGet(int dashboardId)
+        {
+            var query = from dashwid in dbContext.DashboardWidgets 
                          join wid in dbContext.Widgets.Include(w => w.Chart) on dashwid.WidgetId equals wid.WidgetId
-                         where dash.PageId == pageId
-                         select wid;
+                         where dashwid.DashboardId == dashboardId
+                        select wid;
 
             List<WidgetEntity> entites = await query.ToListAsync();
 

@@ -14,9 +14,11 @@ namespace MegaMine.Web.Controllers
     public class QuarryController : Controller
     {
         private QuarryDomain domain;
-        public QuarryController(QuarryDomain domain)
+        private WidgetDomain widgetDomain;
+        public QuarryController(QuarryDomain domain, WidgetDomain widgetDomain)
         {
             this.domain = domain;
+            this.widgetDomain = widgetDomain;
         }
 
         #region Material Colour
@@ -74,7 +76,9 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<QuarryModel>>> QuarriesGet()
         {
-            return await AjaxHelper.GetAsync(m => domain.QuarriesGet());
+            var ajaxModel = await AjaxHelper.GetAsync(m => domain.QuarriesGet());
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
         }
 
         [HttpPost]

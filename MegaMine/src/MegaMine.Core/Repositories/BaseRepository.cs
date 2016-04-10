@@ -141,6 +141,11 @@ namespace MegaMine.Core.Repositories
 
         }
 
+        protected async Task<TEntity> GetSingleAsync<TEntity>(Expression<Func<TEntity, bool>> whereExpression) where TEntity: class
+        {
+            return await dbContext.Set<TEntity>().Where(whereExpression).Select(ent => ent).SingleAsync();
+        }
+
         protected async Task<TEntity> GetSingleAsync<TEntity>(object id) where TEntity : BaseEntity
         {
             var entity = dbContext.Set<TEntity>().AsQueryable();

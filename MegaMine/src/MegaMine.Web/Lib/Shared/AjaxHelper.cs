@@ -63,7 +63,6 @@ namespace MegaMine.Web.Lib.Shared
 
                 T model = await action(null);
                 ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
-                ajax.Dashboard = await DashboardGet();
             }
             catch (Exception exp)
             {
@@ -100,18 +99,24 @@ namespace MegaMine.Web.Lib.Shared
             return await GetAsync(action, message);
         }
 
-        private static async Task<DashboardModel> DashboardGet()
+        public static async Task<DashboardModel> DashboardGet(Func<int, Task<object>> widgetData)
         {
             int? dashboardPageId = NTContext.Context.DashboardPageId;
             if (dashboardPageId != null)
             {
                 WidgetDomain widgetDomain = NTContext.HttpContext.RequestServices.GetRequiredService<WidgetDomain>();
-                return await widgetDomain.DashboardGet(dashboardPageId.Value);
+                DashboardModel dashboard = await widgetDomain.DashboardGet(dashboardPageId.Value);
+                foreach(WidgetModel widget in dashboard.Widgets)
+                {
+                    widget.Chart.Data = await widgetData(widget.WidgetId);
+                }
+                //await widgetData(1);
+                return dashboard;
             }
             else
             {
                 return null;
             }
-        }
+        }   
     }
 }

@@ -2,24 +2,20 @@
 
 angular.module('megamine').factory('quarryChart', quarryChart);
 
-quarryChart.$inject = ['pieChart', 'lineChart', 'discreteBarChart', 'stackedAreaChart'];
+quarryChart.$inject = [];
 
-function quarryChart(pieChart, lineChart, discreteBarChart, stackedAreaChart) {
+function quarryChart() {
     var vm = {
         lineChart: {
-            options: lineChart.options,
             data: lineChartData
         },
         discreteBarChart: {
-            options: discreteBarChart.options,
             data: discreteBarChartData
         },
         pieChart: {
-            options: pieChart.options,
             data: pieChartData
         },
         stackedAreaChart: {
-            options: stackedAreaChart.options,
             data: stackedAreaChartData
         }
     }

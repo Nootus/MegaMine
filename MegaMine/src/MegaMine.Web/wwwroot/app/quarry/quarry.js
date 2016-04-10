@@ -17,7 +17,6 @@ function quarry(quarryService, quarryChart, gridUtility, widgetUtility, utility,
     var vm = {
         dashboard: {
             header: 'Quarries',
-            pageWidgets: [],
             options: {
                 gridOptions: gridOptions,
                 listOptions: {
@@ -42,15 +41,13 @@ function quarry(quarryService, quarryChart, gridUtility, widgetUtility, utility,
 
     function init() {
         gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.quarries.list);
-        widgetUtility.initialize(quarryService.quarries.dashboard);
+        widgetUtility.initialize(vm.dashboard, quarryService.quarries.dashboard);
 
-        vm.dashboard.widgets = quarryService.quarries.dashboard.widgets;
         vm.dashboard.widgets[0].chart.data = quarryChart.discreteBarChart.data();
         vm.dashboard.widgets[1].chart.data = quarryChart.pieChart.data();
         vm.dashboard.widgets[2].chart.data = quarryChart.lineChart.data();
         vm.dashboard.widgets[3].chart.data = quarryChart.stackedAreaChart.data();
 
-        vm.dashboard.pageWidgets = quarryService.quarries.dashboard.pageWidgets;
 
         //vm.dashboard.widgets = [
         //                            {
