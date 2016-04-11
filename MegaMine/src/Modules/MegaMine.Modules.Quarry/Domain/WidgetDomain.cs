@@ -19,15 +19,14 @@ namespace MegaMine.Modules.Quarry.Domain
             switch (widgetId)
             {
                 case 2:
-                    var data = await QuarryCounts();
-                    return data;
+                    return await QuarryCounts();
             }
             return null;
         }
 
         public async Task<List<PieChartModel>> QuarryCounts()
         {
-            return await widgetRepository.QuarryCounts();
+            return await widgetRepository.QuarryMaterialCounts();
         }
     }
 }

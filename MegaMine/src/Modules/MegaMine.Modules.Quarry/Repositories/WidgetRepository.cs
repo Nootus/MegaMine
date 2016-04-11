@@ -1,5 +1,7 @@
-﻿using MegaMine.Core.Models.Widgets;
+﻿using AutoMapper;
+using MegaMine.Core.Models.Widgets;
 using MegaMine.Core.Repositories;
+using MegaMine.Modules.Quarry.Entities.Widget;
 using Microsoft.Data.Entity;
 using System;
 using System.Collections.Generic;
@@ -15,17 +17,12 @@ namespace MegaMine.Modules.Quarry.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<List<PieChartModel>> QuarryCounts()
+        public int QuarryMaterialCountWidget { get; private set; }
+
+        public async Task<List<PieChartModel>> QuarryMaterialCounts()
         {
-            //TODO: Bug in RC1 cannot use join with group, so doing two queries 
-            var query = from mat in dbContext.Materials
-                        group mat by mat.QuarryId into grp
-                        select new PieChartModel
-                        {
-                            Key = grp.Key.ToString(),
-                            Y = grp.Count()
-                        };
-            return await query.ToListAsync();
+            return await dbContext.Set<QuarryMaterialCountEntity>().FromSql("quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", context.CompanyId)
+                                    .Select(m => Mapper.Map<QuarryMaterialCountEntity, PieChartModel>(m)).ToListAsync();
         }
     }
 }

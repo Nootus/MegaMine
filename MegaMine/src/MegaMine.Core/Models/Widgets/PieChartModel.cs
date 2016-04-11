@@ -8,6 +8,6 @@ namespace MegaMine.Core.Models.Widgets
     public class PieChartModel
     {
         public string Key { get; set; }
-        public decimal Y { get; set; }
+        public int Y { get; set; }
     }
 }

@@ -90,7 +90,7 @@ function chartOptions() {
             chart: {
                 type: 'lineChart',
                 tooltip: {
-                    hideDelay: 0
+                    hideDelay: 0.01
                 },
                 margin: {
                     top: 40,
@@ -122,7 +122,7 @@ function chartOptions() {
             chart: {
                 type: 'stackedAreaChart',
                 tooltip: {
-                    hideDelay: 0
+                    hideDelay: 0.01
                 },
                 margin: {
                     top: 20,
