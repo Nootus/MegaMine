@@ -5,7 +5,7 @@ namespace MegaMine.Modules.Quarry.Entities.Widget
     public class QuarryMaterialCountEntity
     {
         [Key]
-        public int QuarryId { get; set; }
+        public long Seq { get; set; }
         public string QuarryName { get; set; }
         public int MaterialCount { get; set; }
     }

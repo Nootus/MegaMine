@@ -45,7 +45,7 @@ function quarry(quarryService, quarryChart, gridUtility, widgetUtility, utility,
 
         vm.dashboard.widgets[0].chart.data = quarryChart.discreteBarChart.data();
         //vm.dashboard.widgets[1].chart.data = quarryChart.pieChart.data();
-        vm.dashboard.widgets[2].chart.data = quarryChart.lineChart.data();
+        vm.dashboard.widgets[2].chart.data = quarryChart.multiBarChart.data();
         vm.dashboard.widgets[3].chart.data = quarryChart.stackedAreaChart.data();
 
 

@@ -32,6 +32,9 @@ function chartOptions() {
             case 'StackedAreaChart':
                 return stackedAreaChart();
                 break;
+            case 'MultiBarChart':
+                return multiBarChart();
+                break;
         }
     }
 
@@ -158,5 +161,30 @@ function chartOptions() {
                 }
             }
         };
+    }
+
+    function multiBarChart() {
+        return {
+            "chart": {
+                "type": "multiBarChart",
+                "margin": {
+                    "top": 20,
+                    "right": 20,
+                    "bottom": 45,
+                    "left": 45
+                },
+                "clipEdge": true,
+                "duration": 500,
+                "stacked": true,
+                "xAxis": {
+                    "axisLabel": "Time (ms)",
+                    "showMaxMin": false
+                },
+                "yAxis": {
+                    "axisLabel": "Y Axis",
+                    "axisLabelDistance": -20
+                }
+            }
+        }
     }
 }
