@@ -48,8 +48,8 @@ function chartOptions() {
                     bottom: 30,
                     left: 55
                 },
-                x: function (d) { return d.label; },
-                y: function (d) { return d.value; },
+                x: function (d) { return d.x; },
+                y: function (d) { return d.y; },
                 showValues: true,
                 valueFormat: function (d) {
                     return d3.format(',.0f')(d);
@@ -77,7 +77,7 @@ function chartOptions() {
                     bottom: 0,
                     left: 0
                 },
-                x: function (d) { return d.key; },
+                x: function (d) { return d.x; },
                 y: function (d) { return d.y; },
                 showLabels: true,
                 duration: 500,

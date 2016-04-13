@@ -68,36 +68,36 @@ function quarryChart() {
                   key: "Cumulative Return",
                   values: [
                       {
-                          "label": "A",
-                          "value": 29.765957771107
+                          "x": "A",
+                          "y": 29.765957771107
                       },
                       {
-                          "label": "B",
-                          "value": 32
+                          "x": "B",
+                          "y": 32
                       },
                       {
-                          "label": "C",
-                          "value": 32.807804682612
+                          "x": "C",
+                          "y": 32.807804682612
                       },
                       {
-                          "label": "D",
-                          "value": 196.45946739256
+                          "x": "D",
+                          "y": 196.45946739256
                       },
                       {
-                          "label": "E",
-                          "value": 10.19434030906893
+                          "x": "E",
+                          "y": 10.19434030906893
                       },
                       {
-                          "label": "F",
-                          "value": 98.079782601442
+                          "x": "F",
+                          "y": 98.079782601442
                       },
                       {
-                          "label": "G",
-                          "value": 13.925743130903
+                          "x": "G",
+                          "y": 13.925743130903
                       },
                       {
-                          "label": "H",
-                          "value": 5.1387322875705
+                          "x": "H",
+                          "y": 5.1387322875705
                       }
                   ]
               }
@@ -210,37 +210,5 @@ function quarryChart() {
                 ]
             },
         ];
-
-
-
-        return stream_layers(3, 50 + Math.random() * 50, .1).map(function (data, i) {
-            return {
-                key: 'Stream' + i,
-                values: data
-            };
-        });
-    }
-
-    function stream_layers(n, m, o) {
-        if (arguments.length < 3) o = 0;
-        function bump(a) {
-            var x = 1 / (.1 + Math.random()),
-                y = 2 * Math.random() - .5,
-                z = 10 / (.1 + Math.random());
-            for (var i = 0; i < m; i++) {
-                var w = (i / m - y) * z;
-                a[i] += x * Math.exp(-w * w);
-            }
-        }
-        return d3.range(n).map(function () {
-            var a = [], i;
-            for (i = 0; i < m; i++) a[i] = o + o * Math.random();
-            for (i = 0; i < 5; i++) bump(a);
-            return a.map(stream_index);
-        });
-    }
-
-    function stream_index(d, i) {
-        return { x: i, y: Math.max(0, d) };
     }
 }

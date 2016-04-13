@@ -23,8 +23,8 @@ namespace MegaMine.Modules.Quarry.Mapping
             Mapper.CreateMap<ProductSummaryEntity, ProductSummaryModel>();
 
             //Widget Mapping
-            Mapper.CreateMap<QuarryMaterialCountEntity, PieChartModel>(MemberList.Destination)
-                .ForMember(dest => dest.Key, opts => opts.MapFrom(src => src.QuarryName))
+            Mapper.CreateMap<QuarryMaterialCountEntity, ChartXYModel>(MemberList.Destination)
+                .ForMember(dest => dest.X, opts => opts.MapFrom(src => src.QuarryName))
                 .ForMember(dest => dest.Y, opts => opts.MapFrom(src => src.MaterialCount));
         }
     }

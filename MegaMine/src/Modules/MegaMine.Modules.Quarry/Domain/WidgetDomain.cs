@@ -24,7 +24,7 @@ namespace MegaMine.Modules.Quarry.Domain
             return null;
         }
 
-        public async Task<List<PieChartModel>> QuarryCounts()
+        public async Task<PieChartModel> QuarryCounts()
         {
             return await widgetRepository.QuarryMaterialCounts();
         }

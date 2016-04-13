@@ -19,10 +19,13 @@ namespace MegaMine.Modules.Quarry.Repositories
 
         public int QuarryMaterialCountWidget { get; private set; }
 
-        public async Task<List<PieChartModel>> QuarryMaterialCounts()
+        public async Task<PieChartModel> QuarryMaterialCounts()
         {
-            return await dbContext.Set<QuarryMaterialCountEntity>().FromSql("quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", context.CompanyId)
-                                    .Select(m => Mapper.Map<QuarryMaterialCountEntity, PieChartModel>(m)).ToListAsync();
+            return new PieChartModel()
+            {
+                XY = await dbContext.Set<QuarryMaterialCountEntity>().FromSql("quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", context.CompanyId)
+                                    .Select(m => Mapper.Map<QuarryMaterialCountEntity, ChartXYModel>(m)).ToListAsync()
+            };
         }
     }
 }
