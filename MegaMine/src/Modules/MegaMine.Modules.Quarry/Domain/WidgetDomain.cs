@@ -19,14 +19,27 @@ namespace MegaMine.Modules.Quarry.Domain
             switch (widgetId)
             {
                 case 2:
-                    return await QuarryCounts();
+                    return await QuarryMaterialCounts();
+                case 3:
+                    return await QuarryProductTypeMaterialCounts();
             }
             return null;
         }
 
-        public async Task<PieChartModel> QuarryCounts()
+        public async Task<PieChartModel> QuarryMaterialCounts()
         {
             return await widgetRepository.QuarryMaterialCounts();
+        }
+
+        public async Task<MultiBarChartModel> QuarryProductTypeMaterialCounts()
+        {
+            MultiBarChartModel model = new MultiBarChartModel();
+            model.Bars = await widgetRepository.QuarryProductTypeMaterialCounts();
+
+            model.XAxisLabel = "Top Quarries";
+            model.YAxisLabel = "Blocks";
+
+            return model;
         }
     }
 }

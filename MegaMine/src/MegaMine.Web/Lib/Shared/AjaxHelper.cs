@@ -108,7 +108,7 @@ namespace MegaMine.Web.Lib.Shared
                 DashboardModel dashboard = await widgetDomain.DashboardGet(dashboardPageId.Value);
                 foreach(WidgetModel widget in dashboard.Widgets)
                 {
-                    widget.Chart.Data = await widgetData(widget.WidgetId);
+                    widget.Chart.Model = await widgetData(widget.WidgetId);
                 }
                 //await widgetData(1);
                 return dashboard;

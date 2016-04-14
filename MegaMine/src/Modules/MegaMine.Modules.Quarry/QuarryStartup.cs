@@ -22,6 +22,7 @@ namespace MegaMine.Modules.Quarry
         public override void ConfigureMapping(IConfiguration config)
         {
             config.AddProfile<QuarryMappingProfile>();
+            config.AddProfile<WidgetMappingProfile>();
         }
     }
 }

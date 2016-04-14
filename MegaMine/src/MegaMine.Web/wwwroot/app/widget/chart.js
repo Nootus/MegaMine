@@ -1,12 +1,11 @@
 ﻿'use strict'
 
-angular.module('megamine').factory('chartOptions', chartOptions);
+angular.module('megamine').factory('chart', chart);
 
-chartOptions.$inject = [];
+chart.$inject = [];
 
-function chartOptions() {
+function chart() {
     var vm = {
-        get: get,
         set: set
     }
 
@@ -14,28 +13,28 @@ function chartOptions() {
 
     function set(widgets) {
         angular.forEach(widgets, function (item) {
-            item.chart.options = get(item.chart.type);
+            switch (item.chart.type) {
+                case 'DiscreteBarChart':
+                    item.chart.options = discreteBarChart();
+                    break;
+                case 'PieChart':
+                    item.chart.options = pieChart();
+                    item.chart.data = item.chart.model.values;
+                    break;
+                case 'LineChart':
+                    item.chart.options = lineChart();
+                    break;
+                case 'StackedAreaChart':
+                    item.chart.options = stackedAreaChart();
+                    break;
+                case 'MultiBarChart':
+                    item.chart.options = multiBarChart();
+                    item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
+                    item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
+                    item.chart.data = item.chart.model.bars;
+                    break;
+            }
         });
-    }
-
-    function get(chartType) {
-        switch (chartType) {
-            case 'DiscreteBarChart':
-                return discreteBarChart();
-                break;
-            case 'PieChart':
-                return pieChart();
-                break;
-            case 'LineChart':
-                return lineChart();
-                break;
-            case 'StackedAreaChart':
-                return stackedAreaChart();
-                break;
-            case 'MultiBarChart':
-                return multiBarChart();
-                break;
-        }
     }
 
     function discreteBarChart() {
@@ -175,7 +174,7 @@ function chartOptions() {
                 },
                 "clipEdge": true,
                 "duration": 500,
-                "stacked": true,
+                "stacked": false,
                 "xAxis": {
                     "axisLabel": "Time (ms)",
                     "showMaxMin": false

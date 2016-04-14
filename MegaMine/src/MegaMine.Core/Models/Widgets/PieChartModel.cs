@@ -7,6 +7,6 @@ namespace MegaMine.Core.Models.Widgets
 {
     public class PieChartModel
     {
-        public List<ChartXYModel> XY { get; set; }
+        public List<ChartXYModel> Values { get; set; }
     }
 }

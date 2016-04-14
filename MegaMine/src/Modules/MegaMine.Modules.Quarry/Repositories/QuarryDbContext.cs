@@ -18,6 +18,7 @@ namespace MegaMine.Modules.Quarry.Repositories
 
         //Widgets
         public DbSet<QuarryMaterialCountEntity> QuarryMaterialCounts { get; set; }
+        public DbSet<QuarryProductTypeMaterialCountEntity> QuarryProductTypeMaterialCounts { get; set; }
 
     }
 }

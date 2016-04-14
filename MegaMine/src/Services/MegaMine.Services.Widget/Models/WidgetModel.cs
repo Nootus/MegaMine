@@ -12,6 +12,6 @@ namespace MegaMine.Services.Widget.Models
         public string Claim { get; set; }
         public int SizeX { get; set; }
         public int SizeY { get; set; }
-        public ChartTypeModel Chart { get; set; }
+        public ChartModel Chart { get; set; }
     }
 }

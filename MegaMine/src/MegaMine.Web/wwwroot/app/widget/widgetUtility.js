@@ -2,9 +2,9 @@
 
 angular.module('megamine').factory('widgetUtility', widgetUtility);
 
-widgetUtility.$inject = ['chartOptions'];
+widgetUtility.$inject = ['chart'];
 
-function widgetUtility(chartOptions) {
+function widgetUtility(chart) {
     var vm = {
         initialize: initialize
     }
@@ -15,6 +15,6 @@ function widgetUtility(chartOptions) {
         dashboard.widgets = service.widgets;
         dashboard.pageWidgets = service.pageWidgets;
         //setting the chart options based on the chart type
-        chartOptions.set(dashboard.widgets);
+        chart.set(dashboard.widgets);
     }
 }

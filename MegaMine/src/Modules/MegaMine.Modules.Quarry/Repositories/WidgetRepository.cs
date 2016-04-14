@@ -17,15 +17,41 @@ namespace MegaMine.Modules.Quarry.Repositories
             this.dbContext = dbContext;
         }
 
-        public int QuarryMaterialCountWidget { get; private set; }
-
         public async Task<PieChartModel> QuarryMaterialCounts()
         {
             return new PieChartModel()
             {
-                XY = await dbContext.Set<QuarryMaterialCountEntity>().FromSql("quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", context.CompanyId)
+                Values = await dbContext.Set<QuarryMaterialCountEntity>().FromSql("quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", context.CompanyId)
                                     .Select(m => Mapper.Map<QuarryMaterialCountEntity, ChartXYModel>(m)).ToListAsync()
             };
+        }
+
+        public async Task<List<BarChartModel>> QuarryProductTypeMaterialCounts()
+        {
+            List<QuarryProductTypeMaterialCountEntity> data = await dbContext.Set<QuarryProductTypeMaterialCountEntity>().FromSql("quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", context.CompanyId)
+                                    .Select(m => m).ToListAsync();
+
+            Dictionary<string, BarChartModel> dict = new Dictionary<string, BarChartModel>();
+
+
+            foreach(var entity in data)
+            {
+                if(!dict.ContainsKey(entity.ProductTypeName))
+                {
+                    dict.Add(entity.ProductTypeName, new BarChartModel() { Key = entity.ProductTypeName, Values = new List<ChartXYModel>() });
+                }
+
+                dict[entity.ProductTypeName].Values.Add(
+                        new ChartXYModel()
+                        {
+                            X = entity.QuarryName,
+                            Y = entity.MaterialCount
+                        }
+                    );
+
+            }
+
+            return dict.Values.ToList();
         }
     }
 }
