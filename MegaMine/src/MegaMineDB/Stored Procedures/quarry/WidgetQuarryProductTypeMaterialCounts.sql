@@ -40,4 +40,4 @@ BEGIN
 	SET NOCOUNT OFF
 END
 go
-exec [quarry].[WidgetQuarryProductTypeMaterialCounts]  4;
+--exec [quarry].[WidgetQuarryProductTypeMaterialCounts]  4;

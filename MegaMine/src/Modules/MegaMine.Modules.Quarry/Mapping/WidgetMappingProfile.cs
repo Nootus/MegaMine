@@ -15,7 +15,7 @@ namespace MegaMine.Modules.Quarry.Mapping
         protected override void Configure()
         {
             //Quarry Materal Blocks
-            Mapper.CreateMap<QuarryMaterialCountEntity, ChartXYModel>(MemberList.Destination)
+            Mapper.CreateMap<QuarryMaterialCountEntity, ChartPointModel<string, int>>(MemberList.Destination)
                 .ForMember(dest => dest.X, opts => opts.MapFrom(src => src.QuarryName))
                 .ForMember(dest => dest.Y, opts => opts.MapFrom(src => src.MaterialCount));
 

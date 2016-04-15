@@ -1,4 +1,5 @@
 ﻿using MegaMine.Core.Models.Widgets;
+using MegaMine.Core.Widget;
 using MegaMine.Modules.Quarry.Repositories;
 using System;
 using System.Collections.Generic;
@@ -18,6 +19,8 @@ namespace MegaMine.Modules.Quarry.Domain
         {
             switch (widgetId)
             {
+                case 1:
+                    return await QuarryProductTypeMaterialCounts();
                 case 2:
                     return await QuarryMaterialCounts();
                 case 3:
@@ -26,20 +29,14 @@ namespace MegaMine.Modules.Quarry.Domain
             return null;
         }
 
-        public async Task<PieChartModel> QuarryMaterialCounts()
+        public async Task<ChartDataModel<string, int>> QuarryMaterialCounts()
         {
             return await widgetRepository.QuarryMaterialCounts();
         }
 
-        public async Task<MultiBarChartModel> QuarryProductTypeMaterialCounts()
+        public async Task<ChartModel<string, int>> QuarryProductTypeMaterialCounts()
         {
-            MultiBarChartModel model = new MultiBarChartModel();
-            model.Bars = await widgetRepository.QuarryProductTypeMaterialCounts();
-
-            model.XAxisLabel = "Top Quarries";
-            model.YAxisLabel = "Blocks";
-
-            return model;
+            return ChartFactory.CreateChartModel(await widgetRepository.QuarryProductTypeMaterialCounts(), "Top Quarries", "Blocks");
         }
     }
 }

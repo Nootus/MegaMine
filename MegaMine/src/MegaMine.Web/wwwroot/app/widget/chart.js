@@ -23,6 +23,9 @@ function chart() {
                     break;
                 case 'LineChart':
                     item.chart.options = lineChart();
+                    item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
+                    item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
+                    item.chart.data = item.chart.model.data;
                     break;
                 case 'StackedAreaChart':
                     item.chart.options = stackedAreaChart();
@@ -31,7 +34,7 @@ function chart() {
                     item.chart.options = multiBarChart();
                     item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
                     item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
-                    item.chart.data = item.chart.model.bars;
+                    item.chart.data = item.chart.model.data;
                     break;
             }
         });

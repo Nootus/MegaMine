@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using MegaMine.Core.Models.Widgets;
 using MegaMine.Core.Repositories;
+using MegaMine.Core.Utilities;
 using MegaMine.Modules.Quarry.Entities.Widget;
 using Microsoft.Data.Entity;
 using System;
@@ -17,41 +18,22 @@ namespace MegaMine.Modules.Quarry.Repositories
             this.dbContext = dbContext;
         }
 
-        public async Task<PieChartModel> QuarryMaterialCounts()
+        public async Task<ChartDataModel<string, int>> QuarryMaterialCounts()
         {
-            return new PieChartModel()
+            return new ChartDataModel<string, int>()
             {
                 Values = await dbContext.Set<QuarryMaterialCountEntity>().FromSql("quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", context.CompanyId)
-                                    .Select(m => Mapper.Map<QuarryMaterialCountEntity, ChartXYModel>(m)).ToListAsync()
+                                    .Select(m => Mapper.Map<QuarryMaterialCountEntity, ChartPointModel<string, int>>(m)).ToListAsync()
             };
         }
 
-        public async Task<List<BarChartModel>> QuarryProductTypeMaterialCounts()
+        public async Task<List<ChartDataModel<string, int>>> QuarryProductTypeMaterialCounts()
         {
             List<QuarryProductTypeMaterialCountEntity> data = await dbContext.Set<QuarryProductTypeMaterialCountEntity>().FromSql("quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", context.CompanyId)
                                     .Select(m => m).ToListAsync();
 
-            Dictionary<string, BarChartModel> dict = new Dictionary<string, BarChartModel>();
+            return WidgetUtility.MapChartData<QuarryProductTypeMaterialCountEntity, string, int>(data, "ProductTypeName", "QuarryName", "MaterialCount");
 
-
-            foreach(var entity in data)
-            {
-                if(!dict.ContainsKey(entity.ProductTypeName))
-                {
-                    dict.Add(entity.ProductTypeName, new BarChartModel() { Key = entity.ProductTypeName, Values = new List<ChartXYModel>() });
-                }
-
-                dict[entity.ProductTypeName].Values.Add(
-                        new ChartXYModel()
-                        {
-                            X = entity.QuarryName,
-                            Y = entity.MaterialCount
-                        }
-                    );
-
-            }
-
-            return dict.Values.ToList();
         }
     }
 }
