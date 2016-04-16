@@ -135,7 +135,7 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
             }
 
             var widgetItem = {
-                dashboardWidgetId: Math.random(),
+                dashboardPageWidgetId: Math.random(),
                 widgetId: dashboard.widgets[index].widgetId,
                 widgetOptions: {
                     col: undefined,
@@ -147,7 +147,7 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
 
             if (widget !== undefined) {
                 for (var current = 0; current < dashboard.pageWidgets.length; current++) {
-                    if (id == dashboard.pageWidgets[current].dashboardWidgetId)
+                    if (id == dashboard.pageWidgets[current].dashboardPageWidgetId)
                         break;
                 }
                 angular.extend(widgetItem.widgetOptions, dashboard.pageWidgets[current].widgetOptions);

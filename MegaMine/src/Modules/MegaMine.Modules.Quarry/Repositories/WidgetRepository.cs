@@ -35,5 +35,13 @@ namespace MegaMine.Modules.Quarry.Repositories
             return WidgetUtility.MapChartData<QuarryProductTypeMaterialCountEntity, string, int>(data, "ProductTypeName", "QuarryName", "MaterialCount");
 
         }
+        public async Task<List<ChartDataModel<string, int>>> QuarryColourMaterialCounts()
+        {
+            List<QuarryColourMaterialCountEntity> data = await dbContext.Set<QuarryColourMaterialCountEntity>().FromSql("quarry.WidgetQuarryColourMaterialCounts @CompanyId = {0}", context.CompanyId)
+                                    .Select(m => m).ToListAsync();
+
+            return WidgetUtility.MapChartData<QuarryColourMaterialCountEntity, string, int>(data, "ColourName", "QuarryName", "MaterialCount");
+
+        }
     }
 }

@@ -38,9 +38,9 @@ function ntWidget($timeout, utility) {
 
         scope.remove = function () {
             var index = 0;
-            var widgets = scope.widget.dashboard.widgets;
+            var widgets = scope.widget.dashboard.pageWidgets;
             for (var index = 0; index < widgets.length; index++) {
-                if (scope.id == widgets[index].dashboardWidgetId)
+                if (scope.id == widgets[index].dashboardPageWidgetId)
                     break;
             }
             widgets.splice(index, 1);

@@ -70,6 +70,7 @@
     <Build Include="Stored Procedures\quarry\GetQuarrySummary.sql" />
     <Build Include="Stored Procedures\quarry\WidgetQuarryMaterialCounts.sql" />
     <Build Include="Stored Procedures\quarry\WidgetQuarryProductTypeMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetQuarryColourMaterialCounts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\InitialMasterData.sql" />

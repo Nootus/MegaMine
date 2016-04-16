@@ -22,7 +22,7 @@ function chart() {
                     item.chart.data = item.chart.model.values;
                     break;
                 case 'LineChart':
-                    item.chart.options = lineChart();
+                    item.chart.options = lineChart('lineChart', item.chart.model.xAxisDataLabels);
                     item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
                     item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
                     item.chart.data = item.chart.model.data;
@@ -31,7 +31,7 @@ function chart() {
                     item.chart.options = stackedAreaChart();
                     break;
                 case 'MultiBarChart':
-                    item.chart.options = multiBarChart();
+                    item.chart.options = lineChart('multiBarChart', item.chart.model.xAxisDataLabels);
                     item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
                     item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
                     item.chart.data = item.chart.model.data;
@@ -90,12 +90,12 @@ function chart() {
         };
     }
 
-    function lineChart() {
+    function lineChart(chartType, xAxisDataLabels) {
         return {
             chart: {
-                type: 'lineChart',
+                type: chartType,
                 tooltip: {
-                    hideDelay: 0.01
+                    hideDelay: 0
                 },
                 margin: {
                     top: 40,
@@ -107,13 +107,16 @@ function chart() {
                 y: function (d) { return d.y; },
                 useInteractiveGuideline: true,
                 xAxis: {
-                    axisLabel: 'Time (ms)',
-                    axisLabelDistance: -5
+                    axisLabel: 'X Axis',
+                    axisLabelDistance: -5,
+                    tickFormat: function (d) {
+                        return xAxisDataLabels[d];
+                    }
                 },
                 yAxis: {
-                    axisLabel: 'Voltage (v)',
+                    axisLabel: 'Y Axis',
                     tickFormat: function (d) {
-                        return d3.format('.02f')(d);
+                        return d3.format('d')(d);
                     },
                     axisLabelDistance: -10
                 },
@@ -167,24 +170,27 @@ function chart() {
 
     function multiBarChart() {
         return {
-            "chart": {
-                "type": "multiBarChart",
-                "margin": {
-                    "top": 20,
-                    "right": 20,
-                    "bottom": 45,
-                    "left": 45
+            chart: {
+                type: 'multiBarChart',
+                margin: {
+                    top: 20,
+                    right: 20,
+                    bottom: 45,
+                    left: 45
                 },
-                "clipEdge": true,
-                "duration": 500,
-                "stacked": false,
-                "xAxis": {
-                    "axisLabel": "Time (ms)",
-                    "showMaxMin": false
+                clipEdge: true,
+                duration: 500,
+                stacked: true,
+                xAxis: {
+                    axisLabel: 'X Axis',
+                    showMaxMin: false
                 },
-                "yAxis": {
-                    "axisLabel": "Y Axis",
-                    "axisLabelDistance": -20
+                yAxis: {
+                    axisLabel: 'Y Axis',
+                    axisLabelDistance: -20,
+                    tickFormat: function (d) {
+                        return d3.format('d')(d);
+                    },
                 }
             }
         }

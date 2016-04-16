@@ -12,7 +12,7 @@ function ntGridster($timeout) {
         template: '<div gridster="gridsterOptions">'
                     + '<ul class="with-3d-shadow with-transitions">'
                         + '<li class="widget" gridster-item="item.widgetOptions" ng-repeat="item in widgets">'
-                            + '<nt-widget id="{{item.dashboardWidgetId}}" widget="item.widget"></nt-nvd3>'
+                            + '<nt-widget id="{{item.dashboardPageWidgetId}}" widget="item.widget"></nt-nvd3>'
                         + '</li>'
                     + '</ul>'
                 + '</div>'

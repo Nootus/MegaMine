@@ -20,7 +20,7 @@ namespace MegaMine.Modules.Quarry.Domain
             switch (widgetId)
             {
                 case 1:
-                    return await QuarryProductTypeMaterialCounts();
+                    return await QuarryColourMaterialCounts();
                 case 2:
                     return await QuarryMaterialCounts();
                 case 3:
@@ -36,7 +36,11 @@ namespace MegaMine.Modules.Quarry.Domain
 
         public async Task<ChartModel<string, int>> QuarryProductTypeMaterialCounts()
         {
-            return ChartFactory.CreateChartModel(await widgetRepository.QuarryProductTypeMaterialCounts(), "Top Quarries", "Blocks");
+            return ChartFactory.CreateMultiChart(await widgetRepository.QuarryProductTypeMaterialCounts(), "Top Quarries", "Blocks");
+        }
+        public async Task<ChartModel<string, int>> QuarryColourMaterialCounts()
+        {
+            return ChartFactory.CreateMultiChart(await widgetRepository.QuarryColourMaterialCounts(), "Top Quarries", "Blocks");
         }
     }
 }
