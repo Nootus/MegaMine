@@ -1,4 +1,4 @@
-﻿namespace MegaMine.Core.Models.Widgets
+﻿namespace MegaMine.Core.Widgets
 {
     public class ChartPointModel<Tx, Ty>
     {

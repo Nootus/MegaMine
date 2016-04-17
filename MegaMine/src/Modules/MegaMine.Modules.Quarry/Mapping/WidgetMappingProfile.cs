@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
-using MegaMine.Core.Models.Widgets;
+using MegaMine.Core.Widgets;
 using MegaMine.Modules.Quarry.Entities.Widget;
-using System.Collections.Generic;
 
 namespace MegaMine.Modules.Quarry.Mapping
 {

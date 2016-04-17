@@ -15,11 +15,14 @@ function chart() {
         angular.forEach(widgets, function (item) {
             switch (item.chart.type) {
                 case 'DiscreteBarChart':
-                    item.chart.options = discreteBarChart();
+                    item.chart.options = lineChart('discreteBarChart', item.chart.model.xAxisDataLabels);
+                    item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
+                    item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
+                    item.chart.data = item.chart.model.data;
                     break;
                 case 'PieChart':
-                    item.chart.options = pieChart();
-                    item.chart.data = item.chart.model.values;
+                    item.chart.options = pieChart(item.chart.model.xAxisDataLabels);
+                    item.chart.data = item.chart.model.data[0].values;
                     break;
                 case 'LineChart':
                     item.chart.options = lineChart('lineChart', item.chart.model.xAxisDataLabels);
@@ -69,17 +72,23 @@ function chart() {
         };
     }
 
-    function pieChart() {
+    function pieChart(xAxisDataLabels) {
         return {
             chart: {
                 type: 'pieChart',
+                tooltip: {
+                    hideDelay: 0,
+                    valueFormatter: function (d) {
+                        return d3.format('d')(d);
+                    }
+                },
                 margin: {
                     top: 30,
                     right: 0,
                     bottom: 0,
                     left: 0
                 },
-                x: function (d) { return d.x; },
+                x: function (d) { return xAxisDataLabels[d.x]; },
                 y: function (d) { return d.y; },
                 showLabels: true,
                 duration: 500,

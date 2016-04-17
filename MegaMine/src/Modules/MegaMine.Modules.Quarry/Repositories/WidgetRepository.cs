@@ -1,11 +1,8 @@
 ﻿using AutoMapper;
-using MegaMine.Core.Models.Widgets;
 using MegaMine.Core.Repositories;
-using MegaMine.Core.Utilities;
+using MegaMine.Core.Widgets;
 using MegaMine.Modules.Quarry.Entities.Widget;
 using Microsoft.Data.Entity;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -27,21 +24,5 @@ namespace MegaMine.Modules.Quarry.Repositories
             };
         }
 
-        public async Task<List<ChartDataModel<string, int>>> QuarryProductTypeMaterialCounts()
-        {
-            List<QuarryProductTypeMaterialCountEntity> data = await dbContext.Set<QuarryProductTypeMaterialCountEntity>().FromSql("quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", context.CompanyId)
-                                    .Select(m => m).ToListAsync();
-
-            return WidgetUtility.MapChartData<QuarryProductTypeMaterialCountEntity, string, int>(data, "ProductTypeName", "QuarryName", "MaterialCount");
-
-        }
-        public async Task<List<ChartDataModel<string, int>>> QuarryColourMaterialCounts()
-        {
-            List<QuarryColourMaterialCountEntity> data = await dbContext.Set<QuarryColourMaterialCountEntity>().FromSql("quarry.WidgetQuarryColourMaterialCounts @CompanyId = {0}", context.CompanyId)
-                                    .Select(m => m).ToListAsync();
-
-            return WidgetUtility.MapChartData<QuarryColourMaterialCountEntity, string, int>(data, "ColourName", "QuarryName", "MaterialCount");
-
-        }
     }
 }

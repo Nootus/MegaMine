@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace MegaMine.Core.Models.Widgets
+namespace MegaMine.Core.Widgets
 {
     public class ChartModel<Tx, Ty>
     {

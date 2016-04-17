@@ -1,9 +1,5 @@
-﻿using MegaMine.Core.Models.Widgets;
-using MegaMine.Core.Widget;
+﻿using MegaMine.Core.Widgets;
 using MegaMine.Modules.Quarry.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MegaMine.Modules.Quarry.Domain
@@ -20,11 +16,11 @@ namespace MegaMine.Modules.Quarry.Domain
             switch (widgetId)
             {
                 case 1:
-                    return await QuarryColourMaterialCounts();
+                    return await ChartFactory.Create<string, int>(widgetRepository.DbContext, "quarry.WidgetQuarryColourMaterialCounts @CompanyId = {0}", widgetRepository.AppContext.CompanyId);
                 case 2:
-                    return await QuarryMaterialCounts();
+                    return await ChartFactory.Create<string, int>(widgetRepository.DbContext, "quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", widgetRepository.AppContext.CompanyId);
                 case 3:
-                    return await QuarryProductTypeMaterialCounts();
+                    return await ChartFactory.Create<string, int>(widgetRepository.DbContext, "quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", widgetRepository.AppContext.CompanyId); 
             }
             return null;
         }
@@ -32,15 +28,6 @@ namespace MegaMine.Modules.Quarry.Domain
         public async Task<ChartDataModel<string, int>> QuarryMaterialCounts()
         {
             return await widgetRepository.QuarryMaterialCounts();
-        }
-
-        public async Task<ChartModel<string, int>> QuarryProductTypeMaterialCounts()
-        {
-            return ChartFactory.CreateMultiChart(await widgetRepository.QuarryProductTypeMaterialCounts(), "Top Quarries", "Blocks");
-        }
-        public async Task<ChartModel<string, int>> QuarryColourMaterialCounts()
-        {
-            return ChartFactory.CreateMultiChart(await widgetRepository.QuarryColourMaterialCounts(), "Top Quarries", "Blocks");
         }
     }
 }

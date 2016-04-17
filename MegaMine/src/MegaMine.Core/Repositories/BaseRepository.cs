@@ -22,6 +22,16 @@ namespace MegaMine.Core.Repositories
             context = NTContext.Context;
         }
 
+        public T DbContext
+        {
+            get { return dbContext; }
+        }
+
+        public NTContextModel AppContext
+        {
+            get { return context; }
+        }
+
         protected async Task<TEntity> SaveEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : BaseEntity
         {
             //checking for add or update
