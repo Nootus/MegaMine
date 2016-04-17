@@ -9,13 +9,13 @@ namespace MegaMine.Core.Widgets
 {
     public static class ChartFactory
     {
-        public static async Task<MultiChartModel<Tx, Ty>> Create<Tx, Ty>(BaseDbContext dbContext, string sql, params object[] parameters)
+        public static async Task<MultiChartModel<Tx, Ty>> Create<Tx, Ty>(WidgetOptions options, BaseDbContext dbContext, string sql, params object[] parameters)
         {
             List<ChartEntity<Tx, Ty>> data = await dbContext.Set<ChartEntity<Tx, Ty>>().FromSql(sql, parameters)
                                     .Select(m => m).ToListAsync();
 
 
-            return CreateMultiChartModel<Tx, Ty>(data, "Top Quarries", "Blocks");
+            return CreateMultiChartModel<Tx, Ty>(data, options.XAxisLabel, options.YAxisLabel);
         }
 
         private static MultiChartModel<Tx, Ty> CreateMultiChartModel<Tx, Ty>(List<ChartEntity<Tx, Ty>> data, string xAxisLabel, string yAxisLabel)

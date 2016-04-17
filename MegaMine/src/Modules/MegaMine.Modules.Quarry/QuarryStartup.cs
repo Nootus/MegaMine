@@ -16,13 +16,11 @@ namespace MegaMine.Modules.Quarry
             services.AddTransient<QuarryRepository>();
 
             services.AddTransient<WidgetDomain>();
-            services.AddTransient<WidgetRepository>();
         }
 
         public override void ConfigureMapping(IConfiguration config)
         {
             config.AddProfile<QuarryMappingProfile>();
-            config.AddProfile<WidgetMappingProfile>();
         }
     }
 }

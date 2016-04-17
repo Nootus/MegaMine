@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarry', quarry)
-quarry.$inject = ['quarryService', 'quarryChart', 'gridUtility', 'widgetUtility', 'utility', 'constants', 'dialogService', 'template'];
+quarry.$inject = ['quarryService', 'gridUtility', 'widgetUtility', 'utility', 'constants', 'dialogService', 'template'];
 
-function quarry(quarryService, quarryChart, gridUtility, widgetUtility, utility, constants, dialogService, template) {
+function quarry(quarryService, gridUtility, widgetUtility, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -42,11 +42,6 @@ function quarry(quarryService, quarryChart, gridUtility, widgetUtility, utility,
     function init() {
         gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.quarries.list);
         widgetUtility.initialize(vm.dashboard, quarryService.quarries.dashboard);
-
-        //vm.dashboard.widgets[0].chart.data = quarryChart.lineChart.data();
-        //vm.dashboard.widgets[1].chart.data = quarryChart.pieChart.data();
-        //vm.dashboard.widgets[2].chart.data = quarryChart.multiBarChart.data();
-        vm.dashboard.widgets[3].chart.data = quarryChart.stackedAreaChart.data();
     }
 
     function addQuarry(ev) {

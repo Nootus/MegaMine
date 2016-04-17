@@ -38,7 +38,7 @@ namespace MegaMine.Services.Widget.Repositories
 
         public async Task<List<PageWidgetModel>> PageWidgetsGet(int dashboardId)
         {
-            return await GetListAsync<DashboardPageWidgetEntity, PageWidgetModel, int>(where => where.DashboardId == dashboardId, order => order.DashboardPageWidgetId);
+            return (await GetListAsync<DashboardPageWidgetEntity, PageWidgetModel, int>(where => where.DashboardId == dashboardId, order => order.DashboardPageWidgetId)).OrderBy(o => o.WidgetOptions.Rows).ThenBy(o => o.WidgetOptions.Columns).ToList();
         }
     }
 }

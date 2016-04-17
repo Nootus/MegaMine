@@ -13,6 +13,8 @@ namespace MegaMine.Services.Widget.Entities
         public string Claim{ get; set; }
         public int SizeX { get; set; }
         public int SizeY { get; set; }
+        public string XAxisLabel { get; set; }
+        public string YAxisLabel { get; set; }
         public int ChartTypeId { get; set; }
 
         [ForeignKey("ChartTypeId")]

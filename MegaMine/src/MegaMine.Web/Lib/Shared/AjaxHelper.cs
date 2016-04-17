@@ -1,5 +1,6 @@
 ﻿using MegaMine.Core.Context;
 using MegaMine.Core.Exception;
+using MegaMine.Core.Widgets;
 using MegaMine.Services.Widget.Domain;
 using MegaMine.Services.Widget.Models;
 using MegaMine.Web.Models.Shared;
@@ -99,7 +100,7 @@ namespace MegaMine.Web.Lib.Shared
             return await GetAsync(action, message);
         }
 
-        public static async Task<DashboardModel> DashboardGet(Func<int, Task<object>> widgetData)
+        public static async Task<DashboardModel> DashboardGet(Func<int, WidgetOptions, Task<object>> widgetData)
         {
             int? dashboardPageId = NTContext.Context.DashboardPageId;
             if (dashboardPageId != null)
@@ -108,9 +109,13 @@ namespace MegaMine.Web.Lib.Shared
                 DashboardModel dashboard = await widgetDomain.DashboardGet(dashboardPageId.Value);
                 foreach(WidgetModel widget in dashboard.Widgets)
                 {
-                    widget.Chart.Model = await widgetData(widget.WidgetId);
+                    WidgetOptions options = new WidgetOptions()
+                    {
+                        XAxisLabel = widget.XAxisLabel,
+                        YAxisLabel = widget.YAxisLabel
+                    };
+                    widget.Chart.Model = await widgetData(widget.WidgetId, options);
                 }
-                //await widgetData(1);
                 return dashboard;
             }
             else

@@ -6,28 +6,23 @@ namespace MegaMine.Modules.Quarry.Domain
 {
     public class WidgetDomain
     {
-        private WidgetRepository widgetRepository;
-        public WidgetDomain(WidgetRepository widgetRepository)
+        private QuarryRepository quarryRepository;
+        public WidgetDomain(QuarryRepository quarryRepository)
         {
-            this.widgetRepository = widgetRepository;
+            this.quarryRepository = quarryRepository;
         }
-        public async Task<object> GetWidgetData(int widgetId)
+        public async Task<object> GetWidgetData(int widgetId, WidgetOptions options)
         {
             switch (widgetId)
             {
                 case 1:
-                    return await ChartFactory.Create<string, int>(widgetRepository.DbContext, "quarry.WidgetQuarryColourMaterialCounts @CompanyId = {0}", widgetRepository.AppContext.CompanyId);
+                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryColourMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
                 case 2:
-                    return await ChartFactory.Create<string, int>(widgetRepository.DbContext, "quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", widgetRepository.AppContext.CompanyId);
+                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
                 case 3:
-                    return await ChartFactory.Create<string, int>(widgetRepository.DbContext, "quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", widgetRepository.AppContext.CompanyId); 
+                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId); 
             }
             return null;
-        }
-
-        public async Task<ChartDataModel<string, int>> QuarryMaterialCounts()
-        {
-            return await widgetRepository.QuarryMaterialCounts();
         }
     }
 }
