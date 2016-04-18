@@ -1,9 +1,4 @@
-﻿<nt-dashobard flex vm="vm" list-items="vm.productTypes" list-fields="['productTypeName', 'productTypeDescription']" primary-field="productTypeId"
-                 header="Product Types" button-type="command-bar" button-tool-tip="New Product Type" button-text="New"
-                 button-click="vm.addProductType($event)" claim="Quarry:ProductTypeAdd">
-    Charts
-</nt-dashobard>
-
+﻿<nt-dashobard flex dashboard="vm.dashboard"></nt-dashobard>
 <script type="text/ng-template" id="product_type_dialog">
     <md-dialog aria-label="Product Type" class="dialog">
         <nt-dialog form="productTypeForm" title="Product Type">

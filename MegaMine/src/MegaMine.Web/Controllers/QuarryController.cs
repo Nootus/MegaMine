@@ -50,7 +50,9 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<ProductTypeModel>>> ProductTypesGet()
         {
-            return await AjaxHelper.GetAsync(m => domain.ProductTypesGet());
+            var ajaxModel = await AjaxHelper.GetAsync(m => domain.ProductTypesGet());
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
         }
 
         [HttpPost]

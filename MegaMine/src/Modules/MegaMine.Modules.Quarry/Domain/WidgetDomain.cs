@@ -16,11 +16,11 @@ namespace MegaMine.Modules.Quarry.Domain
             switch (widgetId)
             {
                 case 1:
-                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryColourMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
-                case 2:
                     return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                case 2:
+                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
                 case 3:
-                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId); 
+                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryMaterialColourMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
             }
             return null;
         }

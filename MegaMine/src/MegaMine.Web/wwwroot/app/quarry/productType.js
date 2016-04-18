@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('productType', productType)
-productType.$inject = ['$scope', 'quarryService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template', 'message'];
+productType.$inject = ['quarryService', 'gridUtility', 'widgetUtility', 'utility', 'constants', 'dialogService', 'template', 'message'];
 
-function productType($scope, quarryService, gridUtility, utility, constants, dialogService, template, message) {
+function productType(quarryService, gridUtility, widgetUtility, utility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -14,29 +14,46 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
                 ]
     };
 
-
     var vm = {
-        gridOptions: gridOptions,
-        viewDialog: viewDialog,
-        addProductType: addProductType,
-        validateFormulaOrder: validateFormulaOrder,
-        productTypes: quarryService.productTypes,
-        refresh: refresh
-};
+        dashboard: {
+            header: 'Product Types',
+            options: {
+                gridOptions: gridOptions,
+                listOptions: {
+                    data: quarryService.productTypes.list,
+                    fields: ['productTypeName', 'productTypeDescription', 'formulaString'],
+                    primaryField: 'productTypeId'
+                },
+                addOptions: {
+                    text: 'New',
+                    toolTip: 'New Product Type',
+                    claim: 'Quarry:ProductTypeAdd',
+                    add: addProductType,
+                    view: viewDialog
+                }
+            }
+        }
+    };
+
+//    var vm = {
+//        gridOptions: gridOptions,
+//        viewDialog: viewDialog,
+//        addProductType: addProductType,
+//        validateFormulaOrder: validateFormulaOrder,
+//        productTypes: quarryService.productTypes,
+//        refresh: refresh
+//};
 
     init();
 
     return vm;
 
     function init() {
-        angular.forEach(quarryService.productTypes, function (item) {
+        angular.forEach(quarryService.productTypes.list, function (item) {
             initializeModel(item);
         });
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.productTypes);
-    }
-
-    function refresh() {
-        return quarryService.getProductTypes();
+        gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.productTypes.list);
+        widgetUtility.initialize(vm.dashboard, quarryService.productTypes.dashboard);
     }
 
     function initializeModel(model) {

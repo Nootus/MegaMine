@@ -70,7 +70,10 @@
     <Build Include="Stored Procedures\quarry\GetQuarrySummary.sql" />
     <Build Include="Stored Procedures\quarry\WidgetQuarryMaterialCounts.sql" />
     <Build Include="Stored Procedures\quarry\WidgetQuarryProductTypeMaterialCounts.sql" />
-    <Build Include="Stored Procedures\quarry\WidgetQuarryColourMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetQuarryMaterialColourMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetProductTypeMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetProductTypeQuarryMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetProductTypeColourMaterialCounts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\InitialMasterData.sql" />

@@ -14,7 +14,7 @@ function quarryService($http, utility) {
         deleteMaterialColour: deleteMaterialColour,
 
         //product types
-        productTypes: [],
+        productTypes: { list: [], dashboard: {}},
         getProductTypes: getProductTypes,
         saveProductType: saveProductType,
         deleteProductType: deleteProductType,
@@ -93,9 +93,8 @@ function quarryService($http, utility) {
     function getProductTypes() {
         return $http.get("/api/quarry/producttypesget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
-                service.productTypes.splice(0, service.productTypes.length);
-                angular.extend(service.productTypes, data);
+                utility.extend(service.productTypes.list, data.model);
+                angular.extend(service.productTypes.dashboard, data.dashboard);
             });
     }
 
@@ -119,7 +118,6 @@ function quarryService($http, utility) {
     function getQuarries() {
         return $http.get("/api/quarry/quarriesget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
                 utility.extend(service.quarries.list, data.model);
                 angular.extend(service.quarries.dashboard, data.dashboard);
             });
