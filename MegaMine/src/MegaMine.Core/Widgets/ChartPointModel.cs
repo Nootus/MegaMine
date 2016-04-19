@@ -4,5 +4,6 @@
     {
         public Tx X { get; set; }
         public Ty Y { get; set; }
+        public int Order { get; set; }
     }
 }

@@ -22,6 +22,7 @@ BEGIN
     SELECT Id = convert(varchar, ProductTypeId), [Key] = 'Pie', X = ProductTypeName, Y = MaterialCount, DisplayOrder = 0 FROM cte WHERE Seq BETWEEN 1 AND 5
     UNION ALL
     SELECT '0', [Key] = 'Pie', X = 'Others', Y = SUM(MaterialCount), DisplayOrder = 1 FROM cte WHERE Seq > 5
+	HAVING SUM(MaterialCount) IS NOT NULL
 	ORDER BY DisplayOrder, ProductTypeName
 
 	SET NOCOUNT OFF

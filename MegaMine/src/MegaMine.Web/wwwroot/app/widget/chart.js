@@ -39,9 +39,12 @@ function chart() {
             chart: {
                 type: chartType,
                 tooltip: {
-                    hideDelay: 0,
+                    hideDelay: 0.01,
                     valueFormatter: function (d) {
                         return d3.format('d')(d);
+                    },
+                    headerFormatter: function (d, i) {
+                        return 'header';
                     }
                 },
                 margin: {
@@ -55,6 +58,14 @@ function chart() {
                 useVoronoi: false,
                 clipEdge: true,
                 useInteractiveGuideline: true,
+                interactiveLayer: {
+                    tooltip: {
+                        hideDelay: 0.01,
+                        headerFormatter: function (d, i) {
+                            return xAxisDataLabels[d];
+                        }
+                    }
+                },
                 xAxis: {
                     axisLabel: 'X Axis',
                     showMaxMin: false,

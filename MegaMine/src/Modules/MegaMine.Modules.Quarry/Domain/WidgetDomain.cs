@@ -21,6 +21,12 @@ namespace MegaMine.Modules.Quarry.Domain
                     return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
                 case 3:
                     return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryMaterialColourMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                case 4:
+                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetProductTypeMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                case 5:
+                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetProductTypeQuarryMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                case 6:
+                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetProductTypeMaterialColourMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
             }
             return null;
         }

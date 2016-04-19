@@ -14,6 +14,8 @@ namespace MegaMine.Core.Widgets
             List<ChartEntity<Tx, Ty>> data = await dbContext.Set<ChartEntity<Tx, Ty>>().FromSql(sql, parameters)
                                     .Select(m => m).ToListAsync();
 
+            ////deleting null values
+            //data = data.Where(s => s.Y != null).Select(s => s).ToList();
 
             return CreateMultiChartModel<Tx, Ty>(data, options.XAxisLabel, options.YAxisLabel);
         }
@@ -37,19 +39,18 @@ namespace MegaMine.Core.Widgets
             foreach (var entity in data)
             {
                 string key = entity.Key;
-                Tx x = entity.X;
-                Ty y = entity.Y;
 
                 if (!dict.ContainsKey(key))
                 {
-                    dict.Add(key, new ChartDataModel<Tx, Ty>() { Key = key, Values = new List<ChartPointModel<Tx, Ty>>() });
+                    dict.Add(key, new ChartDataModel<Tx, Ty>() { Key = key, Order = entity.KeyOrder, Values = new List<ChartPointModel<Tx, Ty>>() });
                 }
 
                 dict[key].Values.Add(
                         new ChartPointModel<Tx, Ty>()
                         {
-                            X = x,
-                            Y = y
+                            X = entity.X,
+                            Y = entity.Y,
+                            Order = entity.XOrder
                         }
                     );
 
@@ -62,15 +63,19 @@ namespace MegaMine.Core.Widgets
         {
             //ensuring that all X exist in the data
             IEnumerable<Tx> xList = data.SelectMany(m => m.Values).Select(v => v.X).Distinct();
+            Ty defaultValue = default(Ty);
+            
+
             foreach (var item in data)
             {
                 IEnumerable<Tx> missing = xList.Except(item.Values.Select(v => v.X));
                 //adding the missing
                 foreach (var missValue in missing)
                 {
-                    item.Values.Add(new ChartPointModel<Tx, Ty>() { X = missValue, Y = default(Ty) });
+                    item.Values.Add(new ChartPointModel<Tx, Ty>() { X = missValue, Y = defaultValue });
                 }
-                item.Values = item.Values.OrderBy(o => o.X).ToList();
+                item.Values = item.Values.OrderBy(o => o.Order).ThenBy(o => o.X).ToList();
+                //item.Values = item.Values.OrderBy(o => o.X).ToList();
             }
 
             model.Data = data;

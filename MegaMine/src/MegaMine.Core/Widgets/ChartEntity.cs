@@ -9,5 +9,7 @@ namespace MegaMine.Core.Widgets
         public string Key { get; set; }
         public Tx X { get; set; }
         public Ty Y { get; set; }
+        public int KeyOrder { get; set; }
+        public int XOrder { get; set; }
     }
 }
