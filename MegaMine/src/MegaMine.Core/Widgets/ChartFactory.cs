@@ -14,9 +14,6 @@ namespace MegaMine.Core.Widgets
             List<ChartEntity<Tx, Ty>> data = await dbContext.Set<ChartEntity<Tx, Ty>>().FromSql(sql, parameters)
                                     .Select(m => m).ToListAsync();
 
-            ////deleting null values
-            //data = data.Where(s => s.Y != null).Select(s => s).ToList();
-
             return CreateMultiChartModel<Tx, Ty>(data, options.XAxisLabel, options.YAxisLabel);
         }
 

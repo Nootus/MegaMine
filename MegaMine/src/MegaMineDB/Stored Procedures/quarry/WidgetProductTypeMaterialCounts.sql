@@ -12,16 +12,16 @@ BEGIN
 
     WITH cte AS (
       SELECT ROW_NUMBER() OVER (ORDER BY (COUNT(mat.MaterialId)) DESC) AS Seq, 
-        pt.ProductTypeId, pt.ProductTypeName, COUNT(mat.MaterialId) AS MaterialCount
+        pt.ProductTypeId, pt.ProductTypeName, COUNT(mat.MaterialId) AS MaterialCount, pt.DisplayOrder
       FROM quarry.Material mat
 		JOIN quarry.ProductType pt ON mat.ProductTypeId = pt.ProductTypeId
 	  WHERE mat.CompanyId = @CompanyID
 	    AND mat.DeletedInd = 0
-      GROUP BY pt.ProductTypeId, pt.ProductTypeName
+      GROUP BY pt.ProductTypeId, pt.ProductTypeName, pt.DisplayOrder
     )
-    SELECT Id = convert(varchar, ProductTypeId), [Key] = 'Pie', X = ProductTypeName, Y = MaterialCount, DisplayOrder = 0 FROM cte WHERE Seq BETWEEN 1 AND 5
+    SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Key', X = ProductTypeName, Y = MaterialCount, KeyOrder = 0, xOrder = DisplayOrder FROM cte WHERE Seq BETWEEN 1 AND 5
     UNION ALL
-    SELECT '0', [Key] = 'Pie', X = 'Others', Y = SUM(MaterialCount), DisplayOrder = 1 FROM cte WHERE Seq > 5
+    SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Key', X = 'Others', Y = SUM(MaterialCount), KeyOrder = 1, xOrder = 1000 FROM cte WHERE Seq > 5
 	HAVING SUM(MaterialCount) IS NOT NULL
 	ORDER BY DisplayOrder, ProductTypeName
 
