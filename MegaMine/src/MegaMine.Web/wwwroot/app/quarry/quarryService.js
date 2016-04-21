@@ -8,7 +8,7 @@ function quarryService($http, utility) {
 
     var service = {
         //colours
-        colours: [],
+        colours: { list: [], dashboard: {} },
         getMaterialColours: getMaterialColours,
         saveMaterialColour: saveMaterialColour,
         deleteMaterialColour: deleteMaterialColour,
@@ -67,9 +67,8 @@ function quarryService($http, utility) {
     function getMaterialColours() {
         return $http.get("/api/quarry/materialcoloursget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
-                service.colours.splice(0, service.colours.length);
-                angular.extend(service.colours, data);
+                utility.extend(service.colours.list, data.model);
+                angular.extend(service.colours.dashboard, data.dashboard);
             });
     }
 

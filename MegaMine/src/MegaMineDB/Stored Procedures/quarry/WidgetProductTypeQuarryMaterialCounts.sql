@@ -62,7 +62,7 @@ BEGIN
 	AND NOT EXISTS(SELECT 1 FROM @QuarryTop5 q5 WHERE q5.QuarryId = mat.QuarryId)
 	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0
 	HAVING COUNT(mat.MaterialId) > 0
-	ORDER BY KeyOrder, QuarryName, XOrder, ProductTypeName
+	ORDER BY KeyOrder, [Key], XOrder, X
 
 	SET NOCOUNT OFF
 END

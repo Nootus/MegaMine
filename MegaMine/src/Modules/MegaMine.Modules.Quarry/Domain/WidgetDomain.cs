@@ -13,22 +13,40 @@ namespace MegaMine.Modules.Quarry.Domain
         }
         public async Task<object> GetWidgetData(int widgetId, WidgetOptions options)
         {
+            string sql = null;
+            object[] parameters = new object[] { quarryRepository.AppContext.CompanyId };
+
             switch (widgetId)
             {
                 case 1:
-                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                    sql = "quarry.WidgetQuarryMaterialCounts @CompanyId = {0}";
+                    break;
                 case 2:
-                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                    sql = "quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}";
+                    break;
                 case 3:
-                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetQuarryMaterialColourMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                    sql = "quarry.WidgetQuarryMaterialColourMaterialCounts @CompanyId = {0}";
+                    break;
                 case 4:
-                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetProductTypeMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                    sql = "quarry.WidgetProductTypeMaterialCounts @CompanyId = {0}";
+                    break;
                 case 5:
-                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetProductTypeQuarryMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                    sql = "quarry.WidgetProductTypeQuarryMaterialCounts @CompanyId = {0}";
+                    break;
                 case 6:
-                    return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, "quarry.WidgetProductTypeMaterialColourMaterialCounts @CompanyId = {0}", quarryRepository.AppContext.CompanyId);
+                    sql = "quarry.WidgetProductTypeMaterialColourMaterialCounts @CompanyId = {0}";
+                    break;
+                case 7:
+                    sql = "quarry.WidgetMaterialColourMaterialCounts @CompanyId = {0}";
+                    break;
+                case 8:
+                    sql = "quarry.WidgetMaterialColourQuarryMaterialCounts @CompanyId = {0}";
+                    break;
+                case 9:
+                    sql = "quarry.WidgetMaterialColourProductTypeMaterialCounts @CompanyId = {0}";
+                    break;
             }
-            return null;
+            return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, sql, parameters);
         }
     }
 }

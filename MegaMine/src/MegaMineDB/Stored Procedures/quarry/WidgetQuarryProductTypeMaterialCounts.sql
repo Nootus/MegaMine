@@ -34,7 +34,7 @@ BEGIN
 	WHERE NOT EXISTS(SELECT 1 FROM @QuarryTop5 q5 WHERE q5.QuarryId = mat.QuarryId)
 	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0
 	GROUP BY mat.ProductTypeId, pt.ProductTypeName, pt.DisplayOrder
-	ORDER BY KeyOrder, ProductTypeName, XOrder, QuarryName
+	ORDER BY KeyOrder, [Key], XOrder, X
 
 
 	SET NOCOUNT OFF

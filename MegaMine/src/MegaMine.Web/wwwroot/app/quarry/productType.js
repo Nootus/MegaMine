@@ -35,15 +35,6 @@ function productType(quarryService, gridUtility, widgetUtility, utility, constan
         }
     };
 
-//    var vm = {
-//        gridOptions: gridOptions,
-//        viewDialog: viewDialog,
-//        addProductType: addProductType,
-//        validateFormulaOrder: validateFormulaOrder,
-//        productTypes: quarryService.productTypes,
-//        refresh: refresh
-//};
-
     init();
 
     return vm;

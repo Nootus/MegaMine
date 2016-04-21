@@ -25,7 +25,9 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<MaterialColourModel>>> MaterialColoursGet()
         {
-            return await AjaxHelper.GetAsync(m => domain.MaterialColoursGet());
+            var ajaxModel = await AjaxHelper.GetAsync(m => domain.MaterialColoursGet());
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
         }
 
         [HttpPost]

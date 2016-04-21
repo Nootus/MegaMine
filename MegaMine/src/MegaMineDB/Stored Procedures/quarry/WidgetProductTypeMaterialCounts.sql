@@ -23,7 +23,7 @@ BEGIN
     UNION ALL
     SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Key', X = 'Others', Y = SUM(MaterialCount), KeyOrder = 1, xOrder = 1000 FROM cte WHERE Seq > 5
 	HAVING SUM(MaterialCount) IS NOT NULL
-	ORDER BY DisplayOrder, ProductTypeName
+	ORDER BY KeyOrder, [Key], XOrder, X
 
 	SET NOCOUNT OFF
 END
