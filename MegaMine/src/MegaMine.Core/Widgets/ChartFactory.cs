@@ -59,20 +59,17 @@ namespace MegaMine.Core.Widgets
         private static ChartModel<Tx, Ty> CreateChartModel<Tx, Ty>(ChartModel<Tx, Ty> model, List<ChartDataModel<Tx, Ty>> data, string xAxisLabel, string yAxisLabel)
         {
             //ensuring that all X exist in the data
-            IEnumerable<Tx> xList = data.SelectMany(m => m.Values).Select(v => v.X).Distinct();
-            Ty defaultValue = default(Ty);
-            
+            IEnumerable<ChartPointModel<Tx, Ty>> xList = data.SelectMany(m => m.Values).Select(v => new ChartPointModel<Tx, Ty>() { X = v.X, Y = default(Ty), Order = v.Order }).Distinct(new ChartPointModelComparer<Tx, Ty>());          
 
             foreach (var item in data)
             {
-                IEnumerable<Tx> missing = xList.Except(item.Values.Select(v => v.X));
+                IEnumerable<ChartPointModel<Tx, Ty>> missing = xList.Except(item.Values, new ChartPointModelComparer<Tx, Ty>());
                 //adding the missing
                 foreach (var missValue in missing)
                 {
-                    item.Values.Add(new ChartPointModel<Tx, Ty>() { X = missValue, Y = defaultValue });
+                    item.Values.Add(missValue);
                 }
                 item.Values = item.Values.OrderBy(o => o.Order).ThenBy(o => o.X).ToList();
-                //item.Values = item.Values.OrderBy(o => o.X).ToList();
             }
 
             model.Data = data;

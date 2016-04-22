@@ -13,24 +13,30 @@ function chart() {
 
     function set(widgets) {
         angular.forEach(widgets, function (item) {
+            item.chart.data = item.chart.model.data;
             switch (item.chart.type) {
                 case 'discreteBarChart':
-                    item.chart.options = angular.merge({}, options(item.chart.type, item.chart.model.xAxisDataLabels), discreteBarChart(item.chart.model.xAxisDataLabels));
-                    item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
-                    item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
-                    item.chart.data = item.chart.model.data;
+                    item.chart.options = discreteBarChartOptions(item.chart.type, item.chart.model.xAxisDataLabels);
+                    break;
+                case 'stackedBarChart':
+                    item.chart.options = stackedBarChartOptions('multiBarChart', item.chart.model.xAxisDataLabels);
                     break;
                 case 'pieChart':
-                    item.chart.options = angular.merge({}, options(item.chart.type, item.chart.model.xAxisDataLabels), pieChart(item.chart.model.xAxisDataLabels));
+                    item.chart.options = pieChartOptions(item.chart.type, item.chart.model.xAxisDataLabels);
+                    item.chart.data = item.chart.model.data[0].values;
+                    break;
+                case 'donutChart':
+                    item.chart.options = donutChartOptions('pieChart', item.chart.model.xAxisDataLabels);
                     item.chart.data = item.chart.model.data[0].values;
                     break;
                 default:
                     item.chart.options = options(item.chart.type, item.chart.model.xAxisDataLabels);
-                    item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
-                    item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
-                    item.chart.data = item.chart.model.data;
                     break;
             }
+
+            item.chart.options.chart.xAxis.axisLabel = item.chart.model.xAxisLabel;
+            item.chart.options.chart.yAxis.axisLabel = item.chart.model.yAxisLabel;
+
         });
     }
 
@@ -90,78 +96,49 @@ function chart() {
         };
     }
 
-    function pieChart(xAxisDataLabels) {
-        return {
-            chart: {
-                x: function (d) { return xAxisDataLabels[d.x]; },
+    function pieChartOptions(chartType, xAxisDataLabels) {
+
+        return angular.merge({}, options(chartType, xAxisDataLabels), 
+            {
+                chart: {
+                    x: function (d) { return xAxisDataLabels[d.x]; },
+                }
             }
-        }
+        );
     }
 
-    function discreteBarChart() {
-        return {
-            chart: {
-                showLegend: false,
+    function donutChartOptions(chartType, xAxisDataLabels) {
+
+        return angular.merge({}, options(chartType, xAxisDataLabels),
+            {
+                chart: {
+                    x: function (d) { return xAxisDataLabels[d.x]; },
+                    donut: true,
+                    donutRatio: 0.25
+                }
             }
-        }
+        );
     }
 
-    //function discreteBarChart() {
-    //    return {
-    //        chart: {
-    //            type: 'discreteBarChart',
-    //            margin: {
-    //                top: 40,
-    //                right: 20,
-    //                bottom: 30,
-    //                left: 55
-    //            },
-    //            x: function (d) { return d.x; },
-    //            y: function (d) { return d.y; },
-    //            showValues: true,
-    //            valueFormat: function (d) {
-    //                return d3.format(',.0f')(d);
-    //            },
-    //            duration: 500,
-    //            xAxis: {
-    //                axisLabel: 'X Axis',
-    //                axisLabelDistance: -10
-    //            },
-    //            yAxis: {
-    //                axisLabel: 'Y Axis',
-    //                axisLabelDistance: -10
-    //            }
-    //        }
-    //    };
-    //}
 
-    //function pieChart(xAxisDataLabels) {
-    //    return {
-    //        chart: {
-    //            type: 'pieChart',
-    //            tooltip: {
-    //                hideDelay: 0,
-    //                valueFormatter: function (d) {
-    //                    return d3.format('d')(d);
-    //                }
-    //            },
-    //            margin: {
-    //                top: 30,
-    //                right: 0,
-    //                bottom: 0,
-    //                left: 0
-    //            },
-    //            x: function (d) { return xAxisDataLabels[d.x]; },
-    //            y: function (d) { return d.y; },
-    //            showLabels: true,
-    //            duration: 500,
-    //            labelThreshold: 0.01,
-    //            labelSunbeamLayout: true,
-    //            showLegend: true
-    //        }
-    //    };
-    //}
+    function discreteBarChartOptions(chartType, xAxisDataLabels) {
+        return angular.merge({}, options(chartType, xAxisDataLabels),
+            {
+                chart: {
+                    showLegend: false,
+                }
+            }
+        );
+    }
 
+    function stackedBarChartOptions(chartType, xAxisDataLabels) {
+        return angular.merge({}, options(chartType, xAxisDataLabels),
+            {
+                chart: {
+                    stacked: true,
+                }
+            }
+        );
 
-
+    }
 }
