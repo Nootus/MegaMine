@@ -45,7 +45,7 @@ function chart() {
             chart: {
                 type: chartType,
                 tooltip: {
-                    hideDelay: 0.01,
+                    hideDelay: 0,
                     valueFormatter: function (d) {
                         return d3.format('d')(d);
                     },
@@ -66,7 +66,7 @@ function chart() {
                 useInteractiveGuideline: true,
                 interactiveLayer: {
                     tooltip: {
-                        hideDelay: 0.01,
+                        hideDelay: 0,
                         headerFormatter: function (d, i) {
                             return xAxisDataLabels[d];
                         }

@@ -21,6 +21,15 @@ namespace MegaMine.Web.Controllers
             this.widgetDomain = widgetDomain;
         }
 
+        [HttpGet]
+        public async Task<AjaxModel<object>> Dashboard()
+        {
+            var ajaxModel = AjaxHelper.BlankModel<object>();
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
+        }
+
+
         #region Material Colour
         [HttpGet]
         public async Task<AjaxModel<List<MaterialColourModel>>> MaterialColoursGet()

@@ -18,7 +18,7 @@ function constants() {
     function init() {
         vm.enum.dialogMode = { view: 0, save: 1, delete: 2 }
         vm.enum.buttonType = { view: 0, edit: 1, delete: 2 }
-        vm.enum.viewType = { dashboard: 0, grid: 1, list: 2 }
+        vm.enum.viewType = { dashboard: 0, grid: 1, list: 2, dashboardOnly: 3 }
     }
 
 }

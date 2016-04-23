@@ -1,11 +1,16 @@
 ﻿'use strict';
 angular.module('megamine').controller('dashboard', dashboard)
-dashboard.$inject = ['dashboardService', 'profile'];
+dashboard.$inject = ['dashboardService', 'widgetUtility'];
 
-function dashboard(dashboardService, profile) {
+function dashboard(dashboardService, widgetUtility) {
 
     var vm = {
-        menu: profile.menu
+        dashboard: {
+            header: 'Quarry Dashboard',
+            options: {
+                dashboardOnly: true
+            }
+        }
     };
 
     init();
@@ -13,6 +18,8 @@ function dashboard(dashboardService, profile) {
     return vm;
 
     function init() {
+        vm.dashboard.options.gridOptions = {}; //needed as UI grid depends on this
+        widgetUtility.initialize(vm.dashboard, dashboardService.dashboard);
     }
 
 }

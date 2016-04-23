@@ -12,11 +12,11 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
         template: '<nt-toolbar header="{{dashboard.header}}" class="command-bar">'
                         + '<nt-button type="command-bar" icon-css="plus-square-o" tool-tip="Add Widget" button-text="Widget" ng-click="addWidget($event)" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="ban" tool-tip="Clear Widgets" button-text="Clear" ng-click="clearWidgets()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" button-text="List" ng-click="toggleListView()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" button-text="List" ng-click="toggleListView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" button-text="Dashboard" ng-click="toggleView()" ng-hide="viewType !== viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="th" tool-tip="Grid View" button-text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="th" tool-tip="Grid View" button-text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" button-text="Refresh" ng-click="refresh()"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.options.addOptions.toolTip}}" button-text="{{dashboard.options.addOptions.text}}" ng-click="dashboard.options.addOptions.add($event)" claim="{{dashboard.options.addOptions.claim}}"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.options.addOptions.toolTip}}" button-text="{{dashboard.options.addOptions.text}}" ng-click="dashboard.options.addOptions.add($event)" claim="{{dashboard.options.addOptions.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                     + '</nt-toolbar>'
                     + '<div class="portal-content">'
                         + '<nt-grid class="grid-content" vm="vm" grid-options="dashboard.options.gridOptions" grid-class="main-grid" ng-hide="viewType !== viewTypeEnum.grid" ng-style="{\'height\' : height }"></nt-grid>'
@@ -57,12 +57,18 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
     function link(scope, element, attrs, nullController) {
 
         //adding additional items to the dashboard object
-        scope.dashboard.options.gridOptions.view = scope.dashboard.options.addOptions.view;
         scope.dashboard.widgetSettings = widgetSettings;
 
         preprocessWidgets(scope.dashboard);
 
-        scope.viewType = scope.viewType || constants.enum.viewType.list;
+        if (scope.dashboard.options.dashboardOnly === true) {
+            scope.viewType = constants.enum.viewType.dashboardOnly;
+        }
+        else {
+            scope.dashboard.options.gridOptions.view = scope.dashboard.options.addOptions.view;
+            scope.viewType = scope.viewType || constants.enum.viewType.list;
+        }
+
         scope.viewTypeEnum = constants.enum.viewType;
 
         //scope function

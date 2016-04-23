@@ -55,6 +55,11 @@ namespace MegaMine.Web.Lib.Shared
         //    return Get(action, message);
         //}
 
+        public static AjaxModel<T> BlankModel<T>() where T : class
+        {
+            return new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = "" };
+        }
+
         public static async Task<AjaxModel<T>> GetAsync<T>(Func<string, Task<T>> action, string message = "") where T : class
         {
             AjaxModel<T> ajax;

@@ -9,25 +9,49 @@ namespace MegaMine.Core.Widgets
 {
     public static class ChartFactory
     {
-        public static async Task<MultiChartModel<Tx, Ty>> Create<Tx, Ty>(WidgetOptions options, BaseDbContext dbContext, string sql, params object[] parameters)
+        public static async Task<ChartModel<Tx, Ty>> Create<Tx, Ty>(WidgetOptions options, BaseDbContext dbContext, string sql, params object[] parameters)
         {
             List<ChartEntity<Tx, Ty>> data = await dbContext.Set<ChartEntity<Tx, Ty>>().FromSql(sql, parameters)
                                     .Select(m => m).ToListAsync();
 
-            return CreateMultiChartModel<Tx, Ty>(data, options.XAxisLabel, options.YAxisLabel);
+            return CreateChartModel<Tx, Ty>(data, options.XAxisLabel, options.YAxisLabel);
         }
 
-        private static MultiChartModel<Tx, Ty> CreateMultiChartModel<Tx, Ty>(List<ChartEntity<Tx, Ty>> data, string xAxisLabel, string yAxisLabel)
+        private static ChartModel<Tx, Ty> CreateChartModel<Tx, Ty>(List<ChartEntity<Tx, Ty>> data, string xAxisLabel, string yAxisLabel)
         {
             List<ChartDataModel<Tx, Ty>> dataModel = MapChartData<Tx, Ty>(data);
 
-            MultiChartModel<Tx, Ty> model = (MultiChartModel<Tx, Ty>) CreateChartModel(new MultiChartModel<Tx, Ty>(), dataModel, xAxisLabel, yAxisLabel); 
+            ChartModel<Tx, Ty> model = (ChartModel<Tx, Ty>) CreateChartModel(new ChartModel<Tx, Ty>(), dataModel, xAxisLabel, yAxisLabel); 
 
             //setting up the x data axis labels
             model.XAxisDataLabels = SetXAsisDataLables(model.Data);
 
             return model;
         }
+
+        private static ChartModel<Tx, Ty> CreateChartModel<Tx, Ty>(ChartModel<Tx, Ty> model, List<ChartDataModel<Tx, Ty>> data, string xAxisLabel, string yAxisLabel)
+        {
+            //ensuring that all X exist in the data
+            IEnumerable<ChartPointModel<Tx, Ty>> xList = data.SelectMany(m => m.Values).Select(v => new ChartPointModel<Tx, Ty>() { X = v.X, Y = default(Ty), Order = v.Order }).Distinct(new ChartPointModelComparer<Tx, Ty>());
+
+            foreach (var item in data)
+            {
+                IEnumerable<ChartPointModel<Tx, Ty>> missing = xList.Except(item.Values, new ChartPointModelComparer<Tx, Ty>());
+                //adding the missing
+                foreach (var missValue in missing)
+                {
+                    item.Values.Add(missValue);
+                }
+                item.Values = item.Values.OrderBy(o => o.Order).ThenBy(o => o.X).ToList();
+            }
+
+            model.Data = data;
+            model.XAxisLabel = xAxisLabel;
+            model.YAxisLabel = yAxisLabel;
+
+            return model;
+        }
+
 
         private static List<ChartDataModel<Tx, Ty>> MapChartData<Tx, Ty>(List<ChartEntity<Tx, Ty>> data)
         {
@@ -56,28 +80,6 @@ namespace MegaMine.Core.Widgets
             return dict.Values.ToList();
         }
 
-        private static ChartModel<Tx, Ty> CreateChartModel<Tx, Ty>(ChartModel<Tx, Ty> model, List<ChartDataModel<Tx, Ty>> data, string xAxisLabel, string yAxisLabel)
-        {
-            //ensuring that all X exist in the data
-            IEnumerable<ChartPointModel<Tx, Ty>> xList = data.SelectMany(m => m.Values).Select(v => new ChartPointModel<Tx, Ty>() { X = v.X, Y = default(Ty), Order = v.Order }).Distinct(new ChartPointModelComparer<Tx, Ty>());          
-
-            foreach (var item in data)
-            {
-                IEnumerable<ChartPointModel<Tx, Ty>> missing = xList.Except(item.Values, new ChartPointModelComparer<Tx, Ty>());
-                //adding the missing
-                foreach (var missValue in missing)
-                {
-                    item.Values.Add(missValue);
-                }
-                item.Values = item.Values.OrderBy(o => o.Order).ThenBy(o => o.X).ToList();
-            }
-
-            model.Data = data;
-            model.XAxisLabel = xAxisLabel;
-            model.YAxisLabel = yAxisLabel;
-
-            return model;
-        }
 
         private static List<Tx> SetXAsisDataLables<Tx, Ty>(List<ChartDataModel<Tx, Ty>> data)
         {

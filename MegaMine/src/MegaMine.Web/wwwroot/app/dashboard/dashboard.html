@@ -1,18 +1,1 @@
-﻿<nt-toolbar header="Dashboard"></nt-toolbar>
-<md-content layout-padding ng-hide="true">
-    <div layout="row">
-        <div flex="25" ng-repeat="menuItem in vm.menu track by menuItem.pageId">
-            <span class="{{menuItem.iconCss}}"></span><b>{{menuItem.menuText}}</b>
-            <div layout="row">
-                <div flex="5"></div>
-                <div flex layout="column">
-                    <div ng-repeat="child in menuItem.items track by child.pageId" >
-                        <span class="{{child.iconCss}}"></span>
-                        <span><a href="{{child.url}}" ng-hide="child.url === null">{{child.menuText}}</a></span>
-                        <span ng-show="child.url === null"><br />{{child.menuText}}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</md-content>
+﻿<nt-dashobard flex dashboard="vm.dashboard"></nt-dashobard>
