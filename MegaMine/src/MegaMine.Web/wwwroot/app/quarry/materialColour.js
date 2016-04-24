@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('materialColour', materialColour)
-materialColour.$inject = ['quarryService', 'gridUtility', 'widgetUtility', 'constants', 'dialogService', 'template'];
+materialColour.$inject = ['quarryService', 'constants', 'dialogService', 'template'];
 
-function materialColour(quarryService, gridUtility, widgetUtility, constants, dialogService, template) {
+function materialColour(quarryService, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -19,7 +19,6 @@ function materialColour(quarryService, gridUtility, widgetUtility, constants, di
             options: {
                 gridOptions: gridOptions,
                 listOptions: {
-                    data: quarryService.colours.list,
                     fields: ['colourName', 'colourDescription'],
                     primaryField: 'materialColourId'
                 },
@@ -30,6 +29,11 @@ function materialColour(quarryService, gridUtility, widgetUtility, constants, di
                     add: addMaterialColour,
                     view: viewDialog
                 }
+            },
+            data: {
+                widgets: quarryService.colours.dashboard.widgets,
+                pageWidgets: quarryService.colours.dashboard.pageWidgets,
+                list: quarryService.colours.list
             }
         }
     };
@@ -39,8 +43,7 @@ function materialColour(quarryService, gridUtility, widgetUtility, constants, di
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.colours.list);
-        widgetUtility.initialize(vm.dashboard, quarryService.colours.dashboard);
+
     }
 
     function addMaterialColour(ev) {

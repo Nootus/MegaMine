@@ -1,15 +1,15 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarry', quarry)
-quarry.$inject = ['quarryService', 'gridUtility', 'widgetUtility', 'utility', 'constants', 'dialogService', 'template'];
+quarry.$inject = ['quarryService', 'utility', 'constants', 'dialogService', 'template'];
 
-function quarry(quarryService, gridUtility, widgetUtility, utility, constants, dialogService, template) {
+function quarry(quarryService, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'quarryName', field: 'quarryName', displayName: 'Name', type: 'string' },
                     { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour' },
                     { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
-                    template.getButtonDefaultColumnDefs('quarryId', 'Quarry:QuarryEdit', 'Quarry:QuarryDelete')
+                    template.getButtonDefaultColumnDefs('quarryId', 'Quarry:QuarryEdit', 'Quarry:QuarryDelete', 'options.view')
         ]
     };
 
@@ -20,7 +20,6 @@ function quarry(quarryService, gridUtility, widgetUtility, utility, constants, d
             options: {
                 gridOptions: gridOptions,
                 listOptions: {
-                    data: quarryService.quarries.list,
                     fields: ['quarryName', 'colours', 'location'],
                     primaryField: 'quarryId'
                 },
@@ -31,6 +30,11 @@ function quarry(quarryService, gridUtility, widgetUtility, utility, constants, d
                     add: addQuarry,
                     view: viewDialog
                 }
+            },
+            data: {
+                widgets: quarryService.quarries.dashboard.widgets,
+                pageWidgets: quarryService.quarries.dashboard.pageWidgets,
+                list: quarryService.quarries.list
             }
         }
     };
@@ -40,8 +44,8 @@ function quarry(quarryService, gridUtility, widgetUtility, utility, constants, d
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.quarries.list);
-        widgetUtility.initialize(vm.dashboard, quarryService.quarries.dashboard);
+        vm.dashboard.options.gridOptions.view = viewDialog;
+
     }
 
     function addQuarry(ev) {

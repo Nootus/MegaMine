@@ -15,17 +15,17 @@ function template(constants) {
     function init() {
     }
 
-    function getButtonDefaultColumnDefs(field, editClaim, deleteClaim, hide) {
+    function getButtonDefaultColumnDefs(field, editClaim, deleteClaim, clickFunction, hide) {
         
         var buttons = [{ buttonType: constants.enum.buttonType.view }, { buttonType: constants.enum.buttonType.edit, claim: editClaim }];
         if (deleteClaim !== undefined) {
             buttons.push({ buttonType: constants.enum.buttonType.delete, claim: deleteClaim });
         }
             
-        return getButtonColumnDefs(field, buttons, hide);
+        return getButtonColumnDefs(field, buttons, clickFunction, hide);
     }
 
-    function getButtonColumnDefs(field, buttons, hide) {
+    function getButtonColumnDefs(field, buttons, clickFunction, hide) {
         var buttonDef =  {
             name: field, field: field, displayName: '', enableColumnMenu: false, type: 'string',
             exporterSuppressExport: true,
@@ -35,22 +35,24 @@ function template(constants) {
 
         var toolTip;
         var iconCss;
+        clickFunction = 'grid.appScope.view';
+
         angular.forEach(buttons, function (button) {
             switch (button.buttonType) {
                 case constants.enum.buttonType.view:
                     toolTip = 'View';
                     iconCss = 'eye';
-                    button.ngClick = button.ngClick === undefined ? 'grid.appScope.gridOptions.view(row.entity, ' + constants.enum.dialogMode.view + ', $event)' : button.ngClick;
+                    button.ngClick = button.ngClick === undefined ? clickFunction + '(row.entity, ' + constants.enum.dialogMode.view + ', $event)' : button.ngClick;
                     break;
                 case constants.enum.buttonType.edit:
                     toolTip = 'Edit';
                     iconCss = 'pencil-square-o';
-                    button.ngClick = button.ngClick === undefined ? 'grid.appScope.gridOptions.view(row.entity, ' + constants.enum.dialogMode.save + ', $event)' : button.ngClick;
+                    button.ngClick = button.ngClick === undefined ? clickFunction + '(row.entity, ' + constants.enum.dialogMode.save + ', $event)' : button.ngClick;
                     break;
                 case constants.enum.buttonType.delete:
                     toolTip = 'Delete';
                     iconCss = 'trash';
-                    button.ngClick = button.ngClick === undefined ? 'grid.appScope.gridOptions.view(row.entity, ' + constants.enum.dialogMode.delete + ', $event)' : button.ngClick;
+                    button.ngClick = button.ngClick === undefined ? clickFunction + '(row.entity, ' + constants.enum.dialogMode.delete + ', $event)' : button.ngClick;
                     break;
             }
 

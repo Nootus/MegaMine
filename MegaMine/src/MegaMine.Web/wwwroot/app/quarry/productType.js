@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('productType', productType)
-productType.$inject = ['quarryService', 'gridUtility', 'widgetUtility', 'utility', 'constants', 'dialogService', 'template', 'message'];
+productType.$inject = ['quarryService', 'utility', 'constants', 'dialogService', 'template', 'message'];
 
-function productType(quarryService, gridUtility, widgetUtility, utility, constants, dialogService, template, message) {
+function productType(quarryService, utility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
@@ -20,7 +20,6 @@ function productType(quarryService, gridUtility, widgetUtility, utility, constan
             options: {
                 gridOptions: gridOptions,
                 listOptions: {
-                    data: quarryService.productTypes.list,
                     fields: ['productTypeName', 'productTypeDescription', 'formulaString'],
                     primaryField: 'productTypeId'
                 },
@@ -31,6 +30,11 @@ function productType(quarryService, gridUtility, widgetUtility, utility, constan
                     add: addProductType,
                     view: viewDialog
                 }
+            },
+            data: {
+                widgets: quarryService.productTypes.dashboard.widgets,
+                pageWidgets: quarryService.productTypes.dashboard.pageWidgets,
+                list: quarryService.productTypes.list
             }
         }
     };
@@ -43,8 +47,6 @@ function productType(quarryService, gridUtility, widgetUtility, utility, constan
         angular.forEach(quarryService.productTypes.list, function (item) {
             initializeModel(item);
         });
-        gridUtility.initializeGrid(vm.dashboard.options.gridOptions, quarryService.productTypes.list);
-        widgetUtility.initialize(vm.dashboard, quarryService.productTypes.dashboard);
     }
 
     function initializeModel(model) {

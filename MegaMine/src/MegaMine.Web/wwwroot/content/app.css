@@ -195,12 +195,6 @@ div.type-formula select{
     color: red;
 }
 
-.dialog_error{
-    color: red;
-    /*text-align: center;*/
-    width: 95%;
-    font-size: 0.85em;
-}
 
 .full-width{
     width: 100% !important;
@@ -277,11 +271,6 @@ md-content.md-default-theme {
 .md-toolbar-tools {
     padding: 0 5px 0 4px;
 }*/
-
-md-input-container:not(.md-input-invalid).md-input-has-value label {
-  font-size: 15px;
-  color: black;
-}
 
 md-input-container .md-input[disabled], [disabled] md-input-container .md-input {
   color: black;

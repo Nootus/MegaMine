@@ -1,5 +1,5 @@
-﻿<nt-toolbar-button title="Add Material" button-text="Save" button-icon="add" button-click="vm.saveMaterial($event)"></nt-toolbar-button>
-<md-content layout-padding>
+﻿<nt-toolbar-button header="Add Material" button-text="Save" button-icon="save" button-click="vm.saveMaterial($event)"></nt-toolbar-button>
+<md-content layout-padding style="height: 100%">
     <form name="materialForm" novalidate>
         <div layout="row">
             <nt-select flex="10" form="materialForm" label="Quarry" control-name="quarry" ng-model="vm.model.quarryId" opt-list="vm.viewModel.quarry" ng-required="true"></nt-select>
@@ -12,14 +12,14 @@
             <nt-input flex="10" form="materialForm" type="number" label="Weight" control-name="weight" ng-model="vm.model.weight" ng-required="true"></nt-input>
             <nt-select flex="10" form="materialForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productType" opt-value="productTypeId" opt-text="productTypeName" ng-required="true"></nt-select>
             <div flex="10" layout-align="center">
-                <nt-old-button ng-click="vm.addMaterial(materialForm)" button-icon="save" button-text="Add" form="materialForm" ng-show="!vm.editMode"></nt-old-button>
-                <nt-old-button ng-click="vm.updateMaterial(materialForm)" button-icon="save" button-text="Update" form="materialForm" ng-show="vm.editMode"></nt-old-button>
-                <nt-old-button ng-click="vm.cancelMaterial(materialForm)" button-icon="cancel" button-text="Cancel" ng-show="vm.editMode"></nt-old-button>
+                <nt-button type="command-bar" css-class="content-button" icon="add" text="Add" ng-click="vm.addMaterial(materialForm)" form="materialForm" ng-show="!vm.editMode"></nt-button>
+                <nt-button type="command-bar" css-class="content-button" icon="save" text="Update" ng-click="vm.updateMaterial(materialForm)" form="materialForm" ng-show="vm.editMode"></nt-button>
+                <nt-button type="command-bar" css-class="content-button" icon="cancel" text="Cancel" ng-click="vm.cancelMaterial(materialForm)" ng-show="vm.editMode"></nt-button>
             </div>
         </div>
         <div layout="row">
         </div>
     </form>
+    <nt-grid options="vm.grid.options" data="vm.grid.data"></nt-grid>
 </md-content>
-<nt-grid vm="vm" ></nt-grid>
 

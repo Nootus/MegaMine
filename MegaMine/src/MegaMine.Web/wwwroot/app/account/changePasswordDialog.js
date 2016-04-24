@@ -41,7 +41,6 @@ function changePasswordDialog(accountService, dialogService, utility, constants,
     }
 
     function validatePasswords(form) {
-        //checking the from & to yard
         if (form !== undefined) {
             if (form.newPassword.$modelValue !== form.confirmPassword.$modelValue) {
                 form.confirmPassword.$setValidity('passsordSame', false);

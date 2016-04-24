@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntDashobard', ntDashobard)
-ntDashobard.$inject = ['$window', '$timeout', '$state', '$stateParams', 'dialogService', 'utility', 'constants'];
+ntDashobard.$inject = ['$timeout', '$state', '$stateParams', 'chart', 'dialogService', 'utility', 'constants'];
 
-function ntDashobard($window, $timeout, $state, $stateParams, dialogService, utility, constants) {
+function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utility, constants) {
     return {
         restrict: 'E',
         scope: {
@@ -10,21 +10,21 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
         },
         link: link,
         template: '<nt-toolbar header="{{dashboard.header}}" class="command-bar">'
-                        + '<nt-button type="command-bar" icon-css="plus-square-o" tool-tip="Add Widget" button-text="Widget" ng-click="addWidget($event)" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="ban" tool-tip="Clear Widgets" button-text="Clear" ng-click="clearWidgets()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" button-text="List" ng-click="toggleListView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" button-text="Dashboard" ng-click="toggleView()" ng-hide="viewType !== viewTypeEnum.grid"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="th" tool-tip="Grid View" button-text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" button-text="Refresh" ng-click="refresh()"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.options.addOptions.toolTip}}" button-text="{{dashboard.options.addOptions.text}}" ng-click="dashboard.options.addOptions.add($event)" claim="{{dashboard.options.addOptions.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="plus-square-o" tool-tip="Add Widget" text="Widget" ng-click="addWidget($event)" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="ban" tool-tip="Clear Widgets" text="Clear" ng-click="clearWidgets()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" text="List" ng-click="toggleListView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" text="Dashboard" ng-click="toggleView()" ng-hide="viewType !== viewTypeEnum.grid"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="th" tool-tip="Grid View" text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="refresh()"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.options.addOptions.toolTip}}" text="{{dashboard.options.addOptions.text}}" ng-click="dashboard.options.addOptions.add($event)" claim="{{dashboard.options.addOptions.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                     + '</nt-toolbar>'
                     + '<div class="portal-content">'
-                        + '<nt-grid class="grid-content" vm="vm" grid-options="dashboard.options.gridOptions" grid-class="main-grid" ng-hide="viewType !== viewTypeEnum.grid" ng-style="{\'height\' : height }"></nt-grid>'
+                        + '<nt-grid class="grid-content" options="dashboard.options.gridOptions" data="dashboard.data.list" view="dashboard.options.addOptions.view" css-class="main-grid" ng-hide="viewType !== viewTypeEnum.grid" ng-style="{\'height\' : height }"></nt-grid>'
                         + '<div class="chart-content full-width" layout="row" ng-hide="viewType === viewTypeEnum.grid" ng-style="{\'height\' : height }" >'
                             + '<div flex>'
                                 + '<md-whiteframe class="md-whiteframe-24dp" flex>'
                                     + '<md-content class="chart-bar">'
-                                        + '<nt-gridster widgets="dashboard.pageWidgets"></nt-gridster>'
+                                        + '<nt-gridster widgets="dashboard.data.pageWidgets"></nt-gridster>'
                                     + '</md-content>'
                                 + '</md-whiteframe>'
                             + '</div>'
@@ -33,7 +33,7 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
                                     + '<md-content flex>'
                                         + '<div class="class="full-width">'
                                         + '<md-list>'
-                                            + '<md-list-item class="md-3-line right-list" ng-repeat="item in dashboard.options.listOptions.data track by item[dashboard.options.listOptions.primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
+                                            + '<md-list-item class="md-3-line right-list" ng-repeat="item in dashboard.data.list track by item[dashboard.options.listOptions.primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
                                                 + '<div class="md-list-item-text right-list-item" layout="column">'
                                                     + '<h3>{{ item[dashboard.options.listOptions.fields[0]] }}</h3>'
                                                     + '<h4>{{ item[dashboard.options.listOptions.fields[1]] }}</h4>'
@@ -55,6 +55,11 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
     };
 
     function link(scope, element, attrs, nullController) {
+
+        scope.grid = {gridOptions: scope.dashboard.options.gridOptions, data: scope.dashboard.data.list};
+
+        //setting the chart options based on the chart type
+        chart.set(scope.dashboard.data.widgets);
 
         //adding additional items to the dashboard object
         scope.dashboard.widgetSettings = widgetSettings;
@@ -80,21 +85,21 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
 
         setHeight(scope);
 
-        scope.$on('window_resize', function (sizes, gridster) {
+        scope.$on('window_resize', function () {
             setHeight(scope);
         });
     }
 
     function preprocessWidgets(dashboard) {
-        angular.forEach(dashboard.pageWidgets, function (item) {
+        angular.forEach(dashboard.data.pageWidgets, function (item) {
             preprocessWidgetItem(item, dashboard);
         })
     }
 
     function preprocessWidgetItem(widgetItem, dashboard) {
-        for (var index = 0; index < dashboard.widgets.length; index++) {
-            if (widgetItem.widgetId === dashboard.widgets[index].widgetId) {
-                widgetItem.widget = dashboard.widgets[index];
+        for (var index = 0; index < dashboard.data.widgets.length; index++) {
+            if (widgetItem.widgetId === dashboard.data.widgets[index].widgetId) {
+                widgetItem.widget = dashboard.data.widgets[index];
                 widgetItem.widget.dashboard = dashboard;
                 widgetItem.widgetOptions.chart = widgetItem.widget.chart;
                 widgetItem.widget.chart.api = {};
@@ -130,38 +135,38 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
         dialogService.show({
             template: getWidgetTemplate(header, buttonText),
             targetEvent: ev,
-            data: { model: id, widgets: dashboard.widgets },
+            data: { model: id, widgets: dashboard.data.widgets },
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
             var index = 0;
-            for (var index = 0; index < dashboard.widgets.length; index++) {
-                if (dialogModel == dashboard.widgets[index].widgetId)
+            for (var index = 0; index < dashboard.data.widgets.length; index++) {
+                if (dialogModel == dashboard.data.widgets[index].widgetId)
                     break;
             }
 
             var widgetItem = {
                 dashboardPageWidgetId: Math.random(),
-                widgetId: dashboard.widgets[index].widgetId,
+                widgetId: dashboard.data.widgets[index].widgetId,
                 widgetOptions: {
                     col: undefined,
                     row: undefined,
-                    sizeX: dashboard.widgets[index].sizeX,
-                    sizeY: dashboard.widgets[index].sizeY,
+                    sizeX: dashboard.data.widgets[index].sizeX,
+                    sizeY: dashboard.data.widgets[index].sizeY,
                 },
             };
 
             if (widget !== undefined) {
-                for (var current = 0; current < dashboard.pageWidgets.length; current++) {
-                    if (id == dashboard.pageWidgets[current].dashboardPageWidgetId)
+                for (var current = 0; current < dashboard.data.pageWidgets.length; current++) {
+                    if (id == dashboard.data.pageWidgets[current].dashboardPageWidgetId)
                         break;
                 }
-                angular.extend(widgetItem.widgetOptions, dashboard.pageWidgets[current].widgetOptions);
-                dashboard.pageWidgets.splice(current, 1);
+                angular.extend(widgetItem.widgetOptions, dashboard.data.pageWidgets[current].widgetOptions);
+                dashboard.data.pageWidgets.splice(current, 1);
             }
 
             preprocessWidgetItem(widgetItem, dashboard);
-            dashboard.pageWidgets.push(widgetItem);
+            dashboard.data.pageWidgets.push(widgetItem);
 
             dialogService.hide();
         });
@@ -179,7 +184,7 @@ function ntDashobard($window, $timeout, $state, $stateParams, dialogService, uti
     }
 
     function clearWidgets(scope) {
-        scope.dashboard.pageWidgets.splice(0, scope.dashboard.pageWidgets.length)
+        scope.dashboard.data.pageWidgets.splice(0, scope.dashboard.data.pageWidgets.length)
     }
 
     function refresh() {

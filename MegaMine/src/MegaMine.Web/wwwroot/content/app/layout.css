@@ -416,7 +416,10 @@ h3.left-bar-item + div > div {
     margin-top: -2px;
 }
 
- 
+.content-button {
+    background-color: #53575b;
+    color: white;
+} 
 
 /* End Command Bar */
 

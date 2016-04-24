@@ -7,16 +7,16 @@ function ntToolbarButton() {
         restrict: 'E',
         transclude: true,
         scope: {
-            title: '@',
+            header: '@',
             buttonText: '@',
             buttonIcon: '@',
             buttonClick: '&',
             claim: '@'
         },
         link: link,
-        template: '<nt-toolbar title="{{title}}" class="title">'
+        template: '<nt-toolbar header="{{header}}">'
                         + '<span ng-transclude>'
-                        +       '<nt-old-button ng-click="buttonClick({$event: $event})" button-icon="{{buttonIcon}}" button-text="{{buttonText}}" claim="{{claim}}"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="{{buttonIcon}}" tool-tip="{{buttonText}}" text="{{buttonText}}" ng-click="buttonClick({$event: $event})" claim="{{claim}}"></nt-button>'
                         + '</span>'
                     + '</nt-toolbar>'
 

@@ -1,0 +1,6 @@
+﻿md-input-container:not(.md-input-invalid).md-input-has-value label {
+  font-size: 15px;
+  color: black;
+  font-weight: bold;
+}
+

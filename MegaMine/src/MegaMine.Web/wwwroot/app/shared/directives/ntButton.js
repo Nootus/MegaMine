@@ -10,7 +10,8 @@ function ntButton(profile) {
             type: '@',
             toolTip: '@',
             iconCss: '@',
-            buttonText: '@',
+            icon: '@',
+            text: '@',
             claim: '@',
             hide: '@',
             overrideDisabled: '@',
@@ -21,7 +22,7 @@ function ntButton(profile) {
                     + ' ng-disabled="form.$invalid && form.$submitted && bypassDisabled">'
                     + ' <md-tooltip ng-style="toolTipStyle">{{toolTip}}</md-tooltip>'
                     + ' <md-icon class="fa fa-{{iconCss}} {{type}}-button-icon" aria-label="{{toolTip}}"></md-icon>'
-                    + ' <div class="{{type}}-button-text">{{buttonText}}</div>'
+                    + ' <div class="{{type}}-button-text">{{text}}</div>'
                     + '</md-button>'
 
     };
@@ -36,7 +37,7 @@ function ntButton(profile) {
 
         //setting the default values
         scope.bypassDisabled = scope.overrideDisabled === "true" ? false : true;
-        //scope.toolTip = scope.toolTip || scope.buttonText;
+        //hiding the tooltip if not specified
         scope.hideToolTip = scope.toolTip === undefined ? true : false;
         if (scope.hideToolTip) {
             scope.toolTipStyle = {
@@ -44,6 +45,20 @@ function ntButton(profile) {
             };
         }
 
+        //icons
+        if (scope.icon !== undefined) {
+            switch (scope.icon) {
+                case 'save':
+                    scope.iconCss = 'plus-square-o'
+                    break;
+                case 'add':
+                    scope.iconCss = 'plus'
+                    break;
+                case 'cancel':
+                    scope.iconCss = 'ban'
+                    break;
+            }
+        }
         scope.ntClick = function (ev) {
             if (scope.form === undefined) {
                 scope.form = scope.$parent.dialogForm;
