@@ -73,7 +73,6 @@
 /// <reference path="app/widget/ntdashobard.js" />
 /// <reference path="app/widget/ntGridster.js" />
 /// <reference path="app/widget/ntWidget.js" />
-/// <reference path="app/widget/widgetUtility.js" />
 /// <reference path="scripts/angular/angular.js" />
 /// <reference path="scripts/angular/angular-animate.js" />
 /// <reference path="scripts/angular/angular-aria.js" />

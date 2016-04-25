@@ -1,7 +1,7 @@
 ﻿<nt-dashobard flex dashboard="vm.dashboard"></nt-dashobard>
 <script type="text/ng-template" id="product_type_dialog">
     <md-dialog aria-label="Product Type" class="dialog">
-        <nt-dialog form="productTypeForm" title="Product Type">
+        <nt-dialog form="productTypeForm" header="Product Type">
             <div layout="row">
                 <nt-input flex="30" form="productTypeForm" label="Product Type" control-name="productTypeName" ng-model="vm.model.productTypeName" ng-required="true" em-maxlength="20"></nt-input>
                 <nt-input flex="70" form="productTypeForm" label="Description" control-name="productTypeDescription" ng-model="vm.model.productTypeDescription" ng-required="false" em-maxlength="100"></nt-input>

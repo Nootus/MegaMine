@@ -16,24 +16,28 @@ function materialColour(quarryService, constants, dialogService, template) {
     var vm = {
         dashboard: {
             header: 'Colours',
-            options: {
-                gridOptions: gridOptions,
-                listOptions: {
+            widget: {
+                widgets: quarryService.colours.dashboard.widgets,
+                pageWidgets: quarryService.colours.dashboard.pageWidgets,
+            },
+            list: {
+                options: {
                     fields: ['colourName', 'colourDescription'],
                     primaryField: 'materialColourId'
                 },
-                addOptions: {
-                    text: 'New',
-                    toolTip: 'New Colour',
-                    claim: 'Quarry:MaterialColourAdd',
-                    add: addMaterialColour,
-                    view: viewDialog
-                }
+                data: quarryService.colours.list,
+                view: viewDialog
             },
-            data: {
-                widgets: quarryService.colours.dashboard.widgets,
-                pageWidgets: quarryService.colours.dashboard.pageWidgets,
-                list: quarryService.colours.list
+            grid: {
+                options: gridOptions,
+                data: quarryService.colours.list,
+                view: viewDialog
+            },
+            add: {
+                text: 'New',
+                toolTip: 'New Colour',
+                claim: 'Quarry:MaterialColourAdd',
+                save: addMaterialColour,
             }
         }
     };

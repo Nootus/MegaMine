@@ -9,7 +9,7 @@ function quarry(quarryService, utility, constants, dialogService, template) {
                     { name: 'quarryName', field: 'quarryName', displayName: 'Name', type: 'string' },
                     { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour' },
                     { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
-                    template.getButtonDefaultColumnDefs('quarryId', 'Quarry:QuarryEdit', 'Quarry:QuarryDelete', 'options.view')
+                    template.getButtonDefaultColumnDefs('quarryId', 'Quarry:QuarryEdit', 'Quarry:QuarryDelete')
         ]
     };
 
@@ -17,24 +17,28 @@ function quarry(quarryService, utility, constants, dialogService, template) {
     var vm = {
         dashboard: {
             header: 'Quarries',
-            options: {
-                gridOptions: gridOptions,
-                listOptions: {
+            widget: {
+                widgets: quarryService.quarries.dashboard.widgets,
+                pageWidgets: quarryService.quarries.dashboard.pageWidgets,
+            },
+            list: {
+                options: {
                     fields: ['quarryName', 'colours', 'location'],
                     primaryField: 'quarryId'
                 },
-                addOptions: {
-                    text: 'New',
-                    toolTip: 'New Quarry',
-                    claim: 'Quarry:QuarryAdd',
-                    add: addQuarry,
-                    view: viewDialog
-                }
+                data: quarryService.quarries.list,
+                view: viewDialog
             },
-            data: {
-                widgets: quarryService.quarries.dashboard.widgets,
-                pageWidgets: quarryService.quarries.dashboard.pageWidgets,
-                list: quarryService.quarries.list
+            grid: {
+                options: gridOptions,
+                data: quarryService.quarries.list,
+                view: viewDialog
+            },
+            add: {
+                text: 'New',
+                toolTip: 'New Quarry',
+                claim: 'Quarry:QuarryAdd',
+                save: addQuarry,
             }
         }
     };
@@ -44,7 +48,6 @@ function quarry(quarryService, utility, constants, dialogService, template) {
     return vm;
 
     function init() {
-        vm.dashboard.options.gridOptions.view = viewDialog;
 
     }
 

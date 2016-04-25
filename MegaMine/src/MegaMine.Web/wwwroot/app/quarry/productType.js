@@ -17,24 +17,28 @@ function productType(quarryService, utility, constants, dialogService, template,
     var vm = {
         dashboard: {
             header: 'Product Types',
-            options: {
-                gridOptions: gridOptions,
-                listOptions: {
+            widget: {
+                widgets: quarryService.productTypes.dashboard.widgets,
+                pageWidgets: quarryService.productTypes.dashboard.pageWidgets,
+            },
+            list: {
+                options: {
                     fields: ['productTypeName', 'productTypeDescription', 'formulaString'],
                     primaryField: 'productTypeId'
                 },
-                addOptions: {
-                    text: 'New',
-                    toolTip: 'New Product Type',
-                    claim: 'Quarry:ProductTypeAdd',
-                    add: addProductType,
-                    view: viewDialog
-                }
+                data: quarryService.productTypes.list,
+                view: viewDialog
             },
-            data: {
-                widgets: quarryService.productTypes.dashboard.widgets,
-                pageWidgets: quarryService.productTypes.dashboard.pageWidgets,
-                list: quarryService.productTypes.list
+            grid: {
+                options: gridOptions,
+                data: quarryService.productTypes.list,
+                view: viewDialog
+            },
+            add: {
+                text: 'New',
+                toolTip: 'New Product Type',
+                claim: 'Quarry:ProductTypeAdd',
+                save: addProductType,
             }
         }
     };

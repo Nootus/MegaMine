@@ -7,6 +7,7 @@ function ntGrid(uiGridConstants) {
         restrict: 'E',
         replace: true,
         scope: {
+            grid: '=',
             data: '=',
             options: '=',
             cssClass: '@',
@@ -14,14 +15,14 @@ function ntGrid(uiGridConstants) {
         },
         link: link,
         template: '<md-content layout-padding>'
-                        + '<div class="nt-grid" ui-grid="options" ui-grid-resize-columns ui-grid-auto-resize ui-grid-exporter ui-grid-selection ng-class="cssClass"></div>'
+                        + '<div class="nt-grid" ui-grid="grid.options" ui-grid-resize-columns ui-grid-auto-resize ui-grid-exporter ui-grid-selection ng-class="grid.cssClass"></div>'
                     + '</md-content>'
 
     };
 
     function link(scope, element, attrs, nullController, transclude) {
-        scope.cssClass = scope.cssClass === undefined ? 'main-grid' : scope.cssClass;
-        initialize(scope.options, scope.data, 'main-content', scope.cssClass, 24);
+        scope.grid.cssClass = scope.grid.cssClass === undefined ? 'main-grid' : scope.grid.cssClass;
+        initialize(scope.grid.options, scope.grid.data, 'main-content', scope.grid.cssClass, 24);
     }
 
     function initialize(options, data, contentClass, cssClass, bottomOffset) {
