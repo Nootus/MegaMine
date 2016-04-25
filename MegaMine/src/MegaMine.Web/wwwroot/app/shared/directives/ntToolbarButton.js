@@ -16,7 +16,7 @@ function ntToolbarButton() {
         link: link,
         template: '<nt-toolbar header="{{header}}">'
                         + '<span ng-transclude>'
-                        + '<nt-button type="command-bar" icon-css="{{buttonIcon}}" tool-tip="{{buttonText}}" text="{{buttonText}}" ng-click="buttonClick({$event: $event})" claim="{{claim}}"></nt-button>'
+                        + '<nt-button type="command-bar" icon="{{buttonIcon}}" tool-tip="{{buttonText}}" text="{{buttonText}}" ng-click="buttonClick({$event: $event})" claim="{{claim}}"></nt-button>'
                         + '</span>'
                     + '</nt-toolbar>'
 

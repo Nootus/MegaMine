@@ -15,7 +15,7 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
                     { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
                     { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
-                    template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.vm.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.vm.deleteRowMaterial(row.entity, $event)' }])
+                    template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.grid.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.grid.deleteRowMaterial(row.entity, $event)' }])
         ]
     };
 
@@ -23,15 +23,17 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
     var vm = {
         grid: {
             options: gridOptions,
-            data: []
+            data: [],
+            editRowMaterial: editRowMaterial,
+            deleteRowMaterial: deleteRowMaterial
         },
         model: {},
         previousModel: {},
         viewModel: {},
         addMaterial: addMaterial,
         saveMaterial: saveMaterial,
-        editRowMaterial: editRowMaterial,
-        deleteRowMaterial: deleteRowMaterial,
+        //editRowMaterial: editRowMaterial,
+        //deleteRowMaterial: deleteRowMaterial,
         cancelMaterial: cancelMaterial,
         updateMaterial: updateMaterial,
         editMode: false

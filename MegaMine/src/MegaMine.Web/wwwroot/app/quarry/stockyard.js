@@ -15,17 +15,20 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
                     { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' },
-                    template.getButtonColumnDefs('materialMovementId', [{ buttonType: constants.enum.buttonType.edit, claim: 'Quarry:MaterialUpdate', ngClick: 'grid.appScope.vm.editStock(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, claim: 'Quarry:MaterialDelete', ngClick: 'grid.appScope.vm.deleteStock(row.entity, $event)' }]),
+                    template.getButtonColumnDefs('materialMovementId', [{ buttonType: constants.enum.buttonType.edit, claim: 'Quarry:MaterialUpdate', ngClick: 'grid.appScope.grid.editStock(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, claim: 'Quarry:MaterialDelete', ngClick: 'grid.appScope.grid.deleteStock(row.entity, $event)' }]),
         ]
     };
 
 
     var vm = {
+        grid: {
+            options: gridOptions,
+            data: quarryService.stock,
+            editStock: editStock,
+            deleteStock: deleteStock
+        },
         yards: [],
         yardid: 0,
-        gridOptions: gridOptions,
-        editStock: editStock,
-        deleteStock: deleteStock,
         getStock: getStock,
         noStockMessage: undefined
     };
@@ -39,7 +42,7 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
         vm.yards = quarryService.yards;
         quarryService.stock.splice(0, quarryService.stock.length);
 
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.stock);
+        //gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.stock);
     }
 
     function getStock(form) {

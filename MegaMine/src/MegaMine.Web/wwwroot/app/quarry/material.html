@@ -13,13 +13,13 @@
             <nt-select flex="10" form="materialForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productType" opt-value="productTypeId" opt-text="productTypeName" ng-required="true"></nt-select>
             <div flex="10" layout-align="center">
                 <nt-button type="command-bar" css-class="content-button" icon="add" text="Add" ng-click="vm.addMaterial(materialForm)" form="materialForm" ng-show="!vm.editMode"></nt-button>
-                <nt-button type="command-bar" css-class="content-button" icon="save" text="Update" ng-click="vm.updateMaterial(materialForm)" form="materialForm" ng-show="vm.editMode"></nt-button>
+                <nt-button type="command-bar" css-class="content-button" icon="update" text="Update" ng-click="vm.updateMaterial(materialForm)" form="materialForm" ng-show="vm.editMode"></nt-button>
                 <nt-button type="command-bar" css-class="content-button" icon="cancel" text="Cancel" ng-click="vm.cancelMaterial(materialForm)" ng-show="vm.editMode"></nt-button>
             </div>
         </div>
         <div layout="row">
         </div>
     </form>
-    <nt-grid options="vm.grid.options" data="vm.grid.data"></nt-grid>
+    <nt-grid grid="vm.grid"></nt-grid>
 </md-content>
 

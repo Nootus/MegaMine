@@ -19,7 +19,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                         + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.add.toolTip}}" text="{{dashboard.add.text}}" ng-click="dashboard.add.save($event)" claim="{{dashboard.add.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                     + '</nt-toolbar>'
                     + '<div class="portal-content">'
-                        + '<nt-grid class="grid-content" grid="dashboard.grid" ng-hide="viewType !== viewTypeEnum.grid" ng-style="{\'height\' : height }"></nt-grid>'
+                        + '<nt-grid class="grid-content" grid="dashboard.grid" ng-hide="viewType !== viewTypeEnum.grid"></nt-grid>'
                         + '<div class="chart-content full-width" layout="row" ng-hide="viewType === viewTypeEnum.grid" ng-style="{\'height\' : height }" >'
                             + '<div flex>'
                                 + '<md-whiteframe class="md-whiteframe-24dp" flex>'
@@ -115,7 +115,8 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
 
     function setHeight(scope) {
         $timeout(function () {
-            scope.height = utility.getContentHeight('main-content', 'portal-content', 10);
+            scope.height = utility.getContentHeight('main-content', 'portal-content', 5);
+            scope.dashboard.grid.height = scope.height;
         });
     }
 

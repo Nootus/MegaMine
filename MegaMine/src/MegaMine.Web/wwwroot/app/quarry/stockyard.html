@@ -1,4 +1,4 @@
-﻿<nt-toolbar title="Stock at Yard" class="title"></nt-toolbar>
+﻿<nt-toolbar header="Stock at Yard"></nt-toolbar>
 <md-content layout-padding>
     <form name="stockForm" novalidate>
         <div layout="row">
@@ -6,17 +6,17 @@
                 <nt-select form="stockForm" label="Yard" control-name="yard" ng-model="vm.yardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></nt-select>
             </div>
             <div flex="10" layout-align="center">
-                <nt-old-button ng-click="vm.getStock(stockForm)" button-icon="save" button-text="Get Stock" form="stockForm" ng-disabled="stockForm.$invalid && stockForm.$submitted"></nt-old-button>
+                <nt-button type="command-bar" css-class="content-button" icon="update" text="Get Stock" ng-click="vm.getStock(stockForm)" form="stockForm"></nt-button>
             </div>
         </div>
     </form>
     <div class="view-error">{{vm.noStockMessage}}</div>
 </md-content>
-<nt-grid vm="vm"></nt-grid>
+<nt-grid grid="vm.grid"></nt-grid>
 
 <script type="text/ng-template" id="stockyard_dialog">
     <md-dialog aria-label="Material" class="dialog">
-        <nt-dialog form="stockyardForm" title="Material">
+        <nt-dialog form="stockyardForm" header="Material">
             <div layout="row">
                 <nt-input flex="20" form="stockyardForm" label="Block Number" control-name="blockNumber" ng-model="vm.model.blockNumber" ng-required="true" em-maxlength="20"></nt-input>
                 <nt-select flex="25" form="stockyardForm" label="Quarry" control-name="quarry" ng-model="vm.model.quarryId" opt-list="vm.viewModel.quarry" ng-required="true"></nt-select>

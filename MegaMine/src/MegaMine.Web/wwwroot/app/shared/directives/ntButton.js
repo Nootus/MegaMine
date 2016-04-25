@@ -49,7 +49,10 @@ function ntButton(profile) {
         if (scope.icon !== undefined) {
             switch (scope.icon) {
                 case 'save':
-                    scope.iconCss = 'plus-square-o'
+                    scope.iconCss = 'save'
+                    break;
+                case 'update':
+                    scope.iconCss = 'check'
                     break;
                 case 'add':
                     scope.iconCss = 'plus'
