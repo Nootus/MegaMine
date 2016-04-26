@@ -44,7 +44,7 @@ function quarryRoute($stateProvider) {
                     return quarryService.getQuarries();
                      }],
                 colours: ['quarryService', function (quarryService) {
-                    return quarryService.getMaterialColours();
+                    return quarryService.getMaterialColourListItems();
             }]}
         })
         .state("yard", {
@@ -111,7 +111,7 @@ function quarryRoute($stateProvider) {
             controllerAs: "vm",
             resolve: {
                 productTypes: ['quarryService', function (quarryService) {
-                    return quarryService.getProductTypes();
+                    return quarryService.getProductTypeList();
                 }],
                 quarrySummaryData: ['quarryService', function (quarryService) {
                     return quarryService.quarrySummaryGet({ });

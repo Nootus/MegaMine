@@ -32,8 +32,6 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         viewModel: {},
         addMaterial: addMaterial,
         saveMaterial: saveMaterial,
-        //editRowMaterial: editRowMaterial,
-        //deleteRowMaterial: deleteRowMaterial,
         cancelMaterial: cancelMaterial,
         updateMaterial: updateMaterial,
         editMode: false

@@ -80,7 +80,7 @@ function quarry(quarryService, utility, constants, dialogService, template) {
                         model.quarryName = dialogModel.quarryName
                         model.location = dialogModel.location
                         angular.extend(model.colourIds, dialogModel.colourIds)
-                        model.colours = utility.getItem(quarryService.colours, dialogModel.colourIds[0], "materialColourId", "colourName");
+                        model.colours = utility.getListItem(quarryService.colourListItems, dialogModel.colourIds[0]);
                     }
 
                     dialogService.hide();

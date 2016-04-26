@@ -20,17 +20,21 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
 
 
     var vm = {
+        grid: {
+            options: gridOptions,
+            data: quarryService.stock
+        },
         yards: [],
         groupYards: [],
         fromYardId: undefined,
         toYardId: undefined,
         currentYardId: undefined,
         movementDate: undefined,
-        gridOptions: gridOptions,
         getStock: getStock,
         moveMaterial: moveMaterial,
         movementErrorMessages: [],
-        validateToYard: validateToYard
+        validateToYard: validateToYard,
+        noStockMessage: undefined
     };
 
     init();
@@ -41,13 +45,15 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
         vm.yards = quarryService.yards;
         vm.groupYards = quarryService.groupYards;
         quarryService.stock.splice(0, quarryService.stock.length);
-
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.stock);
     }
 
     function getStock(form) {
         if (form.$valid) {
-            quarryService.getStock(vm.fromYardId);
+            vm.noStockMessage = undefined;
+            quarryService.getStock(vm.fromYardId).then(function () {
+                if (quarryService.stock.length === 0)
+                    vm.noStockMessage = message.noStockMessage;
+            });
             vm.currentYardId = vm.fromYardId;
         }
     }
@@ -71,7 +77,7 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
 
         if (form.$valid) {
             var selectedIds = [];
-            angular.forEach(vm.gridOptions.gridApi.selection.getSelectedRows(), function (item) {
+            angular.forEach(vm.grid.options.gridApi.selection.getSelectedRows(), function (item) {
                 selectedIds.push(item.materialMovementId)
             });
 

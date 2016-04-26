@@ -22,6 +22,10 @@ namespace MegaMine.Modules.Quarry.Repositories
         }
 
         #region MaterialColour
+        public async Task<List<ListItem<int, string>>> MaterialColourListItemsGet()
+        {
+            return await GetListItemsAsync<MaterialColourEntity>(e => new ListItem<int, string> { Key = e.MaterialColourId, Item = e.ColourName }, s => s.ColourName);
+        }
         public async Task<List<MaterialColourModel>> MaterialColoursGet()
         {
             return await GetListAsync<MaterialColourEntity, MaterialColourModel>(s => s.ColourName);
@@ -44,7 +48,7 @@ namespace MegaMine.Modules.Quarry.Repositories
             return await GetListAsync<ProductTypeEntity, ProductTypeModel>(s => s.ProductTypeName);
         }
 
-        public async Task<List<ListItem<int, string>>> ProductTypeListItemGet()
+        public async Task<List<ListItem<int, string>>> ProductTypeListItemsGet()
         {
             return await GetListItemsAsync<ProductTypeEntity>(e => new ListItem<int, string> { Key = e.ProductTypeId, Item = e.ProductTypeName }, s => s.ProductTypeName);
         }

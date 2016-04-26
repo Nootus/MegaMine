@@ -60,6 +60,9 @@ function ntButton(profile) {
                 case 'cancel':
                     scope.iconCss = 'ban'
                     break;
+                case 'move':
+                    scope.iconCss = 'truck'
+                    break;
             }
         }
         scope.ntClick = function (ev) {

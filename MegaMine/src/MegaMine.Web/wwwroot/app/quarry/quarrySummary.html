@@ -1,21 +1,21 @@
-﻿<nt-toolbar title="Quarry Summary" class="title"></nt-toolbar>
+﻿<nt-toolbar header="Quarry Summary"></nt-toolbar>
 <md-content layout-padding>
     <form name="summaryForm" novalidate>
         <div layout="row">
             <nt-input flex="15" form="summaryForm" type="date" label="Start Date" control-name="startDate" ng-model="vm.searchParams.startDate"></nt-input>
             <nt-input flex="15" form="summaryForm" type="date" label="End Date" control-name="endDate" ng-model="vm.searchParams.endDate"></nt-input>
             <div flex="10" layout-align="center">
-                <nt-old-button ng-click="vm.getQuarrySummary(summaryForm)" button-icon="save" button-text="Get Summary" ng-disabled="summaryForm.$invalid && summaryForm.$submitted"></nt-old-button>
+                <nt-button type="command-bar" css-class="content-button" icon="update" text="Get Summary" ng-click="vm.getQuarrySummary(summaryForm)" form="stockForm"></nt-button>
             </div>
         </div>
     </form>
 </md-content>
-<nt-grid vm="vm"></nt-grid>
+<nt-grid grid="vm.grid"></nt-grid>
 <script type="text/ng-template" id="quarry_summary_dialog">
     <md-dialog aria-label="Quarry Summary" class="dialog full-width">
-        <nt-dialog form="summaryForm" title="{{vm.quarryModel.QuarryName}}">
+        <nt-dialog form="summaryForm" header="{{vm.quarryModel.QuarryName}}">
             <div layout="row">
-                <nt-grid vm="vm" class="full-width" grid-class="dialog-grid"></nt-grid>
+                <nt-grid grid="dialogGrid" class="full-width" grid-class="dialog-grid"></nt-grid>
             </div>
         </nt-dialog>
     </md-dialog>

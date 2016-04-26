@@ -9,13 +9,17 @@ function quarryService($http, utility) {
     var service = {
         //colours
         colours: { list: [], dashboard: {} },
+        colourListItems: [],
         getMaterialColours: getMaterialColours,
+        getMaterialColourListItems: getMaterialColourListItems,
         saveMaterialColour: saveMaterialColour,
         deleteMaterialColour: deleteMaterialColour,
 
         //product types
         productTypes: { list: [], dashboard: {}},
+        productTypeList: [],
         getProductTypes: getProductTypes,
+        getProductTypeList: getProductTypeList,
         saveProductType: saveProductType,
         deleteProductType: deleteProductType,
 
@@ -71,6 +75,12 @@ function quarryService($http, utility) {
                 angular.extend(service.colours.dashboard, data.dashboard);
             });
     }
+    function getMaterialColourListItems() {
+        return $http.get("/api/quarry/materialcolourlistitemsget")
+            .then(function (data) {
+                utility.extend(service.colourListItems, data);
+            });
+    }
 
     function saveMaterialColour(model) {
         var url;
@@ -94,6 +104,13 @@ function quarryService($http, utility) {
             .then(function (data) {
                 utility.extend(service.productTypes.list, data.model);
                 angular.extend(service.productTypes.dashboard, data.dashboard);
+            });
+    }
+
+    function getProductTypeList() {
+        return $http.get("/api/quarry/producttypelistget")
+            .then(function (data) {
+                utility.extend(service.productTypeList, data);
             });
     }
 

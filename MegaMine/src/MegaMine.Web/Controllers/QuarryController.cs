@@ -1,4 +1,5 @@
-﻿using MegaMine.Modules.Quarry.Common;
+﻿using MegaMine.Core.Models;
+using MegaMine.Modules.Quarry.Common;
 using MegaMine.Modules.Quarry.Domain;
 using MegaMine.Modules.Quarry.Models;
 using MegaMine.Services.Security.Domain;
@@ -32,6 +33,12 @@ namespace MegaMine.Web.Controllers
 
         #region Material Colour
         [HttpGet]
+        public async Task<AjaxModel<List<ListItem<int, string>>>> MaterialColourListItemsGet()
+        {
+            return await AjaxHelper.GetAsync(m => domain.MaterialColourListItemsGet());
+        }
+
+        [HttpGet]
         public async Task<AjaxModel<List<MaterialColourModel>>> MaterialColoursGet()
         {
             var ajaxModel = await AjaxHelper.GetAsync(m => domain.MaterialColoursGet());
@@ -58,6 +65,13 @@ namespace MegaMine.Web.Controllers
         #endregion
 
         #region Product Type
+
+        [HttpGet]
+        public async Task<AjaxModel<List<ProductTypeModel>>> ProductTypeListGet()
+        {
+            return await AjaxHelper.GetAsync(m => domain.ProductTypesGet());
+        }
+
         [HttpGet]
         public async Task<AjaxModel<List<ProductTypeModel>>> ProductTypesGet()
         {
