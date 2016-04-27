@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarrySummary', quarrySummary)
-quarrySummary.$inject = ['$scope', 'quarryService', 'gridUtility', 'quarryUtility', 'dialogService', 'constants', 'template'];
+quarrySummary.$inject = ['quarryService', 'quarryUtility', 'dialogService', 'constants', 'template'];
 
-function quarrySummary($scope, quarryService, gridUtility, quarryUtility, dialogService, constants, template) {
+function quarrySummary(quarryService, quarryUtility, dialogService, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -32,6 +32,7 @@ function quarrySummary($scope, quarryService, gridUtility, quarryUtility, dialog
             data: quarryService.quarrySummary,
             showQuarrySummaryDetails: showQuarrySummaryDetails
         },
+        dialogGrid: { options: dialogGridOptions },
         searchParams: { startDate: undefined, endDate: undefined, quarryId: 0 },
         getQuarrySummary: getQuarrySummary,
     };
@@ -47,9 +48,6 @@ function quarrySummary($scope, quarryService, gridUtility, quarryUtility, dialog
         });
         vm.grid.options.columnDefs.push({ name: 'Total', field: 'Total', type: 'number', displayName: 'Total' });
         vm.grid.options.columnDefs.push(template.getButtonColumnDefs('QuarryId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.grid.showQuarrySummaryDetails(row.entity, $event)' }]));
-
-        //clearing up the previous search
-        //gridUtility.initializeGrid(vm.grid.options, $scope, quarryService.quarrySummary);
     }
 
     function getQuarrySummary(form) {
@@ -68,7 +66,7 @@ function quarrySummary($scope, quarryService, gridUtility, quarryUtility, dialog
         dialogService.show({
             templateUrl: 'quarry_summary_dialog',
             targetEvent: ev,
-            data: { quarryModel: quarry, model: quarryService.quarrySummaryDetails, dialogGrid: { options: dialogGridOptions }},
+            data: { quarryModel: quarry, model: quarryService.quarrySummaryDetails, dialogGrid: vm.dialogGrid},
             dialogMode: constants.enum.dialogMode.view,
             dialogInit: dialogInit,
             resolve: { resolvemodel: function () { return quarryService.getQuarrySummaryDetails(vm.searchParams) } }

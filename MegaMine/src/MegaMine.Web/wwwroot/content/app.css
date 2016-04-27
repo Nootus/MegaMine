@@ -9,6 +9,11 @@ html {
 
 body {
     background-color: #282d32;
+    background-image: url('images/layout/background.jpg');
+    background-repeat:   no-repeat;
+    background-position: center center; 
+    background-size:     cover; 
+
 	margin: 0 auto;
 	padding: 0;
 	font-family: 'Roboto', Verdana, Helvetica, sans-serif;

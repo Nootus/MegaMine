@@ -1,6 +1,6 @@
 ﻿<div ng-controller="index as vm">
     <div class="top-bar" layout="row">
-        <div class="top-bar-title has-hover">Prasanna Kumar</div>
+        <div class="top-bar-title has-hover">Mega Mine</div>
         <div flex layout="row" ng-show="vm.profile.isAuthenticated">
             <div class="top-bar-company has-hover"><nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select></div>
             <div flex style="text-align: center">
@@ -42,8 +42,8 @@
             </div>
         </div>
     </div>
-    <div layout="row" ng-show="vm.profile.isAuthenticated">
-        <div class="left-bar" ng-class="{ 'left-bar-collapse': vm.collapseMenu }">
+    <div layout="row">
+        <div class="left-bar" ng-class="{ 'left-bar-collapse': vm.collapseMenu }" ng-show="vm.profile.isAuthenticated">
             <div ng-show="vm.collapseMenu">
                 <div class="left-bar-item has-hover menu-hover">
                     <md-button ng-href="#" ng-click="vm.toggleMenu()">

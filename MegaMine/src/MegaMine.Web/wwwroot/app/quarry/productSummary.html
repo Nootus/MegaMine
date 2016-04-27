@@ -1,4 +1,4 @@
-﻿<nt-toolbar title="Product Summary" class="title"></nt-toolbar>
+﻿<nt-toolbar header="Product Summary"></nt-toolbar>
 <md-content>
     <div layout="row">
         <nt-multi-select flex="30" label="Product Types" ng-model="vm.selectedProductTypes" nt-items="vm.productTypes"></nt-multi-select>
@@ -10,17 +10,17 @@
             <nt-input flex="15" form="summaryForm" type="date" label="Start Date" control-name="startDate" ng-model="vm.searchParams.startDate"></nt-input>
             <nt-input flex="15" form="summaryForm" type="date" label="End Date" control-name="endDate" ng-model="vm.searchParams.endDate"></nt-input>
             <div flex="10" layout-align="center">
-                <nt-old-button ng-click="vm.getSummary(summaryForm)" button-icon="save" button-text="Get Summary" ng-disabled="summaryForm.$invalid && summaryForm.$submitted"></nt-old-button>
+                <nt-button type="command-bar" css-class="content-button" icon="update" text="Get Summary" ng-click="vm.getSummary(summaryForm)" form="summaryForm"></nt-button>
             </div>
         </div>
     </form>
 </md-content>
-<nt-grid vm="vm"></nt-grid>
+<nt-grid grid="vm.grid"></nt-grid>
 <script type="text/ng-template" id="product_summary_dialog">
     <md-dialog aria-label="Product Type Summary" class="dialog full-width">
-        <nt-dialog form="summaryForm" title="{{vm.summaryModel.productTypeName}}({{vm.summaryModel.quarryName}})">
+        <nt-dialog form="summaryForm" header="{{vm.summaryModel.productTypeName}}({{vm.summaryModel.quarryName}})">
             <div layout="row">
-                <nt-grid vm="vm" class="full-width" grid-class="dialog-grid"></nt-grid>
+                <nt-grid grid="dialogGrid" class="full-width" grid-class="dialog-grid"></nt-grid>
             </div>
         </nt-dialog>
     </md-dialog>

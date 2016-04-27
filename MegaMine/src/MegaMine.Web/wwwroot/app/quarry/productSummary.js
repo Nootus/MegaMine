@@ -1,15 +1,15 @@
 ﻿'use strict';
 angular.module('megamine').controller('productSummary', productSummary)
-productSummary.$inject = ['$scope', 'quarryService', 'gridUtility', 'quarryUtility', 'dialogService', 'constants', 'template'];
+productSummary.$inject = ['$scope', 'quarryService', 'gridUtility', 'dialogService', 'constants', 'template'];
 
-function productSummary($scope, quarryService, gridUtility, quarryUtility, dialogService, constants, template) {
+function productSummary($scope, quarryService, gridUtility, dialogService, constants, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string' },
                     { name: 'quarryName', field: 'quarryName', displayName: 'Quarry Name', type: 'string' },
                     { name: 'materialCount', field: 'materialCount', type: 'int', displayName: 'Total' },
-                    , template.getButtonColumnDefs('rowId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.vm.showSummaryDetails(row.entity, $event)' }])
+                    , template.getButtonColumnDefs('rowId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.grid.showSummaryDetails(row.entity, $event)' }])
         ]
     };
 
@@ -34,8 +34,12 @@ function productSummary($scope, quarryService, gridUtility, quarryUtility, dialo
         productTypes: undefined,
         selectedProductTypes: [],
         summary: [],
-        gridOptions: gridOptions,
-        dialogVm: { gridOptions: dialogGridOptions },
+        grid: {
+            options: gridOptions,
+            data: quarryService.productSummary,
+            showSummaryDetails: showSummaryDetails
+        },
+        dialogGrid: { options: dialogGridOptions },
         searchParams: { startDate: undefined, endDate: undefined },
         getSummary: getSummary,
         showSummaryDetails: showSummaryDetails,
@@ -47,7 +51,6 @@ function productSummary($scope, quarryService, gridUtility, quarryUtility, dialo
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.productSummary);
         vm.quarries = quarryService.productSummaryVM.quarries;
         vm.productTypes = quarryService.productSummaryVM.productTypes;
     }
@@ -68,7 +71,7 @@ function productSummary($scope, quarryService, gridUtility, quarryUtility, dialo
     }
 
     function dialogInit(dialogScope, dialogModel) {
-        gridUtility.initializeDialogGrid(dialogGridOptions, dialogScope, dialogModel);
+        dialogScope.dialogGrid.data = dialogModel;
     }
 
     function showSummaryDetails(summaryModel, ev) {
@@ -77,7 +80,7 @@ function productSummary($scope, quarryService, gridUtility, quarryUtility, dialo
         dialogService.show({
             templateUrl: 'product_summary_dialog',
             targetEvent: ev,
-            data: { summaryModel: summaryModel, model: quarryService.productSummaryDetails, gridOptions: dialogGridOptions },
+            data: { summaryModel: summaryModel, model: quarryService.productSummaryDetails, dialogGrid: vm.dialogGrid },
             dialogMode: constants.enum.dialogMode.view,
             dialogInit: dialogInit,
             resolve: { resolvemodel: function () { return quarryService.getProductSummaryDetails(vm.searchParams) } }
