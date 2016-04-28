@@ -18,12 +18,12 @@ function ntGrid($timeout, uiGridConstants, utility) {
 
     function link(scope, element, attrs, nullController, transclude) {
         scope.grid.cssClass = scope.grid.cssClass === undefined ? 'main-grid' : scope.grid.cssClass;
-        initialize(scope.grid.options, scope.grid.data, 'main-content', scope.grid.cssClass, 24);
+        initialize(scope.grid.options, scope.grid.data);
 
         setHeight(scope);
     }
 
-    function initialize(options, data, contentClass, cssClass, bottomOffset) {
+    function initialize(options, data) {
         options.enableColumnResizing = true,
         options.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
         options.data = data;
@@ -52,11 +52,19 @@ function ntGrid($timeout, uiGridConstants, utility) {
     }
 
     function setGridHeight(scope) {
+        var timeoutInterval = 50;
+        var bottomOffset = 10;
+
+        if (scope.grid.dialog) {
+            timeoutInterval = 250;
+            bottomOffset = 40;
+        }
+
         $timeout(function () {
             if (!scope.dashboardInd) {
-                scope.grid.height = utility.getContentHeight('main-content', 'grid-content', 10);
+                scope.grid.height = utility.getContentHeight('main-content', 'grid-content', bottomOffset);
             }
-        }, 50);
+        }, timeoutInterval);
     }
 
 }

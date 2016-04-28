@@ -269,12 +269,12 @@ namespace MegaMine.Modules.Quarry.Repositories
             try
             {
                 //inserting the movement
-                string sql = "INSERT INTO MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
-                                " SELECT MaterialId, ToYardId, @p0, @p1, 1, @p2, @p3, @p4, @p5, 0, @p6 FROM MaterialMovement WHERE MaterialMovementId in (" + ids + ")";
+                string sql = "insert into quarry.MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
+                                " select MaterialId, ToYardId, @p0, @p1, 1, @p2, @p3, @p4, @p5, 0, @p6 from quarry.MaterialMovement where MaterialMovementId in (" + ids + ")";
 
                 database.ExecuteSqlCommand(sql, model.ToYardId, model.MovementDate, context.UserName, DateTime.UtcNow, context.UserName, DateTime.UtcNow, context.CompanyId.ToString());
 
-                sql = "UPDATE MaterialMovement SET CurrentInd = 0 WHERE MaterialMovementId in (" + ids + ")";
+                sql = "update quarry.MaterialMovement set CurrentInd = 0 where MaterialMovementId in (" + ids + ")";
                 database.ExecuteSqlCommand(sql);
 
                 database.CommitTransaction();
@@ -282,6 +282,7 @@ namespace MegaMine.Modules.Quarry.Repositories
             catch
             {
                 database.RollbackTransaction();
+                throw;
             }
 
             return await StockGet(model.FromYardId);

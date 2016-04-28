@@ -39,7 +39,7 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
             data: quarryService.productSummary,
             showSummaryDetails: showSummaryDetails
         },
-        dialogGrid: { options: dialogGridOptions },
+        dialogGrid: { options: dialogGridOptions, dialog: true },
         searchParams: { startDate: undefined, endDate: undefined },
         getSummary: getSummary,
         showSummaryDetails: showSummaryDetails,

@@ -32,7 +32,7 @@ function quarrySummary(quarryService, quarryUtility, dialogService, constants, t
             data: quarryService.quarrySummary,
             showQuarrySummaryDetails: showQuarrySummaryDetails
         },
-        dialogGrid: { options: dialogGridOptions },
+        dialogGrid: { options: dialogGridOptions, dialog: true },
         searchParams: { startDate: undefined, endDate: undefined, quarryId: 0 },
         getQuarrySummary: getQuarrySummary,
     };

@@ -61,6 +61,7 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         vm.model.width = "";
         vm.model.height = "";
         vm.model.weight = "";
+        vm.model.productTypeId = undefined;
     }
 
     function addMaterial(form) {
@@ -69,6 +70,7 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
             vm.model.index = vm.grid.data.length;
             vm.grid.data.push(angular.copy(vm.model));
             resetModel();
+            form.$submitted = false;
         }
     }
 
