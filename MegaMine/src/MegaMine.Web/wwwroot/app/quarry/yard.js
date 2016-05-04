@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('yard', yard)
-yard.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
+yard.$inject = ['quarryService', 'constants', 'dialogService', 'template'];
 
-function yard($scope, quarryService, gridUtility, constants, dialogService, template) {
+function yard(quarryService, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -12,19 +12,42 @@ function yard($scope, quarryService, gridUtility, constants, dialogService, temp
                     ]
     };
 
-
     var vm = {
-        gridOptions: gridOptions,
-        viewDialog: viewDialog,
-        addYard: addYard
+        dashboard: {
+            header: 'Yards',
+            widget: {
+                widgets: quarryService.yards.dashboard.widgets,
+                pageWidgets: quarryService.yards.dashboard.pageWidgets,
+            },
+            list: {
+                options: {
+                    fields: ['yardName', 'location'],
+                    primaryField: 'yardId'
+                },
+                data: quarryService.yards.list,
+                view: viewDialog
+            },
+            grid: {
+                options: gridOptions,
+                data: quarryService.yards.list,
+                view: viewDialog
+            },
+            add: {
+                text: 'New',
+                toolTip: 'New Yard',
+                claim: 'Quarry:YardAdd,Plant:YardAdd',
+                save: addYard,
+            }
+        }
     };
+
 
     init();
 
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.yards);
+
     }
 
     function addYard(ev) {

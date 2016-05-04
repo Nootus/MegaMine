@@ -406,10 +406,10 @@ md-input-container.md-input-invalid .md-select-placeholder{
 }
 
 .ui-grid-row:nth-child(odd) .ui-grid-cell {
-  background-color: #eaf4f9;
+  background-color: #ffffff;
 }
 .ui-grid-row:nth-child(even) .ui-grid-cell {
-  background-color: #ffffff;
+  background-color: #eaf4f9;
 }
 
 .ui-grid-menu-button {

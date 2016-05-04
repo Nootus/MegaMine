@@ -150,7 +150,7 @@ namespace MegaMine.Modules.Quarry.Repositories
         #region Yard
         public async Task<List<YardModel>> YardsGet()
         {
-            return await GetListAsync<YardEntity, YardModel>(s => s.YardName);
+            return (await GetListAsync<YardEntity, YardModel>(s => s.YardName)).OrderBy(o => o.QuarryId).ToList();
         }
 
         public async Task<List<YardModel>> YardsGet(int[] companies)

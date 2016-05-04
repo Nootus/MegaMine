@@ -131,7 +131,9 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<YardModel>>> YardsGet()
         {
-            return await AjaxHelper.GetAsync(m => domain.YardsGet());
+            var ajaxModel = await AjaxHelper.GetAsync(m => domain.YardsGet());
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
         }
 
         [HttpGet]
