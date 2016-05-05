@@ -8,8 +8,7 @@ function quarry(quarryService, utility, constants, dialogService, template) {
         columnDefs: [
                     { name: 'quarryName', field: 'quarryName', displayName: 'Name', type: 'string' },
                     { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour' },
-                    { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
-                    template.getButtonDefaultColumnDefs('quarryId', 'Quarry:QuarryEdit', 'Quarry:QuarryDelete')
+                    { name: 'location', field: 'location', type: 'string', displayName: 'Location' }
         ]
     };
 
@@ -24,8 +23,11 @@ function quarry(quarryService, utility, constants, dialogService, template) {
             list: {
                 options: {
                     fields: ['quarryName', 'colours', 'location'],
-                    primaryField: 'quarryId'
-                },
+                    primaryField: 'quarryId',
+                    editClaim: 'Quarry111:QuarryEdit11',
+                    deleteClaim: 'Quarry:QuarryDelete',
+                    hideButtons: undefined
+            },
                 data: quarryService.quarries.list,
                 view: viewDialog
             },
@@ -37,7 +39,7 @@ function quarry(quarryService, utility, constants, dialogService, template) {
             add: {
                 text: 'New',
                 toolTip: 'New Quarry',
-                claim: 'Quarry:QuarryAdd',
+                claim: 'Quarry1111:QuarryAdd111',
                 save: addQuarry,
             }
         }

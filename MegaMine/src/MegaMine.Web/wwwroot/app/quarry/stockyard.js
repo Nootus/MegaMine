@@ -39,7 +39,7 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
 
     function init() {
         quarryService.materialViewModel = {}; //resetting the view model, so that it can be populated in the edit pop ups
-        vm.yards = quarryService.yards;
+        vm.yards = quarryService.yardList;
         quarryService.stock.splice(0, quarryService.stock.length);
 
         //gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.stock);

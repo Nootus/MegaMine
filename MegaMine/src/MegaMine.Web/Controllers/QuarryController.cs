@@ -129,6 +129,12 @@ namespace MegaMine.Web.Controllers
 
         #region Yard
         [HttpGet]
+        public async Task<AjaxModel<List<YardModel>>> YardListGet()
+        {
+            return await AjaxHelper.GetAsync(m => domain.YardsGet());
+        }
+
+        [HttpGet]
         public async Task<AjaxModel<List<YardModel>>> YardsGet()
         {
             var ajaxModel = await AjaxHelper.GetAsync(m => domain.YardsGet());

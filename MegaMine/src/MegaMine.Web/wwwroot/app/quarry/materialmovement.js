@@ -42,7 +42,7 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
     return vm;
 
     function init() {
-        vm.yards = quarryService.yards;
+        vm.yards = quarryService.yardList;
         vm.groupYards = quarryService.groupYards;
         quarryService.stock.splice(0, quarryService.stock.length);
     }

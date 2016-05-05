@@ -13,12 +13,11 @@ function ntButton(profile) {
             icon: '@',
             text: '@',
             claim: '@',
-            hide: '@',
             overrideDisabled: '@',
             form: '=?'
         },
         link: link,
-        template: '<md-button class="{{cssClass}} {{type}}-button has-hover" ng-hide="hide" aria-label="{{toolTip}}" ng-click="ntClick($event)"'
+        template: '<md-button class="{{cssClass}} {{type}}-button has-hover" ng-hide="hideButton === true" aria-label="{{toolTip}}" ng-click="ntClick({ev: $event})"'
                     + ' ng-disabled="form.$invalid && form.$submitted && bypassDisabled">'
                     + ' <md-tooltip ng-style="toolTipStyle">{{toolTip}}</md-tooltip>'
                     + ' <md-icon class="fa fa-{{iconCss}} {{type}}-button-icon" aria-label="{{toolTip}}"></md-icon>'
@@ -29,10 +28,10 @@ function ntButton(profile) {
 
     function link(scope, element, attrs, nullController) {
         if (scope.claim === undefined || scope.claim === '') {
-            scope.hide = false;
+            scope.hideButton = false;
         }
         else {
-            scope.hide = !profile.isAuthorized(scope.claim.split(","));
+            scope.hideButton = !profile.isAuthorized(scope.claim.split(","));
         }
 
         //setting the default values
@@ -73,6 +72,7 @@ function ntButton(profile) {
             if (scope.form != undefined) {
                 scope.form.$setSubmitted();
             }
+
         }
     }
 }

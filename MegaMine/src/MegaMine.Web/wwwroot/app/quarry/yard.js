@@ -7,8 +7,7 @@ function yard(quarryService, constants, dialogService, template) {
     var gridOptions = {
         columnDefs: [
                         { name: 'yardName', field: 'yardName', displayName: 'Name', type: 'string' },
-                        { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
-                        template.getButtonDefaultColumnDefs('yardId', 'Quarry:YardEdit,Plant:YardEdit', 'Quarry:YardDelete,Plant:YardDelete', 'row.entity.quarryId !== null')
+                        { name: 'location', field: 'location', type: 'string', displayName: 'Location' }
                     ]
     };
 
@@ -22,7 +21,10 @@ function yard(quarryService, constants, dialogService, template) {
             list: {
                 options: {
                     fields: ['yardName', 'location'],
-                    primaryField: 'yardId'
+                    primaryField: 'yardId',
+                    editClaim: 'Quarry1:YardEdit,Plant1:YardEdit',
+                    deleteClaim: 'Quarry:YardDelete,Plant:YardDelete',
+                    hideButtons: 'row.entity.quarryId !== null'
                 },
                 data: quarryService.yards.list,
                 view: viewDialog

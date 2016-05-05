@@ -31,7 +31,9 @@ function quarryService($http, utility) {
 
         //yards
         yards: { list: [], dashboard: {} },
+        yardList: [],
         groupYards: [],
+        getYardList: getYardList,
         getYards: getYards,
         saveYard: saveYard,
         deleteYard: deleteYard,
@@ -156,6 +158,13 @@ function quarryService($http, utility) {
     }
 
     //Yards
+    function getYardList() {
+        return $http.get("/api/quarry/yardlistget")
+            .then(function (data) {
+                utility.extend(service.yardList, data);
+            });
+    }
+
     function getYards() {
         return $http.get("/api/quarry/yardsget")
             .then(function (data) {

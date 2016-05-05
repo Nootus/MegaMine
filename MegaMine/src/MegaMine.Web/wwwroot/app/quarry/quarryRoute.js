@@ -82,7 +82,7 @@ function quarryRoute($stateProvider) {
             controllerAs: "vm",
             resolve: {
                 resolveModel: ['quarryService', function (quarryService) {
-                    return quarryService.getYards();
+                    return quarryService.getYardList();
                 }]
             }
         })
@@ -95,7 +95,7 @@ function quarryRoute($stateProvider) {
             controllerAs: "vm",
             resolve: {
                 yards: ['quarryService', function (quarryService) {
-                    return quarryService.getYards();
+                    return quarryService.getYardList();
                 }],
                 groupYards: ['quarryService', function (quarryService) {
                     return quarryService.getGroupYards();

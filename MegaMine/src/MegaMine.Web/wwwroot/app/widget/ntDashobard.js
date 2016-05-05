@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntDashobard', ntDashobard)
-ntDashobard.$inject = ['$timeout', '$state', '$stateParams', 'chart', 'dialogService', 'utility', 'constants'];
+ntDashobard.$inject = ['$timeout', '$state', '$stateParams', 'chart', 'dialogService', 'utility', 'template', 'constants'];
 
-function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utility, constants) {
+function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utility, template, constants) {
     return {
         restrict: 'E',
         scope: {
@@ -41,8 +41,8 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                                                 + '</div>'
                                                 + '<div class="right-list-menu" ng-show="showContextMenu">'
                                                     + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{dashboard.list.options.editClaim}}" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{dashboard.list.options.deleteClaim}}" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
                                                 + '</div>'
                                             + '</md-list-item>'
                                         + '</md-list>'
@@ -55,6 +55,9 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
     };
 
     function link(scope, element, attrs, nullController) {
+
+        //setting grid button row
+        scope.dashboard.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.list.options.primaryField, scope.dashboard.list.options.editClaim, scope.dashboard.list.options.deleteClaim, scope.dashboard.list.options.hideButtons));
 
         //setting the chart options based on the chart type
         chart.set(scope.dashboard.widget.widgets);
