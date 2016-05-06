@@ -17,10 +17,15 @@ function ntGrid($timeout, uiGridConstants, utility) {
     };
 
     function link(scope, element, attrs, nullController, transclude) {
-        scope.grid.cssClass = scope.grid.cssClass === undefined ? 'main-grid' : scope.grid.cssClass;
-        initialize(scope.grid.options, scope.grid.data);
+        if (scope.grid === undefined) {
+            scope.grid = { options: {} }; //work around as ui-grid is throwing error
+        }
+        else {
+            scope.grid.cssClass = scope.grid.cssClass === undefined ? 'main-grid' : scope.grid.cssClass;
+            initialize(scope.grid.options, scope.grid.data);
 
-        setHeight(scope);
+            setHeight(scope);
+        }
     }
 
     function initialize(options, data) {

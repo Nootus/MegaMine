@@ -24,7 +24,7 @@ function quarry(quarryService, utility, constants, dialogService, template) {
                 options: {
                     fields: ['quarryName', 'colours', 'location'],
                     primaryField: 'quarryId',
-                    editClaim: 'Quarry111:QuarryEdit11',
+                    editClaim: 'Quarry11:QuarryEdit',
                     deleteClaim: 'Quarry:QuarryDelete',
                     hideButtons: undefined
             },
@@ -39,7 +39,7 @@ function quarry(quarryService, utility, constants, dialogService, template) {
             add: {
                 text: 'New',
                 toolTip: 'New Quarry',
-                claim: 'Quarry1111:QuarryAdd111',
+                claim: 'Quarry:QuarryAdd',
                 save: addQuarry,
             }
         }

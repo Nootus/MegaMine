@@ -16,7 +16,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                         + '<nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" text="Dashboard" ng-click="toggleView()" ng-hide="viewType !== viewTypeEnum.grid"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="th" tool-tip="Grid View" text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="refresh()"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.add.toolTip}}" text="{{dashboard.add.text}}" ng-click="dashboard.add.save($event)" claim="{{dashboard.add.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.buttons.add.toolTip}}" text="{{dashboard.buttons.add.text}}" ng-click="dashboard.buttons.add.save($event)" claim="{{dashboard.buttons.add.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                     + '</nt-toolbar>'
                     + '<div class="portal-content">'
                         + '<nt-grid class="grid-content" grid="dashboard.grid" ng-hide="viewType !== viewTypeEnum.grid"></nt-grid>'
@@ -41,8 +41,8 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                                                 + '</div>'
                                                 + '<div class="right-list-menu" ng-show="showContextMenu">'
                                                     + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{dashboard.list.options.editClaim}}" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{dashboard.list.options.deleteClaim}}" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{dashboard.buttons.edit.claim}}" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{dashboard.buttons.delete.claim}}" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
                                                 + '</div>'
                                             + '</md-list-item>'
                                         + '</md-list>'
@@ -57,7 +57,13 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
     function link(scope, element, attrs, nullController) {
 
         //setting grid button row
-        scope.dashboard.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.list.options.primaryField, scope.dashboard.list.options.editClaim, scope.dashboard.list.options.deleteClaim, scope.dashboard.list.options.hideButtons));
+        if (scope.dashboard.grid === undefined) {
+            scope.viewType = constants.enum.viewType.dashboardOnly
+        }
+        else {
+            scope.dashboard.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.list.options.primaryField, scope.dashboard.buttons.edit.claim, scope.dashboard.buttons.delete.claim, scope.dashboard.list.options.hideButtons));
+            scope.viewType = scope.viewType || constants.enum.viewType.list;
+        }
 
         //setting the chart options based on the chart type
         chart.set(scope.dashboard.widget.widgets);
@@ -67,12 +73,12 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
 
         preprocessWidgets(scope.dashboard);
 
-        if (scope.dashboard.dashboardOnly === true) {
-            scope.viewType = constants.enum.viewType.dashboardOnly;
-        }
-        else {
-            scope.viewType = scope.viewType || constants.enum.viewType.list;
-        }
+        //if (scope.dashboard.dashboardOnly === true) {
+        //    scope.viewType = constants.enum.viewType.dashboardOnly;
+        //}
+        //else {
+        //    scope.viewType = scope.viewType || constants.enum.viewType.list;
+        //}
 
         scope.viewTypeEnum = constants.enum.viewType;
 

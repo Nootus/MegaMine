@@ -7,10 +7,6 @@ function dashboard(dashboardService) {
     var vm = {
         dashboard: {
             header: 'Quarry Dashboard',
-            dashboardOnly: true,
-            grid: {
-                options: {}
-            },
             widget: {
                 widgets: dashboardService.dashboard.widgets,
                 pageWidgets: dashboardService.dashboard.pageWidgets,

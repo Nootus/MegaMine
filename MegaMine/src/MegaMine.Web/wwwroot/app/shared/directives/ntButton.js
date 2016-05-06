@@ -17,12 +17,12 @@ function ntButton(profile) {
             form: '=?'
         },
         link: link,
-        template: '<md-button class="{{cssClass}} {{type}}-button has-hover" ng-hide="hideButton === true" aria-label="{{toolTip}}" ng-click="ntClick({ev: $event})"'
+        template: '<span ng-hide="hideButton === true" ><md-button class="{{cssClass}} {{type}}-button has-hover" aria-label="{{toolTip}}" ng-click="ntClick({ev: $event})"'
                     + ' ng-disabled="form.$invalid && form.$submitted && bypassDisabled">'
                     + ' <md-tooltip ng-style="toolTipStyle">{{toolTip}}</md-tooltip>'
                     + ' <md-icon class="fa fa-{{iconCss}} {{type}}-button-icon" aria-label="{{toolTip}}"></md-icon>'
                     + ' <div class="{{type}}-button-text">{{text}}</div>'
-                    + '</md-button>'
+                    + '</md-button></span>'
 
     };
 
