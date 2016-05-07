@@ -15,8 +15,11 @@ function yard(quarryService, constants, dialogService, template) {
         dashboard: {
             header: 'Yards',
             widget: {
-                widgets: quarryService.yards.dashboard.widgets,
+                allWidgets: quarryService.yards.dashboard.allWidgets,
                 pageWidgets: quarryService.yards.dashboard.pageWidgets,
+            },
+            records: {
+
             },
             list: {
                 options: {

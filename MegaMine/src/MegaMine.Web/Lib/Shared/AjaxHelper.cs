@@ -112,7 +112,7 @@ namespace MegaMine.Web.Lib.Shared
             {
                 WidgetDomain widgetDomain = NTContext.HttpContext.RequestServices.GetRequiredService<WidgetDomain>();
                 DashboardModel dashboard = await widgetDomain.DashboardGet(dashboardPageId.Value);
-                foreach(WidgetModel widget in dashboard.Widgets)
+                foreach(WidgetModel widget in dashboard.AllWidgets)
                 {
                     WidgetOptions options = new WidgetOptions()
                     {

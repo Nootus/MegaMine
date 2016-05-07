@@ -20,7 +20,7 @@ namespace MegaMine.Services.Widget.Domain
         {
             DashboardModel model = new DashboardModel();
             int dashboardId = await widgetRepository.GetDashboardId(pageId);
-            model.Widgets = await widgetRepository.WidgetsGet(dashboardId);
+            model.AllWidgets = await widgetRepository.WidgetsGet(dashboardId);
             model.PageWidgets = await widgetRepository.PageWidgetsGet(dashboardId);
             return model;
         }

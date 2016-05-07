@@ -17,7 +17,7 @@ function materialColour(quarryService, constants, dialogService, template) {
         dashboard: {
             header: 'Colours',
             widget: {
-                widgets: quarryService.colours.dashboard.widgets,
+                allWidgets: quarryService.colours.dashboard.allWidgets,
                 pageWidgets: quarryService.colours.dashboard.pageWidgets,
             },
             list: {

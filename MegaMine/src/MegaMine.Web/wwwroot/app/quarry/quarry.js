@@ -16,32 +16,42 @@ function quarry(quarryService, utility, constants, dialogService, template) {
     var vm = {
         dashboard: {
             header: 'Quarries',
-            widget: {
-                widgets: quarryService.quarries.dashboard.widgets,
+            widgets: {
+                allWidgets: quarryService.quarries.dashboard.allWidgets,
                 pageWidgets: quarryService.quarries.dashboard.pageWidgets,
             },
-            list: {
+            records: {
                 options: {
-                    fields: ['quarryName', 'colours', 'location'],
                     primaryField: 'quarryId',
-                    editClaim: 'Quarry11:QuarryEdit',
-                    deleteClaim: 'Quarry:QuarryDelete',
-                    hideButtons: undefined
-            },
-                data: quarryService.quarries.list,
-                view: viewDialog
-            },
-            grid: {
-                options: gridOptions,
-                data: quarryService.quarries.list,
-                view: viewDialog
-            },
-            add: {
-                text: 'New',
-                toolTip: 'New Quarry',
-                claim: 'Quarry:QuarryAdd',
-                save: addQuarry,
-            }
+                    data: quarryService.quarries.list,
+                    view: viewDialog
+                },
+                list: {
+                    options: {
+                        fields: ['quarryName', 'colours', 'location'],
+                    },
+                },
+                grid: {
+                    options: gridOptions
+                },
+                buttons: {
+                    options: {
+                        hideButtons: undefined
+                    },
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Quarry',
+                        claim: 'Quarry:QuarryAdd',
+                        save: addQuarry,
+                    },
+                    edit: {
+                        claim: 'Quarry:QuarryEdit'
+                    },
+                    delete: {
+                        claim: 'Quarry:QuarryDelete'
+                    }
+                }
+           }
         }
     };
 

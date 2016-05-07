@@ -16,15 +16,15 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                         + '<nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" text="Dashboard" ng-click="toggleView()" ng-hide="viewType !== viewTypeEnum.grid"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="th" tool-tip="Grid View" text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="refresh()"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.buttons.add.toolTip}}" text="{{dashboard.buttons.add.text}}" ng-click="dashboard.buttons.add.save($event)" claim="{{dashboard.buttons.add.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.records.buttons.add.toolTip}}" text="{{dashboard.records.buttons.add.text}}" ng-click="dashboard.records.buttons.add.save($event)" claim="{{dashboard.records.buttons.add.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                     + '</nt-toolbar>'
                     + '<div class="portal-content">'
-                        + '<nt-grid class="grid-content" grid="dashboard.grid" ng-hide="viewType !== viewTypeEnum.grid"></nt-grid>'
+                        + '<nt-grid class="grid-content" grid="dashboard.records.grid" ng-hide="viewType !== viewTypeEnum.grid"></nt-grid>'
                         + '<div class="chart-content full-width" layout="row" ng-hide="viewType === viewTypeEnum.grid" ng-style="{\'height\' : height }" >'
                             + '<div flex>'
                                 + '<md-whiteframe class="md-whiteframe-24dp" flex>'
                                     + '<md-content class="chart-bar">'
-                                        + '<nt-gridster widgets="dashboard.widget.pageWidgets"></nt-gridster>'
+                                        + '<nt-gridster widgets="dashboard.widgets.pageWidgets"></nt-gridster>'
                                     + '</md-content>'
                                 + '</md-whiteframe>'
                             + '</div>'
@@ -33,16 +33,16 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                                     + '<md-content flex>'
                                         + '<div class="class="full-width">'
                                         + '<md-list>'
-                                            + '<md-list-item class="md-3-line right-list" ng-repeat="item in dashboard.list.data track by item[dashboard.list.options.primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
+                                            + '<md-list-item class="md-3-line right-list" ng-repeat="item in dashboard.records.options.data track by item[dashboard.records.options.primaryField]" ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">'
                                                 + '<div class="md-list-item-text right-list-item" layout="column">'
-                                                    + '<h3>{{ item[dashboard.list.options.fields[0]] }}</h3>'
-                                                    + '<h4>{{ item[dashboard.list.options.fields[1]] }}</h4>'
-                                                    + '<p>{{ item[dashboard.list.options.fields[2]] }}</p>'
+                                                    + '<h3>{{ item[dashboard.records.list.options.fields[0]] }}</h3>'
+                                                    + '<h4>{{ item[dashboard.records.list.options.fields[1]] }}</h4>'
+                                                    + '<p>{{ item[dashboard.records.list.options.fields[2]] }}</p>'
                                                 + '</div>'
                                                 + '<div class="right-list-menu" ng-show="showContextMenu">'
-                                                    + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{dashboard.buttons.edit.claim}}" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{dashboard.buttons.delete.claim}}" ng-click="dashboard.list.view(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{dashboard.records.buttons.edit.claim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{dashboard.records.buttons.delete.claim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
                                                 + '</div>'
                                             + '</md-list-item>'
                                         + '</md-list>'
@@ -57,16 +57,19 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
     function link(scope, element, attrs, nullController) {
 
         //setting grid button row
-        if (scope.dashboard.grid === undefined) {
+        if (scope.dashboard.records === undefined) {
             scope.viewType = constants.enum.viewType.dashboardOnly
         }
         else {
-            scope.dashboard.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.list.options.primaryField, scope.dashboard.buttons.edit.claim, scope.dashboard.buttons.delete.claim, scope.dashboard.list.options.hideButtons));
+            //setting up grid settings
+            scope.dashboard.records.grid.options.data = scope.dashboard.records.options.data;
+            scope.dashboard.records.grid.view = scope.dashboard.records.options.view;
+            scope.dashboard.records.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.records.options.primaryField, scope.dashboard.records.buttons.edit.claim, scope.dashboard.records.buttons.delete.claim, scope.dashboard.records.buttons.options.hideButtons));
             scope.viewType = scope.viewType || constants.enum.viewType.list;
         }
 
         //setting the chart options based on the chart type
-        chart.set(scope.dashboard.widget.widgets);
+        chart.set(scope.dashboard.widgets.allWidgets);
 
         //adding additional items to the dashboard object
         scope.dashboard.widgetSettings = widgetSettings;
@@ -97,15 +100,15 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
     }
 
     function preprocessWidgets(dashboard) {
-        angular.forEach(dashboard.widget.pageWidgets, function (item) {
+        angular.forEach(dashboard.widgets.pageWidgets, function (item) {
             preprocessWidgetItem(item, dashboard);
         })
     }
 
     function preprocessWidgetItem(widgetItem, dashboard) {
-        for (var index = 0; index < dashboard.widget.widgets.length; index++) {
-            if (widgetItem.widgetId === dashboard.widget.widgets[index].widgetId) {
-                widgetItem.widget = dashboard.widget.widgets[index];
+        for (var index = 0; index < dashboard.widgets.allWidgets.length; index++) {
+            if (widgetItem.widgetId === dashboard.widgets.allWidgets[index].widgetId) {
+                widgetItem.widget = dashboard.widgets.allWidgets[index];
                 widgetItem.widget.dashboard = dashboard;
                 widgetItem.widgetOptions.chart = widgetItem.widget.chart;
                 widgetItem.widget.chart.api = {};
@@ -125,7 +128,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
     function setHeight(scope) {
         $timeout(function () {
             scope.height = utility.getContentHeight('main-content', 'portal-content', 5);
-            scope.dashboard.grid.height = scope.height;
+            scope.dashboard.records.grid.height = scope.height;
         });
     }
 
@@ -142,38 +145,38 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
         dialogService.show({
             template: getWidgetTemplate(header, buttonText),
             targetEvent: ev,
-            data: { model: id, widgets: dashboard.widget.widgets },
+            data: { model: id, widgets: dashboard.widgets.allWidgets },
             dialogMode: dialogMode
         })
         .then(function (dialogModel) {
             var index = 0;
-            for (var index = 0; index < dashboard.widget.widgets.length; index++) {
-                if (dialogModel == dashboard.widget.widgets[index].widgetId)
+            for (var index = 0; index < dashboard.widgets.allWidgets.length; index++) {
+                if (dialogModel == dashboard.widgets.allWidgets[index].widgetId)
                     break;
             }
 
             var widgetItem = {
                 dashboardPageWidgetId: Math.random(),
-                widgetId: dashboard.widget.widgets[index].widgetId,
+                widgetId: dashboard.widgets.allWidgets[index].widgetId,
                 widgetOptions: {
                     col: undefined,
                     row: undefined,
-                    sizeX: dashboard.widget.widgets[index].sizeX,
-                    sizeY: dashboard.widget.widgets[index].sizeY,
+                    sizeX: dashboard.widgets.allWidgets[index].sizeX,
+                    sizeY: dashboard.widgets.allWidgets[index].sizeY,
                 },
             };
 
             if (widget !== undefined) {
-                for (var current = 0; current < dashboard.widget.pageWidgets.length; current++) {
-                    if (id == dashboard.widget.pageWidgets[current].dashboardPageWidgetId)
+                for (var current = 0; current < dashboard.widgets.pageWidgets.length; current++) {
+                    if (id == dashboard.widgets.pageWidgets[current].dashboardPageWidgetId)
                         break;
                 }
-                angular.extend(widgetItem.widgetOptions, dashboard.widget.pageWidgets[current].widgetOptions);
-                dashboard.widget.pageWidgets.splice(current, 1);
+                angular.extend(widgetItem.widgetOptions, dashboard.widgets.pageWidgets[current].widgetOptions);
+                dashboard.widgets.pageWidgets.splice(current, 1);
             }
 
             preprocessWidgetItem(widgetItem, dashboard);
-            dashboard.widget.pageWidgets.push(widgetItem);
+            dashboard.widgets.pageWidgets.push(widgetItem);
 
             dialogService.hide();
         });
@@ -191,7 +194,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
     }
 
     function clearWidgets(scope) {
-        scope.dashboard.widget.pageWidgets.splice(0, scope.dashboard.widget.pageWidgets.length)
+        scope.dashboard.widgets.pageWidgets.splice(0, scope.dashboard.widgets.pageWidgets.length)
     }
 
     function refresh() {

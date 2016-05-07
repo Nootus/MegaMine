@@ -18,7 +18,7 @@ function productType(quarryService, utility, constants, dialogService, template,
         dashboard: {
             header: 'Product Types',
             widget: {
-                widgets: quarryService.productTypes.dashboard.widgets,
+                allWidgets: quarryService.productTypes.dashboard.allWidgets,
                 pageWidgets: quarryService.productTypes.dashboard.pageWidgets,
             },
             list: {

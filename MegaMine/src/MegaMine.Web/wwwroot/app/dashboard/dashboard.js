@@ -7,8 +7,8 @@ function dashboard(dashboardService) {
     var vm = {
         dashboard: {
             header: 'Quarry Dashboard',
-            widget: {
-                widgets: dashboardService.dashboard.widgets,
+            widgets: {
+                allWidgets: dashboardService.dashboard.allWidgets,
                 pageWidgets: dashboardService.dashboard.pageWidgets,
             }
         }
