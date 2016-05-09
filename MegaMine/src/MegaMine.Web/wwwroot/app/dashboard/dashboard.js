@@ -8,8 +8,8 @@ function dashboard(dashboardService) {
         dashboard: {
             header: 'Quarry Dashboard',
             widgets: {
-                allWidgets: dashboardService.dashboard.allWidgets,
-                pageWidgets: dashboardService.dashboard.pageWidgets,
+                allWidgets: dashboardService.widgets.allWidgets,
+                pageWidgets: dashboardService.widgets.pageWidgets,
             }
         }
     };

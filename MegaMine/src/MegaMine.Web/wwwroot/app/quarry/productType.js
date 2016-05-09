@@ -17,28 +17,41 @@ function productType(quarryService, utility, constants, dialogService, template,
     var vm = {
         dashboard: {
             header: 'Product Types',
-            widget: {
-                allWidgets: quarryService.productTypes.dashboard.allWidgets,
-                pageWidgets: quarryService.productTypes.dashboard.pageWidgets,
+            widgets: {
+                allWidgets: quarryService.productTypes.widgets.allWidgets,
+                pageWidgets: quarryService.productTypes.widgets.pageWidgets,
             },
-            list: {
+            records: {
                 options: {
-                    fields: ['productTypeName', 'productTypeDescription', 'formulaString'],
-                    primaryField: 'productTypeId'
+                    primaryField: 'productTypeId',
+                    data: quarryService.productTypes.list,
+                    view: viewDialog
                 },
-                data: quarryService.productTypes.list,
-                view: viewDialog
-            },
-            grid: {
-                options: gridOptions,
-                data: quarryService.productTypes.list,
-                view: viewDialog
-            },
-            add: {
-                text: 'New',
-                toolTip: 'New Product Type',
-                claim: 'Quarry:ProductTypeAdd',
-                save: addProductType,
+                list: {
+                    options: {
+                        fields: ['productTypeName', 'productTypeDescription', 'formulaString']
+                    },
+                },
+                grid: {
+                    options: gridOptions
+                },
+                buttons: {
+                    options: {
+                        hideButtons: undefined
+                    },
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Product Type',
+                        claim: 'Quarry:ProductTypeAdd',
+                        save: addProductType,
+                    },
+                    edit: {
+                        claim: 'Quarry:ProductTypeEdit'
+                    },
+                    delete: {
+                        claim: 'Quarry:ProductTypeDelete'
+                    }
+                }
             }
         }
     };

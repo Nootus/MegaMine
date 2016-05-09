@@ -8,7 +8,7 @@ function quarryService($http, utility) {
 
     var service = {
         //colours
-        colours: { list: [], dashboard: {} },
+        colours: { list: [], widgets: {} },
         colourListItems: [],
         getMaterialColours: getMaterialColours,
         getMaterialColourListItems: getMaterialColourListItems,
@@ -16,7 +16,7 @@ function quarryService($http, utility) {
         deleteMaterialColour: deleteMaterialColour,
 
         //product types
-        productTypes: { list: [], dashboard: {}},
+        productTypes: { list: [], widgets: {}},
         productTypeList: [],
         getProductTypes: getProductTypes,
         getProductTypeList: getProductTypeList,
@@ -24,13 +24,13 @@ function quarryService($http, utility) {
         deleteProductType: deleteProductType,
 
         //quarries
-        quarries: { list: [], dashboard: {}},
+        quarries: { list: [], widgets: {}},
         getQuarries: getQuarries,
         saveQuarry: saveQuarry,
         deleteQuarry: deleteQuarry,
 
         //yards
-        yards: { list: [], dashboard: {} },
+        yards: { list: [], widgets: {} },
         yardList: [],
         groupYards: [],
         getYardList: getYardList,
@@ -74,7 +74,7 @@ function quarryService($http, utility) {
         return $http.get("/api/quarry/materialcoloursget")
             .then(function (data) {
                 utility.extend(service.colours.list, data.model);
-                angular.extend(service.colours.dashboard, data.dashboard);
+                angular.extend(service.colours.widgets, data.dashboard);
             });
     }
     function getMaterialColourListItems() {
@@ -105,7 +105,7 @@ function quarryService($http, utility) {
         return $http.get("/api/quarry/producttypesget")
             .then(function (data) {
                 utility.extend(service.productTypes.list, data.model);
-                angular.extend(service.productTypes.dashboard, data.dashboard);
+                angular.extend(service.productTypes.widgets, data.dashboard);
             });
     }
 
@@ -137,7 +137,7 @@ function quarryService($http, utility) {
         return $http.get("/api/quarry/quarriesget")
             .then(function (data) {
                 utility.extend(service.quarries.list, data.model);
-                angular.extend(service.quarries.dashboard, data.dashboard);
+                angular.extend(service.quarries.widgets, data.dashboard);
             });
     }
 
@@ -169,7 +169,7 @@ function quarryService($http, utility) {
         return $http.get("/api/quarry/yardsget")
             .then(function (data) {
                 utility.extend(service.yards.list, data.model);
-                angular.extend(service.yards.dashboard, data.dashboard);
+                angular.extend(service.yards.widgets, data.dashboard);
             });
     }
 

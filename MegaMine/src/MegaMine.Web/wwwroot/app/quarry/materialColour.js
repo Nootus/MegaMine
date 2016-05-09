@@ -12,32 +12,44 @@ function materialColour(quarryService, constants, dialogService, template) {
                 ]
     };
 
-
     var vm = {
         dashboard: {
             header: 'Colours',
-            widget: {
-                allWidgets: quarryService.colours.dashboard.allWidgets,
-                pageWidgets: quarryService.colours.dashboard.pageWidgets,
+            widgets: {
+                allWidgets: quarryService.colours.widgets.allWidgets,
+                pageWidgets: quarryService.colours.widgets.pageWidgets,
             },
-            list: {
+            records: {
                 options: {
-                    fields: ['colourName', 'colourDescription'],
-                    primaryField: 'materialColourId'
+                    primaryField: 'materialColourId',
+                    data: quarryService.colours.list,
+                    view: viewDialog
                 },
-                data: quarryService.colours.list,
-                view: viewDialog
-            },
-            grid: {
-                options: gridOptions,
-                data: quarryService.colours.list,
-                view: viewDialog
-            },
-            add: {
-                text: 'New',
-                toolTip: 'New Colour',
-                claim: 'Quarry:MaterialColourAdd',
-                save: addMaterialColour,
+                list: {
+                    options: {
+                        fields: ['colourName', 'colourDescription']
+                    },
+                },
+                grid: {
+                    options: gridOptions
+                },
+                buttons: {
+                    options: {
+                        hideButtons: undefined
+                    },
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Colour',
+                        claim: 'Quarry:MaterialColourAdd',
+                        save: addMaterialColour,
+                    },
+                    edit: {
+                        claim: 'Quarry:MaterialColourEdit'
+                    },
+                    delete: {
+                        claim: 'Quarry:MaterialColourDelete'
+                    }
+                }
             }
         }
     };

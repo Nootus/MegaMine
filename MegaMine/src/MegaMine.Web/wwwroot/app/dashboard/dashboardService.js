@@ -8,7 +8,7 @@ function dashboardService($http) {
 
     var service = {
         resolve: resolve,
-        dashboard : {}
+        widgets: {}
     };
 
     return service;
@@ -16,7 +16,7 @@ function dashboardService($http) {
     function resolve() {
         return $http.get("/api/quarry/dashboard")
             .then(function (data) {
-                angular.extend(service.dashboard, data.dashboard);
+                angular.extend(service.widgets, data.dashboard);
             });
     }
 

@@ -17,8 +17,8 @@ function quarry(quarryService, utility, constants, dialogService, template) {
         dashboard: {
             header: 'Quarries',
             widgets: {
-                allWidgets: quarryService.quarries.dashboard.allWidgets,
-                pageWidgets: quarryService.quarries.dashboard.pageWidgets,
+                allWidgets: quarryService.quarries.widgets.allWidgets,
+                pageWidgets: quarryService.quarries.widgets.pageWidgets,
             },
             records: {
                 options: {
@@ -28,7 +28,7 @@ function quarry(quarryService, utility, constants, dialogService, template) {
                 },
                 list: {
                     options: {
-                        fields: ['quarryName', 'colours', 'location'],
+                        fields: ['quarryName', 'colours', 'location']
                     },
                 },
                 grid: {
