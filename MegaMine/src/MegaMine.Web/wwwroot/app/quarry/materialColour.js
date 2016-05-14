@@ -7,8 +7,7 @@ function materialColour(quarryService, constants, dialogService, template) {
     var gridOptions = {
         columnDefs: [
                     { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string' },
-                    { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description' },
-                    template.getButtonDefaultColumnDefs('materialColourId', 'Quarry:MaterialColourEdit', 'Quarry:MaterialColourDelete')
+                    { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description' }
                 ]
     };
 
@@ -34,9 +33,6 @@ function materialColour(quarryService, constants, dialogService, template) {
                     options: gridOptions
                 },
                 buttons: {
-                    options: {
-                        hideButtons: undefined
-                    },
                     add: {
                         text: 'New',
                         toolTip: 'New Colour',

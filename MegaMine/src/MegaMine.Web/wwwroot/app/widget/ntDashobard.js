@@ -61,10 +61,15 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
             scope.viewType = constants.enum.viewType.dashboardOnly
         }
         else {
+            //button settings
+            if (scope.dashboard.records.buttons.options === undefined) {
+                scope.dashboard.records.buttons.options = {};
+            }
+
             //setting up grid settings
             scope.dashboard.records.grid.options.data = scope.dashboard.records.options.data;
             scope.dashboard.records.grid.view = scope.dashboard.records.options.view;
-            scope.dashboard.records.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.records.options.primaryField, scope.dashboard.records.buttons.edit.claim, scope.dashboard.records.buttons.delete.claim, scope.dashboard.records.buttons.options.hideButtons));
+            scope.dashboard.records.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.records.options.primaryField, scope.dashboard.records.buttons.edit.claim, scope.dashboard.records.buttons.delete.claim, scope.dashboard.records.buttons.options.hideGridButtons));
             scope.viewType = scope.viewType || constants.enum.viewType.list;
         }
 
@@ -76,18 +81,12 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
 
         preprocessWidgets(scope.dashboard);
 
-        //if (scope.dashboard.dashboardOnly === true) {
-        //    scope.viewType = constants.enum.viewType.dashboardOnly;
-        //}
-        //else {
-        //    scope.viewType = scope.viewType || constants.enum.viewType.list;
-        //}
-
         scope.viewTypeEnum = constants.enum.viewType;
 
         //scope function
         scope.toggleListView = function () { toggleListView(scope); };
         scope.toggleView = function () { toggleView(scope); };
+        scope.toggleListContextMenu = function (item) { toggleListContextMenu(item, scope); }
         scope.refresh = refresh;
         scope.addWidget = function (ev) { widgetSettings(ev, undefined, scope.dashboard); };;
         scope.clearWidgets = function () { clearWidgets(scope); }
@@ -123,6 +122,15 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
 
     function toggleListView(scope) {
         scope.viewType = scope.viewType === constants.enum.viewType.list ? constants.enum.viewType.dashboard : constants.enum.viewType.list;
+    }
+
+    function toggleListContextMenu(item, scope) {
+        if (scope.showContextMenu === undefined || scope.showContextMenu === false) {
+            scope.showContextMenu = true;
+        }
+        else {
+            scope.showContextMenu = false;
+        }
     }
 
     function setHeight(scope) {

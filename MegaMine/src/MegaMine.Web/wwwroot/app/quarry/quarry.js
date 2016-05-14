@@ -35,9 +35,6 @@ function quarry(quarryService, utility, constants, dialogService, template) {
                     options: gridOptions
                 },
                 buttons: {
-                    options: {
-                        hideButtons: undefined
-                    },
                     add: {
                         text: 'New',
                         toolTip: 'New Quarry',

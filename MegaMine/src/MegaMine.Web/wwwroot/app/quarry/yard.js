@@ -14,40 +14,40 @@ function yard(quarryService, constants, dialogService, template) {
     var vm = {
         dashboard: {
             header: 'Yards',
-            widget: {
-                allWidgets: quarryService.yards.dashboard.allWidgets,
-                pageWidgets: quarryService.yards.dashboard.pageWidgets,
+            widgets: {
+                allWidgets: quarryService.yards.widgets.allWidgets,
+                pageWidgets: quarryService.yards.widgets.pageWidgets,
             },
             records: {
-
-            },
-            list: {
                 options: {
-                    fields: ['yardName', 'location'],
                     primaryField: 'yardId',
-                    hideButtons: 'row.entity.quarryId !== null'
+                    data: quarryService.yards.list,
+                    view: viewDialog
                 },
-                data: quarryService.yards.list,
-                view: viewDialog
-            },
-            grid: {
-                options: gridOptions,
-                data: quarryService.yards.list,
-                view: viewDialog,
-                hideButtons: 'row.entity.quarryId !== null'
-            },
-            buttons: {
-                add: {
-                    text: 'New',
-                    toolTip: 'New Yard',
-                    claim: 'Quarry:YardAdd,Plant:YardAdd',
-                    save: addYard,
+                list: {
+                    options: {
+                        fields: ['yardName', 'location'],
+                    },
                 },
-                edit: {
-                    claim: 'Quarry:YardEdit,Plant:YardEdit'
+                grid: {
+                    options: gridOptions,
                 },
-                delete: {
-                    claim: 'Quarry:YardDelete,Plant:YardDelete'
+                buttons: {
+                    options: {
+                        hideGridButtons: 'row.entity.quarryId !== null'
+                    },
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Yard',
+                        claim: 'Quarry:YardAdd,Plant:YardAdd',
+                        save: addYard,
+                    },
+                    edit: {
+                        claim: 'Quarry:YardEdit,Plant:YardEdit'
+                    },
+                    delete: {
+                        claim: 'Quarry:YardDelete,Plant:YardDelete'
+                    }
                 }
             }
         }

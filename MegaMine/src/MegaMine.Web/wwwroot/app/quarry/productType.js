@@ -9,8 +9,7 @@ function productType(quarryService, utility, constants, dialogService, template,
                     { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string' },
                     { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description' },
                     { name: 'formulaString', field: 'formulaString', type: 'string', displayName: 'Formula' },
-                    { name: 'formulaOrder', field: 'formulaOrder', type: 'string', displayName: 'Formula Order' },
-                    template.getButtonDefaultColumnDefs('productTypeId', 'Quarry:ProductTypeEdit', 'Quarry:ProductTypeDelete')
+                    { name: 'formulaOrder', field: 'formulaOrder', type: 'string', displayName: 'Formula Order' }
                 ]
     };
 
@@ -36,9 +35,6 @@ function productType(quarryService, utility, constants, dialogService, template,
                     options: gridOptions
                 },
                 buttons: {
-                    options: {
-                        hideButtons: undefined
-                    },
                     add: {
                         text: 'New',
                         toolTip: 'New Product Type',

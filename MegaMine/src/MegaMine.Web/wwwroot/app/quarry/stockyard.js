@@ -6,8 +6,8 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'blockNumber', field: 'blockNumber', displayName: 'Block Number', type: 'string' },
-                    { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
+                    { name: 'blockNumber', field: 'blockNumber', displayName: 'Block #', type: 'string' },
+                    { name: 'productType', field: 'productType', displayName: 'Type', type: 'string' },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour' },
                     { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
                     { name: 'width', field: 'width', type: 'number', displayName: 'Width' },
