@@ -77,6 +77,7 @@
     <Build Include="Stored Procedures\quarry\WidgetMaterialColourMaterialCounts.sql" />
     <Build Include="Stored Procedures\quarry\WidgetMaterialColourProductTypeMaterialCounts.sql" />
     <Build Include="Stored Procedures\quarry\WidgetMaterialColourQuarryMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetYardMaterialCounts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\InitialMasterData.sql" />

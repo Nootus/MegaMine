@@ -7,6 +7,7 @@ namespace MegaMine.Modules.Quarry.Models
         public int MaterialId { get; set; }
         public string BlockNumber { get; set; }
         public int QuarryId { get; set; }
+        public int YardId { get; set; }
         public int ProductTypeId { get; set; }
         public int MaterialColourId { get; set; }
         public string Dimensions { get; set; }

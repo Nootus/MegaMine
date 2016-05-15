@@ -179,6 +179,7 @@ namespace MegaMine.Modules.Quarry.Repositories
             foreach(var model in models)
             {
                 yardId = yards.Where(y => y.QuarryId == model.QuarryId).Select(y => y.YardId).Single();
+                model.YardId = yardId;
 
                 MaterialEntity material = Mapper.Map<MaterialModel, MaterialEntity>(model);
                 dbContext.Materials.Add(material);
@@ -244,6 +245,7 @@ namespace MegaMine.Modules.Quarry.Repositories
                             MaterialId = mt.MaterialId,
                             BlockNumber = mt.BlockNumber,
                             QuarryId = mt.QuarryId,
+                            YardId = mt.YardId,
                             ProductTypeId = mt.ProductTypeId,
                             MaterialColourId = mt.MaterialColourId,
                             Dimensions = mt.Dimensions,
@@ -277,6 +279,11 @@ namespace MegaMine.Modules.Quarry.Repositories
                 sql = "update quarry.MaterialMovement set CurrentInd = 0 where MaterialMovementId in (" + ids + ")";
                 database.ExecuteSqlCommand(sql);
 
+                //setting the YardId for the Material
+                sql = "update quarry.Material set YardId = @p0 " +
+                        "from quarry.Material m join quarry.MaterialMovement mm on m.MaterialId = mm.MaterialId where mm.MaterialMovementId in (" + ids + ")";
+                database.ExecuteSqlCommand(sql, model.ToYardId);
+
                 database.CommitTransaction();
             }
             catch
@@ -299,7 +306,6 @@ namespace MegaMine.Modules.Quarry.Repositories
 
                 int oldYardId = yards.Single(y => y.QuarryId == entity.QuarryId).YardId;
                 int newYardId = yards.Single(y => y.QuarryId == model.QuarryId).YardId;
-
                 //updating the movement records
                 List<MaterialMovementEntity> movementEntites = await (from me in dbContext.MaterialMovements where me.MaterialId == model.MaterialId && me.FromYardId == oldYardId orderby me.MaterialMovementId select me).Take(2).ToListAsync();
 
@@ -330,6 +336,7 @@ namespace MegaMine.Modules.Quarry.Repositories
                 }
 
                 entity.QuarryId = model.QuarryId;
+                entity.YardId = newYardId;
             }
 
             dbContext.Materials.Update(entity);
