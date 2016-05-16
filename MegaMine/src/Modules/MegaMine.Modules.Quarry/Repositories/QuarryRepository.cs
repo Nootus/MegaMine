@@ -297,7 +297,7 @@ namespace MegaMine.Modules.Quarry.Repositories
 
         public async Task MaterialUpdate(MaterialModel model)
         {
-            MaterialEntity entity = await UpdateEntity<MaterialEntity, MaterialModel>(model, false);
+            MaterialEntity entity = await GetSingleAsync<MaterialEntity>(model.MaterialId);
 
             if (entity.QuarryId != model.QuarryId)
             {
@@ -335,10 +335,10 @@ namespace MegaMine.Modules.Quarry.Repositories
                     dbContext.MaterialMovements.Update(movementEntites[counter]);
                 }
 
-                entity.QuarryId = model.QuarryId;
-                entity.YardId = newYardId;
+                model.YardId = newYardId;
             }
 
+            Mapper.Map<MaterialModel, MaterialEntity>(model, entity);
             dbContext.Materials.Update(entity);
             await dbContext.SaveChangesAsync();
 
