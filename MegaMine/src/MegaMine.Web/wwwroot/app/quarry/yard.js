@@ -1,30 +1,65 @@
 ﻿'use strict';
 angular.module('megamine').controller('yard', yard)
-yard.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
+yard.$inject = ['quarryService', 'constants', 'dialogService', 'template'];
 
-function yard($scope, quarryService, gridUtility, constants, dialogService, template) {
+function yard(quarryService, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
                         { name: 'yardName', field: 'yardName', displayName: 'Name', type: 'string' },
-                        { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
-                        template.getButtonDefaultColumnDefs('yardId', 'Quarry:YardEdit,Plant:YardEdit', 'Quarry:YardDelete,Plant:YardDelete', 'row.entity.quarryId !== null')
-                    ]
+                        { name: 'location', field: 'location', type: 'string', displayName: 'Location' }
+        ]
     };
-
 
     var vm = {
-        gridOptions: gridOptions,
-        viewDialog: viewDialog,
-        addYard: addYard
+        dashboard: {
+            header: 'Yards',
+            widgets: {
+                allWidgets: quarryService.yards.widgets.allWidgets,
+                pageWidgets: quarryService.yards.widgets.pageWidgets,
+            },
+            records: {
+                options: {
+                    primaryField: 'yardId',
+                    data: quarryService.yards.list,
+                    view: viewDialog
+                },
+                list: {
+                    options: {
+                        fields: ['yardName', 'location'],
+                    },
+                },
+                grid: {
+                    options: gridOptions,
+                },
+                buttons: {
+                    options: {
+                        hideGridButtons: 'row.entity.quarryId !== null'
+                    },
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Yard',
+                        claim: 'Quarry:YardAdd,Plant:YardAdd',
+                        save: addYard,
+                    },
+                    edit: {
+                        claim: 'Quarry:YardEdit,Plant:YardEdit'
+                    },
+                    delete: {
+                        claim: 'Quarry:YardDelete,Plant:YardDelete'
+                    }
+                }
+            }
+        }
     };
+
 
     init();
 
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.yards);
+
     }
 
     function addYard(ev) {

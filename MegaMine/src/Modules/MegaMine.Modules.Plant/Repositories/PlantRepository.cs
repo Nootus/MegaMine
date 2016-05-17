@@ -26,7 +26,7 @@ namespace MegaMine.Modules.Plant.Repositories
             //return await GetListAsync<MachineEntity, MachineModel>(s => s.Name);
             var query = from mac in dbContext.Machines
                         join bld in dbContext.Blades on mac.BladeId equals bld.BladeId
-                        where mac.CompanyId == profile.CompanyId
+                        where mac.CompanyId == context.CompanyId
                         && mac.DeletedInd == false
                         select new MachineModel()
                         {

@@ -2,19 +2,21 @@
   display: none !important;
 }
 
-
 html {
     height:100%;
     margin: 0;
 }
 
 body {
-	background-color: #656565;
-	background-image: url(images/layout/background.gif);
-	background-repeat: repeat;
+    background-color: #282d32;
+    background-image: url('images/layout/background.jpg');
+    background-repeat:   no-repeat;
+    background-position: center center; 
+    background-size:     cover; 
+
 	margin: 0 auto;
 	padding: 0;
-	font-family: Verdana, Arial, Helvetica, sans-serif;
+	font-family: 'Roboto', Verdana, Helvetica, sans-serif;
 	font-size: 0.85em !important;
     height: 100%;
     overflow: hidden !important;
@@ -24,119 +26,40 @@ form {
     margin-bottom: 0;
 }
 
-h4{
-    margin: 1em 0 0 0;
+md-content {
+    height: 100%;
+    background-color: #eee;
 }
 
-.main-content{
+.main-content {
     min-height: 100%;
     height: 100%;
-}
-
-.container{
+    background-color: rgba(67, 116, 167, 0.25);
     width: 100%;
-    min-width: 1200px;
+    min-width: 500px;
     display: table;
     margin: 0 auto;
 }
 
-.header {
-	background-image: url('images/layout/header.gif');
-	background-repeat: no-repeat;
-	position: relative;
-	width: 100%;
-	height: 70px;
-	margin: 0 0 0px 0;
-	background-size: 100% 70px;
-    top: 3px;
-    left: 0px;
-}
 
-.top-header{
-    color: #FF8000;
-    font-size: 3em;
-    padding-left: 10px;
-    padding-bottom: 10px;
-}
 
-div.main-menu {
-  text-transform: uppercase;
-  font-size: 13px;
-  cursor: default;
-  margin: 0px 23px 0px 0px;
-}
 
-.blank-menu-item{
-    color: grey;
-    border-top-width: 2px !important;
-}
 
-div.profile-menu {
-  text-transform: uppercase;
-  font-size: 13px;
-  cursor: default;
-  margin: 15px 20px 0px 0px;
-}
+/* TODO: CSS needs to be validated from this point on */
 
-div.profile-menu, a.breadcrumb {
-	color: #DBB94F;
-    text-decoration: none;
-}
-
-div.profile-menu > div  {
-    margin-top: 4px;
-}
-
-div.profile-company {
-    margin-top: -20px !important;
+h4{
+    margin: 1em 0 0 0;
 }
 
 
-.logo{
-    height: 75px;
+.container {
+    /*width: 100%;
+    min-width: 1000px;
+    display: table;
+    margin: 0 auto;*/
 }
 
-/*menu styles*/
-md-menu-bar {
-    padding: 0;
-    margin-top: -8px;
-}
-md-menu-content {
-    margin-top: -5px;
-}
 
-.md-open-menu-container{
-    margin-top: 8px;
-}
-
-md-menu > button, md-menu > button > span {
-    font-size: 13px;
-    color: #DBB94F;
-    text-transform: uppercase;
-    height: 22px;
-    margin-top: 10px;
-}
-
-md-menu-content {
-	background-color: #363636;
-}
-
-md-menu.md-open > button{
-    background-color: #606060 !important; 
-    /*height: 22px;*/
-}
-
-md-menu-item > a.md-button{
-    font-size: 13px;
-    color: #DBB94F;
-    text-transform: uppercase;
-    height: 22px;
-}
-md-menu-item:hover{
-    background-color: #606060;
-}
-
-/*menu styles end*/
 
 div.left-menu {
 	background-image: url(images/layout/menu_background.png);
@@ -178,9 +101,6 @@ div.left-menu a.md-button{
     height: 30px !important;
 }
 
-.site-path{
-}
-
 .content{
     margin-top: 6px;
 }
@@ -193,6 +113,13 @@ div.left-menu a.md-button{
 
 .splash-header{
     color: #FF8000;
+}
+
+.splash-main-header{
+    color: #FF8000;
+    font-size: 3em;
+    padding-left: 10px;
+    padding-bottom: 10px;
 }
 
 img.splash-loading{
@@ -273,21 +200,19 @@ div.type-formula select{
     color: red;
 }
 
-.dialog_error{
-    color: red;
-    /*text-align: center;*/
-    width: 95%;
-    font-size: 0.85em;
-}
 
 .full-width{
     width: 100% !important;
 }
 
 /*em toolbar & buttons*/
-nt-toolbar.title > md-toolbar{
-    background-color: rgb(148,148,148) !important;
+/*nt-toolbar.title > md-toolbar{
+    background-color: rgba(67, 116, 167, 0.25) !important;
+    color: white;
+    height: 46px;
 }
+
+
 nt-toolbar.subtitle > md-toolbar{
     background-color: rgb(238,238,238) !important;
 }
@@ -300,17 +225,17 @@ nt-toolbar.dialog > md-toolbar{
     background-color: rgb(168,168,168);
 }
 
-nt-toolbar nt-button > button{
-    background-color: #eaf4f9 !important;
+nt-toolbar nt-old-button > button{
+    background-color: rgb(77, 157, 140) !important;
 }
 
-nt-toolbar nt-button > button.delete{
+nt-toolbar nt-old-button > button.delete{
     background-color: #971834 !important;
 }
 
 button{
     background-color: transparent !important;
-}
+}*/
 
 .ntselect {
     width: 98%;
@@ -318,38 +243,39 @@ button{
 
 /*Material design overrides*/
 
-nt-button[tabindex='0']:focus {
+nt-old-button[tabindex='0']:focus {
   outline: none; 
 }
 
 .md-button{
-    height: 35px;
+    /*height: 35px;
     margin: 0;
-    /*padding: 0 10px 0 10px;*/
-    min-width: 32px;
+    padding: 2px 5px 0 0px !important;
+    min-width: 32px;*/
 }
 
-.md-button.md-raised:not([disabled]) {
+
+/*.md-button.md-raised:not([disabled]) {
     box-shadow: 0 2px 5px 0 rgb(0, 0, 0);
-}
+}*/
 
+md-list-item {
+    display: block;
+}
+/*md-content{
+    background-color: #eee;
+}
 md-content.md-default-theme {
   background-color: #e4e4e4;
-}
+}*/
 
-md-toolbar{
-      min-height: 40px; 
+/*md-toolbar{
+      min-height: 46px; 
       z-index: 1;
 }
 .md-toolbar-tools {
-    height: 40px;
-    padding: 0 0 0 4px;
-}
-
-md-input-container:not(.md-input-invalid).md-input-has-value label {
-  font-size: 15px;
-  color: black;
-}
+    padding: 0 5px 0 4px;
+}*/
 
 md-input-container .md-input[disabled], [disabled] md-input-container .md-input {
   color: black;
@@ -412,16 +338,6 @@ md-input-container.md-input-invalid .md-select-placeholder{
     border-bottom-color: red;
 }
 
-
-md-dialog.dialog{
-    min-width: 600px;
-    max-width: 95%;
-    overflow: hidden;
-    padding-bottom: 5px;
-}
-md-dialog md-dialog-content{
-    padding: 0px;
-}
 
 .md-chips{
     padding: 0 0 0px 3px;
@@ -490,10 +406,10 @@ md-dialog md-dialog-content{
 }
 
 .ui-grid-row:nth-child(odd) .ui-grid-cell {
-  background-color: #eaf4f9;
+  background-color: #ffffff;
 }
 .ui-grid-row:nth-child(even) .ui-grid-cell {
-  background-color: #ffffff;
+  background-color: #eaf4f9;
 }
 
 .ui-grid-menu-button {

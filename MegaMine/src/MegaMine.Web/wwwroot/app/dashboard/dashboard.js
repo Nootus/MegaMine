@@ -1,11 +1,17 @@
 ﻿'use strict';
 angular.module('megamine').controller('dashboard', dashboard)
-dashboard.$inject = ['dashboardService', 'profile'];
+dashboard.$inject = ['dashboardService'];
 
-function dashboard(dashboardService, profile) {
+function dashboard(dashboardService) {
 
     var vm = {
-        menu: profile.menu
+        dashboard: {
+            header: 'Quarry Dashboard',
+            widgets: {
+                allWidgets: dashboardService.widgets.allWidgets,
+                pageWidgets: dashboardService.widgets.pageWidgets,
+            }
+        }
     };
 
     init();

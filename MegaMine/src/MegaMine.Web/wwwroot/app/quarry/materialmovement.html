@@ -1,23 +1,24 @@
-﻿<nt-toolbar title="Material Movement" class="title">
-    <nt-button ng-click="vm.moveMaterial(movementForm, $event)" button-icon="add" button-text="Move Material" form="movementForm"></nt-button>
+﻿<nt-toolbar header="Material Movement">
+    <nt-button type="command-bar" icon="move" text="Move Material" ng-click="vm.moveMaterial(movementForm, $event)" form="movementForm"></nt-button>
 </nt-toolbar>
 <md-content layout-padding>
-        <div layout="row">
-            <form flex="50" name="materialStockForm" novalidate>
-                <div layout="row">
-                    <nt-select flex="30" form="materialStockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></nt-select>
-                    <div flex="70" layout-align="center">
-                        <nt-button ng-click="vm.getStock(materialStockForm)" button-icon="save" button-text="Get Stock" form="materialStockForm"></nt-button>
-                    </div>
+    <div layout="row">
+        <form flex="50" name="materialStockForm" novalidate>
+            <div layout="row">
+                <nt-select flex="30" form="materialStockForm" label="From Yard" control-name="fromYard" ng-model="vm.fromYardId" opt-list="vm.yards" opt-value="yardId" opt-text="yardName" ng-required="true"></nt-select>
+                <div flex="70" layout-align="center">
+                    <nt-button type="command-bar" css-class="content-button" icon="update" text="Get Stock" ng-click="vm.getStock(materialStockForm)" form="materialStockForm"></nt-button>
                 </div>
-            </form>
-            <form flex="50" name="movementForm" novalidate>
-                <div layout="row">
-                    <nt-select flex="30" form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.groupYards" opt-value="yardId" opt-text="yardName" ng-required="true" nt-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></nt-select>
-                    <nt-input flex="30" form="movementForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></nt-input>
-                </div>
-            </form>
-        </div>
+            </div>
+        </form>
+        <form flex="50" name="movementForm" novalidate>
+            <div layout="row">
+                <nt-select flex="30" form="movementForm" label="To Yard" control-name="toYard" ng-model="vm.toYardId" opt-list="vm.groupYards" opt-value="yardId" opt-text="yardName" ng-required="true" nt-change="vm.validateToYard(movementForm)" error-messages="vm.movementErrorMessages"></nt-select>
+                <nt-input flex="30" form="movementForm" type="date" label="Movement Date" control-name="movementDate" ng-model="vm.movementDate" ng-required="true"></nt-input>
+            </div>
+        </form>
+    </div>
+    <div class="view-error">{{vm.noStockMessage}}</div>
 </md-content>
-<nt-grid vm="vm"></nt-grid>
+<nt-grid grid="vm.grid"></nt-grid>
 

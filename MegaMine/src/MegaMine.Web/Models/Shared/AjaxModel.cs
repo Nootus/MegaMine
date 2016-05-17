@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MegaMine.Services.Widget.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -10,5 +11,6 @@ namespace MegaMine.Web.Models.Shared
         public AjaxResult Result { get; set; }
         public string Message { get; set; }
         public T Model { get; set; }
+        public DashboardModel Dashboard { get; set; }
     }
 }

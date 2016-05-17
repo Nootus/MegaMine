@@ -1,0 +1,60 @@
+﻿
+ul {
+    list-style: none;
+}
+.box {
+    height: 100%;
+    background-color: #fff;
+}
+.box-header {
+    height: 30px;
+    background-color: #ccc;
+    border: 1px solid #ccc; 
+    cursor: move;
+    position: absolute;
+    top:-33px;
+    left:-1px;
+    width: 100%;
+    -moz-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    -webkit-box-shadow: 0 5px 10px rgba(0,0,0,.2);
+    box-shadow: 0 5px 10px rgba(0,0,0,.2);
+}
+
+.box-header h3 {
+    width: 100%;
+    margin: 5px;
+    display: inline-block;
+}
+.box-content {
+    height: 100%;
+    padding: 0px;
+}
+.box-header-btns {
+    top: 9px;
+    right: 10px;
+    cursor: pointer;
+    position: absolute;
+}
+
+.box-header-btns > a {
+    padding-left: 8px;
+    color: #666;
+}
+
+.gridster {
+
+}
+.gridster-item {
+    border: 1px solid #ccc;
+}
+
+.gridster-item.hide {
+    display: none;
+}
+
+.gridster-item.show {
+    display: block;
+    position: initial;
+}
+
+

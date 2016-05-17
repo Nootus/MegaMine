@@ -7,35 +7,63 @@ function ntButton(profile) {
         restrict: 'E',
         scope: {
             cssClass: '@',
-            title: '@',
-            buttonIcon: '@',
-            buttonText: '@',
+            type: '@',
+            toolTip: '@',
+            iconCss: '@',
+            icon: '@',
+            text: '@',
             claim: '@',
-            hide: '@',
             overrideDisabled: '@',
             form: '=?'
         },
         link: link,
-        template: '<md-button title="{{title}}" class="{{cssClass}}" ng-hide="hide" aria-label="{{title}}" ng-click="ntClick($event)"'
+        template: '<span ng-hide="hideButton === true" ><md-button class="{{cssClass}} {{type}}-button has-hover" aria-label="{{toolTip}}" ng-click="ntClick({ev: $event})"'
                     + ' ng-disabled="form.$invalid && form.$submitted && bypassDisabled">'
-                    + ' <md-icon class="icon-button" md-svg-icon="content/images/icons/common/{{buttonIcon}}.svg"></md-icon>{{buttonText}}'
-                    + '</md-button>'
+                    + ' <md-tooltip ng-style="toolTipStyle">{{toolTip}}</md-tooltip>'
+                    + ' <md-icon class="fa fa-{{iconCss}} {{type}}-button-icon" aria-label="{{toolTip}}"></md-icon>'
+                    + ' <div class="{{type}}-button-text">{{text}}</div>'
+                    + '</md-button></span>'
 
     };
 
     function link(scope, element, attrs, nullController) {
         if (scope.claim === undefined || scope.claim === '') {
-            scope.hide = false;
+            scope.hideButton = false;
         }
         else {
-            scope.hide = !profile.isAuthorized(scope.claim.split(","));
+            scope.hideButton = !profile.isAuthorized(scope.claim.split(","));
         }
 
         //setting the default values
-        scope.class = scope.class === undefined ? 'md-raised md-primary md-default-theme' : scope.class;
         scope.bypassDisabled = scope.overrideDisabled === "true" ? false : true;
-        scope.title = scope.title === undefined ? scope.buttonText : scope.title;
+        //hiding the tooltip if not specified
+        scope.hideToolTip = scope.toolTip === undefined ? true : false;
+        if (scope.hideToolTip) {
+            scope.toolTipStyle = {
+                display: 'none'
+            };
+        }
 
+        //icons
+        if (scope.icon !== undefined) {
+            switch (scope.icon) {
+                case 'save':
+                    scope.iconCss = 'save'
+                    break;
+                case 'update':
+                    scope.iconCss = 'check'
+                    break;
+                case 'add':
+                    scope.iconCss = 'plus'
+                    break;
+                case 'cancel':
+                    scope.iconCss = 'ban'
+                    break;
+                case 'move':
+                    scope.iconCss = 'truck'
+                    break;
+            }
+        }
         scope.ntClick = function (ev) {
             if (scope.form === undefined) {
                 scope.form = scope.$parent.dialogForm;
@@ -44,6 +72,7 @@ function ntButton(profile) {
             if (scope.form != undefined) {
                 scope.form.$setSubmitted();
             }
+
         }
     }
 }

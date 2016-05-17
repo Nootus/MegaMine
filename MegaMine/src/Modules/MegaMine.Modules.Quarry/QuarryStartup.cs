@@ -14,6 +14,8 @@ namespace MegaMine.Modules.Quarry
         {
             services.AddTransient<QuarryDomain>();
             services.AddTransient<QuarryRepository>();
+
+            services.AddTransient<WidgetDomain>();
         }
 
         public override void ConfigureMapping(IConfiguration config)

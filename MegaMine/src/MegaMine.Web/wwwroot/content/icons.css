@@ -5,15 +5,20 @@
     display: inline-block;
 }
 
-.icon-changepassword {
-    background: url('images/icons/common/changepassword.svg') no-repeat;
+.fa-maximize {
+    background: url('images/icons/common/maximize.svg') no-repeat;
     background-size: cover;
+    height: 12px;
+    width: 12px;
 }
 
-.icon-logout {
-    background: url('images/icons/common/logout.svg') no-repeat;
+.fa-minimize {
+    background: url('images/icons/common/minimize.svg') no-repeat;
     background-size: cover;
+    height: 12px;
+    width: 12px;
 }
+
 
 /*Fleet Icons*/
 .icon-fleet {

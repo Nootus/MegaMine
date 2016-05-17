@@ -1,9 +1,9 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('gridUtility', gridUtility);
-gridUtility.$inject = ['$window', '$timeout', 'toastr', 'uiGridConstants'];
+gridUtility.$inject = ['$timeout', 'toastr', 'utility', 'uiGridConstants'];
 
-function gridUtility($window, $timeout, toastr, uiGridConstants) {
+function gridUtility($timeout, toastr, utility, uiGridConstants) {
 
     var grid = {
         initializeGrid: initializeGrid,
@@ -13,55 +13,38 @@ function gridUtility($window, $timeout, toastr, uiGridConstants) {
 
     return grid;
 
-    function initializeGrid(gridOptions, scope, model) {
-        initialize(gridOptions, scope, model, 'main-content', 'main-grid', 24);
+    function initializeGrid(gridOptions, model) {
+        initialize(gridOptions, model, 'main-content', 'main-grid', 24);
     }
 
-    function initializeSubGrid(gridOptions, scope, model) {
-        initialize(gridOptions, scope, model, 'main-content', 'sub-grid', 41);
+    function initializeSubGrid(gridOptions, model) {
+        initialize(gridOptions, model, 'main-content', 'sub-grid', 41);
     }
 
-    function initializeDialogGrid(gridOptions, scope, model) {
-        initialize(gridOptions, scope, model, 'dialog', 'dialog-grid', 100);
+    function initializeDialogGrid(gridOptions, model) {
+        initialize(gridOptions, model, 'dialog', 'dialog-grid', 100);
     }
 
-    function initialize(gridOptions, scope, model, contentClass, gridClass, bottomOffset) {
+    function initialize(gridOptions, model, contentClass, gridClass, bottomOffset) {
         gridOptions.enableColumnResizing = true,
         gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
         gridOptions.data = model;
-        resizeGrid(gridOptions, contentClass, gridClass, bottomOffset);
+        //resizeGrid(gridOptions, contentClass, gridClass, bottomOffset);
 
         //setting the grid API
         gridOptions.onRegisterApi = function(gridApi){
             gridOptions.gridApi = gridApi;
         };
-
-
-        angular.element($window).bind('resize', function () {
-            gridOptions.gridHeight = getGridHeight(contentClass, gridClass, bottomOffset);
-        });
-        scope.$on('$destroy', function (e) {
-            angular.element($window).unbind('resize');
-        });
     }
 
-    function resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, currentHeight) {
-        gridOptions.gridHeight = getGridHeight(contentClass, gridClass, bottomOffset);
-        if (gridOptions.gridHeight !== currentHeight || currentHeight === undefined) {
-            $timeout(function () {
-                resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, gridOptions.gridHeight);
-            }, 50);
-        }
-    }
+    //function resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, currentHeight) {
+    //    gridOptions.height = utility.getContentHeight(contentClass, gridClass, bottomOffset);
+    //    if (gridOptions.height !== currentHeight || currentHeight === undefined) {
+    //        $timeout(function () {
+    //            resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, gridOptions.height);
+    //        }, 50);
+    //    }
+    //}
 
-    function getGridHeight(contentClass, gridClass, bottomOffset) {
-        //var viewHeight = angular.element(document.getElementsByClassName('view-content')[0]).offset();
-        var contentHeight = angular.element(document.getElementsByClassName('main-content')[0]).height();
-        var gridOffset = angular.element(document.getElementsByClassName(gridClass)[0]).offset();
-        if (gridOffset !== undefined) {
-            var gridHeight = contentHeight - (gridOffset.top) - bottomOffset;
-            return gridHeight + 'px';
-        }
-    }
 }
 

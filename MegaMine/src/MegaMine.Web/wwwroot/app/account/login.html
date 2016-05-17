@@ -1,19 +1,14 @@
-﻿<div layout="row">
-    <div flex="30"></div>
-    <div flex="45">
-        <md-toolbar>
-            <div class="md-toolbar-tools">
-                <h2 class="md-flex">Login</h2>
-            </div>
-        </md-toolbar>
+﻿<div layout="row" class="login">
+    <div flex="10"></div>
+    <div flex="25">
+        <nt-toolbar header="Login"></nt-toolbar>
         <md-content layout-padding> 
             <form name="loginForm" novalidate>
                 <nt-input form="loginForm" label="Username" control-name="userName" ng-model="vm.model.UserName" ng-required="true" em-maxlength="50"></nt-input>
                 <nt-input form="loginForm" label="Password" control-name="userPassword" ng-model="vm.model.UserPassword" type="password" ng-required="true" em-maxlength="20"></nt-input>
-                <md-button ng-click="vm.validate(loginForm)" class="md-raised md-primary" ng-disabled="loginForm.$invalid && loginForm.$submitted">Log In</md-button>
+                <nt-button type="command-bar" css-class="content-button" icon="update" text="Log In" ng-click="vm.validate(loginForm)" form="loginForm"></nt-button>
             </form>
         </md-content>
     </div>
-    <div flex></div>
 </div>
 

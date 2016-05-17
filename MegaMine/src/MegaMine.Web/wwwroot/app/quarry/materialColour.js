@@ -1,22 +1,53 @@
 ﻿'use strict';
 angular.module('megamine').controller('materialColour', materialColour)
-materialColour.$inject = ['$scope', 'quarryService', 'gridUtility', 'constants', 'dialogService', 'template'];
+materialColour.$inject = ['quarryService', 'constants', 'dialogService', 'template'];
 
-function materialColour($scope, quarryService, gridUtility, constants, dialogService, template) {
+function materialColour(quarryService, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string' },
-                    { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description' },
-                    template.getButtonDefaultColumnDefs('materialColourId', 'Quarry:MaterialColourEdit', 'Quarry:MaterialColourDelete')
+                    { name: 'colourDescription', field: 'colourDescription', type: 'string', displayName: 'Description' }
                 ]
     };
 
-
     var vm = {
-        gridOptions: gridOptions,
-        viewDialog: viewDialog,
-        addMaterialColour: addMaterialColour
+        dashboard: {
+            header: 'Colours',
+            widgets: {
+                allWidgets: quarryService.colours.widgets.allWidgets,
+                pageWidgets: quarryService.colours.widgets.pageWidgets,
+            },
+            records: {
+                options: {
+                    primaryField: 'materialColourId',
+                    data: quarryService.colours.list,
+                    view: viewDialog
+                },
+                list: {
+                    options: {
+                        fields: ['colourName', 'colourDescription']
+                    },
+                },
+                grid: {
+                    options: gridOptions
+                },
+                buttons: {
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Colour',
+                        claim: 'Quarry:MaterialColourAdd',
+                        save: addMaterialColour,
+                    },
+                    edit: {
+                        claim: 'Quarry:MaterialColourEdit'
+                    },
+                    delete: {
+                        claim: 'Quarry:MaterialColourDelete'
+                    }
+                }
+            }
+        }
     };
 
     init();
@@ -24,7 +55,7 @@ function materialColour($scope, quarryService, gridUtility, constants, dialogSer
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.colours);
+
     }
 
     function addMaterialColour(ev) {

@@ -14,9 +14,9 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Web.Lib.Repositories.Fleet
 {
-    public class VehicleRepository : BaseRepository<ApplicationDbContext>
+    public class VehicleRepository : BaseRepository<FleetDbContext>
     {
-        public VehicleRepository(ApplicationDbContext dbContext)
+        public VehicleRepository(FleetDbContext dbContext)
         {
             this.dbContext = dbContext;
         }
@@ -44,7 +44,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
         {
             var query = from types in dbContext.VehicleTypes
                         where types.DeletedInd == false
-                            && types.CompanyId == profile.CompanyId
+                            && types.CompanyId == context.CompanyId
                         orderby types.VehicleTypeName ascending
                         select Mapper.Map<VehicleTypeEntity, VehicleTypeModel>(types);
 
@@ -55,7 +55,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
         {
             var query = from types in dbContext.VehicleTypes
                         where types.DeletedInd == false
-                        && types.CompanyId == profile.CompanyId
+                        && types.CompanyId == context.CompanyId
                         orderby types.VehicleTypeName ascending
                         select new ListItem<int, string>()
                         {
@@ -79,7 +79,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
 
             var query = from vd in dbContext.VehicleDrivers
                         where vd.DeletedInd == false
-                        && vd.CompanyId == profile.CompanyId
+                        && vd.CompanyId == context.CompanyId
                         select Mapper.Map<VehicleDriverEntity, VehicleDriverModel>(vd);
 
             return await query.ToListAsync();
@@ -182,7 +182,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
 
             var query = from vd in dbContext.VehicleDrivers
                         where vd.DeletedInd == false
-                        && vd.CompanyId == profile.CompanyId
+                        && vd.CompanyId == context.CompanyId
                         select new ListItem<int, string>
                         {
                             Key = vd.VehicleDriverId,
@@ -257,7 +257,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
         {
             var query = from vm in dbContext.VehicleManufacturers
                         where vm.DeletedInd == false
-                        && vm.CompanyId == profile.CompanyId
+                        && vm.CompanyId == context.CompanyId
                         orderby vm.Name ascending
                         select new ListItem<int, string>()
                         {
@@ -382,7 +382,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
                         join driver in dbContext.VehicleDrivers on vehicles.VehicleDriverId equals driver.VehicleDriverId into driverJoin
                         from vehicledriver in driverJoin.DefaultIfEmpty()
                         where vehicles.DeletedInd == false
-                        && vehicles.CompanyId == profile.CompanyId
+                        && vehicles.CompanyId == context.CompanyId
                         select new VehicleListModel
                         {
                             VehicleId = vehicles.VehicleId,

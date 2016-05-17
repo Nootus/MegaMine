@@ -16,12 +16,6 @@ namespace MegaMine.Web.Lib.Mapping
             Mapper.CreateMap<VehicleTypeEntity, VehicleTypeModel>();
             Mapper.CreateMap<VehicleTypeModel, VehicleTypeEntity>();
 
-            Mapper.CreateMap<VehicleServiceModel, VehicleServiceEntity>()
-                .ForMember(dest => dest.ServiceStartDate, opt => opt.MapFrom(origin => origin.ServiceDate))
-                .ForMember(dest => dest.ServiceDeliveryDate, opt => opt.MapFrom(origin => origin.ServiceDate));
-            Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>()
-                .ForMember(dest => dest.ServiceDate, opt => opt.MapFrom(origin => origin.ServiceDeliveryDate));
-
             Mapper.CreateMap<VehicleTripEntity, VehicleTripModel>();
             Mapper.CreateMap<VehicleTripModel, VehicleTripEntity>();
 

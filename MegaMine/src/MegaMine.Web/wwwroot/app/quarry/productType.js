@@ -1,25 +1,55 @@
 ﻿'use strict';
 angular.module('megamine').controller('productType', productType)
-productType.$inject = ['$scope', 'quarryService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template', 'message'];
+productType.$inject = ['quarryService', 'utility', 'constants', 'dialogService', 'template', 'message'];
 
-function productType($scope, quarryService, gridUtility, utility, constants, dialogService, template, message) {
+function productType(quarryService, utility, constants, dialogService, template, message) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string' },
                     { name: 'productTypeDescription', field: 'productTypeDescription', type: 'string', displayName: 'Description' },
                     { name: 'formulaString', field: 'formulaString', type: 'string', displayName: 'Formula' },
-                    { name: 'formulaOrder', field: 'formulaOrder', type: 'string', displayName: 'Formula Order' },
-                    template.getButtonDefaultColumnDefs('productTypeId', 'Quarry:ProductTypeEdit', 'Quarry:ProductTypeDelete')
+                    { name: 'formulaOrder', field: 'formulaOrder', type: 'string', displayName: 'Formula Order' }
                 ]
     };
 
-
     var vm = {
-        gridOptions: gridOptions,
-        viewDialog: viewDialog,
-        addProductType: addProductType,
-        validateFormulaOrder: validateFormulaOrder
+        dashboard: {
+            header: 'Product Types',
+            widgets: {
+                allWidgets: quarryService.productTypes.widgets.allWidgets,
+                pageWidgets: quarryService.productTypes.widgets.pageWidgets,
+            },
+            records: {
+                options: {
+                    primaryField: 'productTypeId',
+                    data: quarryService.productTypes.list,
+                    view: viewDialog
+                },
+                list: {
+                    options: {
+                        fields: ['productTypeName', 'productTypeDescription', 'formulaString']
+                    },
+                },
+                grid: {
+                    options: gridOptions
+                },
+                buttons: {
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Product Type',
+                        claim: 'Quarry:ProductTypeAdd',
+                        save: addProductType,
+                    },
+                    edit: {
+                        claim: 'Quarry:ProductTypeEdit'
+                    },
+                    delete: {
+                        claim: 'Quarry:ProductTypeDelete'
+                    }
+                }
+            }
+        }
     };
 
     init();
@@ -27,10 +57,9 @@ function productType($scope, quarryService, gridUtility, utility, constants, dia
     return vm;
 
     function init() {
-        angular.forEach(quarryService.productTypes, function (item) {
+        angular.forEach(quarryService.productTypes.list, function (item) {
             initializeModel(item);
         });
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.productTypes);
     }
 
     function initializeModel(model) {

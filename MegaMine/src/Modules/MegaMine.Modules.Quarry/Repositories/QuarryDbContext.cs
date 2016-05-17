@@ -1,4 +1,5 @@
 ﻿using MegaMine.Core.Repositories;
+using MegaMine.Core.Widgets;
 using MegaMine.Modules.Quarry.Entities;
 using Microsoft.Data.Entity;
 
@@ -14,5 +15,8 @@ namespace MegaMine.Modules.Quarry.Repositories
         public DbSet<MaterialEntity> Materials { get; set; }
         public DbSet<MaterialMovementEntity> MaterialMovements { get; set; }
         public DbSet<ProductSummaryEntity> ProductSummary { get; set; }
+
+        //Widgets
+        public DbSet<ChartEntity<string, int>> ChartEntities { get; set; }
     }
 }

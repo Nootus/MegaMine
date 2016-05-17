@@ -1,72 +1,113 @@
 ﻿<div ng-controller="index as vm">
-    <div class="container" layout="column">
-        <div class="header" layout="row" ng-cloak>
-            <div layout="row" flex="40">
-                <div layout="row" layout-align="start center" class="top-header" ng-hide="true">
-                    <a href="/"><img class="logo" src="content/images/layout/quartzinc.png" /></a>
-                    <span>Mega Mine</span>
+    <div class="top-bar" layout="row">
+        <div class="top-bar-title has-hover">Mega Mine</div>
+        <div flex layout="row" ng-show="vm.profile.isAuthenticated">
+            <div class="top-bar-company has-hover"><nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select></div>
+            <div flex style="text-align: center">
+                <div id="fountainG" ng-show="vm.navigation.isLoading">
+                    <div id="fountainG_1" class="fountainG"></div>
+                    <div id="fountainG_2" class="fountainG"></div>
+                    <div id="fountainG_3" class="fountainG"></div>
+                    <div id="fountainG_4" class="fountainG"></div>
+                    <div id="fountainG_5" class="fountainG"></div>
+                    <div id="fountainG_6" class="fountainG"></div>
+                    <div id="fountainG_7" class="fountainG"></div>
+                    <div id="fountainG_8" class="fountainG"></div>
                 </div>
             </div>
-            <div flex layout="column" ng-show="vm.profile.isAuthenticated">
-                <div class="profile-menu" layout="row" layout-alignment="center">
-                    <div class="profile-company" flex="15">
-                        <nt-select label="" control-name="companyId" ng-model="vm.profile.companyId" opt-list="vm.profile.companies" opt-value="companyId" opt-text="companyName" ng-required="true" nt-change="vm.changeCompany()"></nt-select>
-                    </div>
-                    <div flex class="text-right">
-                        <span ng-repeat="crumb in vm.navigation.breadcrumbs">
-                            <a href="{{crumb.url}}" class="breadcrumb">{{crumb.title}}</a> &gt;
-                        </span>
-                        &nbsp;&nbsp; | &nbsp;
-                    </div>
-                    <md-menu-bar>
-                        <md-menu>
-                            <button ng-click="$mdOpenMenu()">{{vm.profile.firstName}}</button>
-                            <md-menu-content>
-                                <md-menu-item>
-                                    <md-button ng-href="#" ng-click="vm.showChangePasswordDialog($event)">
-                                        <md-icon class="icon-changepassword"></md-icon> Change Password
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-item>
-                                    <md-button ng-href="/logout">
-                                        <md-icon class="icon-logout"></md-icon> Logout
-                                    </md-button>
-                                </md-menu-item>
-                            </md-menu-content>
-                        </md-menu>
-                    </md-menu-bar>
+            <div class="top-bar-menu breadcrumb" ng-hide="vm.navigation.breadcrumbs.length <= 1">
+                <span ng-repeat="crumb in vm.navigation.breadcrumbs track by $index">
+                    <a class="has-hover" href="{{crumb.url}}">{{crumb.title}}</a> 
+                    <i class="fa fa-chevron-right" ng-hide="$last"></i>
+                </span>
+            </div>
+            <md-button class="top-bar-menu has-hover top-bar-button" ng-href="#" ng-click="vm.showChangePasswordDialog($event)">
+                <md-tooltip>
+                    Change Password
+                </md-tooltip>
+                <md-icon class="fa fa-key top-bar-button-icon" aria-label="Change Password"></md-icon>
+            </md-button>
+            <md-button class="top-bar-menu has-hover top-bar-button" ng-href="/logout">
+                <md-tooltip>
+                    Sign out
+                </md-tooltip>
+                <md-icon class="fa fa-sign-out top-bar-button-icon" aria-label="Sign out"></md-icon>
+            </md-button>
+            <div class="avatar top-bar-menu has-hover" layout="row">
+                <div>
+                    <div class="avatar-name">{{vm.profile.fullName}}</div>
+                    <div class="avatar-username">{{vm.profile.userName}}</div>
                 </div>
-                <div class="main-menu">
-                    <md-menu-bar>
-                        <md-menu ng-repeat="menu in vm.profile.menu">
-                            <button ng-click="$mdOpenMenu()">
-                                <md-icon class="{{menu.iconCss}}"></md-icon> {{menu.menuText}}
-                            </button>
-                            <md-menu-content>
-                                <md-menu-item ng-repeat-start="item in menu.items" ng-hide="item.groupMenuInd === true">
-                                    <md-button ng-href="{{item.url}}" ng-hide="item.groupMenuInd === true">
-                                        <md-icon class="{{item.iconCss}}"></md-icon> {{item.menuText}}
-                                    </md-button>
-                                </md-menu-item>
-                                <md-menu-divider ng-repeat-end ng-show="item.groupMenuInd === true"></md-menu-divider>
-                            </md-menu-content>
-                        </md-menu>
-                    </md-menu-bar>
+                <img class="avatar-image" alt="" src="content/images/layout/Prasanna_Pattam.jpg">
+            </div>
+        </div>
+    </div>
+    <div layout="row">
+        <div class="left-bar" ng-class="{ 'left-bar-collapse': vm.collapseMenu }" ng-show="vm.profile.isAuthenticated">
+            <div ng-show="vm.collapseMenu">
+                <div class="left-bar-item has-hover menu-hover">
+                    <md-button ng-href="#" ng-click="vm.toggleMenu()">
+                        <md-tooltip>Toggle Menu</md-tooltip>
+                        <md-icon class="fa fa-bars" aria-label="Toggle Menu"></md-icon>
+                    </md-button>
+                </div>
+                <div class="left-bar-item has-hover menu-hover">
+                    <md-button ng-href="/" ng-click="vm.resetMenu()">
+                        <md-tooltip>Dashboard</md-tooltip>
+                        <md-icon class="fa fa-tachometer" aria-label="Dashboard"></md-icon>
+                    </md-button>
+                </div>
+                <div>
+                    <div ng-include="'menu_accordion'"></div>
+                </div>
+            </div>
+            <div ng-hide="vm.collapseMenu">
+                <div class="left-bar-menu left-bar-item has-hover menu-hover">
+                    <nt-button type="command-bar" icon-css="bars" tool-tip="Toggle Menu" text="" ng-click="vm.toggleMenu()"></nt-button>
+                </div>
+                <div class="left-bar-item has-hover menu-hover">
+                    <md-button ng-href="/" ng-click="vm.resetMenu()">Dashboard</md-button>
+                </div>
+                <div ng-hide="vm.profile.menu.length === 0">
+                    <div ng-include="'menu_accordion'"></div>
+                </div>
+            </div>
+        </div>
+        <div flex>
+            <div flex layout="row" class="container main-content ui-view-container">
+                <div flex ui-view class="view-content">
+                    <div id="splash" class="splash">
+                        <br /><br />
+                        <h2 class="splash-main-header">Welcome to Mega Mine</h2>
+                        <h3 class="splash-header">Please wait ...</h3>
+                        <br />
+                        <img class="splash-loading" src="content/images/layout/loading.gif" />
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-    <div flex layout="row" class="container main-content ui-view-container">
-        <md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.startvalue}}" md-buffer-value="{{vm.buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>
-        <div flex ui-view class="view-content">
-            <div id="splash" class="splash">
-                <br /><br />
-                <h2 class="top-header">Welcome to Mega Mine</h2>
-                <h3 class="splash-header">Please wait ...</h3>
-                <br />
-                <img class="splash-loading" src="content/images/layout/loading.gif" />
-            </div>
-        </div>
-    </div>
-
 </div>
+
+<script type="text/ng-template" id="menu_accordion">
+    <ul nt-accordion>
+        <li ng-repeat="menu in vm.profile.menu track by menu.pageId">
+            <h3 class="left-bar-item has-hover menu-hover">
+                <md-button ng-href="#"> 
+                    <md-icon class="{{menu.iconCss}}" ng-show="vm.collapseMenu"></md-icon>
+                    <span ng-hide="vm.collapseMenu">{{menu.menuText}}</span>
+                    <md-tooltip ng-style="!vm.collapseMenu ? { 'display': 'none' } : ''">{{menu.menuText}}</md-tooltip>
+                </md-button>
+            </h3>
+            <div>
+                <div ng-repeat="item in menu.items" ng-hide="item.groupMenuInd === true" class="left-bar-item has-hover menu-hover" ng-class="{ 'menu-selected': item.pageId === vm.currentMenuItem.pageId }">
+                    <md-button ng-href="{{item.url}}" ng-click="vm.menuClick(item)">
+                        <md-icon class="{{item.iconCss}}"></md-icon> 
+                        <span ng-hide="vm.collapseMenu">{{item.menuText}}</span>
+                        <md-tooltip ng-style="!vm.collapseMenu ? { 'display': 'none' } : ''">{{item.menuText}}</md-tooltip>
+                    </md-button>
+                </div>
+            </div>
+        </li>
+    </ul>
+</script>

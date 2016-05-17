@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('material', material)
-material.$inject = ['$scope', 'quarryService', 'quarryUtility', 'gridUtility', 'dialogUtility', 'utility', 'constants', 'template'];
+material.$inject = ['$scope', 'quarryService', 'quarryUtility', 'dialogUtility', 'utility', 'constants', 'template'];
 
-function material($scope, quarryService, quarryUtility, gridUtility, dialogUtility, utility, constants, template) {
+function material($scope, quarryService, quarryUtility, dialogUtility, utility, constants, template) {
 
     var gridOptions = {
         columnDefs: [
@@ -15,22 +15,23 @@ function material($scope, quarryService, quarryUtility, gridUtility, dialogUtili
                     { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
                     { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
-                    template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.vm.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.vm.deleteRowMaterial(row.entity, $event)' }])
+                    template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.grid.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.grid.deleteRowMaterial(row.entity, $event)' }])
         ]
     };
 
 
     var vm = {
-        list: [],
+        grid: {
+            options: gridOptions,
+            data: [],
+            editRowMaterial: editRowMaterial,
+            deleteRowMaterial: deleteRowMaterial
+        },
         model: {},
         previousModel: {},
         viewModel: {},
-        gridOptions: gridOptions,
-        viewDialog: {},
         addMaterial: addMaterial,
         saveMaterial: saveMaterial,
-        editRowMaterial: editRowMaterial,
-        deleteRowMaterial: deleteRowMaterial,
         cancelMaterial: cancelMaterial,
         updateMaterial: updateMaterial,
         editMode: false
@@ -44,8 +45,6 @@ function material($scope, quarryService, quarryUtility, gridUtility, dialogUtili
         vm.viewModel = quarryService.materialViewModel;
         vm.model = vm.viewModel.model;
         vm.model.materialDate = new Date();
-
-        gridUtility.initializeGrid(vm.gridOptions, $scope, vm.list);
 
         quarryUtility.addMaterialWatchers($scope, vm.model); 
     }
@@ -62,28 +61,30 @@ function material($scope, quarryService, quarryUtility, gridUtility, dialogUtili
         vm.model.width = "";
         vm.model.height = "";
         vm.model.weight = "";
+        vm.model.productTypeId = undefined;
     }
 
     function addMaterial(form) {
         if (form.$valid) {
             updateDropDownText();
-            vm.model.index = vm.list.length;
-            vm.list.push(angular.copy(vm.model));
+            vm.model.index = vm.grid.data.length;
+            vm.grid.data.push(angular.copy(vm.model));
             resetModel();
+            form.$submitted = false;
         }
     }
 
     function saveMaterial(ev) {
-        if (vm.list.length === 0) {
+        if (vm.grid.data.length === 0) {
             dialogUtility.alert('No Materials', 'Please add materials to save', ev);
         }
         else {
 
             dialogUtility.confirm('Confirm Save', 'Please confirm to save the material', ev)
                 .then(function () {
-                quarryService.saveMaterial(vm.list)
+                quarryService.saveMaterial(vm.grid.data)
                     .then(function (data) {
-                            vm.list.splice(0, vm.list.length);
+                            vm.grid.data.splice(0, vm.grid.data.length);
                             resetModel();
                         });
                     });
@@ -102,7 +103,7 @@ function material($scope, quarryService, quarryUtility, gridUtility, dialogUtili
     function deleteRowMaterial(row, ev) {
         dialogUtility.confirm('Delete Material', 'Are you sure you want to delete the material', ev)
             .then(function () {
-            vm.list.splice(row.index, 1);
+            vm.grid.data.splice(row.index, 1);
         });
     }
 
@@ -114,7 +115,7 @@ function material($scope, quarryService, quarryUtility, gridUtility, dialogUtili
     function updateMaterial(form) {
         if (form.$valid) {
             updateDropDownText();
-            angular.extend(vm.list[vm.model.index], vm.model);
+            angular.extend(vm.grid.data[vm.model.index], vm.model);
             resetModel();
             vm.editMode = false;
         }

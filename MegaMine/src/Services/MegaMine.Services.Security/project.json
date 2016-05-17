@@ -1,0 +1,19 @@
+﻿{
+  "version": "1.0.0-*",
+  "description": "MegaMine.Services.Security Class Library",
+  "authors": [ "prasanna" ],
+  "tags": [ "" ],
+  "projectUrl": "",
+  "licenseUrl": "",
+
+  "frameworks": {
+    "net451": { }
+  },
+  "dependencies": {
+    "AutoMapper": "4.0.4",
+    "Microsoft.AspNet.Mvc": "6.0.0-rc1-final",
+    "EntityFramework.MicrosoftSqlServer": "7.0.0-rc1-final",
+    "Microsoft.AspNet.Identity.EntityFramework": "3.0.0-rc1-final",
+    "MegaMine.Core": "1.0.0-*"
+  }
+}

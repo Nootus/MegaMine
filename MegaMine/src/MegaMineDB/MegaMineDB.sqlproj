@@ -60,18 +60,32 @@
     <Folder Include="Stored Procedures" />
     <Folder Include="Functions" />
     <Folder Include="Scripts" />
+    <Folder Include="Stored Procedures\quarry" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="Stored Procedures\GetQuarrySummary.sql" />
     <Build Include="Stored Procedures\QuarryIngest.sql" />
-    <Build Include="Stored Procedures\ProductSummaryGet.sql" />
     <Build Include="Functions\SplitCsv.sql" />
     <Build Include="Scripts\InitialSchema.sql" />
     <Build Include="Scripts\ChangesSchema.sql" />
+    <Build Include="Stored Procedures\quarry\GetQuarrySummary.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetQuarryMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetQuarryProductTypeMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetQuarryMaterialColourMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetProductTypeMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetProductTypeQuarryMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetProductTypeMaterialColourMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetMaterialColourMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetMaterialColourProductTypeMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetMaterialColourQuarryMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetYardMaterialCounts.sql" />
+    <Build Include="Stored Procedures\quarry\WidgetYardProductTypeMaterialCounts.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Scripts\InitialMasterData.sql" />
     <None Include="Scripts\QuarryData.sql" />
     <None Include="Scripts\ChangesMasterData.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="Stored Procedures\quarry\ProductSummaryGet.sql" />
   </ItemGroup>
 </Project>

@@ -1,23 +1,55 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarry', quarry)
-quarry.$inject = ['$scope', 'quarryService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
+quarry.$inject = ['quarryService', 'utility', 'constants', 'dialogService', 'template'];
 
-function quarry($scope, quarryService, gridUtility, utility, constants, dialogService, template) {
+function quarry(quarryService, utility, constants, dialogService, template) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'quarryName', field: 'quarryName', displayName: 'Name', type: 'string' },
                     { name: 'colour', field: 'colours', type: 'string', displayName: 'Colour' },
-                    { name: 'location', field: 'location', type: 'string', displayName: 'Location' },
-                    template.getButtonDefaultColumnDefs('quarryId', 'Quarry:QuarryEdit', 'Quarry:QuarryDelete')
+                    { name: 'location', field: 'location', type: 'string', displayName: 'Location' }
         ]
     };
 
 
     var vm = {
-        gridOptions: gridOptions,
-        viewDialog: viewDialog,
-        addQuarry: addQuarry
+        dashboard: {
+            header: 'Quarries',
+            widgets: {
+                allWidgets: quarryService.quarries.widgets.allWidgets,
+                pageWidgets: quarryService.quarries.widgets.pageWidgets,
+            },
+            records: {
+                options: {
+                    primaryField: 'quarryId',
+                    data: quarryService.quarries.list,
+                    view: viewDialog
+                },
+                list: {
+                    options: {
+                        fields: ['quarryName', 'colours', 'location']
+                    },
+                },
+                grid: {
+                    options: gridOptions
+                },
+                buttons: {
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Quarry',
+                        claim: 'Quarry:QuarryAdd',
+                        save: addQuarry,
+                    },
+                    edit: {
+                        claim: 'Quarry:QuarryEdit'
+                    },
+                    delete: {
+                        claim: 'Quarry:QuarryDelete'
+                    }
+                }
+           }
+        }
     };
 
     init();
@@ -25,7 +57,7 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.quarries);
+
     }
 
     function addQuarry(ev) {
@@ -57,7 +89,7 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
                         model.quarryName = dialogModel.quarryName
                         model.location = dialogModel.location
                         angular.extend(model.colourIds, dialogModel.colourIds)
-                        model.colours = utility.getItem(quarryService.colours, dialogModel.colourIds[0], "materialColourId", "colourName");
+                        model.colours = utility.getListItem(quarryService.colourListItems, dialogModel.colourIds[0]);
                     }
 
                     dialogService.hide();
@@ -66,4 +98,5 @@ function quarry($scope, quarryService, gridUtility, utility, constants, dialogSe
         });
     }
 }
+
 

@@ -18,7 +18,8 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         deleteProperties: deleteProperties,
         isEmpty: isEmpty,
         isUndefined: isUndefined,
-        extend: extend
+        extend: extend,
+        getContentHeight: getContentHeight
     };
 
     return util;
@@ -82,5 +83,15 @@ function utility($window, $timeout, toastr, uiGridConstants) {
         dest.splice(0, dest.length);
         angular.extend(dest, source);
     }
+
+    function getContentHeight(containerClass, contentClass, bottomOffset) {
+        var windowHeight = $window.innerHeight;
+        var contentOffset = angular.element(document.getElementsByClassName(contentClass)[0]).offset();
+        if (contentOffset !== undefined) {
+            var contentHeight = windowHeight - (contentOffset.top) - bottomOffset;
+            return contentHeight + 'px';
+        }
+    }
+
 }
 

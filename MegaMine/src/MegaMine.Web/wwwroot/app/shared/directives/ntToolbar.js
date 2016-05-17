@@ -1,18 +1,18 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntToolbar', ntToolbar)
-ntToolbar.$inject = [];
+ntToolbar.$inject = ['utility'];
 
-function ntToolbar() {
+function ntToolbar(utility) {
     return {
         restrict: 'E',
         transclude: true,
         scope: {
-            title: '@',
+            header: '@',
         },
         link: link,
         template: '<md-toolbar>'
                     + '<div class="md-toolbar-tools" layout="row">'
-                    + '<h2 flex class="md-flex">{{title}}</h2>'
+                    + '<h2 flex>{{header}}</h2>'
                     + '<div ng-transclude></div>'
                     + '</div>'
                     + '</md-toolbar>'
@@ -20,6 +20,8 @@ function ntToolbar() {
     };
 
     function link(scope, element, attrs, nullController, transclude) {
-
+        if(utility.isEmpty(attrs.class)) {
+            attrs.$addClass('command-bar');
+        }
     }
 }

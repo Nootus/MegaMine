@@ -1,31 +1,49 @@
-﻿using MegaMine.Modules.Quarry.Models;
+﻿using MegaMine.Core.Models;
+using MegaMine.Modules.Quarry.Common;
+using MegaMine.Modules.Quarry.Domain;
+using MegaMine.Modules.Quarry.Models;
+using MegaMine.Services.Security.Domain;
+using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Shared;
 using Microsoft.AspNet.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MegaMine.Modules.Quarry.Domain;
-using MegaMine.Modules.Quarry.Common;
-using MegaMine.Web.Lib.Shared;
-using MegaMine.Web.Lib.Domain;
 using Microsoft.Extensions.DependencyInjection;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MegaMine.Web.Controllers
 {
     public class QuarryController : Controller
     {
         private QuarryDomain domain;
-        public QuarryController(QuarryDomain domain)
+        private WidgetDomain widgetDomain;
+        public QuarryController(QuarryDomain domain, WidgetDomain widgetDomain)
         {
             this.domain = domain;
+            this.widgetDomain = widgetDomain;
         }
+
+        [HttpGet]
+        public async Task<AjaxModel<object>> Dashboard()
+        {
+            var ajaxModel = AjaxHelper.BlankModel<object>();
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
+        }
+
 
         #region Material Colour
         [HttpGet]
+        public async Task<AjaxModel<List<ListItem<int, string>>>> MaterialColourListItemsGet()
+        {
+            return await AjaxHelper.GetAsync(m => domain.MaterialColourListItemsGet());
+        }
+
+        [HttpGet]
         public async Task<AjaxModel<List<MaterialColourModel>>> MaterialColoursGet()
         {
-            return await AjaxHelper.GetAsync(m => domain.MaterialColoursGet());
+            var ajaxModel = await AjaxHelper.GetAsync(m => domain.MaterialColoursGet());
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
         }
 
         [HttpPost]
@@ -47,10 +65,19 @@ namespace MegaMine.Web.Controllers
         #endregion
 
         #region Product Type
+
+        [HttpGet]
+        public async Task<AjaxModel<List<ProductTypeModel>>> ProductTypeListGet()
+        {
+            return await AjaxHelper.GetAsync(m => domain.ProductTypesGet());
+        }
+
         [HttpGet]
         public async Task<AjaxModel<List<ProductTypeModel>>> ProductTypesGet()
         {
-            return await AjaxHelper.GetAsync(m => domain.ProductTypesGet());
+            var ajaxModel = await AjaxHelper.GetAsync(m => domain.ProductTypesGet());
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
         }
 
         [HttpPost]
@@ -76,7 +103,9 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<QuarryModel>>> QuarriesGet()
         {
-            return await AjaxHelper.GetAsync(m => domain.QuarriesGet());
+            var ajaxModel = await AjaxHelper.GetAsync(m => domain.QuarriesGet());
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
         }
 
         [HttpPost]
@@ -100,9 +129,17 @@ namespace MegaMine.Web.Controllers
 
         #region Yard
         [HttpGet]
-        public async Task<AjaxModel<List<YardModel>>> YardsGet()
+        public async Task<AjaxModel<List<YardModel>>> YardListGet()
         {
             return await AjaxHelper.GetAsync(m => domain.YardsGet());
+        }
+
+        [HttpGet]
+        public async Task<AjaxModel<List<YardModel>>> YardsGet()
+        {
+            var ajaxModel = await AjaxHelper.GetAsync(m => domain.YardsGet());
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
         }
 
         [HttpGet]

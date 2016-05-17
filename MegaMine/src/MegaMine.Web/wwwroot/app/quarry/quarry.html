@@ -1,12 +1,12 @@
-﻿<nt-list-toolbar vm="vm" title="Quaries" button-text="Add Quarry" button-click="vm.addQuarry($event)" claim="Quarry:QuarryAdd"></nt-list-toolbar>
+﻿<nt-dashobard flex dashboard="vm.dashboard"></nt-dashobard>
 
 <script type="text/ng-template" id="quarry_dialog">
     <md-dialog aria-label="Quarry" class="dialog">
-        <nt-dialog form="quarryForm" title="Quarry">
+        <nt-dialog form="quarryForm" header="Quarry">
             <div layout="row">
                     <nt-input flex="33" form="quarryForm" label="Quarry Name" control-name="quarryName" ng-model="vm.model.quarryName" ng-required="true" em-maxlength="20"></nt-input>
                     <nt-input flex="33" form="quarryForm" label="Location" control-name="Location" ng-model="vm.model.location" ng-required="false" em-maxlength="100"></nt-input>
-                    <nt-select flex="33" form="quarryForm" label="Colour" control-name="colourId" ng-model="vm.model.colourIds[0]" opt-list="service.colours" opt-value="materialColourId" opt-text="colourName" ng-required="true"></nt-select>
+                    <nt-select flex="33" form="quarryForm" label="Colour" control-name="colourId" ng-model="vm.model.colourIds[0]" opt-list="service.colourListItems" ng-required="true"></nt-select>
             </div>
         </nt-dialog>
     </md-dialog>

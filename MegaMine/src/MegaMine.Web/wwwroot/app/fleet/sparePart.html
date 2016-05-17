@@ -8,7 +8,7 @@
         <nt-input flex="20" label="manufacturer" control-name="manufacturer" ng-model="vm.model.vehicleManufacturer" ng-disabled="true"></nt-input>
         <nt-input flex="15" label="vehicleModel" control-name="vehicleModel" ng-model="vm.model.vehicleModel" ng-disabled="true"></nt-input>
     </div>
-    <nt-list-toolbar vm="vm" title="Orders" button-text="Add Order" button-click="vm.addOrder($event)" claim="Fleet:SparePartOrderAdd" grid-class="sub-grid"></nt-list-toolbar>
+    <nt-dashobard vm="vm" title="Orders" button-text="Add Order" button-click="vm.addOrder($event)" claim="Fleet:SparePartOrderAdd" grid-class="sub-grid"></nt-dashobard>
 </md-content>
 
 <script type="text/ng-template" id="spare_part_order_dialog">

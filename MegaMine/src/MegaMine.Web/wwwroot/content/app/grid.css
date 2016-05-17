@@ -1,0 +1,18 @@
+﻿.nt-grid {
+    height: 98% !important;
+    width: 99%;
+}
+
+.grid-content {
+    background-color: transparent;
+}
+
+.grid-button {
+    padding: 0;
+    margin: 0;
+    min-width: 30px;
+}
+
+.grid-button-icon {
+    color:rgb(67, 116, 167);
+}

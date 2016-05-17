@@ -2,6 +2,8 @@
 using MegaMine.Modules.Quarry.Repositories;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using MegaMine.Core.Models;
+using System;
 
 namespace MegaMine.Modules.Quarry.Domain
 {
@@ -15,6 +17,11 @@ namespace MegaMine.Modules.Quarry.Domain
 
         #region Material Colour
         //Material Colour
+        public async Task<List<ListItem<int, string>>> MaterialColourListItemsGet()
+        {
+            return await quarryRepository.MaterialColourListItemsGet();
+        }
+
         public async Task<List<MaterialColourModel>> MaterialColoursGet()
         {
             return await quarryRepository.MaterialColoursGet();
@@ -84,6 +91,7 @@ namespace MegaMine.Modules.Quarry.Domain
         {
             await quarryRepository.YardDelete(yardId);
         }
+
         #endregion
 
         #region Material
@@ -140,7 +148,7 @@ namespace MegaMine.Modules.Quarry.Domain
         {
             return new ProductSummaryViewModel()
             {
-                ProductTypes = await quarryRepository.ProductTypeListItemGet(),
+                ProductTypes = await quarryRepository.ProductTypeListItemsGet(),
                 Quarries = await quarryRepository.QuarryListItemGet(),
                 Summary = await quarryRepository.ProductSummarySearch(new ProductSummarySearchModel())
             };

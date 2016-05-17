@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Core.Context
 {
-    public class NTContextProfileModel
+    public class NTContextModel
     {
         public string UserId { get; set; }
         public string FirstName { get; set; }
@@ -14,5 +14,7 @@ namespace MegaMine.Core.Context
         public string FullName { get { return FirstName + " " + LastName; } }
         public int CompanyId { get; set; }
         public int GroupCompanyId { get; set; }
+
+        public int? DashboardPageId { get; set; }
     }
 }

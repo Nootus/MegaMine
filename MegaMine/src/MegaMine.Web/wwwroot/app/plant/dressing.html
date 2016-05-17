@@ -1,6 +1,6 @@
 ﻿<nt-toolbar title="Block Dressing" class="title">
-    <nt-button ng-click="vm.saveDressing(dressingForm, $event)" button-icon="edit" button-text="Edit Dressing" form="editDressingForm" claim="Plant:DressingEdit"></nt-button>
-    <nt-button ng-click="vm.saveDressing(dressingForm, $event)" button-icon="add" button-text="Save Dressing" form="dressingForm"></nt-button>
+    <nt-old-button ng-click="vm.saveDressing(dressingForm, $event)" button-icon="edit" button-text="Edit Dressing" form="editDressingForm" claim="Plant:DressingEdit"></nt-old-button>
+    <nt-old-button ng-click="vm.saveDressing(dressingForm, $event)" button-icon="add" button-text="Save Dressing" form="dressingForm"></nt-old-button>
 </nt-toolbar>
 <form name="dressingForm" novalidate>
     <md-content layout-padding>
@@ -19,8 +19,8 @@
     </md-content>
     <md-content>
         <nt-toolbar title="Blocks" class="subtitle">
-            <nt-button class="text-right" ng-click="vm.removeBlocks()" button-icon="delete" button-text="Remove"></nt-button>
-            <nt-button class="text-right" ng-click="vm.addBlocks()" button-icon="add" button-text="Add"></nt-button>
+            <nt-old-button class="text-right" ng-click="vm.removeBlocks()" button-icon="delete" button-text="Remove"></nt-old-button>
+            <nt-old-button class="text-right" ng-click="vm.addBlocks()" button-icon="add" button-text="Add"></nt-old-button>
         </nt-toolbar>
         <div ui-grid="vm.blockGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ui-grid-validate ng-class="gridClass" style="height:220px;width:99.5%"></div>
     </md-content>
@@ -29,8 +29,8 @@
         <div flex="50">
             <md-content>
                 <nt-toolbar title="Stoppages" class="subtitle">
-                    <nt-button class="text-right" ng-click="vm.removeStoppage()" button-icon="delete" button-text="Remove"></nt-button>
-                    <nt-button class="text-right" ng-click="vm.addStoppage()" button-icon="add" button-text="Add"></nt-button>
+                    <nt-old-button class="text-right" ng-click="vm.removeStoppage()" button-icon="delete" button-text="Remove"></nt-old-button>
+                    <nt-old-button class="text-right" ng-click="vm.addStoppage()" button-icon="add" button-text="Add"></nt-old-button>
                 </nt-toolbar>
                 <div ui-grid="vm.stoppageGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ui-grid-validate ng-class="gridClass" style="height:150px;width:99%"></div>
             </md-content>
@@ -39,8 +39,8 @@
         <div flex="50">
             <md-content>
                 <nt-toolbar title="Operators" class="subtitle">
-                    <nt-button class="text-right" ng-click="vm.removeOperator()" button-icon="delete" button-text="Remove"></nt-button>
-                    <nt-button class="text-right" ng-click="vm.addOperator()" button-icon="add" button-text="Add"></nt-button>
+                    <nt-old-button class="text-right" ng-click="vm.removeOperator()" button-icon="delete" button-text="Remove"></nt-old-button>
+                    <nt-old-button class="text-right" ng-click="vm.addOperator()" button-icon="add" button-text="Add"></nt-old-button>
                 </nt-toolbar>
                 <div ui-grid="vm.operatorGridOptions" ui-grid-resize-columns ui-grid-auto-resize ui-grid-selection ui-grid-edit ui-grid-cellNav ui-grid-validate ng-class="gridClass" style="height:150px;width:99%"></div>
             </md-content>

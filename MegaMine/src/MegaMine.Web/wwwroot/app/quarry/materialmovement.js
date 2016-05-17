@@ -6,7 +6,7 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
 
     var gridOptions = {
         columnDefs: [
-                    { name: 'blockNumber', field: 'blockNumber', displayName: 'Block Number', type: 'string' },
+                    { name: 'blockNumber', field: 'blockNumber', displayName: 'Block #', type: 'string' },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour' },
                     { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
@@ -20,17 +20,21 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
 
 
     var vm = {
+        grid: {
+            options: gridOptions,
+            data: quarryService.stock
+        },
         yards: [],
         groupYards: [],
         fromYardId: undefined,
         toYardId: undefined,
         currentYardId: undefined,
         movementDate: undefined,
-        gridOptions: gridOptions,
         getStock: getStock,
         moveMaterial: moveMaterial,
         movementErrorMessages: [],
-        validateToYard: validateToYard
+        validateToYard: validateToYard,
+        noStockMessage: undefined
     };
 
     init();
@@ -38,16 +42,18 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
     return vm;
 
     function init() {
-        vm.yards = quarryService.yards;
+        vm.yards = quarryService.yardList;
         vm.groupYards = quarryService.groupYards;
         quarryService.stock.splice(0, quarryService.stock.length);
-
-        gridUtility.initializeGrid(vm.gridOptions, $scope, quarryService.stock);
     }
 
     function getStock(form) {
         if (form.$valid) {
-            quarryService.getStock(vm.fromYardId);
+            vm.noStockMessage = undefined;
+            quarryService.getStock(vm.fromYardId).then(function () {
+                if (quarryService.stock.length === 0)
+                    vm.noStockMessage = message.noStockMessage;
+            });
             vm.currentYardId = vm.fromYardId;
         }
     }
@@ -71,7 +77,7 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
 
         if (form.$valid) {
             var selectedIds = [];
-            angular.forEach(vm.gridOptions.gridApi.selection.getSelectedRows(), function (item) {
+            angular.forEach(vm.grid.options.gridApi.selection.getSelectedRows(), function (item) {
                 selectedIds.push(item.materialMovementId)
             });
 

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MegaMine.Modules.Quarry.Entities
 {
-    [Table("Material")]
+    [Table("Material", Schema = "quarry")]
     public class MaterialEntity : BaseEntity
     {
         [Key]
@@ -13,6 +13,7 @@ namespace MegaMine.Modules.Quarry.Entities
         public int MaterialId { get; set; }
         public string BlockNumber { get; set; }
         public int QuarryId { get; set; }
+        public int YardId { get; set; }
         public int ProductTypeId { get; set; }
         public int MaterialColourId { get; set; }
         public string Dimensions { get; set; }

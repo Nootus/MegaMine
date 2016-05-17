@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNet.Mvc;
-using MegaMine.Web.Models;
+﻿using MegaMine.Core.Models;
 using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Fleet;
-using MegaMine.Web.Lib.Entities;
 using MegaMine.Web.Models.Shared;
-using MegaMine.Web.Lib.Filters;
-using MegaMine.Core.Models;
+using Microsoft.AspNet.Mvc;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace MegaMine.Web.Controllers
 {

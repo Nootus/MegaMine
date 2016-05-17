@@ -2,32 +2,38 @@
 
 angular.module('megamine').factory('quarryService', quarryService);
 
-quarryService.$inject = ['$http'];
+quarryService.$inject = ['$http', 'utility'];
 
-function quarryService($http) {
+function quarryService($http, utility) {
 
     var service = {
         //colours
-        colours: [],
+        colours: { list: [], widgets: {} },
+        colourListItems: [],
         getMaterialColours: getMaterialColours,
+        getMaterialColourListItems: getMaterialColourListItems,
         saveMaterialColour: saveMaterialColour,
         deleteMaterialColour: deleteMaterialColour,
 
         //product types
-        productTypes: [],
+        productTypes: { list: [], widgets: {}},
+        productTypeList: [],
         getProductTypes: getProductTypes,
+        getProductTypeList: getProductTypeList,
         saveProductType: saveProductType,
         deleteProductType: deleteProductType,
 
         //quarries
-        quarries: [],
+        quarries: { list: [], widgets: {}},
         getQuarries: getQuarries,
         saveQuarry: saveQuarry,
         deleteQuarry: deleteQuarry,
 
         //yards
-        yards: [],
+        yards: { list: [], widgets: {} },
+        yardList: [],
         groupYards: [],
+        getYardList: getYardList,
         getYards: getYards,
         saveYard: saveYard,
         deleteYard: deleteYard,
@@ -67,9 +73,14 @@ function quarryService($http) {
     function getMaterialColours() {
         return $http.get("/api/quarry/materialcoloursget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
-                service.colours.splice(0, service.colours.length);
-                angular.extend(service.colours, data);
+                utility.extend(service.colours.list, data.model);
+                angular.extend(service.colours.widgets, data.dashboard);
+            });
+    }
+    function getMaterialColourListItems() {
+        return $http.get("/api/quarry/materialcolourlistitemsget")
+            .then(function (data) {
+                utility.extend(service.colourListItems, data);
             });
     }
 
@@ -93,9 +104,15 @@ function quarryService($http) {
     function getProductTypes() {
         return $http.get("/api/quarry/producttypesget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
-                service.productTypes.splice(0, service.productTypes.length);
-                angular.extend(service.productTypes, data);
+                utility.extend(service.productTypes.list, data.model);
+                angular.extend(service.productTypes.widgets, data.dashboard);
+            });
+    }
+
+    function getProductTypeList() {
+        return $http.get("/api/quarry/producttypelistget")
+            .then(function (data) {
+                utility.extend(service.productTypeList, data);
             });
     }
 
@@ -119,9 +136,8 @@ function quarryService($http) {
     function getQuarries() {
         return $http.get("/api/quarry/quarriesget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
-                service.quarries.splice(0, service.quarries.length);
-                angular.extend(service.quarries, data);
+                utility.extend(service.quarries.list, data.model);
+                angular.extend(service.quarries.widgets, data.dashboard);
             });
     }
 
@@ -142,21 +158,25 @@ function quarryService($http) {
     }
 
     //Yards
+    function getYardList() {
+        return $http.get("/api/quarry/yardlistget")
+            .then(function (data) {
+                utility.extend(service.yardList, data);
+            });
+    }
+
     function getYards() {
         return $http.get("/api/quarry/yardsget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
-                service.yards.splice(0, service.yards.length);
-                angular.extend(service.yards, data);
+                utility.extend(service.yards.list, data.model);
+                angular.extend(service.yards.widgets, data.dashboard);
             });
     }
 
     function getGroupYards() {
         return $http.get("/api/quarry/groupyardsget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
-                service.groupYards.splice(0, service.groupYards.length);
-                angular.extend(service.groupYards, data);
+                utility.extend(service.groupYards, data);
             });
     }
     
@@ -193,8 +213,7 @@ function quarryService($http) {
     function getStock(yardId) {
         return $http.get("/api/quarry/stockget", { params: { "yardId": yardId } })
             .then(function (data) {
-                service.stock.splice(0, service.stock.length);
-                angular.extend(service.stock, data);
+                utility.extend(service.stock, data);
                 return data;
             });
     }
@@ -202,16 +221,14 @@ function quarryService($http) {
     function moveMaterial(model) {
         return $http.post("/api/quarry/movematerial", model)
             .then(function (data) {
-                service.stock.splice(0, service.stock.length);
-                angular.extend(service.stock, data);
+                utility.extend(service.stock, data);
             });
     }
 
     function materialUpdate(model) {
         return $http.post("/api/quarry/materialupdate", model, { params: { "yardId": model.currentYardId } })
                 .then(function (data) {
-                    service.stock.splice(0, service.stock.length);
-                    angular.extend(service.stock, data);
+                    utility.extend(service.stock, data);
                     return data;
                 });
     }
@@ -219,8 +236,7 @@ function quarryService($http) {
     function materialDelete(materialId, yardId) {
         return $http.post("/api/quarry/materialdelete", null, { params: { "materialId": materialId, "yardId": yardId } })
                 .then(function (data) {
-                    service.stock.splice(0, service.stock.length);
-                    angular.extend(service.stock, data);
+                    utility.extend(service.stock, data);
                     return data;
                 });
     }
@@ -239,8 +255,7 @@ function quarryService($http) {
     function getQuarrySummaryDetails(searchParams) {
         return $http.post("/api/quarry/quarrysummarydetails", searchParams)
             .then(function (data) {
-                service.quarrySummaryDetails.splice(0, service.quarrySummaryDetails.length);
-                angular.extend(service.quarrySummaryDetails, data);
+                utility.extend(service.quarrySummaryDetails, data);
                 return data;
             });
     }
@@ -252,8 +267,7 @@ function quarryService($http) {
                 service.productSummaryVM.quarries = data.quarries;
                 service.productSummaryVM.productTypes = data.productTypes;
 
-                service.productSummary.splice(0, service.productSummary.length);
-                angular.extend(service.productSummary, data.summary);
+                utility.extend(service.productSummary, data);
                 return data;
             });
     }
@@ -261,8 +275,7 @@ function quarryService($http) {
     function productSummarySearch(searchParams) {
         return $http.post("/api/quarry/productsummarysearch", searchParams)
             .then(function (data) {
-                service.productSummary.splice(0, service.productSummary.length);
-                angular.extend(service.productSummary, data);
+                utility.extend(service.productSummary, data);
                 return data;
             });
     }
@@ -270,8 +283,7 @@ function quarryService($http) {
     function getProductSummaryDetails(searchParams) {
         return $http.post("/api/quarry/productsummarydetails", searchParams)
             .then(function (data) {
-                service.productSummaryDetails.splice(0, service.productSummaryDetails.length);
-                angular.extend(service.productSummaryDetails, data);
+                utility.extend(service.productSummaryDetails, data);
                 return data;
             });
     }

@@ -6,8 +6,7 @@
   "projectUrl": "",
   "licenseUrl": "",
   "frameworks": {
-    "net451": {
-    }
+    "net451": {}
   },
   "dependencies": {
     "AutoMapper": "4.0.4",

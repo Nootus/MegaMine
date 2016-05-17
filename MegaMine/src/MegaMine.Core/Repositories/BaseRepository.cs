@@ -15,11 +15,21 @@ namespace MegaMine.Core.Repositories
     public class BaseRepository<T> where T: DbContext
     {
         protected T dbContext;
-        protected NTContextProfileModel profile;
+        protected NTContextModel context;
 
         public BaseRepository()
         {
-            profile = NTContext.Profile;
+            context = NTContext.Context;
+        }
+
+        public T DbContext
+        {
+            get { return dbContext; }
+        }
+
+        public NTContextModel AppContext
+        {
+            get { return context; }
         }
 
         protected async Task<TEntity> SaveEntity<TEntity, TModel>(TModel model, bool commit = true) where TEntity : BaseEntity
@@ -93,7 +103,7 @@ namespace MegaMine.Core.Repositories
 
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
-            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == profile.CompanyId)
+            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == context.CompanyId)
                                 .OrderBy(sortExpression)
                                 .Select(ent => Mapper.Map<TEntity, TModel>(ent));
 
@@ -118,7 +128,12 @@ namespace MegaMine.Core.Repositories
 
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
-            var query = dbContext.Set<TEntity>().Where(whereExpression).Where(e => e.DeletedInd == false && e.CompanyId == profile.CompanyId)
+            return await GetListAsync<TEntity, TModel, string>(whereExpression, sortExpression);
+        }
+
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel, TSort>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TSort>> sortExpression) where TEntity : BaseEntity
+        {
+            var query = dbContext.Set<TEntity>().Where(whereExpression).Where(e => e.DeletedInd == false && e.CompanyId == context.CompanyId)
                                 .OrderBy(sortExpression)
                                 .Select(ent => Mapper.Map<TEntity, TModel>(ent));
 
@@ -128,12 +143,17 @@ namespace MegaMine.Core.Repositories
 
         protected async Task<List<ListItem<int, string>>> GetListItemsAsync<TEntity>(Expression<Func<TEntity, ListItem<int, string>>> selectExpression, Expression<Func<TEntity, string>> sortExpression) where TEntity : BaseEntity
         {
-            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == profile.CompanyId)
+            var query = dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == context.CompanyId)
                         .OrderBy(sortExpression)
                         .Select(selectExpression);
 
             return await query.ToListAsync();
 
+        }
+
+        protected async Task<TEntity> GetSingleAsync<TEntity>(Expression<Func<TEntity, bool>> whereExpression) where TEntity: class
+        {
+            return await dbContext.Set<TEntity>().Where(whereExpression).Select(ent => ent).SingleAsync();
         }
 
         protected async Task<TEntity> GetSingleAsync<TEntity>(object id) where TEntity : BaseEntity
