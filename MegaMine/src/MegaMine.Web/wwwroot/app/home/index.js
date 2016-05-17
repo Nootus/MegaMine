@@ -24,24 +24,8 @@ function index($scope, $interval, $timeout, profile, navigation, changePasswordD
     //vm = this;
 
     function init() {
-        //configProgressBar();
-    }
 
-    //function configProgressBar() {
-    //    //for the progress bar
-    //    vm.startvalue = 10;
-    //    vm.buffervalue = 20;
-    //    $interval(function () {
-    //        if (navigation.isLoading === true) {
-    //            vm.startvalue += 1;
-    //            vm.buffervalue += 1.5;
-    //            if (vm.startvalue > 100) {
-    //                vm.startvalue = 30;
-    //                vm.buffervalue = 30;
-    //            }
-    //        }
-    //    }, 100, 0, true);
-    //}
+    }
 
     function showChangePasswordDialog(ev) {
         changePasswordDialog.viewDialog(ev);
@@ -57,6 +41,7 @@ function index($scope, $interval, $timeout, profile, navigation, changePasswordD
 
     function resetMenu() {
         $scope.accordion_data.current = -1;
+        vm.currentMenuItem.pageId = -1;
     }
 
     function menuClick(item) {

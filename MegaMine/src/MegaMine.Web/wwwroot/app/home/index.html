@@ -47,7 +47,8 @@
             <div ng-show="vm.collapseMenu">
                 <div class="left-bar-item has-hover menu-hover">
                     <md-button ng-href="#" ng-click="vm.toggleMenu()">
-                        <md-icon class="fa fa-bars" aria-label="Dashboard"></md-icon>
+                        <md-tooltip>Toggle Menu</md-tooltip>
+                        <md-icon class="fa fa-bars" aria-label="Toggle Menu"></md-icon>
                     </md-button>
                 </div>
                 <div class="left-bar-item has-hover menu-hover">
@@ -74,7 +75,6 @@
         </div>
         <div flex>
             <div flex layout="row" class="container main-content ui-view-container">
-                <!--<md-progress-linear class="md-warn" md-mode="buffer" value="{{vm.startvalue}}" md-buffer-value="{{vm.buffervalue}}" ng-style="{'visibility': vm.navigation.isLoading ? 'visible' : 'hidden'}"></md-progress-linear>-->
                 <div flex ui-view class="view-content">
                     <div id="splash" class="splash">
                         <br /><br />

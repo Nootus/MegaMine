@@ -12,14 +12,14 @@ BEGIN
 
     WITH cte AS (
       SELECT ROW_NUMBER() OVER (ORDER BY (COUNT(mat.MaterialId)) DESC) AS Seq, 
-        qry.QuarryId, qry.QuarryName, COUNT(mat.MaterialId) AS MaterialCount
+        yrd.YardId, yrd.YardName, COUNT(mat.MaterialId) AS MaterialCount
       FROM quarry.Material mat
-		JOIN quarry.Quarry qry ON mat.QuarryId = qry.QuarryId
+		JOIN quarry.Yard yrd ON mat.YardId = yrd.YardId
 	  WHERE mat.CompanyId = @CompanyID
 	    AND mat.DeletedInd = 0
-      GROUP BY qry.QuarryId, qry.QuarryName
+      GROUP BY yrd.YardId, yrd.YardName
     )
-    SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Pie', X = QuarryName, Y = MaterialCount, KeyOrder = 0, XOrder = 0 FROM cte WHERE Seq BETWEEN 1 AND 5
+    SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Pie', X = YardName, Y = MaterialCount, KeyOrder = 0, XOrder = 0 FROM cte WHERE Seq BETWEEN 1 AND 5
     UNION ALL
     SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Pie', X = 'Others', Y = SUM(MaterialCount), KeyOrder = 0, XOrder = 1 FROM cte WHERE Seq > 5
 	ORDER BY KeyOrder, [Key], XOrder, X

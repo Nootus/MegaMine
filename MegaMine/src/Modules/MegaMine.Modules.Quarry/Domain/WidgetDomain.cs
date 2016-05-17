@@ -45,6 +45,12 @@ namespace MegaMine.Modules.Quarry.Domain
                 case 9:
                     sql = "quarry.WidgetMaterialColourProductTypeMaterialCounts @CompanyId = {0}";
                     break;
+                case 10:
+                    sql = "quarry.WidgetYardMaterialCounts @CompanyId = {0}";
+                    break;
+                case 11:
+                    sql = "quarry.WidgetYardProductTypeMaterialCounts @CompanyId = {0}";
+                    break;
             }
             return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, sql, parameters);
         }
