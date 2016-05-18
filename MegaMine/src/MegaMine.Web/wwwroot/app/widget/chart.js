@@ -23,11 +23,13 @@ function chart() {
                     break;
                 case 'pieChart':
                     item.chart.options = pieChartOptions(item.chart.type, item.chart.model.xAxisDataLabels);
-                    item.chart.data = item.chart.model.data[0].values;
+                    if (item.chart.model.data.length > 0)
+                        item.chart.data = item.chart.model.data[0].values;
                     break;
                 case 'donutChart':
                     item.chart.options = donutChartOptions('pieChart', item.chart.model.xAxisDataLabels);
-                    item.chart.data = item.chart.model.data[0].values;
+                    if (item.chart.model.data.length > 0)
+                        item.chart.data = item.chart.model.data[0].values;
                     break;
                 default:
                     item.chart.options = options(item.chart.type, item.chart.model.xAxisDataLabels);

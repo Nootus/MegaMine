@@ -50,8 +50,14 @@ function ntButton(profile) {
                 case 'save':
                     scope.iconCss = 'save'
                     break;
+                case 'check':
+                    scope.iconCss = 'check'
+                    break;
                 case 'update':
                     scope.iconCss = 'check'
+                    break;
+                case 'edit':
+                    scope.iconCss = 'pencil'
                     break;
                 case 'add':
                     scope.iconCss = 'plus'

@@ -1,6 +1,6 @@
-﻿<nt-toolbar title="Block Dressing" class="title">
-    <nt-old-button ng-click="vm.saveDressing(dressingForm, $event)" button-icon="edit" button-text="Edit Dressing" form="editDressingForm" claim="Plant:DressingEdit"></nt-old-button>
-    <nt-old-button ng-click="vm.saveDressing(dressingForm, $event)" button-icon="add" button-text="Save Dressing" form="dressingForm"></nt-old-button>
+﻿<nt-toolbar header="Block Dressing">
+    <nt-button type="command-bar" icon="edit" text="Edit" ng-click="vm.saveDressing(dressingForm, $event)" form="editDressingForm" claim="Plant:DressingEdit"></nt-button>
+    <nt-button type="command-bar" icon="save" text="Save" ng-click="vm.saveDressing(dressingForm, $event)" form="dressingForm"></nt-button>
 </nt-toolbar>
 <form name="dressingForm" novalidate>
     <md-content layout-padding>

@@ -203,8 +203,7 @@ function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantS
                     vm.gridsValid = false;
                 }
 
-                if (1 === 2) {
-                //if (!form.$valid || !vm.gridsValid) {
+                if (!form.$valid || !vm.gridsValid) {
                     vm.validationErrors.message = message.confirmError;
                 }
                 else {

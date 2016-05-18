@@ -22,6 +22,7 @@ BEGIN
     SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Pie', X = YardName, Y = MaterialCount, KeyOrder = 0, XOrder = 0 FROM cte WHERE Seq BETWEEN 1 AND 5
     UNION ALL
     SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Pie', X = 'Others', Y = SUM(MaterialCount), KeyOrder = 0, XOrder = 1 FROM cte WHERE Seq > 5
+	HAVING SUM(MaterialCount) IS NOT NULL
 	ORDER BY KeyOrder, [Key], XOrder, X
 
 	SET NOCOUNT OFF

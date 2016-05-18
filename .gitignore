@@ -12,3 +12,5 @@
 /MegaMine/src/MegaMine.Web/appsettings.Production.json
 /MegaMine/src/MegaMine.Web/appsettings.Staging.json
 /MegaMine/src/MegaMine/.vs
+/MegaMine/.vs/MegaMine/v14/.suo
+/MegaMine/.vs/config/applicationhost.config
