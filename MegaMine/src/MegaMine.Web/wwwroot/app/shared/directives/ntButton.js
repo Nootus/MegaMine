@@ -68,6 +68,10 @@ function ntButton(profile) {
                 case 'move':
                     scope.iconCss = 'truck'
                     break;
+                case 'delete':
+                    scope.iconCss = 'trash'
+                    break;
+
             }
         }
         scope.ntClick = function (ev) {
