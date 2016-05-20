@@ -9,7 +9,7 @@ namespace MegaMine.Core.Widgets
 {
     public static class ChartFactory
     {
-        public static async Task<ChartModel<Tx, Ty>> Create<Tx, Ty>(WidgetOptions options, BaseDbContext dbContext, string sql, params object[] parameters)
+        public static async Task<ChartModel<Tx, Ty>> Create<Tx, Ty>(WidgetOptions options, DbContext dbContext, string sql, params object[] parameters)
         {
             List<ChartEntity<Tx, Ty>> data = await dbContext.Set<ChartEntity<Tx, Ty>>().FromSql(sql, parameters)
                                     .Select(m => m).ToListAsync();

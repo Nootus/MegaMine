@@ -4,17 +4,17 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Modules.Quarry.Domain
 {
-    public class WidgetDomain
+    public class WidgetDomain : BaseWidgetDomain<QuarryRepository>
     {
         private QuarryRepository quarryRepository;
         public WidgetDomain(QuarryRepository quarryRepository)
         {
             this.quarryRepository = quarryRepository;
         }
-        public async Task<object> GetWidgetData(int widgetId, WidgetOptions options)
+        public override async Task<ChartModel<string, int>> GetWidgetData(int widgetId, WidgetOptions options)
         {
             string sql = null;
-            object[] parameters = new object[] { quarryRepository.AppContext.CompanyId };
+            object[] parameters = new object[] { CompanyId };
 
             switch (widgetId)
             {

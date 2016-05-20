@@ -105,7 +105,7 @@ namespace MegaMine.Web.Lib.Shared
             return await GetAsync(action, message);
         }
 
-        public static async Task<DashboardModel> DashboardGet(Func<int, WidgetOptions, Task<object>> widgetData)
+        public static async Task<DashboardModel> DashboardGet(Func<int, WidgetOptions, Task<ChartModel<string, int>>> widgetData)
         {
             int? dashboardPageId = NTContext.Context.DashboardPageId;
             if (dashboardPageId != null)

@@ -21,13 +21,14 @@ function plantService($http, utility) {
         dressingSave: dressingSave,
 
         //machine
-        machines: [],
+        machines: { list: [], widgets: {} },
         machinesGet: machinesGet,
         machineSave: machineSave,
         machineDelete: machineDelete,
 
         //blade
         blades: [],
+        bladeListItems: [],
         bladesGet: bladesGet,
         bladeSave: bladeSave,
         bladeDelete: bladeDelete,
@@ -66,9 +67,9 @@ function plantService($http, utility) {
     function machinesGet() {
         return $http.get("/api/plant/machinesget")
             .then(function (data) {
-                //in order to refresh the grid, we need to remove all the elements and readd them
-                utility.extend(service.machines, data.machines);
-                utility.extend(service.blades, data.blades);
+                utility.extend(service.machines.list, data.model.machines);
+                utility.extend(service.bladeListItems, data.model.blades);
+                angular.extend(service.quarries.widgets, data.dashboard);
             });
     }
 

@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').controller('dressing', dressing)
-dressing.$inject = ['$scope', 'uiGridConstants', 'uiGridValidateService', 'moment', 'plantService', 'gridUtility', 'dialogUtility', 'utility', 'constants', 'message'];
+dressing.$inject = ['$scope', 'uiGridConstants', 'uiGridValidateService', 'moment', 'plantService', 'dialogUtility', 'utility', 'message'];
 
-function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantService, gridUtility, dialogUtility, utility, constants, message) {
+function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantService, dialogUtility, utility, message) {
     var blockGridOptions = {
         columnDefs: [
                     { name: 'blockNumber', field: 'blockNumber', type: 'string', displayName: 'Block Number', validators: { required: true }, cellTemplate: 'ui-grid/cellTitleValidator' },

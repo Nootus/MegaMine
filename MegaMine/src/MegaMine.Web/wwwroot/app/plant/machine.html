@@ -1,11 +1,11 @@
-﻿<nt-dashobard vm="vm" title="Machines" button-text="Add Machine" button-click="vm.machineAdd($event)" claim="Plant:MachineAdd"></nt-dashobard>
+﻿<nt-dashobard flex dashboard="vm.dashboard"></nt-dashobard>
 
 <script type="text/ng-template" id="machine_dialog">
     <md-dialog aria-label="Machine" class="dialog">
         <nt-dialog form="machineForm" title="Machine">
             <div layout="row">
                 <nt-input flex="30" form="machineForm" label="Name" control-name="name" ng-model="vm.model.name" ng-required="true" em-maxlength="20"></nt-input>
-                <nt-select flex="30" form="machineForm" label="Blade" control-name="bladeId" ng-model="vm.model.bladeId" opt-list="service.blades" opt-value="key" opt-text="item" ng-required="true"></nt-select>
+                <nt-select flex="30" form="machineForm" label="Blade" control-name="bladeId" ng-model="vm.model.bladeId" opt-list="service.bladeListItems" opt-value="key" opt-text="item" ng-required="true"></nt-select>
                 <nt-input flex="40" form="machineForm" label="Description" control-name="description" ng-model="vm.model.description" ng-required="false" em-maxlength="100"></nt-input>
             </div>
         </nt-dialog>

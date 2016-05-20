@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Core.Repositories
 {
-    public class BaseRepository<T> where T: DbContext
+    public class BaseRepository<T> : IRepository where T: DbContext
     {
         protected T dbContext;
         protected NTContextModel context;
@@ -22,7 +22,7 @@ namespace MegaMine.Core.Repositories
             context = NTContext.Context;
         }
 
-        public T DbContext
+        public DbContext DbContext
         {
             get { return dbContext; }
         }

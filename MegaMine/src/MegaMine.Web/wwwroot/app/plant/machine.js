@@ -1,23 +1,54 @@
 ﻿'use strict';
 angular.module('megamine').controller('machine', machine)
-machine.$inject = ['$scope', 'plantService', 'gridUtility', 'utility', 'constants', 'dialogService', 'template'];
+machine.$inject = ['plantService', 'utility', 'constants', 'dialogService'];
 
-function machine($scope, plantService, gridUtility, utility, constants, dialogService, template) {
+function machine(plantService, utility, constants, dialogService) {
 
     var gridOptions = {
         columnDefs: [
                     { name: 'name', field: 'name', displayName: 'Name', type: 'string' },
                     { name: 'bladeName', field: 'bladeName', displayName: 'Blade', type: 'string' },
-                    { name: 'description', field: 'description', type: 'string', displayName: 'Description' },
-                    template.getButtonDefaultColumnDefs('machineId', 'Plant:MachineEdit', 'Plant:MachineDelete')
+                    { name: 'description', field: 'description', type: 'string', displayName: 'Description' }
         ]
     };
 
-
     var vm = {
-        gridOptions: gridOptions,
-        viewDialog: viewDialog,
-        machineAdd: machineAdd
+        dashboard: {
+            header: 'Machines',
+            widgets: {
+                allWidgets: plantService.machines.widgets.allWidgets,
+                pageWidgets: plantService.machines.widgets.pageWidgets,
+            },
+            records: {
+                options: {
+                    primaryField: 'machineId',
+                    data: plantService.machines.list,
+                    view: viewDialog
+                },
+                list: {
+                    options: {
+                        fields: ['name', 'bladeName']
+                    },
+                },
+                grid: {
+                    options: gridOptions
+                },
+                buttons: {
+                    add: {
+                        text: 'New',
+                        toolTip: 'New Machine',
+                        claim: 'Plant:MachineAdd',
+                        save: machineAdd,
+                    },
+                    edit: {
+                        claim: 'Plant:MachineEdit'
+                    },
+                    delete: {
+                        claim: 'Plant:MachineDelete'
+                    }
+                }
+            }
+        }
     };
 
     init();
@@ -25,7 +56,7 @@ function machine($scope, plantService, gridUtility, utility, constants, dialogSe
     return vm;
 
     function init() {
-        gridUtility.initializeGrid(vm.gridOptions, $scope, plantService.machines);
+
     }
 
     function machineAdd(ev) {
@@ -56,7 +87,7 @@ function machine($scope, plantService, gridUtility, utility, constants, dialogSe
                     else {
                         model.name = dialogModel.name;
                         model.description = dialogModel.description;
-                        model.bladeName = utility.getItem(plantService.blades, dialogModel.bladeId, "key", "item");
+                        model.bladeName = utility.getItem(plantService.bladeListItems, dialogModel.bladeId, "key", "item");
                     }
 
                     dialogService.hide();
