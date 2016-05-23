@@ -25,9 +25,7 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<object>> Dashboard()
         {
-            var ajaxModel = AjaxHelper.BlankModel<object>();
-            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
-            return ajaxModel;
+            return await AjaxHelper.GetDashboardAsync(widgetDomain);
         }
 
 
@@ -41,9 +39,7 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<MaterialColourModel>>> MaterialColoursGet()
         {
-            var ajaxModel = await AjaxHelper.GetAsync(m => domain.MaterialColoursGet());
-            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
-            return ajaxModel;
+            return await AjaxHelper.GetDashboardAsync(m => domain.MaterialColoursGet(), widgetDomain);
         }
 
         [HttpPost]
@@ -75,9 +71,7 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<ProductTypeModel>>> ProductTypesGet()
         {
-            var ajaxModel = await AjaxHelper.GetAsync(m => domain.ProductTypesGet());
-            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
-            return ajaxModel;
+            return await AjaxHelper.GetDashboardAsync(m => domain.ProductTypesGet(), widgetDomain);
         }
 
         [HttpPost]
@@ -103,9 +97,7 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<QuarryModel>>> QuarriesGet()
         {
-            var ajaxModel = await AjaxHelper.GetAsync(m => domain.QuarriesGet());
-            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
-            return ajaxModel;
+            return await AjaxHelper.GetDashboardAsync(m => domain.QuarriesGet(), widgetDomain);
         }
 
         [HttpPost]
@@ -137,9 +129,7 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<YardModel>>> YardsGet()
         {
-            var ajaxModel = await AjaxHelper.GetAsync(m => domain.YardsGet());
-            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
-            return ajaxModel;
+            return await AjaxHelper.GetDashboardAsync(m => domain.YardsGet(), widgetDomain);
         }
 
         [HttpGet]

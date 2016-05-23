@@ -105,6 +105,20 @@ namespace MegaMine.Web.Lib.Shared
             return await GetAsync(action, message);
         }
 
+        public static async Task<AjaxModel<object>> GetDashboardAsync(BaseWidgetDomain widgetDomain)
+        {
+            var ajaxModel = AjaxHelper.BlankModel<object>();
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
+        }
+
+        public static async Task<AjaxModel<T>> GetDashboardAsync<T>(Func<string, Task<T>> action, BaseWidgetDomain widgetDomain) where T : class
+        {
+            var ajaxModel = await AjaxHelper.GetAsync(action);
+            ajaxModel.Dashboard = await AjaxHelper.DashboardGet(widgetDomain.GetWidgetData);
+            return ajaxModel;
+        }
+
         public static async Task<DashboardModel> DashboardGet(Func<int, WidgetOptions, Task<ChartModel<string, int>>> widgetData)
         {
             int? dashboardPageId = NTContext.Context.DashboardPageId;

@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Core.Widgets
 {
-    public abstract class BaseWidgetDomain<T> where T: IRepository
+    public abstract class BaseWidgetDomain
     {
-        protected T repository;
+        protected IRepository repository;
 
         public abstract Task<ChartModel<string, int>> GetWidgetData(int widgetId, WidgetOptions options);
 

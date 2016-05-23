@@ -4,12 +4,11 @@ using System.Threading.Tasks;
 
 namespace MegaMine.Modules.Quarry.Domain
 {
-    public class WidgetDomain : BaseWidgetDomain<QuarryRepository>
+    public class WidgetDomain : BaseWidgetDomain
     {
-        private QuarryRepository quarryRepository;
         public WidgetDomain(QuarryRepository quarryRepository)
         {
-            this.quarryRepository = quarryRepository;
+            repository = quarryRepository;
         }
         public override async Task<ChartModel<string, int>> GetWidgetData(int widgetId, WidgetOptions options)
         {
@@ -52,7 +51,7 @@ namespace MegaMine.Modules.Quarry.Domain
                     sql = "quarry.WidgetYardProductTypeMaterialCounts @CompanyId = {0}";
                     break;
             }
-            return await ChartFactory.Create<string, int>(options, quarryRepository.DbContext, sql, parameters);
+            return await ChartFactory.Create<string, int>(options, repository.DbContext, sql, parameters);
         }
     }
 }
