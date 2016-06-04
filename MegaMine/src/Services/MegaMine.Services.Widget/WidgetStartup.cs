@@ -4,10 +4,6 @@ using MegaMine.Services.Widget.Domain;
 using MegaMine.Services.Widget.Mapping;
 using MegaMine.Services.Widget.Repositories;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MegaMine.Services.Widget
 {

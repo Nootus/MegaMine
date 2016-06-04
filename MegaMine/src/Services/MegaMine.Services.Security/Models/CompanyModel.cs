@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MegaMine.Services.Security.Models
+﻿namespace MegaMine.Services.Security.Models
 {
     public class CompanyModel 
     {

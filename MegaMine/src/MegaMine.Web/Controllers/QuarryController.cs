@@ -5,7 +5,7 @@ using MegaMine.Modules.Quarry.Models;
 using MegaMine.Services.Security.Domain;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Shared;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;
 using System.Collections.Generic;
 using System.Threading.Tasks;

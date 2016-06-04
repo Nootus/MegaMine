@@ -3,7 +3,7 @@ using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Fleet;
 using MegaMine.Web.Models.Shared;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

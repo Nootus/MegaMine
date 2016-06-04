@@ -6,7 +6,7 @@ using MegaMine.Services.Security.Identity;
 using MegaMine.Services.Security.Mapping;
 using MegaMine.Services.Security.Extensions;
 using MegaMine.Services.Security.Repositories;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MegaMine.Services.Security

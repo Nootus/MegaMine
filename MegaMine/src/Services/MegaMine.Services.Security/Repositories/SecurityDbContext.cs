@@ -1,6 +1,6 @@
 ﻿using MegaMine.Services.Security.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace MegaMine.Services.Security.Repositories
 {
@@ -15,6 +15,12 @@ namespace MegaMine.Services.Security.Repositories
         public DbSet<UserProfileEntity> UserProfiles { get; set; }
         public DbSet<UserCompanyEntity> UserCompanies { get; set; }
         public DbSet<CompanyEntity> Companies { get; set; }
+
+        public SecurityDbContext(DbContextOptions<SecurityDbContext> options)
+            : base(options)
+        {
+        }
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<IdentityRoleHierarchyEntity>(entity =>

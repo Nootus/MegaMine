@@ -5,7 +5,7 @@ using MegaMine.Services.Security.Entities;
 using MegaMine.Services.Security.Identity;
 using MegaMine.Services.Security.Models;
 using MegaMine.Services.Security.Repositories;
-using Microsoft.AspNet.Identity;
+using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
 
 namespace MegaMine.Services.Security.Domain

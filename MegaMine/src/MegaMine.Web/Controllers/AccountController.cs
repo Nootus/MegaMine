@@ -3,7 +3,7 @@ using MegaMine.Services.Security.Domain;
 using MegaMine.Services.Security.Models;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Shared;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 
 namespace MegaMine.Web.Controllers

@@ -3,7 +3,7 @@ using MegaMine.Core.Models;
 using MegaMine.Core.Repositories;
 using MegaMine.Modules.Quarry.Models;
 using MegaMine.Modules.Quarry.Entities;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data;

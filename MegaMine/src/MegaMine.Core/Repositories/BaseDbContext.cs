@@ -1,10 +1,15 @@
 ﻿using MegaMine.Core.Entities;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MegaMine.Core.Repositories
 {
-    public class BaseDbContext : DbContext
+    public class BaseDbContext<T> : DbContext where T: DbContext
     {
+        public BaseDbContext(DbContextOptions<T> options)
+            : base(options)
+        {
+        }
+
         protected void IgnoreAuditFields<TEntity>(ModelBuilder builder) where TEntity : BaseEntity
         {
             builder.Entity<TEntity>(e =>

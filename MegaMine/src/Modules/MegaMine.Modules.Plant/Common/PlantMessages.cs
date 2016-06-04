@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MegaMine.Modules.Plant.Common
+﻿namespace MegaMine.Modules.Plant.Common
 {
     public static class PlantMessages
     {

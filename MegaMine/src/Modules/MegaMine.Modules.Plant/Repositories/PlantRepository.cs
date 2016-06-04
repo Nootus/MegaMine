@@ -5,7 +5,7 @@ using MegaMine.Modules.Plant.Models;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using System.Linq;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MegaMine.Modules.Plant.Repositories
 {

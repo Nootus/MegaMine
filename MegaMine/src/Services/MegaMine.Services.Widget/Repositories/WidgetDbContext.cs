@@ -1,16 +1,21 @@
 ﻿using MegaMine.Core.Repositories;
 using MegaMine.Services.Widget.Entities;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MegaMine.Services.Widget.Repositories
 {
-    public class WidgetDbContext : BaseDbContext
+    public class WidgetDbContext : BaseDbContext<WidgetDbContext>
     {
         public DbSet<DashboardEntity> Dashboards { get; set; }
         public DbSet<WidgetEntity> Widgets { get; set; }
         public DbSet<DashboardWidgetEntity> DashboardWidgets { get; set; }
         public DbSet<DashboardPageWidgetEntity> DashboardPageWidgets { get; set; }
         public DbSet<ChartTypeEntity> ChartTypes { get; set; }
+
+        public WidgetDbContext(DbContextOptions<WidgetDbContext> options)
+            : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

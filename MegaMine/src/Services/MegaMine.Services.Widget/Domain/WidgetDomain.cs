@@ -1,9 +1,5 @@
-﻿using MegaMine.Services.Widget.Entities;
-using MegaMine.Services.Widget.Models;
+﻿using MegaMine.Services.Widget.Models;
 using MegaMine.Services.Widget.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MegaMine.Services.Widget.Domain

@@ -1,5 +1,4 @@
 ﻿using MegaMine.Core.Entities;
-using MegaMine.Services.Security.Entities;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

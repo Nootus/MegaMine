@@ -1,11 +1,11 @@
 ﻿using MegaMine.Core.Repositories;
 using MegaMine.Core.Widgets;
 using MegaMine.Modules.Quarry.Entities;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MegaMine.Modules.Quarry.Repositories
 {
-    public class QuarryDbContext : BaseDbContext
+    public class QuarryDbContext : BaseDbContext<QuarryDbContext>
     {
         public DbSet<MaterialColourEntity> MaterialColours { get; set; }
         public DbSet<ProductTypeEntity> ProductTypes { get; set; }
@@ -18,5 +18,11 @@ namespace MegaMine.Modules.Quarry.Repositories
 
         //Widgets
         public DbSet<ChartEntity<string, int>> ChartEntities { get; set; }
+
+        public QuarryDbContext(DbContextOptions<QuarryDbContext> options)
+            : base(options)
+        {
+        }
+
     }
 }

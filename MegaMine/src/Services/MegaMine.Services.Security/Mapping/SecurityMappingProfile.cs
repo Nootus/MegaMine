@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MegaMine.Services.Security.Entities;
 using MegaMine.Services.Security.Models;
-using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MegaMine.Services.Security.Mapping
 {

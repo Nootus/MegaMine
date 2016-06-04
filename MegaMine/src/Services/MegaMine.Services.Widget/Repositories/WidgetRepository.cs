@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using AutoMapper;
 using MegaMine.Core.Repositories;
-using MegaMine.Services.Widget.Models;
 using MegaMine.Services.Widget.Entities;
+using MegaMine.Services.Widget.Models;
+using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Linq;
-using AutoMapper;
-using Microsoft.Data.Entity;
 using System.Threading.Tasks;
 
 namespace MegaMine.Services.Widget.Repositories

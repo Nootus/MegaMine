@@ -1,12 +1,7 @@
-﻿using Microsoft.Data.Entity;
+﻿using MegaMine.Core.Common;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
-using MegaMine.Core.Common;
 
 namespace MegaMine.Core
 {
@@ -21,8 +16,7 @@ namespace MegaMine.Core
 
         public virtual void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFramework()
-            .AddSqlServer()
+            services.AddEntityFrameworkSqlServer()
             .AddDbContext<TContext>(options =>
             {
                 options.UseSqlServer(SiteSettings.ConnectionString);

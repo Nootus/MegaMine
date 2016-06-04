@@ -5,7 +5,7 @@ using MegaMine.Core.Repositories;
 using MegaMine.Web.Lib.Entities.Fleet;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Fleet;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlTypes;

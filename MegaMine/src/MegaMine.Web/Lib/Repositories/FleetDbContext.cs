@@ -1,10 +1,10 @@
 ﻿using MegaMine.Core.Repositories;
 using MegaMine.Web.Lib.Entities.Fleet;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MegaMine.Web.Lib.Repositories
 {
-    public class FleetDbContext : BaseDbContext
+    public class FleetDbContext : BaseDbContext<FleetDbContext>
     {
         //Fleet
         public DbSet<VehicleTypeEntity> VehicleTypes { get; set; }
@@ -22,5 +22,10 @@ namespace MegaMine.Web.Lib.Repositories
         public DbSet<VehicleDriverAssignmentEntity> VehicleDriverAssignments{ get; set; }
         public DbSet<SparePartManufacturerEntity> SparePartManufacturers { get; set; }
         public DbSet<VehicleTripEntity> VehicleTrips{ get; set; }
+
+        public FleetDbContext(DbContextOptions<FleetDbContext> options)
+            : base(options)
+        {
+        }
     }
 }

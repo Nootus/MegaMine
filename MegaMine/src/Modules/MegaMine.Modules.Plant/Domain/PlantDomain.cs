@@ -1,15 +1,14 @@
 ﻿using MegaMine.Core.Exception;
+using MegaMine.Core.Utilities;
 using MegaMine.Modules.Plant.Common;
 using MegaMine.Modules.Plant.Models;
 using MegaMine.Modules.Plant.Repositories;
-using MegaMine.Modules.Shared;
+using MegaMine.Modules.Shared.Domain;
+using MegaMine.Modules.Shared.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using MegaMine.Core.Utilities;
-using MegaMine.Modules.Shared.Domain;
-using MegaMine.Modules.Shared.Models;
 
 namespace MegaMine.Modules.Plant.Domain
 {

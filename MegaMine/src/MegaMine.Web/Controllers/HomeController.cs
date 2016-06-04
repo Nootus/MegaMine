@@ -1,5 +1,5 @@
 ﻿using MegaMine.Core.Common;
-using Microsoft.AspNet.Mvc;
+using Microsoft.AspNetCore.Mvc;
 
 namespace MegaMine.Web.Controllers
 {

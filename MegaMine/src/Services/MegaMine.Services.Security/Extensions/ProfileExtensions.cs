@@ -1,5 +1,4 @@
-﻿using AutoMapper;
-using MegaMine.Services.Security.Common;
+﻿using MegaMine.Services.Security.Common;
 using MegaMine.Services.Security.Entities;
 using MegaMine.Services.Security.Middleware;
 using MegaMine.Services.Security.Models;

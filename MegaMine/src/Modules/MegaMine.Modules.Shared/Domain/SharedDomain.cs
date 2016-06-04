@@ -1,8 +1,6 @@
 ﻿using MegaMine.Modules.Shared.Models;
 using MegaMine.Modules.Shared.Repositories;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace MegaMine.Modules.Shared.Domain

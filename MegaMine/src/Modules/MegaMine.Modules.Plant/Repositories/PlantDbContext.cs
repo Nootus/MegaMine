@@ -1,10 +1,10 @@
 ﻿using MegaMine.Core.Repositories;
 using MegaMine.Modules.Plant.Entities;
-using Microsoft.Data.Entity;
+using Microsoft.EntityFrameworkCore;
 
 namespace MegaMine.Modules.Plant.Repositories
 {
-    public class PlantDbContext : BaseDbContext
+    public class PlantDbContext : BaseDbContext<PlantDbContext>
     {
         public DbSet<MachineEntity> Machines { get; set; }
         public DbSet<BladeEntity> Blades { get; set; }
@@ -15,6 +15,11 @@ namespace MegaMine.Modules.Plant.Repositories
         public DbSet<BlockCuttingEntity> BlockCuttings { get; set; }
         public DbSet<MachineStoppageEntity> MachineStoppages { get; set; }
         public DbSet<MachineOperatorEntity> MachineOperators { get; set; }
+
+        public PlantDbContext(DbContextOptions<PlantDbContext> options)
+            : base(options)
+        {
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

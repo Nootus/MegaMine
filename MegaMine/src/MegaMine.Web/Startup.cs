@@ -11,9 +11,9 @@ using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Mapping;
 using MegaMine.Web.Lib.Repositories;
 using MegaMine.Web.Lib.Repositories.Fleet;
-using Microsoft.AspNet.Builder;
-using Microsoft.AspNet.Hosting;
-using Microsoft.Data.Entity;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Newtonsoft.Json;
@@ -34,6 +34,7 @@ namespace MegaMine.Web
         {
             // Set up configuration sources.
             var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
@@ -51,18 +52,16 @@ namespace MegaMine.Web
                 module.Startup(Configuration);
 
             //saving the site settgins
-            SiteSettings.ConnectionString = Configuration["Data:DefaultConnection:ConnectionString"];
-            SiteSettings.WebPath = Configuration["DNX_APPBASE"];
+            SiteSettings.ConnectionString = Configuration.GetConnectionString("MegaMine");
             SiteSettings.EnvironmentName = env.EnvironmentName;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFramework()
-            .AddSqlServer()
+            services.AddEntityFrameworkSqlServer()
             .AddDbContext<FleetDbContext>(options =>
             {
-                options.UseSqlServer(Configuration["Data:DefaultConnection:ConnectionString"]);
+                options.UseSqlServer(SiteSettings.ConnectionString);
             });
 
             //configuring services for all modules
@@ -103,17 +102,15 @@ namespace MegaMine.Web
         {
             app.UseContextMiddleware();
             // Add the following to the request pipeline only in development environment.
-            app.UseDeveloperExceptionPage();
-            app.UseDatabaseErrorPage();
-            //if (env.IsEnvironment(Constants.DevEnvironment))
-            //{
-            //    app.UseErrorPage(ErrorPageOptions.ShowAll);
-            //    app.UseDatabaseErrorPage(DatabaseErrorPageOptions.ShowAll);
-            //}
-            //else
-            //{ 
-            //    app.UseErrorHandler("/Error");
-            //}
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Home/Error");
+            }
 
             app.UseStaticFiles();
             app.UseIdentity();

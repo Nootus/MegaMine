@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace MegaMine.Services.Security.Common
+﻿namespace MegaMine.Services.Security.Common
 {
     public static class SecurityMessages
     {

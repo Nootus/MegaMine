@@ -2,8 +2,8 @@
 using MegaMine.Services.Security.Common;
 using MegaMine.Services.Security.Identity;
 using MegaMine.Services.Security.Middleware;
-using Microsoft.AspNet.Mvc;
-using Microsoft.AspNet.Mvc.Filters;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 using System;
 using System.Linq;
 using System.Security.Claims;
@@ -13,7 +13,7 @@ namespace MegaMine.Services.Security.Filters
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method, AllowMultiple = true, Inherited = true)]
     public class NTAuthorizeFilter : Attribute, IAuthorizationFilter
     {
-        public void OnAuthorization(AuthorizationContext context)
+        public void OnAuthorization(AuthorizationFilterContext context)
         {
             //getting the current module and claim
             string action = context.RouteData.Values["action"].ToString().ToLower();
@@ -23,7 +23,7 @@ namespace MegaMine.Services.Security.Filters
 
             if(page == null)
             {
-                context.Result = new HttpStatusCodeResult(403);
+                context.Result = new StatusCodeResult(403);
                 return;
             }
 
@@ -48,7 +48,7 @@ namespace MegaMine.Services.Security.Filters
 
             if (companies == null || companyId == null || !companies.Split(',').Contains(companyId))
             {
-                context.Result = new HttpStatusCodeResult(403);
+                context.Result = new StatusCodeResult(403);
                 return;
             }
 
@@ -68,12 +68,12 @@ namespace MegaMine.Services.Security.Filters
                 //checking for deny claim
                 if (userClaims.Any(c => page.PageClaims.Any(p => c.Type == p.ClaimType + SecuritySettings.DenySuffix && c.Value == p.ClaimValue)))
                 {
-                    context.Result = new HttpStatusCodeResult(403);  //new HttpUnauthorizedResult();
+                    context.Result = new StatusCodeResult(403);  //new HttpUnauthorizedResult();
                 }
                 //checking for current claim
                 else if (!userClaims.Any(c => page.PageClaims.Any(p => c.Type == p.ClaimType  && c.Value == p.ClaimValue )))
                 {
-                    context.Result = new HttpStatusCodeResult(403);
+                    context.Result = new StatusCodeResult(403);
                 }
             }
         }

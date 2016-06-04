@@ -1,6 +1,6 @@
 ﻿using MegaMine.Services.Security.Middleware;
 using MegaMine.Services.Security.Repositories;
-using Microsoft.AspNet.Builder;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace MegaMine.Services.Security.Extensions
