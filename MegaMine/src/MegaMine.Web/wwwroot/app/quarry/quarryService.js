@@ -266,8 +266,9 @@ function quarryService($http, utility) {
             .then(function (data) {
                 service.productSummaryVM.quarries = data.quarries;
                 service.productSummaryVM.productTypes = data.productTypes;
+                service.productSummaryVM.colours = data.colours;
 
-                utility.extend(service.productSummary, data);
+                utility.extend(service.productSummary, data.summary);
                 return data;
             });
     }

@@ -148,7 +148,8 @@ namespace MegaMine.Modules.Quarry.Domain
             return new ProductSummaryViewModel()
             {
                 ProductTypes = await quarryRepository.ProductTypeListItemsGet(),
-                Quarries = await quarryRepository.QuarryListItemGet(),
+                Quarries = await quarryRepository.QuarryListItemsGet(),
+                Colours = await quarryRepository.MaterialColourListItemsGet(),
                 Summary = await quarryRepository.ProductSummarySearch(new ProductSummarySearchModel())
             };
         }

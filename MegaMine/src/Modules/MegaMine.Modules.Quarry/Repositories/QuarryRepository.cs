@@ -64,7 +64,7 @@ namespace MegaMine.Modules.Quarry.Repositories
         #endregion
 
         #region Quarry
-        public async Task<List<ListItem<int, string>>> QuarryListItemGet()
+        public async Task<List<ListItem<int, string>>> QuarryListItemsGet()
         {
             return await GetListItemsAsync<QuarryEntity>(e => new ListItem<int, string> { Key = e.QuarryId, Item = e.QuarryName }, s => s.QuarryName);
         }
@@ -222,23 +222,21 @@ namespace MegaMine.Modules.Quarry.Repositories
 
         #region Stock & Move Material
         //Material Movement
-        public async Task<List<StockModel>> StockGet(int yardId, int? productTypeId = null, DateTime? startDate = null, DateTime? endDate = null)
+        public async Task<List<StockModel>> StockGet(int yardId, int? productTypeId = null, int? materialColourId = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             endDate = endDate == null ? endDate : endDate.Value.AddDays(1).AddSeconds(-1);
-            var query = from mm in dbContext.MaterialMovements
-                        join mt in dbContext.Materials on mm.MaterialId equals mt.MaterialId
+            var query = from mt in dbContext.Materials
                         join qry in dbContext.Quarries on mt.QuarryId equals qry.QuarryId
                         join pt in dbContext.ProductTypes on mt.ProductTypeId equals pt.ProductTypeId
                         join mc in dbContext.MaterialColours on mt.MaterialColourId equals mc.MaterialColourId
-                        where mm.CurrentInd == true
-                         && mt.DeletedInd == false
-                         && mm.ToYardId == yardId
+                        where mt.DeletedInd == false
+                         && mt.YardId == yardId
                          && (productTypeId == null || pt.ProductTypeId == productTypeId)
+                         && (materialColourId == null || mc.MaterialColourId == materialColourId)
                          && (startDate == null || mt.MaterialDate >= startDate)
                          && (endDate == null || mt.MaterialDate <= endDate)
                         select new StockModel()
                         {
-                            MaterialMovementId = mm.MaterialMovementId,
                             Quarry = qry.QuarryName,
                             ProductType = pt.ProductTypeName,
                             MaterialColour = mc.ColourName,
@@ -402,15 +400,17 @@ namespace MegaMine.Modules.Quarry.Repositories
         {
             //getting the yardid and then calling the stockget
             YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == search.QuarryId select yd).SingleAsync();
-            return await StockGet(yard.YardId, null, search.StartDate, search.EndDate);
+            return await StockGet(yard.YardId, null, null, search.StartDate, search.EndDate);
         }
 
         public async Task<List<ProductSummaryModel>> ProductSummarySearch(ProductSummarySearchModel search)
         {
             string quarryIds = search.QuarryIds == null || search.QuarryIds.Length == 0 ? null : String.Join(",", search.QuarryIds);
             string productTypeIds = search.ProductTypeIds == null || search.ProductTypeIds.Length == 0 ? null : String.Join(",", search.ProductTypeIds);
-            return await dbContext.Set<ProductSummaryEntity>().FromSql("quarry.ProductSummaryGet @CompanyId = {0}, @QuarryIds = {1}, @ProductTypeIds = {2}, @StartDate = {3}, @EndDate = {4}"
-                                 , context.CompanyId, quarryIds, productTypeIds, search.StartDate, search.EndDate
+            string materialColourIds = search.MaterialColourIds == null || search.MaterialColourIds.Length == 0 ? null : String.Join(",", search.MaterialColourIds);
+
+            return await dbContext.Set<ProductSummaryEntity>().FromSql("quarry.ProductSummaryGet @CompanyId = {0}, @QuarryIds = {1}, @ProductTypeIds = {2}, @MaterialColourIds = {3}, @StartDate = {4}, @EndDate = {5}"
+                                 , context.CompanyId, quarryIds, productTypeIds, materialColourIds, search.StartDate, search.EndDate
                                  ).Select(m => Mapper.Map<ProductSummaryEntity, ProductSummaryModel>(m)).ToListAsync();
         }
 
@@ -418,7 +418,7 @@ namespace MegaMine.Modules.Quarry.Repositories
         {
             //getting the yardid and then calling the stockget
             YardEntity yard = await (from yd in dbContext.Yards where yd.QuarryId == search.QuarryIds[0] select yd).SingleAsync();
-            return await StockGet(yard.YardId, search.ProductTypeIds[0], search.StartDate, search.EndDate);
+            return await StockGet(yard.YardId, search.ProductTypeIds[0], search.MaterialColourIds[0], search.StartDate, search.EndDate);
         }
 
         #endregion

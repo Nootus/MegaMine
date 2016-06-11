@@ -7,6 +7,7 @@
 
     <form name="summaryForm" novalidate>
         <div layout="row">
+            <nt-multi-select flex="30" label="Colours" ng-model="vm.selectedColours" nt-items="vm.colours"></nt-multi-select>
             <nt-input flex="15" form="summaryForm" type="date" label="Start Date" control-name="startDate" ng-model="vm.searchParams.startDate"></nt-input>
             <nt-input flex="15" form="summaryForm" type="date" label="End Date" control-name="endDate" ng-model="vm.searchParams.endDate"></nt-input>
             <div flex="10" layout-align="center">

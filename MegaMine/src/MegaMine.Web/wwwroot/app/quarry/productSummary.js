@@ -8,6 +8,7 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
         columnDefs: [
                     { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string' },
                     { name: 'quarryName', field: 'quarryName', displayName: 'Quarry Name', type: 'string' },
+                    { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string' },
                     { name: 'materialCount', field: 'materialCount', type: 'int', displayName: 'Total' },
                     , template.getButtonColumnDefs('rowId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.grid.showSummaryDetails(row.entity, $event)' }])
         ]
@@ -33,6 +34,8 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
         selectedQuarries: [],
         productTypes: undefined,
         selectedProductTypes: [],
+        colours: undefined,
+        selectedColours: [],
         summary: [],
         grid: {
             options: gridOptions,
@@ -53,6 +56,7 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
     function init() {
         vm.quarries = quarryService.productSummaryVM.quarries;
         vm.productTypes = quarryService.productSummaryVM.productTypes;
+        vm.colours = quarryService.productSummaryVM.colours;
     }
 
     function getSummary(form) {
@@ -65,6 +69,10 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
             vm.searchParams.productTypeIds = [];
             angular.forEach(vm.selectedProductTypes, function (item) {
                 vm.searchParams.productTypeIds.push(item.key);
+            });
+            vm.searchParams.materialColourIds = [];
+            angular.forEach(vm.selectedColours, function (item) {
+                vm.searchParams.materialColourIds.push(item.key);
             });
             quarryService.productSummarySearch(vm.searchParams);
         }

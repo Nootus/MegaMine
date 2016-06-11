@@ -1,65 +1,81 @@
-﻿if objectproperty(object_id('dbo.ProductSummaryGet'), N'IsProcedure') = 1
-	drop procedure [dbo].[ProductSummaryGet]
-go
+﻿IF OBJECTPROPERTY(OBJECT_ID('quarry.ProductSummaryGet'), N'IsProcedure') = 1
+	DROP PROCEDURE [quarry].[ProductSummaryGet]
+GO
 
-create procedure [dbo].[ProductSummaryGet]
+CREATE PROCEDURE [quarry].[ProductSummaryGet]
 (
 	@CompanyId int,
 	@QuarryIds varchar(1000),
 	@ProductTypeIds varchar(100),
+	@MaterialColourIds varchar(100),
 	@StartDate datetime,
 	@EndDate datetime
 )
-as
-begin
-	set nocount on
+AS
+BEGIN
+	SET NOCOUNT ON
 
-	if(@StartDate is null)
-	begin
-		select @StartDate = min(MaterialDate) from Material where CompanyId = @CompanyId
-	end
+	IF(@StartDate is null)
+	BEGIN
+		SELECT @StartDate = MIN(MaterialDate) FROM quarry.Material WHERE CompanyId = @CompanyId
+	END
 
-	if(	@EndDate is null)
-	begin
-		select @EndDate = max(MaterialDate) from Material where CompanyId = @CompanyId
-	end
-	else
-	begin
-		select @EndDate = dateadd(second, -1, dateadd(day, 1, @EndDate))
-	end
+	IF(	@EndDate is null)
+	BEGIN
+		SELECT @EndDate = MAX(MaterialDate) FROM quarry.Material WHERE CompanyId = @CompanyId
+	END
+	ELSE
+	BEGIN
+		SELECT @EndDate = DATEADD(second, -1, DATEADD(day, 1, @EndDate))
+	END
 
-	declare @SelectedQuarries table (QuarryId int)
-	insert into @SelectedQuarries(QuarryId) 
-	select id from SplitCsv(@QuarryIds)
-	if @@rowcount = 0 
-	begin
-		insert into @SelectedQuarries(QuarryId) 
-		select QuarryId from Quarry
-	end
+	DECLARE @SelectedQuarries TABLE (QuarryId INT)
+	INSERT INTO @SelectedQuarries(QuarryId) 
+	SELECT id FROM SplitCsv(@QuarryIds)
+	IF @@ROWCOUNT = 0 
+	BEGIN
+		INSERT INTO @SelectedQuarries(QuarryId) 
+		SELECT QuarryId FROM quarry.Quarry WHERE CompanyId = @CompanyId and DeletedInd = 0
+	END
 
-	declare @SelectedProductTypes table (ProductTypeId int)
-	insert into @SelectedProductTypes(ProductTypeId) 
-	select id from SplitCsv(@ProductTypeIds)
-	if @@rowcount = 0 
-	begin
-		insert into @SelectedProductTypes(ProductTypeId) 
-		select ProductTypeId from ProductType
-	end
+	DECLARE @SelectedProductTypes TABLE (ProductTypeId INT)
+	INSERT INTO @SelectedProductTypes(ProductTypeId) 
+	SELECT id FROM SplitCsv(@ProductTypeIds)
+	IF @@ROWCOUNT = 0 
+	BEGIN
+		INSERT INTO @SelectedProductTypes(ProductTypeId) 
+		SELECT ProductTypeId FROM quarry.ProductType WHERE CompanyId = @CompanyId AND DeletedInd = 0
+	END
 
-    select RowId = row_number() over (order by pt.DisplayOrder, pt.ProductTypeName, qry.QuarryName),  pt.ProductTypeId, pt.ProductTypeName, qry.QuarryId, qry.QuarryName, MaterialCount = count(mt.MaterialId)
-	from Material mt
-	inner join Quarry qry on mt.QuarryId = qry.QuarryId
-	inner join ProductType pt on mt.ProductTypeId = pt.ProductTypeId
-	where mt.MaterialDate between @StartDate and @EndDate
-	  and mt.CompanyId = @CompanyId and mt.DeletedInd = 0
-	  and qry.DeletedInd = 0 and pt.DeletedInd = 0 
-	  and exists(select 1 from @SelectedQuarries sq where sq.QuarryId = mt.QuarryId)
-	  and exists(select 1 from @SelectedProductTypes spt where spt.ProductTypeId = mt.ProductTypeId)
-	group by pt.ProductTypeId, pt.ProductTypeName, pt.DisplayOrder, qry.QuarryId, qry.QuarryName
-	order by pt.DisplayOrder, pt.ProductTypeName, qry.QuarryName
+	DECLARE @SelectedMaterialColours TABLE (MaterialColourId INT)
+	INSERT INTO @SelectedMaterialColours(MaterialColourId) 
+	SELECT id FROM SplitCsv(@MaterialColourIds)
+	IF @@ROWCOUNT = 0 
+	BEGIN
+		INSERT INTO @SelectedMaterialColours(MaterialColourId) 
+		SELECT MaterialColourId FROM quarry.MaterialColour WHERE CompanyId = @CompanyId and DeletedInd = 0
+	END
 
-	set nocount off
-end
-go
+    SELECT Id = CONVERT(VARCHAR(40), NEWID()),  
+		pt.ProductTypeId, pt.ProductTypeName, 
+		qry.QuarryId, qry.QuarryName, 
+		mc.MaterialColourId, mc.ColourName,
+		MaterialCount = count(mt.MaterialId)
+	FROM quarry.Material mt
+	INNER JOIN quarry.Quarry qry ON mt.QuarryId = qry.QuarryId
+	INNER JOIN quarry.ProductType pt ON mt.ProductTypeId = pt.ProductTypeId
+	INNER JOIN quarry.MaterialColour mc ON mt.MaterialColourId = mc.MaterialColourId
+	WHERE mt.MaterialDate BETWEEN @StartDate AND @EndDate
+	  AND mt.CompanyId = @CompanyId AND mt.DeletedInd = 0
+	  AND qry.DeletedInd = 0 AND pt.DeletedInd = 0 
+	  AND EXISTS(SELECT 1 FROM @SelectedQuarries sq WHERE sq.QuarryId = mt.QuarryId)
+	  AND EXISTS(SELECT 1 FROM @SelectedProductTypes spt WHERE spt.ProductTypeId = mt.ProductTypeId)
+	  AND EXISTS(SELECT 1 FROM @SelectedMaterialColours smc WHERE smc.MaterialColourId = mt.MaterialColourId)
+	GROUP BY pt.ProductTypeId, pt.ProductTypeName, pt.DisplayOrder, qry.QuarryId, qry.QuarryName, mc.MaterialColourId, mc.ColourName
+	ORDER BY pt.DisplayOrder, pt.ProductTypeName, qry.QuarryName
+
+	SET NOCOUNT OFF
+END
+GO
 
 
