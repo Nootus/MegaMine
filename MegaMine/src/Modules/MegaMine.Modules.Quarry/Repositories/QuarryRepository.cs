@@ -268,7 +268,7 @@ namespace MegaMine.Modules.Quarry.Repositories
 
         public async Task<List<StockModel>> MoveMaterial(MaterialMovementModel model)
         {
-            string ids = String.Join(",", model.MaterialMovementIds);
+            string ids = String.Join(",", model.MaterialIds);
 
             var database = dbContext.Database;
 
@@ -276,18 +276,18 @@ namespace MegaMine.Modules.Quarry.Repositories
 
             try
             {
+                string sql = "update quarry.MaterialMovement set CurrentInd = 0 where MaterialId in (" + ids + ")";
+                database.ExecuteSqlCommand(sql);
+
                 //inserting the movement
-                string sql = "insert into quarry.MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
-                                " select MaterialId, ToYardId, @p0, @p1, 1, @p2, @p3, @p4, @p5, 0, @p6 from quarry.MaterialMovement where MaterialMovementId in (" + ids + ")";
+                sql = "insert into quarry.MaterialMovement(MaterialId, FromYardId, ToYardId, MovementDate, CurrentInd, CreatedUserId, CreatedDate, LastModifiedUserId, LastModifiedDate, DeletedInd, CompanyId) " +
+                                " select MaterialId, YardId, @p0, @p1, 1, @p2, @p3, @p4, @p5, 0, @p6 from quarry.Material where MaterialId in (" + ids + ")";
 
                 database.ExecuteSqlCommand(sql, model.ToYardId, model.MovementDate, context.UserName, DateTime.UtcNow, context.UserName, DateTime.UtcNow, context.CompanyId.ToString());
 
-                sql = "update quarry.MaterialMovement set CurrentInd = 0 where MaterialMovementId in (" + ids + ")";
-                database.ExecuteSqlCommand(sql);
-
                 //setting the YardId for the Material
                 sql = "update quarry.Material set YardId = @p0 " +
-                        "from quarry.Material m join quarry.MaterialMovement mm on m.MaterialId = mm.MaterialId where mm.MaterialMovementId in (" + ids + ")";
+                        "from quarry.Material m where m.MaterialId in (" + ids + ")";
                 database.ExecuteSqlCommand(sql, model.ToYardId);
 
                 database.CommitTransaction();

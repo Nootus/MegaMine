@@ -78,14 +78,14 @@ function materialMovement($scope, quarryService, gridUtility, dialogUtility, con
         if (form.$valid) {
             var selectedIds = [];
             angular.forEach(vm.grid.options.gridApi.selection.getSelectedRows(), function (item) {
-                selectedIds.push(item.materialMovementId)
+                selectedIds.push(item.materialId)
             });
 
             if (selectedIds.length === 0) {
                 dialogUtility.alert('No Materials Selected', 'Please select materials to move', ev);
             }
             else {
-                quarryService.moveMaterial({ materialMovementIds: selectedIds, fromYardId: vm.currentYardId, toYardId: vm.toYardId, movementDate: vm.movementDate })
+                quarryService.moveMaterial({ materialIds: selectedIds, fromYardId: vm.currentYardId, toYardId: vm.toYardId, movementDate: vm.movementDate })
             }
         }
     }
