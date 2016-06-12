@@ -150,7 +150,7 @@ namespace MegaMine.Modules.Quarry.Repositories
         #region Yard
         public async Task<List<YardModel>> YardsGet()
         {
-            return (await GetListAsync<YardEntity, YardModel>(s => s.YardName)).OrderBy(o => o.QuarryId).ToList();
+            return (await GetListAsync<YardEntity, YardModel>(s => s.YardName)); //.OrderBy(o => o.QuarryId).ToList();
         }
 
         public async Task<List<YardModel>> YardsGet(int[] companies)
@@ -225,37 +225,45 @@ namespace MegaMine.Modules.Quarry.Repositories
         public async Task<List<StockModel>> StockGet(int yardId, int? productTypeId = null, int? materialColourId = null, DateTime? startDate = null, DateTime? endDate = null)
         {
             endDate = endDate == null ? endDate : endDate.Value.AddDays(1).AddSeconds(-1);
-            var query = from mt in dbContext.Materials
-                        join qry in dbContext.Quarries on mt.QuarryId equals qry.QuarryId
-                        join pt in dbContext.ProductTypes on mt.ProductTypeId equals pt.ProductTypeId
-                        join mc in dbContext.MaterialColours on mt.MaterialColourId equals mc.MaterialColourId
-                        where mt.DeletedInd == false
-                         && mt.YardId == yardId
-                         && (productTypeId == null || pt.ProductTypeId == productTypeId)
-                         && (materialColourId == null || mc.MaterialColourId == materialColourId)
-                         && (startDate == null || mt.MaterialDate >= startDate)
-                         && (endDate == null || mt.MaterialDate <= endDate)
-                        select new StockModel()
-                        {
-                            Quarry = qry.QuarryName,
-                            ProductType = pt.ProductTypeName,
-                            MaterialColour = mc.ColourName,
-                            MaterialId = mt.MaterialId,
-                            BlockNumber = mt.BlockNumber,
-                            QuarryId = mt.QuarryId,
-                            YardId = mt.YardId,
-                            ProductTypeId = mt.ProductTypeId,
-                            MaterialColourId = mt.MaterialColourId,
-                            Dimensions = mt.Dimensions,
-                            Length = mt.Length,
-                            Width = mt.Width,
-                            Height = mt.Height,
-                            Weight = mt.Weight,
-                            MaterialDate = mt.MaterialDate
-                        };
+
+            //Due to bug in RC2 changing the below LINQ to Stored proc
+
+            //var query = from mt in dbContext.Materials
+            //            join qry in dbContext.Quarries on mt.QuarryId equals qry.QuarryId
+            //            join pt in dbContext.ProductTypes on mt.ProductTypeId equals pt.ProductTypeId
+            //            join mc in dbContext.MaterialColours on mt.MaterialColourId equals mc.MaterialColourId
+            //            where mt.DeletedInd == false
+            //             && mt.YardId == yardId
+            //             && (productTypeId == null || pt.ProductTypeId == productTypeId)
+            //             && (materialColourId == null || mc.MaterialColourId == materialColourId)
+            //             && (startDate == null || mt.MaterialDate >= startDate)
+            //             && (endDate == null || mt.MaterialDate <= endDate)
+            //            select new StockModel()
+            //            {
+            //                Quarry = qry.QuarryName,
+            //                ProductType = pt.ProductTypeName,
+            //                MaterialColour = mc.ColourName,
+            //                MaterialId = mt.MaterialId,
+            //                BlockNumber = mt.BlockNumber,
+            //                QuarryId = mt.QuarryId,
+            //                YardId = mt.YardId,
+            //                ProductTypeId = mt.ProductTypeId,
+            //                MaterialColourId = mt.MaterialColourId,
+            //                Dimensions = mt.Dimensions,
+            //                Length = mt.Length,
+            //                Width = mt.Width,
+            //                Height = mt.Height,
+            //                Weight = mt.Weight,
+            //                MaterialDate = mt.MaterialDate
+            //            };
 
 
-            return await query.ToListAsync();
+            //return await query.ToListAsync();
+
+
+            return await dbContext.Set<StockEntity>().FromSql("quarry.StockGet @YardId = {0}, @ProductTypeId = {1}, @MaterialColourId = {2}, @StartDate = {3}, @EndDate = {4}"
+                                 , yardId, productTypeId, materialColourId, startDate, endDate
+                                 ).Select(m => Mapper.Map<StockEntity, StockModel>(m)).ToListAsync();
         }
 
         public async Task<List<StockModel>> MoveMaterial(MaterialMovementModel model)

@@ -16,6 +16,7 @@ namespace MegaMine.Modules.Quarry.Repositories
         public DbSet<MaterialMovementEntity> MaterialMovements { get; set; }
         public DbSet<ProductSummaryEntity> ProductSummary { get; set; }
 
+        public DbSet<StockEntity> StockGet { get; set; }
         //Widgets
         public DbSet<ChartEntity<string, int>> ChartEntities { get; set; }
 

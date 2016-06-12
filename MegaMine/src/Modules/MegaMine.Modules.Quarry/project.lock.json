@@ -736,7 +736,6 @@
       "sha512": "8EXO8q7cpDUH9G2q+UOPOO/6uZ9aN7mx/4xjFIfkp+qLWVJiYuglkRhjY8Ggs2CucXzHR8GHnovJKB5yQoYaJg==",
       "type": "package",
       "files": [
-        "Ix-Async.1.2.5.nupkg",
         "Ix-Async.1.2.5.nupkg.sha512",
         "Ix-Async.nuspec",
         "lib/net40/System.Interactive.Async.XML",

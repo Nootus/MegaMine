@@ -19,6 +19,7 @@ namespace MegaMine.Modules.Quarry.Mapping
             Mapper.CreateMap<YardEntity, YardModel>().ReverseMap();
             Mapper.CreateMap<MaterialEntity, MaterialModel>().ReverseMap();
             Mapper.CreateMap<ProductSummaryEntity, ProductSummaryModel>();
+            Mapper.CreateMap<StockEntity, StockModel>();
         }
     }
 }
