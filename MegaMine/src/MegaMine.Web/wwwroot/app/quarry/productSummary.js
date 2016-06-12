@@ -84,7 +84,8 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
 
     function showSummaryDetails(summaryModel, ev) {
         vm.searchParams.quarryIds = [ summaryModel.quarryId ];
-        vm.searchParams.productTypeIds = [ summaryModel.productTypeId ];
+        vm.searchParams.productTypeIds = [summaryModel.productTypeId];
+        vm.searchParams.materialColourIds = [summaryModel.materialColourId];
         dialogService.show({
             templateUrl: 'product_summary_dialog',
             targetEvent: ev,
