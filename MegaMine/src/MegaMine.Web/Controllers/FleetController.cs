@@ -1,8 +1,9 @@
-﻿using MegaMine.Core.Models;
+﻿using MegaMine.Core.Helpers.Web;
+using MegaMine.Core.Models;
+using MegaMine.Core.Models.Web;
 using MegaMine.Web.Lib.Domain;
 using MegaMine.Web.Lib.Shared;
 using MegaMine.Web.Models.Fleet;
-using MegaMine.Web.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;

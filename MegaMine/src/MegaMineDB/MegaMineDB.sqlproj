@@ -65,7 +65,6 @@
   <ItemGroup>
     <Build Include="Stored Procedures\QuarryIngest.sql" />
     <Build Include="Functions\SplitCsv.sql" />
-    <Build Include="Scripts\InitialSchema.sql" />
     <Build Include="Scripts\ChangesSchema.sql" />
     <Build Include="Stored Procedures\quarry\GetQuarrySummary.sql" />
     <Build Include="Stored Procedures\quarry\WidgetQuarryMaterialCounts.sql" />

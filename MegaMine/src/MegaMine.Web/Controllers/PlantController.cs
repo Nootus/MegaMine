@@ -1,9 +1,10 @@
-﻿using MegaMine.Modules.Plant.Common;
+﻿using MegaMine.Core.Helpers.Web;
+using MegaMine.Core.Models.Web;
+using MegaMine.Modules.Plant.Common;
 using MegaMine.Modules.Plant.Domain;
 using MegaMine.Modules.Plant.Models;
 using MegaMine.Modules.Shared.Domain;
 using MegaMine.Web.Lib.Shared;
-using MegaMine.Web.Models.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.DependencyInjection;

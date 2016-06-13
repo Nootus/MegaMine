@@ -13,7 +13,7 @@ var gulp = require("gulp"),
 
 var webroot = "./wwwroot/";
 var paths = {
-    appJs: [webroot + "app/app.js", webroot + "app/**/*.js"],
+    appJs: [webroot + "app/extensions/annotations.js", webroot + "app/app.js", webroot + "app/**/*.js"],
     scriptsJs: [webroot + "scripts/jquery.js"
                     , webroot + "scripts/angular/angular.js"
                     , webroot + "scripts/angular/angular-messages.js"
@@ -82,11 +82,10 @@ gulp.task("min", function () {
             .pipe(gulp.dest("."));
 });
 
+gulp.task("all", ["clean", "min", "copy"]);
 
-gulp.task('InjectJS', function () {
-    //console.log(allJsRefs);
+gulp.task('injectJS', function () {
     var target = gulp.src('./views/home/index.cshtml');
-    // It's not necessary to read the files (will speed up things), we're only after their paths: 
     var sources = gulp.src(paths.appJs, { read: false });
     return target.pipe(inject(sources, {
         transform: function (filepath, file, i, length) {
@@ -96,32 +95,4 @@ gulp.task('InjectJS', function () {
       .pipe(gulp.dest('./views/home'));
 });
 
-var config = require('./gulp.config')(),
-    tsProject = require(webroot + 'app/tsconfig.json');
 
-gulp.task('compile-ts', function () {
-    var sourceTsFiles = [
-        config.allTs
-    ];
-
-    var tsResult = gulp
-        .src(sourceTsFiles)
-        .pipe(sourcemaps.init())
-        .pipe(tsc(tsProject));
-
-    return tsResult.js
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.tsOutputPath));
-});
-
-
-gulp.task('watch', ['compile-ts'], function () {
-
-    gulp.watch([config.allTs], ['compile-ts']);
-
-});
-
-gulp.task('default', ['watch']);
-
-
-gulp.task("all", ["clean", "min", "copy"]);

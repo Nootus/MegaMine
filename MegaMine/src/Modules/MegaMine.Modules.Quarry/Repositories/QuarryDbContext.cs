@@ -1,5 +1,5 @@
 ﻿using MegaMine.Core.Repositories;
-using MegaMine.Core.Widgets;
+using MegaMine.Core.Models.Dashboard;
 using MegaMine.Modules.Quarry.Entities;
 using Microsoft.EntityFrameworkCore;
 

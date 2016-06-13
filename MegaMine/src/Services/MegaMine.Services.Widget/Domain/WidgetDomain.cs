@@ -1,10 +1,10 @@
-﻿using MegaMine.Services.Widget.Models;
+﻿using MegaMine.Core.Models.Widget;
 using MegaMine.Services.Widget.Repositories;
 using System.Threading.Tasks;
 
 namespace MegaMine.Services.Widget.Domain
 {
-    public class WidgetDomain
+    public class WidgetDomain : IWidgetDomain
     {
         private WidgetRepository widgetRepository;
         public WidgetDomain(WidgetRepository widgetRepository)

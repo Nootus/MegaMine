@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using MegaMine.Core.Repositories;
 using MegaMine.Services.Widget.Entities;
-using MegaMine.Services.Widget.Models;
+using MegaMine.Core.Models.Widget;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;

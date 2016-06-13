@@ -1,8 +1,9 @@
-﻿using MegaMine.Services.Security.Common;
+﻿using MegaMine.Core.Helpers.Web;
+using MegaMine.Core.Models.Web;
+using MegaMine.Services.Security.Common;
 using MegaMine.Services.Security.Domain;
 using MegaMine.Services.Security.Models;
 using MegaMine.Web.Lib.Shared;
-using MegaMine.Web.Models.Shared;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
 

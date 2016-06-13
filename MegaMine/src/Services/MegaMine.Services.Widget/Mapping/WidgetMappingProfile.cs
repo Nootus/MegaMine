@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using MegaMine.Services.Widget.Entities;
-using MegaMine.Services.Widget.Models;
+using MegaMine.Core.Models.Widget;
 
 namespace MegaMine.Services.Widget.Mapping
 {
