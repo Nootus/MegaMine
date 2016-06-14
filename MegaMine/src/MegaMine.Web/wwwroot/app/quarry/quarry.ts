@@ -5,7 +5,6 @@
     @inject("quarryService", "utility", "constants", "dialogService", "template")
     class Quarry {
 
-        private self: any; //temporary fix for Add & View methods
         private gridOptions: uiGrid.IGridOptions;
         private dashboard: any;
 
@@ -22,16 +21,16 @@
 
             self.dashboard = {
                 header: "Quarries",
+                context: self,
                 widgets: {
-                    allWidgets: this.quarryService.quarries.widgets.allWidgets,
-                    pageWidgets: this.quarryService.quarries.widgets.pageWidgets,
+                    allWidgets: self.quarryService.quarries.widgets.allWidgets,
+                    pageWidgets: self.quarryService.quarries.widgets.pageWidgets,
                 },
                 records: {
                     options: {
                         primaryField: "quarryId",
-                        data: this.quarryService.quarries.list,
-                        view: this.viewDialog,
-                        self: this
+                        data: self.quarryService.quarries.list,
+                        view: self.viewDialog,
                     },
                     list: {
                         options: {
@@ -39,15 +38,14 @@
                         },
                     },
                     grid: {
-                        options: this.gridOptions
+                        options: self.gridOptions
                     },
                     buttons: {
                         add: {
                             text: "New",
                             toolTip: "New Quarry",
                             claim: "Quarry:QuarryAdd",
-                            save: this.addQuarry,
-                            self: this
+                            save: self.addQuarry,
                         },
                         edit: {
                             claim: "Quarry:QuarryEdit"
@@ -61,15 +59,15 @@
         }
 
 
-        private addQuarry(ev): void  {
-            let self = this.self;
+        private addQuarry(ev, context): void  {
+            let self = context;
 
             var model = { quarryId: 0, colourIds: [] }
-            self.viewDialog(model, self.constants.enum.dialogMode.save, ev);
+            self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
         }
 
-        public viewDialog(model, dialogMode, ev): void {
-            var self = this.self;
+        public viewDialog(model, dialogMode, ev, context): void {
+            var self = context;
 
             self.dialogService.show({
                 templateUrl: "quarry_dialog",

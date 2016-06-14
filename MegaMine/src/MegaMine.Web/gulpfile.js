@@ -1,4 +1,4 @@
-/// <binding />
+/// <binding ProjectOpened='watch:ts' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -95,4 +95,7 @@ gulp.task('injectJS', function () {
       .pipe(gulp.dest('./views/home'));
 });
 
+gulp.task("watch:ts", function () {
+    gulp.watch(webroot + "app/**/*.js", ["injectJS"]);
+});
 

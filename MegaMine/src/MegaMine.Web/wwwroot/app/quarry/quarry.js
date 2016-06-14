@@ -29,16 +29,16 @@ var MegaMine;
                 };
                 self.dashboard = {
                     header: "Quarries",
+                    context: self,
                     widgets: {
-                        allWidgets: this.quarryService.quarries.widgets.allWidgets,
-                        pageWidgets: this.quarryService.quarries.widgets.pageWidgets,
+                        allWidgets: self.quarryService.quarries.widgets.allWidgets,
+                        pageWidgets: self.quarryService.quarries.widgets.pageWidgets,
                     },
                     records: {
                         options: {
                             primaryField: "quarryId",
-                            data: this.quarryService.quarries.list,
-                            view: this.viewDialog,
-                            self: this
+                            data: self.quarryService.quarries.list,
+                            view: self.viewDialog,
                         },
                         list: {
                             options: {
@@ -46,15 +46,14 @@ var MegaMine;
                             },
                         },
                         grid: {
-                            options: this.gridOptions
+                            options: self.gridOptions
                         },
                         buttons: {
                             add: {
                                 text: "New",
                                 toolTip: "New Quarry",
                                 claim: "Quarry:QuarryAdd",
-                                save: this.addQuarry,
-                                self: this
+                                save: self.addQuarry,
                             },
                             edit: {
                                 claim: "Quarry:QuarryEdit"
@@ -66,13 +65,13 @@ var MegaMine;
                     }
                 };
             }
-            Quarry.prototype.addQuarry = function (ev) {
-                var self = this.self;
+            Quarry.prototype.addQuarry = function (ev, context) {
+                var self = context;
                 var model = { quarryId: 0, colourIds: [] };
-                self.viewDialog(model, self.constants.enum.dialogMode.save, ev);
+                self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
             };
-            Quarry.prototype.viewDialog = function (model, dialogMode, ev) {
-                var self = this.self;
+            Quarry.prototype.viewDialog = function (model, dialogMode, ev, context) {
+                var self = context;
                 self.dialogService.show({
                     templateUrl: "quarry_dialog",
                     targetEvent: ev,

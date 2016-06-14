@@ -1,4 +1,4 @@
-﻿module MegaMine {
+﻿module MegaMine.App {
     "use strict";
 
     @config("megamine")
@@ -14,8 +14,7 @@
                 .primaryPalette("grey");
 
             $provide.decorator("GridOptions", ["$delegate", function ($delegate) {
-                var gridOptions;
-                gridOptions = angular.copy($delegate);
+                let gridOptions = angular.copy($delegate);
                 gridOptions.initialize = function (options) {
                     var initOptions;
                     initOptions = $delegate.initialize(options);
@@ -26,13 +25,4 @@
             }]);
         }
     }
-    
-
-    export class appRun {
-        static $inject = ["session"]
-        constructor(session) {
-            session.initialize();
-        }
-    }
-    angular.module("megamine").run(appRun);
 }

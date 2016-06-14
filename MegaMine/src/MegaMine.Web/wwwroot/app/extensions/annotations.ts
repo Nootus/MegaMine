@@ -1,4 +1,4 @@
-﻿module agility.framework.annotations {
+﻿module MegaMine.Annotations {
 
     export const MODULE_NANME = 'microeforms';
 
@@ -62,6 +62,17 @@
         return (target: any): void => {
             moduleName = moduleName || MODULE_NANME;
             angular.module(moduleName).config(target);
+        };
+    }
+
+    export interface IRunAnnotation {
+        (moduleName?: string): IClassAnnotationDecorator;
+    }
+
+    export function run(moduleName?: string): IClassAnnotationDecorator {
+        return (target: any): void => {
+            moduleName = moduleName || MODULE_NANME;
+            angular.module(moduleName).run(target);
         };
     }
 

@@ -1,12 +1,13 @@
 ﻿/// <reference path="../../typings/index.d.ts" />
 
 module MegaMine {
-    export const inject: agility.framework.annotations.IInjectAnnotation = agility.framework.annotations.inject;
-    export const config: agility.framework.annotations.IConfigAnnotation = agility.framework.annotations.config;
-    export const service: agility.framework.annotations.IServiceAnnotation = agility.framework.annotations.service;
-    export const controller: agility.framework.annotations.IControllerAnnotation = agility.framework.annotations.controller;
-    export const directive: agility.framework.annotations.IDirectiveAnnotation = agility.framework.annotations.directive;
-    export const classFactory: agility.framework.annotations.IClassFactoryAnnotation = agility.framework.annotations.classFactory;
+    export const inject: MegaMine.Annotations.IInjectAnnotation = MegaMine.Annotations.inject;
+    export const config: MegaMine.Annotations.IConfigAnnotation = MegaMine.Annotations.config;
+    export const run: MegaMine.Annotations.IRunAnnotation = MegaMine.Annotations.run;
+    export const service: MegaMine.Annotations.IServiceAnnotation = MegaMine.Annotations.service;
+    export const controller: MegaMine.Annotations.IControllerAnnotation = MegaMine.Annotations.controller;
+    export const directive: MegaMine.Annotations.IDirectiveAnnotation = MegaMine.Annotations.directive;
+    export const classFactory: MegaMine.Annotations.IClassFactoryAnnotation = MegaMine.Annotations.classFactory;
 
     angular.module('megamine', ['ngAnimate', 'ngMessages', 'ngMaterial', 'ui.router', 'ui.grid', 'ui.grid.resizeColumns', 'ui.grid.autoResize', 'ui.grid.exporter', 'ui.grid.selection', 'ui.grid.edit', 'ui.grid.rowEdit', 'ui.grid.cellNav', 'ui.grid.validate', 'nvd3', 'gridster']);
 }

@@ -16,7 +16,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                         + '<nt-button type="command-bar" icon-css="tachometer" tool-tip="Dashboard View" text="Dashboard" ng-click="toggleView()" ng-hide="viewType !== viewTypeEnum.grid"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="th" tool-tip="Grid View" text="Grid" ng-click="toggleView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="refresh()"></nt-button>'
-                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.records.buttons.add.toolTip}}" text="{{dashboard.records.buttons.add.text}}" ng-click="dashboard.records.buttons.add.save($event)" claim="{{dashboard.records.buttons.add.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
+                        + '<nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.records.buttons.add.toolTip}}" text="{{dashboard.records.buttons.add.text}}" ng-click="dashboard.records.buttons.add.save($event, dashboard.context)" claim="{{dashboard.records.buttons.add.claim}}" ng-hide="viewType === viewTypeEnum.dashboardOnly"></nt-button>'
                     + '</nt-toolbar>'
                     + '<div class="portal-content">'
                         + '<nt-grid class="grid-content" grid="dashboard.records.grid" ng-hide="viewType !== viewTypeEnum.grid"></nt-grid>'
@@ -40,9 +40,9 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                                                     + '<p>{{ item[dashboard.records.list.options.fields[2]] }}</p>'
                                                 + '</div>'
                                                 + '<div class="right-list-menu" ng-show="showContextMenu">'
-                                                    + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.view + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{dashboard.records.buttons.edit.claim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.save + ', $event)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{dashboard.records.buttons.delete.claim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.delete + ', $event)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.view + ', $event, dashboard.context)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{dashboard.records.buttons.edit.claim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.save + ', $event, dashboard.context)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{dashboard.records.buttons.delete.claim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.delete + ', $event, dashboard.context)"></nt-button>'
                                                 + '</div>'
                                             + '</md-list-item>'
                                         + '</md-list>'
@@ -69,6 +69,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
             //setting up grid settings
             scope.dashboard.records.grid.options.data = scope.dashboard.records.options.data;
             scope.dashboard.records.grid.view = scope.dashboard.records.options.view;
+            scope.dashboard.records.grid.context = scope.dashboard.context;
             scope.dashboard.records.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.records.options.primaryField, scope.dashboard.records.buttons.edit.claim, scope.dashboard.records.buttons.delete.claim, scope.dashboard.records.buttons.options.hideGridButtons));
             scope.viewType = scope.viewType || constants.enum.viewType.list;
         }
