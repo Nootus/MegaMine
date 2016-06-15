@@ -67,7 +67,7 @@ function productType(quarryService, utility, constants, dialogService, template,
             model.formula = null;
 
         model.formulaJson = JSON.parse(model.formula);
-        model.formulaString = getFormulaString(model.formulaJson);
+        model.formulaString = getFormulaString(model.formulaJson, model.processType);
         if (model.formulaJson === null) {
             model.formulaJson = [];
             model.formulaJson.push({ field: 'Length', operand: '>=' });
@@ -77,7 +77,9 @@ function productType(quarryService, utility, constants, dialogService, template,
         return model;
     }
 
-    function getFormulaString(formulaJson) {
+    function getFormulaString(formulaJson, processType) {
+        if (processType == 2)
+            return "";
         var formulaString = '';
         angular.forEach(formulaJson, function (jsonItem) {
             if (valueExists(jsonItem.value)) {
@@ -123,7 +125,7 @@ function productType(quarryService, utility, constants, dialogService, template,
     }
 
     function addProductType(ev) {
-        var model = initializeModel({ productTypeId: 0 });
+        var model = initializeModel({ productTypeId: 0, processType: 1 });
         viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
@@ -161,9 +163,10 @@ function productType(quarryService, utility, constants, dialogService, template,
                         });
                     }
                     else {
-                        model.productTypeName = dialogModel.productTypeName
-                        model.productTypeDescription = dialogModel.productTypeDescription
-                        model.formulaString = getFormulaString(dialogModel.formulaJson);
+                        model.productTypeName = dialogModel.productTypeName;
+                        model.productTypeDescription = dialogModel.productTypeDescription;
+                        model.processType = dialogModel.processType;
+                        model.formulaString = getFormulaString(dialogModel.formulaJson, dialogModel.processType);
                         model.formula = JSON.stringify(dialogModel.formulaJson);
                         model.formulaJson = angular.copy(dialogModel.formulaJson);
                         model.formulaOrder = dialogModel.formulaOrder

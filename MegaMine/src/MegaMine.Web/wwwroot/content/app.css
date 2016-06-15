@@ -42,23 +42,28 @@ md-content {
 }
 
 
+.md-style-input {
+    background: none;
+    border-color: rgba(0,0,0,0.12);
+}
 
+.md-style-input[disabled] {
+    border-bottom-color: transparent;
+    margin-bottom: -1px;
+    color: black;
+    background-position: 0 bottom;
+    background-size: 4px 1px;
+    background-repeat: repeat-x;
+    background-image: linear-gradient(to right, rgba(0,0,0,0.26) 0%, rgba(0,0,0,0.26) 33%, transparent 0%);
+    background-image: -ms-linear-gradient(left, transparent 0%, rgba(0,0,0,0.26) 100%);
+
+}
 
 
 /* TODO: CSS needs to be validated from this point on */
-
 h4{
     margin: 1em 0 0 0;
 }
-
-
-.container {
-    /*width: 100%;
-    min-width: 1000px;
-    display: table;
-    margin: 0 auto;*/
-}
-
 
 
 div.left-menu {
@@ -131,12 +136,15 @@ label.label_header{
 }
 
 div.type-formula{
-    padding: 1px;
+    margin-top: -4px;
+    padding-bottom: 10px;
+    padding-left: 1px;
 }
 
-div.type-formula label{
+div.type-formula label, div.type-process label {
     display: inline-block;
     font-size: 15px;
+    font-weight: bold;
     padding-left: 2px;
     position: relative;
     top: -2px;
@@ -166,9 +174,6 @@ div.type-formula input:focus {
     outline: none;
 }
 
-div.type-formula input:disabled{
-    background-color: inherit;
-}
 div.type-formula select{
     order: 2;
     padding-top: 2px;
@@ -176,6 +181,29 @@ div.type-formula select{
     border-width: 0 0 1px 0;
     border-radius: 0;
 }
+
+div.type-process {
+    padding-left: 5px;
+    padding-bottom: 10px;
+}
+
+div.type-process md-radio-button {
+    display: inline !important;
+    font-size: 13px;
+}
+
+div.type-process md-radio-button .md-label {
+    margin-left: 22px;
+}
+
+div.type-process md-radio-button .md-on {
+    background-color: gray;
+}
+
+div.type-process md-radio-button.md-checked .md-off {
+    border-color: rgb(67, 116, 167);
+}
+
 
 .icon-button {
   height: 32px;
@@ -205,37 +233,6 @@ div.type-formula select{
     width: 100% !important;
 }
 
-/*em toolbar & buttons*/
-/*nt-toolbar.title > md-toolbar{
-    background-color: rgba(67, 116, 167, 0.25) !important;
-    color: white;
-    height: 46px;
-}
-
-
-nt-toolbar.subtitle > md-toolbar{
-    background-color: rgb(238,238,238) !important;
-}
-
-nt-toolbar.subtitle-table > md-toolbar{
-    font-size: 1em;
-}
-
-nt-toolbar.dialog > md-toolbar{
-    background-color: rgb(168,168,168);
-}
-
-nt-toolbar nt-old-button > button{
-    background-color: rgb(77, 157, 140) !important;
-}
-
-nt-toolbar nt-old-button > button.delete{
-    background-color: #971834 !important;
-}
-
-button{
-    background-color: transparent !important;
-}*/
 
 .ntselect {
     width: 98%;
@@ -247,35 +244,10 @@ nt-old-button[tabindex='0']:focus {
   outline: none; 
 }
 
-.md-button{
-    /*height: 35px;
-    margin: 0;
-    padding: 2px 5px 0 0px !important;
-    min-width: 32px;*/
-}
-
-
-/*.md-button.md-raised:not([disabled]) {
-    box-shadow: 0 2px 5px 0 rgb(0, 0, 0);
-}*/
-
 md-list-item {
     display: block;
 }
-/*md-content{
-    background-color: #eee;
-}
-md-content.md-default-theme {
-  background-color: #e4e4e4;
-}*/
 
-/*md-toolbar{
-      min-height: 46px; 
-      z-index: 1;
-}
-.md-toolbar-tools {
-    padding: 0 5px 0 4px;
-}*/
 
 md-input-container .md-input[disabled], [disabled] md-input-container .md-input {
   color: black;
