@@ -15,8 +15,7 @@ BEGIN
 	INSERT INTO @MaterialColourTop5(MaterialColourId)
 	SELECT TOP 5 MaterialColourId 
 	FROM quarry.Material
-	WHERE CompanyId = @CompanyId
-	  AND DeletedInd = 0
+	WHERE CompanyId = @CompanyId AND DeletedInd = 0 AND ProcessType = 1
 	GROUP BY MaterialColourId
 	ORDER BY COUNT(MaterialId) DESC;
 
@@ -26,8 +25,7 @@ BEGIN
 	INSERT INTO @ProductTypeTop5(ProductTypeId)
 	SELECT TOP 5 ProductTypeId 
 	FROM quarry.Material
-	WHERE CompanyId = @CompanyId
-	  AND DeletedInd = 0
+	WHERE CompanyId = @CompanyId AND DeletedInd = 0 AND ProcessType = 1
 	GROUP BY ProductTypeId
 	ORDER BY COUNT(MaterialId) DESC;
 
@@ -37,7 +35,7 @@ BEGIN
 	JOIN quarry.MaterialColour mc on mc.MaterialColourId = mat.MaterialColourId
 	WHERE EXISTS(SELECT 1 FROM @ProductTypeTop5 pt5 WHERE pt5.ProductTypeId = mat.ProductTypeId)
 	AND EXISTS(SELECT 1 FROM @MaterialColourTop5 mc5 WHERE mc5.MaterialColourId = mat.MaterialColourId)
-	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0
+	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0 AND mat.ProcessType = 1
 	GROUP BY mat.ProductTypeId, pt.ProductTypeName, pt.DisplayOrder, mat.MaterialColourId, mc.ColourName
 	UNION ALL
 	SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Other Colours', X = pt.ProductTypeName, Y = COUNT(mat.MaterialId), KeyOrder = 1, XOrder = pt.DisplayOrder
@@ -45,7 +43,7 @@ BEGIN
 	JOIN quarry.ProductType pt on pt.ProductTypeId = mat.ProductTypeId
 	WHERE EXISTS(SELECT 1 FROM @ProductTypeTop5 pt5 WHERE pt5.ProductTypeId = mat.ProductTypeId)
 	AND NOT EXISTS(SELECT 1 FROM @MaterialColourTop5 mc5 WHERE mc5.MaterialColourId = mat.MaterialColourId)
-	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0
+	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0 AND mat.ProcessType = 1
 	GROUP BY mat.ProductTypeId, pt.ProductTypeName, pt.DisplayOrder
 	UNION ALL
 	SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = mc.ColourName, X = 'Others', Y = COUNT(mat.MaterialId), KeyOrder = 0, XOrder = 1000
@@ -53,14 +51,14 @@ BEGIN
 	JOIN quarry.MaterialColour mc on mc.MaterialColourId = mat.MaterialColourId
 	WHERE NOT EXISTS(SELECT 1 FROM @ProductTypeTop5 pt5 WHERE pt5.ProductTypeId = mat.ProductTypeId)
 	AND EXISTS(SELECT 1 FROM @MaterialColourTop5 mc5 WHERE mc5.MaterialColourId = mat.MaterialColourId)
-	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0
+	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0 AND mat.ProcessType = 1
 	GROUP BY mat.MaterialColourId, mc.ColourName
 	UNION ALL
 	SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Other Colours', X = 'Others', Y = COUNT(mat.MaterialId), KeyOrder = 1, XOrder = 1000
 	FROM quarry.Material mat
 	WHERE NOT EXISTS(SELECT 1 FROM @ProductTypeTop5 pt5 WHERE pt5.ProductTypeId = mat.ProductTypeId)
 	AND NOT EXISTS(SELECT 1 FROM @MaterialColourTop5 mc5 WHERE mc5.MaterialColourId = mat.MaterialColourId)
-	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0
+	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0 AND mat.ProcessType = 1
 	HAVING COUNT(mat.MaterialId) > 0
 	ORDER BY KeyOrder, [Key], XOrder, X
 

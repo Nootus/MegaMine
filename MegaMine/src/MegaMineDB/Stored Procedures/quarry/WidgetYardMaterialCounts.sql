@@ -15,8 +15,7 @@ BEGIN
         yrd.YardId, yrd.YardName, COUNT(mat.MaterialId) AS MaterialCount
       FROM quarry.Material mat
 		JOIN quarry.Yard yrd ON mat.YardId = yrd.YardId
-	  WHERE mat.CompanyId = @CompanyID
-	    AND mat.DeletedInd = 0
+	  WHERE mat.CompanyId = @CompanyID AND mat.DeletedInd = 0 AND mat.ProcessType = 1
       GROUP BY yrd.YardId, yrd.YardName
     )
     SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Pie', X = YardName, Y = MaterialCount, KeyOrder = 0, XOrder = 0 FROM cte WHERE Seq BETWEEN 1 AND 5

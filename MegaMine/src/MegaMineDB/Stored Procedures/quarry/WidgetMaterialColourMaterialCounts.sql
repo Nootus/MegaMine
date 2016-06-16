@@ -15,8 +15,7 @@ BEGIN
         mc.MaterialColourId, mc.ColourName, COUNT(mat.MaterialId) AS MaterialCount, XOrder = 0
       FROM quarry.Material mat
 		JOIN quarry.MaterialColour mc ON mat.MaterialColourId = mc.MaterialColourId
-	  WHERE mat.CompanyId = @CompanyID
-	    AND mat.DeletedInd = 0
+	  WHERE mat.CompanyId = @CompanyID AND mat.DeletedInd = 0 AND mat.ProcessType = 1
       GROUP BY mc.MaterialColourId, mc.ColourName
     )
     SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = 'Key', X = ColourName, Y = MaterialCount, KeyOrder = 0, xOrder = 0 FROM cte WHERE Seq BETWEEN 1 AND 5
