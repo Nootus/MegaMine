@@ -45,6 +45,8 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         vm.viewModel = quarryService.materialViewModel;
         vm.model = vm.viewModel.model;
         vm.model.materialDate = new Date();
+        vm.viewModel.processTypeList = [{ item: "Cutting", key: 1 }, { item: "Crushing", key: 2 }];
+        vm.model.processType = 1;
 
         quarryUtility.addMaterialWatchers($scope, vm.model); 
     }
