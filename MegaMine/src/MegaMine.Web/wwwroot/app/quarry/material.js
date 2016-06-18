@@ -34,7 +34,8 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         saveMaterial: saveMaterial,
         cancelMaterial: cancelMaterial,
         updateMaterial: updateMaterial,
-        editMode: false
+        editMode: false,
+        checkRequired: checkRequired
     };
 
     init();
@@ -121,6 +122,10 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
             resetModel();
             vm.editMode = false;
         }
+    }
+
+    function checkRequired(processType) {
+        return vm.model.processType == processType;
     }
 }
 

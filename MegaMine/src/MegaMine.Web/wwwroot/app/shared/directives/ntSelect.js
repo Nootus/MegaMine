@@ -14,7 +14,7 @@ function ntSelect($compile, $timeout, constants) {
             form: "=?",
             label: '@',
             controlName: "@",
-            ngRequired: '@',
+            ngRequired: '=?',
             ngDisabled: '@',
             style: '@',
             errorMessages: '=?'
@@ -25,7 +25,7 @@ function ntSelect($compile, $timeout, constants) {
     function getTemplate(controlName, optValue, optText) {
         return '<md-input-container class="ntselect {{errorCss}}" md-is-error="isFieldError()" style="{{style}}">'
                     + '<label>{{label}}</label>'
-                    + '<md-select name="' + controlName + '" ng-required="{{ngRequired}}" ng-disabled="isDisabled" ng-model="ngModel" '
+                    + '<md-select name="' + controlName + '" ng-required="ngRequired" ng-disabled="isDisabled" ng-model="ngModel" '
                     + 'ng-change="change()" ng-model-options="{ updateOn: \'default blur\', debounce: { default: 500, blur: 0 } }" aria-label="{{controlName}}">'
                     + '<md-option ng-value="opt.' + optValue + '" ng-repeat="opt in optList">{{ opt.' + optText + ' }}</md-option>'
                     + '</md-select>'
@@ -45,8 +45,9 @@ function ntSelect($compile, $timeout, constants) {
         scope.errorCss = "";
 
         //checking the required
-        if (scope.ngModel === 0 && scope.ngRequired === "true")
+        if (scope.ngModel === 0 && (scope.ngRequired === "true" || scope.ngRequired === true)) {
             scope.ngModel = undefined;
+        }
 
         if (scope.$parent.dialogMode !== undefined) {
             scope.isDisabled = scope.$parent.dialogMode !== constants.enum.dialogMode.save
