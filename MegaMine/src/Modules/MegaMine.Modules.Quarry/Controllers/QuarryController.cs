@@ -96,6 +96,34 @@ namespace MegaMine.Modules.Quarry.Controllers
         }
         #endregion
 
+        #region Texture
+
+        [HttpGet]
+        public async Task<AjaxModel<List<TextureModel>>> TexturesGet()
+        {
+            return await AjaxHelper.GetAsync(m => domain.TexturesGet());
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> TextureAdd([FromBody] TextureModel model)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.TextureSave(model), QuarryMessages.TextureSaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> TextureUpdate([FromBody] TextureModel model)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.TextureSave(model), QuarryMessages.TextureSaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> TextureDelete([FromBody] int productTypeId)
+        {
+            return await AjaxHelper.SaveAsync(m => domain.TextureDelete(productTypeId), QuarryMessages.TextureDeleteSuccess);
+        }
+        #endregion
+
+
         #region Quarry
         [HttpGet]
         public async Task<AjaxModel<List<QuarryModel>>> QuarriesGet()

@@ -34,6 +34,19 @@
                         }]
                     }
                 })
+                .state("texture", {
+                    url: virtualPath + "/texture",
+                    title: "Texture",
+                    previousState: "dashboard",
+                    templateUrl: "/app/quarry/texture.html",
+                    controller: "MegaMine.Quarry.Texture",
+                    controllerAs: "$ctrl",
+                    resolve: {
+                        resolveModel: ["quarryService", function (quarryService) {
+                            return quarryService.getTextures();
+                        }]
+                    }
+                })
                 .state("quarry", {
                     url: virtualPath + "/quarry",
                     title: "Quarry",

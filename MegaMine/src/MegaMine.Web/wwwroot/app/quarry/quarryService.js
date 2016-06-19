@@ -23,6 +23,12 @@ function quarryService($http, utility) {
         saveProductType: saveProductType,
         deleteProductType: deleteProductType,
 
+        //textures
+        textures: [],
+        getTextures: getTextures,
+        saveTexture: saveTexture,
+        deleteTexture: deleteTexture,
+
         //quarries
         quarries: { list: [], widgets: {}},
         getQuarries: getQuarries,
@@ -130,6 +136,30 @@ function quarryService($http, utility) {
 
     function deleteProductType(productTypeId) {
         return $http.post("/api/quarry/producttypedelete", productTypeId);
+    }
+
+    //Textures
+    function getTextures() {
+        return $http.get("/api/quarry/texturesget")
+            .then(function (data) {
+                utility.extend(service.textures, data);
+            });
+    }
+
+    function saveTexture(model) {
+        var url;
+        if (model.textureId === 0) {
+            url = "/api/quarry/textureadd";
+        }
+        else {
+            url = "/api/quarry/textureupdate";
+        }
+
+        return $http.post(url, model);
+    }
+
+    function deleteTexture(textureId) {
+        return $http.post("/api/quarry/texturedelete", textureId);
     }
 
     //Quarry

@@ -6,6 +6,8 @@
         public const string MaterialColourDeleteSuccess = "Colour Deleted Successfully";
         public const string ProductTypeSaveSuccess = "Product Type Saved Successfully";
         public const string ProductTypeDeleteSuccess = "Product Type Deleted Successfully";
+        public const string TextureSaveSuccess = "Texture Saved Successfully";
+        public const string TextureDeleteSuccess = "Texture Deleted Successfully";
         public const string QuarrySaveSuccess = "Quarry Saved Successfully";
         public const string QuarryDeleteSuccess = "Quarry Deleted Successfully";
         public const string YardSaveSuccess = "Yard Saved Successfully";

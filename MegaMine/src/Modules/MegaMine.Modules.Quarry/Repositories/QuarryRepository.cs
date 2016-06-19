@@ -62,7 +62,28 @@ namespace MegaMine.Modules.Quarry.Repositories
             await DeleteEntity<ProductTypeEntity>(productTypeId);
         }
         #endregion
+        
+        #region Texture
+        public async Task<List<TextureModel>> TexturesGet()
+        {
+            return await GetListAsync<TextureEntity, TextureModel>(s => s.TextureName);
+        }
 
+        public async Task<List<ListItem<int, string>>> TextureListItemsGet()
+        {
+            return await GetListItemsAsync<TextureEntity>(e => new ListItem<int, string> { Key = e.TextureId, Item = e.TextureName }, s => s.TextureName);
+        }
+
+        public async Task TextureSave(TextureModel model)
+        {
+            await SaveEntity<TextureEntity, TextureModel>(model);
+        }
+        public async Task TextureDelete(int textureId)
+        {
+            await DeleteEntity<TextureEntity>(textureId);
+        }
+        #endregion
+        
         #region Quarry
         public async Task<List<ListItem<int, string>>> QuarryListItemsGet()
         {

@@ -1,0 +1,12 @@
+﻿<nt-toolbar-button header="Textures" button-text="Add" button-icon="add" button-click="$ctrl.addTexture($event, $ctrl)" claim="Quarry:TextureAdd"></nt-toolbar-button>
+<nt-grid class="grid-content" grid="$ctrl.grid"></nt-grid>
+
+<script type="text/ng-template" id="texture_dialog">
+    <md-dialog aria-label="Texture" class="dialog">
+        <nt-dialog form="textureForm" header="Texture">
+            <div layout="row">
+                <nt-input flex="50" form="textureForm" label="Texture Name" control-name="textureName" ng-model="vm.model.textureName" ng-required="true" em-maxlength="20"></nt-input>
+            </div>
+        </nt-dialog>
+    </md-dialog>
+</script>

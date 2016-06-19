@@ -15,6 +15,7 @@ namespace MegaMine.Modules.Quarry.Mapping
         {
             Mapper.CreateMap<MaterialColourEntity, MaterialColourModel>().ReverseMap();
             Mapper.CreateMap<ProductTypeEntity, ProductTypeModel>().ReverseMap();
+            Mapper.CreateMap<TextureEntity, TextureModel>().ReverseMap();
             Mapper.CreateMap<QuarryEntity, QuarryModel>().ReverseMap();
             Mapper.CreateMap<YardEntity, YardModel>().ReverseMap();
             Mapper.CreateMap<MaterialEntity, MaterialModel>().ReverseMap();

@@ -59,7 +59,7 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
     }
 
     function resetModel() {
-        vm.model.blockNumber = "";
+        vm.model.blockNumber = undefined;
         vm.model.length = "";
         vm.model.width = "";
         vm.model.height = "";

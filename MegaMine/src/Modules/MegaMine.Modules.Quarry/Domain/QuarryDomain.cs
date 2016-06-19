@@ -53,6 +53,23 @@ namespace MegaMine.Modules.Quarry.Domain
         }
         #endregion
 
+        #region Texture
+        //Product Type
+        public async Task<List<TextureModel>> TexturesGet()
+        {
+            return await quarryRepository.TexturesGet();
+        }
+
+        public async Task TextureSave(TextureModel model)
+        {
+            await quarryRepository.TextureSave(model);
+        }
+        public async Task TextureDelete(int textureId)
+        {
+            await quarryRepository.TextureDelete(textureId);
+        }
+        #endregion
+
         #region Quarry
         //Quarry
         public async Task<List<QuarryModel>> QuarriesGet()

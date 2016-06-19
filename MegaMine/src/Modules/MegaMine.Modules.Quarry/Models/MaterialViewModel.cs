@@ -8,6 +8,7 @@ namespace MegaMine.Modules.Quarry.Models
         public List<ProductTypeModel> ProductType { get; set; }
         public List<ListItem<int, string>> MaterialColour { get; set; }
         public List<ListItem<int, string>> Quarry { get; set; }
+        public List<ListItem<int, string>> Texture { get; set; }
 
         public MaterialModel Model { get; set; }
     }
