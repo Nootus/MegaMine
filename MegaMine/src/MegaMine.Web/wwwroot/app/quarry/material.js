@@ -15,6 +15,7 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
                     { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
                     { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
+                    { name: 'texture', field: 'texture', displayName: 'Texture', type: 'string' },
                     template.getButtonColumnDefs('materialId', [{ buttonType: constants.enum.buttonType.edit, ngClick: 'grid.appScope.grid.editRowMaterial(row.entity, $event)' }, { buttonType: constants.enum.buttonType.delete, ngClick: 'grid.appScope.grid.deleteRowMaterial(row.entity, $event)' }])
         ]
     };
@@ -46,16 +47,26 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         vm.viewModel = quarryService.materialViewModel;
         vm.model = vm.viewModel.model;
         vm.model.materialDate = new Date();
-        vm.viewModel.processTypeList = [{ item: "Cutting", key: 1 }, { item: "Crushing", key: 2 }];
+        vm.viewModel.processTypes = [{ item: "Cutting", key: 1 }, { item: "Crushing", key: 2 }];
         vm.model.processType = 1;
 
         quarryUtility.addMaterialWatchers($scope, vm.model); 
     }
 
     function updateDropDownText() {
-        vm.model.productType = utility.getItem(vm.viewModel.productType, vm.model.productTypeId, 'productTypeId', 'productTypeName');
-        vm.model.materialColour = utility.getListItem(vm.viewModel.materialColour, vm.model.materialColourId);
-        vm.model.quarry = utility.getListItem(vm.viewModel.quarry, vm.model.quarryId);
+        vm.model.productType = utility.getItem(vm.viewModel.productTypes, vm.model.productTypeId, 'productTypeId', 'productTypeName');
+        vm.model.materialColour = utility.getListItem(vm.viewModel.materialColours, vm.model.materialColourId);
+        vm.model.quarry = utility.getListItem(vm.viewModel.quarries, vm.model.quarryId);
+        vm.model.texture = utility.getListItem(vm.viewModel.textures, vm.model.textureId);
+    }
+
+    function clearByProcessType() {
+        if (vm.model.processType != 1) {
+            vm.model.blockNumber = undefined;
+            vm.model.length = "";
+            vm.model.width = "";
+            vm.model.height = "";
+        }
     }
 
     function resetModel() {
@@ -69,6 +80,7 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
 
     function addMaterial(form) {
         if (form.$valid) {
+            clearByProcessType();
             updateDropDownText();
             vm.model.index = vm.grid.data.length;
             vm.grid.data.push(angular.copy(vm.model));

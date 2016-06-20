@@ -117,4 +117,9 @@
     background-size: cover;
 }
 
+.icon-texture {
+    background: url('images/icons/quarry/texture.svg') no-repeat;
+    background-size: cover;
+}
+
 
