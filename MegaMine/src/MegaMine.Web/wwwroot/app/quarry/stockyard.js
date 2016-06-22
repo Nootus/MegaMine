@@ -31,7 +31,8 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
         yards: [],
         yardid: 0,
         getStock: getStock,
-        noStockMessage: undefined
+        noStockMessage: undefined,
+        productTypes: []
     };
 
     init();
@@ -63,6 +64,14 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
     }
 
     function dialogInit(dialogScope, dialogModel) {
+        //making a backup copy of product types. this is need as we apply filters
+        quarryService.materialViewModel.processTypes = [{ item: "Cutting", key: 1 }, { item: "Crushing", key: 2 }];
+        if (vm.productTypes.length === 0) {
+            angular.copy(quarryService.materialViewModel.productTypes, vm.productTypes);
+        }
+        else {
+            quarryService.materialViewModel.productTypes = angular.copy(vm.productTypes);
+        }
         quarryUtility.addMaterialWatchers(dialogScope, dialogModel);
     }
 
@@ -92,6 +101,7 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
                 });
             }
             else {
+                quarryUtility.clearByProcessType(dialogModel);
                 quarryService.materialUpdate(dialogModel).then(function () {
                     dialogService.hide();
                 });

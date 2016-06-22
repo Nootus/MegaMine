@@ -18,15 +18,20 @@
     <md-dialog aria-label="Material" class="dialog">
         <nt-dialog form="stockyardForm" header="Material">
             <div layout="row">
-                <nt-input flex="20" form="stockyardForm" label="Block Number" control-name="blockNumber" ng-model="vm.model.blockNumber" ng-required="true" em-maxlength="20"></nt-input>
+                <nt-input flex="20" form="stockyardForm" label="Block Number" control-name="blockNumber" ng-model="vm.model.blockNumber" ng-required="vm.model.processType == 1" em-maxlength="20"  ng-show="vm.model.processType == 1"></nt-input>
                 <nt-select flex="25" form="stockyardForm" label="Quarry" control-name="quarry" ng-model="vm.model.quarryId" opt-list="vm.viewModel.quarries" ng-required="true"></nt-select>
-                <nt-select flex="25" form="stockyardForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productTypes" opt-value="productTypeId" opt-text="productTypeName" ng-required="true"></nt-select>
                 <nt-select flex="30" form="stockyardForm" label="Colour" control-name="materialColour" ng-model="vm.model.materialColourId" opt-list="vm.viewModel.materialColours" ng-required="true"></nt-select>
+                <nt-select flex="25" form="stockyardForm" label="Texture" control-name="texture" ng-model="vm.model.textureId" opt-list="vm.viewModel.textures" ng-required="false"></nt-select>
             </div>
             <div layout="row">
-                <nt-input flex="15" form="stockyardForm" type="number" label="Length" control-name="length" ng-model="vm.model.length" ng-required="true"></nt-input>
-                <nt-input flex="15" form="stockyardForm" type="number" label="Width" control-name="width" ng-model="vm.model.width" ng-required="true"></nt-input>
-                <nt-input flex="15" form="stockyardForm" type="number" label="Height" control-name="height" ng-model="vm.model.height" ng-required="true"></nt-input>
+                <nt-select flex="20" form="stockyardForm" label="Process Type" control-name="processType" ng-model="vm.model.processType" opt-list="vm.viewModel.processTypes" ng-required="true"></nt-select>
+                <nt-select flex="25" form="stockyardForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productTypes" opt-value="productTypeId" opt-text="productTypeName" ng-required="true"></nt-select>
+
+            </div>
+            <div layout="row">
+                <nt-input flex="15" form="stockyardForm" type="number" label="Length" control-name="length" ng-model="vm.model.length" ng-required="vm.model.processType == 1" ng-show="vm.model.processType == 1"></nt-input>
+                <nt-input flex="15" form="stockyardForm" type="number" label="Width" control-name="width" ng-model="vm.model.width" ng-required="vm.model.processType == 1" ng-show="vm.model.processType == 1"></nt-input>
+                <nt-input flex="15" form="stockyardForm" type="number" label="Height" control-name="height" ng-model="vm.model.height" ng-required="vm.model.processType == 1" ng-show="vm.model.processType == 1"></nt-input>
                 <nt-input flex="15" form="stockyardForm" type="number" label="Weight" control-name="weight" ng-model="vm.model.weight" ng-required="true"></nt-input>
                 <nt-input flex="30" form="stockyardForm" type="date" label="Date" control-name="materialDate" ng-model="vm.model.materialDate" ng-required="true"></nt-input>
             </div>

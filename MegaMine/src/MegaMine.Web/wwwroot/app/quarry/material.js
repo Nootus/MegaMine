@@ -60,15 +60,6 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         vm.model.texture = utility.getListItem(vm.viewModel.textures, vm.model.textureId);
     }
 
-    function clearByProcessType() {
-        if (vm.model.processType != 1) {
-            vm.model.blockNumber = undefined;
-            vm.model.length = "";
-            vm.model.width = "";
-            vm.model.height = "";
-        }
-    }
-
     function resetModel() {
         vm.model.blockNumber = undefined;
         vm.model.length = "";
@@ -80,7 +71,7 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
 
     function addMaterial(form) {
         if (form.$valid) {
-            clearByProcessType();
+            quarryUtility.clearByProcessType(vm.model);
             updateDropDownText();
             vm.model.index = vm.grid.data.length;
             vm.grid.data.push(angular.copy(vm.model));

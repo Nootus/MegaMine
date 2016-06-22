@@ -7,7 +7,8 @@ function quarryUtility($filter, quarryService, utility) {
 
     var util = {
         addMaterialWatchers: addMaterialWatchers,
-        sortProductTypeByFormula: sortProductTypeByFormula
+        sortProductTypeByFormula: sortProductTypeByFormula,
+        clearByProcessType: clearByProcessType
     };
 
     return util;
@@ -19,7 +20,7 @@ function quarryUtility($filter, quarryService, utility) {
 
     function addMaterialWatchers(scope, model) {
         scope.model = model;
-        var allProductTypes = quarryService.materialViewModel.productTypes;
+        var allProductTypes = angular.copy(quarryService.materialViewModel.productTypes);
 
         quarryService.materialViewModel.productTypes = $filter('filter')(allProductTypes, { processType: model.processType });
         var productTypes = sortProductTypeByFormula(quarryService.materialViewModel.productTypes);
@@ -77,7 +78,18 @@ function quarryUtility($filter, quarryService, utility) {
         scope.$watch('model.processType', function () {
             //changing the product types
             quarryService.materialViewModel.productTypes = $filter('filter')(allProductTypes, { processType: model.processType });
-            model.productTypeId = undefined;
+            if(model.materialId === 0)
+                model.productTypeId = undefined;
         });
     }
+
+    function clearByProcessType(model) {
+        if (model.processType != 1) {
+            model.blockNumber = undefined;
+            model.length = "";
+            model.width = "";
+            model.height = "";
+        }
+    }
+
 }
