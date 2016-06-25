@@ -67,7 +67,7 @@ function productType(quarryService, utility, constants, dialogService, template,
             model.formula = null;
 
         model.formulaJson = JSON.parse(model.formula);
-        model.formulaString = getFormulaString(model.formulaJson, model.processType);
+        model.formulaString = getFormulaString(model.formulaJson, model.processTypeId);
         if (model.formulaJson === null) {
             model.formulaJson = [];
             model.formulaJson.push({ field: 'Length', operand: '>=' });
@@ -77,8 +77,8 @@ function productType(quarryService, utility, constants, dialogService, template,
         return model;
     }
 
-    function getFormulaString(formulaJson, processType) {
-        if (processType == 2)
+    function getFormulaString(formulaJson, processTypeId) {
+        if (processTypeId == MegaMine.Quarry.ProcessType.Crushing)
             return "";
         var formulaString = '';
         angular.forEach(formulaJson, function (jsonItem) {
@@ -125,7 +125,7 @@ function productType(quarryService, utility, constants, dialogService, template,
     }
 
     function addProductType(ev) {
-        var model = initializeModel({ productTypeId: 0, processType: 1 });
+        var model = initializeModel({ productTypeId: 0, processTypeId: MegaMine.Quarry.ProcessType.Cutting });
         viewDialog(model, constants.enum.dialogMode.save, ev);
     }
 
@@ -140,7 +140,7 @@ function productType(quarryService, utility, constants, dialogService, template,
         dialogService.show({
             templateUrl: 'product_type_dialog',
             targetEvent: ev,
-            data: { model: model, validator: validator, disabled: disabled },
+            data: { model: model, validator: validator, disabled: disabled, processTypeEnum: MegaMine.Quarry.ProcessType },
             dialogMode: dialogMode,
             parentVm: vm
         })
@@ -152,6 +152,11 @@ function productType(quarryService, utility, constants, dialogService, template,
                 });
             }
             else {
+                if (dialogModel.processTypeId == MegaMine.Quarry.ProcessType.Crushing) {
+                    angular.forEach(dialogModel.formulaJson, function (item) {
+                        item.value = undefined;
+                    })
+                }
                 dialogModel.formula = JSON.stringify(dialogModel.formulaJson);
                 quarryService.saveProductType(dialogModel).then(function () {
                     //update the grid values
@@ -165,8 +170,8 @@ function productType(quarryService, utility, constants, dialogService, template,
                     else {
                         model.productTypeName = dialogModel.productTypeName;
                         model.productTypeDescription = dialogModel.productTypeDescription;
-                        model.processType = dialogModel.processType;
-                        model.formulaString = getFormulaString(dialogModel.formulaJson, dialogModel.processType);
+                        model.processTypeId = dialogModel.processTypeId;
+                        model.formulaString = getFormulaString(dialogModel.formulaJson, dialogModel.processTypeId);
                         model.formula = JSON.stringify(dialogModel.formulaJson);
                         model.formulaJson = angular.copy(dialogModel.formulaJson);
                         model.formulaOrder = dialogModel.formulaOrder

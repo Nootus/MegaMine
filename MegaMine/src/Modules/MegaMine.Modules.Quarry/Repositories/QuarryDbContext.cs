@@ -9,6 +9,7 @@ namespace MegaMine.Modules.Quarry.Repositories
     {
         public DbSet<MaterialColourEntity> MaterialColours { get; set; }
         public DbSet<ProductTypeEntity> ProductTypes { get; set; }
+        public DbSet<ProcessTypeEntity> ProcessTypes { get; set; }
         public DbSet<TextureEntity> Textures { get; set; }
         public DbSet<QuarryEntity> Quarries { get; set; }
         public DbSet<QuarryMaterialColourEntity> QuarryMaterialColours { get; set; }

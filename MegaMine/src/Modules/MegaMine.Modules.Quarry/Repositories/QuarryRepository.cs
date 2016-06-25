@@ -234,6 +234,7 @@ namespace MegaMine.Modules.Quarry.Repositories
             viewModel.ProductTypes = await ProductTypesGet();
             viewModel.Quarries = await GetListItemsAsync<QuarryEntity>(e => new ListItem<int, string> { Key = e.QuarryId, Item = e.QuarryName }, s => s.QuarryName);
             viewModel.Textures = await GetListItemsAsync<TextureEntity>(e => new ListItem<int, string> { Key = e.TextureId, Item = e.TextureName }, s => s.TextureName);
+            viewModel.ProcessTypes = await GetListItemsAsync<ProcessTypeEntity>(e => new ListItem<int, string> { Key = e.ProcessTypeId, Item = e.ProcessTypeName }, s => s.ProcessTypeName);
 
             viewModel.Model = new MaterialModel();
 

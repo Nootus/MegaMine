@@ -9,6 +9,8 @@
         public string QuarryName { get; set; }
         public int MaterialColourId { get; set; }
         public string ColourName { get; set; }
-        public int MaterialCount { get; set; }
+        public int ProcessTypeId { get; set; }
+        public string ProcessTypeName { get; set; }
+        public decimal MaterialQuantityWeight { get; set; }
     }
 }

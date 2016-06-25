@@ -9,7 +9,7 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
                     { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string' },
                     { name: 'quarryName', field: 'quarryName', displayName: 'Quarry Name', type: 'string' },
                     { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string' },
-                    { name: 'materialCount', field: 'materialCount', type: 'int', displayName: 'Total' },
+                    { name: 'materialQuantityWeight', field: 'materialQuantityWeight', type: 'int', displayName: 'Quantity/Weight' },
                     , template.getButtonColumnDefs('rowId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.grid.showSummaryDetails(row.entity, $event)' }])
         ]
     };

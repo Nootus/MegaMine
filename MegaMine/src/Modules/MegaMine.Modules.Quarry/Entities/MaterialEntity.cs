@@ -16,7 +16,7 @@ namespace MegaMine.Modules.Quarry.Entities
         public int YardId { get; set; }
         public int MaterialColourId { get; set; }
         public int ProductTypeId { get; set; }
-        public int ProcessType { get; set; }
+        public int ProcessTypeId { get; set; }
         public int? TextureId { get; set; }
         public string Dimensions { get; set; }
         public decimal? Length { get; set; }

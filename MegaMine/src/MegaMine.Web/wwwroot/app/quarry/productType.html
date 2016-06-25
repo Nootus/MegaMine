@@ -8,12 +8,12 @@
             </div>
             <div class="type-process">
                 <label>Process Type</label>
-                <md-radio-group ng-model="vm.model.processType">
+                <md-radio-group ng-model="vm.model.processTypeId">
                     <md-radio-button value="1">Cutting</md-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;
                     <md-radio-button value="2">Crushing</md-radio-button>
                 </md-radio-group>
             </div>
-            <div layout="row" ng-show="vm.model.processType == 1">
+            <div layout="row" ng-show="vm.model.processTypeId == vm.processTypeEnum.Cutting">
                 <div flex="80">
                     <div class="type-formula">
                         <label class="ng-binding">Formula</label>

@@ -31,6 +31,7 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         model: {},
         previousModel: {},
         viewModel: {},
+        processTypeEnum: MegaMine.Quarry.ProcessType,
         addMaterial: addMaterial,
         saveMaterial: saveMaterial,
         cancelMaterial: cancelMaterial,
@@ -47,8 +48,9 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         vm.viewModel = quarryService.materialViewModel;
         vm.model = vm.viewModel.model;
         vm.model.materialDate = new Date();
-        vm.viewModel.processTypes = [{ item: "Cutting", key: 1 }, { item: "Crushing", key: 2 }];
-        vm.model.processType = 1;
+        vm.model.processTypeId = vm.processTypeEnum.Cutting;
+
+        vm.viewModel.textures.unshift({ key: "0", item: "" });
 
         quarryUtility.addMaterialWatchers($scope, vm.model); 
     }
@@ -74,6 +76,9 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
             quarryUtility.clearByProcessType(vm.model);
             updateDropDownText();
             vm.model.index = vm.grid.data.length;
+            if (vm.model.textureId == "0")
+                vm.model.textureId = undefined;
+
             vm.grid.data.push(angular.copy(vm.model));
             resetModel();
             form.$submitted = false;
@@ -127,8 +132,8 @@ function material($scope, quarryService, quarryUtility, dialogUtility, utility, 
         }
     }
 
-    function checkRequired(processType) {
-        return vm.model.processType == processType;
+    function checkRequired(processTypeId) {
+        return vm.model.processTypeId == processTypeId;
     }
 }
 

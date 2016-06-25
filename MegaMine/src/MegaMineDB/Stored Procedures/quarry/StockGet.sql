@@ -18,12 +18,14 @@ BEGIN
 		Quarry = qry.QuarryName,
 		ProductType = pt.ProductTypeName,
 		MaterialColour = mc.ColourName,
+		TextureId = mt.TextureId,
 		Texture = tx.TextureName,
 		MaterialId = mt.MaterialId,
 		BlockNumber = mt.BlockNumber,
 		QuarryId = mt.QuarryId,
 		YardId = mt.YardId,
 		ProductTypeId = mt.ProductTypeId,
+		ProcessTypeId = mt.ProcessTypeId,
 		MaterialColourId = mt.MaterialColourId,
 		Dimensions = mt.Dimensions,
 		Length = mt.Length,
@@ -32,10 +34,10 @@ BEGIN
 		Weight = mt.Weight,
 		MaterialDate = mt.MaterialDate
 	FROM quarry.Material mt
-		inner join quarry.QuarRY qry on mt.QuarryId = qry.QuarryId
+		inner join quarry.Quarry qry on mt.QuarryId = qry.QuarryId
 		inner join quarry.ProductType pt on mt.ProductTypeId = pt.ProductTypeId
 		inner join quarry.MaterialColour mc  on mt.MaterialColourId = mc.MaterialColourId
-		inner join quarry.Texture tx on mt.TextureId = tx.TextureId
+		left join quarry.Texture tx on mt.TextureId = tx.TextureId
 	WHERE mt.DeletedInd = 0
 		AND mt.YardId = @YardId
 		AND (@ProductTypeId IS NULL OR pt.ProductTypeId = @ProductTypeId)

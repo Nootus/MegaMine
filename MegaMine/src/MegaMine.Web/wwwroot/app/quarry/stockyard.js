@@ -28,6 +28,7 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
             editStock: editStock,
             deleteStock: deleteStock
         },
+        processTypeEnum: MegaMine.Quarry.ProcessType,
         yards: [],
         yardid: 0,
         getStock: getStock,
@@ -65,7 +66,6 @@ function stockyard($scope, quarryService, gridUtility, quarryUtility, constants,
 
     function dialogInit(dialogScope, dialogModel) {
         //making a backup copy of product types. this is need as we apply filters
-        quarryService.materialViewModel.processTypes = [{ item: "Cutting", key: 1 }, { item: "Crushing", key: 2 }];
         if (vm.productTypes.length === 0) {
             angular.copy(quarryService.materialViewModel.productTypes, vm.productTypes);
         }

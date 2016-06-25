@@ -15,7 +15,7 @@ BEGIN
 	INSERT INTO @QuarryTop5(QuarryId)
 	SELECT TOP 5 QuarryId 
 	FROM quarry.Material
-	WHERE CompanyId = @CompanyId AND DeletedInd = 0 AND ProcessType = 1
+	WHERE CompanyId = @CompanyId AND DeletedInd = 0 AND ProcessTypeId = 1
 	GROUP BY QuarryId
 	ORDER BY COUNT(MaterialId) DESC;
 
@@ -24,14 +24,14 @@ BEGIN
 	JOIN quarry.Quarry qry on qry.QuarryId = mat.QuarryId
 	JOIN quarry.ProductType pt on pt.ProductTypeId = mat.ProductTypeId
 	WHERE EXISTS(SELECT 1 FROM @QuarryTop5 q5 WHERE q5.QuarryId = mat.QuarryId)
-	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0 AND mat.ProcessType = 1
+	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0 AND mat.ProcessTypeId = 1
 	GROUP BY mat.QuarryId, qry.QuarryName, mat.ProductTypeId, pt.ProductTypeName, pt.DisplayOrder
 	UNION ALL
 	SELECT Id = CONVERT(varchar(40), NEWID()), [Key] = pt.ProductTypeName, X = 'Others', Y = COUNT(mat.MaterialId), KeyOrder = pt.DisplayOrder, XOrder = 1
 	FROM quarry.Material mat
 	JOIN quarry.ProductType pt on pt.ProductTypeId = mat.ProductTypeId
 	WHERE NOT EXISTS(SELECT 1 FROM @QuarryTop5 q5 WHERE q5.QuarryId = mat.QuarryId)
-	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0 AND mat.ProcessType = 1
+	AND mat.CompanyId = @CompanyId AND mat.DeletedInd = 0 AND mat.ProcessTypeId = 1
 	GROUP BY mat.ProductTypeId, pt.ProductTypeName, pt.DisplayOrder
 	ORDER BY KeyOrder, [Key], XOrder, X
 

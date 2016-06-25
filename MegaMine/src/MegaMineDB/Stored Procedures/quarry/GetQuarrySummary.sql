@@ -1,80 +1,149 @@
-﻿if objectproperty(object_id('dbo.GetQuarrySummary'), N'IsProcedure') = 1
-	drop procedure [dbo].GetQuarrySummary
-go
+﻿IF OBJECTPROPERTY(OBJECT_ID('quarry.GetQuarrySummary'), N'IsProcedure') = 1
+	DROP PROCEDURE [quarry].GetQuarrySummary
+GO
 
-create procedure [dbo].[GetQuarrySummary]
+CREATE PROCEDURE [quarry].[GetQuarrySummary]
 (
-	@CompanyId int,
-	@StartDate datetime,
-	@EndDate datetime
+	@CompanyId INT,
+	@StartDate DATETIME,
+	@EndDate DATETIME
 )
-as
-begin
+AS
+BEGIN
 
-	set nocount on
+	SET NOCOUNT ON
 
-	if(@StartDate is null)
-	begin
-		select @StartDate = min(MaterialDate) from Material where CompanyId = @CompanyId
-	end
+	IF(@StartDate IS NULL)
+	BEGIN
+		SELECT @StartDate = MIN(MaterialDate) FROM quarry.Material WHERE CompanyId = @CompanyId
+	END
 
-	if(	@EndDate is null)
-	begin
-		select @EndDate = max(MaterialDate) from Material where CompanyId = @CompanyId
-	end
-	else
-	begin
-		select @EndDate = DATEADD(SECOND, -1, DATEADD(DAY, 1, @EndDate))
-	end
+	IF(	@EndDate IS NULL)
+	BEGIN
+		SELECT @EndDate = MAX(MaterialDate) FROM quarry.Material WHERE CompanyId = @CompanyId
+	END
+	ELSE
+	BEGIN
+		SELECT @EndDate = DATEADD(SECOND, -1, DATEADD(DAY, 1, @EndDate))
+	END
 
-	declare @columns nvarchar(500),
-		@totals nvarchar(1000)
-	select @columns = isnull(@columns + ', ', '') + quotename(ProductTypeName),
-		@totals = isnull(@totals + ' + ', '') + 'coalesce(' + quotename(ProductTypeName) + ', 0)'
-	from ProductType 
-	where DeletedInd = 0 and CompanyId = @CompanyId
-	order by DisplayOrder;
+	DECLARE @query NVARCHAR(4000);
 
-	create table #Quarry
+	DECLARE @columnsQuantity NVARCHAR(500), @tempColumnsQuantity NVARCHAR(500),
+		@totalsQuantity NVARCHAR(1000)
+	SELECT @columnsQuantity = ISNULL(@columnsQuantity + ', ', '') + QUOTENAME(ProductTypeName),
+		@tempColumnsQuantity = ISNULL(@tempColumnsQuantity + ', ', '') + QUOTENAME(ProductTypeName) + ' INT',
+		@totalsQuantity = ISNULL(@totalsQuantity + ' + ', '') + 'COALESCE(' + QUOTENAME(ProductTypeName) + ', 0)'
+	FROM quarry.ProductType 
+	WHERE DeletedInd = 0 and CompanyId = @CompanyId
+	AND ProcessTypeId = 1
+	ORDER BY DisplayOrder;
+
+	DECLARE @columnsWeight NVARCHAR(500), @tempColumnsWeight NVARCHAR(500),
+		@totalsWeight NVARCHAR(1000)
+	SELECT @columnsWeight = ISNULL(@columnsWeight + ', ', '') + QUOTENAME(ProductTypeName),
+		@tempColumnsWeight = ISNULL(@tempColumnsWeight + ', ', '') + QUOTENAME(ProductTypeName) + ' DECIMAL',
+		@totalsWeight = ISNULL(@totalsWeight + ' + ', '') + 'COALESCE(' + QUOTENAME(ProductTypeName) + ', 0)'
+	FROM quarry.ProductType 
+	WHERE DeletedInd = 0 and CompanyId = @CompanyId
+	AND ProcessTypeId = 2
+	ORDER BY DisplayOrder;
+
+	CREATE TABLE #Quarry
 	(
-	   QuarryId int,
-	   QuarryName nvarchar(200),
-	   Colours nvarchar(2000)
+	   QuarryId INT,
+	   QuarryName NVARCHAR(200),
+	   Colours NVARCHAR(2000)
 	);
 
-	with QuarryColours as 
+	WITH QuarryColours AS 
 	(
-		select q.QuarryId, QuarryName, ColourName
-		from QuarryMaterialColour qmc
-		inner join Quarry q on qmc.QuarryId = q.QuarryId
-		inner join MaterialColour mc on qmc.MaterialColourId = mc.MaterialColourId
-		where q.DeletedInd = 0 and q.CompanyId = @CompanyId
+		SELECT q.QuarryId, QuarryName, ColourName
+		FROM quarry.QuarryMaterialColour qmc
+		INNER JOIN Quarry q ON qmc.QuarryId = q.QuarryId
+		INNER JOIN MaterialColour mc ON qmc.MaterialColourId = mc.MaterialColourId
+		WHERE q.DeletedInd = 0 AND q.CompanyId = @CompanyId
 	)
-	insert into #Quarry
-	select QuarryId, QuarryName,  
-		Colours = STUFF((select ',' + qc1.ColourName from QuarryColours qc1 where qc1.QuarryName = qc2.QuarryName for xml path('')),1,1,'')
-	from QuarryColours as qc2
-	group by qc2.QuarryName, qc2.QuarryId;
+	INSERT INTO #Quarry
+	SELECT QuarryId, QuarryName,  
+		Colours = STUFF((SELECT ',' + qc1.ColourName FROM QuarryColours qc1 WHERE qc1.QuarryName = qc2.QuarryName FOR XML PATH('')),1,1,'')
+	FROM QuarryColours as qc2
+	GROUP BY qc2.QuarryName, qc2.QuarryId;
 
-	declare @query nvarchar(4000) = '
-	with SummaryData as
+	-- ProcessType (Cutting) dynamic query
+	CREATE TABLE #QuarryQuantity
 	(
-		select q.QuarryId, QuarryName, q.Colours, pt.ProductTypeName, MaterialCount = count(MaterialId)
-		from #Quarry q
-		left join Material m on q.QuarryId = m.QuarryId
-		left join ProductType pt on m.ProductTypeId = pt.ProductTypeId 
-		where MaterialDate between ''' + convert(varchar(50), @StartDate, 121) + ''' and ''' + convert(varchar(50), @EndDate, 121) + '''
-		group by pt.ProductTypeName, QuarryName, q.QuarryId, q.Colours
+	   QuarryId INT,
+	   QuarryName NVARCHAR(200),
+	   Colours NVARCHAR(2000),
+	);
+
+	SELECT @query = 'ALTER TABLE #QuarryQuantity ADD ' + @tempColumnsQuantity + ', TotalQuantity INT';
+	EXECUTE sp_executesql @query
+
+	SELECT @query = '
+	WITH SummaryQuantity AS
+	(
+		SELECT q.QuarryId, QuarryName, q.Colours, pt.ProductTypeName, MaterialQuantity = COUNT(MaterialId)
+		FROM #Quarry q
+		LEFT JOIN quarry.Material m ON q.QuarryId = m.QuarryId
+		LEFT JOIN quarry.ProductType pt ON m.ProductTypeId = pt.ProductTypeId 
+		WHERE MaterialDate BETWEEN ''' + CONVERT(VARCHAR(50), @StartDate, 121) + ''' AND ''' + CONVERT(VARCHAR(50), @EndDate, 121) + '''
+		AND m.ProcessTypeId = 1
+		GROUP BY pt.ProductTypeName, QuarryName, q.QuarryId, q.Colours
 	)
-	select QuarryId, QuarryName, Colours, ' + @columns + ', Total = ' + @totals + ' from SummaryData
-	pivot(sum(MaterialCount) for ProductTypeName IN (' + @columns + ')) as SummaryPivot
-	order by QuarryName';
+	INSERT INTO #QuarryQuantity
+	SELECT QuarryId, QuarryName, Colours, ' + @columnsQuantity + ', TotalQuantity = ' + @totalsQuantity + ' FROM SummaryQuantity
+	PIVOT(SUM(MaterialQuantity) FOR ProductTypeName IN (' + @columnsQuantity + ')) AS SummaryQuantityPivot'
 
-	execute sp_executesql @query
+	EXECUTE sp_executesql @query
 
-	drop table #Quarry
-	set nocount off
-end
-go
+	-- ProcessType (Cutting) dynamic query
+	CREATE TABLE #QuarryWeight
+	(
+	   QuarryId INT,
+	   QuarryName NVARCHAR(200),
+	   Colours NVARCHAR(2000),
+	);
+
+	SELECT @query = 'ALTER TABLE #QuarryWeight ADD ' + @tempColumnsWeight + ', TotalWeight DECIMAL';
+	EXECUTE sp_executesql @query
+
+	SELECT @query = '
+	WITH SummaryWeight AS
+	(
+		SELECT q.QuarryId, QuarryName, q.Colours, pt.ProductTypeName, MaterialWeight = SUM(m.Weight)
+		FROM #Quarry q
+		LEFT JOIN quarry.Material m ON q.QuarryId = m.QuarryId
+		LEFT JOIN quarry.ProductType pt ON m.ProductTypeId = pt.ProductTypeId 
+		WHERE MaterialDate BETWEEN ''' + CONVERT(VARCHAR(50), @StartDate, 121) + ''' AND ''' + CONVERT(VARCHAR(50), @EndDate, 121) + '''
+		AND m.ProcessTypeId = 2
+		GROUP BY pt.ProductTypeName, QuarryName, q.QuarryId, q.Colours
+	)
+	INSERT INTO #Quarryweight
+	SELECT QuarryId, QuarryName, Colours, ' + @columnsWeight + ', TotalWeight = ' + @totalsWeight + ' FROM SummaryWeight
+	PIVOT(SUM(MaterialWeight) FOR ProductTypeName IN (' + @columnsWeight + ')) AS SummaryWeightPivot'
+
+	EXECUTE sp_executesql @query
+
+
+	SELECT @query = '
+	SELECT QuarryId = COALESCE(qty.QuarryId, wt.QuarryId), QuarryName= COALESCE(qty.QuarryName, wt.QuarryName),
+			Colours = COALESCE(qty.Colours, wt.Colours), ' + @columnsQuantity + ', TotalQuantity, ' 
+			+ @columnsWeight + ', TotalWeight 
+			FROM #QuarryQuantity AS qty FULL JOIN #QuarryWeight AS wt ON qty.QuarryId = wt.QuarryId'
+
+	select * from #QuarryQuantity
+	select * from #QuarryWeight
+
+	EXECUTE sp_executesql @query
+
+
+	DROP TABLE #Quarry
+	DROP TABLE #QuarryQuantity
+	DROP TABLE #QuarryWeight
+	SET NOCOUNT OFF
+END
+GO
 
 

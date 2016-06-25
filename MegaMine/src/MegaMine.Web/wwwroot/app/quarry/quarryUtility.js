@@ -22,7 +22,7 @@ function quarryUtility($filter, quarryService, utility) {
         scope.model = model;
         var allProductTypes = angular.copy(quarryService.materialViewModel.productTypes);
 
-        quarryService.materialViewModel.productTypes = $filter('filter')(allProductTypes, { processType: model.processType });
+        quarryService.materialViewModel.productTypes = $filter('filter')(allProductTypes, { processTypeId: model.processTypeId });
         var productTypes = sortProductTypeByFormula(quarryService.materialViewModel.productTypes);
         angular.forEach(productTypes, function (item) {
             item.formulaJson = JSON.parse(item.formula);
@@ -75,16 +75,16 @@ function quarryUtility($filter, quarryService, utility) {
             }
             model.bypassWeightWatcher = false;
         });
-        scope.$watch('model.processType', function () {
+        scope.$watch('model.processTypeId', function () {
             //changing the product types
-            quarryService.materialViewModel.productTypes = $filter('filter')(allProductTypes, { processType: model.processType });
+            quarryService.materialViewModel.productTypes = $filter('filter')(allProductTypes, { processTypeId: model.processTypeId });
             if(model.materialId === 0)
                 model.productTypeId = undefined;
         });
     }
 
     function clearByProcessType(model) {
-        if (model.processType != 1) {
+        if (model.processTypeId != MegaMine.Quarry.ProcessType.Cutting) {
             model.blockNumber = undefined;
             model.length = "";
             model.width = "";
