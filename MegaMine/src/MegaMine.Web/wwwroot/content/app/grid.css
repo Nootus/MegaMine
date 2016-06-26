@@ -16,3 +16,8 @@
 .grid-button-icon {
     color:rgb(67, 116, 167);
 }
+
+.grid-text-right {
+    text-align: right;
+    padding-right: 25px;
+}

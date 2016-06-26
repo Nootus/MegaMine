@@ -106,7 +106,7 @@ BEGIN
 	   Colours NVARCHAR(2000),
 	);
 
-	SELECT @query = 'ALTER TABLE #QuarryWeight ADD ' + @tempColumnsWeight + ', TotalWeight DECIMAL';
+	SELECT @query = 'ALTER TABLE #QuarryWeight ADD ' + @tempColumnsWeight + ', TotalWeight DECIMAL(10, 3)';
 	EXECUTE sp_executesql @query
 
 	SELECT @query = '
@@ -131,13 +131,10 @@ BEGIN
 	SELECT QuarryId = COALESCE(qty.QuarryId, wt.QuarryId), QuarryName= COALESCE(qty.QuarryName, wt.QuarryName),
 			Colours = COALESCE(qty.Colours, wt.Colours), ' + @columnsQuantity + ', TotalQuantity, ' 
 			+ @columnsWeight + ', TotalWeight 
-			FROM #QuarryQuantity AS qty FULL JOIN #QuarryWeight AS wt ON qty.QuarryId = wt.QuarryId'
-
-	select * from #QuarryQuantity
-	select * from #QuarryWeight
+			FROM #QuarryQuantity AS qty FULL JOIN #QuarryWeight AS wt ON qty.QuarryId = wt.QuarryId
+			ORDER BY QuarryName'
 
 	EXECUTE sp_executesql @query
-
 
 	DROP TABLE #Quarry
 	DROP TABLE #QuarryQuantity

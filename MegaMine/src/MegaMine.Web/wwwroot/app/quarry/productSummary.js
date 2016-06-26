@@ -9,7 +9,7 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
                     { name: 'productTypeName', field: 'productTypeName', displayName: 'Product Type', type: 'string' },
                     { name: 'quarryName', field: 'quarryName', displayName: 'Quarry Name', type: 'string' },
                     { name: 'colourName', field: 'colourName', displayName: 'Colour', type: 'string' },
-                    { name: 'materialQuantityWeight', field: 'materialQuantityWeight', type: 'int', displayName: 'Quantity/Weight' },
+                    { name: 'materialQuantityWeight', field: 'materialQuantityWeight', type: 'int', displayName: 'Quantity/Weight', cellClass: 'grid-text-right' },
                     , template.getButtonColumnDefs('rowId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.grid.showSummaryDetails(row.entity, $event)' }])
         ]
     };
@@ -19,11 +19,11 @@ function productSummary($scope, quarryService, gridUtility, dialogService, const
                     { name: 'blockNumber', field: 'blockNumber', displayName: 'Block Number', type: 'string' },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour' },
-                    { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
-                    { name: 'width', field: 'width', type: 'number', displayName: 'Width' },
-                    { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
-                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
-                    { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
+                    { name: 'length', field: 'length', type: 'number', displayName: 'Length', cellClass: 'grid-text-right' },
+                    { name: 'width', field: 'width', type: 'number', displayName: 'Width', cellClass: 'grid-text-right' },
+                    { name: 'height', field: 'height', type: 'number', displayName: 'Height', cellClass: 'grid-text-right' },
+                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', cellClass: 'grid-text-right' },
+                    { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"', cellClass: 'grid-text-right' },
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' }
         ]
     };

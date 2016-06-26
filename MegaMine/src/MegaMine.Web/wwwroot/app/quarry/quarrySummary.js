@@ -16,10 +16,10 @@ function quarrySummary(quarryService, quarryUtility, dialogService, constants, t
                     { name: 'blockNumber', field: 'blockNumber', displayName: 'Block Number', type: 'string' },
                     { name: 'productType', field: 'productType', displayName: 'Product Type', type: 'string' },
                     { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour' },
-                    { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
-                    { name: 'width', field: 'width', type: 'number', displayName: 'Width' },
-                    { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
-                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
+                    { name: 'length', field: 'length', type: 'number', displayName: 'Length', cellClass: 'grid-text-right' },
+                    { name: 'width', field: 'width', type: 'number', displayName: 'Width', cellClass: 'grid-text-right' },
+                    { name: 'height', field: 'height', type: 'number', displayName: 'Height', cellClass: 'grid-text-right' },
+                    { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight', cellClass: 'grid-text-right' },
                     { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
                     { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' }
         ]
@@ -44,9 +44,16 @@ function quarrySummary(quarryService, quarryUtility, dialogService, constants, t
     function init() {
         var productTypes = quarryUtility.sortProductTypeByFormula(quarryService.productTypeList);
         angular.forEach(productTypes, function (item) {
-            vm.grid.options.columnDefs.push({ name: item.productTypeName, field: item.productTypeName, type: 'number', displayName: item.productTypeName });
+            if(item.processTypeId == MegaMine.Quarry.ProcessType.Cutting)
+                vm.grid.options.columnDefs.push({ name: item.productTypeName, field: item.productTypeName, type: 'number', displayName: item.productTypeName, cellClass: 'grid-text-right' });
         });
-        vm.grid.options.columnDefs.push({ name: 'Total', field: 'Total', type: 'number', displayName: 'Total' });
+        vm.grid.options.columnDefs.push({ name: 'TotalQuantity', field: 'TotalQuantity', type: 'number', displayName: 'Total Quantity', cellClass: 'grid-text-right' });
+
+        angular.forEach(productTypes, function (item) {
+            if (item.processTypeId == MegaMine.Quarry.ProcessType.Crushing)
+                vm.grid.options.columnDefs.push({ name: item.productTypeName, field: item.productTypeName, type: 'number', displayName: item.productTypeName, cellClass: 'grid-text-right' });
+        });
+        vm.grid.options.columnDefs.push({ name: 'TotalWeight', field: 'TotalWeight', type: 'number', displayName: 'Total Weight', cellClass: 'grid-text-right' });
         vm.grid.options.columnDefs.push(template.getButtonColumnDefs('QuarryId', [{ buttonType: constants.enum.buttonType.view, ngClick: 'grid.appScope.grid.showQuarrySummaryDetails(row.entity, $event)' }]));
     }
 
