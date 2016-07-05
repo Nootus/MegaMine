@@ -32,6 +32,7 @@ var MegaMine;
                 };
                 self.dashboard = {
                     header: 'Yards',
+                    context: self,
                     widgets: {
                         allWidgets: self.quarryService.yards.widgets.allWidgets,
                         pageWidgets: self.quarryService.yards.widgets.pageWidgets,
@@ -70,13 +71,13 @@ var MegaMine;
                     }
                 };
             };
-            Yard.prototype.addYard = function (ev) {
-                var self = this;
+            Yard.prototype.addYard = function (ev, context) {
+                var self = context;
                 var model = { yardId: 0 };
-                self.viewDialog(model, self.constants.enum.dialogMode.save, ev);
+                self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
             };
-            Yard.prototype.viewDialog = function (model, dialogMode, ev) {
-                var self = this;
+            Yard.prototype.viewDialog = function (model, dialogMode, ev, context) {
+                var self = context;
                 self.dialogService.show({
                     templateUrl: 'yard_dialog',
                     targetEvent: ev,

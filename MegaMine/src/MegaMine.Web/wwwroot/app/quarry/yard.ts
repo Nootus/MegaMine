@@ -25,6 +25,7 @@
 
             self.dashboard = {
                 header: 'Yards',
+                context: self,
                 widgets: {
                     allWidgets: self.quarryService.yards.widgets.allWidgets,
                     pageWidgets: self.quarryService.yards.widgets.pageWidgets,
@@ -65,22 +66,22 @@
             
         }
 
-    public addYard(ev): void {
-        let self: Yard = this;
+        public addYard(ev, context: Yard): void {
+            let self: Yard = context;
 
-        let model = { yardId: 0 }
-        self.viewDialog(model, self.constants.enum.dialogMode.save, ev);
-    }
+            let model = { yardId: 0 }
+            self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
+        }
 
-    public viewDialog(model, dialogMode, ev): void {
-        let self: Yard = this;
+        public viewDialog(model, dialogMode, ev, context: Yard): void {
+            let self: Yard = context;
 
-        self.dialogService.show({
-            templateUrl: 'yard_dialog',
-            targetEvent: ev,
-            data: { model: model },
-            dialogMode: dialogMode
-        })
+            self.dialogService.show({
+                templateUrl: 'yard_dialog',
+                targetEvent: ev,
+                data: { model: model },
+                dialogMode: dialogMode
+            })
             .then(function (dialogModel) {
                 if (dialogMode === self.constants.enum.buttonType.delete) {
                     self.quarryService.deleteYard(dialogModel.yardId).then(function () {
