@@ -3,7 +3,7 @@
     "use strict";
     @controller("megamine", "MegaMine.Quarry.Texture")
     @inject("quarryService", "utility", "constants", "dialogService", "template")
-    class Texture {
+    export class Texture {
 
         private grid;
 

@@ -39,7 +39,7 @@
                     title: "Texture",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/texture.html",
-                    controller: "MegaMine.Quarry.Texture",
+                    controller: MegaMine.Quarry.Texture,
                     controllerAs: "$ctrl",
                     resolve: {
                         resolveModel: ["quarryService", function (quarryService) {
@@ -68,7 +68,7 @@
                     title: "Yard",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/yard.html",
-                    controller: "yard",
+                    controller: MegaMine.Quarry.Yard,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["quarryService", function (quarryService) {

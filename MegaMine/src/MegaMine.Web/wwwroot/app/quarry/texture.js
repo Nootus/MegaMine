@@ -73,6 +73,7 @@ var MegaMine;
             ], Texture);
             return Texture;
         }());
+        Quarry.Texture = Texture;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
 //# sourceMappingURL=texture.js.map
