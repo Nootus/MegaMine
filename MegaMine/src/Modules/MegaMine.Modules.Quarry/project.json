@@ -7,8 +7,8 @@
     "net461": { }
   },
   "dependencies": {
-    "Microsoft.AspNetCore.Mvc": "1.0.0-rc2-final",
-    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0-rc2-final",
+    "Microsoft.AspNetCore.Mvc": "1.0.0",
+    "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
     "AutoMapper": "4.0.4",
     "MegaMine.Core": "1.0.0-*",
     "MegaMine.Services.Security": "1.0.0-*",
