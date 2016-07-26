@@ -2,7 +2,7 @@ var MegaMine;
 (function (MegaMine) {
     var Annotations;
     (function (Annotations) {
-        Annotations.MODULE_NANME = 'microeforms';
+        Annotations.MODULE_NANME = 'megamine';
         var directiveProperties = [
             'compile',
             'controller',
@@ -77,19 +77,35 @@ var MegaMine;
         Annotations.controller = controller;
         function directive(moduleName, directiveName) {
             return function (target) {
-                var config;
                 moduleName = moduleName || Annotations.MODULE_NANME;
                 directiveName = directiveName || target.name;
-                var ctrlName = angular.isString(target.controller) ? target.controller.split(' ').shift() : null;
-                if (ctrlName) {
-                    controller(moduleName, ctrlName)(target);
+                function factory() {
+                    var args = [];
+                    for (var _i = 0; _i < arguments.length; _i++) {
+                        args[_i - 0] = arguments[_i];
+                    }
+                    //return attachInjects(target, ...args);
+                    return new (target.bind.apply(target, [void 0].concat(args)))();
                 }
-                config = directiveProperties.reduce(function (config, property) {
-                    return angular.isDefined(target[property]) ? angular.extend(config, (_a = {}, _a[property] = target[property], _a)) :
-                        config;
-                    var _a;
-                }, { controller: target, scope: Boolean(target.templateUrl) });
-                angular.module(moduleName).directive(directiveName, function () { return (config); });
+                if (target.$inject && target.$inject.length > 0) {
+                    factory.$inject = target.$inject.slice(0);
+                }
+                angular.module(moduleName).directive(directiveName, factory);
+                //let config: angular.IDirective;
+                //moduleName = moduleName || MODULE_NANME;
+                //directiveName = directiveName || target.name;
+                //const ctrlName: string = angular.isString(target.controller) ? target.controller.split(' ').shift() : null;
+                //if (ctrlName) {
+                //    controller(moduleName, ctrlName)(target);
+                //}
+                //config = directiveProperties.reduce((
+                //    config: angular.IDirective,
+                //    property: string
+                //) => {
+                //    return angular.isDefined(target[property]) ? angular.extend(config, { [property]: target[property] }) :
+                //        config;
+                //}, { controller: target, scope: Boolean(target.templateUrl) });
+                //angular.module(moduleName).directive(directiveName, () => (config));
             };
         }
         Annotations.directive = directive;
@@ -113,5 +129,15 @@ var MegaMine;
         }
         Annotations.classFactory = classFactory;
     })(Annotations = MegaMine.Annotations || (MegaMine.Annotations = {}));
+})(MegaMine || (MegaMine = {}));
+var MegaMine;
+(function (MegaMine) {
+    MegaMine.inject = MegaMine.Annotations.inject;
+    MegaMine.config = MegaMine.Annotations.config;
+    MegaMine.run = MegaMine.Annotations.run;
+    MegaMine.service = MegaMine.Annotations.service;
+    MegaMine.controller = MegaMine.Annotations.controller;
+    MegaMine.directive = MegaMine.Annotations.directive;
+    MegaMine.classFactory = MegaMine.Annotations.classFactory;
 })(MegaMine || (MegaMine = {}));
 //# sourceMappingURL=annotations.js.map

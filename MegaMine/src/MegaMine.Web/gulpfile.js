@@ -1,15 +1,15 @@
-/// <binding ProjectOpened='watch:ts' />
 "use strict";
 
 var gulp = require("gulp"),
-        rimraf = require("rimraf"),
-        concat = require("gulp-concat"),
-        cssmin = require("gulp-cssmin"),
-        uglify = require("gulp-uglify"),
-        gutil = require('gulp-util'),
-        inject = require('gulp-inject'),
-        sourcemaps = require('gulp-sourcemaps'),
-        tsc = require('gulp-typescript');
+    concat = require("gulp-concat"),
+    cssmin = require("gulp-cssmin"),
+    uglify = require("gulp-uglify"),
+    inject = require("gulp-inject"),
+    watch = require("gulp-watch"),
+    typescript = require("gulp-tsc"),
+    del = require("del"),
+    file = require('gulp-file'),
+    stripDebug = require("gulp-strip-debug");
 
 var webroot = "./wwwroot/";
 var paths = {
@@ -53,11 +53,15 @@ var paths = {
     destCss: webroot + "css/app.min.css",
 };
 
-gulp.task("clean", function (cb) {
-    rimraf(paths.destAppJs, function (err) { });
-    rimraf(paths.destScriptJs, function (err) { });
-    rimraf(paths.destCss, function (err) { });
-    rimraf(webroot + "css/**/*", function (err) { });
+gulp.task('clean-js', function () {
+    //del([webroot + "app/**/*.js*"]);
+});
+
+gulp.task("clean", ["clean-js"], function (cb) {
+    del(paths.destAppJs);
+    del(paths.destScriptJs);
+    del(paths.destCss);
+    del(webroot + "css/**/*", function (err) { });
 });
 
 gulp.task("copy", function (cb) {
@@ -84,18 +88,29 @@ gulp.task("min", function () {
 
 gulp.task("all", ["clean", "min", "copy"]);
 
-gulp.task('injectJS', function () {
-    var target = gulp.src('./views/home/index.cshtml');
+gulp.task("injectJsFileCreate", function () {
+    var str = '<!-- inject:js -->\n'
+        + '<!-- endinject -->';
+
+    return file('AppJsReferences.cshtml', str, { src: true })
+    .pipe(gulp.dest('./views/home'));
+});
+
+gulp.task('injectJS', ["injectJsFileCreate"], function () {
+    var target = gulp.src('./views/home/AppJsReferences.cshtml');
     var sources = gulp.src(paths.appJs, { read: false });
     return target.pipe(inject(sources, {
         transform: function (filepath, file, i, length) {
-            return '<script src="' + filepath.replace('/wwwroot/','') + '"></script>';
+            return '<script src="' + filepath.replace('/wwwroot/', '~/') + '"></script>';
         }
     }))
-      .pipe(gulp.dest('./views/home'));
+    .pipe(gulp.dest('./views/home'));
 });
 
-gulp.task("watch:ts", function () {
-    gulp.watch(webroot + "app/**/*.js", ["injectJS"]);
+gulp.task('default', ["injectJsFileCreate"], function () {
+    watch(paths.appJs, function (file) {
+        if (file.event === "add" || file.event === 'unlink') {
+            gulp.start("injectJS");
+        }
+    });
 });
-

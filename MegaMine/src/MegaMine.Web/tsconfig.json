@@ -5,7 +5,7 @@
     "removeComments": false,
     "sourceMap": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "emitDecoratorMetadata": false,
     "target": "es5"
   },
   "include": [
