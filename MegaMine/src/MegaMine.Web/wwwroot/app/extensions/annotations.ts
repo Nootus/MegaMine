@@ -1,23 +1,25 @@
 ﻿module MegaMine.Annotations {
 
-    export const MODULE_NANME = 'megamine';
+    "use strict";
 
-    const directiveProperties: string[] = [
-        'compile',
-        'controller',
-        'controllerAs',
-        'bindToController',
-        'link',
-        'priority',
-        'replace',
-        'require',
-        'restrict',
-        'scope',
-        'template',
-        'templateUrl',
-        'terminal',
-        'transclude'
-    ];
+    export const MODULE_NANME = "megamine";
+
+    //const directiveProperties: string[] = [
+    //    "compile",
+    //    "controller",
+    //    "controllerAs",
+    //    "bindToController",
+    //    "link",
+    //    "priority",
+    //    "replace",
+    //    "require",
+    //    "restrict",
+    //    "scope",
+    //    "template",
+    //    "templateUrl",
+    //    "terminal",
+    //    "transclude"
+    //];
 
     /* tslint:disable:no-any */
     export interface IClassAnnotationDecorator {

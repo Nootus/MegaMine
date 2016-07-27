@@ -2,23 +2,8 @@ var MegaMine;
 (function (MegaMine) {
     var Annotations;
     (function (Annotations) {
-        Annotations.MODULE_NANME = 'megamine';
-        var directiveProperties = [
-            'compile',
-            'controller',
-            'controllerAs',
-            'bindToController',
-            'link',
-            'priority',
-            'replace',
-            'require',
-            'restrict',
-            'scope',
-            'template',
-            'templateUrl',
-            'terminal',
-            'transclude'
-        ];
+        "use strict";
+        Annotations.MODULE_NANME = "megamine";
         function instantiate(moduleName, name, mode) {
             return function (target) {
                 moduleName = moduleName || Annotations.MODULE_NANME;

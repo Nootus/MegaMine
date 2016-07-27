@@ -53,6 +53,7 @@
 /// <reference path="app/routes/fleetRoute.js" />
 /// <reference path="app/shared/apiInterceptor.js" />
 /// <reference path="app/shared/constants.js" />
+/// <reference path="app/shared/dialogmode.js" />
 /// <reference path="app/shared/dialogService.js" />
 /// <reference path="app/shared/dialogutility.js" />
 /// <reference path="app/shared/directives/ntAccordion.js" />
