@@ -3,5 +3,6 @@
         options: IDashboardRecordOptions<TContext, TDataModel>;
         list: IDashboardRecordList;
         grid: IDashboardRecordGrid;
+        buttons: IDashboardRecordButtons<TContext>;
     }
 }

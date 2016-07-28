@@ -1,15 +1,14 @@
 ﻿module MegaMine.Quarry {
-    "use strict";
 
     @controller("megamine", "MegaMine.Quarry.Quarry")
     @inject("quarryService", "utility", "constants", "dialogService", "template")
     class Quarry {
 
         private gridOptions: uiGrid.IGridOptions;
-        private dashboard: any;
+        private dashboard: Widget.Models.IDashboardModel<Quarry, Models.IQuarryModel>;
 
         constructor(private quarryService, private utility, private constants, private dialogService, private template) {
-            let self = this;
+            let self: Quarry = this;
 
             self.gridOptions = {
                 columnDefs: [
@@ -59,15 +58,15 @@
         }
 
 
-        private addQuarry(ev, context): void  {
-            let self = context;
+        private addQuarry(ev: ng.IAngularEvent, context: Quarry): void {
+            let self: Quarry = context;
 
-            var model = { quarryId: 0, colourIds: [] }
+            var model: Models.IQuarryModel = <Models.IQuarryModel>{ quarryId: 0, colourIds: [] }
             self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
         }
 
-        public viewDialog(model, dialogMode, ev, context): void {
-            var self = context;
+        public viewDialog(model: Models.IQuarryModel, dialogMode: Shared.DialogMode, ev: ng.IAngularEvent, context: Quarry): void {
+            let self: Quarry = context;
 
             self.dialogService.show({
                 templateUrl: "quarry_dialog",
@@ -75,15 +74,15 @@
                 data: { model: model, service: self.quarryService },
                 dialogMode: dialogMode
             })
-                .then(function (dialogModel) {
+                .then(function (dialogModel: Models.IQuarryModel): void {
                     if (dialogMode === self.constants.enum.buttonType.delete) {
-                        self.quarryService.deleteQuarry(dialogModel.quarryId).then(function () {
+                        self.quarryService.deleteQuarry(dialogModel.quarryId).then(function (): void {
                             self.quarryService.getQuarries();
                             self.dialogService.hide();
                         });
                     }
                     else {
-                        self.quarryService.saveQuarry(dialogModel).then(function () {
+                        self.quarryService.saveQuarry(dialogModel).then(function (): void {
                             //update the grid values
                             if (dialogModel.quarryId === 0) {
                                 self.quarryService.getQuarries();
