@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntDialog', ntDialog)
-ntDialog.$inject = ['$mdDialog', 'constants'];
+ntDialog.$inject = ['$mdDialog', "MegaMine.Shared.Constants"];
 
 function ntDialog($mdDialog, constants) {
     return {

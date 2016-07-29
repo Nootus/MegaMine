@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('template', template);
-template.$inject = ['constants'];
+template.$inject = ["MegaMine.Shared.Constants"];
 
 function template(constants) {
     var vm = {

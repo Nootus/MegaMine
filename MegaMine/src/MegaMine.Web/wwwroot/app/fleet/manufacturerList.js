@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('manufacturerList', manufacturerList)
-manufacturerList.$inject = ['$scope', 'vehicleService', 'manufacturerDialog', 'gridUtility', 'navigation', 'constants', 'template'];
+manufacturerList.$inject = ['$scope', 'vehicleService', 'manufacturerDialog', 'gridUtility', 'navigation', "MegaMine.Shared.Constants", 'template'];
 
 function manufacturerList($scope, vehicleService, manufacturerDialog, gridUtility, navigation, constants, template) {
 

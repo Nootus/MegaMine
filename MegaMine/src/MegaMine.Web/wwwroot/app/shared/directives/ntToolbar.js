@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntToolbar', ntToolbar)
-ntToolbar.$inject = ['utility'];
+ntToolbar.$inject = ["MegaMine.Shared.Utility"];
 
 function ntToolbar(utility) {
     return {

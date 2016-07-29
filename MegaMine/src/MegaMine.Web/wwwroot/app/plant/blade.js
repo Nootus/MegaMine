@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('blade', blade)
-blade.$inject = ['$scope', 'plantService', 'gridUtility', 'constants', 'dialogService', 'template'];
+blade.$inject = ['$scope', 'plantService', 'gridUtility', "MegaMine.Shared.Constants", 'dialogService', 'template'];
 
 function blade($scope, plantService, gridUtility, constants, dialogService, template) {
 

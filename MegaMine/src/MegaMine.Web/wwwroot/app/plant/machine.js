@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('machine', machine)
-machine.$inject = ['plantService', 'utility', 'constants', 'dialogService'];
+machine.$inject = ['plantService', "MegaMine.Shared.Utility", "MegaMine.Shared.Constants", 'dialogService'];
 
 function machine(plantService, utility, constants, dialogService) {
 

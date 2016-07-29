@@ -8,6 +8,7 @@ var MegaMine;
 (function (MegaMine) {
     var Quarry;
     (function (Quarry_1) {
+        "use strict";
         var Quarry = (function () {
             function Quarry(quarryService, utility, constants, dialogService, template) {
                 this.quarryService = quarryService;
@@ -83,7 +84,7 @@ var MegaMine;
                     }
                     else {
                         self.quarryService.saveQuarry(dialogModel).then(function () {
-                            //update the grid values
+                            // update the grid values
                             if (dialogModel.quarryId === 0) {
                                 self.quarryService.getQuarries();
                             }
@@ -100,10 +101,10 @@ var MegaMine;
             };
             Quarry = __decorate([
                 MegaMine.controller("megamine", "MegaMine.Quarry.Quarry"),
-                MegaMine.inject("quarryService", "utility", "constants", "dialogService", "template")
+                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Constants", "dialogService", "template")
             ], Quarry);
             return Quarry;
         }());
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=quarry.js.map
+//# sourceMappingURL=Quarry.js.map

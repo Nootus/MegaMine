@@ -2,7 +2,7 @@
 
 angular.module('megamine').factory('quarryService', quarryService);
 
-quarryService.$inject = ['$http', 'utility'];
+quarryService.$inject = ['$http', "MegaMine.Shared.Utility"];
 
 function quarryService($http, utility) {
 

@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('gridUtility', gridUtility);
-gridUtility.$inject = ['$timeout', 'toastr', 'utility', 'uiGridConstants'];
+gridUtility.$inject = ['$timeout', 'toastr', "MegaMine.Shared.Utility", 'uiGridConstants'];
 
 function gridUtility($timeout, toastr, utility, uiGridConstants) {
 

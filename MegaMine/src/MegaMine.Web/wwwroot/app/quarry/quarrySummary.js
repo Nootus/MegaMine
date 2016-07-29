@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('quarrySummary', quarrySummary)
-quarrySummary.$inject = ['quarryService', 'quarryUtility', 'dialogService', 'constants', 'template'];
+quarrySummary.$inject = ['quarryService', 'quarryUtility', 'dialogService', "MegaMine.Shared.Constants", 'template'];
 
 function quarrySummary(quarryService, quarryUtility, dialogService, constants, template) {
 

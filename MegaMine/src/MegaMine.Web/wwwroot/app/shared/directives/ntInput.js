@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntInput', ntInput)
-ntInput.$inject = ['moment', 'constants'];
+ntInput.$inject = ['moment', "MegaMine.Shared.Constants"];
 
 function ntInput(moment, constants) {
     return {

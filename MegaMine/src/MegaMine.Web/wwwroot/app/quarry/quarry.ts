@@ -1,7 +1,7 @@
 ﻿module MegaMine.Quarry {
-
+    "use strict";
     @controller("megamine", "MegaMine.Quarry.Quarry")
-    @inject("quarryService", "utility", "constants", "dialogService", "template")
+    @inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Constants", "dialogService", "template")
     class Quarry {
 
         private gridOptions: uiGrid.IGridOptions;
@@ -61,7 +61,7 @@
         private addQuarry(ev: ng.IAngularEvent, context: Quarry): void {
             let self: Quarry = context;
 
-            var model: Models.IQuarryModel = <Models.IQuarryModel>{ quarryId: 0, colourIds: [] }
+            var model: Models.IQuarryModel = <Models.IQuarryModel>{ quarryId: 0, colourIds: [] };
             self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
         }
 
@@ -80,17 +80,15 @@
                             self.quarryService.getQuarries();
                             self.dialogService.hide();
                         });
-                    }
-                    else {
+                    } else {
                         self.quarryService.saveQuarry(dialogModel).then(function (): void {
-                            //update the grid values
+                            // update the grid values
                             if (dialogModel.quarryId === 0) {
                                 self.quarryService.getQuarries();
-                            }
-                            else {
-                                model.quarryName = dialogModel.quarryName
-                                model.location = dialogModel.location
-                                angular.extend(model.colourIds, dialogModel.colourIds)
+                            } else {
+                                model.quarryName = dialogModel.quarryName;
+                                model.location = dialogModel.location;
+                                angular.extend(model.colourIds, dialogModel.colourIds);
                                 model.colours = self.utility.getListItem(self.quarryService.colourListItems, dialogModel.colourIds[0]);
                             }
 

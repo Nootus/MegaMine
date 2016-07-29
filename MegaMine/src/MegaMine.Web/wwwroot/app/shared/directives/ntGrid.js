@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntGrid', ntGrid)
-ntGrid.$inject = ['$timeout', 'uiGridConstants', 'utility'];
+ntGrid.$inject = ['$timeout', 'uiGridConstants', "MegaMine.Shared.Utility"];
 
 function ntGrid($timeout, uiGridConstants, utility) {
     return {

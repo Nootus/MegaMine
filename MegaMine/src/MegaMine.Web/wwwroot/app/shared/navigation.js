@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').factory('navigation', navigation)
-navigation.$inject = ['$rootScope', '$state', '$window', '$location', '$http', 'profile', 'utility', 'constants'];
+navigation.$inject = ['$rootScope', '$state', '$window', '$location', '$http', "MegaMine.Shared.Profile", "MegaMine.Shared.Utility", "MegaMine.Shared.Constants"];
 
 function navigation($rootScope, $state, $window, $location, $http, profile, utility, constants) {
 

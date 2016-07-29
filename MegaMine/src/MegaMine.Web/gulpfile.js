@@ -1,3 +1,4 @@
+/// <binding AfterBuild='injectJS' ProjectOpened='default' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -9,7 +10,7 @@ var gulp = require("gulp"),
     typescript = require("gulp-tsc"),
     del = require("del"),
     file = require('gulp-file'),
-    stripDebug = require("gulp-strip-debug");
+    tslint = require("gulp-tslint");
 
 var webroot = "./wwwroot/";
 var paths = {
@@ -50,7 +51,7 @@ var paths = {
 
     destAppJs: webroot + "js/app.min.js",
     destScriptJs: webroot + "js/scripts.min.js",
-    destCss: webroot + "css/app.min.css",
+    destCss: webroot + "css/app.min.css"
 };
 
 gulp.task('clean-js', function () {
@@ -69,7 +70,7 @@ gulp.task("copy", function (cb) {
        .pipe(gulp.dest(webroot + "css"));
     gulp.src([webroot + "content/ui-grid/**/*", "!" + webroot + "content/ui-grid/**/*.css"], { base: webroot + "content/ui-grid" })
        .pipe(gulp.dest(webroot + "css"));
-})
+});
 
 gulp.task("min", function () {
     gulp.src(paths.appJs, { base: "." })
@@ -114,3 +115,16 @@ gulp.task('default', ["injectJsFileCreate"], function () {
         }
     });
 });
+
+gulp.task("tslint", function () {
+    gulp.src(webroot + "/app/**/**.ts")
+        .pipe(tslint({
+            formatter: "json"
+        }))
+        .pipe(tslint.report({
+            emitError: false,
+            reportLimit: 0,
+            summarizeFailureOutput: true
+        }));
+});
+

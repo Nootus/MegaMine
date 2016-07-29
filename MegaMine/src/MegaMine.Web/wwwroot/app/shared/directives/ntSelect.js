@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntSelect', ntSelect)
-ntSelect.$inject = ['$compile', '$timeout', 'constants'];
+ntSelect.$inject = ['$compile', '$timeout', "MegaMine.Shared.Constants"];
 
 function ntSelect($compile, $timeout, constants) {
     return {

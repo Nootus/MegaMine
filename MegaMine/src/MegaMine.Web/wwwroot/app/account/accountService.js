@@ -2,7 +2,7 @@
 
 angular.module('megamine').factory('accountService', accountService);
 
-accountService.$inject = ['$http', 'profile'];
+accountService.$inject = ['$http', "MegaMine.Shared.Profile"];
 
 function accountService($http, profile) {
     var model = {

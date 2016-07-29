@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('dialogService', dialogService);
-dialogService.$inject = ['$timeout', '$q', '$mdDialog', 'utility'];
+dialogService.$inject = ['$timeout', '$q', '$mdDialog', "MegaMine.Shared.Utility"];
 
 function dialogService($timeout, $q, $mdDialog, utility) {
     var vm = {

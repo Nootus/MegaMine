@@ -1,7 +1,7 @@
 ﻿'use strict';
 
 angular.module('megamine').factory('apiInterceptor', apiInterceptor);
-apiInterceptor.$inject = ['$window', '$q', 'utility', 'message'];
+apiInterceptor.$inject = ['$window', '$q', "MegaMine.Shared.Utility", 'message'];
 
 function apiInterceptor($window, $q, utility, message) {
 

@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntWidget', ntWidget)
-ntWidget.$inject = ['$timeout', 'utility'];
+ntWidget.$inject = ['$timeout', "MegaMine.Shared.Utility"];
 
 function ntWidget($timeout, utility) {
     return {

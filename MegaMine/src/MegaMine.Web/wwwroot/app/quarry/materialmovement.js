@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('materialMovement', materialMovement)
-materialMovement.$inject = ['$scope', 'quarryService', 'gridUtility', 'dialogUtility', 'constants', 'message'];
+materialMovement.$inject = ['$scope', 'quarryService', 'gridUtility', 'dialogUtility', "MegaMine.Shared.Constants", 'message'];
 
 function materialMovement($scope, quarryService, gridUtility, dialogUtility, constants, message) {
 

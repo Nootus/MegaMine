@@ -2,7 +2,7 @@
 
 angular.module('megamine').factory('plantService', plantService);
 
-plantService.$inject = ['$http', 'utility'];
+plantService.$inject = ['$http', "MegaMine.Shared.Utility"];
 
 function plantService($http, utility) {
 

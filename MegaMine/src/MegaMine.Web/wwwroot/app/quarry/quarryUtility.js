@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('quarryUtility', quarryUtility);
-quarryUtility.$inject = ['$filter', 'quarryService', 'utility'];
+quarryUtility.$inject = ['$filter', 'quarryService', "MegaMine.Shared.Utility"];
 
 function quarryUtility($filter, quarryService, utility) {
 

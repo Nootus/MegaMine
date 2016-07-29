@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntButton', ntButton)
-ntButton.$inject = ['profile'];
+ntButton.$inject = ["MegaMine.Shared.Profile"];
 
 function ntButton(profile) {
     return {
