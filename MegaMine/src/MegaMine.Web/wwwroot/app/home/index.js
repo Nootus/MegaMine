@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('index', index)
-index.$inject = ['$scope', '$interval', '$timeout', "MegaMine.Shared.Profile", 'navigation', 'changePasswordDialog'];
+index.$inject = ['$scope', '$interval', '$timeout', "MegaMine.Shared.Profile", "MegaMine.Shared.Navigation", 'changePasswordDialog'];
 
 function index($scope, $interval, $timeout, profile, navigation, changePasswordDialog) {
 

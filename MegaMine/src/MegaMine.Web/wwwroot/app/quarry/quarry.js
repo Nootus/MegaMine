@@ -10,12 +10,10 @@ var MegaMine;
     (function (Quarry_1) {
         "use strict";
         var Quarry = (function () {
-            function Quarry(quarryService, utility, constants, dialogService, template) {
+            function Quarry(quarryService, utility, dialogService) {
                 this.quarryService = quarryService;
                 this.utility = utility;
-                this.constants = constants;
                 this.dialogService = dialogService;
-                this.template = template;
                 var self = this;
                 self.gridOptions = {
                     columnDefs: [
@@ -65,7 +63,7 @@ var MegaMine;
             Quarry.prototype.addQuarry = function (ev, context) {
                 var self = context;
                 var model = { quarryId: 0, colourIds: [] };
-                self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
+                self.viewDialog(model, 1 /* save */, ev, context);
             };
             Quarry.prototype.viewDialog = function (model, dialogMode, ev, context) {
                 var self = context;
@@ -76,7 +74,7 @@ var MegaMine;
                     dialogMode: dialogMode
                 })
                     .then(function (dialogModel) {
-                    if (dialogMode === self.constants.enum.buttonType.delete) {
+                    if (dialogMode === 2 /* delete */) {
                         self.quarryService.deleteQuarry(dialogModel.quarryId).then(function () {
                             self.quarryService.getQuarries();
                             self.dialogService.hide();
@@ -101,7 +99,7 @@ var MegaMine;
             };
             Quarry = __decorate([
                 MegaMine.controller("megamine", "MegaMine.Quarry.Quarry"),
-                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Constants", "dialogService", "template")
+                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "dialogService")
             ], Quarry);
             return Quarry;
         }());

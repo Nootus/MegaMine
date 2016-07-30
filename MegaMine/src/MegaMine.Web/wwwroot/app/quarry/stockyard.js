@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('stockyard', stockyard)
-stockyard.$inject = ['$scope', 'quarryService', 'gridUtility', 'quarryUtility', "MegaMine.Shared.Constants", 'dialogService', 'template', 'message'];
+stockyard.$inject = ['$scope', 'quarryService', 'gridUtility', 'quarryUtility', "MegaMine.Shared.Constants", 'dialogService', "MegaMine.Shared.Template", "MegaMine.Shared.Message"];
 
 function stockyard($scope, quarryService, gridUtility, quarryUtility, constants, dialogService, template, message) {
 

@@ -10,10 +10,9 @@ var MegaMine;
     (function (Quarry) {
         "use strict";
         var Texture = (function () {
-            function Texture(quarryService, utility, constants, dialogService, template) {
+            function Texture(quarryService, utility, dialogService, template) {
                 this.quarryService = quarryService;
                 this.utility = utility;
-                this.constants = constants;
                 this.dialogService = dialogService;
                 this.template = template;
                 var self = this;
@@ -32,7 +31,7 @@ var MegaMine;
             Texture.prototype.addTexture = function (ev, context) {
                 var self = context;
                 var model = { textureId: 0 };
-                self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
+                self.viewDialog(model, 1 /* save */, ev, context);
             };
             Texture.prototype.viewDialog = function (model, dialogMode, ev, context) {
                 var self = context;
@@ -43,7 +42,7 @@ var MegaMine;
                     dialogMode: dialogMode
                 })
                     .then(function (dialogModel) {
-                    if (dialogMode === self.constants.enum.buttonType.delete) {
+                    if (dialogMode === 2 /* delete */) {
                         self.quarryService.deleteTexture(dialogModel.textureId).then(function () {
                             self.quarryService.getTextures();
                             self.dialogService.hide();
@@ -65,11 +64,11 @@ var MegaMine;
             };
             Texture = __decorate([
                 MegaMine.controller("megamine", "MegaMine.Quarry.Texture"),
-                MegaMine.inject("quarryService", "utility", "constants", "dialogService", "template")
+                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "dialogService", "MegaMine.Shared.Template")
             ], Texture);
             return Texture;
         }());
         Quarry.Texture = Texture;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=texture.js.map
+//# sourceMappingURL=Texture.js.map

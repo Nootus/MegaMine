@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntDashobard', ntDashobard)
-ntDashobard.$inject = ['$timeout', '$state', '$stateParams', 'chart', 'dialogService', "MegaMine.Shared.Utility", 'template', "MegaMine.Shared.Constants"];
+ntDashobard.$inject = ['$timeout', '$state', '$stateParams', 'chart', 'dialogService', "MegaMine.Shared.Utility", "MegaMine.Shared.Template", "MegaMine.Shared.Constants"];
 
 function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utility, template, constants) {
     return {

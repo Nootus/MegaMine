@@ -1,7 +1,7 @@
 ﻿'use strict'
 
 angular.module('megamine').factory('session', session);
-session.$inject = [ '$window', 'toastr', 'navigation', "MegaMine.Shared.Profile", "MegaMine.Shared.Constants"];
+session.$inject = [ '$window', 'toastr', "MegaMine.Shared.Navigation", "MegaMine.Shared.Profile", "MegaMine.Shared.Constants"];
 
 function session($window, toastr, navigation, profile, constants) {
 

@@ -1,73 +1,75 @@
-﻿'use strict'
-
-angular.module('megamine').factory('template', template);
-template.$inject = ["MegaMine.Shared.Constants"];
-
-function template(constants) {
-    var vm = {
-        getButtonDefaultColumnDefs: getButtonDefaultColumnDefs,
-        getButtonColumnDefs: getButtonColumnDefs
-    };
-
-    init();
-    return vm;
-
-    function init() {
-    }
-
-    function getButtonDefaultColumnDefs(field, editClaim, deleteClaim, hide) {
-        
-        var buttons = [{ buttonType: constants.enum.buttonType.view }, { buttonType: constants.enum.buttonType.edit, claim: editClaim }];
-        if (deleteClaim !== undefined) {
-            buttons.push({ buttonType: constants.enum.buttonType.delete, claim: deleteClaim });
-        }
-            
-        return getButtonColumnDefs(field, buttons, hide);
-    }
-
-    function getButtonColumnDefs(field, buttons, hide) {
-        var buttonDef =  {
-            name: field, field: field, displayName: '', enableColumnMenu: false, type: 'string',
-            exporterSuppressExport: true,
-            cellTemplate: '',
-            cellClass: 'text-center', enableHiding: false
-        }
-
-        var toolTip;
-        var iconCss;
-
-        angular.forEach(buttons, function (button) {
-            switch (button.buttonType) {
-                case constants.enum.buttonType.view:
-                    toolTip = 'View';
-                    iconCss = 'eye';
-                    button.ngClick = button.ngClick === undefined ? 'grid.appScope.grid.view(row.entity, ' + constants.enum.dialogMode.view + ', $event, grid.appScope.grid.context)' : button.ngClick;
-                    break;
-                case constants.enum.buttonType.edit:
-                    toolTip = 'Edit';
-                    iconCss = 'pencil-square-o';
-                    button.ngClick = button.ngClick === undefined ? 'grid.appScope.grid.view(row.entity, ' + constants.enum.dialogMode.save + ', $event, grid.appScope.grid.context)' : button.ngClick;
-                    break;
-                case constants.enum.buttonType.delete:
-                    toolTip = 'Delete';
-                    iconCss = 'trash';
-                    button.ngClick = button.ngClick === undefined ? 'grid.appScope.grid.view(row.entity, ' + constants.enum.dialogMode.delete + ', $event, grid.appScope.grid.context)' : button.ngClick;
-                    break;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var MegaMine;
+(function (MegaMine) {
+    var Shared;
+    (function (Shared) {
+        "use strict";
+        var Template = (function () {
+            function Template() {
             }
-
-            buttonDef.cellTemplate += '<nt-button type="grid" tool-tip="' + toolTip + '" icon-css="' + iconCss + '"';
-            if (button.claim !== undefined) {
-                buttonDef.cellTemplate += ' claim="' + button.claim + '"';
-            }
-            buttonDef.cellTemplate += ' ng-click="' + button.ngClick +  '"></nt-button>'
-        });
-
-        if (hide !== undefined) {
-            buttonDef.cellTemplate = '<span ng-hide="' + hide + '">' + buttonDef.cellTemplate + '</span>';
-        }
-
-        return buttonDef;
-
-    }
-
-}
+            Template.prototype.getButtonDefaultColumnDefs = function (field, editClaim, deleteClaim, hide) {
+                var self = this;
+                var buttons = [{ buttonType: 0 /* view */ },
+                    { buttonType: 1 /* edit */, claim: editClaim }];
+                if (deleteClaim !== undefined) {
+                    buttons.push({ buttonType: 2 /* delete */, claim: deleteClaim });
+                }
+                return self.getButtonColumnDefs(field, buttons, hide);
+            };
+            Template.prototype.getButtonColumnDefs = function (field, buttons, hide) {
+                var buttonColumnDef = {
+                    name: field,
+                    field: field,
+                    displayName: "",
+                    enableColumnMenu: false,
+                    type: "string",
+                    exporterSuppressExport: true,
+                    cellTemplate: "",
+                    cellClass: "text-center", enableHiding: false
+                };
+                var toolTip;
+                var iconCss;
+                angular.forEach(buttons, function (button) {
+                    button.ngClick = button.ngClick === undefined ?
+                        "grid.appScope.grid.view(row.entity, " + button.buttonType + ", $event, grid.appScope.grid.context)"
+                        : button.ngClick;
+                    switch (button.buttonType) {
+                        case 0 /* view */:
+                            toolTip = "View";
+                            iconCss = "eye";
+                            break;
+                        case 1 /* edit */:
+                            toolTip = "Edit";
+                            iconCss = "pencil-square-o";
+                            break;
+                        case 2 /* delete */:
+                            toolTip = "Delete";
+                            iconCss = "trash";
+                            break;
+                    }
+                    buttonColumnDef.cellTemplate += "<nt-button type=\"grid\" tool-tip=\"" + toolTip + "\" icon-css=\"" + iconCss + "\"";
+                    if (button.claim !== undefined) {
+                        buttonColumnDef.cellTemplate += " claim=\"" + button.claim + "\"";
+                    }
+                    buttonColumnDef.cellTemplate += " ng-click=\"" + button.ngClick + "\"></nt-button>";
+                });
+                if (hide !== undefined) {
+                    buttonColumnDef.cellTemplate = "<span ng-hide=\"" + hide + "\">" + buttonColumnDef.cellTemplate + "</span>";
+                }
+                return buttonColumnDef;
+            };
+            Template = __decorate([
+                MegaMine.service("megamine", "MegaMine.Shared.Template"),
+                MegaMine.inject()
+            ], Template);
+            return Template;
+        }());
+        Shared.Template = Template;
+    })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
+})(MegaMine || (MegaMine = {}));
+//# sourceMappingURL=Template.js.map

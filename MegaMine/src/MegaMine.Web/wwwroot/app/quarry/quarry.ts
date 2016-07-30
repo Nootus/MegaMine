@@ -1,13 +1,13 @@
 ﻿module MegaMine.Quarry {
     "use strict";
     @controller("megamine", "MegaMine.Quarry.Quarry")
-    @inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Constants", "dialogService", "template")
+    @inject("quarryService", "MegaMine.Shared.Utility", "dialogService")
     class Quarry {
 
         private gridOptions: uiGrid.IGridOptions;
         private dashboard: Widget.Models.IDashboardModel<Quarry, Models.IQuarryModel>;
 
-        constructor(private quarryService, private utility, private constants, private dialogService, private template) {
+        constructor(private quarryService, private utility: Shared.Utility, private dialogService) {
             let self: Quarry = this;
 
             self.gridOptions = {
@@ -62,10 +62,10 @@
             let self: Quarry = context;
 
             var model: Models.IQuarryModel = <Models.IQuarryModel>{ quarryId: 0, colourIds: [] };
-            self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
+            self.viewDialog(model, Shared.Models.DialogMode.save, ev, context);
         }
 
-        public viewDialog(model: Models.IQuarryModel, dialogMode: Shared.DialogMode, ev: ng.IAngularEvent, context: Quarry): void {
+        public viewDialog(model: Models.IQuarryModel, dialogMode: Shared.Models.DialogMode, ev: ng.IAngularEvent, context: Quarry): void {
             let self: Quarry = context;
 
             self.dialogService.show({
@@ -75,7 +75,7 @@
                 dialogMode: dialogMode
             })
                 .then(function (dialogModel: Models.IQuarryModel): void {
-                    if (dialogMode === self.constants.enum.buttonType.delete) {
+                    if (dialogMode === Shared.Models.DialogMode.delete) {
                         self.quarryService.deleteQuarry(dialogModel.quarryId).then(function (): void {
                             self.quarryService.getQuarries();
                             self.dialogService.hide();

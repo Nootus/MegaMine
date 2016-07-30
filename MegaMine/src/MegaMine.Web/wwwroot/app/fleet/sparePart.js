@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('sparePart', sparePart)
-sparePart.$inject = ['$scope', 'vehicleService', 'sparePartDialog', 'gridUtility', "MegaMine.Shared.Constants", 'dialogService', 'template'];
+sparePart.$inject = ['$scope', 'vehicleService', 'sparePartDialog', 'gridUtility', "MegaMine.Shared.Constants", 'dialogService', "MegaMine.Shared.Template"];
 
 function sparePart($scope, vehicleService, sparePartDialog, gridUtility, constants, dialogService, template) {
 

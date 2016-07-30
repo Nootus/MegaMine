@@ -10,12 +10,10 @@ var MegaMine;
     (function (Quarry) {
         "use strict";
         var Yard = (function () {
-            function Yard(quarryService, utility, constants, dialogService, template) {
+            function Yard(quarryService, utility, dialogService) {
                 this.quarryService = quarryService;
                 this.utility = utility;
-                this.constants = constants;
                 this.dialogService = dialogService;
-                this.template = template;
                 var self = this;
                 self.init();
             }
@@ -71,7 +69,7 @@ var MegaMine;
             Yard.prototype.addYard = function (ev, context) {
                 var self = context;
                 var model = { yardId: 0 };
-                self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
+                self.viewDialog(model, 1 /* save */, ev, context);
             };
             Yard.prototype.viewDialog = function (model, dialogMode, ev, context) {
                 var self = context;
@@ -82,7 +80,7 @@ var MegaMine;
                     dialogMode: dialogMode
                 })
                     .then(function (dialogModel) {
-                    if (dialogMode === self.constants.enum.buttonType.delete) {
+                    if (dialogMode === 2 /* delete */) {
                         self.quarryService.deleteYard(dialogModel.yardId).then(function () {
                             self.quarryService.getYards();
                             self.dialogService.hide();
@@ -105,11 +103,11 @@ var MegaMine;
             };
             Yard = __decorate([
                 MegaMine.controller("megamine", "MegaMine.Quarry.Yard"),
-                MegaMine.inject("quarryService", "utility", "constants", "dialogService", "template")
+                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "dialogService")
             ], Yard);
             return Yard;
         }());
         Quarry.Yard = Yard;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=yard.js.map
+//# sourceMappingURL=Yard.js.map

@@ -2,12 +2,12 @@
 
     "use strict";
     @controller("megamine", "MegaMine.Quarry.Yard")
-    @inject("quarryService", "utility", "constants", "dialogService", "template")
+    @inject("quarryService", "MegaMine.Shared.Utility", "dialogService")
     export class Yard {
 
         public dashboard;
 
-        constructor(private quarryService, private utility, private constants, private dialogService, private template) {
+        constructor(private quarryService, private utility: Shared.Utility, private dialogService) {
             let self: Yard = this;
 
             self.init();
@@ -70,7 +70,7 @@
             let self: Yard = context;
 
             let model = { yardId: 0 }
-            self.viewDialog(model, self.constants.enum.dialogMode.save, ev, context);
+            self.viewDialog(model, Shared.Models.DialogMode.save, ev, context);
         }
 
         public viewDialog(model, dialogMode, ev, context: Yard): void {
@@ -83,7 +83,7 @@
                 dialogMode: dialogMode
             })
             .then(function (dialogModel) {
-                if (dialogMode === self.constants.enum.buttonType.delete) {
+                if (dialogMode === Shared.Models.ButtonType.delete) {
                     self.quarryService.deleteYard(dialogModel.yardId).then(function () {
                         self.quarryService.getYards();
                         self.dialogService.hide();

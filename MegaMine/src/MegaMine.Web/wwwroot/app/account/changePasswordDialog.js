@@ -1,6 +1,6 @@
 ﻿'use strict'
 angular.module('megamine').factory('changePasswordDialog', changePasswordDialog);
-changePasswordDialog.$inject = ['accountService', 'dialogService', "MegaMine.Shared.Utility", "MegaMine.Shared.Constants", 'message'];
+changePasswordDialog.$inject = ['accountService', 'dialogService', "MegaMine.Shared.Utility", "MegaMine.Shared.Constants", "MegaMine.Shared.Message"];
 
 function changePasswordDialog(accountService, dialogService, utility, constants, message) {
 
