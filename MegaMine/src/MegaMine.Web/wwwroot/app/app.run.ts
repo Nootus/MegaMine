@@ -2,9 +2,9 @@
 
     "use strict";
     @run("megamine")
-    @inject("session")
+    @inject("MegaMine.Shared.Session")
     class Run {
-        constructor(session) {
+        constructor(session: Shared.Session) {
             session.initialize();
         }
     }

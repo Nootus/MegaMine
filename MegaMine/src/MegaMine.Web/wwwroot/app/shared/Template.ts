@@ -5,7 +5,8 @@
     @inject()
     export class Template {
 
-        public getButtonDefaultColumnDefs(field: string, editClaim: string, deleteClaim: string, hide: string | boolean): uiGrid.IColumnDef {
+        public getButtonDefaultColumnDefs(field: string, editClaim: string, deleteClaim: string, hide: string | boolean)
+                                    : uiGrid.IColumnDef {
             let self: Template = this;
 
             var buttons: Models.IButton[] = [<Models.IButton>{ buttonType: Models.ButtonType.view },

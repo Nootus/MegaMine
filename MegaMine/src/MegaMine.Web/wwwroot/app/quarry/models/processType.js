@@ -2,6 +2,7 @@ var MegaMine;
 (function (MegaMine) {
     var Quarry;
     (function (Quarry) {
+        "use strict";
         (function (ProcessType) {
             ProcessType[ProcessType["Cutting"] = 1] = "Cutting";
             ProcessType[ProcessType["Crushing"] = 2] = "Crushing";

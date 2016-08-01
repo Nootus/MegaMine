@@ -15,7 +15,7 @@ var MegaMine;
             }
             Run = __decorate([
                 MegaMine.run("megamine"),
-                MegaMine.inject("session")
+                MegaMine.inject("MegaMine.Shared.Session")
             ], Run);
             return Run;
         }());
