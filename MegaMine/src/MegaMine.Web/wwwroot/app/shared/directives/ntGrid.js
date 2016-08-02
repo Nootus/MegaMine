@@ -67,7 +67,7 @@ function ntGrid($timeout, uiGridConstants, utility) {
 
         $timeout(function () {
             if (!scope.dashboardInd) {
-                scope.grid.height = utility.getContentHeight('main-content', 'grid-content', bottomOffset);
+                scope.grid.height = utility.getContentHeight('grid-content', bottomOffset);
             }
         }, timeoutInterval);
     }

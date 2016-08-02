@@ -19,9 +19,11 @@ var MegaMine;
                 $provide.decorator("GridOptions", ["$delegate", function ($delegate) {
                         var gridOptions = angular.copy($delegate);
                         gridOptions.initialize = function (options) {
-                            var initOptions;
-                            initOptions = $delegate.initialize(options);
-                            angular.extend(initOptions, { enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: true, gridMenuShowHideColumns: true });
+                            var initOptions = $delegate.initialize(options);
+                            angular.extend(initOptions, {
+                                enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: true,
+                                gridMenuShowHideColumns: true
+                            });
                             return initOptions;
                         };
                         return gridOptions;

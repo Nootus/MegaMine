@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('operator', operator)
-operator.$inject = ['$scope', 'plantService', 'gridUtility', "MegaMine.Shared.Constants", 'dialogService', "MegaMine.Shared.Template"];
+operator.$inject = ['$scope', 'plantService', "MegaMine.Shared.GridUtility", "MegaMine.Shared.Constants", 'dialogService', "MegaMine.Shared.Template"];
 
 function operator($scope, plantService, gridUtility, constants, dialogService, template) {
 

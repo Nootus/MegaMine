@@ -86,7 +86,7 @@ function ntWidget($timeout, utility) {
 
             angular.extend(scope.maximizeStyle, {
                                             width: scope.$parent.gridster.$element.width(),
-                                            height: utility.getContentHeight('main-content', 'portal-content', 50),
+                                            height: utility.getContentHeight('portal-content', 50),
                                             position: 'absolute',
                                             top: '35px',
                                             left: '5px'

@@ -136,7 +136,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
 
     function setHeight(scope) {
         $timeout(function () {
-            scope.height = utility.getContentHeight('main-content', 'portal-content', 5);
+            scope.height = utility.getContentHeight('portal-content', 5);
             scope.dashboard.records.grid.height = scope.height;
         });
     }

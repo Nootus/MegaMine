@@ -13,12 +13,14 @@
             $mdThemingProvider.theme("default")
                 .primaryPalette("grey");
 
-            $provide.decorator("GridOptions", ["$delegate", function ($delegate) {
-                let gridOptions = angular.copy($delegate);
-                gridOptions.initialize = function (options) {
-                    var initOptions;
-                    initOptions = $delegate.initialize(options);
-                    angular.extend(initOptions, { enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: true, gridMenuShowHideColumns: true });
+            $provide.decorator("GridOptions", ["$delegate", function ($delegate: uiGrid.IGridOptions): uiGrid.IGridOptions {
+                let gridOptions: uiGrid.IGridOptions = angular.copy($delegate);
+                gridOptions.initialize = function (options: uiGrid.IGridOptions): uiGrid.IGridOptions {
+                    let initOptions: uiGrid.IGridOptions = $delegate.initialize(options);
+                    angular.extend(initOptions, {
+                        enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: true,
+                        gridMenuShowHideColumns: true
+                    });
                     return initOptions;
                 };
                 return gridOptions;

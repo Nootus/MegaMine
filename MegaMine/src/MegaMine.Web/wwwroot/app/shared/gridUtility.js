@@ -1,50 +1,45 @@
-﻿'use strict'
-
-angular.module('megamine').factory('gridUtility', gridUtility);
-gridUtility.$inject = ['$timeout', 'toastr', "MegaMine.Shared.Utility", 'uiGridConstants'];
-
-function gridUtility($timeout, toastr, utility, uiGridConstants) {
-
-    var grid = {
-        initializeGrid: initializeGrid,
-        initializeSubGrid: initializeSubGrid,
-        initializeDialogGrid: initializeDialogGrid,
-    };
-
-    return grid;
-
-    function initializeGrid(gridOptions, model) {
-        initialize(gridOptions, model, 'main-content', 'main-grid', 24);
-    }
-
-    function initializeSubGrid(gridOptions, model) {
-        initialize(gridOptions, model, 'main-content', 'sub-grid', 41);
-    }
-
-    function initializeDialogGrid(gridOptions, model) {
-        initialize(gridOptions, model, 'dialog', 'dialog-grid', 100);
-    }
-
-    function initialize(gridOptions, model, contentClass, gridClass, bottomOffset) {
-        gridOptions.enableColumnResizing = true,
-        gridOptions.enableHorizontalScrollbar = uiGridConstants.scrollbars.NEVER,
-        gridOptions.data = model;
-        //resizeGrid(gridOptions, contentClass, gridClass, bottomOffset);
-
-        //setting the grid API
-        gridOptions.onRegisterApi = function(gridApi){
-            gridOptions.gridApi = gridApi;
-        };
-    }
-
-    //function resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, currentHeight) {
-    //    gridOptions.height = utility.getContentHeight(contentClass, gridClass, bottomOffset);
-    //    if (gridOptions.height !== currentHeight || currentHeight === undefined) {
-    //        $timeout(function () {
-    //            resizeGrid(gridOptions, contentClass, gridClass, bottomOffset, gridOptions.height);
-    //        }, 50);
-    //    }
-    //}
-
-}
-
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var MegaMine;
+(function (MegaMine) {
+    var Shared;
+    (function (Shared) {
+        "use strict";
+        var GridUtility = (function () {
+            function GridUtility(uiGridConstants) {
+                this.uiGridConstants = uiGridConstants;
+            }
+            GridUtility.prototype.initializeGrid = function (gridOptions, model) {
+                this.initialize(gridOptions, model, "main-content", "main-grid", 24);
+            };
+            GridUtility.prototype.initializeSubGrid = function (gridOptions, model) {
+                this.initialize(gridOptions, model, "main-content", "sub-grid", 41);
+            };
+            GridUtility.prototype.initializeDialogGrid = function (gridOptions, model) {
+                this.initialize(gridOptions, model, "dialog", "dialog-grid", 100);
+            };
+            GridUtility.prototype.initialize = function (gridOptions, model, contentClass, gridClass, bottomOffset) {
+                var self = this;
+                gridOptions.enableColumnResizing = true;
+                gridOptions.enableHorizontalScrollbar = self.uiGridConstants.scrollbars.NEVER;
+                gridOptions.data = model;
+                // resizeGrid(gridOptions, contentClass, gridClass, bottomOffset);
+                // setting the grid API
+                gridOptions.onRegisterApi = function (gridApi) {
+                    gridOptions.gridApi = gridApi;
+                };
+            };
+            GridUtility = __decorate([
+                MegaMine.service("megamine", "MegaMine.Shared.GridUtility"),
+                MegaMine.inject("uiGridConstants")
+            ], GridUtility);
+            return GridUtility;
+        }());
+        Shared.GridUtility = GridUtility;
+    })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
+})(MegaMine || (MegaMine = {}));
+//# sourceMappingURL=GridUtility.js.map
