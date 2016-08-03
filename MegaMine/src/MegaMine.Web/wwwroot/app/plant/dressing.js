@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('dressing', dressing)
-dressing.$inject = ['$scope', 'uiGridConstants', 'uiGridValidateService', 'moment', 'plantService', 'dialogUtility', "MegaMine.Shared.Utility", "MegaMine.Shared.Message"];
+dressing.$inject = ['$scope', 'uiGridConstants', 'uiGridValidateService', 'moment', 'plantService', "MegaMine.Shared.DialogUtility", "MegaMine.Shared.Utility", "MegaMine.Shared.Message"];
 
 function dressing($scope, uiGridConstants, uiGridValidateService, moment, plantService, dialogUtility, utility, message) {
     var blockGridOptions = {

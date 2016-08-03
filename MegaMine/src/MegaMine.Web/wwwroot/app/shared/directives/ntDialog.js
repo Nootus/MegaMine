@@ -36,16 +36,16 @@ function ntDialog($mdDialog, constants) {
         //interal variables
         angular.extend(scope, {
             dialogModeEnum: constants.enum.dialogMode,
-            dialogMode: scope.$parent.dialogMode,
-            save: scope.$parent.save,
-            deleteItem: scope.$parent.deleteItem,
-            cancel: scope.$parent.cancel,
+            dialogMode: scope.$parent.vm.dialogMode,
+            save: scope.$parent.vm.save,
+            deleteItem: scope.$parent.vm.deleteItem,
+            cancel: scope.$parent.vm.cancel,
         });
 
         if (scope.saveText === undefined)
             scope.saveText = 'Save';
 
         scope.dialogForm = scope[scope.form]
-        scope.$parent.dialogForm = scope.dialogForm;
+        scope.$parent.vm.dialogForm = scope.dialogForm;
     }
 }

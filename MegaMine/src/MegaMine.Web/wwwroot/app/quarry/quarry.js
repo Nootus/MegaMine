@@ -99,7 +99,7 @@ var MegaMine;
             };
             Quarry = __decorate([
                 MegaMine.controller("megamine", "MegaMine.Quarry.Quarry"),
-                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "dialogService")
+                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
             ], Quarry);
             return Quarry;
         }());

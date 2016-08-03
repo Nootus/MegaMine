@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('productSummary', productSummary)
-productSummary.$inject = ['$scope', 'quarryService', "MegaMine.Shared.GridUtility", 'dialogService', "MegaMine.Shared.Constants", "MegaMine.Shared.Template"];
+productSummary.$inject = ['$scope', 'quarryService', "MegaMine.Shared.GridUtility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Constants", "MegaMine.Shared.Template"];
 
 function productSummary($scope, quarryService, gridUtility, dialogService, constants, template) {
 

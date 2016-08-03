@@ -2,7 +2,7 @@
 
     "use strict";
     @controller("megamine", "MegaMine.Quarry.Texture")
-    @inject("quarryService", "MegaMine.Shared.Utility", "dialogService", "MegaMine.Shared.Template")
+    @inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
     export class Texture {
 
         private grid;

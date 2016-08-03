@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('materialColour', materialColour)
-materialColour.$inject = ['quarryService', "MegaMine.Shared.Constants", 'dialogService', "MegaMine.Shared.Template"];
+materialColour.$inject = ['quarryService', "MegaMine.Shared.Constants", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template"];
 
 function materialColour(quarryService, constants, dialogService, template) {
 
