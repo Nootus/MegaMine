@@ -9,8 +9,8 @@ var MegaMine;
     var Quarry;
     (function (Quarry) {
         "use strict";
-        var Route = (function () {
-            function Route($stateProvider, $windowProvider) {
+        let Route = class Route {
+            constructor($stateProvider, $windowProvider) {
                 var virtualPath = $windowProvider.$get().virtualDirectory;
                 $stateProvider
                     .state("colour", {
@@ -153,12 +153,11 @@ var MegaMine;
                     }
                 });
             }
-            Route = __decorate([
-                MegaMine.config("megamine"),
-                MegaMine.inject("$stateProvider", "$windowProvider")
-            ], Route);
-            return Route;
-        }());
+        };
+        Route = __decorate([
+            MegaMine.config("megamine"),
+            MegaMine.inject("$stateProvider", "$windowProvider")
+        ], Route);
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
 //# sourceMappingURL=Route.js.map

@@ -9,16 +9,15 @@ var MegaMine;
     var App;
     (function (App) {
         "use strict";
-        var Run = (function () {
-            function Run(session) {
+        let Run = class Run {
+            constructor(session) {
                 session.initialize();
             }
-            Run = __decorate([
-                MegaMine.run("megamine"),
-                MegaMine.inject("MegaMine.Shared.Session")
-            ], Run);
-            return Run;
-        }());
+        };
+        Run = __decorate([
+            MegaMine.run("megamine"),
+            MegaMine.inject("MegaMine.Shared.Session")
+        ], Run);
     })(App = MegaMine.App || (MegaMine.App = {}));
 })(MegaMine || (MegaMine = {}));
 //# sourceMappingURL=app.run.js.map

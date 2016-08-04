@@ -1,5 +1,5 @@
 ﻿declare module MegaMine.Quarry {
-    interface TextureModel {
+    interface ITextureModel {
         textureId: number;
         textureName: string;
     }

@@ -9,12 +9,12 @@ var MegaMine;
     var Quarry;
     (function (Quarry_1) {
         "use strict";
-        var Quarry = (function () {
-            function Quarry(quarryService, utility, dialogService) {
+        let Quarry = class Quarry {
+            constructor(quarryService, utility, dialogService) {
                 this.quarryService = quarryService;
                 this.utility = utility;
                 this.dialogService = dialogService;
-                var self = this;
+                let self = this;
                 self.gridOptions = {
                     columnDefs: [
                         { name: "quarryName", field: "quarryName", displayName: "Name", type: "string" },
@@ -60,13 +60,13 @@ var MegaMine;
                     }
                 };
             }
-            Quarry.prototype.addQuarry = function (ev, context) {
-                var self = context;
+            addQuarry(ev, context) {
+                let self = context;
                 var model = { quarryId: 0, colourIds: [] };
                 self.viewDialog(model, 1 /* save */, ev, context);
-            };
-            Quarry.prototype.viewDialog = function (model, dialogMode, ev, context) {
-                var self = context;
+            }
+            viewDialog(model, dialogMode, ev, context) {
+                let self = context;
                 self.dialogService.show({
                     templateUrl: "quarry_dialog",
                     targetEvent: ev,
@@ -96,13 +96,12 @@ var MegaMine;
                         });
                     }
                 });
-            };
-            Quarry = __decorate([
-                MegaMine.controller("megamine", "MegaMine.Quarry.Quarry"),
-                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
-            ], Quarry);
-            return Quarry;
-        }());
+            }
+        };
+        Quarry = __decorate([
+            MegaMine.controller("megamine", "MegaMine.Quarry.Quarry"),
+            MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
+        ], Quarry);
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
 //# sourceMappingURL=Quarry.js.map

@@ -9,17 +9,17 @@ var MegaMine;
     var App;
     (function (App) {
         "use strict";
-        var Config = (function () {
-            function Config($provide, $httpProvider, $mdThemingProvider) {
+        let Config = class Config {
+            constructor($provide, $httpProvider, $mdThemingProvider) {
                 // add the interceptor to the $httpProvider.
                 $httpProvider.interceptors.push("apiInterceptor");
                 $httpProvider.useLegacyPromiseExtensions(false);
                 $mdThemingProvider.theme("default")
                     .primaryPalette("grey");
                 $provide.decorator("GridOptions", ["$delegate", function ($delegate) {
-                        var gridOptions = angular.copy($delegate);
+                        let gridOptions = angular.copy($delegate);
                         gridOptions.initialize = function (options) {
-                            var initOptions = $delegate.initialize(options);
+                            let initOptions = $delegate.initialize(options);
                             angular.extend(initOptions, {
                                 enableGridMenu: true, exporterMenuCsv: true, exporterMenuPdf: true,
                                 gridMenuShowHideColumns: true
@@ -29,12 +29,11 @@ var MegaMine;
                         return gridOptions;
                     }]);
             }
-            Config.$inject = ["$provide", "$httpProvider", "$mdThemingProvider"];
-            Config = __decorate([
-                MegaMine.config("megamine")
-            ], Config);
-            return Config;
-        }());
+        };
+        Config.$inject = ["$provide", "$httpProvider", "$mdThemingProvider"];
+        Config = __decorate([
+            MegaMine.config("megamine")
+        ], Config);
         App.Config = Config;
     })(App = MegaMine.App || (MegaMine.App = {}));
 })(MegaMine || (MegaMine = {}));

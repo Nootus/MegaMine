@@ -8,13 +8,12 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
-        var DialogUtility = (function () {
-            function DialogUtility($mdDialog) {
+        let DialogUtility = class DialogUtility {
+            constructor($mdDialog) {
                 this.$mdDialog = $mdDialog;
             }
-            DialogUtility.prototype.alert = function (title, content, ev) {
-                var self = this;
+            alert(title, content, ev) {
+                let self = this;
                 self.$mdDialog.show(self.$mdDialog.alert()
                     .parent(angular.element(document.body))
                     .title(title)
@@ -22,10 +21,10 @@ var MegaMine;
                     .ariaLabel(title)
                     .ok("Ok")
                     .targetEvent(ev));
-            };
-            DialogUtility.prototype.confirm = function (title, content, ev) {
-                var self = this;
-                var dialog = self.$mdDialog.confirm()
+            }
+            confirm(title, content, ev) {
+                let self = this;
+                let dialog = self.$mdDialog.confirm()
                     .parent(angular.element(document.body))
                     .title(title)
                     .textContent(content)
@@ -34,13 +33,12 @@ var MegaMine;
                     .cancel("No")
                     .targetEvent(ev);
                 return self.$mdDialog.show(dialog);
-            };
-            DialogUtility = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.DialogUtility"),
-                MegaMine.inject("$mdDialog")
-            ], DialogUtility);
-            return DialogUtility;
-        }());
+            }
+        };
+        DialogUtility = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.DialogUtility"),
+            MegaMine.inject("$mdDialog")
+        ], DialogUtility);
         Shared.DialogUtility = DialogUtility;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));

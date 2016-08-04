@@ -33,10 +33,10 @@
             var toolTip: string;
             var iconCss: string;
 
-            angular.forEach(buttons, function (button: Models.IButton): void {
+            angular.forEach(buttons, function(button: Models.IButton): void {
                 button.ngClick = button.ngClick === undefined ?
-                                `grid.appScope.grid.view(row.entity, ${button.buttonType}, $event, grid.appScope.grid.context)`
-                                : button.ngClick;
+                    `grid.appScope.grid.view(row.entity, ${button.buttonType}, $event, grid.appScope.grid.context)`
+                    : button.ngClick;
 
                 switch (button.buttonType) {
                     case Models.ButtonType.view:

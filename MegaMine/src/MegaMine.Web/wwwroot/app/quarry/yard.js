@@ -9,17 +9,17 @@ var MegaMine;
     var Quarry;
     (function (Quarry) {
         "use strict";
-        var Yard = (function () {
-            function Yard(quarryService, utility, dialogService) {
+        let Yard = class Yard {
+            constructor(quarryService, utility, dialogService) {
                 this.quarryService = quarryService;
                 this.utility = utility;
                 this.dialogService = dialogService;
-                var self = this;
+                let self = this;
                 self.init();
             }
-            Yard.prototype.init = function () {
-                var self = this;
-                var gridOptions = {
+            init() {
+                let self = this;
+                let gridOptions = {
                     columnDefs: [
                         { name: 'yardName', field: 'yardName', displayName: 'Name', type: 'string' },
                         { name: 'location', field: 'location', type: 'string', displayName: 'Location' }
@@ -65,14 +65,14 @@ var MegaMine;
                         }
                     }
                 };
-            };
-            Yard.prototype.addYard = function (ev, context) {
-                var self = context;
-                var model = { yardId: 0 };
+            }
+            addYard(ev, context) {
+                let self = context;
+                let model = { yardId: 0 };
                 self.viewDialog(model, 1 /* save */, ev, context);
-            };
-            Yard.prototype.viewDialog = function (model, dialogMode, ev, context) {
-                var self = context;
+            }
+            viewDialog(model, dialogMode, ev, context) {
+                let self = context;
                 self.dialogService.show({
                     templateUrl: 'yard_dialog',
                     targetEvent: ev,
@@ -100,13 +100,12 @@ var MegaMine;
                         });
                     }
                 });
-            };
-            Yard = __decorate([
-                MegaMine.controller("megamine", "MegaMine.Quarry.Yard"),
-                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
-            ], Yard);
-            return Yard;
-        }());
+            }
+        };
+        Yard = __decorate([
+            MegaMine.controller("megamine", "MegaMine.Quarry.Yard"),
+            MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
+        ], Yard);
         Quarry.Yard = Yard;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));

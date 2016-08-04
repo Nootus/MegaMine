@@ -9,13 +9,13 @@ var MegaMine;
     var Quarry;
     (function (Quarry) {
         "use strict";
-        var Texture = (function () {
-            function Texture(quarryService, utility, dialogService, template) {
+        let Texture = class Texture {
+            constructor(quarryService, utility, dialogService, template) {
                 this.quarryService = quarryService;
                 this.utility = utility;
                 this.dialogService = dialogService;
                 this.template = template;
-                var self = this;
+                let self = this;
                 self.grid = {
                     options: {
                         columnDefs: [
@@ -28,13 +28,13 @@ var MegaMine;
                 self.grid.context = self;
                 self.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs("textureId", "Quarry:TextureEdit", "Quarry:TextureDelete", false));
             }
-            Texture.prototype.addTexture = function (ev, context) {
-                var self = context;
-                var model = { textureId: 0 };
+            addTexture(ev, context) {
+                let self = context;
+                let model = { textureId: 0 };
                 self.viewDialog(model, 1 /* save */, ev, context);
-            };
-            Texture.prototype.viewDialog = function (model, dialogMode, ev, context) {
-                var self = context;
+            }
+            viewDialog(model, dialogMode, ev, context) {
+                let self = context;
                 self.dialogService.show({
                     templateUrl: "texture_dialog",
                     targetEvent: ev,
@@ -61,13 +61,12 @@ var MegaMine;
                         });
                     }
                 });
-            };
-            Texture = __decorate([
-                MegaMine.controller("megamine", "MegaMine.Quarry.Texture"),
-                MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
-            ], Texture);
-            return Texture;
-        }());
+            }
+        };
+        Texture = __decorate([
+            MegaMine.controller("megamine", "MegaMine.Quarry.Texture"),
+            MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
+        ], Texture);
         Quarry.Texture = Texture;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));

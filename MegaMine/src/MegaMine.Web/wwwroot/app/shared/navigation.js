@@ -9,8 +9,8 @@ var MegaMine;
     var Shared;
     (function (Shared) {
         "use strict";
-        var Navigation = (function () {
-            function Navigation($rootScope, $state, $window, $location, profile, utility, constants) {
+        let Navigation = class Navigation {
+            constructor($rootScope, $state, $window, $location, profile, utility, constants) {
                 this.$rootScope = $rootScope;
                 this.$state = $state;
                 this.$window = $window;
@@ -24,8 +24,8 @@ var MegaMine;
                 this.vehicleMenuItems = [];
                 this.environmentName = $window.environmentName;
             }
-            Navigation.prototype.initialize = function () {
-                var self = this;
+            initialize() {
+                let self = this;
                 self.$rootScope.navigation = self;
                 self.$rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
                     self.isLoading = true;
@@ -62,30 +62,30 @@ var MegaMine;
                 angular.element(self.$window).on("resize", function () {
                     self.$rootScope.$broadcast("window_resize");
                 });
-            };
-            Navigation.prototype.go = function (stateName) {
+            }
+            go(stateName) {
                 this.$state.go(stateName);
-            };
-            Navigation.prototype.gotoDashboard = function () {
+            }
+            gotoDashboard() {
                 this.$state.go("dashboard");
-            };
-            Navigation.prototype.gotoVehicle = function (vehicleId) {
-                var self = this;
-                var state = "vehicle";
+            }
+            gotoVehicle(vehicleId) {
+                let self = this;
+                let state = "vehicle";
                 self.populateVehicleMenu(vehicleId); // populating the vehicle menu items
                 if (self.vehicleMenuItems.length > 0) {
                     state += "." + self.vehicleMenuItems[0].state;
                 }
                 self.$state.go(state, { vehicleid: vehicleId });
-            };
-            Navigation.prototype.gotoSparePart = function (sparePartId) {
+            }
+            gotoSparePart(sparePartId) {
                 this.$state.go("sparepart", { sparepartid: sparePartId });
-            };
-            Navigation.prototype.gotoManufacturer = function (manufacturerId) {
+            }
+            gotoManufacturer(manufacturerId) {
                 this.$state.go("manufacturer", { manufacturerid: manufacturerId });
-            };
-            Navigation.prototype.populateVehicleMenu = function (vehicleId) {
-                var self = this;
+            }
+            populateVehicleMenu(vehicleId) {
+                let self = this;
                 self.vehicleMenuItems.splice(0, self.vehicleMenuItems.length);
                 if (self.profile.isAuthorized(["Fleet:VehicleServiceView"])) {
                     self.vehicleMenuItems.push(self.getVehicleMenuItem(vehicleId, " Service History", "service", "service"));
@@ -99,24 +99,23 @@ var MegaMine;
                 if (self.profile.isAuthorized(["Fleet:VehicleTripView"])) {
                     self.vehicleMenuItems.push(self.getVehicleMenuItem(vehicleId, " Trip History", "vehicletrip", "trip"));
                 }
-            };
-            Navigation.prototype.getVehicleMenuItem = function (vehicleId, text, url, iconCss) {
-                var self = this;
-                var cssClass = "";
-                var iconCssClass = "icon-menu icon-" + iconCss;
-                var hash = self.utility.routePath("vehicle/" + vehicleId + "/" + url);
-                var currentHash = self.$state.href(self.$state.current.name, self.$state.params);
+            }
+            getVehicleMenuItem(vehicleId, text, url, iconCss) {
+                let self = this;
+                let cssClass = "";
+                let iconCssClass = "icon-menu icon-" + iconCss;
+                let hash = self.utility.routePath("vehicle/" + vehicleId + "/" + url);
+                let currentHash = self.$state.href(self.$state.current.name, self.$state.params);
                 if (hash === currentHash) {
                     cssClass = "highlight";
                 }
                 return { text: text, url: hash, state: url, cssClass: cssClass, iconCssClass: iconCssClass };
-            };
-            Navigation = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.Navigation"),
-                MegaMine.inject("$rootScope", "$state", "$window", "$location", "MegaMine.Shared.Profile", "MegaMine.Shared.Utility", "MegaMine.Shared.Constants")
-            ], Navigation);
-            return Navigation;
-        }());
+            }
+        };
+        Navigation = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.Navigation"),
+            MegaMine.inject("$rootScope", "$state", "$window", "$location", "MegaMine.Shared.Profile", "MegaMine.Shared.Utility", "MegaMine.Shared.Constants")
+        ], Navigation);
         Shared.Navigation = Navigation;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));

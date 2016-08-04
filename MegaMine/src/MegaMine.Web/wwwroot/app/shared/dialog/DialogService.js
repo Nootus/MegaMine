@@ -9,15 +9,15 @@ var MegaMine;
     var Shared;
     (function (Shared) {
         "use strict";
-        var DialogService = (function () {
-            function DialogService($q, $mdDialog) {
+        let DialogService = class DialogService {
+            constructor($q, $mdDialog) {
                 this.$q = $q;
                 this.$mdDialog = $mdDialog;
                 this.dialogModel = {};
                 this.deferred = undefined;
             }
-            DialogService.prototype.show = function (options) {
-                var self = this;
+            show(options) {
+                let self = this;
                 self.deferred = self.$q.defer();
                 self.$mdDialog.show({
                     controller: DialogController,
@@ -30,38 +30,36 @@ var MegaMine;
                     bindToController: true
                 });
                 return self.deferred.promise;
-            };
-            DialogService.prototype.hide = function () {
+            }
+            hide() {
                 this.$mdDialog.hide();
-            };
-            DialogService = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.DialogService"),
-                MegaMine.inject("$q", "$mdDialog")
-            ], DialogService);
-            return DialogService;
-        }());
+            }
+        };
+        DialogService = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.DialogService"),
+            MegaMine.inject("$q", "$mdDialog")
+        ], DialogService);
         Shared.DialogService = DialogService;
-        var DialogController = (function () {
-            function DialogController($scope) {
-                var _this = this;
+        let DialogController = class DialogController {
+            constructor($scope) {
                 this.$scope = $scope;
                 this.deferredPromiseState = undefined;
-                this.cancel = function (ev) {
-                    var self = _this;
+                this.cancel = (ev) => {
+                    const self = this;
                     ev.preventDefault();
                     self.$mdDialog.cancel();
                 };
-                this.save = function (form) {
-                    _this.resolveDialog(form);
+                this.save = (form) => {
+                    this.resolveDialog(form);
                 };
-                this.deleteItem = function (form) {
-                    _this.resolveDialog(form);
+                this.deleteItem = (form) => {
+                    this.resolveDialog(form);
                 };
-                var self = this;
+                const self = this;
                 self.initialize();
             }
-            DialogController.prototype.initialize = function () {
-                var self = this;
+            initialize() {
+                const self = this;
                 self.dialogMode = self.dialogOptions.dialogMode;
                 self.dialogError = self.dialogOptions.data.error;
                 // cloning the model & setting the additional data properties
@@ -72,9 +70,9 @@ var MegaMine;
                 if (self.dialogOptions.dialogInit !== undefined) {
                     self.dialogOptions.dialogInit(self.$scope, self.model);
                 }
-            };
-            DialogController.prototype.resolveDialog = function (form) {
-                var self = this;
+            }
+            resolveDialog(form) {
+                const self = this;
                 if (form.$valid) {
                     if (self.deferredPromiseState === undefined) {
                         self.deferredPromiseState = angular.copy(self.deferred.promise.$$state);
@@ -82,12 +80,11 @@ var MegaMine;
                     angular.extend(self.deferred.promise.$$state, self.deferredPromiseState);
                     self.deferred.resolve(self.model);
                 }
-            };
-            DialogController = __decorate([
-                MegaMine.inject("$scope")
-            ], DialogController);
-            return DialogController;
-        }());
+            }
+        };
+        DialogController = __decorate([
+            MegaMine.inject("$scope")
+        ], DialogController);
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));
 //# sourceMappingURL=DialogService.js.map

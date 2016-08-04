@@ -9,8 +9,8 @@ var MegaMine;
     var Shared;
     (function (Shared) {
         "use strict";
-        var Profile = (function () {
-            function Profile($http) {
+        let Profile = class Profile {
+            constructor($http) {
                 this.$http = $http;
                 this.userId = "1";
                 this.firstName = undefined;
@@ -24,8 +24,8 @@ var MegaMine;
                 this.menu = [];
                 this.isAuthenticated = false;
             }
-            Profile.prototype.populate = function (data) {
-                var self = this;
+            populate(data) {
+                let self = this;
                 self.userId = data.userId;
                 self.firstName = data.firstName;
                 self.lastName = data.lastName;
@@ -38,22 +38,22 @@ var MegaMine;
                 self.isAuthenticated = true;
                 self.menu.splice(0, self.menu.length);
                 angular.extend(self.menu, data.menu);
-            };
+            }
             ;
-            Profile.prototype.logout = function () {
-                var self = this;
+            logout() {
+                let self = this;
                 self.isAuthenticated = false;
-            };
+            }
             ;
-            Profile.prototype.isAuthorized = function (authorizeClaims) {
-                var self = this;
-                var response = false;
-                for (var claimCounter = 0; claimCounter < authorizeClaims.length; claimCounter++) {
-                    var arr = authorizeClaims[claimCounter].split(":");
-                    var claimModule = arr[0];
-                    var claim = arr[1];
+            isAuthorized(authorizeClaims) {
+                let self = this;
+                let response = false;
+                for (let claimCounter = 0; claimCounter < authorizeClaims.length; claimCounter++) {
+                    let arr = authorizeClaims[claimCounter].split(":");
+                    let claimModule = arr[0];
+                    let claim = arr[1];
                     if (self.adminRoles.indexOf(claimModule + "Admin") === -1) {
-                        for (var counter = 0; counter < self.claims.length; counter++) {
+                        for (let counter = 0; counter < self.claims.length; counter++) {
                             if (self.claims[counter].claimType === claimModule && self.claims[counter].claimValue === claim) {
                                 response = true;
                                 break;
@@ -68,21 +68,20 @@ var MegaMine;
                     }
                 }
                 return response;
-            };
-            Profile.prototype.get = function () {
-                var self = this;
+            }
+            get() {
+                let self = this;
                 return self.$http.get("/api/account/profileget")
                     .then(function (data) {
                     self.populate(data);
                     return data;
                 });
-            };
-            Profile = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.Profile"),
-                MegaMine.inject("$http")
-            ], Profile);
-            return Profile;
-        }());
+            }
+        };
+        Profile = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.Profile"),
+            MegaMine.inject("$http")
+        ], Profile);
         Shared.Profile = Profile;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));

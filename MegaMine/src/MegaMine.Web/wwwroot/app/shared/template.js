@@ -9,19 +9,17 @@ var MegaMine;
     var Shared;
     (function (Shared) {
         "use strict";
-        var Template = (function () {
-            function Template() {
-            }
-            Template.prototype.getButtonDefaultColumnDefs = function (field, editClaim, deleteClaim, hide) {
-                var self = this;
+        let Template = class Template {
+            getButtonDefaultColumnDefs(field, editClaim, deleteClaim, hide) {
+                let self = this;
                 var buttons = [{ buttonType: 0 /* view */ },
                     { buttonType: 1 /* edit */, claim: editClaim }];
                 if (deleteClaim !== undefined) {
                     buttons.push({ buttonType: 2 /* delete */, claim: deleteClaim });
                 }
                 return self.getButtonColumnDefs(field, buttons, hide);
-            };
-            Template.prototype.getButtonColumnDefs = function (field, buttons, hide) {
+            }
+            getButtonColumnDefs(field, buttons, hide) {
                 var buttonColumnDef = {
                     name: field,
                     field: field,
@@ -36,7 +34,7 @@ var MegaMine;
                 var iconCss;
                 angular.forEach(buttons, function (button) {
                     button.ngClick = button.ngClick === undefined ?
-                        "grid.appScope.grid.view(row.entity, " + button.buttonType + ", $event, grid.appScope.grid.context)"
+                        `grid.appScope.grid.view(row.entity, ${button.buttonType}, $event, grid.appScope.grid.context)`
                         : button.ngClick;
                     switch (button.buttonType) {
                         case 0 /* view */:
@@ -52,23 +50,22 @@ var MegaMine;
                             iconCss = "trash";
                             break;
                     }
-                    buttonColumnDef.cellTemplate += "<nt-button type=\"grid\" tool-tip=\"" + toolTip + "\" icon-css=\"" + iconCss + "\"";
+                    buttonColumnDef.cellTemplate += `<nt-button type="grid" tool-tip="${toolTip}" icon-css="${iconCss}"`;
                     if (button.claim !== undefined) {
-                        buttonColumnDef.cellTemplate += " claim=\"" + button.claim + "\"";
+                        buttonColumnDef.cellTemplate += ` claim="${button.claim}"`;
                     }
-                    buttonColumnDef.cellTemplate += " ng-click=\"" + button.ngClick + "\"></nt-button>";
+                    buttonColumnDef.cellTemplate += ` ng-click="${button.ngClick}"></nt-button>`;
                 });
                 if (hide !== undefined) {
-                    buttonColumnDef.cellTemplate = "<span ng-hide=\"" + hide + "\">" + buttonColumnDef.cellTemplate + "</span>";
+                    buttonColumnDef.cellTemplate = `<span ng-hide="${hide}">${buttonColumnDef.cellTemplate}</span>`;
                 }
                 return buttonColumnDef;
-            };
-            Template = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.Template"),
-                MegaMine.inject()
-            ], Template);
-            return Template;
-        }());
+            }
+        };
+        Template = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.Template"),
+            MegaMine.inject()
+        ], Template);
         Shared.Template = Template;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));

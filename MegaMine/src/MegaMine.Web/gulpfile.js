@@ -119,7 +119,7 @@ gulp.task('default', ["injectJsFileCreate"], function () {
 gulp.task("tslint", function () {
     gulp.src(webroot + "/app/**/**.ts")
         .pipe(tslint({
-            formatter: "json"
+            formatter: "msbuild"
         }))
         .pipe(tslint.report({
             emitError: false,

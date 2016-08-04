@@ -9,8 +9,8 @@ var MegaMine;
     var Shared;
     (function (Shared) {
         "use strict";
-        var Constants = (function () {
-            function Constants() {
+        let Constants = class Constants {
+            constructor() {
                 this.dateFormat = "dd/MM/yyyy";
                 this.dateTimeFormat = "dd/MM/yyyy hh:mm a";
                 this.momentDateTimeFormat = "L LT";
@@ -21,12 +21,11 @@ var MegaMine;
                     viewType: { dashboard: 0, grid: 1, list: 2, dashboardOnly: 3 }
                 };
             }
-            Constants = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.Constants"),
-                MegaMine.inject()
-            ], Constants);
-            return Constants;
-        }());
+        };
+        Constants = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.Constants"),
+            MegaMine.inject()
+        ], Constants);
         Shared.Constants = Constants;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));

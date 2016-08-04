@@ -9,8 +9,8 @@ var MegaMine;
     var Shared;
     (function (Shared) {
         "use strict";
-        var Message = (function () {
-            function Message() {
+        let Message = class Message {
+            constructor() {
                 this.unAuthorized = "Unauthorized";
                 this.confirmError = "Please fix the errors before saving";
                 this.numberInvalid = "Invalid number";
@@ -31,12 +31,11 @@ var MegaMine;
                 this.OperatorRequired = "There should be at least one operator";
                 this.OperatorTimeOverlapInvalid = "Time should not overlap for operators";
             }
-            Message = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.Message"),
-                MegaMine.inject()
-            ], Message);
-            return Message;
-        }());
+        };
+        Message = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.Message"),
+            MegaMine.inject()
+        ], Message);
         Shared.Message = Message;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));

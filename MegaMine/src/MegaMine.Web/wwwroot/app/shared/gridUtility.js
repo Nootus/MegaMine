@@ -8,22 +8,21 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
-        var GridUtility = (function () {
-            function GridUtility(uiGridConstants) {
+        let GridUtility = class GridUtility {
+            constructor(uiGridConstants) {
                 this.uiGridConstants = uiGridConstants;
             }
-            GridUtility.prototype.initializeGrid = function (gridOptions, model) {
+            initializeGrid(gridOptions, model) {
                 this.initialize(gridOptions, model, "main-content", "main-grid", 24);
-            };
-            GridUtility.prototype.initializeSubGrid = function (gridOptions, model) {
+            }
+            initializeSubGrid(gridOptions, model) {
                 this.initialize(gridOptions, model, "main-content", "sub-grid", 41);
-            };
-            GridUtility.prototype.initializeDialogGrid = function (gridOptions, model) {
+            }
+            initializeDialogGrid(gridOptions, model) {
                 this.initialize(gridOptions, model, "dialog", "dialog-grid", 100);
-            };
-            GridUtility.prototype.initialize = function (gridOptions, model, contentClass, gridClass, bottomOffset) {
-                var self = this;
+            }
+            initialize(gridOptions, model, contentClass, gridClass, bottomOffset) {
+                let self = this;
                 gridOptions.enableColumnResizing = true;
                 gridOptions.enableHorizontalScrollbar = self.uiGridConstants.scrollbars.NEVER;
                 gridOptions.data = model;
@@ -32,13 +31,12 @@ var MegaMine;
                 gridOptions.onRegisterApi = function (gridApi) {
                     gridOptions.gridApi = gridApi;
                 };
-            };
-            GridUtility = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.GridUtility"),
-                MegaMine.inject("uiGridConstants")
-            ], GridUtility);
-            return GridUtility;
-        }());
+            }
+        };
+        GridUtility = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.GridUtility"),
+            MegaMine.inject("uiGridConstants")
+        ], GridUtility);
         Shared.GridUtility = GridUtility;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));

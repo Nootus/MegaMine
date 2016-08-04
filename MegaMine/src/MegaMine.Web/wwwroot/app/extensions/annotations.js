@@ -5,29 +5,21 @@ var MegaMine;
         "use strict";
         Annotations.MODULE_NANME = "megamine";
         function instantiate(moduleName, name, mode) {
-            return function (target) {
+            return (target) => {
                 moduleName = moduleName || Annotations.MODULE_NANME;
                 name = name || target.name;
                 angular.module(moduleName)[mode](name, target);
             };
         }
-        function attachInjects(target) {
-            var args = [];
-            for (var _i = 1; _i < arguments.length; _i++) {
-                args[_i - 1] = arguments[_i];
-            }
-            (target.$inject || []).forEach(function (item, index) {
+        function attachInjects(target, ...args) {
+            (target.$inject || []).forEach((item, index) => {
                 target.prototype[(item.charAt(0) === '$' ? '$' : '$$') + item] = args[index];
             });
             return target;
         }
         Annotations.attachInjects = attachInjects;
-        function inject() {
-            var args = [];
-            for (var _i = 0; _i < arguments.length; _i++) {
-                args[_i - 0] = arguments[_i];
-            }
-            return function (target, key, index) {
+        function inject(...args) {
+            return (target, key, index) => {
                 if (angular.isNumber(index)) {
                     target.$inject = target.$inject || [];
                     target.$inject[index] = args[0];
@@ -39,14 +31,14 @@ var MegaMine;
         }
         Annotations.inject = inject;
         function config(moduleName) {
-            return function (target) {
+            return (target) => {
                 moduleName = moduleName || Annotations.MODULE_NANME;
                 angular.module(moduleName).config(target);
             };
         }
         Annotations.config = config;
         function run(moduleName) {
-            return function (target) {
+            return (target) => {
                 moduleName = moduleName || Annotations.MODULE_NANME;
                 angular.module(moduleName).run(target);
             };
@@ -61,16 +53,12 @@ var MegaMine;
         }
         Annotations.controller = controller;
         function directive(moduleName, directiveName) {
-            return function (target) {
+            return (target) => {
                 moduleName = moduleName || Annotations.MODULE_NANME;
                 directiveName = directiveName || target.name;
-                function factory() {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i - 0] = arguments[_i];
-                    }
+                function factory(...args) {
                     //return attachInjects(target, ...args);
-                    return new (target.bind.apply(target, [void 0].concat(args)))();
+                    return new target(...args);
                 }
                 if (target.$inject && target.$inject.length > 0) {
                     factory.$inject = target.$inject.slice(0);
@@ -95,16 +83,12 @@ var MegaMine;
         }
         Annotations.directive = directive;
         function classFactory(moduleName, className) {
-            return function (target) {
+            return (target) => {
                 moduleName = moduleName || Annotations.MODULE_NANME;
                 className = className || target.name;
-                function factory() {
-                    var args = [];
-                    for (var _i = 0; _i < arguments.length; _i++) {
-                        args[_i - 0] = arguments[_i];
-                    }
+                function factory(...args) {
                     //return attachInjects(target, ...args);
-                    return new (target.bind.apply(target, [void 0].concat(args)))();
+                    return new target(...args);
                 }
                 if (target.$inject && target.$inject.length > 0) {
                     factory.$inject = target.$inject.slice(0);

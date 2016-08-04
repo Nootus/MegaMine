@@ -15,6 +15,6 @@
     "gulp-watch": "^4.3.9",
     "gulp-debug": "^2.1.2",
     "gulp-tslint": "^6.0.2",
-    "tslint": "^3.13.0"
+    "tslint": "^3.14.0"
   }
 }

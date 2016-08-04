@@ -9,16 +9,16 @@ var MegaMine;
     var Shared;
     (function (Shared) {
         "use strict";
-        var Session = (function () {
-            function Session($window, toastr, navigation, profile, constants) {
+        let Session = class Session {
+            constructor($window, toastr, navigation, profile, constants) {
                 this.$window = $window;
                 this.toastr = toastr;
                 this.navigation = navigation;
                 this.profile = profile;
                 this.constants = constants;
             }
-            Session.prototype.initialize = function () {
-                var self = this;
+            initialize() {
+                let self = this;
                 self.toastr.options.positionClass = "toast-bottom-right";
                 self.toastr.options.backgroundpositionClass = "toast-bottom-right";
                 self.navigation.initialize();
@@ -26,13 +26,12 @@ var MegaMine;
                 self.$window.navigation = self.navigation;
                 self.$window.profile = self.profile;
                 self.$window.constants = self.constants;
-            };
-            Session = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.Session"),
-                MegaMine.inject("$window", "toastr", "MegaMine.Shared.Navigation", "MegaMine.Shared.Profile", "MegaMine.Shared.Constants")
-            ], Session);
-            return Session;
-        }());
+            }
+        };
+        Session = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.Session"),
+            MegaMine.inject("$window", "toastr", "MegaMine.Shared.Navigation", "MegaMine.Shared.Profile", "MegaMine.Shared.Constants")
+        ], Session);
         Shared.Session = Session;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));
