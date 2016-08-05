@@ -2,11 +2,14 @@ var MegaMine;
 (function (MegaMine) {
     var Quarry;
     (function (Quarry) {
-        (function (ProcessType) {
-            ProcessType[ProcessType["Cutting"] = 1] = "Cutting";
-            ProcessType[ProcessType["Crushing"] = 2] = "Crushing";
-        })(Quarry.ProcessType || (Quarry.ProcessType = {}));
-        var ProcessType = Quarry.ProcessType;
+        var Models;
+        (function (Models) {
+            (function (ProcessType) {
+                ProcessType[ProcessType["Cutting"] = 1] = "Cutting";
+                ProcessType[ProcessType["Crushing"] = 2] = "Crushing";
+            })(Models.ProcessType || (Models.ProcessType = {}));
+            var ProcessType = Models.ProcessType;
+        })(Models = Quarry.Models || (Quarry.Models = {}));
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
 //# sourceMappingURL=processType.js.map

@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var App;
     (function (App) {
-        "use strict";
         let Config = class Config {
             constructor($provide, $httpProvider, $mdThemingProvider) {
                 // add the interceptor to the $httpProvider.

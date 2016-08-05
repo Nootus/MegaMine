@@ -1,6 +1,5 @@
 ﻿module MegaMine.App {
 
-    "use strict";
     @run("megamine")
     @inject("MegaMine.Shared.Session")
     class Run {

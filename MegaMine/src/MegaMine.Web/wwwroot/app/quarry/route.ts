@@ -1,6 +1,5 @@
 ﻿module MegaMine.Quarry {
 
-    "use strict";
     @config("megamine")
     @inject("$stateProvider", "$windowProvider")
     class Route {

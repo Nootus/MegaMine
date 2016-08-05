@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
         let DialogService = class DialogService {
             constructor($q, $mdDialog) {
                 this.$q = $q;

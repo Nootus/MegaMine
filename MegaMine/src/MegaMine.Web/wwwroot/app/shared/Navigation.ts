@@ -1,6 +1,5 @@
 ﻿module MegaMine.Shared {
 
-    "use strict";
     @service("megamine", "MegaMine.Shared.Navigation")
     @inject("$rootScope", "$state", "$window", "$location", "MegaMine.Shared.Profile", "MegaMine.Shared.Utility",
                 "MegaMine.Shared.Constants")

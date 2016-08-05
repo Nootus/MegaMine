@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Quarry;
     (function (Quarry) {
-        "use strict";
         let Route = class Route {
             constructor($stateProvider, $windowProvider) {
                 var virtualPath = $windowProvider.$get().virtualDirectory;

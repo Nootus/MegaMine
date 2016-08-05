@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
         let Constants = class Constants {
             constructor() {
                 this.dateFormat = "dd/MM/yyyy";

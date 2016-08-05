@@ -1,10 +1,8 @@
 ﻿module MegaMine.Annotations {
 
-    "use strict";
+    export const MODULE_NANME: string = "megamine";
 
-    export const MODULE_NANME = "megamine";
-
-    //const directiveProperties: string[] = [
+    // const directiveProperties: string[] = [
     //    "compile",
     //    "controller",
     //    "controllerAs",
@@ -19,7 +17,7 @@
     //    "templateUrl",
     //    "terminal",
     //    "transclude"
-    //];
+    // ];
 
     /* tslint:disable:no-any */
     export interface IClassAnnotationDecorator {
@@ -37,7 +35,7 @@
 
     export function attachInjects(target: any, ...args: any[]): any {
         (target.$inject || []).forEach((item: string, index: number) => {
-            target.prototype[(item.charAt(0) === '$' ? '$' : '$$') + item] = args[index];
+            target.prototype[(item.charAt(0) === "$" ? "$" : "$$") + item] = args[index];
         });
         return target;
     }
@@ -83,7 +81,7 @@
     }
 
     export function service(moduleName: string, serviceName: string): IClassAnnotationDecorator {
-        return instantiate(moduleName, serviceName, 'service');
+        return instantiate(moduleName, serviceName, "service");
     }
 
     export interface IControllerAnnotation {
@@ -91,7 +89,7 @@
     }
 
     export function controller(moduleName: string, ctrlName: string): IClassAnnotationDecorator {
-        return instantiate(moduleName, ctrlName, 'controller');
+        return instantiate(moduleName, ctrlName, "controller");
     }
 
     export interface IDirectiveAnnotation {
@@ -105,7 +103,6 @@
             directiveName = directiveName || target.name;
 
             function factory(...args: any[]): any {
-                //return attachInjects(target, ...args);
                 return new target(...args);
             }
 
@@ -113,26 +110,6 @@
                 factory.$inject = target.$inject.slice(0);
             }
             angular.module(moduleName).directive(directiveName, factory);
-
-
-            //let config: angular.IDirective;
-
-            //moduleName = moduleName || MODULE_NANME;
-            //directiveName = directiveName || target.name;
-
-            //const ctrlName: string = angular.isString(target.controller) ? target.controller.split(' ').shift() : null;
-            //if (ctrlName) {
-            //    controller(moduleName, ctrlName)(target);
-            //}
-            //config = directiveProperties.reduce((
-            //    config: angular.IDirective,
-            //    property: string
-            //) => {
-            //    return angular.isDefined(target[property]) ? angular.extend(config, { [property]: target[property] }) :
-            //        config;
-            //}, { controller: target, scope: Boolean(target.templateUrl) });
-
-            //angular.module(moduleName).directive(directiveName, () => (config));
         };
     }
 
@@ -147,7 +124,6 @@
             className = className || target.name;
 
             function factory(...args: any[]): any {
-                //return attachInjects(target, ...args);
                 return new target(...args);
             }
 

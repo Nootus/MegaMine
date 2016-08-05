@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
         let Navigation = class Navigation {
             constructor($rootScope, $state, $window, $location, profile, utility, constants) {
                 this.$rootScope = $rootScope;

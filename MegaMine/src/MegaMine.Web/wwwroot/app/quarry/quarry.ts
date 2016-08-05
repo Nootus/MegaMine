@@ -1,5 +1,5 @@
 ﻿module MegaMine.Quarry {
-    "use strict";
+
     @controller("megamine", "MegaMine.Quarry.Quarry")
     @inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
     class Quarry {

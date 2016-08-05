@@ -1,5 +1,4 @@
 ﻿module MegaMine.App {
-    "use strict";
 
     @config("megamine")
     export class Config {

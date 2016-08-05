@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
         let Utility = class Utility {
             constructor($window, $timeout, toastr, uiGridConstants) {
                 this.$window = $window;

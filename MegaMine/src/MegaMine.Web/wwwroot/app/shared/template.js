@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
         let Template = class Template {
             getButtonDefaultColumnDefs(field, editClaim, deleteClaim, hide) {
                 let self = this;

@@ -1,6 +1,5 @@
 ﻿module MegaMine.Shared {
 
-    "use strict";
     @service("megamine", "MegaMine.Shared.Profile")
     @inject("$http")
     export class Profile {

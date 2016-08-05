@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
         let Session = class Session {
             constructor($window, toastr, navigation, profile, constants) {
                 this.$window = $window;

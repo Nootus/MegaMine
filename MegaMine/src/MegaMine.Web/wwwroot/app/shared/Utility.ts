@@ -1,6 +1,5 @@
 ﻿module MegaMine.Shared {
 
-    "use strict";
     @service("megamine", "MegaMine.Shared.Utility")
     @inject("$window", "$timeout", "toastr", "uiGridConstants")
     export class Utility {

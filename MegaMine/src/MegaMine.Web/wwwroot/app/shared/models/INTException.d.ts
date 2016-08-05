@@ -3,9 +3,4 @@
         message: string;
         errors: Error[];
     }
-
-    interface INtError {
-        code: string;
-        description: string;
-    }
 }

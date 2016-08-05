@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
         let Profile = class Profile {
             constructor($http) {
                 this.$http = $http;

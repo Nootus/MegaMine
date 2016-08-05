@@ -1,24 +1,19 @@
-﻿'use strict'
+﻿module MegaMine.Quarry {
 
-angular.module('megamine').factory('quarryUtility', quarryUtility);
-quarryUtility.$inject = ['$filter', 'quarryService', "MegaMine.Shared.Utility"];
+    @service("megamine", "MegaMine.Quarry.QuarryUtility")
+    @inject("$filter", "quarryService", "MegaMine.Shared.Utility")
+    export class QuarryUtility {
 
-function quarryUtility($filter, quarryService, utility) {
+        constructor(private $filter: ng.IFilterService, private quarryService, private utility: Shared.Utility) {
+        }
 
-    var util = {
-        addMaterialWatchers: addMaterialWatchers,
-        sortProductTypeByFormula: sortProductTypeByFormula,
-        clearByProcessType: clearByProcessType
-    };
-
-    return util;
-
-    function sortProductTypeByFormula(productTypes) {
-        var sortedProductTypes = $filter('orderBy')(productTypes, ['formulaOrder', 'productTypeName']);
+        public sortProductTypeByFormula(productTypes) {
+            const self: QuarryUtility = this;
+        let sortedProductTypes = self.$filter("orderBy")(productTypes, ["formulaOrder", "productTypeName"]);
         return sortedProductTypes;
     }
 
-    function addMaterialWatchers(scope, model) {
+    public addMaterialWatchers(scope, model) {
         scope.model = model;
         var allProductTypes = angular.copy(quarryService.materialViewModel.productTypes);
 
@@ -83,7 +78,7 @@ function quarryUtility($filter, quarryService, utility) {
         });
     }
 
-    function clearByProcessType(model) {
+    public clearByProcessType(model) {
         if (model.processTypeId != MegaMine.Quarry.ProcessType.Cutting) {
             model.blockNumber = undefined;
             model.length = "";

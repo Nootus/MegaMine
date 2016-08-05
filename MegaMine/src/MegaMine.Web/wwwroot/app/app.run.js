@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var App;
     (function (App) {
-        "use strict";
         let Run = class Run {
             constructor(session) {
                 session.initialize();

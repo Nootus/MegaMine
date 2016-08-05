@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Quarry;
     (function (Quarry_1) {
-        "use strict";
         let Quarry = class Quarry {
             constructor(quarryService, utility, dialogService) {
                 this.quarryService = quarryService;

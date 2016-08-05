@@ -1,6 +1,5 @@
 ﻿module MegaMine.Shared {
 
-    "use strict";
     @service("megamine", "MegaMine.Shared.Session")
     @inject("$window", "toastr", "MegaMine.Shared.Navigation", "MegaMine.Shared.Profile", "MegaMine.Shared.Constants")
     export class Session {

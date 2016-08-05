@@ -8,7 +8,6 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        "use strict";
         let Message = class Message {
             constructor() {
                 this.unAuthorized = "Unauthorized";
