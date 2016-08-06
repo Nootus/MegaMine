@@ -15,7 +15,7 @@
                         { name: "textureName", field: "textureName", displayName: "Name", type: "string" }
                     ]
                 },
-                data: <ITextureModel[]>quarryService.textures
+                data: <Models.ITextureModel[]>quarryService.textures
             };
 
             self.grid.view = self.viewDialog;
@@ -26,11 +26,11 @@
         private addTexture(ev: angular.IAngularEvent, context: Texture): void {
             let self = context;
 
-            let model: ITextureModel = <ITextureModel>{ textureId: 0 }
+            let model: Models.ITextureModel = <Models.ITextureModel>{ textureId: 0 }
             self.viewDialog(model, Shared.Models.DialogMode.save, ev, context);
         }
 
-        public viewDialog(model: ITextureModel, dialogMode, ev: angular.IAngularEvent, context: Texture): void {
+        public viewDialog(model: Models.ITextureModel, dialogMode, ev: angular.IAngularEvent, context: Texture): void {
             let self: Texture = context;
 
             self.dialogService.show({
@@ -39,7 +39,7 @@
                 data: { model: model, service: self.quarryService },
                 dialogMode: dialogMode
             })
-                .then(function (dialogModel: ITextureModel) {
+                .then(function (dialogModel: Models.ITextureModel) {
                     if (dialogMode === Shared.Models.ButtonType.delete) {
                         self.quarryService.deleteTexture(dialogModel.textureId).then(function () {
                             self.quarryService.getTextures();

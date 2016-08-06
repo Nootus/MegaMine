@@ -91,4 +91,4 @@ var MegaMine;
     MegaMine.directive = MegaMine.Annotations.directive;
     MegaMine.classFactory = MegaMine.Annotations.classFactory;
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=annotations.js.map
+//# sourceMappingURL=Annotations.js.map

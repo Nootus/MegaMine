@@ -70,13 +70,13 @@
             });
         }
 
-        public isEmpty(value: string): boolean {
+        public isEmpty(value: string | number): boolean {
             let self: Utility = this;
 
             return self.isUndefined(value) || value === "" || value === null || value !== value;
         };
 
-        public isUndefined(value: string): boolean {
+        public isUndefined(value: string | number): boolean {
             return typeof value === "undefined";
         }
 

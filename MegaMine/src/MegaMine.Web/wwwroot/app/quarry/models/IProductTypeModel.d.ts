@@ -6,5 +6,8 @@
         processTypeId: number;
         formula: string;
         formulaOrder: number;
+        // additional properties
+        formulaJson: IProductTypeFormulaModel[];
+        formulaEval: string;
     }
 }

@@ -12,4 +12,4 @@ var MegaMine;
         })(Models = Quarry.Models || (Quarry.Models = {}));
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=processType.js.map
+//# sourceMappingURL=ProcessType.js.map
