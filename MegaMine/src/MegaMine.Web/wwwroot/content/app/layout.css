@@ -406,7 +406,7 @@ h3.left-bar-item + div > div {
 .command-bar-button-text{
     text-transform: none;
     font-size: 10px;
-    line-height: 30px;
+    line-height: 10px;
 }
 .command-bar-button[disabled], .command-bar-button[disabled] > .command-bar-button-icon {
     color: black !important;
