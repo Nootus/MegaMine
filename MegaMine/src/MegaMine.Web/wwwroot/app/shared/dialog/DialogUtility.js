@@ -8,38 +8,41 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        let DialogUtility = class DialogUtility {
-            constructor($mdDialog) {
-                this.$mdDialog = $mdDialog;
-            }
-            alert(title, content, ev) {
-                let self = this;
-                self.$mdDialog.show(self.$mdDialog.alert()
-                    .parent(angular.element(document.body))
-                    .title(title)
-                    .textContent(content)
-                    .ariaLabel(title)
-                    .ok("Ok")
-                    .targetEvent(ev));
-            }
-            confirm(title, content, ev) {
-                let self = this;
-                let dialog = self.$mdDialog.confirm()
-                    .parent(angular.element(document.body))
-                    .title(title)
-                    .textContent(content)
-                    .ariaLabel(title)
-                    .ok("Yes")
-                    .cancel("No")
-                    .targetEvent(ev);
-                return self.$mdDialog.show(dialog);
-            }
-        };
-        DialogUtility = __decorate([
-            MegaMine.service("megamine", "MegaMine.Shared.DialogUtility"),
-            MegaMine.inject("$mdDialog")
-        ], DialogUtility);
-        Shared.DialogUtility = DialogUtility;
+        var Dialog;
+        (function (Dialog) {
+            let DialogUtility = class DialogUtility {
+                constructor($mdDialog) {
+                    this.$mdDialog = $mdDialog;
+                }
+                alert(title, content, ev) {
+                    let self = this;
+                    self.$mdDialog.show(self.$mdDialog.alert()
+                        .parent(angular.element(document.body))
+                        .title(title)
+                        .textContent(content)
+                        .ariaLabel(title)
+                        .ok("Ok")
+                        .targetEvent(ev));
+                }
+                confirm(title, content, ev) {
+                    let self = this;
+                    let dialog = self.$mdDialog.confirm()
+                        .parent(angular.element(document.body))
+                        .title(title)
+                        .textContent(content)
+                        .ariaLabel(title)
+                        .ok("Yes")
+                        .cancel("No")
+                        .targetEvent(ev);
+                    return self.$mdDialog.show(dialog);
+                }
+            };
+            DialogUtility = __decorate([
+                MegaMine.service("megamine", "MegaMine.Shared.DialogUtility"),
+                MegaMine.inject("$mdDialog")
+            ], DialogUtility);
+            Dialog.DialogUtility = DialogUtility;
+        })(Dialog = Shared.Dialog || (Shared.Dialog = {}));
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));
 //# sourceMappingURL=DialogUtility.js.map

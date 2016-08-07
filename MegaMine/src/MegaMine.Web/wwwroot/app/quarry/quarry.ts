@@ -1,13 +1,14 @@
 ﻿module MegaMine.Quarry {
 
     @controller("megamine", "MegaMine.Quarry.Quarry")
-    @inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
+    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
     class Quarry {
 
         private gridOptions: uiGrid.IGridOptions;
         private dashboard: Widget.Models.IDashboardModel<Quarry, Models.IQuarryModel>;
 
-        constructor(private quarryService, private utility: Shared.Utility, private dialogService) {
+        constructor(private quarryService: QuarryService, private utility: Shared.Utility,
+                            private dialogService: Shared.Dialog.DialogService<Models.IQuarryModel>) {
             let self: Quarry = this;
 
             self.gridOptions = {
@@ -23,18 +24,18 @@
                 context: self,
                 widgets: {
                     allWidgets: self.quarryService.quarries.widgets.allWidgets,
-                    pageWidgets: self.quarryService.quarries.widgets.pageWidgets,
+                    pageWidgets: self.quarryService.quarries.widgets.pageWidgets
                 },
                 records: {
                     options: {
                         primaryField: "quarryId",
                         data: self.quarryService.quarries.list,
-                        view: self.viewDialog,
+                        view: self.viewDialog
                     },
                     list: {
                         options: {
                             fields: ["quarryName", "colours", "location"]
-                        },
+                        }
                     },
                     grid: {
                         options: self.gridOptions
@@ -44,7 +45,7 @@
                             text: "New",
                             toolTip: "New Quarry",
                             claim: "Quarry:QuarryAdd",
-                            save: self.addQuarry,
+                            save: self.addQuarry
                         },
                         edit: {
                             claim: "Quarry:QuarryEdit"
@@ -57,15 +58,15 @@
             };
         }
 
-
         private addQuarry(ev: ng.IAngularEvent, context: Quarry): void {
             let self: Quarry = context;
 
             var model: Models.IQuarryModel = <Models.IQuarryModel>{ quarryId: 0, colourIds: [] };
-            self.viewDialog(model, Shared.Models.DialogMode.save, ev, context);
+            self.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev, context);
         }
 
-        public viewDialog(model: Models.IQuarryModel, dialogMode: Shared.Models.DialogMode, ev: ng.IAngularEvent, context: Quarry): void {
+        public viewDialog(model: Models.IQuarryModel, dialogMode: Shared.Dialog.Models.DialogMode,
+                                ev: ng.IAngularEvent, context: Quarry): void {
             let self: Quarry = context;
 
             self.dialogService.show({
@@ -75,7 +76,7 @@
                 dialogMode: dialogMode
             })
                 .then(function (dialogModel: Models.IQuarryModel): void {
-                    if (dialogMode === Shared.Models.DialogMode.delete) {
+                    if (dialogMode === Shared.Dialog.Models.DialogMode.delete) {
                         self.quarryService.deleteQuarry(dialogModel.quarryId).then(function (): void {
                             self.quarryService.getQuarries();
                             self.dialogService.hide();

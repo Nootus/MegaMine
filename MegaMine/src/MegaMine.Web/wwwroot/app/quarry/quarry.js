@@ -26,18 +26,18 @@ var MegaMine;
                     context: self,
                     widgets: {
                         allWidgets: self.quarryService.quarries.widgets.allWidgets,
-                        pageWidgets: self.quarryService.quarries.widgets.pageWidgets,
+                        pageWidgets: self.quarryService.quarries.widgets.pageWidgets
                     },
                     records: {
                         options: {
                             primaryField: "quarryId",
                             data: self.quarryService.quarries.list,
-                            view: self.viewDialog,
+                            view: self.viewDialog
                         },
                         list: {
                             options: {
                                 fields: ["quarryName", "colours", "location"]
-                            },
+                            }
                         },
                         grid: {
                             options: self.gridOptions
@@ -47,7 +47,7 @@ var MegaMine;
                                 text: "New",
                                 toolTip: "New Quarry",
                                 claim: "Quarry:QuarryAdd",
-                                save: self.addQuarry,
+                                save: self.addQuarry
                             },
                             edit: {
                                 claim: "Quarry:QuarryEdit"
@@ -62,7 +62,7 @@ var MegaMine;
             addQuarry(ev, context) {
                 let self = context;
                 var model = { quarryId: 0, colourIds: [] };
-                self.viewDialog(model, 1 /* save */, ev, context);
+                self.viewDialog(model, MegaMine.Shared.Dialog.Models.DialogMode.save, ev, context);
             }
             viewDialog(model, dialogMode, ev, context) {
                 let self = context;
@@ -73,7 +73,7 @@ var MegaMine;
                     dialogMode: dialogMode
                 })
                     .then(function (dialogModel) {
-                    if (dialogMode === 2 /* delete */) {
+                    if (dialogMode === MegaMine.Shared.Dialog.Models.DialogMode.delete) {
                         self.quarryService.deleteQuarry(dialogModel.quarryId).then(function () {
                             self.quarryService.getQuarries();
                             self.dialogService.hide();
@@ -99,7 +99,7 @@ var MegaMine;
         };
         Quarry = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.Quarry"),
-            MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
         ], Quarry);
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));

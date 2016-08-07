@@ -68,7 +68,7 @@ var MegaMine;
             addYard(ev, context) {
                 let self = context;
                 let model = { yardId: 0 };
-                self.viewDialog(model, 1 /* save */, ev, context);
+                self.viewDialog(model, MegaMine.Shared.Dialog.Models.DialogMode.save, ev, context);
             }
             viewDialog(model, dialogMode, ev, context) {
                 let self = context;
@@ -103,7 +103,7 @@ var MegaMine;
         };
         Yard = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.Yard"),
-            MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
         ], Yard);
         Quarry.Yard = Yard;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

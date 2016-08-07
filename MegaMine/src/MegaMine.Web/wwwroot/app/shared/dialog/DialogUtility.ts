@@ -1,4 +1,4 @@
-﻿module MegaMine.Shared {
+﻿module MegaMine.Shared.Dialog {
 
     @service("megamine", "MegaMine.Shared.DialogUtility")
     @inject("$mdDialog")

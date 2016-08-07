@@ -14,5 +14,8 @@
         height : number;
         weight : number;
         materialDate: Date
+
+        //UI 
+        currentYardId: number;
    }
 }

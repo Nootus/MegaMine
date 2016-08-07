@@ -1,7 +1,7 @@
-﻿declare module MegaMine.Shared.Models {
+﻿declare module MegaMine.Shared.Dialog.Models {
     interface IDialogData<TModel> {
         model: TModel;
         service?: any;
-        error?: INtException;
+        error?: Shared.Models.INtException;
     }
 }

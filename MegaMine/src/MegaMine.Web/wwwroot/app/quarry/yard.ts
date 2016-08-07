@@ -1,7 +1,7 @@
 ﻿module MegaMine.Quarry {
 
     @controller("megamine", "MegaMine.Quarry.Yard")
-    @inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
+    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
     export class Yard {
 
         public dashboard;
@@ -69,7 +69,7 @@
             let self: Yard = context;
 
             let model = { yardId: 0 }
-            self.viewDialog(model, Shared.Models.DialogMode.save, ev, context);
+            self.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev, context);
         }
 
         public viewDialog(model, dialogMode, ev, context: Yard): void {

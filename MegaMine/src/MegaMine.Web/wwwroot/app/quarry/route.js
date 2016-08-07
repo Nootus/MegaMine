@@ -20,7 +20,7 @@ var MegaMine;
                     controller: "materialColour",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["quarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getMaterialColours();
                             }]
                     }
@@ -33,7 +33,7 @@ var MegaMine;
                     controller: "productType",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["quarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getProductTypes();
                             }]
                     }
@@ -46,7 +46,7 @@ var MegaMine;
                     controller: MegaMine.Quarry.Texture,
                     controllerAs: "$ctrl",
                     resolve: {
-                        resolveModel: ["quarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getTextures();
                             }]
                     }
@@ -59,10 +59,10 @@ var MegaMine;
                     controller: "MegaMine.Quarry.Quarry",
                     controllerAs: "$ctrl",
                     resolve: {
-                        quarries: ["quarryService", function (quarryService) {
+                        quarries: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getQuarries();
                             }],
-                        colours: ["quarryService", function (quarryService) {
+                        colours: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getMaterialColourListItems();
                             }]
                     }
@@ -75,7 +75,7 @@ var MegaMine;
                     controller: MegaMine.Quarry.Yard,
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["quarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getYards();
                             }]
                     }
@@ -88,7 +88,7 @@ var MegaMine;
                     controller: "material",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["quarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getMaterialViewModel();
                             }]
                     }
@@ -101,7 +101,7 @@ var MegaMine;
                     controller: "stockyard",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["quarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getYardList();
                             }]
                     }
@@ -114,10 +114,10 @@ var MegaMine;
                     controller: "materialMovement",
                     controllerAs: "vm",
                     resolve: {
-                        yards: ["quarryService", function (quarryService) {
+                        yards: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getYardList();
                             }],
-                        groupYards: ["quarryService", function (quarryService) {
+                        groupYards: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getGroupYards();
                             }]
                     }
@@ -130,10 +130,10 @@ var MegaMine;
                     controller: "quarrySummary",
                     controllerAs: "vm",
                     resolve: {
-                        productTypes: ["quarryService", function (quarryService) {
+                        productTypes: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.getProductTypeList();
                             }],
-                        quarrySummaryData: ["quarryService", function (quarryService) {
+                        quarrySummaryData: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.quarrySummaryGet({});
                             }]
                     }
@@ -146,7 +146,7 @@ var MegaMine;
                     controller: "productSummary",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["quarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
                                 return quarryService.productSummaryGet();
                             }]
                     }

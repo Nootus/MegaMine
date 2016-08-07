@@ -1,7 +1,7 @@
 ﻿module MegaMine.Quarry {
 
     @controller("megamine", "MegaMine.Quarry.Texture")
-    @inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
+    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
     export class Texture {
 
         private grid;
@@ -27,7 +27,7 @@
             let self = context;
 
             let model: Models.ITextureModel = <Models.ITextureModel>{ textureId: 0 }
-            self.viewDialog(model, Shared.Models.DialogMode.save, ev, context);
+            self.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev, context);
         }
 
         public viewDialog(model: Models.ITextureModel, dialogMode, ev: angular.IAngularEvent, context: Texture): void {

@@ -30,7 +30,7 @@ var MegaMine;
             addTexture(ev, context) {
                 let self = context;
                 let model = { textureId: 0 };
-                self.viewDialog(model, 1 /* save */, ev, context);
+                self.viewDialog(model, MegaMine.Shared.Dialog.Models.DialogMode.save, ev, context);
             }
             viewDialog(model, dialogMode, ev, context) {
                 let self = context;
@@ -64,7 +64,7 @@ var MegaMine;
         };
         Texture = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.Texture"),
-            MegaMine.inject("quarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
         ], Texture);
         Quarry.Texture = Texture;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

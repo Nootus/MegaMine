@@ -6,7 +6,7 @@
     "sourceMap": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": false,
-    "target": "ES6"
+    "target": "es6"
   },
   "include": [
     "./wwwroot/app/**/*.ts"

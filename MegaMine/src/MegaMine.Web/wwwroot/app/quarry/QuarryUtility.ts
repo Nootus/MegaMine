@@ -1,7 +1,7 @@
 ﻿module MegaMine.Quarry {
 
     @service("megamine", "MegaMine.Quarry.QuarryUtility")
-    @inject("$filter", "quarryService", "MegaMine.Shared.Utility")
+    @inject("$filter", "MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility")
     export class QuarryUtility {
 
         constructor(private $filter: ng.IFilterService, private quarryService, private utility: Shared.Utility) {

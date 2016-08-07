@@ -90,7 +90,7 @@ var MegaMine;
         };
         QuarryUtility = __decorate([
             MegaMine.service("megamine", "MegaMine.Quarry.QuarryUtility"),
-            MegaMine.inject("$filter", "quarryService", "MegaMine.Shared.Utility")
+            MegaMine.inject("$filter", "MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility")
         ], QuarryUtility);
         Quarry.QuarryUtility = QuarryUtility;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
