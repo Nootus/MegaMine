@@ -54,8 +54,8 @@
         public getMaterialColours(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IMaterialColourModel[]>> {
             const self: QuarryService = this;
             return self.$http.get("/api/quarry/materialcoloursget")
-                .then(function (data: Shared.Models.IAjaxDataModel<Models.IMaterialColourModel[]>)
-                                            : Shared.Models.IAjaxDataModel<Models.IMaterialColourModel[]> {
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IMaterialColourModel[]>):
+                                                        Shared.Models.IAjaxDataModel<Models.IMaterialColourModel[]> {
                     self.utility.extend(self.colours.list, data.model);
                     angular.extend(self.colours.widgets, data.dashboard);
                     return data;
@@ -65,8 +65,7 @@
         public getMaterialColourListItems(): ng.IHttpPromise<Shared.Models.IListItem<number, string>[]> {
             const self: QuarryService = this;
             return self.$http.get("/api/quarry/materialcolourlistitemsget")
-                .then(function (data: Shared.Models.IListItem<number, string>[])
-                                        : Shared.Models.IListItem<number, string>[] {
+                .then(function (data: Shared.Models.IListItem<number, string>[]): Shared.Models.IListItem<number, string>[] {
                     self.utility.extend(self.colourListItems, data);
                     return data;
                 });
@@ -93,8 +92,8 @@
         public getProductTypes(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IProductTypeModel[]>> {
             const self: QuarryService = this;
             return self.$http.get("/api/quarry/producttypesget")
-                .then(function (data: Shared.Models.IAjaxDataModel<Models.IProductTypeModel[]>)
-                                        : Shared.Models.IAjaxDataModel<Models.IProductTypeModel[]> {
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IProductTypeModel[]>):
+                                                Shared.Models.IAjaxDataModel<Models.IProductTypeModel[]> {
                     self.utility.extend(self.productTypes.list, data.model);
                     angular.extend(self.productTypes.widgets, data.dashboard);
                     return data;
@@ -159,8 +158,8 @@
         public getQuarries(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IQuarryModel[]>> {
             const self: QuarryService = this;
             return self.$http.get("/api/quarry/quarriesget")
-                .then(function (data: Shared.Models.IAjaxDataModel<Models.IQuarryModel[]>)
-                                        : Shared.Models.IAjaxDataModel<Models.IQuarryModel[]> {
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IQuarryModel[]>):
+                                                Shared.Models.IAjaxDataModel<Models.IQuarryModel[]> {
                     self.utility.extend(self.quarries.list, data.model);
                     angular.extend(self.quarries.widgets, data.dashboard);
                     return data;
@@ -197,8 +196,8 @@
         public getYards(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IYardModel[]>> {
             const self: QuarryService = this;
             return self.$http.get("/api/quarry/yardsget")
-                .then(function (data: Shared.Models.IAjaxDataModel<Models.IYardModel[]>)
-                                        : Shared.Models.IAjaxDataModel<Models.IYardModel[]> {
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IYardModel[]>):
+                                                            Shared.Models.IAjaxDataModel<Models.IYardModel[]> {
                     self.utility.extend(self.yards.list, data.model);
                     angular.extend(self.yards.widgets, data.dashboard);
                     return data;
@@ -297,8 +296,7 @@
                 });
         }
 
-        public getQuarrySummaryDetails(searchParams: Models.IQuarrySummarySearchModel)
-                                                    : ng.IHttpPromise<Models.IStockModel[]> {
+        public getQuarrySummaryDetails(searchParams: Models.IQuarrySummarySearchModel): ng.IHttpPromise<Models.IStockModel[]> {
             const self: QuarryService = this;
             return self.$http.post("/api/quarry/quarrysummarydetails", searchParams)
                 .then(function (data: Models.IStockModel[]): Models.IStockModel[] {
@@ -321,8 +319,7 @@
                 });
         }
 
-        public productSummarySearch(searchParams: Models.IProductSummarySearchModel)
-                                        : ng.IHttpPromise<Models.IProductSummaryModel[]> {
+        public productSummarySearch(searchParams: Models.IProductSummarySearchModel): ng.IHttpPromise<Models.IProductSummaryModel[]> {
             const self: QuarryService = this;
             return self.$http.post("/api/quarry/productsummarysearch", searchParams)
                 .then(function (data: Models.IProductSummaryModel[]): Models.IProductSummaryModel[] {
@@ -331,8 +328,7 @@
                 });
         }
 
-        public getProductSummaryDetails(searchParams: Models.IProductSummarySearchModel)
-                                                    : ng.IHttpPromise<Models.IStockModel[]> {
+        public getProductSummaryDetails(searchParams: Models.IProductSummarySearchModel): ng.IHttpPromise<Models.IStockModel[]> {
             const self: QuarryService = this;
             return self.$http.post("/api/quarry/productsummarydetails", searchParams)
                 .then(function (data: Models.IStockModel[]): Models.IStockModel[] {

@@ -20,60 +20,60 @@ var MegaMine;
                 let self = this;
                 let gridOptions = {
                     columnDefs: [
-                        { name: 'yardName', field: 'yardName', displayName: 'Name', type: 'string' },
-                        { name: 'location', field: 'location', type: 'string', displayName: 'Location' }
+                        { name: "yardName", field: "yardName", displayName: "Name", type: "string" },
+                        { name: "location", field: "location", type: "string", displayName: "Location" }
                     ]
                 };
                 self.dashboard = {
-                    header: 'Yards',
+                    header: "Yards",
                     context: self,
                     widgets: {
                         allWidgets: self.quarryService.yards.widgets.allWidgets,
-                        pageWidgets: self.quarryService.yards.widgets.pageWidgets,
+                        pageWidgets: self.quarryService.yards.widgets.pageWidgets
                     },
                     records: {
                         options: {
-                            primaryField: 'yardId',
+                            primaryField: "yardId",
                             data: self.quarryService.yards.list,
                             view: self.viewDialog
                         },
                         list: {
                             options: {
-                                fields: ['yardName', 'location'],
-                            },
+                                fields: ["yardName", "location"]
+                            }
                         },
                         grid: {
-                            options: gridOptions,
+                            options: gridOptions
                         },
                         buttons: {
                             options: {
-                                hideGridButtons: 'row.entity.quarryId !== null'
+                                hideGridButtons: "row.entity.quarryId !== null"
                             },
                             add: {
-                                text: 'New',
-                                toolTip: 'New Yard',
-                                claim: 'Quarry:YardAdd,Plant:YardAdd',
-                                save: self.addYard,
+                                text: "New",
+                                toolTip: "New Yard",
+                                claim: "Quarry:YardAdd,Plant:YardAdd",
+                                save: self.addYard
                             },
                             edit: {
-                                claim: 'Quarry:YardEdit,Plant:YardEdit'
+                                claim: "Quarry:YardEdit,Plant:YardEdit"
                             },
                             delete: {
-                                claim: 'Quarry:YardDelete,Plant:YardDelete'
+                                claim: "Quarry:YardDelete,Plant:YardDelete"
                             }
                         }
                     }
                 };
             }
             addYard(ev, context) {
-                let self = context;
+                const self = context;
                 let model = { yardId: 0 };
-                self.viewDialog(model, MegaMine.Shared.Dialog.Models.DialogMode.save, ev, context);
+                self.viewDialog(model, 1 /* save */, ev, context);
             }
             viewDialog(model, dialogMode, ev, context) {
-                let self = context;
+                const self = context;
                 self.dialogService.show({
-                    templateUrl: 'yard_dialog',
+                    templateUrl: "yard_dialog",
                     targetEvent: ev,
                     data: { model: model },
                     dialogMode: dialogMode
@@ -87,7 +87,7 @@ var MegaMine;
                     }
                     else {
                         self.quarryService.saveYard(dialogModel).then(function () {
-                            //update the grid values
+                            // update the grid values
                             if (dialogModel.yardId === 0) {
                                 self.quarryService.getYards();
                             }

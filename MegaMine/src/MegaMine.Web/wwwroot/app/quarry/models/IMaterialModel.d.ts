@@ -13,9 +13,11 @@
         width : number;
         height : number;
         weight : number;
-        materialDate: Date
+        materialDate: Date;
 
-        //UI 
+        // ui related fields 
         currentYardId: number;
+        bypassWeightWatcher: boolean;
+        bypassProductTypeWatcher: boolean;
    }
 }

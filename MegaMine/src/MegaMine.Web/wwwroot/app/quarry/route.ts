@@ -15,7 +15,8 @@
                     controller: "materialColour",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IMaterialColourModel[]>> {
                             return quarryService.getMaterialColours();
                         }]
                     }
@@ -28,7 +29,8 @@
                     controller: "productType",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IProductTypeModel[]>> {
                             return quarryService.getProductTypes();
                         }]
                     }
@@ -41,7 +43,8 @@
                     controller: MegaMine.Quarry.Texture,
                     controllerAs: "$ctrl",
                     resolve: {
-                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Models.ITextureModel[]> {
                             return quarryService.getTextures();
                         }]
                     }
@@ -51,13 +54,15 @@
                     title: "Quarry",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/quarry.html",
-                    controller: "MegaMine.Quarry.Quarry",
+                    controller: MegaMine.Quarry.Quarry,
                     controllerAs: "$ctrl",
                     resolve: {
-                        quarries: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        quarries: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IQuarryModel[]>> {
                             return quarryService.getQuarries();
                         }],
-                        colours: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        colours: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Shared.Models.IListItem<number, string>[]> {
                             return quarryService.getMaterialColourListItems();
                         }]
                     }
@@ -70,7 +75,8 @@
                     controller: MegaMine.Quarry.Yard,
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IYardModel[]>> {
                             return quarryService.getYards();
                         }]
                     }
@@ -83,7 +89,8 @@
                     controller: "material",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Models.IMaterialViewModel> {
                             return quarryService.getMaterialViewModel();
                         }]
                     }
@@ -96,7 +103,8 @@
                     controller: "stockyard",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Models.IYardModel[]> {
                             return quarryService.getYardList();
                         }]
                     }
@@ -109,10 +117,12 @@
                     controller: "materialMovement",
                     controllerAs: "vm",
                     resolve: {
-                        yards: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        yards: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Models.IYardModel[]> {
                             return quarryService.getYardList();
                         }],
-                        groupYards: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        groupYards: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Models.IYardModel[]> {
                             return quarryService.getGroupYards();
                         }]
                     }
@@ -125,11 +135,13 @@
                     controller: "quarrySummary",
                     controllerAs: "vm",
                     resolve: {
-                        productTypes: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        productTypes: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Models.IProductTypeModel[]> {
                             return quarryService.getProductTypeList();
                         }],
-                        quarrySummaryData: ["MegaMine.Quarry.QuarryService", function (quarryService) {
-                            return quarryService.quarrySummaryGet({});
+                        quarrySummaryData: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<string> {
+                            return quarryService.quarrySummaryGet(<Models.IQuarrySummarySearchModel>{});
                         }]
                     }
                 })
@@ -141,7 +153,8 @@
                     controller: "productSummary",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
+                        resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
+                            ng.IHttpPromise<Models.IProductSummaryViewModel> {
                             return quarryService.productSummaryGet();
                         }]
                     }

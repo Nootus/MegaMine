@@ -2,16 +2,15 @@
 
     @controller("megamine", "MegaMine.Quarry.Quarry")
     @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
-    class Quarry {
+    export class Quarry {
 
-        private gridOptions: uiGrid.IGridOptions;
-        private dashboard: Widget.Models.IDashboardModel<Quarry, Models.IQuarryModel>;
+        public dashboard: Widget.Models.IDashboardModel<Quarry, Models.IQuarryModel>;
 
         constructor(private quarryService: QuarryService, private utility: Shared.Utility,
                             private dialogService: Shared.Dialog.DialogService<Models.IQuarryModel>) {
-            let self: Quarry = this;
+            const self: Quarry = this;
 
-            self.gridOptions = {
+            const gridOptions: uiGrid.IGridOptions = {
                 columnDefs: [
                     { name: "quarryName", field: "quarryName", displayName: "Name", type: "string" },
                     { name: "colour", field: "colours", displayName: "Colour", type: "string" },
@@ -38,7 +37,7 @@
                         }
                     },
                     grid: {
-                        options: self.gridOptions
+                        options: gridOptions
                     },
                     buttons: {
                         add: {

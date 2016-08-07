@@ -56,7 +56,7 @@ var MegaMine;
                     title: "Quarry",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/quarry.html",
-                    controller: "MegaMine.Quarry.Quarry",
+                    controller: MegaMine.Quarry.Quarry,
                     controllerAs: "$ctrl",
                     resolve: {
                         quarries: ["MegaMine.Quarry.QuarryService", function (quarryService) {

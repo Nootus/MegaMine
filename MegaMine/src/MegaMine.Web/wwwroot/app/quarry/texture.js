@@ -21,16 +21,16 @@ var MegaMine;
                             { name: "textureName", field: "textureName", displayName: "Name", type: "string" }
                         ]
                     },
-                    data: quarryService.textures
+                    data: quarryService.textures,
+                    view: self.viewDialog,
+                    context: self
                 };
-                self.grid.view = self.viewDialog;
-                self.grid.context = self;
                 self.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs("textureId", "Quarry:TextureEdit", "Quarry:TextureDelete", false));
             }
             addTexture(ev, context) {
                 let self = context;
                 let model = { textureId: 0 };
-                self.viewDialog(model, MegaMine.Shared.Dialog.Models.DialogMode.save, ev, context);
+                self.viewDialog(model, 1 /* save */, ev, context);
             }
             viewDialog(model, dialogMode, ev, context) {
                 let self = context;
@@ -49,7 +49,7 @@ var MegaMine;
                     }
                     else {
                         self.quarryService.saveTexture(dialogModel).then(function () {
-                            //update the grid values
+                            // update the grid values
                             if (dialogModel.textureId === 0) {
                                 self.quarryService.getTextures();
                             }
