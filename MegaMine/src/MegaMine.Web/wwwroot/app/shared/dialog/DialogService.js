@@ -18,7 +18,7 @@ var MegaMine;
                     this.deferred = undefined;
                 }
                 show(options) {
-                    let self = this;
+                    const self = this;
                     self.deferred = self.$q.defer();
                     self.$mdDialog.show({
                         controller: Dialog.DialogController,

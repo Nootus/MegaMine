@@ -17,7 +17,7 @@ var MegaMine;
                 this.constants = constants;
             }
             initialize() {
-                let self = this;
+                const self = this;
                 self.toastr.options.positionClass = "toast-bottom-right";
                 self.toastr.options.backgroundpositionClass = "toast-bottom-right";
                 self.navigation.initialize();

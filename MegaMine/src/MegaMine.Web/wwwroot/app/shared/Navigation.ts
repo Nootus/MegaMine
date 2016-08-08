@@ -18,7 +18,7 @@
 
 
         public initialize(): void {
-            let self: Navigation = this;
+            const self: Navigation = this;
 
             self.$rootScope.navigation = self;
             self.$rootScope.$on("$stateChangeStart",
@@ -79,7 +79,7 @@
         }
 
         public gotoVehicle(vehicleId: number): void {
-            let self: Navigation = this;
+            const self: Navigation = this;
 
 
             let state: string = "vehicle";
@@ -100,7 +100,7 @@
 
 
         public populateVehicleMenu(vehicleId: number): void {
-            let self: Navigation = this;
+            const self: Navigation = this;
 
             self.vehicleMenuItems.splice(0, self.vehicleMenuItems.length);
 
@@ -122,7 +122,7 @@
         }
 
         private getVehicleMenuItem(vehicleId: number, text: string, url: string, iconCss: string): any {
-            let self: Navigation = this;
+            const self: Navigation = this;
             let cssClass: string = "";
             let iconCssClass: string = "icon-menu icon-" + iconCss;
             let hash: string = self.utility.routePath("vehicle/" + vehicleId + "/" + url);

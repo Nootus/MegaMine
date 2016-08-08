@@ -8,13 +8,13 @@
 
         constructor(private quarryService: QuarryService, private utility: Shared.Utility,
                                 private dialogService: Shared.Dialog.DialogService<Models.IYardModel>) {
-            let self: Yard = this;
+            const self: Yard = this;
 
             self.init();
         }
 
         private init(): void {
-            let self: Yard = this;
+            const self: Yard = this;
 
             let gridOptions: uiGrid.IGridOptions = {
                 columnDefs: [

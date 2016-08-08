@@ -14,25 +14,25 @@ var MegaMine;
                 this.$timeout = $timeout;
                 this.toastr = toastr;
                 this.uiGridConstants = uiGridConstants;
-                let self = this;
+                const self = this;
                 self.virtualDirectory = $window.virtualDirectory || "";
             }
             routePath(path) {
-                let self = this;
+                const self = this;
                 return self.virtualDirectory + "/" + path;
             }
             getTemplateUrl(url) {
-                let self = this;
+                const self = this;
                 return self.virtualDirectory + "/app/" + url;
             }
             showInfo(message) {
-                let self = this;
+                const self = this;
                 if (message !== null && message !== "") {
                     self.toastr.info(message);
                 }
             }
             showError(message) {
-                let self = this;
+                const self = this;
                 self.toastr.error(message);
             }
             getListItem(list, key) {
@@ -61,7 +61,7 @@ var MegaMine;
                 });
             }
             isEmpty(value) {
-                let self = this;
+                const self = this;
                 return self.isUndefined(value) || value === "" || value === null || value !== value;
             }
             ;
@@ -73,7 +73,7 @@ var MegaMine;
                 angular.extend(dest, source);
             }
             getContentHeight(contentClass, bottomOffset) {
-                let self = this;
+                const self = this;
                 let windowHeight = self.$window.innerHeight;
                 let contentOffset = angular.element(document.getElementsByClassName(contentClass)[0]).offset();
                 if (contentOffset !== undefined) {

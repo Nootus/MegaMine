@@ -3,5 +3,7 @@
         model: TModel;
         service?: any;
         error?: Shared.Models.INtException;
+        validator?: any;
+        dataOptions?: any;
     }
 }

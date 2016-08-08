@@ -24,7 +24,7 @@ var MegaMine;
                 this.environmentName = $window.environmentName;
             }
             initialize() {
-                let self = this;
+                const self = this;
                 self.$rootScope.navigation = self;
                 self.$rootScope.$on("$stateChangeStart", function (evt, toState, toParams, fromState, fromParams) {
                     self.isLoading = true;
@@ -69,7 +69,7 @@ var MegaMine;
                 this.$state.go("dashboard");
             }
             gotoVehicle(vehicleId) {
-                let self = this;
+                const self = this;
                 let state = "vehicle";
                 self.populateVehicleMenu(vehicleId); // populating the vehicle menu items
                 if (self.vehicleMenuItems.length > 0) {
@@ -84,7 +84,7 @@ var MegaMine;
                 this.$state.go("manufacturer", { manufacturerid: manufacturerId });
             }
             populateVehicleMenu(vehicleId) {
-                let self = this;
+                const self = this;
                 self.vehicleMenuItems.splice(0, self.vehicleMenuItems.length);
                 if (self.profile.isAuthorized(["Fleet:VehicleServiceView"])) {
                     self.vehicleMenuItems.push(self.getVehicleMenuItem(vehicleId, " Service History", "service", "service"));
@@ -100,7 +100,7 @@ var MegaMine;
                 }
             }
             getVehicleMenuItem(vehicleId, text, url, iconCss) {
-                let self = this;
+                const self = this;
                 let cssClass = "";
                 let iconCssClass = "icon-menu icon-" + iconCss;
                 let hash = self.utility.routePath("vehicle/" + vehicleId + "/" + url);

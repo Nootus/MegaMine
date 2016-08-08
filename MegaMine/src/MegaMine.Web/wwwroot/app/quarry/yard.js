@@ -13,11 +13,11 @@ var MegaMine;
                 this.quarryService = quarryService;
                 this.utility = utility;
                 this.dialogService = dialogService;
-                let self = this;
+                const self = this;
                 self.init();
             }
             init() {
-                let self = this;
+                const self = this;
                 let gridOptions = {
                     columnDefs: [
                         { name: "yardName", field: "yardName", displayName: "Name", type: "string" },

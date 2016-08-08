@@ -15,7 +15,7 @@ var MegaMine;
                     this.$mdDialog = $mdDialog;
                 }
                 alert(title, content, ev) {
-                    let self = this;
+                    const self = this;
                     self.$mdDialog.show(self.$mdDialog.alert()
                         .parent(angular.element(document.body))
                         .title(title)
@@ -25,7 +25,7 @@ var MegaMine;
                         .targetEvent(ev));
                 }
                 confirm(title, content, ev) {
-                    let self = this;
+                    const self = this;
                     let dialog = self.$mdDialog.confirm()
                         .parent(angular.element(document.body))
                         .title(title)

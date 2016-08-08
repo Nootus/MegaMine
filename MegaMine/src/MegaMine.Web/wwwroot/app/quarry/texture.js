@@ -14,7 +14,7 @@ var MegaMine;
                 this.utility = utility;
                 this.dialogService = dialogService;
                 this.template = template;
-                let self = this;
+                const self = this;
                 self.grid = {
                     options: {
                         columnDefs: [
@@ -28,12 +28,12 @@ var MegaMine;
                 self.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs("textureId", "Quarry:TextureEdit", "Quarry:TextureDelete", false));
             }
             addTexture(ev, context) {
-                let self = context;
+                const self = context;
                 let model = { textureId: 0 };
                 self.viewDialog(model, 1 /* save */, ev, context);
             }
             viewDialog(model, dialogMode, ev, context) {
-                let self = context;
+                const self = context;
                 self.dialogService.show({
                     templateUrl: "texture_dialog",
                     targetEvent: ev,

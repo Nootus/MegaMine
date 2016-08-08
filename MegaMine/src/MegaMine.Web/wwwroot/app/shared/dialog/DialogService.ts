@@ -12,7 +12,7 @@
 
 
         public show(options: Models.IDialogOptions<TModel>): ng.IPromise<TModel> {
-            let self: DialogService<TModel> = this;
+            const self: DialogService<TModel> = this;
 
             self.deferred = self.$q.defer();
 

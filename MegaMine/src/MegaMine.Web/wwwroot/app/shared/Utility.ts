@@ -9,25 +9,25 @@
 
         constructor(private $window: ng.IWindowService, private $timeout: ng.ITimeoutService
                         , private toastr: any, private uiGridConstants: uiGrid.IUiGridConstants) {
-            let self: Utility = this;
+            const self: Utility = this;
 
             self.virtualDirectory = $window.virtualDirectory || "";
         }
 
         public routePath(path: string): string {
-            let self: Utility = this;
+            const self: Utility = this;
 
             return self.virtualDirectory + "/" + path;
         }
 
         public getTemplateUrl(url: string): string {
-            let self: Utility = this;
+            const self: Utility = this;
 
             return self.virtualDirectory + "/app/" + url;
         }
 
         public showInfo(message: string): void {
-            let self: Utility = this;
+            const self: Utility = this;
 
             if (message !== null && message !== "") {
                 self.toastr.info(message);
@@ -35,7 +35,7 @@
         }
 
         public showError(message: string): void {
-            let self: Utility = this;
+            const self: Utility = this;
 
             self.toastr.error(message);
         }
@@ -71,7 +71,7 @@
         }
 
         public isEmpty(value: string | number): boolean {
-            let self: Utility = this;
+            const self: Utility = this;
 
             return self.isUndefined(value) || value === "" || value === null || value !== value;
         };
@@ -87,7 +87,7 @@
         }
 
         public getContentHeight(contentClass: string, bottomOffset: number): string {
-            let self: Utility = this;
+            const self: Utility = this;
 
             let windowHeight: number = self.$window.innerHeight;
             let contentOffset: JQueryCoordinates = angular.element(document.getElementsByClassName(contentClass)[0]).offset();

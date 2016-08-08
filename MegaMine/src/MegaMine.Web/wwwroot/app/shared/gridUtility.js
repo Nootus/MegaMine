@@ -22,7 +22,7 @@ var MegaMine;
                 this.initialize(gridOptions, model, "dialog", "dialog-grid", 100);
             }
             initialize(gridOptions, model, contentClass, gridClass, bottomOffset) {
-                let self = this;
+                const self = this;
                 gridOptions.enableColumnResizing = true;
                 gridOptions.enableHorizontalScrollbar = self.uiGridConstants.scrollbars.NEVER;
                 gridOptions.data = model;

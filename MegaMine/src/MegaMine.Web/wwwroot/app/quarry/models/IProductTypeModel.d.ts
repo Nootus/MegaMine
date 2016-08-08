@@ -9,5 +9,6 @@
         // additional properties
         formulaJson: IProductTypeFormulaModel[];
         formulaEval: string;
+        formulaString: string;
     }
 }

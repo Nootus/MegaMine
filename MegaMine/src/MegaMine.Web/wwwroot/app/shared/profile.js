@@ -24,7 +24,7 @@ var MegaMine;
                 this.isAuthenticated = false;
             }
             populate(data) {
-                let self = this;
+                const self = this;
                 self.userId = data.userId;
                 self.firstName = data.firstName;
                 self.lastName = data.lastName;
@@ -40,12 +40,12 @@ var MegaMine;
             }
             ;
             logout() {
-                let self = this;
+                const self = this;
                 self.isAuthenticated = false;
             }
             ;
             isAuthorized(authorizeClaims) {
-                let self = this;
+                const self = this;
                 let response = false;
                 for (let claimCounter = 0; claimCounter < authorizeClaims.length; claimCounter++) {
                     let arr = authorizeClaims[claimCounter].split(":");
@@ -69,7 +69,7 @@ var MegaMine;
                 return response;
             }
             get() {
-                let self = this;
+                const self = this;
                 return self.$http.get("/api/account/profileget")
                     .then(function (data) {
                     self.populate(data);

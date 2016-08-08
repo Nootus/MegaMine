@@ -57,16 +57,16 @@
             };
         }
 
-        private addQuarry(ev: ng.IAngularEvent, context: Quarry): void {
-            let self: Quarry = context;
+        public addQuarry(ev: ng.IAngularEvent, context: Quarry): void {
+            const self: Quarry = context;
 
-            var model: Models.IQuarryModel = <Models.IQuarryModel>{ quarryId: 0, colourIds: [] };
+            let model: Models.IQuarryModel = <Models.IQuarryModel>{ quarryId: 0, colourIds: [] };
             self.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev, context);
         }
 
         public viewDialog(model: Models.IQuarryModel, dialogMode: Shared.Dialog.Models.DialogMode,
                                 ev: ng.IAngularEvent, context: Quarry): void {
-            let self: Quarry = context;
+            const self: Quarry = context;
 
             self.dialogService.show({
                 templateUrl: "quarry_dialog",

@@ -9,7 +9,7 @@
         }
 
         public initialize(): void {
-            let self: Session = this;
+            const self: Session = this;
 
             self.toastr.options.positionClass = "toast-bottom-right";
             self.toastr.options.backgroundpositionClass = "toast-bottom-right";

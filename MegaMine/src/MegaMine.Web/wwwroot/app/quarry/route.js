@@ -17,7 +17,7 @@ var MegaMine;
                     title: "Product Colour",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/materialColour.html",
-                    controller: "materialColour",
+                    controller: Quarry.MaterialColour,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
@@ -30,7 +30,7 @@ var MegaMine;
                     title: "Product Type",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/productType.html",
-                    controller: "productType",
+                    controller: Quarry.ProductType,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
@@ -43,7 +43,7 @@ var MegaMine;
                     title: "Texture",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/texture.html",
-                    controller: MegaMine.Quarry.Texture,
+                    controller: Quarry.Texture,
                     controllerAs: "$ctrl",
                     resolve: {
                         resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {
@@ -56,7 +56,7 @@ var MegaMine;
                     title: "Quarry",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/quarry.html",
-                    controller: MegaMine.Quarry.Quarry,
+                    controller: Quarry.Quarry,
                     controllerAs: "$ctrl",
                     resolve: {
                         quarries: ["MegaMine.Quarry.QuarryService", function (quarryService) {
@@ -72,7 +72,7 @@ var MegaMine;
                     title: "Yard",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/yard.html",
-                    controller: MegaMine.Quarry.Yard,
+                    controller: Quarry.Yard,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {

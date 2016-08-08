@@ -21,7 +21,7 @@
 
         private initialize(gridOptions: uiGrid.IGridOptions, model: any, contentClass: string, gridClass: string,
                             bottomOffset: number): void {
-            let self: GridUtility = this;
+            const self: GridUtility = this;
             gridOptions.enableColumnResizing = true;
             gridOptions.enableHorizontalScrollbar = self.uiGridConstants.scrollbars.NEVER;
             gridOptions.data = model;

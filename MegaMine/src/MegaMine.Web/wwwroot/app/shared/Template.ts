@@ -6,7 +6,7 @@
 
         public getButtonDefaultColumnDefs(field: string, editClaim: string,
                         deleteClaim: string, hide: string | boolean): uiGrid.IColumnDef {
-            let self: Template = this;
+            const self: Template = this;
 
             var buttons: Models.IButton[] = [<Models.IButton>{ buttonType: Models.ButtonType.view },
                                                 <Models.IButton>{ buttonType: Models.ButtonType.edit, claim: editClaim }];

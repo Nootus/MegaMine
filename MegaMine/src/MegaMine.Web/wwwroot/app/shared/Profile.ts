@@ -21,7 +21,7 @@
         }
 
         public populate(data: Models.IProfileModel): void {
-            let self: Profile = this;
+            const self: Profile = this;
             self.userId = data.userId;
             self.firstName = data.firstName;
             self.lastName = data.lastName;
@@ -37,13 +37,13 @@
         };
 
         public logout(): void {
-            let self: Profile = this;
+            const self: Profile = this;
 
             self.isAuthenticated = false;
         };
 
     public isAuthorized(authorizeClaims: string[]): boolean {
-        let self: Profile = this;
+        const self: Profile = this;
 
         let response: boolean = false;
 
@@ -71,7 +71,7 @@
     }
 
     public get(): ng.IHttpPromise<Models.IProfileModel> {
-        let self: Profile = this;
+        const self: Profile = this;
 
         return self.$http.get<Models.IProfileModel>("/api/account/profileget")
             .then(function (data: Models.IProfileModel): Models.IProfileModel {

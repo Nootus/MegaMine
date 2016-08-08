@@ -8,7 +8,7 @@
 
         constructor(private quarryService: QuarryService, private utility: Shared.Utility,
                         private dialogService: Shared.Dialog.DialogService<Models.ITextureModel>, private template: Shared.Template) {
-            let self: Texture = this;
+            const self: Texture = this;
 
             self.grid = {
                 options: {
@@ -27,7 +27,7 @@
         }
 
         public addTexture(ev: angular.IAngularEvent, context: Texture): void {
-            let self: Texture = context;
+            const self: Texture = context;
 
             let model: Models.ITextureModel = <Models.ITextureModel>{ textureId: 0 };
             self.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev, context);
@@ -35,7 +35,7 @@
 
         public viewDialog(model: Models.ITextureModel, dialogMode: Shared.Dialog.Models.DialogMode,
                             ev: angular.IAngularEvent, context: Texture): void {
-            let self: Texture = context;
+            const self: Texture = context;
 
             self.dialogService.show({
                 templateUrl: "texture_dialog",

@@ -2,6 +2,6 @@
     interface IProductTypeFormulaModel {
         field: string;
         operand: string;
-        value: number;
+        value?: number;
     }
 }

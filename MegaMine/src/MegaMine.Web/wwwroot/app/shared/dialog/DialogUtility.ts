@@ -8,7 +8,7 @@
         }
 
         public alert(title: string, content: string, ev: MouseEvent): void {
-            let self: DialogUtility = this;
+            const self: DialogUtility = this;
             self.$mdDialog.show(
                 self.$mdDialog.alert()
                     .parent(angular.element(document.body))
@@ -21,7 +21,7 @@
         }
 
         public confirm(title: string, content: string, ev: MouseEvent): angular.IPromise<any> {
-            let self: DialogUtility = this;
+            const self: DialogUtility = this;
 
             let dialog: ng.material.IConfirmDialog = self.$mdDialog.confirm()
                 .parent(angular.element(document.body))

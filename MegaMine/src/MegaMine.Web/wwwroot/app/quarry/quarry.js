@@ -60,12 +60,12 @@ var MegaMine;
                 };
             }
             addQuarry(ev, context) {
-                let self = context;
-                var model = { quarryId: 0, colourIds: [] };
+                const self = context;
+                let model = { quarryId: 0, colourIds: [] };
                 self.viewDialog(model, 1 /* save */, ev, context);
             }
             viewDialog(model, dialogMode, ev, context) {
-                let self = context;
+                const self = context;
                 self.dialogService.show({
                     templateUrl: "quarry_dialog",
                     targetEvent: ev,
