@@ -10,7 +10,7 @@ var MegaMine;
     (function (Quarry) {
         let Route = class Route {
             constructor($stateProvider, $windowProvider) {
-                var virtualPath = $windowProvider.$get().virtualDirectory;
+                let virtualPath = $windowProvider.$get().virtualDirectory;
                 $stateProvider
                     .state("colour", {
                     url: virtualPath + "/colour",

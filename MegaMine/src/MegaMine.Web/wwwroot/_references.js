@@ -3,7 +3,6 @@
 /// <reference path="app/account/accountService.js" />
 /// <reference path="app/account/changePasswordDialog.js" />
 /// <reference path="app/account/login.js" />
-/// <reference path="app/administration/administrationService.js" />
 /// <reference path="app/app.config.js" />
 /// <reference path="app/app.js" />
 /// <reference path="app/app.run.js" />

@@ -4,7 +4,7 @@
     @inject("$stateProvider", "$windowProvider")
     class Route {
         constructor($stateProvider: ng.ui.IStateProvider, $windowProvider: ng.IServiceProvider) {
-            var virtualPath: string = $windowProvider.$get().virtualDirectory;
+            let virtualPath: string = $windowProvider.$get().virtualDirectory;
 
             $stateProvider
                 .state("colour", {

@@ -4,6 +4,6 @@
         header: string;
         context: TContext;
         widgets: IDashboardWidgets;
-        records: IDashboardRecord<TContext, TDataModel>;
+        records?: IDashboardRecord<TContext, TDataModel>;
     }
 }
