@@ -95,7 +95,7 @@ var MegaMine;
         };
         MaterialColour = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.MaterialColour"),
-            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.DialogService")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Dialog.DialogService")
         ], MaterialColour);
         Quarry.MaterialColour = MaterialColour;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

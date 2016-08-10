@@ -1,6 +1,6 @@
 ﻿module MegaMine.Shared.Dialog {
 
-    @service("megamine", "MegaMine.Shared.DialogService")
+    @service("megamine", "MegaMine.Shared.Dialog.DialogService")
     @inject("$q", "$mdDialog")
     export class DialogService<TModel> {
 

@@ -38,7 +38,7 @@ var MegaMine;
                 }
             };
             DialogUtility = __decorate([
-                MegaMine.service("megamine", "MegaMine.Shared.DialogUtility"),
+                MegaMine.service("megamine", "MegaMine.Shared.Dialog.DialogUtility"),
                 MegaMine.inject("$mdDialog")
             ], DialogUtility);
             Dialog.DialogUtility = DialogUtility;

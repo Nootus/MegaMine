@@ -1,6 +1,8 @@
 ﻿using AutoMapper;
+using MegaMine.Core.Exception;
 using MegaMine.Services.Security.Entities;
 using MegaMine.Services.Security.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace MegaMine.Services.Security.Mapping
@@ -21,6 +23,7 @@ namespace MegaMine.Services.Security.Mapping
             Mapper.CreateMap<IdentityRoleClaim<string>, ClaimModel>();
             Mapper.CreateMap<IdentityUserClaim<string>, ClaimModel>();
             Mapper.CreateMap<ApplicationRole, RoleModel>(MemberList.Destination);
+            Mapper.CreateMap<IdentityError, NTError>();
         }
     }
 }

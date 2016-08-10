@@ -89,7 +89,7 @@ namespace MegaMine.Core.Helpers.Web
             }
             catch (NTException exp)
             {
-                ajax = new AjaxModel<NTModel>() { Result = AjaxResult.ValidationException, Model = new NTModel() { Data = exp.Model }, Message = exp.Message };
+                ajax = new AjaxModel<NTModel>() { Result = AjaxResult.ValidationException, Model = new NTModel() { Data = exp.Errors }, Message = exp.Message };
             }
             catch (System.Exception exp)
             {

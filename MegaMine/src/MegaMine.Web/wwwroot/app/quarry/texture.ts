@@ -1,7 +1,7 @@
 ﻿module MegaMine.Quarry {
 
     @controller("megamine", "MegaMine.Quarry.Texture")
-    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
+    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template")
     export class Texture {
 
         private grid: Widget.Models.IDashboardRecordGrid<Texture, Models.ITextureModel>;

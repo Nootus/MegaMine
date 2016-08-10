@@ -1,6 +1,6 @@
 ﻿'use strict'
 angular.module('megamine').factory('sparePartDialog', sparePartDialog);
-sparePartDialog.$inject = ["MegaMine.Shared.DialogService", 'vehicleService', "MegaMine.Shared.Utility", 'fleetUtility'];
+sparePartDialog.$inject = ["MegaMine.Shared.Dialog.DialogService", 'vehicleService', "MegaMine.Shared.Utility", 'fleetUtility'];
 
 function sparePartDialog(dialogService, vehicleService, utility, fleetUtility) {
 

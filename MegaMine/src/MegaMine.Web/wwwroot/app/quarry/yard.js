@@ -103,7 +103,7 @@ var MegaMine;
         };
         Yard = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.Yard"),
-            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService")
         ], Yard);
         Quarry.Yard = Yard;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

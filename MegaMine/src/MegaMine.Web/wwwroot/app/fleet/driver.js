@@ -1,6 +1,6 @@
 ﻿'use strict';
 angular.module('megamine').controller('driver', driver)
-driver.$inject = ['$scope', 'vehicleService', "MegaMine.Shared.GridUtility", "MegaMine.Shared.Constants", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template"];
+driver.$inject = ['$scope', 'vehicleService', "MegaMine.Shared.GridUtility", "MegaMine.Shared.Constants", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template"];
 
 function driver($scope, vehicleService, gridUtility, constants, dialogService, template) {
 

@@ -1,17 +1,20 @@
-﻿namespace MegaMine.Core.Exception
+﻿using System.Collections.Generic;
+
+namespace MegaMine.Core.Exception
 {
     public class NTException : System.Exception
     {
         private string message;
-        private object model;
+        private List<NTError> errors;
+
         public NTException(string message)
         {
             this.message = message;
         }
 
-        public NTException(string message, object model) : this(message)
+        public NTException(string message, List<NTError> errors) : this(message)
         {
-            this.model = model;
+            this.errors = errors;
         }
 
         public override string Message
@@ -22,11 +25,11 @@
             }
         }
 
-        public object Model
+        public List<NTError> Errors
         {
             get
             {
-                return model;
+                return errors;
             }
         }
     }

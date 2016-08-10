@@ -1,7 +1,7 @@
 ﻿module MegaMine.Quarry {
 
     @controller("megamine", "MegaMine.Quarry.MaterialColour")
-    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.DialogService")
+    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Dialog.DialogService")
     export class MaterialColour {
 
         public dashboard: Widget.Models.IDashboardModel<MaterialColour, Models.IMaterialColourModel>;

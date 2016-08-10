@@ -1,7 +1,7 @@
 ﻿module MegaMine.Quarry {
 
     @controller("megamine", "MegaMine.Quarry.Yard")
-    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService")
+    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService")
     export class Yard {
 
         public dashboard: Widget.Models.IDashboardModel<Yard, Models.IYardModel>;

@@ -64,7 +64,7 @@ var MegaMine;
         };
         Texture = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.Texture"),
-            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Template")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template")
         ], Texture);
         Quarry.Texture = Texture;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

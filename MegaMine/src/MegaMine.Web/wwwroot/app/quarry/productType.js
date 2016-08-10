@@ -190,7 +190,7 @@ var MegaMine;
         };
         ProductType = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.ProductType"),
-            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.DialogService", "MegaMine.Shared.Message")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Message")
         ], ProductType);
         Quarry.ProductType = ProductType;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

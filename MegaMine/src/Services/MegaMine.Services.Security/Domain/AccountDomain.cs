@@ -6,6 +6,7 @@ using MegaMine.Services.Security.Identity;
 using MegaMine.Services.Security.Models;
 using MegaMine.Services.Security.Repositories;
 using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace MegaMine.Services.Security.Domain
@@ -57,7 +58,7 @@ namespace MegaMine.Services.Security.Domain
 
             if (!result.Succeeded)
             {
-                throw new NTException(SecurityMessages.ChangePasswordError, result.Errors);
+                throw new NTException(SecurityMessages.ChangePasswordError, AutoMapper.Mapper.Map<List<NTError>>(result.Errors));
             }
         }
 
