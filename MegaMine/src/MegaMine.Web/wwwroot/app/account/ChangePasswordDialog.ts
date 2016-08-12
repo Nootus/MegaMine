@@ -1,6 +1,6 @@
 ﻿module MegaMine.Account {
 
-    @controller("megamine", "MegaMine.Account.ChangePasswordDialog")
+    @service("megamine", "MegaMine.Account.ChangePasswordDialog")
     @inject("MegaMine.Account.AccountService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Message")
     export class ChangePasswordDialog {
         public model: Models.IChangePasswordModel;
@@ -18,7 +18,7 @@
             };
 
             self.dialogService.show({
-                templateUrl: "/account/changePasswordDialog.html",
+                templateUrl: "/app/account/changePasswordDialog.html",
                 targetEvent: ev,
                 data: { model: self.model, validator: validator, error: error },
                 dialogMode: Shared.Dialog.Models.DialogMode.save

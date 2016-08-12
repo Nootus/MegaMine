@@ -22,7 +22,7 @@ var MegaMine;
                     validate: self.validatePasswords
                 };
                 self.dialogService.show({
-                    templateUrl: "/account/changePasswordDialog.html",
+                    templateUrl: "/app/account/changePasswordDialog.html",
                     targetEvent: ev,
                     data: { model: self.model, validator: validator, error: error },
                     dialogMode: 1 /* save */
@@ -48,7 +48,7 @@ var MegaMine;
             }
         };
         ChangePasswordDialog = __decorate([
-            MegaMine.controller("megamine", "MegaMine.Account.ChangePasswordDialog"),
+            MegaMine.service("megamine", "MegaMine.Account.ChangePasswordDialog"),
             MegaMine.inject("MegaMine.Account.AccountService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Message")
         ], ChangePasswordDialog);
         Account.ChangePasswordDialog = ChangePasswordDialog;
