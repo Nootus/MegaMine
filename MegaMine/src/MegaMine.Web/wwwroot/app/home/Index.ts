@@ -1,7 +1,7 @@
 ﻿module MegaMine.Home {
 
     @controller("megamine", "MegaMine.Home.Index")
-    @inject("$scope", "MegaMine.Shared.Profile", "MegaMine.Shared.Navigation", "MegaMine.Account.ChangePasswordDialog")
+    @inject("MegaMine.Shared.Profile", "MegaMine.Shared.Navigation", "MegaMine.Account.ChangePasswordDialog")
     export class Index {
 
         public startvalue: number = 0;
@@ -10,8 +10,8 @@
         public currentMenuItem: MegaMine.Shared.Models.IMenuModel =  <MegaMine.Shared.Models.IMenuModel>{};
 
 
-        constructor(private $scope: ng.IScope, public profile: MegaMine.Shared.Profile,
-            public navigation: MegaMine.Shared.Navigation, private changePasswordDialog: MegaMine.Account.ChangePasswordDialog) {
+        constructor(public profile: MegaMine.Shared.Profile, public navigation: MegaMine.Shared.Navigation,
+            private changePasswordDialog: MegaMine.Account.ChangePasswordDialog) {
         }
 
         public showChangePasswordDialog(ev) {
@@ -29,7 +29,6 @@
 
         private resetMenu(): void {
             const self: Index = this;
-            //self.$scope.accordion_data.current = -1;
             self.currentMenuItem.pageId = -1;
         }
 

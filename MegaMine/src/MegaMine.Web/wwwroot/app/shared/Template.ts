@@ -5,7 +5,7 @@
     export class Template {
 
         public getButtonDefaultColumnDefs(field: string, editClaim: string,
-                        deleteClaim: string, hide: string | boolean): uiGrid.IColumnDef {
+                        deleteClaim: string, hide?: string | boolean): uiGrid.IColumnDef {
             const self: Template = this;
 
             var buttons: Models.IButton[] = [<Models.IButton>{ buttonType: Models.ButtonType.view },
@@ -17,7 +17,7 @@
             return self.getButtonColumnDefs(field, buttons, hide);
         }
 
-        public getButtonColumnDefs(field: string, buttons: Models.IButton[], hide: string | boolean): uiGrid.IColumnDef {
+        public getButtonColumnDefs(field: string, buttons: Models.IButton[], hide?: string | boolean): uiGrid.IColumnDef {
             var buttonColumnDef: uiGrid.IColumnDef = {
                 name: field,
                 field: field,

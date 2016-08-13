@@ -9,8 +9,7 @@ var MegaMine;
     var Home;
     (function (Home) {
         let Index = class Index {
-            constructor($scope, profile, navigation, changePasswordDialog) {
-                this.$scope = $scope;
+            constructor(profile, navigation, changePasswordDialog) {
                 this.profile = profile;
                 this.navigation = navigation;
                 this.changePasswordDialog = changePasswordDialog;
@@ -32,7 +31,6 @@ var MegaMine;
             }
             resetMenu() {
                 const self = this;
-                //self.$scope.accordion_data.current = -1;
                 self.currentMenuItem.pageId = -1;
             }
             menuClick(item) {
@@ -44,7 +42,7 @@ var MegaMine;
         };
         Index = __decorate([
             MegaMine.controller("megamine", "MegaMine.Home.Index"),
-            MegaMine.inject("$scope", "MegaMine.Shared.Profile", "MegaMine.Shared.Navigation", "MegaMine.Account.ChangePasswordDialog")
+            MegaMine.inject("MegaMine.Shared.Profile", "MegaMine.Shared.Navigation", "MegaMine.Account.ChangePasswordDialog")
         ], Index);
         Home.Index = Index;
     })(Home = MegaMine.Home || (MegaMine.Home = {}));

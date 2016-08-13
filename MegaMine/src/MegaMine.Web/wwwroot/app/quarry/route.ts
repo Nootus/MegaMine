@@ -100,7 +100,7 @@
                     title: "Stock at Yard",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/stockyard.html",
-                    controller: "stockyard",
+                    controller: Stockyard,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):

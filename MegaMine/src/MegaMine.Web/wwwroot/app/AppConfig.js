@@ -36,4 +36,4 @@ var MegaMine;
         App.Config = Config;
     })(App = MegaMine.App || (MegaMine.App = {}));
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=app.config.js.map
+//# sourceMappingURL=AppConfig.js.map

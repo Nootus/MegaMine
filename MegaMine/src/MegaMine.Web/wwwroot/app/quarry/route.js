@@ -98,7 +98,7 @@ var MegaMine;
                     title: "Stock at Yard",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/stockyard.html",
-                    controller: "stockyard",
+                    controller: Quarry.Stockyard,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService) {

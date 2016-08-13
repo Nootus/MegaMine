@@ -18,14 +18,14 @@ var MegaMine;
                 self.grid = {
                     options: {
                         columnDefs: [
-                            { name: "textureName", field: "textureName", displayName: "Name", type: "string" }
+                            { name: "textureName", field: "textureName", displayName: "Name", type: "string" },
+                            template.getButtonDefaultColumnDefs("textureId", "Quarry:TextureEdit", "Quarry:TextureDelete", false)
                         ]
                     },
                     data: quarryService.textures,
                     view: self.viewDialog,
                     context: self
                 };
-                self.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs("textureId", "Quarry:TextureEdit", "Quarry:TextureDelete", false));
             }
             addTexture(ev, context) {
                 const self = context;

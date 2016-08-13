@@ -5,7 +5,7 @@
         targetEvent: any;
         data: IDialogData<TModel>;
         dialogMode: DialogMode;
-        resolve?: { [index: string]: angular.IPromise<any> };
+        resolve?: { [name: string]: any };
         dialogInit?(dialogScope: ng.IScope, dialogModel: TModel): void;
         $mdDialog?: ng.material.IDialogService;
     }

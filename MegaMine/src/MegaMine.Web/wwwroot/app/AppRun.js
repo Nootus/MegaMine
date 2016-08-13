@@ -19,4 +19,4 @@ var MegaMine;
         ], Run);
     })(App = MegaMine.App || (MegaMine.App = {}));
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=app.run.js.map
+//# sourceMappingURL=AppRun.js.map

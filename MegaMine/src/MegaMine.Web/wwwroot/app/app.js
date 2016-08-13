@@ -5,4 +5,4 @@ var MegaMine;
         "ui.grid.autoResize", "ui.grid.exporter", "ui.grid.selection", "ui.grid.edit", "ui.grid.rowEdit",
         "ui.grid.cellNav", "ui.grid.validate", "nvd3", "gridster"]);
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=app.js.map
+//# sourceMappingURL=App.js.map
