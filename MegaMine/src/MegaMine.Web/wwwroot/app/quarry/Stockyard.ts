@@ -20,37 +20,40 @@
             self.grid = {
                 options: {
                     columnDefs: [
-                        { name: 'blockNumber', field: 'blockNumber', displayName: 'Block #', type: 'string' },
-                        { name: 'productType', field: 'productType', displayName: 'Type', type: 'string' },
-                        { name: 'colour', field: 'materialColour', type: 'string', displayName: 'Colour' },
-                        { name: 'texture', field: 'texture', type: 'string', displayName: 'Texture' },
-                        { name: 'length', field: 'length', type: 'number', displayName: 'Length' },
-                        { name: 'width', field: 'width', type: 'number', displayName: 'Width' },
-                        { name: 'height', field: 'height', type: 'number', displayName: 'Height' },
-                        { name: 'weight', field: 'weight', type: 'number', displayName: 'Weight' },
-                        { name: 'materialDate', field: 'materialDate', displayName: 'Date', type: 'date', cellFilter: 'date:"' + constants.dateFormat + '"' },
-                        { name: 'quarry', field: 'quarry', type: 'string', displayName: 'Quarry' },
-                        template.getButtonColumnDefs('materialMovementId',
+                        { name: "blockNumber", field: "blockNumber", displayName: "Block #", type: "string" },
+                        { name: "productType", field: "productType", displayName: "Type", type: "string" },
+                        { name: "colour", field: "materialColour", type: "string", displayName: "Colour" },
+                        { name: "texture", field: "texture", type: "string", displayName: "Texture" },
+                        { name: "length", field: "length", type: "number", displayName: "Length" },
+                        { name: "width", field: "width", type: "number", displayName: "Width" },
+                        { name: "height", field: "height", type: "number", displayName: "Height" },
+                        { name: "weight", field: "weight", type: "number", displayName: "Weight" },
+                        {
+                            name: "materialDate", field: "materialDate", displayName: "Date", type: "date",
+                            cellFilter: "date:\"" + constants.dateFormat + "\""
+                        },
+                        { name: "quarry", field: "quarry", type: "string", displayName: "Quarry" },
+                        template.getButtonColumnDefs("materialMovementId",
                             [
                                 {
                                     buttonType: Shared.Models.ButtonType.edit,
-                                    claim: 'Quarry:MaterialUpdate',
-                                    ngClick: 'grid.appScope.grid.context.editStock(row.entity, $event)'
+                                    claim: "Quarry:MaterialUpdate",
+                                    ngClick: "grid.appScope.grid.context.editStock(row.entity, $event)"
                                 },
                                 {
                                     buttonType: Shared.Models.ButtonType.delete,
-                                    claim: 'Quarry:MaterialDelete',
-                                    ngClick: 'grid.appScope.grid.context.deleteStock(row.entity, $event)'
+                                    claim: "Quarry:MaterialDelete",
+                                    ngClick: "grid.appScope.grid.context.deleteStock(row.entity, $event)"
                                 }
-                            ]),
+                            ])
                     ]
                 },
                 data: quarryService.stock,
-                view: self.viewDialog,
                 context: self
             };
 
-            self.quarryService.materialViewModel = <Models.IMaterialViewModel> {}; //resetting the view model, so that it can be populated in the edit pop ups
+            // resetting the view model, so that it can be populated in the edit pop ups
+            self.quarryService.materialViewModel = <Models.IMaterialViewModel> {};
             self.yards = quarryService.yardList;
             self.quarryService.stock.splice(0, quarryService.stock.length);
         }
@@ -61,63 +64,64 @@
             if (form.$valid) {
                 self.noStockMessage = undefined;
                 self.quarryService.getStock(self.yardId).then(function (): void {
-                    if (self.quarryService.stock.length === 0)
+                    if (self.quarryService.stock.length === 0) {
                         self.noStockMessage = self.message.noStockMessage;
+                    }
                 });
             }
         }
 
-        public editStock(model: Models.IStockModel, ev: ng.IAngularEvent) {
+        public editStock(model: Models.IStockModel, ev: ng.IAngularEvent): void {
             this.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
         }
 
-        public deleteStock(model: Models.IStockModel, ev: ng.IAngularEvent) {
+        public deleteStock(model: Models.IStockModel, ev: ng.IAngularEvent): void {
             this.viewDialog(model, Shared.Dialog.Models.DialogMode.delete, ev);
         }
 
-        public dialogInit = (dialogScope: Models.IMaterialScope, dialogModel: Models.IStockModel) => {
+        public dialogInit = (dialogController: Shared.Dialog.DialogController<Models.IStockModel>, dialogModel: Models.IStockModel) => {
             const self: Stockyard = this;
 
-            //making a backup copy of product types. this is need as we apply filters
+            // making a backup copy of product types. this is need as we apply filters
             if (self.productTypes.length === 0) {
                 angular.copy(self.quarryService.materialViewModel.productTypes, self.productTypes);
-            }
-            else {
+            } else {
                 self.quarryService.materialViewModel.productTypes = angular.copy(self.productTypes);
             }
-            self.quarryUtility.addMaterialWatchers(dialogScope, dialogModel);
-        }
+            self.quarryUtility.addMaterialWatchers(<Models.IMaterialScope>dialogController.$scope, dialogModel);
+        };
 
-        public viewDialog(model: Models.IStockModel, dialogMode: Shared.Dialog.Models.DialogMode, ev: ng.IAngularEvent) {
+        public viewDialog(model: Models.IStockModel, dialogMode: Shared.Dialog.Models.DialogMode, ev: ng.IAngularEvent): void {
             const self: Stockyard = this;
 
             model.currentYardId = self.yardId;
             self.dialogService.show({
-                templateUrl: 'stockyard_dialog',
+                templateUrl: "stockyard_dialog",
                 targetEvent: ev,
-                data: { model: model, dataOptions: { viewModel: self.quarryService.materialViewModel, processTypeEnum: self.processTypeEnum } },
+                data: {
+                    model: model,
+                    dataOptions: { viewModel: self.quarryService.materialViewModel, processTypeEnum: self.processTypeEnum }
+                },
                 dialogMode: dialogMode,
                 dialogInit: self.dialogInit,
                 resolve: {
                     resolveModel: function (): ng.IHttpPromise<Models.IMaterialViewModel> | boolean  {
                         if (Object.getOwnPropertyNames(self.quarryService.materialViewModel).length === 0) {
-                            return self.quarryService.getMaterialViewModel()
-                        }
-                        else {
+                            return self.quarryService.getMaterialViewModel();
+                        } else {
                             return true;
                         }
                     }
                 }
             })
-                .then(function (dialogModel) {
+                .then(function (dialogModel: Models.IStockModel): void {
                     if (dialogMode === Shared.Dialog.Models.DialogMode.delete) {
-                        self.quarryService.materialDelete(dialogModel.materialId, model.currentYardId).then(function () {
+                        self.quarryService.materialDelete(dialogModel.materialId, model.currentYardId).then(function (): void {
                             self.dialogService.hide();
                         });
-                    }
-                    else {
+                    } else {
                         self.quarryUtility.clearByProcessType(dialogModel);
-                        self.quarryService.materialUpdate(dialogModel).then(function () {
+                        self.quarryService.materialUpdate(dialogModel).then(function (): void {
                             self.dialogService.hide();
                         });
                     }

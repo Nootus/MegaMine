@@ -23,7 +23,7 @@ var MegaMine;
             }
             changeCompany() {
                 const self = this;
-                //getting profile for the changed company
+                // getting profile for the changed company
                 self.profile.get();
                 self.navigation.gotoDashboard();
                 self.resetMenu();

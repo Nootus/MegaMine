@@ -6,7 +6,7 @@
         data: IDialogData<TModel>;
         dialogMode: DialogMode;
         resolve?: { [name: string]: any };
-        dialogInit?(dialogScope: ng.IScope, dialogModel: TModel): void;
+        dialogInit?(dialogController: DialogController<TModel>, dialogModel: TModel): void;
         $mdDialog?: ng.material.IDialogService;
     }
 }

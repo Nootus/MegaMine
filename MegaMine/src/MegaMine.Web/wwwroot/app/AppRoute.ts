@@ -28,26 +28,27 @@
                     previousState: "",
                     templateUrl: "/app/account/login.html",
                     controller: "login",
-                    controllerAs: "vm",
+                    controllerAs: "vm"
                 })
                 .state("logout", {
                     url: virtualPath + "/logout",
                     title: "Login",
                     previousState: "",
                     templateUrl: "/app/account/login.html",
-                    controller: "login",
+                    controller: Account.Login,
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["MegaMine.Shared.Profile", "accountService", function (profile, accountService) {
-                            profile.logout();
-                            return accountService.logout();
-                        }]
+                        resolveModel: ["MegaMine.Shared.Profile", "accountService",
+                            function (profile: Shared.Profile, accountService: Account.AccountService): ng.IHttpPromise<void> {
+                                profile.logout();
+                                return accountService.logout();
+                            }]
                     }
-                })
+                });
 
             $locationProvider.html5Mode(true);
 
-            $urlRouterProvider.when("", "/")
+            $urlRouterProvider.when("", "/");
             $urlRouterProvider.when(virtualPath + "/", virtualPath);
         }
     }

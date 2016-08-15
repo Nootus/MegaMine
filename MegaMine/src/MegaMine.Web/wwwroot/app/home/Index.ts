@@ -14,13 +14,13 @@
             private changePasswordDialog: MegaMine.Account.ChangePasswordDialog) {
         }
 
-        public showChangePasswordDialog(ev) {
+        public showChangePasswordDialog(ev: ng.IAngularEvent): void {
             this.changePasswordDialog.viewDialog(ev);
         }
 
         public changeCompany(): boolean {
             const self: Index = this;
-            //getting profile for the changed company
+            // getting profile for the changed company
             self.profile.get();
             self.navigation.gotoDashboard();
             self.resetMenu();
@@ -32,11 +32,11 @@
             self.currentMenuItem.pageId = -1;
         }
 
-        private menuClick(item): void {
+        public menuClick(item: Shared.Models.IMenuModel): void {
             angular.extend(this.currentMenuItem, item);
         }
 
-        private toggleMenu(): void {
+        public toggleMenu(): void {
             this.collapseMenu = !this.collapseMenu;
         }
     }

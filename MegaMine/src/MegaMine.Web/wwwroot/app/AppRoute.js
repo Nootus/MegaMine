@@ -29,17 +29,18 @@ var MegaMine;
                 previousState: "",
                 templateUrl: "/app/account/login.html",
                 controller: "login",
-                controllerAs: "vm",
+                controllerAs: "vm"
             })
                 .state("logout", {
                 url: virtualPath + "/logout",
                 title: "Login",
                 previousState: "",
                 templateUrl: "/app/account/login.html",
-                controller: "login",
+                controller: MegaMine.Account.Login,
                 controllerAs: "vm",
                 resolve: {
-                    resolveModel: ["MegaMine.Shared.Profile", "accountService", function (profile, accountService) {
+                    resolveModel: ["MegaMine.Shared.Profile", "accountService",
+                        function (profile, accountService) {
                             profile.logout();
                             return accountService.logout();
                         }]

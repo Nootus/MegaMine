@@ -42,7 +42,7 @@ var MegaMine;
                         self.model = angular.copy(self.dialogOptions.data.model);
                     }
                     if (self.dialogOptions.dialogInit !== undefined) {
-                        self.dialogOptions.dialogInit(self.$scope, self.model);
+                        self.dialogOptions.dialogInit(self, self.model);
                     }
                 }
                 resolveDialog(form) {

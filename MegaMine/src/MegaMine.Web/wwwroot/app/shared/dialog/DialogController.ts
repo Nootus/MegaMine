@@ -10,13 +10,18 @@
 
         // local variables
         public dialogError: Shared.Models.INtException;
+
+        // copying the data onto the controller, hence defing those variables
         public model: TModel;
+        public service: any;
+        public dataOptions: any;
 
         private dialogMode: Models.DialogMode;
         private deferredPromiseState: any = undefined;
 
-        constructor(private $scope: ng.IScope, $mdDialog: ng.material.IDialogService,
+        constructor(public $scope: ng.IScope, $mdDialog: ng.material.IDialogService,
             dialogOptions: Models.IDialogOptions<TModel>, deferred: ng.IDeferred<TModel>) {
+
             const self: DialogController<TModel> = this;
 
             // todo: due to the bug in material setting the bindToController values and calling $onInit
@@ -42,7 +47,7 @@
             }
 
             if (self.dialogOptions.dialogInit !== undefined) {
-                self.dialogOptions.dialogInit(self.$scope, self.model);
+                self.dialogOptions.dialogInit(self, self.model);
             }
         }
 

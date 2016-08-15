@@ -42,7 +42,7 @@
         public stock: Models.IStockModel[] = [];
 
         // reports
-        public quarrySummary = [];
+        public quarrySummary: Models.IQuarrySummaryModel[] = [];
         public quarrySummaryDetails: Models.IStockModel[] = [];
 
         // product summary
