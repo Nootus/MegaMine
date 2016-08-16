@@ -150,7 +150,7 @@
                     title: "Product Summary",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/productsummary.html",
-                    controller: "productSummary",
+                    controller: ProductSummary,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):

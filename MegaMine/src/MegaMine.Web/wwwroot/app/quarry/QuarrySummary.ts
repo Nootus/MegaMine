@@ -115,7 +115,10 @@
             self.dialogService.show({
                 templateUrl: "quarry_summary_dialog",
                 targetEvent: ev,
-                data: { model: self.quarryService.quarrySummaryDetails, dataOptions: { quarryModel: quarry, dialogGrid: self.dialogGrid } },
+                data: {
+                    model: self.quarryService.quarrySummaryDetails,
+                    dataOptions: { quarryModel: quarry, dialogGrid: self.dialogGrid }
+                },
                 dialogMode: Shared.Dialog.Models.DialogMode.view,
                 dialogInit: self.dialogInit,
                 resolve: {

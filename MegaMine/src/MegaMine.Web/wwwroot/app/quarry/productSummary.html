@@ -19,9 +19,9 @@
 <nt-grid grid="vm.grid"></nt-grid>
 <script type="text/ng-template" id="product_summary_dialog">
     <md-dialog aria-label="Product Type Summary" class="dialog full-width">
-        <nt-dialog form="summaryForm" header="{{vm.summaryModel.productTypeName}}({{vm.summaryModel.quarryName}})">
+        <nt-dialog form="summaryForm" header="{{vm.dataOptions.summaryModel.productTypeName}}({{vm.dataOptions.summaryModel.quarryName}})">
             <div layout="row">
-                <nt-grid grid="dialogGrid" class="full-width" grid-class="dialog-grid"></nt-grid>
+                <nt-grid grid="vm.dataOptions.dialogGrid" class="full-width" grid-class="dialog-grid"></nt-grid>
             </div>
         </nt-dialog>
     </md-dialog>
