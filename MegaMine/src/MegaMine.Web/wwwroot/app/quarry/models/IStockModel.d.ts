@@ -4,5 +4,8 @@
         materialColour: string;
         texture: string;
         quarry: string;
+
+        // used in Add Material
+        index: number;
     }
 }

@@ -52,8 +52,8 @@
             return item;
         }
 
-        public getItem<T>(list: Array<T>, key: number, keyField: string, itemField: string): T {
-            var item: T;
+        public getItem(list: Array<any>, key: number, keyField: string, itemField: string): string {
+            var item: string;
             for (let counter: number = 0; counter < list.length; counter++) {
                 if (key === list[counter][keyField]) {
                     item = list[counter][itemField];

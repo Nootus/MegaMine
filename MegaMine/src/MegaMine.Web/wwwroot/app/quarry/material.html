@@ -1,7 +1,8 @@
 ﻿<nt-toolbar-button header="Add Material" button-text="Save" button-icon="save" button-click="vm.saveMaterial($event)"></nt-toolbar-button>
 <md-content layout-padding style="height: 100%">
     <form name="materialForm" novalidate>
-        <div layout="row">
+        {{vm.model.processTypeId}}
+        <div layout="row"> 
             <nt-select flex="10" form="materialForm" label="Quarry" control-name="quarry" ng-model="vm.model.quarryId" opt-list="vm.viewModel.quarries" ng-required="true"></nt-select>
             <nt-input flex="15" form="materialForm" type="date" label="Date" control-name="materialDate" ng-model="vm.model.materialDate" ng-required="true"></nt-input>
             <nt-select flex="10" form="materialForm" label="Colour" control-name="materialColour" ng-model="vm.model.materialColourId" opt-list="vm.viewModel.materialColours" ng-required="true"></nt-select>
@@ -10,7 +11,7 @@
 
             <div flex="50" style="display: inherit" ng-hide="vm.model.processTypeId == vm.processTypeEnum.Cutting">
                 <nt-input flex="20" form="materialForm" type="number" label="Weight" control-name="weightCrushing" ng-model="vm.model.weight" ng-required="vm.model.processTypeId != vm.processTypeEnum.Cutting"></nt-input>
-                <nt-select flex="20" form="materialForm" label="Product Type" control-name="productTypeCrushing" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productTypes" opt-value="productTypeId" opt-text="productTypeName" ng-required="vm.model.processTypeId != vm.processTypeEnum.Cutting"></nt-select>
+                <nt-select flex="30" form="materialForm" label="Product Type" control-name="productTypeCrushing" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productTypes" opt-value="productTypeId" opt-text="productTypeName" ng-required="vm.model.processTypeId != vm.processTypeEnum.Cutting"></nt-select>
                 <div flex="5"></div>
                 <div flex="20" layout-align="center">
                     <nt-button type="command-bar" css-class="content-button" icon="add" text="Add" ng-click="vm.addMaterial(materialForm)" form="materialForm" ng-show="!vm.editMode"></nt-button>
@@ -25,7 +26,7 @@
             <nt-input flex="10" form="materialForm" type="number" label="Width" control-name="width" ng-model="vm.model.width" ng-required="vm.model.processTypeId == vm.processTypeEnum.Cutting"></nt-input>
             <nt-input flex="10" form="materialForm" type="number" label="Height" control-name="height" ng-model="vm.model.height" ng-required="vm.model.processTypeId == vm.processTypeEnum.Cutting"></nt-input>
             <nt-input flex="10" form="materialForm" type="number" label="Weight" control-name="weight" ng-model="vm.model.weight" ng-required="vm.model.processTypeId == vm.processTypeEnum.Cutting"></nt-input>
-            <nt-select flex="10" form="materialForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productTypes" opt-value="productTypeId" opt-text="productTypeName" ng-required="vm.model.processTypeId == vm.processTypeEnum.Cutting"></nt-select>
+            <nt-select flex="15" form="materialForm" label="Product Type" control-name="productType" ng-model="vm.model.productTypeId" opt-list="vm.viewModel.productTypes" opt-value="productTypeId" opt-text="productTypeName" ng-required="vm.model.processTypeId == vm.processTypeEnum.Cutting"></nt-select>
             <div flex="5"></div>
             <div flex="10" layout-align="center">
                 <nt-button type="command-bar" css-class="content-button" icon="add" text="Add" ng-click="vm.addMaterial(materialForm)" form="materialForm" ng-show="!vm.editMode"></nt-button>

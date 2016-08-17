@@ -86,7 +86,7 @@
                     title: "Add Material",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/material.html",
-                    controller: "material",
+                    controller: Material,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Quarry.QuarryService", function (quarryService: QuarryService):
