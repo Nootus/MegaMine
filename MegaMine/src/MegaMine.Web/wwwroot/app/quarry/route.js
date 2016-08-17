@@ -111,7 +111,7 @@ var MegaMine;
                     title: "Material Movement",
                     previousState: "dashboard",
                     templateUrl: "/app/quarry/materialmovement.html",
-                    controller: "materialMovement",
+                    controller: Quarry.MaterialMovement,
                     controllerAs: "vm",
                     resolve: {
                         yards: ["MegaMine.Quarry.QuarryService", function (quarryService) {
