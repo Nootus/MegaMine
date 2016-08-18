@@ -1,7 +1,15 @@
-﻿using System.Collections.Generic;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="NTException.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Used to raise warnings/validations to the Angular. Also to carry unknown exceptions
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Exception
 {
+    using System.Collections.Generic;
+
     public class NTException : System.Exception
     {
         private string message;
@@ -12,7 +20,8 @@ namespace MegaMine.Core.Exception
             this.message = message;
         }
 
-        public NTException(string message, List<NTError> errors) : this(message)
+        public NTException(string message, List<NTError> errors)
+            : this(message)
         {
             this.errors = errors;
         }
@@ -21,7 +30,7 @@ namespace MegaMine.Core.Exception
         {
             get
             {
-                return message;
+                return this.message;
             }
         }
 
@@ -29,7 +38,7 @@ namespace MegaMine.Core.Exception
         {
             get
             {
-                return errors;
+                return this.errors;
             }
         }
     }

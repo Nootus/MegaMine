@@ -1,19 +1,25 @@
-﻿using MegaMine.Core.Repositories;
-using System.Threading.Tasks;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="BaseDashboardDomain.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Abstract class for Dashboards widgets
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Models.Dashboard
 {
+    using System.Threading.Tasks;
+    using MegaMine.Core.Context;
+
     public abstract class BaseDashboardDomain
     {
-        protected IRepository repository;
-
         public abstract Task<ChartModel<string, int>> GetWidgetData(int widgetId, WidgetOptions options);
 
         protected int CompanyId
         {
             get
             {
-                return repository.AppContext.CompanyId;
+                return NTContext.Context.CompanyId;
             }
         }
     }

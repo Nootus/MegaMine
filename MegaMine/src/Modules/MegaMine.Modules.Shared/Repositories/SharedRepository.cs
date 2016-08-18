@@ -11,7 +11,7 @@ namespace MegaMine.Modules.Shared.Repositories
     {
         public SharedRepository(SharedDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.DbContext = dbContext;
         }
 
         public async Task<List<BlockStateModel>> BlockStatesGet(string[] blockNumbers)
@@ -29,7 +29,7 @@ namespace MegaMine.Modules.Shared.Repositories
             {
                 await SaveEntity<BlockStateEntity, BlockStateModel>(model, false);
             }
-            await dbContext.SaveChangesAsync();
+            await this.DbContext.SaveChangesAsync();
         }
     }
 }

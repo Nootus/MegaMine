@@ -1,9 +1,18 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Http;
-using System.Runtime.Remoting.Messaging;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="NTContext.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  This stores the HttpContext and MegaMineContext in the async call context so that they are
+//  available through out the execution cycle
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Context
 {
+    using System.Runtime.Remoting.Messaging;
+    using AutoMapper;
+    using Microsoft.AspNetCore.Http;
+
     public static class NTContext
     {
         public static NTContextModel Context
@@ -12,6 +21,7 @@ namespace MegaMine.Core.Context
             {
                 return (NTContextModel)CallContext.LogicalGetData("MegaMineContext");
             }
+
             set
             {
                 NTContextModel model = value;
@@ -30,7 +40,6 @@ namespace MegaMine.Core.Context
                 {
                     contextModel = Mapper.Map<NTContextModel, NTContextModel>(model, contextModel);
                 }
-
             }
         }
 
@@ -40,6 +49,7 @@ namespace MegaMine.Core.Context
             {
                 return (HttpContext)CallContext.LogicalGetData("HttpContext");
             }
+
             set
             {
                 CallContext.LogicalSetData("HttpContext", value);

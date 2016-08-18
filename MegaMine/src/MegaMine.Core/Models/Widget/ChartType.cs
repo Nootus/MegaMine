@@ -1,4 +1,12 @@
-﻿namespace MegaMine.Core.Models.Widget
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="ChartType.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  This enum tells how the chart needs to be rendered
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Core.Models.Widget
 {
     public enum ChartType
     {

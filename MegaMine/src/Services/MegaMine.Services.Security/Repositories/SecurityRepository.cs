@@ -16,13 +16,13 @@ namespace MegaMine.Services.Security.Repositories
     {
         public SecurityRepository(SecurityDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.DbContext = dbContext;
         }
 
         public async Task<ProfileModel> UserProfileGet(string userName, int companyId)
         {
-            var query = from users in dbContext.UserProfiles
-                        join idn in dbContext.Users on users.UserProfileId equals idn.Id
+            var query = from users in this.DbContext.UserProfiles
+                        join idn in this.DbContext.Users on users.UserProfileId equals idn.Id
                         where users.DeletedInd == false
                         && idn.UserName == userName
                         select new ProfileModel
@@ -44,8 +44,8 @@ namespace MegaMine.Services.Security.Repositories
                 await UpdateEntity<UserProfileEntity>(entity, false, true);
             }
 
-            var companyQuery = from cmp in dbContext.Companies
-                               join usrcmp in dbContext.UserCompanies on cmp.CompanyId equals usrcmp.CompanyId
+            var companyQuery = from cmp in this.DbContext.Companies
+                               join usrcmp in this.DbContext.UserCompanies on cmp.CompanyId equals usrcmp.CompanyId
                                where usrcmp.UserProfileId == model.UserId
                                && cmp.DeletedInd == false
                                orderby cmp.CompanyName
@@ -64,8 +64,8 @@ namespace MegaMine.Services.Security.Repositories
             string userId = model.UserId;
 
             //getting all roles for the current user
-            var roleQuery = from userRoles in dbContext.UserRoles
-                            join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+            var roleQuery = from userRoles in this.DbContext.UserRoles
+                            join roles in this.DbContext.Roles on userRoles.RoleId equals roles.Id
                             where userRoles.UserId == userId
                                 && SecuritySettings.SuperGroupAdminRoles.Contains(roles.RoleType)
                             select Mapper.Map<ApplicationRole, RoleModel>(roles);
@@ -75,14 +75,14 @@ namespace MegaMine.Services.Security.Repositories
             if(profileRoles.Any(r => r.RoleType == (int)RoleType.SuperAdmin))
             {
                 //getting all companies
-                model.Companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false orderby cmp.CompanyName select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
+                model.Companies = await (from cmp in this.DbContext.Companies where cmp.DeletedInd == false orderby cmp.CompanyName select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
                 model.AdminRoles = profileRoles.Where(r => r.RoleType == (int)RoleType.SuperAdmin).Select(r => r.Name).ToArray();
                 model.Claims = new List<ClaimModel>();
             }
             else if(profileRoles.Any(r => r.RoleType == (int)RoleType.GroupAdmin))
             {
                 int[] groupCompanyId = profileRoles.Where(r => r.RoleType == (int)RoleType.GroupAdmin).Select(r => r.CompanyId).ToArray();
-                var companies = await (from cmp in dbContext.Companies where cmp.DeletedInd == false && ((cmp.ParentCompanyId != null && groupCompanyId.Contains(cmp.ParentCompanyId.Value)) || groupCompanyId.Contains(cmp.CompanyId))
+                var companies = await (from cmp in this.DbContext.Companies where cmp.DeletedInd == false && ((cmp.ParentCompanyId != null && groupCompanyId.Contains(cmp.ParentCompanyId.Value)) || groupCompanyId.Contains(cmp.CompanyId))
                                        select Mapper.Map<CompanyEntity, CompanyModel>(cmp)).ToListAsync();
                 model.Companies = companies.Union(model.Companies).OrderBy(c => c.CompanyName).ToList();
                 model.AdminRoles = profileRoles.Where(r => r.RoleType == (int)RoleType.GroupAdmin).Select(r => r.Name).ToArray();
@@ -92,8 +92,8 @@ namespace MegaMine.Services.Security.Repositories
             if(model.AdminRoles == null)
             {
                 //getting company admin role
-                var companyRoleQuery = from userRoles in dbContext.UserRoles
-                                       join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
+                var companyRoleQuery = from userRoles in this.DbContext.UserRoles
+                                       join roles in this.DbContext.Roles on userRoles.RoleId equals roles.Id
                                        where userRoles.UserId == userId
                                            && roles.CompanyId == companyId
                                            && roles.RoleType == (int)RoleType.CompanyAdmin
@@ -107,9 +107,9 @@ namespace MegaMine.Services.Security.Repositories
                 }
                 else
                 {
-                    var rolesClaimsQuery = from userRoles in dbContext.UserRoles
-                                           join roles in dbContext.Roles on userRoles.RoleId equals roles.Id
-                                           join claims in dbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
+                    var rolesClaimsQuery = from userRoles in this.DbContext.UserRoles
+                                           join roles in this.DbContext.Roles on userRoles.RoleId equals roles.Id
+                                           join claims in this.DbContext.RoleClaims on userRoles.RoleId equals claims.RoleId
                                            where userRoles.UserId == userId
                                                  && roles.CompanyId == companyId
                                            select Mapper.Map<IdentityRoleClaim<string>, ClaimModel>(claims);
@@ -117,7 +117,7 @@ namespace MegaMine.Services.Security.Repositories
                     var roleClaims = await rolesClaimsQuery.ToListAsync();
 
                     //getting user specific overrides
-                    var userClaimsQuery = from claim in dbContext.UserClaims
+                    var userClaimsQuery = from claim in this.DbContext.UserClaims
                                           where claim.UserId == userId
                                           select Mapper.Map<IdentityUserClaim<string>, ClaimModel>(claim);
 
@@ -137,27 +137,27 @@ namespace MegaMine.Services.Security.Repositories
 
         public List<PageModel> IdentityPagesGet()
         {
-            var query = from page in dbContext.IdentityPages.Include(c => c.Claims).ThenInclude(a => a.Claim) select page;
+            var query = from page in this.DbContext.IdentityPages.Include(c => c.Claims).ThenInclude(a => a.Claim) select page;
             return Mapper.DynamicMap<List<IdentityPageEntity>, List<PageModel>>(query.ToList());
         }
 
         public List<MenuModel> IdentityMenuPagesGet()
         {
-            var query = from menuPage in dbContext.IdentityMenuPages where menuPage.DeletedInd == false select Mapper.DynamicMap<IdentityMenuPageEntity, MenuModel>(menuPage);
+            var query = from menuPage in this.DbContext.IdentityMenuPages where menuPage.DeletedInd == false select Mapper.DynamicMap<IdentityMenuPageEntity, MenuModel>(menuPage);
             return query.ToList();
         }
 
         public List<CompanyEntity> IdentityCompanyClaimsGet()
         {
-            var query = from company in dbContext.Companies.Include(c => c.Claims).ThenInclude(a => a.Claim) select company;
+            var query = from company in this.DbContext.Companies.Include(c => c.Claims).ThenInclude(a => a.Claim) select company;
             return query.ToList();
         }
 
         public List<ListItem<string, string>> IdentityAdminRolesGet()
         {
-            var dbroles = (from roles in dbContext.IdentityRoleHierarchies
-                           join role in dbContext.Roles on roles.RoleId equals role.Id
-                           join child in dbContext.Roles on roles.ChildRoleId equals child.Id
+            var dbroles = (from roles in this.DbContext.IdentityRoleHierarchies
+                           join role in this.DbContext.Roles on roles.RoleId equals role.Id
+                           join child in this.DbContext.Roles on roles.ChildRoleId equals child.Id
                            select new ListItem<string, string>() { Key = role.Name, Item = child.Name }).ToList();
 
             var hierarchy = dbroles.SelectMany(r => GetChildren(dbroles, r)).Distinct(new ListItemStringComparer()).OrderBy(r => r.Key).ToList();
@@ -178,8 +178,8 @@ namespace MegaMine.Services.Security.Repositories
 
         public async Task<int[]> GetGroupCompanyIds()
         {
-            return await (from cmp in dbContext.Companies
-                               where cmp.CompanyId == context.GroupCompanyId || cmp.ParentCompanyId == context.GroupCompanyId
+            return await (from cmp in this.DbContext.Companies
+                               where cmp.CompanyId == this.AppContext.GroupCompanyId || cmp.ParentCompanyId == this.AppContext.GroupCompanyId
                                select cmp.CompanyId).ToArrayAsync();
         }
 

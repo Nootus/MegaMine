@@ -1,9 +1,17 @@
-﻿using MegaMine.Core.Context;
-using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="ContextMiddleware.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Middleware used to store HttpContext
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Extensions
 {
+    using System.Threading.Tasks;
+    using MegaMine.Core.Context;
+    using Microsoft.AspNetCore.Http;
+
     public class ContextMiddleware
     {
         private RequestDelegate next;
@@ -17,7 +25,7 @@ namespace MegaMine.Core.Extensions
         {
             NTContext.HttpContext = context;
             NTContext.Context = null;
-            await next(context);
+            await this.next(context);
         }
     }
 }

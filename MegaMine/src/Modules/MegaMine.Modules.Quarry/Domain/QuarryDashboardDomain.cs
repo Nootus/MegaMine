@@ -1,15 +1,19 @@
 ﻿using MegaMine.Core.Models.Dashboard;
+using MegaMine.Core.Repositories;
 using MegaMine.Modules.Quarry.Repositories;
+using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 
 namespace MegaMine.Modules.Quarry.Domain
 {
-    public class QuarryDashboardDomain : BaseDashboardDomain
+    public class QuarryDashboardDomain: BaseDashboardDomain
     {
+        QuarryRepository repository;
         public QuarryDashboardDomain(QuarryRepository quarryRepository)
         {
-            repository = quarryRepository;
+            this.repository = quarryRepository;
         }
+
         public override async Task<ChartModel<string, int>> GetWidgetData(int widgetId, WidgetOptions options)
         {
             string sql = null;

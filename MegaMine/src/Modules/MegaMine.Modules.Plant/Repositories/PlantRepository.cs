@@ -13,7 +13,7 @@ namespace MegaMine.Modules.Plant.Repositories
     {
         public PlantRepository(PlantDbContext dbContext)
         {
-            this.dbContext = dbContext;
+            this.DbContext = dbContext;
         }
 
         #region Machine
@@ -24,9 +24,9 @@ namespace MegaMine.Modules.Plant.Repositories
         public async Task<List<MachineModel>> MachinesGet()
         {
             //return await GetListAsync<MachineEntity, MachineModel>(s => s.Name);
-            var query = from mac in dbContext.Machines
-                        join bld in dbContext.Blades on mac.BladeId equals bld.BladeId
-                        where mac.CompanyId == context.CompanyId
+            var query = from mac in this.DbContext.Machines
+                        join bld in this.DbContext.Blades on mac.BladeId equals bld.BladeId
+                        where mac.CompanyId == this.AppContext.CompanyId
                         && mac.DeletedInd == false
                         select new MachineModel()
                         {
@@ -97,7 +97,7 @@ namespace MegaMine.Modules.Plant.Repositories
 
         public async Task DressingSave(DressingViewModel viewModel)
         {
-            await dbContext.Database.BeginTransactionAsync();
+            await this.DbContext.Database.BeginTransactionAsync();
 
             //Saving Dressing Model
             DressingEntity dressingEntity = await SaveEntity<DressingEntity, DressingModel>(viewModel.Model, false);

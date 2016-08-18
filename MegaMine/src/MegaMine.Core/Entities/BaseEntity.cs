@@ -1,38 +1,52 @@
-﻿using MegaMine.Core.Context;
-using System;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="BaseEntity.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  This is the base class for all database related entities. Also used in setting audit values
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Entities
 {
+    using System;
+    using MegaMine.Core.Context;
+
     public class BaseEntity
     {
-        public string CreatedUserId { get; set; }
-        public DateTime CreatedDate { get; set; }
-        public string LastModifiedUserId { get; set; }
-        public DateTime LastModifiedDate { get; set; }
-        public bool DeletedInd { get; set; }
-        public int CompanyId { get; set; }
-
         public BaseEntity()
         {
-            var contextModel = NTContext.Context;
+            NTContextModel contextModel = NTContext.Context;
 
             if (contextModel != null)
             {
-                CreatedUserId = contextModel.UserName;
-                LastModifiedUserId = contextModel.UserName;
-                CompanyId = contextModel.CompanyId;
+                this.CreatedUserId = contextModel.UserName;
+                this.LastModifiedUserId = contextModel.UserName;
+                this.CompanyId = contextModel.CompanyId;
             }
-            CreatedDate = DateTime.UtcNow;
-            LastModifiedDate = DateTime.UtcNow;
-            DeletedInd = false;
+
+            this.CreatedDate = DateTime.UtcNow;
+            this.LastModifiedDate = DateTime.UtcNow;
+            this.DeletedInd = false;
         }
+
+        public string CreatedUserId { get; set; }
+
+        public DateTime CreatedDate { get; set; }
+
+        public string LastModifiedUserId { get; set; }
+
+        public DateTime LastModifiedDate { get; set; }
+
+        public bool DeletedInd { get; set; }
+
+        public int CompanyId { get; set; }
 
         public virtual void UpdateAuditFields()
         {
-            var contextModel = NTContext.Context;
+            NTContextModel contextModel = NTContext.Context;
 
-            LastModifiedDate = DateTime.UtcNow;
-            LastModifiedUserId = contextModel.UserName;  //TODO: Change this get the current user
+            this.LastModifiedDate = DateTime.UtcNow;
+            this.LastModifiedUserId = contextModel.UserName;
         }
     }
 }

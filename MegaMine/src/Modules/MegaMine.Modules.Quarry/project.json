@@ -4,7 +4,7 @@
   "authors": [ "Prasanna" ],
 
   "frameworks": {
-    "net461": { }
+    "net461": {}
   },
   "dependencies": {
     "Microsoft.AspNetCore.Mvc": "1.0.0",
@@ -14,5 +14,8 @@
     "MegaMine.Services.Security": "1.0.0-*",
     "MegaMine.Services.Widget": "1.0.0-*",
     "StyleCop.Analyzers": "1.0.0"
+  },
+  "buildOptions": {
+    "additionalArguments": [ "/ruleset:../../../stylecop.ruleset", "/additionalfile:../../../stylecop.json" ]
   }
 }

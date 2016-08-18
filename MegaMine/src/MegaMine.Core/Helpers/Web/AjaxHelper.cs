@@ -1,65 +1,76 @@
-﻿using MegaMine.Core.Context;
-using MegaMine.Core.Exception;
-using MegaMine.Core.Models.Dashboard;
-using MegaMine.Core.Models.Widget;
-using MegaMine.Core.Models.Web;
-using Microsoft.Extensions.DependencyInjection;
-using System;
-using System.Threading.Tasks;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="AjaxHelper.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Helpers methods used to generate standard object, AjaxModel, that can be consumed in Angular
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Helpers.Web
 {
+    using System;
+    using System.Threading.Tasks;
+    using MegaMine.Core.Context;
+    using MegaMine.Core.Exception;
+    using MegaMine.Core.Models.Dashboard;
+    using MegaMine.Core.Models.Web;
+    using MegaMine.Core.Models.Widget;
+
     public static class AjaxHelper
     {
-        //public static AjaxModel<T> Get<T>(Func<string, T> action, string message = "") where T : class
-        //{
-        //    AjaxModel<T> ajax;
+        public static AjaxModel<T> Get<T>(Func<string, T> action, string message = "")
+            where T : class
+        {
+            AjaxModel<T> ajax;
 
-        //    try
-        //    {
+            try
+            {
 
-        //        T model = action(null);
+                T model = action(null);
 
-        //        ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
-        //    }
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
+            }
+            catch (System.Exception exp)
+            {
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
+            }
 
-        //    return ajax;
-        //}
+            return ajax;
+        }
 
-        //public static AjaxModel<T> Save<T>(Action<string> action, string message) where T : class
-        //{
-        //    AjaxModel<T> ajax;
+        public static AjaxModel<T> Save<T>(Action<string> action, string message)
+            where T : class
+        {
+            AjaxModel<T> ajax;
 
-        //    try
-        //    {
+            try
+            {
 
-        //        action(null);
+                action(null);
 
-        //        ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = message };
-        //    }
-        //    catch (Exception exp)
-        //    {
-        //        ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
-        //    }
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = message };
+            }
+            catch (System.Exception exp)
+            {
+                ajax = new AjaxModel<T>() { Result = AjaxResult.Exception, Model = null, Message = exp.GetBaseException().Message };
+            }
 
-        //    return ajax;
-        //}
+            return ajax;
+        }
 
-        //public static AjaxModel<T> SaveGet<T>(Func<string, T> action, string message) where T : class
-        //{
-        //    return Get(action, message);
-        //}
+        public static AjaxModel<T> SaveGet<T>(Func<string, T> action, string message)
+            where T : class
+        {
+            return Get(action, message);
+        }
 
         public static AjaxModel<T> BlankModel<T>() where T : class
         {
             return new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = "" };
         }
 
-        public static async Task<AjaxModel<T>> GetAsync<T>(Func<string, Task<T>> action, string message = "") where T : class
+        public static async Task<AjaxModel<T>> GetAsync<T>(Func<string, Task<T>> action, string message = "")
+            where T : class
         {
             AjaxModel<T> ajax;
 
@@ -99,7 +110,8 @@ namespace MegaMine.Core.Helpers.Web
             return ajax;
         }
 
-        public static async Task<AjaxModel<T>> SaveGetAsync<T>(Func<string, Task<T>> action, string message) where T : class
+        public static async Task<AjaxModel<T>> SaveGetAsync<T>(Func<string, Task<T>> action, string message)
+            where T : class
         {
             return await GetAsync(action, message);
         }
@@ -111,7 +123,8 @@ namespace MegaMine.Core.Helpers.Web
             return ajaxModel;
         }
 
-        public static async Task<AjaxModel<T>> GetDashboardAsync<T>(Func<string, Task<T>> action, BaseDashboardDomain dashboardDomain, IWidgetDomain widgetDomain) where T : class
+        public static async Task<AjaxModel<T>> GetDashboardAsync<T>(Func<string, Task<T>> action, BaseDashboardDomain dashboardDomain, IWidgetDomain widgetDomain)
+            where T : class
         {
             var ajaxModel = await AjaxHelper.GetAsync(action);
             ajaxModel.Dashboard = await AjaxHelper.DashboardGet(dashboardDomain.GetWidgetData, widgetDomain);

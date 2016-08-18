@@ -1,8 +1,16 @@
-﻿using MegaMine.Core.Models;
-using System.Collections.Generic;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="DateValidation.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  To validate startTime < endTime. Also to validate in a list without overlapping
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Helpers
 {
+    using MegaMine.Core.Models;
+    using System.Collections.Generic;
+
     public static class DateValidation
     {
         public static bool ValidateTimeRange(this ITimeRange range)
@@ -12,13 +20,15 @@ namespace MegaMine.Core.Helpers
 
         public static bool ValidateTimeRange<T>(this List<T> ranges) where T: ITimeRange
         {
-            for (var counter = 0; counter < ranges.Count; counter++)
+            for (int counter = 0; counter < ranges.Count; counter++)
             {
                 ITimeRange range = ranges[counter];
                 if (!range.ValidateTimeRange())
+                {
                     return false;
+                }
 
-                for (var subCounter = counter + 1; subCounter < ranges.Count; subCounter++)
+                for (int subCounter = counter + 1; subCounter < ranges.Count; subCounter++)
                 {
                     ITimeRange subRange = ranges[subCounter];
 

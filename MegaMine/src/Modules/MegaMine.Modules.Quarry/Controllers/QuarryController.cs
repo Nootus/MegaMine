@@ -4,6 +4,7 @@ using MegaMine.Core.Models.Web;
 using MegaMine.Modules.Quarry.Common;
 using MegaMine.Modules.Quarry.Domain;
 using MegaMine.Modules.Quarry.Models;
+using MegaMine.Modules.Quarry.Repositories;
 using MegaMine.Services.Security.Domain;
 using MegaMine.Services.Widget.Domain;
 using Microsoft.AspNetCore.Mvc;
