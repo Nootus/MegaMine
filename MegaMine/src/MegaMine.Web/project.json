@@ -18,15 +18,6 @@
     "MegaMine.Modules.Shared": "1.0.0-*",
     "MegaMine.Services.Security": "1.0.0-*",
     "MegaMine.Services.Widget": "1.0.0-*",
-
-
-
-
-
-
-
-
-
     "Microsoft.AspNetCore.Authentication.Cookies": "1.0.0",
     "Microsoft.AspNetCore.Razor.Tools": {
       "version": "1.0.0-preview2-final",
@@ -48,8 +39,8 @@
     "Microsoft.VisualStudio.Web.CodeGenerators.Mvc": {
       "version": "1.0.0-preview2-final",
       "type": "build"
-    }
-
+    },
+    "StyleCop.Analyzers": "1.0.0"
   },
 
   "tools": {

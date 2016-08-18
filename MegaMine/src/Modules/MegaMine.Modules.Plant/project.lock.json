@@ -505,6 +505,9 @@
           "lib/net45/Remotion.Linq.dll": {}
         }
       },
+      "StyleCop.Analyzers/1.0.0": {
+        "type": "package"
+      },
       "System.Buffers/4.0.0": {
         "type": "package",
         "compile": {
@@ -787,7 +790,8 @@
         "dependencies": {
           "AutoMapper": "4.0.4",
           "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+          "StyleCop.Analyzers": "1.0.0"
         },
         "compile": {
           "net461/MegaMine.Core.dll": {}
@@ -802,7 +806,8 @@
         "dependencies": {
           "AutoMapper": "4.0.4",
           "MegaMine.Core": "1.0.0",
-          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0"
+          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+          "StyleCop.Analyzers": "1.0.0"
         },
         "compile": {
           "net461/MegaMine.Modules.Shared.dll": {}
@@ -1243,6 +1248,20 @@
         "lib/netstandard1.0/Remotion.Linq.xml",
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.dll",
         "lib/portable-net45+win+wpa81+wp80/Remotion.Linq.xml"
+      ]
+    },
+    "StyleCop.Analyzers/1.0.0": {
+      "sha512": "NT0qdVF8gfXn6YcajL/s9orWNbO9NAr9AM8MDHIxXHstMvxi7+viLxAlZIoWRAA25Cs4O91qFcMt06cL/61TjQ==",
+      "type": "package",
+      "path": "StyleCop.Analyzers/1.0.0",
+      "files": [
+        "StyleCop.Analyzers.1.0.0.nupkg.sha512",
+        "StyleCop.Analyzers.nuspec",
+        "analyzers/dotnet/cs/Newtonsoft.Json.dll",
+        "analyzers/dotnet/cs/StyleCop.Analyzers.CodeFixes.dll",
+        "analyzers/dotnet/cs/StyleCop.Analyzers.dll",
+        "tools/install.ps1",
+        "tools/uninstall.ps1"
       ]
     },
     "System.Buffers/4.0.0": {
@@ -2716,7 +2735,8 @@
       "AutoMapper >= 4.0.4",
       "MegaMine.Core >= 1.0.0-*",
       "MegaMine.Modules.Shared >= 1.0.0-*",
-      "Microsoft.EntityFrameworkCore.SqlServer >= 1.0.0"
+      "Microsoft.EntityFrameworkCore.SqlServer >= 1.0.0",
+      "StyleCop.Analyzers >= 1.0.0"
     ],
     ".NETFramework,Version=v4.6.1": []
   },

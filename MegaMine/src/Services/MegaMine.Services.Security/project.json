@@ -11,6 +11,7 @@
     "Microsoft.AspNetCore.Mvc": "1.0.0",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
     "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
-    "MegaMine.Core": "1.0.0-*"
+    "MegaMine.Core": "1.0.0-*",
+    "StyleCop.Analyzers": "1.0.0"
   }
 }

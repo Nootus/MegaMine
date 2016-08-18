@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "MegaMine.Modules.Plant Class Library",
   "authors": [ "Prasanna" ],
@@ -10,6 +10,7 @@
     "AutoMapper": "4.0.4",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
     "MegaMine.Core": "1.0.0-*",
-    "MegaMine.Modules.Shared": "1.0.0-*"
+    "MegaMine.Modules.Shared": "1.0.0-*",
+    "StyleCop.Analyzers": "1.0.0"
   }
 }

@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "description": "MegaMine.Services.Widget Class Library",
   "authors": [ "Prasanna" ],
@@ -9,6 +9,7 @@
   "dependencies": {
     "AutoMapper": "4.0.4",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
-    "MegaMine.Core": "1.0.0-*"
+    "MegaMine.Core": "1.0.0-*",
+    "StyleCop.Analyzers": "1.0.0"
   }
 }

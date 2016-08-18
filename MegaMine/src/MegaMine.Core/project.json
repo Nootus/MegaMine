@@ -9,6 +9,13 @@
   "dependencies": {
     "AutoMapper": "4.0.4",
     "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
-    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0"
+    "Microsoft.AspNetCore.Identity.EntityFrameworkCore": "1.0.0",
+    "StyleCop.Analyzers": {
+      "version": "1.0.0",
+      "type": "build"
+    }
+  },
+  "buildOptions": {
+    "additionalArguments": [ "/ruleset:../../stylecop.ruleset", "/additionalfile:../../stylecop.json" ]
   }
 }
