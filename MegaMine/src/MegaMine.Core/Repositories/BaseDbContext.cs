@@ -1,16 +1,26 @@
-﻿using MegaMine.Core.Entities;
-using Microsoft.EntityFrameworkCore;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="BaseDbContext.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Base class for DBContext.
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Repositories
 {
-    public class BaseDbContext<T> : DbContext where T: DbContext
+    using MegaMine.Core.Entities;
+    using Microsoft.EntityFrameworkCore;
+
+    public class BaseDbContext<TContext> : DbContext
+        where TContext : DbContext
     {
-        public BaseDbContext(DbContextOptions<T> options)
+        public BaseDbContext(DbContextOptions<TContext> options)
             : base(options)
         {
         }
 
-        protected void IgnoreAuditFields<TEntity>(ModelBuilder builder) where TEntity : BaseEntity
+        protected void IgnoreAuditFields<TEntity>(ModelBuilder builder)
+            where TEntity : BaseEntity
         {
             builder.Entity<TEntity>(e =>
             {

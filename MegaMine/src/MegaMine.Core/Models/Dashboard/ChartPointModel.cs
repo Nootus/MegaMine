@@ -8,7 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Models.Dashboard
 {
-    public class ChartPointModel<Tx, Ty> 
+    public class ChartPointModel<Tx, Ty>
     {
         public Tx X { get; set; }
 

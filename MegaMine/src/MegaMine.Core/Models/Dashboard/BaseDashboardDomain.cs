@@ -13,8 +13,6 @@ namespace MegaMine.Core.Models.Dashboard
 
     public abstract class BaseDashboardDomain
     {
-        public abstract Task<ChartModel<string, int>> GetWidgetData(int widgetId, WidgetOptions options);
-
         protected int CompanyId
         {
             get
@@ -22,5 +20,7 @@ namespace MegaMine.Core.Models.Dashboard
                 return NTContext.Context.CompanyId;
             }
         }
+
+        public abstract Task<ChartModel<string, int>> GetWidgetData(int widgetId, WidgetOptions options);
     }
 }

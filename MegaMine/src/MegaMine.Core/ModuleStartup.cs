@@ -1,11 +1,20 @@
-﻿using MegaMine.Core.Common;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="ModuleStartup.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  This is base startup class. This initializes the database connection and provide abstract methods
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core
 {
-    public abstract class ModuleStartup<TContext> : IModuleStartup where TContext: DbContext
+    using MegaMine.Core.Common;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+
+    public abstract class ModuleStartup<TContext> : IModuleStartup
+        where TContext : DbContext
     {
         protected IConfigurationRoot Configuration { get; set; }
 
@@ -22,7 +31,7 @@ namespace MegaMine.Core
                 options.UseSqlServer(SiteSettings.ConnectionString);
             });
 
-            ConfigureDependencyInjection(services);
+            this.ConfigureDependencyInjection(services);
         }
 
         public abstract void ConfigureDependencyInjection(IServiceCollection services);

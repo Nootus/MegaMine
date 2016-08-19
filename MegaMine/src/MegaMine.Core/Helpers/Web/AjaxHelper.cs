@@ -25,9 +25,7 @@ namespace MegaMine.Core.Helpers.Web
 
             try
             {
-
                 T model = action(null);
-
                 ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
             }
             catch (System.Exception exp)
@@ -45,9 +43,7 @@ namespace MegaMine.Core.Helpers.Web
 
             try
             {
-
                 action(null);
-
                 ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = message };
             }
             catch (System.Exception exp)
@@ -64,9 +60,10 @@ namespace MegaMine.Core.Helpers.Web
             return Get(action, message);
         }
 
-        public static AjaxModel<T> BlankModel<T>() where T : class
+        public static AjaxModel<T> BlankModel<T>()
+            where T : class
         {
-            return new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = "" };
+            return new AjaxModel<T>() { Result = AjaxResult.Success, Model = null, Message = string.Empty };
         }
 
         public static async Task<AjaxModel<T>> GetAsync<T>(Func<string, Task<T>> action, string message = "")
@@ -76,7 +73,6 @@ namespace MegaMine.Core.Helpers.Web
 
             try
             {
-
                 T model = await action(null);
                 ajax = new AjaxModel<T>() { Result = AjaxResult.Success, Model = model, Message = message };
             }
@@ -88,14 +84,13 @@ namespace MegaMine.Core.Helpers.Web
             return ajax;
         }
 
-        public static async Task<AjaxModel<NTModel>> SaveAsync(Func<string, Task> action, string message) 
+        public static async Task<AjaxModel<NTModel>> SaveAsync(Func<string, Task> action, string message)
         {
             AjaxModel<NTModel> ajax;
 
             try
             {
                 await action(null);
-
                 ajax = new AjaxModel<NTModel>() { Result = AjaxResult.Success, Model = null, Message = message };
             }
             catch (NTException exp)
@@ -137,7 +132,7 @@ namespace MegaMine.Core.Helpers.Web
             if (dashboardPageId != null)
             {
                 DashboardModel dashboard = await widgetDomain.DashboardGet(dashboardPageId.Value);
-                foreach(WidgetModel widget in dashboard.AllWidgets)
+                foreach (WidgetModel widget in dashboard.AllWidgets)
                 {
                     WidgetOptions options = new WidgetOptions()
                     {
@@ -146,12 +141,13 @@ namespace MegaMine.Core.Helpers.Web
                     };
                     widget.Chart.Model = await widgetData(widget.WidgetId, options);
                 }
+
                 return dashboard;
             }
             else
             {
                 return null;
             }
-        }   
+        }
     }
 }

@@ -3,13 +3,13 @@
 //  Copyright (c) Nootus. All rights reserved.
 // </copyright>
 // <description>
-//  To validate startTime < endTime. Also to validate in a list without overlapping
+//  To validate startTime less than endTime. Also to validate in a list without overlapping
 // </description>
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Helpers
 {
-    using MegaMine.Core.Models;
     using System.Collections.Generic;
+    using MegaMine.Core.Models;
 
     public static class DateValidation
     {
@@ -18,7 +18,8 @@ namespace MegaMine.Core.Helpers
             return range.StartTime < range.EndTime;
         }
 
-        public static bool ValidateTimeRange<T>(this List<T> ranges) where T: ITimeRange
+        public static bool ValidateTimeRange<T>(this List<T> ranges)
+            where T : ITimeRange
         {
             for (int counter = 0; counter < ranges.Count; counter++)
             {

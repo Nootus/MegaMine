@@ -1,4 +1,12 @@
-﻿namespace MegaMine.Core.Repositories
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="BaseRepository.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Base Repository with CRUD operations
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Core.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -29,6 +37,7 @@
             {
                 return this.dbContext;
             }
+
             protected set
             {
                 this.dbContext = value;

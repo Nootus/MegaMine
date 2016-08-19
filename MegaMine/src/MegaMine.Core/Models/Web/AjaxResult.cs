@@ -3,7 +3,7 @@
 //  Copyright (c) Nootus. All rights reserved.
 // </copyright>
 // <description>
-//  This enum contains the request status. Based on the status, Angular will show message to the 
+//  This enum contains the request status. Based on the status, Angular will show message to the
 //  user
 // </description>
 //-------------------------------------------------------------------------------------------------

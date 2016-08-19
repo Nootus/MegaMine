@@ -44,6 +44,7 @@ namespace MegaMine.Core.Models.Dashboard
             foreach (var item in data)
             {
                 IEnumerable<ChartPointModel<Tx, Ty>> missing = xList.Except(item.Values, new ChartPointModelComparer<Tx, Ty>());
+
                 // adding the missing
                 foreach (var missValue in missing)
                 {
@@ -81,6 +82,7 @@ namespace MegaMine.Core.Models.Dashboard
                             Order = entity.XOrder
                         });
             }
+
             return dict.Values.ToList();
         }
 

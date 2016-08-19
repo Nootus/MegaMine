@@ -3,7 +3,7 @@
 //  Copyright (c) Nootus. All rights reserved.
 // </copyright>
 // <description>
-//  The X & Y axis labels to be shown in the UI.
+//  This stores the X and Y axis labels of the chart
 // </description>
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Models.Dashboard
