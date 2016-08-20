@@ -1,12 +1,20 @@
-﻿namespace MegaMine.Services.Widget.Repositories
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="WidgetRepository.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  This is used to fetch the widgets data to show in the UI
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Services.Widget.Repositories
 {
     using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
     using AutoMapper;
+    using MegaMine.Core.Models.Widget;
     using MegaMine.Core.Repositories;
     using MegaMine.Services.Widget.Entities;
-    using MegaMine.Core.Models.Widget;
     using Microsoft.EntityFrameworkCore;
 
     public class WidgetRepository : BaseRepository<WidgetDbContext>
@@ -24,7 +32,7 @@
 
         public async Task<List<WidgetModel>> WidgetsGet(int dashboardId)
         {
-            var query = from dashwid in this.DbContext.DashboardWidgets 
+            var query = from dashwid in this.DbContext.DashboardWidgets
                          join wid in this.DbContext.Widgets.Include(w => w.Chart) on dashwid.WidgetId equals wid.WidgetId
                          where dashwid.DashboardId == dashboardId
                         select wid;

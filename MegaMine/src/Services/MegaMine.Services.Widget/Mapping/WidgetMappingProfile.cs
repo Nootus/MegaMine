@@ -1,9 +1,17 @@
-﻿using AutoMapper;
-using MegaMine.Services.Widget.Entities;
-using MegaMine.Core.Models.Widget;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="WidgetMappingProfile.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  AutoMapper mapping profile for models and entiries in the widget project
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Services.Widget.Mapping
 {
+    using AutoMapper;
+    using MegaMine.Core.Models.Widget;
+    using MegaMine.Services.Widget.Entities;
+
     public class WidgetMappingProfile : Profile
     {
         public override string ProfileName
