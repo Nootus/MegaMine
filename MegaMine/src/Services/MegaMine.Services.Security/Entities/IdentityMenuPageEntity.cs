@@ -1,8 +1,16 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="IdentityMenuPageEntity.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Menu to be shown in the UI
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Services.Security.Entities
 {
+    using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+
     [Table("IdentityMenuPage", Schema = "security")]
     public class IdentityMenuPageEntity
     {
@@ -10,12 +18,19 @@ namespace MegaMine.Services.Security.Entities
         public int IdentityMenuPageId { get; set; }
 
         public int PageId { get; set; }
+
         public string MenuText { get; set; }
+
         public int? ParentPageId { get; set; }
+
         public bool GroupMenuInd { get; set; }
+
         public int DisplayOrder { get; set; }
+
         public string Url { get; set; }
+
         public string IconCss { get; set; }
+
         public bool DeletedInd { get; set; }
     }
 }

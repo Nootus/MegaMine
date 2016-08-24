@@ -1,4 +1,12 @@
-﻿namespace MegaMine.Services.Security.Models
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="RoleType.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Enum to store the super users in the system
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Services.Security.Models
 {
     public enum RoleType
     {
@@ -6,6 +14,6 @@
         GroupAdmin = 2,
         CompanyAdmin = 3,
         ModuleAdmin = 4,
-        UserDefined =  5
+        UserDefined = 5
     }
 }

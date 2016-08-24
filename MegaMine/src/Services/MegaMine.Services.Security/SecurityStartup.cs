@@ -1,16 +1,24 @@
-﻿using AutoMapper;
-using MegaMine.Core;
-using MegaMine.Services.Security.Domain;
-using MegaMine.Services.Security.Entities;
-using MegaMine.Services.Security.Identity;
-using MegaMine.Services.Security.Mapping;
-using MegaMine.Services.Security.Extensions;
-using MegaMine.Services.Security.Repositories;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.DependencyInjection;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="SecurityStartup.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Startup class for the security module
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Services.Security
 {
+    using AutoMapper;
+    using MegaMine.Core;
+    using MegaMine.Services.Security.Domain;
+    using MegaMine.Services.Security.Entities;
+    using MegaMine.Services.Security.Extensions;
+    using MegaMine.Services.Security.Identity;
+    using MegaMine.Services.Security.Mapping;
+    using MegaMine.Services.Security.Repositories;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.Extensions.DependencyInjection;
+
     public class SecurityStartup : ModuleStartup<SecurityDbContext>
     {
         public override void ConfigureServices(IServiceCollection services)
@@ -21,9 +29,10 @@ namespace MegaMine.Services.Security
             .AddEntityFrameworkStores<SecurityDbContext>()
             .AddDefaultTokenProviders();
 
-            //caching page claims
+            // caching page claims
             services.CachePageClaimsRoles();
         }
+
         public override void ConfigureDependencyInjection(IServiceCollection services)
         {
             services.AddTransient<AccountDomain>();

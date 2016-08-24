@@ -1,19 +1,25 @@
-﻿using MegaMine.Core.Common;
-using MegaMine.Core.Context;
-using MegaMine.Services.Security.Common;
-using MegaMine.Services.Security.Entities;
-using MegaMine.Services.Security.Identity;
-using MegaMine.Services.Security.Middleware;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
-using System;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="ProfileMiddleWare.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Middleware to set the profile onto the CallingContext
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Services.Security.Middleware
 {
+    using System;
+    using System.Linq;
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+    using MegaMine.Core.Common;
+    using MegaMine.Core.Context;
+    using MegaMine.Services.Security.Common;
+    using MegaMine.Services.Security.Entities;
+    using MegaMine.Services.Security.Identity;
+    using Microsoft.AspNetCore.Http;
+    using Microsoft.AspNetCore.Identity;
+
     public class ProfileMiddleware
     {
         private RequestDelegate next;
@@ -27,17 +33,17 @@ namespace MegaMine.Services.Security.Middleware
         {
             if (context.User.Identity.IsAuthenticated)
             {
-                SetNTContext(context);
+                this.SetNTContext(context);
             }
-            //automatically logging in in the dev mode
+
+            // automatically logging in in the dev mode
             else if (SiteSettings.IsEnvironment(SecurityConstants.DevEnvironment))
             {
                 ApplicationUser user = await userManager.FindByNameAsync(SecuritySettings.NootusProfileUserName);
                 await signInManager.SignInAsync(user, false);
             }
 
-            await next(context);
-
+            await this.next(context);
         }
 
         public void SetNTContext(HttpContext context)
@@ -56,12 +62,10 @@ namespace MegaMine.Services.Security.Middleware
                 CompanyId = Convert.ToInt32(companyId ?? "0")
             };
 
-            //setting the Group CompanyId
+            // setting the Group CompanyId
             model.GroupCompanyId = PageService.CompanyClaims[model.CompanyId]?.ParentCompanyId ?? model.CompanyId;
 
             NTContext.Context = model;
         }
     }
 }
-
-

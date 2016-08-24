@@ -1,12 +1,20 @@
-﻿using AutoMapper;
-using MegaMine.Core.Exception;
-using MegaMine.Services.Security.Entities;
-using MegaMine.Services.Security.Models;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="SecurityMappingProfile.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  AutoMapper profile for mapping of entities and models in security assembly
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Services.Security.Mapping
 {
+    using AutoMapper;
+    using MegaMine.Core.Exception;
+    using MegaMine.Services.Security.Entities;
+    using MegaMine.Services.Security.Models;
+    using Microsoft.AspNetCore.Identity;
+    using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+
     public class SecurityMappingProfile : Profile
     {
         public override string ProfileName

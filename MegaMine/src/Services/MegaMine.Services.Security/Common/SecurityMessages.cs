@@ -1,4 +1,12 @@
-﻿namespace MegaMine.Services.Security.Common
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="SecurityMessages.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  User messages in this project
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Services.Security.Common
 {
     public static class SecurityMessages
     {

@@ -1,4 +1,12 @@
-﻿namespace MegaMine.Services.Security.Identity
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="NTClaimTypes.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Constants containing the basic claims names
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Services.Security.Identity
 {
     public static class NTClaimTypes
     {
