@@ -1,188 +1,182 @@
-﻿using MegaMine.Core.Models;
-using MegaMine.Modules.Quarry.Models;
-using MegaMine.Modules.Quarry.Repositories;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="QuarryDomain.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Business logic or pass through DB Layer
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Modules.Quarry.Domain
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using MegaMine.Core.Models;
+    using MegaMine.Modules.Quarry.Models;
+    using MegaMine.Modules.Quarry.Repositories;
+
     public class QuarryDomain
     {
         private QuarryRepository quarryRepository;
+
         public QuarryDomain(QuarryRepository quarryRepository)
         {
             this.quarryRepository = quarryRepository;
         }
 
-        #region Material Colour
-        //Material Colour
+        // Material Colour section
         public async Task<List<ListItem<int, string>>> MaterialColourListItemsGet()
         {
-            return await quarryRepository.MaterialColourListItemsGet();
+            return await this.quarryRepository.MaterialColourListItemsGet();
         }
 
         public async Task<List<MaterialColourModel>> MaterialColoursGet()
         {
-            return await quarryRepository.MaterialColoursGet();
+            return await this.quarryRepository.MaterialColoursGet();
         }
 
         public async Task MaterialColourSave(MaterialColourModel model)
         {
-            await quarryRepository.MaterialColourSave(model);
+            await this.quarryRepository.MaterialColourSave(model);
         }
+
         public async Task MaterialColourDelete(int materialColourId)
         {
-            await quarryRepository.MaterialColourDelete(materialColourId);
+            await this.quarryRepository.MaterialColourDelete(materialColourId);
         }
-        #endregion
 
-        #region Product Type
-        //Product Type
+        // Product Type section
         public async Task<List<ProductTypeModel>> ProductTypesGet()
         {
-            return await quarryRepository.ProductTypesGet();
+            return await this.quarryRepository.ProductTypesGet();
         }
 
         public async Task ProductTypeSave(ProductTypeModel model)
         {
-            await quarryRepository.ProductTypeSave(model);
+            await this.quarryRepository.ProductTypeSave(model);
         }
+
         public async Task ProductTypeDelete(int productTypeId)
         {
-            await quarryRepository.ProductTypeDelete(productTypeId);
+            await this.quarryRepository.ProductTypeDelete(productTypeId);
         }
-        #endregion
 
-        #region Texture
-        //Product Type
+        // Texture section
         public async Task<List<TextureModel>> TexturesGet()
         {
-            return await quarryRepository.TexturesGet();
+            return await this.quarryRepository.TexturesGet();
         }
 
         public async Task TextureSave(TextureModel model)
         {
-            await quarryRepository.TextureSave(model);
+            await this.quarryRepository.TextureSave(model);
         }
+
         public async Task TextureDelete(int textureId)
         {
-            await quarryRepository.TextureDelete(textureId);
+            await this.quarryRepository.TextureDelete(textureId);
         }
-        #endregion
 
-        #region Quarry
-        //Quarry
+        // Quarry section
         public async Task<List<QuarryModel>> QuarriesGet()
         {
-            return await quarryRepository.QuarriesGet();
+            return await this.quarryRepository.QuarriesGet();
         }
 
         public async Task QuarrySave(QuarryModel model)
         {
-            await quarryRepository.QuarrySave(model);
+            await this.quarryRepository.QuarrySave(model);
         }
+
         public async Task QuarryDelete(int quarryId)
         {
-            await quarryRepository.QuarryDelete(quarryId);
+            await this.quarryRepository.QuarryDelete(quarryId);
         }
-        #endregion
 
-        #region Yard
-        //Yards
+        // Yards section
         public async Task<List<YardModel>> YardsGet()
         {
-            return await quarryRepository.YardsGet();
+            return await this.quarryRepository.YardsGet();
         }
 
         public async Task<List<YardModel>> YardsGet(int[] companies)
         {
-            return await quarryRepository.YardsGet(companies);
+            return await this.quarryRepository.YardsGet(companies);
         }
 
         public async Task YardSave(YardModel model)
         {
-            await quarryRepository.YardSave(model);
+            await this.quarryRepository.YardSave(model);
         }
+
         public async Task YardDelete(int yardId)
         {
-            await quarryRepository.YardDelete(yardId);
+            await this.quarryRepository.YardDelete(yardId);
         }
 
-        #endregion
-
-        #region Material
-
+        // Material section
         public async Task<MaterialViewModel> MaterialViewModelGet()
         {
-            return await quarryRepository.MaterialViewModelGet();
+            return await this.quarryRepository.MaterialViewModelGet();
         }
 
         public async Task MaterialSave(List<MaterialModel> models)
         {
-            await quarryRepository.MaterialSave(models);
+            await this.quarryRepository.MaterialSave(models);
         }
 
         public async Task<List<StockModel>> MaterialDelete(int materialId, int yardId)
         {
-            await quarryRepository.MaterialDelete(materialId);
-            return await StockGet(yardId);
+            await this.quarryRepository.MaterialDelete(materialId);
+            return await this.StockGet(yardId);
         }
-        #endregion 
 
-        #region Stockyard
-
+        // stockyard section
         public async Task<List<StockModel>> StockGet(int yardId)
         {
-            return await quarryRepository.StockGet(yardId);
+            return await this.quarryRepository.StockGet(yardId);
         }
 
         public async Task<List<StockModel>> MoveMaterial(MaterialMovementModel model)
         {
-            return await quarryRepository.MoveMaterial(model);
+            return await this.quarryRepository.MoveMaterial(model);
         }
 
         public async Task<List<StockModel>> MaterialUpdate(MaterialModel model, int yardId)
         {
-            await quarryRepository.MaterialUpdate(model);
-            return await StockGet(yardId);
+            await this.quarryRepository.MaterialUpdate(model);
+            return await this.StockGet(yardId);
         }
 
-        #endregion
-
-        #region Reports
+        // Reports section
         public async Task<string> QuarrySummary(QuarrySummarySearchModel search)
         {
-            return await quarryRepository.QuarrySummary(search);
+            return await this.quarryRepository.QuarrySummary(search);
         }
 
         public async Task<List<StockModel>> QuarrySummaryDetails(QuarrySummarySearchModel search)
         {
-            return await quarryRepository.QuarrySummaryDetails(search);
+            return await this.quarryRepository.QuarrySummaryDetails(search);
         }
 
         public async Task<ProductSummaryViewModel> ProductSummary()
         {
             return new ProductSummaryViewModel()
             {
-                ProductTypes = await quarryRepository.ProductTypeListItemsGet(),
-                Quarries = await quarryRepository.QuarryListItemsGet(),
-                Colours = await quarryRepository.MaterialColourListItemsGet(),
-                Summary = await quarryRepository.ProductSummarySearch(new ProductSummarySearchModel())
+                ProductTypes = await this.quarryRepository.ProductTypeListItemsGet(),
+                Quarries = await this.quarryRepository.QuarryListItemsGet(),
+                Colours = await this.quarryRepository.MaterialColourListItemsGet(),
+                Summary = await this.quarryRepository.ProductSummarySearch(new ProductSummarySearchModel())
             };
         }
 
-
         public async Task<List<ProductSummaryModel>> ProductSummarySearch(ProductSummarySearchModel search)
         {
-            return await quarryRepository.ProductSummarySearch(search);
+            return await this.quarryRepository.ProductSummarySearch(search);
         }
 
         public async Task<List<StockModel>> ProductSummaryDetails(ProductSummarySearchModel search)
         {
-            return await quarryRepository.ProductSummaryDetails(search);
+            return await this.quarryRepository.ProductSummaryDetails(search);
         }
-
-        #endregion
-
     }
 }

@@ -1,4 +1,12 @@
-﻿namespace MegaMine.Modules.Quarry.Common
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="QuarryMessages.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Messages used in the Quarry module
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Modules.Quarry.Common
 {
     public static class QuarryMessages
     {

@@ -1,14 +1,21 @@
-﻿using MegaMine.Core.Models.Dashboard;
-using MegaMine.Core.Repositories;
-using MegaMine.Modules.Quarry.Repositories;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="QuarryDashboardDomain.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Used by the dashboard in Quarry
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Modules.Quarry.Domain
 {
-    public class QuarryDashboardDomain: BaseDashboardDomain
+    using System.Threading.Tasks;
+    using MegaMine.Core.Models.Dashboard;
+    using MegaMine.Modules.Quarry.Repositories;
+
+    public class QuarryDashboardDomain : BaseDashboardDomain
     {
-        QuarryRepository repository;
+        private QuarryRepository repository;
+
         public QuarryDashboardDomain(QuarryRepository quarryRepository)
         {
             this.repository = quarryRepository;
@@ -17,7 +24,7 @@ namespace MegaMine.Modules.Quarry.Domain
         public override async Task<ChartModel<string, int>> GetWidgetData(int widgetId, WidgetOptions options)
         {
             string sql = null;
-            object[] parameters = new object[] { CompanyId };
+            object[] parameters = new object[] { this.CompanyId };
 
             switch (widgetId)
             {
@@ -55,7 +62,8 @@ namespace MegaMine.Modules.Quarry.Domain
                     sql = "quarry.WidgetYardProductTypeMaterialCounts @CompanyId = {0}";
                     break;
             }
-            return await ChartFactory.Create<string, int>(options, repository.DbContext, sql, parameters);
+
+            return await ChartFactory.Create<string, int>(options, this.repository.DbContext, sql, parameters);
         }
     }
 }

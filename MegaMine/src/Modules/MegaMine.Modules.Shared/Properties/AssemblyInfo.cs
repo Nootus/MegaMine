@@ -1,4 +1,12 @@
-﻿using System.Reflection;
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="AssemblyInfo.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Assembly versioning
+// </description>
+//-------------------------------------------------------------------------------------------------
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 

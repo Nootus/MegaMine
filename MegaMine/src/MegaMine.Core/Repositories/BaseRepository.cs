@@ -10,6 +10,8 @@ namespace MegaMine.Core.Repositories
 {
     using System;
     using System.Collections.Generic;
+    using System.Data;
+    using System.Data.SqlClient;
     using System.Linq;
     using System.Linq.Expressions;
     using System.Threading.Tasks;
@@ -218,6 +220,15 @@ namespace MegaMine.Core.Repositories
             var query = whereQuery.Select(e => e);
 
             return await query.SingleAsync();
+        }
+
+        protected SqlParameter CreateParameter(SqlCommand command, string parameterName, DbType type, object value)
+        {
+            SqlParameter parameter = command.CreateParameter();
+            parameter.ParameterName = parameterName;
+            parameter.DbType = type;
+            parameter.Value = value == null ? DBNull.Value : value;
+            return parameter;
         }
 
         private string GetKeyName<TEntity>()
