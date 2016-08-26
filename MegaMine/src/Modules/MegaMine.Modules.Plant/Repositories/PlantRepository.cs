@@ -1,14 +1,22 @@
-﻿using MegaMine.Core.Models;
-using MegaMine.Core.Repositories;
-using MegaMine.Modules.Plant.Entities;
-using MegaMine.Modules.Plant.Models;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Linq;
-using Microsoft.EntityFrameworkCore;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="PlantRepository.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Plant related DB Operations
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Modules.Plant.Repositories
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
+    using MegaMine.Core.Models;
+    using MegaMine.Core.Repositories;
+    using MegaMine.Modules.Plant.Entities;
+    using MegaMine.Modules.Plant.Models;
+    using Microsoft.EntityFrameworkCore;
+
     public class PlantRepository : BaseRepository<PlantDbContext>
     {
         public PlantRepository(PlantDbContext dbContext)
@@ -16,14 +24,14 @@ namespace MegaMine.Modules.Plant.Repositories
             this.DbContext = dbContext;
         }
 
-        #region Machine
+        // Machine
         public async Task<List<ListItem<int, string>>> MachineListItemGet()
         {
-            return await GetListItemsAsync<MachineEntity>(e => new ListItem<int, string> { Key = e.MachineId, Item = e.Name}, s => s.Name);
+            return await this.GetListItemsAsync<MachineEntity>(e => new ListItem<int, string> { Key = e.MachineId, Item = e.Name }, s => s.Name);
         }
+
         public async Task<List<MachineModel>> MachinesGet()
         {
-            //return await GetListAsync<MachineEntity, MachineModel>(s => s.Name);
             var query = from mac in this.DbContext.Machines
                         join bld in this.DbContext.Blades on mac.BladeId equals bld.BladeId
                         where mac.CompanyId == this.AppContext.CompanyId
@@ -42,84 +50,81 @@ namespace MegaMine.Modules.Plant.Repositories
 
         public async Task MachineSave(MachineModel model)
         {
-            await SaveEntity<MachineEntity, MachineModel>(model);
+            await this.SaveEntity<MachineEntity, MachineModel>(model);
         }
 
         public async Task MachineDelete(int machineId)
         {
-            await DeleteEntity<MachineEntity>(machineId);
+            await this.DeleteEntity<MachineEntity>(machineId);
         }
-        #endregion
 
-        #region Blade
+        // Blade
         public async Task<List<ListItem<int, string>>> BladeListItemGet()
         {
-            return await GetListItemsAsync<BladeEntity>(e => new ListItem<int, string> { Key = e.BladeId, Item = e.Name }, s => s.Name);
+            return await this.GetListItemsAsync<BladeEntity>(e => new ListItem<int, string> { Key = e.BladeId, Item = e.Name }, s => s.Name);
         }
+
         public async Task<List<BladeModel>> BladesGet()
         {
-            return await GetListAsync<BladeEntity, BladeModel>(s => s.Name);
+            return await this.GetListAsync<BladeEntity, BladeModel>(s => s.Name);
         }
 
         public async Task BladeSave(BladeModel model)
         {
-            await SaveEntity<BladeEntity, BladeModel>(model);
+            await this.SaveEntity<BladeEntity, BladeModel>(model);
         }
 
         public async Task BladeDelete(int bladeId)
         {
-            await DeleteEntity<BladeEntity>(bladeId);
+            await this.DeleteEntity<BladeEntity>(bladeId);
         }
-        #endregion
 
-        #region Operator
+        // Operator
         public async Task<List<ListItem<int, string>>> OperatorListItemGet()
         {
-            return await GetListItemsAsync<OperatorEntity>(e => new ListItem<int, string> { Key = e.OperatorId, Item = e.Name }, s => s.Name);
+            return await this.GetListItemsAsync<OperatorEntity>(e => new ListItem<int, string> { Key = e.OperatorId, Item = e.Name }, s => s.Name);
         }
+
         public async Task<List<OperatorModel>> OperatorsGet()
         {
-            return await GetListAsync<OperatorEntity, OperatorModel>(s => s.Name);
+            return await this.GetListAsync<OperatorEntity, OperatorModel>(s => s.Name);
         }
 
         public async Task OperatorSave(OperatorModel model)
         {
-            await SaveEntity<OperatorEntity, OperatorModel>(model);
+            await this.SaveEntity<OperatorEntity, OperatorModel>(model);
         }
 
         public async Task OperatorDelete(int operatorId)
         {
-            await DeleteEntity<OperatorEntity>(operatorId);
+            await this.DeleteEntity<OperatorEntity>(operatorId);
         }
-        #endregion
 
-        #region Dressing
-
+        // Dressing
         public async Task DressingSave(DressingViewModel viewModel)
         {
             await this.DbContext.Database.BeginTransactionAsync();
 
-            //Saving Dressing Model
-            DressingEntity dressingEntity = await SaveEntity<DressingEntity, DressingModel>(viewModel.Model, false);
+            // Saving Dressing Model
+            DressingEntity dressingEntity = await this.SaveEntity<DressingEntity, DressingModel>(viewModel.Model, false);
             BlockDressingEntity blockDressingEntity;
             foreach (var block in viewModel.Model.Blocks)
             {
-                blockDressingEntity = await SaveEntity<BlockDressingEntity, BlockDressingModel>(block, false);
+                blockDressingEntity = await this.SaveEntity<BlockDressingEntity, BlockDressingModel>(block, false);
                 blockDressingEntity.Dressing = dressingEntity;
             }
 
-            //saving Stoppages & Operators
-            await StoppagesSave(viewModel.MachineStoppages, viewModel.Model.MachineId);
-            await OperatorsSave(viewModel.MachineOperators, viewModel.Model.MachineId);
-
+            // saving Stoppages & Operators
+            await this.StoppagesSave(viewModel.MachineStoppages, viewModel.Model.MachineId);
+            await this.OperatorsSave(viewModel.MachineOperators, viewModel.Model.MachineId);
         }
 
         public async Task StoppagesSave(List<MachineStoppageModel> machineStoppages, int machineId)
         {
-            foreach(var stoppage in machineStoppages)
+            foreach (var stoppage in machineStoppages)
             {
                 stoppage.MachineId = machineId;
-                await SaveEntity<MachineStoppageEntity, MachineStoppageModel>(stoppage, false);
+                await this.SaveEntity<MachineStoppageEntity, MachineStoppageModel>(stoppage, false);
             }
         }
 
@@ -128,10 +133,8 @@ namespace MegaMine.Modules.Plant.Repositories
             foreach (var machineOperator in machineOperators)
             {
                 machineOperator.MachineId = machineId;
-                await SaveEntity<MachineOperatorEntity, MachineOperatorModel>(machineOperator, false);
+                await this.SaveEntity<MachineOperatorEntity, MachineOperatorModel>(machineOperator, false);
             }
         }
-
-        #endregion
     }
 }

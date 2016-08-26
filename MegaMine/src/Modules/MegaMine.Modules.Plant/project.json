@@ -4,7 +4,7 @@
   "authors": [ "Prasanna" ],
 
   "frameworks": {
-    "net461": { }
+    "net461": {}
   },
   "dependencies": {
     "AutoMapper": "4.0.4",
@@ -12,5 +12,8 @@
     "MegaMine.Core": "1.0.0-*",
     "MegaMine.Modules.Shared": "1.0.0-*",
     "StyleCop.Analyzers": "1.0.0"
+  },
+  "buildOptions": {
+    "additionalArguments": [ "/ruleset:../../../stylecop.ruleset", "/additionalfile:../../../stylecop.json" ]
   }
 }

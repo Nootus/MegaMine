@@ -1,4 +1,12 @@
-﻿namespace MegaMine.Modules.Plant.Common
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="PlantMessages.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Messages shown in the plant module
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Modules.Plant.Common
 {
     public static class PlantMessages
     {
