@@ -1,21 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="Messages.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Messages for the Fleet module
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Web.Lib.Shared
 {
     public static class Messages
     {
-        #region Fleet Messages
+        // Fleet Messages
         public static class Fleet
         {
-            //master tables
+            // master tables
             public const string VehicleTypeSaveSuccess = "Vehicle Type Saved Successfully";
             public const string VehicleManufacturerSaveSuccess = "Manufacturer Saved Successfully";
             public const string DriverSaveSuccess = "Driver Saved Successfully";
 
-            //vehicle Messages
+            // vehicle Messages
             public const string VehicleServiceSaveSuccess = "Vehicle Service Saved Successfully";
             public const string VehicleSaveSuccess = "Vehicle Saved Successfully";
             public const string VehicleModelSaveSuccess = "Vehicle Model Saved Successfully";
@@ -28,8 +31,6 @@ namespace MegaMine.Web.Lib.Shared
             public const string SparePartOrderSaveSuccess = "Spare Part Order Saved Successfully";
             public const string SparePartSaveSuccess = "Spare Part Saved Successfully";
             public const string DriveAssessmentDateError = "Driver assignment start date should not be greater than the end date.";
-
         }
-        #endregion
     }
 }

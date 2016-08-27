@@ -1,4 +1,5 @@
-﻿using MegaMine.Web.Lib.Entities;
+﻿/*
+using MegaMine.Web.Lib.Entities;
 using MegaMine.Web.Lib.Entities.Fleet;
 using MegaMine.Web.Models.Fleet;
 using System.Collections.Generic;
@@ -170,7 +171,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //        dbContext.SparePartOrders.Update(entity);
     //        dbContext.SaveChanges();
 
-    //        //Get the newly added 
+    //        //Get the newly added
     //        SparePartEntity result = await (from part in dbContext.SpareParts
     //                                  where part.SparePartId == model.SparePartId
     //                                  select part).SingleOrDefaultAsync();
@@ -224,7 +225,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //                spamen.VehicleManufacturerId = model.VehicleManufacturerId;
     //                spamen.DeletedInd = false;
     //                dbContext.SparePartManufacturers.Update(spamen);
-    //            }               
+    //            }
     //        }
     //        else
     //        {
@@ -261,7 +262,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //            spam.VehicleManufacturerId = model.VehicleManufacturerId;
     //            dbContext.SparePartManufacturers.Add(spam);
     //            await dbContext.SaveChangesAsync();
-    //        }          
+    //        }
 
     //    }
 
@@ -399,7 +400,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //                              DeliveredUTCdatetime = order.DeliveredUTCdatetime,
     //                              FollowupEmailAddress = order.FollowupEmailAddress,
     //                              FollowupPhoneNum = order.FollowupPhoneNum,
-    //                              ConsumedUnits = order.ConsumedUnits 
+    //                              ConsumedUnits = order.ConsumedUnits
     //                          };
 
     //        model.Orders = await ordersQuery.ToListAsync();
@@ -422,7 +423,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //                        Name = parts.SparePartName,
     //                        ManufacturingBrand = parts.ManufacturingBrand,
     //                        Description = parts.SparePartDescription
-                          
+    //                          
     //                    };
 
     //        return  await query.ToListAsync();
@@ -451,7 +452,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //        decimal totalcost = 0;
 
     //        int totalAvailable = 0;
-                        
+    //                        
     //        var partorderquery = await (from order in dbContext.SparePartOrders
     //                              where order.SparePartId == spvm.SparePartId && order.OrderedUnits > order.ConsumedUnits
     //                              && order.DeletedInd == false
@@ -462,8 +463,8 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
 
     //        // Do not proceed with Save if there are no parts.
     //        if (totalAvailable < totalparts) return totalAvailable - totalparts;
-            
-    //        //Get the price and update the consumed units 
+    //            
+    //        //Get the price and update the consumed units
     //        int totalNeeded = totalparts;
     //        foreach (SparePartOrderEntity order in partorderquery)
     //        {
@@ -518,7 +519,6 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //        }
     //        await dbContext.SaveChangesAsync();
     //    }
-    
-        
     //}
 }
+*/

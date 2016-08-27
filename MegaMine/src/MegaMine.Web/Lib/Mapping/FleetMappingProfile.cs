@@ -1,9 +1,17 @@
-﻿using AutoMapper;
-using MegaMine.Web.Lib.Entities.Fleet;
-using MegaMine.Web.Models.Fleet;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="FleetMappingProfile.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Automapper mapping for Fleet Entities and DTOs
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Web.Lib.Mapping
 {
+    using AutoMapper;
+    using MegaMine.Web.Lib.Entities.Fleet;
+    using MegaMine.Web.Models.Fleet;
+
     public class FleetMappingProfile : Profile
     {
         public override string ProfileName
@@ -40,7 +48,6 @@ namespace MegaMine.Web.Lib.Mapping
 
             Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>();
             Mapper.CreateMap<VehicleServiceModel, VehicleServiceEntity>();
-
         }
     }
 }

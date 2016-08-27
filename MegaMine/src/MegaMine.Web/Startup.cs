@@ -1,29 +1,37 @@
-﻿using AutoMapper;
-using MegaMine.Core;
-using MegaMine.Core.Common;
-using MegaMine.Modules.Plant;
-using MegaMine.Modules.Quarry;
-using MegaMine.Services.Security;
-using MegaMine.Services.Security.Filters;
-using MegaMine.Services.Security.Extensions;
-using MegaMine.Modules.Shared;
-using MegaMine.Web.Lib.Domain;
-using MegaMine.Web.Lib.Mapping;
-using MegaMine.Web.Lib.Repositories;
-using MegaMine.Web.Lib.Repositories.Fleet;
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Serialization;
-using MegaMine.Services.Widget;
-using MegaMine.Core.Extensions;
-using MegaMine.Core.Mapping;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="Startup.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Web Startup module which initializes ASP.NET and all other Micro apps
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Web
 {
+    using AutoMapper;
+    using MegaMine.Core;
+    using MegaMine.Core.Common;
+    using MegaMine.Core.Extensions;
+    using MegaMine.Core.Mapping;
+    using MegaMine.Modules.Plant;
+    using MegaMine.Modules.Quarry;
+    using MegaMine.Modules.Shared;
+    using MegaMine.Services.Security;
+    using MegaMine.Services.Security.Extensions;
+    using MegaMine.Services.Security.Filters;
+    using MegaMine.Services.Widget;
+    using MegaMine.Web.Lib.Domain;
+    using MegaMine.Web.Lib.Mapping;
+    using MegaMine.Web.Lib.Repositories;
+    using MegaMine.Web.Lib.Repositories.Fleet;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Serialization;
+
     public class Startup
     {
         public IConfigurationRoot Configuration { get; set; }
@@ -38,20 +46,24 @@ namespace MegaMine.Web
                 .AddJsonFile("appsettings.json")
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
+            /*
             //if (env.IsDevelopment())
             //{
             //    // For more details on using the user secret store see http://go.microsoft.com/fwlink/?LinkID=532709
             //    builder.AddUserSecrets();
             //}
+            */
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
 
-            //initializing all modules
+            // initializing all modules
             foreach (var module in modules)
+            {
                 module.Startup(Configuration);
+            }
 
-            //saving the site settgins
+            // saving the site settgins
             SiteSettings.ConnectionString = Configuration.GetConnectionString("MegaMine");
             SiteSettings.EnvironmentName = env.EnvironmentName;
         }
@@ -64,7 +76,7 @@ namespace MegaMine.Web
                 options.UseSqlServer(SiteSettings.ConnectionString);
             });
 
-            //configuring services for all modules
+            // configuring services for all modules
             foreach (var module in modules)
                 module.ConfigureServices(services);
 
@@ -81,13 +93,13 @@ namespace MegaMine.Web
                 });
 
 
-            //Fleet
+            // Fleet
             services.AddTransient<FleetDomain>();
             services.AddTransient<VehicleRepository>();
             //services.AddTransient<SparePartRepository>();
 
 
-            //Automapper configurations
+            // Automapper configurations
             Mapper.Initialize(x =>
             {
                 x.AddProfile<CoreMappingProfile>();
@@ -132,7 +144,7 @@ namespace MegaMine.Web
                     template: "{*url}",
                     defaults: new { controller = "Home", action = "Index" });
 
-                //routes.MapRoute(
+                // routes.MapRoute(
                 //    name: "default",
                 //    template: "{controller}/{action}",
                 //    defaults: new { controller = "Home", action = "Index" });

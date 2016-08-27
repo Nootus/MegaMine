@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="VehicleDriverModel.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  The driver for each vehicle
+// </description>
+//-------------------------------------------------------------------------------------------------
 namespace MegaMine.Web.Models.Fleet
 {
     public class VehicleDriverModel
     {
-
         public int VehicleDriverId { get; set; }
-        public string DriverName { get; set; } 
-        public string Contact { get; set; } 
-        //public string PhotoUrl { get; set; }
 
+        public string DriverName { get; set; }
+
+        public string Contact { get; set; } 
     }
 }

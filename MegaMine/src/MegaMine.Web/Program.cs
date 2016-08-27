@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Hosting;
-using System.IO;
-
-namespace MegaMine.Web
+﻿namespace MegaMine.Web
 {
+    using System.IO;
+    using Microsoft.AspNetCore.Hosting;
+
     public class Program
     {
         public static void Main(string[] args)

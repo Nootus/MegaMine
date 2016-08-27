@@ -74,12 +74,13 @@
 
 
   "frameworks": {
-    "net461": { }
+    "net461": {}
   },
 
   "buildOptions": {
     "emitEntryPoint": true,
-    "preserveCompilationContext": true
+    "preserveCompilationContext": true,
+    "additionalArguments": [ "/ruleset:../../stylecop.ruleset", "/additionalfile:../../stylecop.json" ]
   },
 
   "publishOptions": {
