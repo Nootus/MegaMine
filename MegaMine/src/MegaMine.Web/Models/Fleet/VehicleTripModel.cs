@@ -20,9 +20,9 @@ namespace MegaMine.Web.Models.Fleet
 
         public int VehicleDriverId { get; set; }
 
-        public Decimal? OdometerStart { get; set; }
+        public decimal? OdometerStart { get; set; }
 
-        public Decimal? OdometerEnd { get; set; }
+        public decimal? OdometerEnd { get; set; }
 
         public DateTime StartingTime { get; set; }
 

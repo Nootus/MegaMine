@@ -14,6 +14,6 @@ namespace MegaMine.Web.Models.Fleet
 
         public string DriverName { get; set; }
 
-        public string Contact { get; set; } 
+        public string Contact { get; set; }
     }
 }

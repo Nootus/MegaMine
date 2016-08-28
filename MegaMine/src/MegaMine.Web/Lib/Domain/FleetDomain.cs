@@ -6,19 +6,15 @@
 //  Business Logic related to Fleet
 // </description>
 //-------------------------------------------------------------------------------------------------
-using MegaMine.Web.Lib.Repositories;
-using MegaMine.Web.Lib.Repositories.Fleet;
-using MegaMine.Web.Models;
-using MegaMine.Web.Models.Fleet;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using MegaMine.Web.Lib.Entities;
-using MegaMine.Core.Models;
-
 namespace MegaMine.Web.Lib.Domain
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+    using MegaMine.Core.Models;
+    using MegaMine.Web.Lib.Repositories.Fleet;
+    using MegaMine.Web.Models.Fleet;
+
     public class FleetDomain
     {
         private VehicleRepository vehicleRepository;
@@ -33,13 +29,12 @@ namespace MegaMine.Web.Lib.Domain
             return await this.vehicleRepository.VehicleListGet();
         }
 
-
         public async Task<List<VehicleTypeModel>> VehicleTypeListGet()
         {
             return await this.vehicleRepository.VehicleTypeListGet();
         }
 
-        public async Task <ManufacturerDetailsModel> ManufacturerDetailsGet(int manufacturerId)
+        public async Task<ManufacturerDetailsModel> ManufacturerDetailsGet(int manufacturerId)
         {
             return await this.vehicleRepository.ManufacturerDetailsGet(manufacturerId);
         }
@@ -52,7 +47,7 @@ namespace MegaMine.Web.Lib.Domain
         public async Task VehicleFuelReset(int vehicleId)
         {
             await this.vehicleRepository.VehicleFuelReset(vehicleId);
-        }               
+        }
 
         public async Task VehicleSave(VehicleModel model)
         {
@@ -79,7 +74,7 @@ namespace MegaMine.Web.Lib.Domain
             return await this.vehicleRepository.VehicleManufacturersGet();
         }
 
-        public async Task VehicleManufacturerSave(VehicleManufacturerModel  model)
+        public async Task VehicleManufacturerSave(VehicleManufacturerModel model)
         {
            await this.vehicleRepository.VehicleManufacturerSave(model);
         }
@@ -94,7 +89,7 @@ namespace MegaMine.Web.Lib.Domain
            await this.vehicleRepository.VehicleManufacturerSave(model);
         }
 
-        public async Task <VehicleManufacturerModel> VehicleManufacturerGet(int manufacturerId)
+        public async Task<VehicleManufacturerModel> VehicleManufacturerGet(int manufacturerId)
         {
             return await this.vehicleRepository.VehicleManufacturerGet(manufacturerId);
         }
@@ -104,21 +99,21 @@ namespace MegaMine.Web.Lib.Domain
             return await this.vehicleRepository.VehicleDetailsGet(vehicleId);
         }
 
-        public async Task <VehicleDetailsModel> VehicleServiceSave(VehicleServiceModel model)
+        public async Task<VehicleDetailsModel> VehicleServiceSave(VehicleServiceModel model)
         {
             // calculating the total cost
             model.TotalServiceCost = model.MiscServiceCost;
-            return await  vehicleRepository.VehicleServiceSave(model);
+            return await this.vehicleRepository.VehicleServiceSave(model);
         }
 
-        public async Task <VehicleServiceModel> VehicleServiceGet(int vehicleServiceId)
+        public async Task<VehicleServiceModel> VehicleServiceGet(int vehicleServiceId)
         {
             return await this.vehicleRepository.VehicleServiceGet(vehicleServiceId);
         }
 
-        public async Task<List<VehicleServiceModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
+        public async Task<List<VehicleServiceModel>> VehicleServiceReportGet(int vehicleServiceId, DateTime startDate, DateTime endDate)
         {
-            return await this.vehicleRepository.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate);
+            return await this.vehicleRepository.VehicleServiceReportGet(vehicleServiceId, startDate, endDate);
         }
 
         public async Task<List<VehicleDriverModel>> DriversGet()
@@ -150,7 +145,7 @@ namespace MegaMine.Web.Lib.Domain
         {
             return await this.vehicleRepository.VehicleTripListGet(vehicleId);
         }
-        
+
         public async Task VehicleTripSave(VehicleTripModel model)
         {
           await this.vehicleRepository.VehicleTripSave(model);
@@ -167,12 +162,12 @@ namespace MegaMine.Web.Lib.Domain
         //    return await sparepartRepository.SparePartListGet();
         //}
 
-        //public async Task <SparePartDetailsModel> SparePartDetailsGet(int sparePartId)
+        //public async Task<SparePartDetailsModel> SparePartDetailsGet(int sparePartId)
         //{
         //   return   await sparepartRepository.SparePartDetailsGet(sparePartId, vehicleRepository);
         //}
 
-        //public async Task <SparePartModel> SparePartGet(int sparePartId)
+        //public async Task<SparePartModel> SparePartGet(int sparePartId)
         //{
         //    return await sparepartRepository.SparePartGet(sparePartId, vehicleRepository);
         //}
@@ -187,7 +182,7 @@ namespace MegaMine.Web.Lib.Domain
         //  await sparepartRepository.SparePartManufacturerModelSave(model);
         //}
 
-        //public async Task <SparePartOrderModel> SparePartOrderGet(int sparePartOrderId)
+        //public async Task<SparePartOrderModel> SparePartOrderGet(int sparePartOrderId)
         //{
         //    return await sparepartRepository.SparePartOrderGet(sparePartOrderId);
         //}

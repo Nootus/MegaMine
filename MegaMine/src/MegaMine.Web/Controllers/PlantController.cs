@@ -115,7 +115,7 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> DressingSave([FromBody] DressingViewModel viewModel)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.DressingSave(viewModel, HttpContext.RequestServices.GetRequiredService<SharedDomain>()), PlantMessages.DressingSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.DressingSave(viewModel, this.HttpContext.RequestServices.GetRequiredService<SharedDomain>()), PlantMessages.DressingSaveSuccess);
         }
     }
 }

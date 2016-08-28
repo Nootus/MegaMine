@@ -43,10 +43,10 @@ namespace MegaMine.Web.Lib.Repositories
 
         public DbSet<ConfigurationEntity> Configurations { get; set; }
 
-        public DbSet<VehicleDriverAssignmentEntity> VehicleDriverAssignments{ get; set; }
+        public DbSet<VehicleDriverAssignmentEntity> VehicleDriverAssignments { get; set; }
 
         public DbSet<SparePartManufacturerEntity> SparePartManufacturers { get; set; }
 
-        public DbSet<VehicleTripEntity> VehicleTrips{ get; set; }
+        public DbSet<VehicleTripEntity> VehicleTrips { get; set; }
     }
 }

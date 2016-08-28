@@ -22,6 +22,6 @@ namespace MegaMine.Web.Models.Fleet
 
         public DateTime AssignmentStartDate { get; set; }
 
-        public DateTime? AssignmentEndDate { get; set; } 
+        public DateTime? AssignmentEndDate { get; set; }
     }
 }

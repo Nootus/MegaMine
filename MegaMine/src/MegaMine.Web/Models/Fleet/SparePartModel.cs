@@ -13,7 +13,7 @@ namespace MegaMine.Web.Models.Fleet
 
     public class SparePartModel
     {
-        public int  VehicleServiceSparePartId { get; set; }
+        public int VehicleServiceSparePartId { get; set; }
 
         public int SparePartId { get; set; }
 

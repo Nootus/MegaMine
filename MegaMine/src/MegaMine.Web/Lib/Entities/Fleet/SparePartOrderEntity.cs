@@ -34,6 +34,6 @@ namespace MegaMine.Web.Lib.Entities.Fleet
 
         public string FollowupPhoneNum { get; set; }
 
-        public int ConsumedUnits { get; set; } 
+        public int ConsumedUnits { get; set; }
     }
 }

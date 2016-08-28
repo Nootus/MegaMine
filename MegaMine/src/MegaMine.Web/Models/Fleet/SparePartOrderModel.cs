@@ -28,6 +28,6 @@ namespace MegaMine.Web.Models.Fleet
 
         public string FollowupPhoneNum { get; set; }
 
-        public int ConsumedUnits { get; set; } 
+        public int ConsumedUnits { get; set; }
     }
 }

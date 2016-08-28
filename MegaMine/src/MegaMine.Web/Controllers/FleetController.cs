@@ -22,6 +22,7 @@ namespace MegaMine.Web.Controllers
     public class FleetController : Controller
     {
         private FleetDomain domain;
+
         public FleetController(FleetDomain domain)
         {
             this.domain = domain;
@@ -45,13 +46,12 @@ namespace MegaMine.Web.Controllers
             return await AjaxHelper.GetAsync(m => this.domain.VehicleDetailsGet(vehicleId));
         }
 
-
         [HttpGet]
         public async Task<AjaxModel<ManufacturerDetailsModel>> ManufacturerDetailsGet(int manufacturerId)
         {
             return await AjaxHelper.GetAsync(m => this.domain.ManufacturerDetailsGet(manufacturerId));
         }
-        
+
         [HttpPost]
         public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceAdd([FromBody] VehicleServiceModel model)
         {
@@ -67,20 +67,19 @@ namespace MegaMine.Web.Controllers
         [HttpGet]
         public async Task<AjaxModel<VehicleServiceModel>> VehicleServiceGet(int vehicleServiceId)
         {
-            return await  AjaxHelper.GetAsync(m => this.domain.VehicleServiceGet(vehicleServiceId));
+            return await AjaxHelper.GetAsync(m => this.domain.VehicleServiceGet(vehicleServiceId));
         }
 
-        public async Task<AjaxModel<List<VehicleServiceModel>>> VehicleServiceReportGet(int vehicleServiceId, DateTime StartDate, DateTime EndDate)
+        public async Task<AjaxModel<List<VehicleServiceModel>>> VehicleServiceReportGet(int vehicleServiceId, DateTime startDate, DateTime endDate)
         {
-            return await AjaxHelper.GetAsync(m => this.domain.VehicleServiceReportGet( vehicleServiceId,  StartDate,  EndDate));
+            return await AjaxHelper.GetAsync(m => this.domain.VehicleServiceReportGet(vehicleServiceId, startDate, endDate));
         }
 
         [HttpGet]
-        public async Task <AjaxModel<VehicleModel>> VehicleGet(int vehicleId)
+        public async Task<AjaxModel<VehicleModel>> VehicleGet(int vehicleId)
         {
             return await AjaxHelper.GetAsync(m => this.domain.VehicleGet(vehicleId));
         }
-
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleAdd([FromBody] VehicleModel model)
@@ -119,7 +118,7 @@ namespace MegaMine.Web.Controllers
         }
 
         [HttpGet]
-        public async Task <AjaxModel<List<VehicleDriverModel>>> DriversGet()
+        public async Task<AjaxModel<List<VehicleDriverModel>>> DriversGet()
         {
             return await AjaxHelper.GetAsync(m => this.domain.DriversGet());
         }
@@ -137,19 +136,19 @@ namespace MegaMine.Web.Controllers
         }
 
         [HttpGet]
-        public async Task <AjaxModel<List<ListItem<int, string>>>> DriversListGet()
+        public async Task<AjaxModel<List<ListItem<int, string>>>> DriversListGet()
         {
             return await AjaxHelper.GetAsync(m => this.domain.DriversListGet());
         }
 
         [HttpGet]
-        public async Task <AjaxModel<List<VehicleManufacturerModel>>> ManufacturersGet()
+        public async Task<AjaxModel<List<VehicleManufacturerModel>>> ManufacturersGet()
         {
             return await AjaxHelper.GetAsync(m => this.domain.VehicleManufacturersGet());
         }
 
         [HttpGet]
-        public async Task <AjaxModel<VehicleManufacturerModel>> ManufacturerGet(int manufacturerId)
+        public async Task<AjaxModel<VehicleManufacturerModel>> ManufacturerGet(int manufacturerId)
         {
             return await AjaxHelper.GetAsync(m => this.domain.VehicleManufacturerGet(manufacturerId));
         }
@@ -167,7 +166,7 @@ namespace MegaMine.Web.Controllers
         }
 
         [HttpGet]
-        public async Task <AjaxModel<List<FuelModel>>> FuelGetList(int vehicleId)
+        public async Task<AjaxModel<List<FuelModel>>> FuelGetList(int vehicleId)
         {
             return await AjaxHelper.GetAsync(m => this.domain.FuelGetList(vehicleId));
         }
@@ -177,7 +176,6 @@ namespace MegaMine.Web.Controllers
         {
             return await AjaxHelper.SaveAsync(m => this.domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
         }
-
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> FuelUpdate([FromBody] FuelModel model)
@@ -259,7 +257,7 @@ namespace MegaMine.Web.Controllers
         //}
 
         //[HttpGet]
-        //public async Task <AjaxModel<SparePartOrderModel>> SparePartOrderGet(int sparePartOrderId)
+        //public async Task<AjaxModel<SparePartOrderModel>> SparePartOrderGet(int sparePartOrderId)
         //{
         //    return await AjaxHelper.GetAsync(m => this.domain.SparePartOrderGet(sparePartOrderId));
         //}

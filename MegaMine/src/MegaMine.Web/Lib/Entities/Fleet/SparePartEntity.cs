@@ -17,7 +17,7 @@ namespace MegaMine.Web.Lib.Entities.Fleet
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int SparePartId  { get; set; }
+        public int SparePartId { get; set; }
 
         public string SparePartName { get; set; }
 

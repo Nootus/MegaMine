@@ -16,10 +16,10 @@ namespace MegaMine.Web.Models.Fleet
 
         public int VehicleId { get; set; }
 
-        public Decimal Odometer { get; set; }
+        public decimal Odometer { get; set; }
 
-        public Decimal Quantity { get; set; }
+        public decimal Quantity { get; set; }
 
-        public DateTime FuelDate { get; set; } 
+        public DateTime FuelDate { get; set; }
     }
 }

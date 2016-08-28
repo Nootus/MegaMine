@@ -1,4 +1,12 @@
-﻿/*
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="SparePartRepository.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Currently this is not used. If it is not required then will delete it
+// </description>
+//-------------------------------------------------------------------------------------------------
+/*
 using MegaMine.Web.Lib.Entities;
 using MegaMine.Web.Lib.Entities.Fleet;
 using MegaMine.Web.Models.Fleet;
@@ -143,7 +151,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //        };
     //        dbContext.SparePartOrders.Add(entity);
 
-    //        //Get the newly added 
+    //        //Get the newly added
 
     //        SparePartEntity result = await (from part in dbContext.SpareParts
     //                                  where part.SparePartId == model.SparePartId
@@ -423,7 +431,6 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //                        Name = parts.SparePartName,
     //                        ManufacturingBrand = parts.ManufacturingBrand,
     //                        Description = parts.SparePartDescription
-    //                          
     //                    };
 
     //        return  await query.ToListAsync();
@@ -452,18 +459,18 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     //        decimal totalcost = 0;
 
     //        int totalAvailable = 0;
-    //                        
+    //
     //        var partorderquery = await (from order in dbContext.SparePartOrders
     //                              where order.SparePartId == spvm.SparePartId && order.OrderedUnits > order.ConsumedUnits
     //                              && order.DeletedInd == false
     //                              orderby order.DeliveredUTCdatetime ascending
     //                              select order).ToListAsync();
-
+    //
     //        foreach (SparePartOrderEntity order in partorderquery) { totalAvailable += order.OrderedUnits - order.ConsumedUnits; }
 
     //        // Do not proceed with Save if there are no parts.
     //        if (totalAvailable < totalparts) return totalAvailable - totalparts;
-    //            
+    //
     //        //Get the price and update the consumed units
     //        int totalNeeded = totalparts;
     //        foreach (SparePartOrderEntity order in partorderquery)

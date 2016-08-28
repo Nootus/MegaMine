@@ -6,7 +6,7 @@
 //  DB Entity VehicleTrip
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Lib.Entities.Fleet 
+namespace MegaMine.Web.Lib.Entities.Fleet
 {
     using System;
     using System.ComponentModel.DataAnnotations;
@@ -26,9 +26,9 @@ namespace MegaMine.Web.Lib.Entities.Fleet
 
         public int VehicleDriverId { get; set; }
 
-        public Decimal? OdometerStart { get; set; }
+        public decimal? OdometerStart { get; set; }
 
-        public Decimal? OdometerEnd { get; set; }
+        public decimal? OdometerEnd { get; set; }
 
         public DateTime StartingTime { get; set; }
 

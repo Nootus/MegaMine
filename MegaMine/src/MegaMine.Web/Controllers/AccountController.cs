@@ -19,6 +19,7 @@ namespace MegaMine.Web.Controllers
     public class AccountController : Controller
     {
         private AccountDomain domain;
+
         public AccountController(AccountDomain domain)
         {
             this.domain = domain;

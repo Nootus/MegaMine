@@ -10,11 +10,10 @@ namespace MegaMine.Web.Models.Fleet
 {
     public class VehicleManufacturerModel
     {
-
         public int VehicleManufacturerId { get; set; }
 
         public string Name { get; set; }
 
-        public string Description { get; set; } 
+        public string Description { get; set; }
     }
 }

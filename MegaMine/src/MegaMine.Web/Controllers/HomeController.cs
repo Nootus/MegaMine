@@ -8,20 +8,20 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Web.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
     using MegaMine.Core.Common;
+    using Microsoft.AspNetCore.Mvc;
 
     public class HomeController : Controller
     {
-        public  IActionResult Index()
+        public IActionResult Index()
         {
-            ViewBag.EnvironmentName = SiteSettings.EnvironmentName;
-            return View();
+            this.ViewBag.EnvironmentName = SiteSettings.EnvironmentName;
+            return this.View();
         }
 
         public IActionResult Error()
         {
-            return View();
+            return this.View();
         }
     }
 }

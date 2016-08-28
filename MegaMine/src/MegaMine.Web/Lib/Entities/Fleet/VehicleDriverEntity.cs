@@ -17,12 +17,12 @@ namespace MegaMine.Web.Lib.Entities.Fleet
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int   VehicleDriverId { get; set; }
+        public int VehicleDriverId { get; set; }
 
-        public string  DriverName { get; set; }
+        public string DriverName { get; set; }
 
-        public string  Contact { get; set; }
+        public string Contact { get; set; }
 
-        public string  PhotoUrl { get; set; }
+        public string PhotoUrl { get; set; }
     }
 }

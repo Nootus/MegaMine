@@ -1,4 +1,12 @@
-﻿namespace MegaMine.Web
+﻿//-------------------------------------------------------------------------------------------------
+// <copyright file="Program.cs" company="Nootus">
+//  Copyright (c) Nootus. All rights reserved.
+// </copyright>
+// <description>
+//  Web Startup Program
+// </description>
+//-------------------------------------------------------------------------------------------------
+namespace MegaMine.Web
 {
     using System.IO;
     using Microsoft.AspNetCore.Hosting;

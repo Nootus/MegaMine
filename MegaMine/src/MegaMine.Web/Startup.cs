@@ -34,8 +34,6 @@ namespace MegaMine.Web
 
     public class Startup
     {
-        public IConfigurationRoot Configuration { get; set; }
-
         private IModuleStartup[] modules = { new QuarryStartup(), new PlantStartup(), new SharedStartup(), new SecurityStartup(), new WidgetStartup() };
 
         public Startup(IHostingEnvironment env)
@@ -55,18 +53,20 @@ namespace MegaMine.Web
             */
 
             builder.AddEnvironmentVariables();
-            Configuration = builder.Build();
+            this.Configuration = builder.Build();
 
             // initializing all modules
-            foreach (var module in modules)
+            foreach (var module in this.modules)
             {
-                module.Startup(Configuration);
+                module.Startup(this.Configuration);
             }
 
             // saving the site settgins
-            SiteSettings.ConnectionString = Configuration.GetConnectionString("MegaMine");
+            SiteSettings.ConnectionString = this.Configuration.GetConnectionString("MegaMine");
             SiteSettings.EnvironmentName = env.EnvironmentName;
         }
+
+        public IConfigurationRoot Configuration { get; set; }
 
         public void ConfigureServices(IServiceCollection services)
         {
@@ -77,12 +77,14 @@ namespace MegaMine.Web
             });
 
             // configuring services for all modules
-            foreach (var module in modules)
+            foreach (var module in this.modules)
+            {
                 module.ConfigureServices(services);
-
+            }
 
             services.AddMvc()
-                .AddMvcOptions(options => {
+                .AddMvcOptions(options =>
+                {
                     options.Filters.Add(new NTAuthorizeFilter());
                 })
                 .AddJsonOptions(options =>
@@ -92,27 +94,29 @@ namespace MegaMine.Web
                     options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
                 });
 
-
             // Fleet
             services.AddTransient<FleetDomain>();
             services.AddTransient<VehicleRepository>();
-            //services.AddTransient<SparePartRepository>();
 
+            // services.AddTransient<SparePartRepository>();
 
             // Automapper configurations
             Mapper.Initialize(x =>
             {
                 x.AddProfile<CoreMappingProfile>();
-                foreach (var module in modules)
+                foreach (var module in this.modules)
+                {
                     module.ConfigureMapping(x);
+                }
+
                 x.AddProfile<FleetMappingProfile>();
             });
-
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseContextMiddleware();
+
             // Add the following to the request pipeline only in development environment.
             if (env.IsDevelopment())
             {
@@ -148,7 +152,6 @@ namespace MegaMine.Web
                 //    name: "default",
                 //    template: "{controller}/{action}",
                 //    defaults: new { controller = "Home", action = "Index" });
-
             });
         }
     }
