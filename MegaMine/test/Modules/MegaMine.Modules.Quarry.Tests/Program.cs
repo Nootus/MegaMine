@@ -1,4 +1,6 @@
 ﻿using MegaMine.Modules.Quarry.Tests.Controller;
+using System;
+using System.Threading.Tasks;
 
 namespace MegaMine.Modules.Quarry.Tests
 {
@@ -6,9 +8,15 @@ namespace MegaMine.Modules.Quarry.Tests
     {
         public static void Main(string[] args)
         {
-            QuarryControllerTest tst = new QuarryControllerTest();
+            RunTest().Wait(); ;
+            Console.WriteLine("Press a key to terminate");
+            Console.ReadKey();
+        }
 
-            tst.Test1();
+        public static async Task RunTest()
+        {
+            QuarryControllerTest tst = new QuarryControllerTest();
+            await tst.Test1();
         }
     }
 }
