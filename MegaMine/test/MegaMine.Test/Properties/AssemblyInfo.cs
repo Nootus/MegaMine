@@ -14,7 +14,7 @@ using System.Runtime.InteropServices;
 // associated with an assembly.
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MegaMine.Modules.Quarry.Tests")]
+[assembly: AssemblyProduct("MegaMine.Test")]
 [assembly: AssemblyTrademark("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -23,4 +23,4 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("260049f7-fa4c-4b19-b4a0-50e95b0a37ef")]
+[assembly: Guid("e4b6cbaa-e438-4626-98c8-a3fb2d1bc48b")]
