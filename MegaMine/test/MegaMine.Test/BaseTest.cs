@@ -1,34 +1,36 @@
 ﻿//-------------------------------------------------------------------------------------------------
-// <copyright file="TestUtility.cs" company="Nootus">
+// <copyright file="BaseTest.cs" company="Nootus">
 //  Copyright (c) Nootus. All rights reserved.
 // </copyright>
 // <description>
-//  Utility functions for testing framework
+//  Base class for testing framework which contains utility functions
 // </description>
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Test
 {
     using System;
+    using System.Linq;
+    using System.Threading.Tasks;
     using AutoMapper;
     using Core.Repositories;
     using MegaMine.Core.Context;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
 
-    public static class TestUtility
+    public class BaseTest
     {
-        public static void CreateAppContext()
+        protected void CreateAppContext()
         {
             NTContext.Context = new NTContextModel() { CompanyId = 1, UserName = "megamine@nootus.com" };
         }
 
-        public static void InitializeMappingProfile<TProfile>()
+        protected void InitializeMappingProfile<TProfile>()
             where TProfile : Profile, new()
         {
             Mapper.Initialize(x => x.AddProfile<TProfile>());
         }
 
-        public static TContext CreateDbContext<TContext>()
+        protected TContext CreateDbContext<TContext>()
             where TContext : DbContext
         {
             var serviceProvider = new ServiceCollection()
@@ -42,7 +44,19 @@ namespace MegaMine.Test
             return (TContext)Activator.CreateInstance(typeof(TContext), builder.Options);
         }
 
-        public static TRepository CreateRepository<TContext, TRepository>(TContext context)
+        protected async Task SaveChangesAsync(DbContext dbContext)
+        {
+            await dbContext.SaveChangesAsync();
+            var entries = dbContext.ChangeTracker.Entries().ToList();
+            foreach (var entry in entries)
+            {
+                entry.State = EntityState.Detached;
+            }
+
+            await dbContext.SaveChangesAsync();
+        }
+
+        protected TRepository CreateRepository<TContext, TRepository>(TContext context)
             where TContext : DbContext
             where TRepository : BaseRepository<TContext>
         {
