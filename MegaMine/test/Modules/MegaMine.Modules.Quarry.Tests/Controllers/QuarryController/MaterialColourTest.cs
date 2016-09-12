@@ -24,8 +24,8 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
         {
             // Arrange
             this.QuarryDbContext.MaterialColours.AddRange(
-                    new MaterialColourEntity() { ColourName = "Red", CompanyId = 1, DeletedInd = false },
-                    new MaterialColourEntity() { ColourName = "Blue", CompanyId = 1, DeletedInd = false });
+                    new MaterialColourEntity() { MaterialColourId = 1, ColourName = "White", CompanyId = 1, DeletedInd = false },
+                    new MaterialColourEntity() { MaterialColourId = 2, ColourName = "Smoky", CompanyId = 1, DeletedInd = false });
             await this.SaveChangesAsync(this.QuarryDbContext);
 
             // Act
@@ -34,7 +34,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
 
             // Assert
             Assert.Equal(colours.Count, 2);
-            Assert.Equal(colours[1].Item, "Red");
+            Assert.Equal(colours[1].Item, "White");
         }
 
         [Fact]
@@ -42,8 +42,8 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
         {
             // Arrange
             this.QuarryDbContext.MaterialColours.AddRange(
-                    new MaterialColourEntity() { ColourName = "Red", CompanyId = 1, DeletedInd = false },
-                    new MaterialColourEntity() { ColourName = "Blue", CompanyId = 1, DeletedInd = false });
+                    new MaterialColourEntity() { MaterialColourId = 1, ColourName = "White", CompanyId = 1, DeletedInd = false },
+                    new MaterialColourEntity() { MaterialColourId = 2, ColourName = "Smoky", CompanyId = 1, DeletedInd = false });
             await this.SaveChangesAsync(this.QuarryDbContext);
 
             // Act
@@ -52,21 +52,21 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
 
             // Assert
             Assert.Equal(colours.Count, 2);
-            Assert.Equal(colours[1].ColourName, "Red");
+            Assert.Equal(colours[1].ColourName, "White");
         }
 
         [Fact]
         public async void MaterialColourAdd()
         {
             // Arrange
-            MaterialColourModel model = new MaterialColourModel() { MaterialColourId = 0, ColourName = "Green" };
+            MaterialColourModel model = new MaterialColourModel() { MaterialColourId = 0, ColourName = "Grey" };
 
             // Act
             AjaxModel<NTModel> ajaxModel = await this.Controller.MaterialColourAdd(model);
 
             // Assert
             MaterialColourEntity entity = this.QuarryDbContext.MaterialColours.Last();
-            Assert.Equal(entity.ColourName, "Green");
+            Assert.Equal(entity.ColourName, "Grey");
             Assert.Equal(ajaxModel.Message, QuarryMessages.MaterialColourSaveSuccess);
         }
 
@@ -75,18 +75,18 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
         {
             // Arrange
             this.QuarryDbContext.MaterialColours.AddRange(
-                    new MaterialColourEntity() { MaterialColourId = 1, ColourName = "Red", CompanyId = 1, DeletedInd = false },
-                    new MaterialColourEntity() { MaterialColourId = 2, ColourName = "Blue", CompanyId = 1, DeletedInd = false });
+                    new MaterialColourEntity() { MaterialColourId = 1, ColourName = "White", CompanyId = 1, DeletedInd = false },
+                    new MaterialColourEntity() { MaterialColourId = 2, ColourName = "Smoky", CompanyId = 1, DeletedInd = false });
             await this.SaveChangesAsync(this.QuarryDbContext);
 
-            MaterialColourModel model = new MaterialColourModel() { MaterialColourId = 2, ColourName = "Green" };
+            MaterialColourModel model = new MaterialColourModel() { MaterialColourId = 2, ColourName = "Grey" };
 
             // Act
             AjaxModel<NTModel> ajaxModel = await this.Controller.MaterialColourUpdate(model);
 
             // Assert
-            MaterialColourEntity entity = this.QuarryDbContext.MaterialColours.Where(m => m.MaterialColourId == 2).First();
-            Assert.Equal(entity.ColourName, "Green");
+            MaterialColourEntity entity = this.QuarryDbContext.MaterialColours.Where(e => e.MaterialColourId == 2).First();
+            Assert.Equal(entity.ColourName, "Grey");
             Assert.Equal(ajaxModel.Message, QuarryMessages.MaterialColourSaveSuccess);
         }
 
@@ -95,15 +95,15 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
         {
             // Arrange
             this.QuarryDbContext.MaterialColours.AddRange(
-                    new MaterialColourEntity() { MaterialColourId = 1, ColourName = "Red", CompanyId = 1, DeletedInd = false },
-                    new MaterialColourEntity() { MaterialColourId = 2, ColourName = "Blue", CompanyId = 1, DeletedInd = false });
+                    new MaterialColourEntity() { MaterialColourId = 1, ColourName = "White", CompanyId = 1, DeletedInd = false },
+                    new MaterialColourEntity() { MaterialColourId = 2, ColourName = "Smoky", CompanyId = 1, DeletedInd = false });
             await this.SaveChangesAsync(this.QuarryDbContext);
 
             // Act
             AjaxModel<NTModel> ajaxModel = await this.Controller.MaterialColourDelete(2);
 
             // Assert
-            MaterialColourEntity entity = this.QuarryDbContext.MaterialColours.Where(m => m.MaterialColourId == 2).First();
+            MaterialColourEntity entity = this.QuarryDbContext.MaterialColours.Where(e => e.MaterialColourId == 2).First();
             Assert.Equal(entity.DeletedInd, true);
             Assert.Equal(ajaxModel.Message, QuarryMessages.MaterialColourDeleteSuccess);
         }
