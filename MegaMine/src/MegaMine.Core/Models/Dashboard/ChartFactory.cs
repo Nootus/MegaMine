@@ -13,12 +13,14 @@ namespace MegaMine.Core.Models.Dashboard
     using System.Linq;
     using System.Threading.Tasks;
     using Microsoft.EntityFrameworkCore;
+    using Repositories;
 
     public static class ChartFactory
     {
-        public static async Task<ChartModel<Tx, Ty>> Create<Tx, Ty>(WidgetOptions options, DbContext dbContext, string sql, params object[] parameters)
+        public static async Task<ChartModel<Tx, Ty>> Create<Tx, Ty, TContext>(WidgetOptions options, BaseDbContext<TContext> dbContext, string sql, params object[] parameters)
+            where TContext : DbContext
         {
-            List<ChartEntity<Tx, Ty>> data = await dbContext.Set<ChartEntity<Tx, Ty>>().FromSql(sql, parameters)
+            List<ChartEntity<Tx, Ty>> data = await dbContext.FromSql<ChartEntity<Tx, Ty>>(sql, parameters)
                                     .Select(m => m).ToListAsync();
 
             return CreateChartModel<Tx, Ty>(data, options.XAxisLabel, options.YAxisLabel);

@@ -8,6 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
 {
+    using AutoMapper;
     using MegaMine.Modules.Quarry.Controllers;
     using MegaMine.Modules.Quarry.Domain;
     using MegaMine.Modules.Quarry.Mapping;
@@ -15,13 +16,20 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
     using MegaMine.Services.Widget.Domain;
     using MegaMine.Services.Widget.Repositories;
     using MegaMine.Test;
+    using Services.Widget.Mapping;
 
     public class QuarryControllerTest : BaseTest
     {
         public QuarryControllerTest()
         {
-            this.InitializeMappingProfile<QuarryMappingProfile>();
             this.CreateAppContext();
+
+            Mapper.Initialize(x =>
+            {
+                x.AddProfile<QuarryMappingProfile>();
+                x.AddProfile<WidgetMappingProfile>();
+            });
+
             this.QuarryDbContext = this.CreateDbContext<QuarryDbContext>();
             QuarryRepository quarryRepository = new QuarryRepository(this.QuarryDbContext);
             QuarryDomain quarryDomain = new QuarryDomain(quarryRepository);

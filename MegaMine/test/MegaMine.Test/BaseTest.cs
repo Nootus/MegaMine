@@ -16,9 +16,18 @@ namespace MegaMine.Test
     using MegaMine.Core.Context;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.DependencyInjection;
+    using Moq;
 
     public class BaseTest
     {
+        protected NTContextModel AppContext
+        {
+            get
+            {
+                return NTContext.Context;
+            }
+        }
+
         protected void CreateAppContext()
         {
             NTContext.Context = new NTContextModel() { CompanyId = 1, UserName = "megamine@nootus.com" };
@@ -41,19 +50,23 @@ namespace MegaMine.Test
             builder.UseInMemoryDatabase()
                    .UseInternalServiceProvider(serviceProvider);
 
-            return (TContext)Activator.CreateInstance(typeof(TContext), builder.Options);
+            var mockContext = new Mock<TContext>(builder.Options) { CallBase = true };
+            return mockContext.Object;
         }
 
-        protected async Task SaveChangesAsync(DbContext dbContext)
+        protected async Task SaveChangesAsync(params DbContext[] dbContexts)
         {
-            await dbContext.SaveChangesAsync();
-            var entries = dbContext.ChangeTracker.Entries().ToList();
-            foreach (var entry in entries)
+            foreach (DbContext context in dbContexts)
             {
-                entry.State = EntityState.Detached;
-            }
+                await context.SaveChangesAsync();
+                var entries = context.ChangeTracker.Entries().ToList();
+                foreach (var entry in entries)
+                {
+                    entry.State = EntityState.Detached;
+                }
 
-            await dbContext.SaveChangesAsync();
+                await context.SaveChangesAsync();
+            }
         }
 
         protected TRepository CreateRepository<TContext, TRepository>(TContext context)

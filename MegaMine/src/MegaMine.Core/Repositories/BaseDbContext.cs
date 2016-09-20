@@ -8,6 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Repositories
 {
+    using System.Linq;
     using MegaMine.Core.Entities;
     using Microsoft.EntityFrameworkCore;
 
@@ -17,6 +18,12 @@ namespace MegaMine.Core.Repositories
         public BaseDbContext(DbContextOptions<TContext> options)
             : base(options)
         {
+        }
+
+        public virtual IQueryable<TEntity> FromSql<TEntity>(string sql, params object[] parameters)
+            where TEntity : class
+        {
+            return this.Set<TEntity>().FromSql(sql, parameters);
         }
 
         protected void IgnoreAuditFields<TEntity>(ModelBuilder builder)

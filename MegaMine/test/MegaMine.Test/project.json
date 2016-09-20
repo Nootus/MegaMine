@@ -6,6 +6,7 @@
   },
 
   "dependencies": {
+    "Moq": "4.5.21",
     "AutoMapper": "4.0.4",
     "MegaMine.Core": "1.0.0-*",
     "Microsoft.EntityFrameworkCore.InMemory": "1.0.0",

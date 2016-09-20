@@ -63,7 +63,7 @@ namespace MegaMine.Modules.Quarry.Domain
                     break;
             }
 
-            return await ChartFactory.Create<string, int>(options, this.repository.DbContext, sql, parameters);
+            return await ChartFactory.Create<string, int, QuarryDbContext>(options, this.repository.DbContext, sql, parameters);
         }
     }
 }
