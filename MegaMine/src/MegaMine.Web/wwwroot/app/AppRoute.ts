@@ -27,7 +27,7 @@
                     title: "Login",
                     previousState: "",
                     templateUrl: "/app/account/login.html",
-                    controller: "login",
+                    controller: Account.Login,
                     controllerAs: "vm"
                 })
                 .state("logout", {

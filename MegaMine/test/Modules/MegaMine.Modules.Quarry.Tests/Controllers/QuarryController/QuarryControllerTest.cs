@@ -17,7 +17,9 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
     using MegaMine.Services.Widget.Repositories;
     using MegaMine.Test;
     using Services.Widget.Mapping;
+    using Xunit;
 
+    [Collection("QuarryControllerTest")]
     public class QuarryControllerTest : BaseTest
     {
         public QuarryControllerTest()

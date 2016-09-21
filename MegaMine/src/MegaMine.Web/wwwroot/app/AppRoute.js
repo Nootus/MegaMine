@@ -28,7 +28,7 @@ var MegaMine;
                 title: "Login",
                 previousState: "",
                 templateUrl: "/app/account/login.html",
-                controller: "login",
+                controller: MegaMine.Account.Login,
                 controllerAs: "vm"
             })
                 .state("logout", {
