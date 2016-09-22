@@ -49,7 +49,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
                     new ProductTypeEntity() { ProductTypeId = 1, ProductTypeName = "Slab", CompanyId = 1, DeletedInd = false },
                     new ProductTypeEntity() { ProductTypeId = 2, ProductTypeName = "Tile", CompanyId = 1, DeletedInd = false });
 
-            // mock data
+            // mock data for dashboard stored procedure
             this.QuarryDbContext.ChartEntities.AddRange(
             new ChartEntity<string, int>() { Id = "WidgetProductTypeMaterialCounts-1", Key = "Key", X = "Slab", Y = 100, KeyOrder = 0, XOrder = 1 },
             new ChartEntity<string, int>() { Id = "WidgetProductTypeMaterialCounts-2", Key = "Key", X = "Tile", Y = 200, KeyOrder = 0, XOrder = 2 },
@@ -72,9 +72,9 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
                     new WidgetEntity() { WidgetId = 5, Name = "Blocks Per Product Types & Quarry", Claim = "Quarry:Claim", SizeX = 3, SizeY = 2, ChartTypeId = 4, XAxisLabel = "Product Types", YAxisLabel = "Blocks" },
                     new WidgetEntity() { WidgetId = 6, Name = "Blocks Per Product Type & Colour", Claim = "Quarry:Claim", SizeX = 6, SizeY = 1, ChartTypeId = 6, XAxisLabel = "Product Types", YAxisLabel = "Blocks" });
             this.WidgetDbContext.ChartTypes.AddRange(
-                new ChartTypeEntity() { ChartTypeId = 1, Type = "discreteBarChart" },
-                new ChartTypeEntity() { ChartTypeId = 4, Type = "multiBarChart" },
-                new ChartTypeEntity() { ChartTypeId = 6, Type = "stackedAreaChart" });
+                    new ChartTypeEntity() { ChartTypeId = 1, Type = "discreteBarChart" },
+                    new ChartTypeEntity() { ChartTypeId = 4, Type = "multiBarChart" },
+                    new ChartTypeEntity() { ChartTypeId = 6, Type = "stackedAreaChart" });
             this.WidgetDbContext.DashboardPageWidgets.AddRange(
                     new DashboardPageWidgetEntity() { DashboardPageWidgetId = 4, DashboardId = 2, WidgetId = 4, Columns = 0, Rows = 0, SizeX = 3, SizeY = 2, CompanyId = 1 },
                     new DashboardPageWidgetEntity() { DashboardPageWidgetId = 5, DashboardId = 2, WidgetId = 5, Columns = 3, Rows = 0, SizeX = 3, SizeY = 2, CompanyId = 1 },

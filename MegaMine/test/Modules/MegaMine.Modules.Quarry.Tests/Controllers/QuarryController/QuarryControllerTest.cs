@@ -19,19 +19,17 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
     using Services.Widget.Mapping;
     using Xunit;
 
-    [Collection("QuarryControllerTest")]
     public class QuarryControllerTest : BaseTest
     {
         public QuarryControllerTest()
         {
             this.CreateAppContext();
 
-            Mapper.Initialize(x =>
-            {
-                x.AddProfile<QuarryMappingProfile>();
-                x.AddProfile<WidgetMappingProfile>();
-            });
+            // Automapper initializers
+            Mapper.AddProfile<QuarryMappingProfile>();
+            Mapper.AddProfile<WidgetMappingProfile>();
 
+            // setting up the context and repositories
             this.QuarryDbContext = this.CreateDbContext<QuarryDbContext>();
             QuarryRepository quarryRepository = new QuarryRepository(this.QuarryDbContext);
             QuarryDomain quarryDomain = new QuarryDomain(quarryRepository);
