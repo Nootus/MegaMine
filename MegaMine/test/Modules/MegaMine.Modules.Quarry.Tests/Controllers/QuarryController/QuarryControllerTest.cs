@@ -49,3 +49,6 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
         protected QuarryController Controller { get; set; }
     }
 }
+
+// To create test methods for
+// GroupYardsGet

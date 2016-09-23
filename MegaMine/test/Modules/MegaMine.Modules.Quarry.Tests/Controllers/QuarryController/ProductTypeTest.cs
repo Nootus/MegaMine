@@ -105,6 +105,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             Assert.Equal(dashboard.PageWidgets[1].WidgetId, 5);
             Assert.Equal(dashboard.AllWidgets[1].WidgetId, 5);
             Assert.Equal(dashboard.AllWidgets[1].Chart.Type, "multiBarChart");
+            Assert.Equal(((ChartModel<string, int>)dashboard.AllWidgets[1].Chart.Model).Data[0].Values[1].Y, 200);
         }
 
         [Fact]

@@ -23,10 +23,72 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
     public class QuarryTest : QuarryControllerTest
     {
         [Fact]
+        public async void Dashboard()
+        {
+            // Arrange
+            // mock data for dashboard stored procedure
+            this.QuarryDbContext.ChartEntities.AddRange(
+            new ChartEntity<string, int>() { Id = "WidgetQuarryMaterialCounts-1", Key = "Pie", X = "QM1", Y = 100, KeyOrder = 0, XOrder = 1 },
+            new ChartEntity<string, int>() { Id = "WidgetQuarryMaterialCounts-2", Key = "Pie", X = "QM2", Y = 200, KeyOrder = 0, XOrder = 2 },
+            new ChartEntity<string, int>() { Id = "WidgetQuarryProductTypeMaterialCounts-1", Key = "Slab", X = "QM1", Y = 100, KeyOrder = 0, XOrder = 1 },
+            new ChartEntity<string, int>() { Id = "WidgetQuarryProductTypeMaterialCounts-2", Key = "Slab", X = "QM2", Y = 200, KeyOrder = 0, XOrder = 2 },
+            new ChartEntity<string, int>() { Id = "WidgetQuarryMaterialColourMaterialCounts-1", Key = "White", X = "QM1", Y = 100, KeyOrder = 0, XOrder = 1 },
+            new ChartEntity<string, int>() { Id = "WidgetQuarryMaterialColourMaterialCounts-2", Key = "White", X = "QM2", Y = 200, KeyOrder = 0, XOrder = 2 });
+
+            // Dashboard data
+            this.AppContext.DashboardPageId = 97;
+
+            // widget context entities
+            this.WidgetDbContext.Dashboards.Add(new DashboardEntity() { DashboardId = 4, PageId = 97 });
+            this.WidgetDbContext.DashboardWidgets.AddRange(
+                    new DashboardWidgetEntity() { DashboardWidgetId = 1, DashboardId = 4, WidgetId = 1 },
+                    new DashboardWidgetEntity() { DashboardWidgetId = 2, DashboardId = 4, WidgetId = 2 },
+                    new DashboardWidgetEntity() { DashboardWidgetId = 3, DashboardId = 4, WidgetId = 3 });
+            this.WidgetDbContext.Widgets.AddRange(
+                    new WidgetEntity() { WidgetId = 1, Name = "Blocks Per Quarry", Claim = "Quarry:Claim", SizeX = 2, SizeY = 2, ChartTypeId = 2, XAxisLabel = "Top Quarries", YAxisLabel = "Blocks" },
+                    new WidgetEntity() { WidgetId = 2, Name = "Blocks Per Quarry & Product Types", Claim = "Quarry:Claim", SizeX = 4, SizeY = 2, ChartTypeId = 4, XAxisLabel = "Top Quarries", YAxisLabel = "Blocks" },
+                    new WidgetEntity() { WidgetId = 3, Name = "Blocks Per Quarry & Colour", Claim = "Quarry:Claim", SizeX = 6, SizeY = 1, ChartTypeId = 3, XAxisLabel = "Top Quarries", YAxisLabel = "Blocks" });
+            this.WidgetDbContext.ChartTypes.AddRange(
+                    new ChartTypeEntity() { ChartTypeId = 2, Type = "pieChart" },
+                    new ChartTypeEntity() { ChartTypeId = 3, Type = "lineChart" },
+                    new ChartTypeEntity() { ChartTypeId = 4, Type = "multiBarChart" });
+            this.WidgetDbContext.DashboardPageWidgets.AddRange(
+                    new DashboardPageWidgetEntity() { DashboardPageWidgetId = 1, DashboardId = 4, WidgetId = 1, Columns = 4, Rows = 0, SizeX = 2, SizeY = 2, CompanyId = 1 },
+                    new DashboardPageWidgetEntity() { DashboardPageWidgetId = 2, DashboardId = 4, WidgetId = 2, Columns = 0, Rows = 0, SizeX = 4, SizeY = 2, CompanyId = 1 },
+                    new DashboardPageWidgetEntity() { DashboardPageWidgetId = 3, DashboardId = 4, WidgetId = 3, Columns = 0, Rows = 2, SizeX = 6, SizeY = 1, CompanyId = 1 });
+
+            await this.SaveChangesAsync(this.QuarryDbContext, this.WidgetDbContext);
+
+            // Mocking stored procedure
+            var moqChartSp = Mock.Get(this.QuarryDbContext);
+            moqChartSp.Setup(m => m.FromSql<ChartEntity<string, int>>("quarry.WidgetQuarryMaterialCounts @CompanyId = {0}", It.IsAny<object[]>()))
+                .Returns(this.QuarryDbContext.ChartEntities.Where(w => w.Id.Contains("WidgetQuarryMaterialCounts")));
+            moqChartSp.Setup(m => m.FromSql<ChartEntity<string, int>>("quarry.WidgetQuarryProductTypeMaterialCounts @CompanyId = {0}", It.IsAny<object[]>()))
+                .Returns(this.QuarryDbContext.ChartEntities.Where(w => w.Id.Contains("WidgetQuarryProductTypeMaterialCounts")));
+            moqChartSp.Setup(m => m.FromSql<ChartEntity<string, int>>("quarry.WidgetQuarryMaterialColourMaterialCounts @CompanyId = {0}", It.IsAny<object[]>()))
+                .Returns(this.QuarryDbContext.ChartEntities.Where(w => w.Id.Contains("WidgetQuarryMaterialColourMaterialCounts")));
+
+            // Act
+            AjaxModel<object> ajaxModel = await this.Controller.Dashboard();
+            DashboardModel dashboard = ajaxModel.Dashboard;
+
+            // Assert
+            Assert.Null(ajaxModel.Model);
+            Assert.Empty(ajaxModel.Message);
+
+            Assert.Equal(dashboard.AllWidgets.Count, 3);
+            Assert.Equal(dashboard.PageWidgets.Count, 3);
+            Assert.Equal(dashboard.PageWidgets[1].WidgetId, 1);
+            Assert.Equal(dashboard.AllWidgets[1].WidgetId, 2);
+            Assert.Equal(dashboard.AllWidgets[1].Chart.Type, "multiBarChart");
+            Assert.Equal(((ChartModel<string, int>)dashboard.AllWidgets[1].Chart.Model).Data[0].Values[1].Y, 200);
+        }
+
+        [Fact]
         public async void QuarriesGet()
         {
             // Arrange
-            // adding Product Types
+            // adding Quarries
             this.QuarryDbContext.Quarries.AddRange(
                     new QuarryEntity() { QuarryId = 1, QuarryName = "QM1", CompanyId = 1, DeletedInd = false },
                     new QuarryEntity() { QuarryId = 2, QuarryName = "QM2", CompanyId = 1, DeletedInd = false });
@@ -87,6 +149,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             Assert.Equal(dashboard.PageWidgets[1].WidgetId, 1);
             Assert.Equal(dashboard.AllWidgets[1].WidgetId, 2);
             Assert.Equal(dashboard.AllWidgets[1].Chart.Type, "multiBarChart");
+            Assert.Equal(((ChartModel<string, int>)dashboard.AllWidgets[1].Chart.Model).Data[0].Values[1].Y, 200);
         }
 
         [Fact]
