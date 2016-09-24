@@ -151,25 +151,34 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             this.StockGetAssert(ajaxModel.Model);
         }
 
-        private async Task StockGetArrange()
+        [Fact]
+        public async void MaterialUpdate()
         {
-            this.QuarryDbContext.StockGet.AddRange(
-                new StockEntity() { MaterialId = 1, BlockNumber = "1111", QuarryId = 1, YardId = 1 },
-                new StockEntity() { MaterialId = 2, BlockNumber = "2222", QuarryId = 1, YardId = 1 },
-                new StockEntity() { MaterialId = 3, BlockNumber = "3333", QuarryId = 1, YardId = 1 },
-                new StockEntity() { MaterialId = 4, BlockNumber = "4444", QuarryId = 1, YardId = 1 });
+            // Arrange
+            this.QuarryDbContext.Yards.AddRange(
+                    new YardEntity() { YardId = 1, YardName = "Central Yard", QuarryId = 1, CompanyId = 1, DeletedInd = false },
+                    new YardEntity() { YardId = 2, YardName = "NDB Central Yard", QuarryId = 2, CompanyId = 1, DeletedInd = false });
+
+            this.QuarryDbContext.Materials.Add(new MaterialEntity() { MaterialId = 1, BlockNumber = "1111", QuarryId = 1, YardId = 1, MaterialColourId = 1, ProductTypeId = 1, ProcessTypeId = 1, Length = 0.5m, Width = 0.5m, Height = 0.5m, Weight = 0.5m, MaterialDate = DateTime.Now });
+            this.QuarryDbContext.MaterialMovements.Add(new MaterialMovementEntity() { MaterialId = 1, FromYardId = 1, ToYardId = 1 });
 
             await this.SaveChangesAsync(this.QuarryDbContext);
 
-            var moqDb = Mock.Get(this.QuarryDbContext);
-            moqDb.Setup(m => m.FromSql<StockEntity>(It.IsAny<string>(), It.IsAny<object[]>()))
-                .Returns(this.QuarryDbContext.StockGet);
-        }
+            await this.StockGetArrange();
 
-        private void StockGetAssert(List<StockModel> stock)
-        {
-            Assert.Equal(stock.Count, 4);
-            Assert.Equal(stock.Single(m => m.MaterialId == 2).BlockNumber, "2222");
+            MaterialModel model = new MaterialModel() { MaterialId = 1, BlockNumber = "1112", QuarryId = 1, YardId = 1, MaterialColourId = 1, ProductTypeId = 1, ProcessTypeId = 1, Length = 0.5m, Width = 0.5m, Height = 0.5m, Weight = 0.5m, MaterialDate = DateTime.Now };
+
+            // Act
+            AjaxModel<List<StockModel>> ajaxModel = await this.Controller.MaterialUpdate(model, 1);
+
+            // Assert
+            MaterialEntity materialEntity = this.QuarryDbContext.Materials.Where(m => m.MaterialId == 1).Single();
+            List<MaterialMovementEntity> movements = this.QuarryDbContext.MaterialMovements.ToList();
+
+            Assert.Equal(ajaxModel.Message, QuarryMessages.MaterialUpdateSuccess);
+            Assert.Equal(materialEntity.BlockNumber, "1112");
+
+            this.StockGetAssert(ajaxModel.Model);
         }
     }
 }

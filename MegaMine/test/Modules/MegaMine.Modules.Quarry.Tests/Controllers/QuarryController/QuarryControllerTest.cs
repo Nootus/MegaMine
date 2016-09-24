@@ -8,7 +8,11 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Threading.Tasks;
     using AutoMapper;
+    using Entities;
     using MegaMine.Modules.Quarry.Controllers;
     using MegaMine.Modules.Quarry.Domain;
     using MegaMine.Modules.Quarry.Mapping;
@@ -16,6 +20,8 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
     using MegaMine.Services.Widget.Domain;
     using MegaMine.Services.Widget.Repositories;
     using MegaMine.Test;
+    using Models;
+    using Moq;
     using Services.Widget.Mapping;
     using Xunit;
 
@@ -47,6 +53,27 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
         protected WidgetDbContext WidgetDbContext { get; set; }
 
         protected QuarryController Controller { get; set; }
+
+        protected async Task StockGetArrange()
+        {
+            this.QuarryDbContext.StockGet.AddRange(
+                new StockEntity() { MaterialId = 1, BlockNumber = "1111", QuarryId = 1, YardId = 1 },
+                new StockEntity() { MaterialId = 2, BlockNumber = "2222", QuarryId = 1, YardId = 1 },
+                new StockEntity() { MaterialId = 3, BlockNumber = "3333", QuarryId = 1, YardId = 1 },
+                new StockEntity() { MaterialId = 4, BlockNumber = "4444", QuarryId = 1, YardId = 1 });
+
+            await this.SaveChangesAsync(this.QuarryDbContext);
+
+            var moqDb = Mock.Get(this.QuarryDbContext);
+            moqDb.Setup(m => m.FromSql<StockEntity>(It.IsAny<string>(), It.IsAny<object[]>()))
+                .Returns(this.QuarryDbContext.StockGet);
+        }
+
+        protected void StockGetAssert(List<StockModel> stock)
+        {
+            Assert.Equal(stock.Count, 4);
+            Assert.Equal(stock.Single(m => m.MaterialId == 2).BlockNumber, "2222");
+        }
     }
 }
 

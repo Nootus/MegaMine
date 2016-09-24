@@ -13,6 +13,7 @@ namespace MegaMine.Core.Repositories
     using System.Threading.Tasks;
     using MegaMine.Core.Entities;
     using Microsoft.EntityFrameworkCore;
+    using System.Data.Common;
 
     public class BaseDbContext<TContext> : DbContext
         where TContext : DbContext
