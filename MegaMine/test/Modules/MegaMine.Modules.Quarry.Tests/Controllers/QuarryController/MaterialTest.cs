@@ -151,8 +151,10 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             this.StockGetAssert(ajaxModel.Model);
         }
 
-        [Fact]
-        public async void MaterialUpdate()
+        [Theory]
+        [InlineData(1)]
+        [InlineData(2)]
+        public async void MaterialUpdate(int quarryId)
         {
             // Arrange
             this.QuarryDbContext.Yards.AddRange(
@@ -166,7 +168,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
 
             await this.StockGetArrange();
 
-            MaterialModel model = new MaterialModel() { MaterialId = 1, BlockNumber = "1112", QuarryId = 1, YardId = 1, MaterialColourId = 1, ProductTypeId = 1, ProcessTypeId = 1, Length = 0.5m, Width = 0.5m, Height = 0.5m, Weight = 0.5m, MaterialDate = DateTime.Now };
+            MaterialModel model = new MaterialModel() { MaterialId = 1, BlockNumber = "1112", QuarryId = quarryId, YardId = 1, MaterialColourId = 1, ProductTypeId = 1, ProcessTypeId = 1, Length = 0.5m, Width = 0.5m, Height = 0.5m, Weight = 0.5m, MaterialDate = DateTime.Now };
 
             // Act
             AjaxModel<List<StockModel>> ajaxModel = await this.Controller.MaterialUpdate(model, 1);

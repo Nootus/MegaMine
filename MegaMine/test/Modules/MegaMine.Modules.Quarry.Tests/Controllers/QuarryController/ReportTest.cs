@@ -76,7 +76,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             // Arrange
             await this.ProductSummaryArrange();
 
-            ProductSummarySearchModel model = new ProductSummarySearchModel();
+            ProductSummarySearchModel model = new ProductSummarySearchModel() { QuarryIds = new int[] { 1, 2 }, ProductTypeIds = new int[] { 1, 2 }, MaterialColourIds = new int[] { 1, 2 } };
 
             // Act
             AjaxModel<List<ProductSummaryModel>> ajaxModel = await this.Controller.ProductSummarySearch(model);

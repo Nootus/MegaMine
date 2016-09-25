@@ -20,6 +20,8 @@ namespace MegaMine.Test
 
     public class BaseTest
     {
+        protected IServiceCollection ServiceCollection { get; set; }
+
         protected NTContextModel AppContext
         {
             get
@@ -33,16 +35,11 @@ namespace MegaMine.Test
             NTContext.Context = new NTContextModel() { CompanyId = 1, UserName = "megamine@nootus.com" };
         }
 
-        protected void InitializeMappingProfile<TProfile>()
-            where TProfile : Profile, new()
-        {
-            Mapper.Initialize(x => x.AddProfile<TProfile>());
-        }
-
         protected TContext CreateDbContext<TContext>()
             where TContext : DbContext
         {
-            var serviceProvider = new ServiceCollection()
+            this.ServiceCollection = new ServiceCollection();
+            IServiceProvider serviceProvider = this.ServiceCollection
                 .AddEntityFrameworkInMemoryDatabase()
                 .BuildServiceProvider();
 
@@ -67,13 +64,6 @@ namespace MegaMine.Test
 
                 await context.SaveChangesAsync();
             }
-        }
-
-        protected TRepository CreateRepository<TContext, TRepository>(TContext context)
-            where TContext : DbContext
-            where TRepository : BaseRepository<TContext>
-        {
-            return (TRepository)Activator.CreateInstance(typeof(TRepository), context);
         }
     }
 }

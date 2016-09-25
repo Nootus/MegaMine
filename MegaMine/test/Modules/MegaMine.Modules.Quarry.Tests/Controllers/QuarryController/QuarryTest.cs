@@ -93,6 +93,15 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
                     new QuarryEntity() { QuarryId = 1, QuarryName = "QM1", CompanyId = 1, DeletedInd = false },
                     new QuarryEntity() { QuarryId = 2, QuarryName = "QM2", CompanyId = 1, DeletedInd = false });
 
+            this.QuarryDbContext.MaterialColours.AddRange(
+                    new MaterialColourEntity() { MaterialColourId = 1, ColourName = "White", CompanyId = 1, DeletedInd = false },
+                    new MaterialColourEntity() { MaterialColourId = 2, ColourName = "Smoky", CompanyId = 1, DeletedInd = false });
+
+            this.QuarryDbContext.QuarryMaterialColours.AddRange(
+                    new QuarryMaterialColourEntity() { QuarryMaterialColourId = 1, QuarryId = 1, MaterialColourId = 1, CompanyId = 1, DeletedInd = false },
+                    new QuarryMaterialColourEntity() { QuarryMaterialColourId = 2, QuarryId = 1, MaterialColourId = 2, CompanyId = 1, DeletedInd = false },
+                    new QuarryMaterialColourEntity() { QuarryMaterialColourId = 3, QuarryId = 2, MaterialColourId = 1, CompanyId = 1, DeletedInd = false });
+
             // mock data for dashboard stored procedure
             this.QuarryDbContext.ChartEntities.AddRange(
             new ChartEntity<string, int>() { Id = "WidgetQuarryMaterialCounts-1", Key = "Pie", X = "QM1", Y = 100, KeyOrder = 0, XOrder = 1 },
@@ -143,6 +152,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             // Assert
             Assert.Equal(quarries.Count, 2);
             Assert.Equal(quarries[1].QuarryName, "QM2");
+            Assert.Equal(quarries[0].Colours, "Smoky, White");
 
             Assert.Equal(dashboard.AllWidgets.Count, 3);
             Assert.Equal(dashboard.PageWidgets.Count, 3);
@@ -165,7 +175,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             QuarryModel model = new QuarryModel() { QuarryId = 0, QuarryName = "QM1", ColourIds = new List<int>() { 1, 2 } };
 
             // Act
-            AjaxModel<NTModel> ajaxModel = await this.Controller.QuarryUpdate(model);
+            AjaxModel<NTModel> ajaxModel = await this.Controller.QuarryAdd(model);
 
             // Assert
             QuarryEntity quarryEntity = this.QuarryDbContext.Quarries.Last();

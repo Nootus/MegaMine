@@ -77,11 +77,6 @@ namespace MegaMine.Modules.Quarry.Repositories
             return await this.GetListAsync<TextureEntity, TextureModel>(s => s.TextureName);
         }
 
-        public async Task<List<ListItem<int, string>>> TextureListItemsGet()
-        {
-            return await this.GetListItemsAsync<TextureEntity>(e => new ListItem<int, string> { Key = e.TextureId, Item = e.TextureName }, s => s.TextureName);
-        }
-
         public async Task TextureSave(TextureModel model)
         {
             await this.SaveEntity<TextureEntity, TextureModel>(model);

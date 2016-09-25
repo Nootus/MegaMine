@@ -115,7 +115,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             ProductTypeModel model = new ProductTypeModel() { ProductTypeId = 0, ProductTypeName = "Tile" };
 
             // Act
-            AjaxModel<NTModel> ajaxModel = await this.Controller.ProductTypeUpdate(model);
+            AjaxModel<NTModel> ajaxModel = await this.Controller.ProductTypeAdd(model);
 
             // Assert
             ProductTypeEntity entity = this.QuarryDbContext.ProductTypes.Last();

@@ -107,7 +107,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             YardModel model = new YardModel() { YardId = 0, YardName = "Central Yard" };
 
             // Act
-            AjaxModel<NTModel> ajaxModel = await this.Controller.YardUpdate(model);
+            AjaxModel<NTModel> ajaxModel = await this.Controller.YardAdd(model);
 
             // Assert
             YardEntity entity = this.QuarryDbContext.Yards.Last();
