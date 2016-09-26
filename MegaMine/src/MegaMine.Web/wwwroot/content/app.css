@@ -233,29 +233,14 @@ div.type-process md-radio-button.md-checked .md-off {
     width: 100% !important;
 }
 
-
-.ntselect {
-    width: 98%;
-    padding-bottom: 18px;
-}
-
 /*Material design overrides*/
 
 nt-old-button[tabindex='0']:focus {
   outline: none; 
 }
 
-md-list-item {
-    display: block;
-}
-
-
 md-input-container .md-input[disabled], [disabled] md-input-container .md-input {
   color: black;
-}
-
-md-input-container > label.md-placeholder {
-    top: -10px;
 }
 
 container data-ng-message, md-input-container x-ng-message, md-input-container [ng-message], md-input-container [data-ng-message], md-input-container [x-ng-message], md-input-container .md-char-counter {

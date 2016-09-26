@@ -104,7 +104,7 @@
             }
         }
 
-        public validateFormulaOrder(form: Models.IProductTypeDialogFormController): void {
+        public validateFormulaOrder = (form: Models.IProductTypeDialogFormController): void => {
             const self: ProductType = this;
             if (form !== undefined) {
                 let counter: number = 0;

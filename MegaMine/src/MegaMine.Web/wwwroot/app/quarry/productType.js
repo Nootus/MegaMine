@@ -14,6 +14,31 @@ var MegaMine;
                 this.utility = utility;
                 this.dialogService = dialogService;
                 this.message = message;
+                this.validateFormulaOrder = (form) => {
+                    const self = this;
+                    if (form !== undefined) {
+                        let counter = 0;
+                        let controlName = "";
+                        let formulaExists = false;
+                        while (true) {
+                            controlName = "formulaValue_" + counter;
+                            if (form[controlName] === undefined) {
+                                break;
+                            }
+                            if (!self.utility.isEmpty(form[controlName].$modelValue)) {
+                                formulaExists = true;
+                                break;
+                            }
+                            counter++;
+                        }
+                        if (formulaExists && self.utility.isEmpty(form.formulaOrder.$modelValue)) {
+                            form.formulaOrder.$setValidity("orderRequired", false);
+                        }
+                        else {
+                            form.formulaOrder.$setValidity("orderRequired", true);
+                        }
+                    }
+                };
                 const self = this;
                 angular.forEach(quarryService.productTypes.list, function (item) {
                     self.initializeModel(item);
@@ -100,31 +125,6 @@ var MegaMine;
                 }
                 else {
                     return false;
-                }
-            }
-            validateFormulaOrder(form) {
-                const self = this;
-                if (form !== undefined) {
-                    let counter = 0;
-                    let controlName = "";
-                    let formulaExists = false;
-                    while (true) {
-                        controlName = "formulaValue_" + counter;
-                        if (form[controlName] === undefined) {
-                            break;
-                        }
-                        if (!self.utility.isEmpty(form[controlName].$modelValue)) {
-                            formulaExists = true;
-                            break;
-                        }
-                        counter++;
-                    }
-                    if (formulaExists && self.utility.isEmpty(form.formulaOrder.$modelValue)) {
-                        form.formulaOrder.$setValidity("orderRequired", false);
-                    }
-                    else {
-                        form.formulaOrder.$setValidity("orderRequired", true);
-                    }
                 }
             }
             addProductType(ev, context) {

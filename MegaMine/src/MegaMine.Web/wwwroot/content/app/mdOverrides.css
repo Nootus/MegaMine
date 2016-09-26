@@ -4,3 +4,6 @@
   font-weight: bold;
 }
 
+md-list-item.md-3-line::before, md-list-item.md-3-line > .md-no-style::before {
+     min-height: 50px; 
+}

@@ -58,7 +58,7 @@ function ntInput(moment, constants) {
 
         scope.isFieldError = function () {
             if (scope.form === undefined) {
-                scope.form = scope.$parent.dialogForm;
+                scope.form = scope.$parent.$parent.dialogForm;
             }
             if (scope.form !== undefined) {
                 var control = scope.form[scope.controlName];
