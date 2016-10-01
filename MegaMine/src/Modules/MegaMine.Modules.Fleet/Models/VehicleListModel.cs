@@ -6,7 +6,7 @@
 //  List of vehicles to show them in the grid
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Models.Fleet
+namespace MegaMine.Modules.Fleet.Models
 {
     using System;
 

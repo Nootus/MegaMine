@@ -14,9 +14,9 @@ namespace MegaMine.Web.Controllers
     using MegaMine.Core.Helpers.Web;
     using MegaMine.Core.Models;
     using MegaMine.Core.Models.Web;
-    using MegaMine.Web.Lib.Domain;
-    using MegaMine.Web.Lib.Shared;
-    using MegaMine.Web.Models.Fleet;
+    using MegaMine.Modules.Fleet.Domain;
+    using MegaMine.Modules.Fleet.Models;
+    using MegaMine.Modules.Fleet.Shared;
     using Microsoft.AspNetCore.Mvc;
 
     public class FleetController : Controller
@@ -55,13 +55,13 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceAdd([FromBody] VehicleServiceModel model)
         {
-            return await AjaxHelper.SaveGetAsync(m => this.domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
+            return await AjaxHelper.SaveGetAsync(m => this.domain.VehicleServiceSave(model), FleetMessages.VehicleServiceSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<VehicleDetailsModel>> VehicleServiceUpdate([FromBody] VehicleServiceModel model)
         {
-            return await AjaxHelper.SaveGetAsync(m => this.domain.VehicleServiceSave(model), Messages.Fleet.VehicleServiceSaveSuccess);
+            return await AjaxHelper.SaveGetAsync(m => this.domain.VehicleServiceSave(model), FleetMessages.VehicleServiceSaveSuccess);
         }
 
         [HttpGet]
@@ -84,37 +84,37 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleAdd([FromBody] VehicleModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleSave(model), FleetMessages.VehicleSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleUpdate([FromBody] VehicleModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleSave(model), Messages.Fleet.VehicleSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleSave(model), FleetMessages.VehicleSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> ModelAdd([FromBody] VehicleManufactureModelModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.ModelSave(model), FleetMessages.VehicleModelSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> ModelUpdate([FromBody] VehicleManufactureModelModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.ModelSave(model), Messages.Fleet.VehicleModelSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.ModelSave(model), FleetMessages.VehicleModelSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleTypeAdd([FromBody] VehicleTypeModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTypeSave(model), FleetMessages.VehicleTypeSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleTypeUpdate([FromBody] VehicleTypeModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTypeSave(model), Messages.Fleet.VehicleTypeSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTypeSave(model), FleetMessages.VehicleTypeSaveSuccess);
         }
 
         [HttpGet]
@@ -126,13 +126,13 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> DriverAdd([FromBody] VehicleDriverModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.DriverSave(model), FleetMessages.DriverSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> DriverUpdate([FromBody] VehicleDriverModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.DriverSave(model), Messages.Fleet.DriverSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.DriverSave(model), FleetMessages.DriverSaveSuccess);
         }
 
         [HttpGet]
@@ -156,13 +156,13 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> ManufacturerAdd([FromBody] VehicleManufacturerModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.ManufacturerSave(model), FleetMessages.VehicleManufacturerSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> ManufacturerUpdate([FromBody] VehicleManufacturerModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.ManufacturerSave(model), Messages.Fleet.VehicleManufacturerSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.ManufacturerSave(model), FleetMessages.VehicleManufacturerSaveSuccess);
         }
 
         [HttpGet]
@@ -174,19 +174,19 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> FuelAdd([FromBody] FuelModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.FuelSave(model), FleetMessages.FuelSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> FuelUpdate([FromBody] FuelModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.FuelSave(model), Messages.Fleet.FuelSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.FuelSave(model), FleetMessages.FuelSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleFuelReset([FromBody] int vehicleId)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleFuelReset(vehicleId), Messages.Fleet.FuelResetSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleFuelReset(vehicleId), FleetMessages.FuelResetSuccess);
         }
 
         [HttpGet]
@@ -198,25 +198,25 @@ namespace MegaMine.Web.Controllers
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleDriverAdd([FromBody] VehicleDriverAssignmentModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleDriverSave(model), FleetMessages.VehicleDriverSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleDriverUpdate([FromBody] VehicleDriverAssignmentModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleDriverSave(model), Messages.Fleet.VehicleDriverSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleDriverSave(model), FleetMessages.VehicleDriverSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleTripAdd([FromBody] VehicleTripModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTripSave(model), FleetMessages.VehicleTripSaveSuccess);
         }
 
         [HttpPost]
         public async Task<AjaxModel<NTModel>> VehicleTripUpdate([FromBody] VehicleTripModel model)
         {
-            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTripSave(model), Messages.Fleet.VehicleTripSaveSuccess);
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTripSave(model), FleetMessages.VehicleTripSaveSuccess);
         }
 
         [HttpGet]

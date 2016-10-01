@@ -1,12 +1,12 @@
 ﻿//-------------------------------------------------------------------------------------------------
-// <copyright file="VehicleRepository.cs" company="Nootus">
+// <copyright file="FleetRepository.cs" company="Nootus">
 //  Copyright (c) Nootus. All rights reserved.
 // </copyright>
 // <description>
 //  DB Queries related to Fleet
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Lib.Repositories.Fleet
+namespace MegaMine.Modules.Fleet.Repositories
 {
     using System;
     using System.Collections.Generic;
@@ -17,14 +17,14 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
     using MegaMine.Core.Exception;
     using MegaMine.Core.Models;
     using MegaMine.Core.Repositories;
-    using MegaMine.Web.Lib.Entities.Fleet;
-    using MegaMine.Web.Lib.Shared;
-    using MegaMine.Web.Models.Fleet;
+    using MegaMine.Modules.Fleet.Entities;
+    using MegaMine.Modules.Fleet.Models;
+    using MegaMine.Modules.Fleet.Shared;
     using Microsoft.EntityFrameworkCore;
 
-    public class VehicleRepository : BaseRepository<FleetDbContext>
+    public class FleetRepository : BaseRepository<FleetDbContext>
     {
-        public VehicleRepository(FleetDbContext dbContext)
+        public FleetRepository(FleetDbContext dbContext)
         {
             this.DbContext = dbContext;
         }
@@ -139,7 +139,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
 
             if (vehicleFuelEntity != null)
             {
-                throw new NTException(Messages.Fleet.FuelInvalidOdometer);
+                throw new NTException(FleetMessages.FuelInvalidOdometer);
             }
 
             await this.SaveEntity<VehicleFuelEntity, FuelModel>(model);
@@ -194,7 +194,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
         {
             if (model.AssignmentStartDate > model.AssignmentEndDate)
             {
-                throw new NTException(Messages.Fleet.DriveAssessmentDateError);
+                throw new NTException(FleetMessages.DriveAssessmentDateError);
             }
 
             if (model.VehicleDriverAssignmentId == 0)
@@ -217,7 +217,7 @@ namespace MegaMine.Web.Lib.Repositories.Fleet
                 VehicleEntity vehicle = await (from v in this.DbContext.Vehicles where v.VehicleId == model.VehicleId select v).SingleAsync();
                 if (vehicle.VehicleDriverId != null)
                 {
-                    throw new NTException(Messages.Fleet.DriveAssessmentError);
+                    throw new NTException(FleetMessages.DriveAssessmentError);
                 }
                 else
                 {

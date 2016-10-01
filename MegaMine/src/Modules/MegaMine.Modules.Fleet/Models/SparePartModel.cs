@@ -6,7 +6,7 @@
 //  Spare Part Model DTO
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Models.Fleet
+namespace MegaMine.Modules.Fleet.Models
 {
     using System.Collections.Generic;
     using MegaMine.Core.Models;

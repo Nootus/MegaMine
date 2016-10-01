@@ -6,7 +6,7 @@
 //  DTO for the vehicle details
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Models.Fleet
+namespace MegaMine.Modules.Fleet.Models
 {
     using System;
     using System.Collections.Generic;

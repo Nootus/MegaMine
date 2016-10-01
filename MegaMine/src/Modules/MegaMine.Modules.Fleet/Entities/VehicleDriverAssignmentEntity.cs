@@ -6,7 +6,7 @@
 //  DB Entity for VehicleDriverAssignment
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Lib.Entities.Fleet
+namespace MegaMine.Modules.Fleet.Entities
 {
     using System;
     using System.ComponentModel.DataAnnotations;

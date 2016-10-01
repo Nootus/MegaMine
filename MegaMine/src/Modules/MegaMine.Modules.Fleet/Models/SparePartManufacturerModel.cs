@@ -6,7 +6,7 @@
 //  Manufacturer for a spare part
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Models.Fleet
+namespace MegaMine.Modules.Fleet.Models
 {
     public class SparePartManufacturerModel
     {

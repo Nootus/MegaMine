@@ -6,7 +6,7 @@
 //  Used for Assigning a Driver to a vehicle
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Models.Fleet
+namespace MegaMine.Modules.Fleet.Models
 {
     using System;
 

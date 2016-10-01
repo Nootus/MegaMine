@@ -104,4 +104,4 @@ var MegaMine;
         Quarry_1.Quarry = Quarry;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=Quarry.js.map
+//# sourceMappingURL=quarry.js.map

@@ -13,6 +13,9 @@ namespace MegaMine.Web
     using MegaMine.Core.Common;
     using MegaMine.Core.Extensions;
     using MegaMine.Core.Mapping;
+    using MegaMine.Modules.Fleet.Domain;
+    using MegaMine.Modules.Fleet.Mapping;
+    using MegaMine.Modules.Fleet.Repositories;
     using MegaMine.Modules.Plant;
     using MegaMine.Modules.Quarry;
     using MegaMine.Modules.Shared;
@@ -20,10 +23,6 @@ namespace MegaMine.Web
     using MegaMine.Services.Security.Extensions;
     using MegaMine.Services.Security.Filters;
     using MegaMine.Services.Widget;
-    using MegaMine.Web.Lib.Domain;
-    using MegaMine.Web.Lib.Mapping;
-    using MegaMine.Web.Lib.Repositories;
-    using MegaMine.Web.Lib.Repositories.Fleet;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
@@ -96,7 +95,7 @@ namespace MegaMine.Web
 
             // Fleet
             services.AddTransient<FleetDomain>();
-            services.AddTransient<VehicleRepository>();
+            services.AddTransient<FleetRepository>();
 
             // services.AddTransient<SparePartRepository>();
 

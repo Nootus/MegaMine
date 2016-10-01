@@ -2554,6 +2554,25 @@
           "net461/MegaMine.Core.dll": {}
         }
       },
+      "MegaMine.Modules.Fleet/1.0.0": {
+        "type": "project",
+        "framework": ".NETFramework,Version=v4.6.1",
+        "dependencies": {
+          "AutoMapper": "4.0.4",
+          "MegaMine.Core": "1.0.0",
+          "MegaMine.Services.Security": "1.0.0",
+          "MegaMine.Services.Widget": "1.0.0",
+          "Microsoft.AspNetCore.Mvc": "1.0.0",
+          "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+          "StyleCop.Analyzers": "1.0.0"
+        },
+        "compile": {
+          "net461/MegaMine.Modules.Fleet.dll": {}
+        },
+        "runtime": {
+          "net461/MegaMine.Modules.Fleet.dll": {}
+        }
+      },
       "MegaMine.Modules.Plant/1.0.0": {
         "type": "project",
         "framework": ".NETFramework,Version=v4.6.1",
@@ -7144,6 +7163,11 @@
       "path": "../MegaMine.Core/project.json",
       "msbuildProject": "../MegaMine.Core/MegaMine.Core.xproj"
     },
+    "MegaMine.Modules.Fleet/1.0.0": {
+      "type": "project",
+      "path": "../Modules/MegaMine.Modules.Fleet/project.json",
+      "msbuildProject": "../Modules/MegaMine.Modules.Fleet/MegaMine.Modules.Fleet.xproj"
+    },
     "MegaMine.Modules.Plant/1.0.0": {
       "type": "project",
       "path": "../Modules/MegaMine.Modules.Plant/project.json",
@@ -7174,6 +7198,7 @@
     "": [
       "AutoMapper >= 4.0.4",
       "MegaMine.Core >= 1.0.0-*",
+      "MegaMine.Modules.Fleet >= 1.0.0-*",
       "MegaMine.Modules.Plant >= 1.0.0-*",
       "MegaMine.Modules.Quarry >= 1.0.0-*",
       "MegaMine.Modules.Shared >= 1.0.0-*",

@@ -6,10 +6,10 @@
 //  EF DbContext for Fleet
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Lib.Repositories
+namespace MegaMine.Modules.Fleet.Repositories
 {
     using MegaMine.Core.Repositories;
-    using MegaMine.Web.Lib.Entities.Fleet;
+    using MegaMine.Modules.Fleet.Entities;
     using Microsoft.EntityFrameworkCore;
 
     public class FleetDbContext : BaseDbContext<FleetDbContext>

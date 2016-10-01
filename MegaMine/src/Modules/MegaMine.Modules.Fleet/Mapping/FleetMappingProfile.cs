@@ -6,11 +6,11 @@
 //  Automapper mapping for Fleet Entities and DTOs
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Lib.Mapping
+namespace MegaMine.Modules.Fleet.Mapping
 {
     using AutoMapper;
-    using MegaMine.Web.Lib.Entities.Fleet;
-    using MegaMine.Web.Models.Fleet;
+    using MegaMine.Modules.Fleet.Entities;
+    using MegaMine.Modules.Fleet.Models;
 
     public class FleetMappingProfile : Profile
     {

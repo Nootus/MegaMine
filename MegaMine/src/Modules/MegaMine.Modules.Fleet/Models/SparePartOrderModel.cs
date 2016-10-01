@@ -6,7 +6,7 @@
 //  Sparepart Order DTO
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Models.Fleet
+namespace MegaMine.Modules.Fleet.Models
 {
     using System;
 

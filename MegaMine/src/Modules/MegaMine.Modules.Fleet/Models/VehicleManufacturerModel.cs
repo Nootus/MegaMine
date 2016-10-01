@@ -6,7 +6,7 @@
 //  Vehicle Manufacturer DTO
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Models.Fleet
+namespace MegaMine.Modules.Fleet.Models
 {
     public class VehicleManufacturerModel
     {

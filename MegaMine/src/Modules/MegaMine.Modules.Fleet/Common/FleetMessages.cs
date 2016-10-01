@@ -1,36 +1,32 @@
 ﻿//-------------------------------------------------------------------------------------------------
-// <copyright file="Messages.cs" company="Nootus">
+// <copyright file="FleetMessages.cs" company="Nootus">
 //  Copyright (c) Nootus. All rights reserved.
 // </copyright>
 // <description>
 //  Messages for the Fleet module
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Lib.Shared
+namespace MegaMine.Modules.Fleet.Shared
 {
-    public static class Messages
+    public static class FleetMessages
     {
-        // Fleet Messages
-        public static class Fleet
-        {
-            // master tables
-            public const string VehicleTypeSaveSuccess = "Vehicle Type Saved Successfully";
-            public const string VehicleManufacturerSaveSuccess = "Manufacturer Saved Successfully";
-            public const string DriverSaveSuccess = "Driver Saved Successfully";
+        // master tables
+        public const string VehicleTypeSaveSuccess = "Vehicle Type Saved Successfully";
+        public const string VehicleManufacturerSaveSuccess = "Manufacturer Saved Successfully";
+        public const string DriverSaveSuccess = "Driver Saved Successfully";
 
-            // vehicle Messages
-            public const string VehicleServiceSaveSuccess = "Vehicle Service Saved Successfully";
-            public const string VehicleSaveSuccess = "Vehicle Saved Successfully";
-            public const string VehicleModelSaveSuccess = "Vehicle Model Saved Successfully";
-            public const string DriveAssessmentError = "Driver is already assigned. Cannot assign another driver";
-            public const string FuelSaveSuccess = "Fuel Saved Successfully";
-            public const string FuelInvalidOdometer = "Invalid Odometer or Date. There is already a higher Odometer reading";
-            public const string FuelResetSuccess = "Reset Fuel Average Successful";
-            public const string VehicleDriverSaveSuccess = "Driver record Saved Successfully";
-            public const string VehicleTripSaveSuccess = "Vehicle trip record saved Successfully";
-            public const string SparePartOrderSaveSuccess = "Spare Part Order Saved Successfully";
-            public const string SparePartSaveSuccess = "Spare Part Saved Successfully";
-            public const string DriveAssessmentDateError = "Driver assignment start date should not be greater than the end date.";
-        }
+        // vehicle Messages
+        public const string VehicleServiceSaveSuccess = "Vehicle Service Saved Successfully";
+        public const string VehicleSaveSuccess = "Vehicle Saved Successfully";
+        public const string VehicleModelSaveSuccess = "Vehicle Model Saved Successfully";
+        public const string DriveAssessmentError = "Driver is already assigned. Cannot assign another driver";
+        public const string FuelSaveSuccess = "Fuel Saved Successfully";
+        public const string FuelInvalidOdometer = "Invalid Odometer or Date. There is already a higher Odometer reading";
+        public const string FuelResetSuccess = "Reset Fuel Average Successful";
+        public const string VehicleDriverSaveSuccess = "Driver record Saved Successfully";
+        public const string VehicleTripSaveSuccess = "Vehicle trip record saved Successfully";
+        public const string SparePartOrderSaveSuccess = "Spare Part Order Saved Successfully";
+        public const string SparePartSaveSuccess = "Spare Part Saved Successfully";
+        public const string DriveAssessmentDateError = "Driver assignment start date should not be greater than the end date.";
     }
 }

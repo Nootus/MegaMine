@@ -6,20 +6,20 @@
 //  Business Logic related to Fleet
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Lib.Domain
+namespace MegaMine.Modules.Fleet.Domain
 {
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using MegaMine.Core.Models;
-    using MegaMine.Web.Lib.Repositories.Fleet;
-    using MegaMine.Web.Models.Fleet;
+    using MegaMine.Modules.Fleet.Models;
+    using MegaMine.Modules.Fleet.Repositories;
 
     public class FleetDomain
     {
-        private VehicleRepository vehicleRepository;
+        private FleetRepository vehicleRepository;
 
-        public FleetDomain(VehicleRepository vehicleRepository)
+        public FleetDomain(FleetRepository vehicleRepository)
         {
             this.vehicleRepository = vehicleRepository;
         }

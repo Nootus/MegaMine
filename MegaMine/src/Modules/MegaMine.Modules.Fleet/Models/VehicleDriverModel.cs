@@ -6,7 +6,7 @@
 //  The driver for each vehicle
 // </description>
 //-------------------------------------------------------------------------------------------------
-namespace MegaMine.Web.Models.Fleet
+namespace MegaMine.Modules.Fleet.Models
 {
     public class VehicleDriverModel
     {
