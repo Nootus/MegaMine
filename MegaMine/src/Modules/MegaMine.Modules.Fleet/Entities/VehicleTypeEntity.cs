@@ -12,7 +12,7 @@ namespace MegaMine.Modules.Fleet.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using MegaMine.Core.Entities;
 
-    [Table("VehicleType")]
+    [Table("VehicleType", Schema = "fleet")]
     public class VehicleTypeEntity : BaseEntity
     {
         [Key]

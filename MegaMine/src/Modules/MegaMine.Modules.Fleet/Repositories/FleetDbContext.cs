@@ -41,8 +41,6 @@ namespace MegaMine.Modules.Fleet.Repositories
 
         public DbSet<VehicleFuelEntity> VehicleFuels { get; set; }
 
-        public DbSet<ConfigurationEntity> Configurations { get; set; }
-
         public DbSet<VehicleDriverAssignmentEntity> VehicleDriverAssignments { get; set; }
 
         public DbSet<SparePartManufacturerEntity> SparePartManufacturers { get; set; }

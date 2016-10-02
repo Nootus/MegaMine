@@ -76,6 +76,3 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
         }
     }
 }
-
-// To create test methods for
-// GroupYardsGet
