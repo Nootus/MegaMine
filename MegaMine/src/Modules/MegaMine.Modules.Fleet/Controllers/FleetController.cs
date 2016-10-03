@@ -28,7 +28,7 @@ namespace MegaMine.Modules.Fleet.Controllers
             this.domain = domain;
         }
 
-        // Vehicle
+        // Vehicle Type
         [HttpGet]
         public async Task<AjaxModel<List<VehicleTypeModel>>> VehicleTypeListGet()
         {
@@ -47,6 +47,7 @@ namespace MegaMine.Modules.Fleet.Controllers
             return await AjaxHelper.SaveAsync(m => this.domain.VehicleTypeSave(model), FleetMessages.VehicleTypeSaveSuccess);
         }
 
+        // Vehicle
         [HttpGet]
         public async Task<AjaxModel<List<VehicleListModel>>> VehicleList()
         {

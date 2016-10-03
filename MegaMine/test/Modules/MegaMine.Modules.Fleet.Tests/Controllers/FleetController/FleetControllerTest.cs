@@ -9,11 +9,11 @@
 namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
 {
     using AutoMapper;
+    using Domain;
     using Mapping;
+    using MegaMine.Modules.Fleet.Controllers;
     using MegaMine.Test;
     using Repositories;
-    using MegaMine.Modules.Fleet.Controllers;
-    using Domain;
 
     public class FleetControllerTest : BaseTest
     {
