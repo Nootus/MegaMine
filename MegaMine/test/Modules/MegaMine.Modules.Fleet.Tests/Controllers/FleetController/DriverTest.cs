@@ -120,8 +120,9 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
         }
 
         [Theory]
-        // [InlineData("2016/1/1", "2016/1/15")]
+        [InlineData("2016/1/1", "2016/1/15")]
         [InlineData("2016/1/1", null)]
+        [InlineData("2016/1/1", "2015/10/31")]
         public async void VehicleDriverAdd(string startDateString, string endDateString)
         {
             // Variables
@@ -144,18 +145,46 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
 
             // Assert
             VehicleEntity vehicle = await this.FleetDbContext.Vehicles.FirstAsync();
-            VehicleDriverAssignmentEntity driverAssignment = await this.FleetDbContext.VehicleDriverAssignments.FirstAsync();
+            VehicleDriverAssignmentEntity driverAssignment = await this.FleetDbContext.VehicleDriverAssignments.FirstOrDefaultAsync();
 
             if (endDate == null)
             {
                 Assert.Equal(vehicle.VehicleDriverId, 2);
-                Assert.Equal(vehicle.VehicleDriverAssignmentId, driverAssignment.VehicleDriverAssignmentId);
+                Assert.Equal(vehicle.VehicleDriverAssignment.VehicleDriverAssignmentId, driverAssignment.VehicleDriverAssignmentId);
+                Assert.Equal(ajaxModel.Message, FleetMessages.VehicleDriverSaveSuccess);
+            }
+            else if (endDate < startDate)
+            {
+                Assert.Equal(ajaxModel.Message, FleetMessages.DriveAssessmentDateError);
             }
             else
             {
                 Assert.Equal(driverAssignment.VehicleDriverId, 2);
+                Assert.Equal(ajaxModel.Message, FleetMessages.VehicleDriverSaveSuccess);
             }
+        }
 
+        [Fact]
+        public async void VehicleDriverUpdate()
+        {
+            // Arrange
+            this.FleetDbContext.Vehicles.Add(new VehicleEntity() { VehicleId = 1, VehicleDriverId = 1, VehicleDriverAssignmentId = 1 });
+            this.FleetDbContext.VehicleDriverAssignments.Add(
+                    new VehicleDriverAssignmentEntity() { VehicleDriverAssignmentId = 1, VehicleDriverId = 2, VehicleId = 1 });
+            await this.SaveChangesAsync(this.FleetDbContext);
+
+            VehicleDriverAssignmentModel model = new VehicleDriverAssignmentModel() { VehicleDriverAssignmentId = 1, VehicleDriverId = 2, VehicleId = 1, AssignmentStartDate = new DateTime(2016, 1, 1), AssignmentEndDate = new DateTime(2016, 1, 31) };
+
+            // Act
+            AjaxModel<NTModel> ajaxModel = await this.Controller.VehicleDriverUpdate(model);
+
+            // Assert
+            VehicleEntity vehicle = await this.FleetDbContext.Vehicles.FirstAsync();
+            VehicleDriverAssignmentEntity driverAssignment = await this.FleetDbContext.VehicleDriverAssignments.FirstOrDefaultAsync();
+
+            Assert.Null(vehicle.VehicleDriverId);
+            Assert.Null(vehicle.VehicleDriverAssignmentId);
+            Assert.Equal(driverAssignment.AssignmentEndDate, new DateTime(2016, 1, 31));
             Assert.Equal(ajaxModel.Message, FleetMessages.VehicleDriverSaveSuccess);
         }
     }
