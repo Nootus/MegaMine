@@ -111,7 +111,7 @@ namespace MegaMine.Core.Repositories
         protected async Task DeleteEntity<TEntity>(int entityId, bool commit = true)
             where TEntity : BaseEntity
         {
-            var entity = await this.GetSingleAsync<TEntity>(entityId);
+            var entity = await this.SingleAsync<TEntity>(entityId);
             await this.DeleteEntity(entity, commit);
         }
 
@@ -135,31 +135,16 @@ namespace MegaMine.Core.Repositories
             }
         }
 
-        protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, string>> sortExpression)
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, object>> sortExpression)
             where TEntity : BaseEntity
         {
-            var query = this.dbContext.Set<TEntity>().Where(e => e.DeletedInd == false && e.CompanyId == this.context.CompanyId)
-                                .OrderBy(sortExpression)
-                                .Select(ent => Mapper.Map<TEntity, TModel>(ent));
-
-            return await query.ToListAsync();
+            return await this.GetListAsync<TEntity, TModel, object>(null, true, sortExpression, SortOrder.Ascending);
         }
 
-        protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression, bool noAdditionalCheck, Expression<Func<TEntity, string>> sortExpression)
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression, bool additionalCheck, Expression<Func<TEntity, string>> sortExpression)
             where TEntity : BaseEntity
         {
-            if (!noAdditionalCheck)
-            {
-                return await this.GetListAsync<TEntity, TModel>(whereExpression, sortExpression);
-            }
-            else
-            {
-                var query = this.dbContext.Set<TEntity>().Where(whereExpression)
-                                    .OrderBy(sortExpression)
-                                    .Select(ent => Mapper.Map<TEntity, TModel>(ent));
-
-                return await query.ToListAsync();
-            }
+            return await this.GetListAsync<TEntity, TModel, string>(whereExpression, additionalCheck, sortExpression, SortOrder.Ascending);
         }
 
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, string>> sortExpression)
@@ -171,11 +156,42 @@ namespace MegaMine.Core.Repositories
         protected async Task<List<TModel>> GetListAsync<TEntity, TModel, TSort>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TSort>> sortExpression)
             where TEntity : BaseEntity
         {
-            var query = this.dbContext.Set<TEntity>().Where(whereExpression).Where(e => e.DeletedInd == false && e.CompanyId == this.context.CompanyId)
-                                .OrderBy(sortExpression)
-                                .Select(ent => Mapper.Map<TEntity, TModel>(ent));
+            return await this.GetListAsync<TEntity, TModel, TSort>(whereExpression, sortExpression, SortOrder.Ascending);
+        }
 
-            return await query.ToListAsync();
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel, TSort>(Expression<Func<TEntity, bool>> whereExpression, Expression<Func<TEntity, TSort>> sortExpression, SortOrder sortOrder)
+            where TEntity : BaseEntity
+        {
+            return await this.GetListAsync<TEntity, TModel, TSort>(whereExpression, true, sortExpression, sortOrder);
+        }
+
+        protected async Task<List<TModel>> GetListAsync<TEntity, TModel, TSort>(Expression<Func<TEntity, bool>> whereExpression, bool additionalCheck, Expression<Func<TEntity, TSort>> sortExpression, SortOrder sortOrder)
+            where TEntity : BaseEntity
+        {
+            IQueryable<TEntity> query = this.dbContext.Set<TEntity>().AsQueryable();
+
+            if (whereExpression != null)
+            {
+                query = query.Where(whereExpression);
+            }
+
+            if (additionalCheck)
+            {
+                query = query.Where(e => e.DeletedInd == false && e.CompanyId == this.context.CompanyId);
+            }
+
+            if (sortOrder == SortOrder.Ascending)
+            {
+                query = query.OrderBy(sortExpression);
+            }
+            else
+            {
+                query = query.OrderByDescending(sortExpression);
+            }
+
+            var finalQuery = query.Select(ent => Mapper.Map<TEntity, TModel>(ent));
+
+            return await finalQuery.ToListAsync();
         }
 
         protected async Task<List<ListItem<int, string>>> GetListItemsAsync<TEntity>(Expression<Func<TEntity, ListItem<int, string>>> selectExpression, Expression<Func<TEntity, string>> sortExpression)
@@ -188,14 +204,26 @@ namespace MegaMine.Core.Repositories
             return await query.ToListAsync();
         }
 
-        protected async Task<TEntity> GetSingleAsync<TEntity>(Expression<Func<TEntity, bool>> whereExpression)
+        protected async Task<TModel> SingleAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression)
+            where TEntity : class
+        {
+            return await this.dbContext.Set<TEntity>().Where(whereExpression).Select(ent => Mapper.Map<TEntity, TModel>(ent)).SingleAsync();
+        }
+
+        protected async Task<TModel> SingleOrDefaultAsync<TEntity, TModel>(Expression<Func<TEntity, bool>> whereExpression)
+            where TEntity : class
+        {
+            return await this.dbContext.Set<TEntity>().Where(whereExpression).Select(ent => Mapper.Map<TEntity, TModel>(ent)).SingleOrDefaultAsync();
+        }
+
+        protected async Task<TEntity> SingleAsync<TEntity>(Expression<Func<TEntity, bool>> whereExpression)
             where TEntity : class
         {
             return await this.dbContext.Set<TEntity>().Where(whereExpression).Select(ent => ent).SingleAsync();
         }
 
-        protected async Task<TEntity> GetSingleAsync<TEntity>(object id)
-                                                                            where TEntity : BaseEntity
+        protected async Task<TEntity> SingleAsync<TEntity>(object id)
+            where TEntity : BaseEntity
         {
             var entity = this.dbContext.Set<TEntity>().AsQueryable();
 

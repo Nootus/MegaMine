@@ -29,9 +29,9 @@ namespace MegaMine.Modules.Fleet.Domain
             return await this.vehicleRepository.VehicleListGet();
         }
 
-        public async Task<List<VehicleTypeModel>> VehicleTypeListGet()
+        public async Task<List<VehicleTypeModel>> VehicleTypesGet()
         {
-            return await this.vehicleRepository.VehicleTypeListGet();
+            return await this.vehicleRepository.VehicleTypesGet();
         }
 
         public async Task<ManufacturerDetailsModel> ManufacturerDetailsGet(int manufacturerId)

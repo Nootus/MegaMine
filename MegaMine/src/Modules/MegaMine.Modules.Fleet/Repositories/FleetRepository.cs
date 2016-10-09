@@ -10,6 +10,7 @@ namespace MegaMine.Modules.Fleet.Repositories
 {
     using System;
     using System.Collections.Generic;
+    using System.Data.SqlClient;
     using System.Data.SqlTypes;
     using System.Linq;
     using System.Threading.Tasks;
@@ -32,13 +33,7 @@ namespace MegaMine.Modules.Fleet.Repositories
         // Vehicle Trip
         public async Task<List<VehicleTripModel>> VehicleTripListGet(int vehicleId)
         {
-            var query = from trips in this.DbContext.VehicleTrips
-                        where trips.DeletedInd == false
-                        && trips.VehicleId == vehicleId
-                        orderby trips.StartingTime descending
-                        select Mapper.Map<VehicleTripEntity, VehicleTripModel>(trips);
-
-            return await query.ToListAsync();
+            return await this.GetListAsync<VehicleTripEntity, VehicleTripModel, DateTime>(w => w.VehicleId == vehicleId, s => s.StartingTime, SortOrder.Descending);
         }
 
         public async Task VehicleTripSave(VehicleTripModel model)
@@ -47,30 +42,14 @@ namespace MegaMine.Modules.Fleet.Repositories
         }
 
         // Vehicle Type
-        public async Task<List<VehicleTypeModel>> VehicleTypeListGet()
+        public async Task<List<VehicleTypeModel>> VehicleTypesGet()
         {
-            var query = from types in this.DbContext.VehicleTypes
-                        where types.DeletedInd == false
-                            && types.CompanyId == this.AppContext.CompanyId
-                        orderby types.VehicleTypeName ascending
-                        select Mapper.Map<VehicleTypeEntity, VehicleTypeModel>(types);
-
-            return await query.ToListAsync();
+            return await this.GetListAsync<VehicleTypeEntity, VehicleTypeModel>(s => s.VehicleTypeName);
         }
 
         public async Task<List<ListItem<int, string>>> VehicleTypeListItemGet()
         {
-            var query = from types in this.DbContext.VehicleTypes
-                        where types.DeletedInd == false
-                        && types.CompanyId == this.AppContext.CompanyId
-                        orderby types.VehicleTypeName ascending
-                        select new ListItem<int, string>()
-                        {
-                            Key = types.VehicleTypeId,
-                            Item = types.VehicleTypeName
-                        };
-
-            return await query.ToListAsync();
+            return await this.GetListItemsAsync<VehicleTypeEntity>(e => new ListItem<int, string> { Key = e.VehicleTypeId, Item = e.VehicleTypeName }, s => s.VehicleTypeName);
         }
 
         public async Task VehicleTypeSave(VehicleTypeModel model)
@@ -81,12 +60,7 @@ namespace MegaMine.Modules.Fleet.Repositories
         // Driver
         public async Task<List<VehicleDriverModel>> DriversGet()
         {
-            var query = from vd in this.DbContext.VehicleDrivers
-                        where vd.DeletedInd == false
-                        && vd.CompanyId == this.AppContext.CompanyId
-                        select Mapper.Map<VehicleDriverEntity, VehicleDriverModel>(vd);
-
-            return await query.ToListAsync();
+            return await this.GetListAsync<VehicleDriverEntity, VehicleDriverModel>(s => s.DriverName);
         }
 
         public async Task DriverSave(VehicleDriverModel model)
@@ -103,18 +77,12 @@ namespace MegaMine.Modules.Fleet.Repositories
         // Fuel
         public async Task<List<FuelModel>> FuelGetList(int vehicleId)
         {
-            var query = from vf in this.DbContext.VehicleFuels
-                        where vf.VehicleId == vehicleId
-                        && vf.DeletedInd == false
-                        orderby vf.FuelDate descending
-                        select Mapper.Map<VehicleFuelEntity, FuelModel>(vf);
-
-            return await query.ToListAsync();
+            return await this.GetListAsync<VehicleFuelEntity, FuelModel, DateTime>(w => w.VehicleId == vehicleId, s => s.FuelDate, SortOrder.Descending);
         }
 
         public async Task FuelAverage(int vehicleId)
         {
-            VehicleEntity vehicleEntity = await (from vehicle in this.DbContext.Vehicles where vehicle.VehicleId == vehicleId select vehicle).SingleAsync();
+            VehicleEntity vehicleEntity = await this.SingleAsync<VehicleEntity>(e => e.VehicleId == vehicleId);
             DateTime fuelResetDate = vehicleEntity.FuelResetDate ?? SqlDateTime.MinValue.Value;
 
             // getting min & max odometer
@@ -148,7 +116,7 @@ namespace MegaMine.Modules.Fleet.Repositories
 
         public async Task VehicleFuelReset(int vehicleId)
         {
-            VehicleEntity vehicleEntity = await (from vehicle in this.DbContext.Vehicles where vehicle.VehicleId == vehicleId select vehicle).SingleAsync();
+            VehicleEntity vehicleEntity = await this.SingleAsync<VehicleEntity>(e => e.VehicleId == vehicleId);
             vehicleEntity.FuelAverage = null;
             vehicleEntity.FuelResetDate = DateTime.Now.Date;
             this.DbContext.Vehicles.Update(vehicleEntity);
@@ -178,16 +146,7 @@ namespace MegaMine.Modules.Fleet.Repositories
 
         public async Task<List<ListItem<int, string>>> DriversListGet()
         {
-            var query = from vd in this.DbContext.VehicleDrivers
-                        where vd.DeletedInd == false
-                        && vd.CompanyId == this.AppContext.CompanyId
-                        select new ListItem<int, string>
-                        {
-                            Key = vd.VehicleDriverId,
-                            Item = vd.DriverName
-                        };
-
-            return await query.ToListAsync();
+            return await this.GetListItemsAsync<VehicleDriverEntity>(e => new ListItem<int, string> { Key = e.VehicleDriverId, Item = e.DriverName }, s => s.DriverName);
         }
 
         public async Task VehicleDriverSave(VehicleDriverAssignmentModel model)
@@ -235,7 +194,7 @@ namespace MegaMine.Modules.Fleet.Repositories
             VehicleDriverAssignmentEntity entity = await this.UpdateEntity<VehicleDriverAssignmentEntity, VehicleDriverAssignmentModel>(model, false);
 
             // checking if the current driver is assigned to the vehicle
-            VehicleEntity vehicle = await (from v in this.DbContext.Vehicles where v.VehicleId == model.VehicleId select v).SingleAsync();
+            VehicleEntity vehicle = await this.SingleAsync<VehicleEntity>(e => e.VehicleId == model.VehicleId);
             if (vehicle.VehicleDriverAssignmentId == entity.VehicleDriverAssignmentId)
             {
                 vehicle.VehicleDriverId = null;
@@ -249,22 +208,12 @@ namespace MegaMine.Modules.Fleet.Repositories
         // VehicleManufacturer
         public async Task<List<ListItem<int, string>>> VehicleManufacturerListItemGet()
         {
-            var query = from vm in this.DbContext.VehicleManufacturers
-                        where vm.DeletedInd == false
-                        && vm.CompanyId == this.AppContext.CompanyId
-                        orderby vm.Name ascending
-                        select new ListItem<int, string>()
-                        {
-                            Key = vm.VehicleManufacturerId,
-                            Item = vm.Name
-                        };
-
-            return await query.ToListAsync();
+            return await this.GetListItemsAsync<VehicleManufacturerEntity>(e => new ListItem<int, string> { Key = e.VehicleManufacturerId, Item = e.Name }, s => s.Name);
         }
 
         public async Task<VehicleManufacturerModel> VehicleManufacturerGet(int vehicleManufacturerId)
         {
-            return Mapper.Map<VehicleManufacturerEntity, VehicleManufacturerModel>(await this.GetSingleAsync<VehicleManufacturerEntity>(vehicleManufacturerId));
+            return Mapper.Map<VehicleManufacturerEntity, VehicleManufacturerModel>(await this.SingleAsync<VehicleManufacturerEntity>(vehicleManufacturerId));
         }
 
         public async Task<List<VehicleManufacturerModel>> VehicleManufacturersGet()
@@ -300,7 +249,7 @@ namespace MegaMine.Modules.Fleet.Repositories
             }
             else
             {
-                model = Mapper.Map<VehicleEntity, VehicleModel>(await this.GetSingleAsync<VehicleEntity>(vehicleId));
+                model = Mapper.Map<VehicleEntity, VehicleModel>(await this.SingleAsync<VehicleEntity>(vehicleId));
             }
 
             model.VehicleTypeList = await this.VehicleTypeListItemGet();
@@ -348,15 +297,9 @@ namespace MegaMine.Modules.Fleet.Repositories
 
         public async Task<ManufacturerDetailsModel> ManufacturerDetailsGet(int manufacturerId)
         {
-            ManufacturerDetailsModel model = Mapper.Map<VehicleManufacturerEntity, ManufacturerDetailsModel>(await this.GetSingleAsync<VehicleManufacturerEntity>(manufacturerId));
+            ManufacturerDetailsModel model = Mapper.Map<VehicleManufacturerEntity, ManufacturerDetailsModel>(await this.SingleAsync<VehicleManufacturerEntity>(manufacturerId));
 
-            var modelsQuery = from vm in this.DbContext.VehicleModels
-                              where vm.VehicleManufacturerId == manufacturerId
-                              && vm.DeletedInd == false
-                              select Mapper.Map<VehicleModelEntity, VehicleManufactureModelModel>(vm);
-
-            model.Models = await modelsQuery.ToListAsync();
-
+            model.Models = await this.GetListAsync<VehicleModelEntity, VehicleManufactureModelModel>(w => w.VehicleManufacturerId == manufacturerId, s => s.Name);
             return model;
         }
 
@@ -387,10 +330,7 @@ namespace MegaMine.Modules.Fleet.Repositories
         // Vehicle Service
         public async Task<VehicleServiceModel> VehicleServiceGet(int vehicleServiceId)
         {
-            var serviceQuery = from service in this.DbContext.VehicleServices
-                               where service.VehicleServiceId == vehicleServiceId
-                               select Mapper.Map<VehicleServiceEntity, VehicleServiceModel>(service);
-            VehicleServiceModel model = await serviceQuery.SingleOrDefaultAsync();
+            VehicleServiceModel model = await this.SingleOrDefaultAsync<VehicleServiceEntity, VehicleServiceModel>(e => e.VehicleServiceId == vehicleServiceId);
 
             // for adding return blank model
             if (model == null)
@@ -417,7 +357,7 @@ namespace MegaMine.Modules.Fleet.Repositories
             decimal serviceCost = model.TotalServiceCost;
             if (model.VehicleServiceId != 0)
             {
-                VehicleServiceEntity currentService = await (from vsm in this.DbContext.VehicleServices where vsm.VehicleServiceId == model.VehicleServiceId select vsm).SingleAsync();
+                VehicleServiceEntity currentService = await this.SingleAsync<VehicleServiceEntity>(e => e.VehicleServiceId == model.VehicleServiceId);
                 serviceCost = model.TotalServiceCost - currentService.TotalServiceCost;
             }
 
@@ -432,7 +372,7 @@ namespace MegaMine.Modules.Fleet.Repositories
         private async Task VehicleServiceVehicleUpdate(VehicleServiceEntity entity, decimal serviceCost)
         {
             // Updating Vehicle
-            VehicleEntity vehicle = await (from vh in this.DbContext.Vehicles where vh.VehicleId == entity.VehicleId select vh).SingleAsync();
+            VehicleEntity vehicle = await this.SingleAsync<VehicleEntity>(e => e.VehicleId == entity.VehicleId);
             vehicle.TotalServiceCost += serviceCost;
             vehicle.LastServiceDate = entity.ServiceStartDate;
 

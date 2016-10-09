@@ -8,7 +8,9 @@
         }
 
         // master tables
-        public vehicleTypes: Models.IVehicleTypeModel[] = [];
+        public vehicleTypes: Widget.Models.IDashboardDataModel<Models.IVehicleTypeModel> = {
+            list: [], widgets: <Widget.Models.IDashboardWidgets>{}
+        };
         public drivers: Models.IVehicleDriverModel[] = [];
 
         // vehicles
@@ -90,7 +92,7 @@
         public saveTrip(model: Models.IVehicleTripModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
 
-            var url: string;
+            let url: string;
             if (model.vehicleTripId === 0) {
                 url = "/api/fleet/vehicletripadd";
             } else {
@@ -110,7 +112,7 @@
 
         public saveFuel(model: Models.IFuelModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
-            var url: string;
+            let url: string;
             if (model.vehicleFuelId === 0) {
                 url = "/api/fleet/fueladd";
             } else {
@@ -121,7 +123,7 @@
 
         public saveModel(model: Models.IVehicleManufactureModelModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
-            var url: string;
+            let url: string;
             if (model.vehicleModelId === 0) {
                 url = "/api/fleet/modeladd";
             } else {
@@ -141,7 +143,7 @@
 
         public saveVehiceDriver(model: Models.IVehicleDriverAssignmentModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
-            var url: string;
+            let url: string;
             if (model.vehicleDriverAssignmentId === 0) {
                 url = "/api/fleet/vehicledriveradd";
             } else {
@@ -174,7 +176,7 @@
             if (model.vehicleId === 0) {
                 model.vehicleId = self.vehicle.vehicleId;
             }
-            var url: string;
+            let url: string;
             if (model.vehicleServiceId === 0) {
                 url = "/api/fleet/vehicleserviceadd";
             } else {
@@ -215,7 +217,7 @@
 
         public saveVehicle(model: Models.IVehicleDetailsModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
-            var url: string;
+            let url: string;
             if (model.vehicleId === 0) {
                 url = "/api/fleet/vehicleadd";
             } else {
@@ -235,7 +237,7 @@
 
         public saveManufacturer(model: Models.IVehicleManufacturerModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
-            var url: string;
+            let url: string;
             if (model.vehicleManufacturerId === 0) {
                 url = "/api/fleet/manufactureradd";
             } else {
@@ -252,18 +254,20 @@
                 });
         }
 
-        public getVehicleType(): ng.IHttpPromise<Models.IVehicleTypeModel[]> {
+        public getVehicleTypes(): ng.IHttpPromise<Models.IVehicleTypeModel[]> {
             const self: FleetService = this;
-            return self.$http.get("/api/fleet/vehicletypelistget")
-                .then(function (data: Models.IVehicleTypeModel[]): Models.IVehicleTypeModel[] {
-                    self.utility.extend(self.vehicleTypes, data);
+            return self.$http.get("/api/fleet/vehicletypesget")
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IVehicleTypeModel[]>):
+                    Shared.Models.IAjaxDataModel<Models.IVehicleTypeModel[]> {
+                    self.utility.extend(self.vehicleTypes.list, data.model);
+                    angular.extend(self.vehicleTypes.widgets, data.dashboard);
                     return data;
                 });
         }
 
         public saveVehicleType(model: Models.IVehicleTypeModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
-            var url: string;
+            let url: string;
             if (model.vehicleTypeId === 0) {
                 url = "/api/fleet/vehicletypeadd";
             } else {
@@ -271,6 +275,11 @@
             }
 
             return self.$http.post<void>(url, model);
+        }
+
+        public deleteVehicleType(vehicleTypeId: number): ng.IHttpPromise<void> {
+            const self: FleetService = this;
+            return self.$http.post<void>("/api/quarry/vehicletypedelete", vehicleTypeId);
         }
 
         public getDrivers(): ng.IHttpPromise<Models.IVehicleDriverModel[]> {
@@ -284,7 +293,7 @@
 
         public saveDriver(model: Models.IVehicleDriverModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
-            var url: string;
+            let url: string;
             if (model.vehicleDriverId === 0) {
                 url = "/api/fleet/driveradd";
             } else {

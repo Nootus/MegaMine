@@ -30,9 +30,9 @@ namespace MegaMine.Modules.Fleet.Controllers
 
         // Vehicle Type
         [HttpGet]
-        public async Task<AjaxModel<List<VehicleTypeModel>>> VehicleTypeListGet()
+        public async Task<AjaxModel<List<VehicleTypeModel>>> VehicleTypesGet()
         {
-            return await AjaxHelper.GetAsync(m => this.domain.VehicleTypeListGet());
+            return await AjaxHelper.GetAsync(m => this.domain.VehicleTypesGet());
         }
 
         [HttpPost]

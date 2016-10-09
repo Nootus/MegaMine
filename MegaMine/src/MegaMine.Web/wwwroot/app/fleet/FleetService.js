@@ -13,7 +13,9 @@ var MegaMine;
                 this.$http = $http;
                 this.utility = utility;
                 // master tables
-                this.vehicleTypes = [];
+                this.vehicleTypes = {
+                    list: [], widgets: {}
+                };
                 this.drivers = [];
                 // vehicles
                 this.vehicleList = [];
@@ -81,7 +83,7 @@ var MegaMine;
             }
             saveTrip(model) {
                 const self = this;
-                var url;
+                let url;
                 if (model.vehicleTripId === 0) {
                     url = "/api/fleet/vehicletripadd";
                 }
@@ -100,7 +102,7 @@ var MegaMine;
             }
             saveFuel(model) {
                 const self = this;
-                var url;
+                let url;
                 if (model.vehicleFuelId === 0) {
                     url = "/api/fleet/fueladd";
                 }
@@ -111,7 +113,7 @@ var MegaMine;
             }
             saveModel(model) {
                 const self = this;
-                var url;
+                let url;
                 if (model.vehicleModelId === 0) {
                     url = "/api/fleet/modeladd";
                 }
@@ -130,7 +132,7 @@ var MegaMine;
             }
             saveVehiceDriver(model) {
                 const self = this;
-                var url;
+                let url;
                 if (model.vehicleDriverAssignmentId === 0) {
                     url = "/api/fleet/vehicledriveradd";
                 }
@@ -161,7 +163,7 @@ var MegaMine;
                 if (model.vehicleId === 0) {
                     model.vehicleId = self.vehicle.vehicleId;
                 }
-                var url;
+                let url;
                 if (model.vehicleServiceId === 0) {
                     url = "/api/fleet/vehicleserviceadd";
                 }
@@ -199,7 +201,7 @@ var MegaMine;
             }
             saveVehicle(model) {
                 const self = this;
-                var url;
+                let url;
                 if (model.vehicleId === 0) {
                     url = "/api/fleet/vehicleadd";
                 }
@@ -218,7 +220,7 @@ var MegaMine;
             }
             saveManufacturer(model) {
                 const self = this;
-                var url;
+                let url;
                 if (model.vehicleManufacturerId === 0) {
                     url = "/api/fleet/manufactureradd";
                 }
@@ -233,17 +235,18 @@ var MegaMine;
                     return;
                 });
             }
-            getVehicleType() {
+            getVehicleTypes() {
                 const self = this;
-                return self.$http.get("/api/fleet/vehicletypelistget")
+                return self.$http.get("/api/fleet/vehicletypesget")
                     .then(function (data) {
-                    self.utility.extend(self.vehicleTypes, data);
+                    self.utility.extend(self.vehicleTypes.list, data.model);
+                    angular.extend(self.vehicleTypes.widgets, data.dashboard);
                     return data;
                 });
             }
             saveVehicleType(model) {
                 const self = this;
-                var url;
+                let url;
                 if (model.vehicleTypeId === 0) {
                     url = "/api/fleet/vehicletypeadd";
                 }
@@ -251,6 +254,10 @@ var MegaMine;
                     url = "/api/fleet/vehicletypeupdate";
                 }
                 return self.$http.post(url, model);
+            }
+            deleteVehicleType(vehicleTypeId) {
+                const self = this;
+                return self.$http.post("/api/quarry/vehicletypedelete", vehicleTypeId);
             }
             getDrivers() {
                 const self = this;
@@ -262,7 +269,7 @@ var MegaMine;
             }
             saveDriver(model) {
                 const self = this;
-                var url;
+                let url;
                 if (model.vehicleDriverId === 0) {
                     url = "/api/fleet/driveradd";
                 }

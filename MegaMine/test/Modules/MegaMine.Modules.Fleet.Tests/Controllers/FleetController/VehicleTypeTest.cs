@@ -29,7 +29,7 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             await this.SaveChangesAsync(this.FleetDbContext);
 
             // Act
-            AjaxModel<List<VehicleTypeModel>> ajaxModel = await this.Controller.VehicleTypeListGet();
+            AjaxModel<List<VehicleTypeModel>> ajaxModel = await this.Controller.VehicleTypesGet();
             List<VehicleTypeModel> vehicleTypes = ajaxModel.Model;
 
             // Assert

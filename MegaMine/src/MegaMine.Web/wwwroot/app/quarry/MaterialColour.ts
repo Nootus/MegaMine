@@ -56,8 +56,6 @@
 
         }
 
-
-
         public addMaterialColour(ev: ng.IAngularEvent, context: MaterialColour): void {
             const self: MaterialColour = context;
             let model: Models.IMaterialColourModel = <Models.IMaterialColourModel>{ materialColourId: 0 };

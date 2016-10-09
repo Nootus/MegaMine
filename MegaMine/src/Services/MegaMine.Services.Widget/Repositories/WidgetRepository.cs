@@ -26,7 +26,7 @@ namespace MegaMine.Services.Widget.Repositories
 
         public async Task<int> GetDashboardId(int pageId)
         {
-            DashboardEntity entity = await this.GetSingleAsync<DashboardEntity>(ent => ent.PageId == pageId);
+            DashboardEntity entity = await this.SingleAsync<DashboardEntity>(ent => ent.PageId == pageId);
             return entity.DashboardId;
         }
 

@@ -48,7 +48,7 @@ namespace MegaMine.Services.Security.Repositories
                 model.CompanyId = companyId;
 
                 // updating the User Profile
-                UserProfileEntity entity = await this.GetSingleAsync<UserProfileEntity>(model.UserId);
+                UserProfileEntity entity = await this.SingleAsync<UserProfileEntity>(model.UserId);
                 entity.CompanyId = model.CompanyId;
                 await this.UpdateEntity<UserProfileEntity>(entity, false, true);
             }
