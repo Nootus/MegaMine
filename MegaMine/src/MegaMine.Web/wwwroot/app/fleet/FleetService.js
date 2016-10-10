@@ -241,6 +241,7 @@ var MegaMine;
                     .then(function (data) {
                     self.utility.extend(self.vehicleTypes.list, data.model);
                     angular.extend(self.vehicleTypes.widgets, data.dashboard);
+                    debugger;
                     return data;
                 });
             }
@@ -257,7 +258,7 @@ var MegaMine;
             }
             deleteVehicleType(vehicleTypeId) {
                 const self = this;
-                return self.$http.post("/api/quarry/vehicletypedelete", vehicleTypeId);
+                return self.$http.post("/api/fleet/vehicletypedelete", vehicleTypeId);
             }
             getDrivers() {
                 const self = this;

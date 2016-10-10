@@ -13,9 +13,6 @@ namespace MegaMine.Web
     using MegaMine.Core.Common;
     using MegaMine.Core.Extensions;
     using MegaMine.Core.Mapping;
-    using MegaMine.Modules.Fleet.Domain;
-    using MegaMine.Modules.Fleet.Mapping;
-    using MegaMine.Modules.Fleet.Repositories;
     using MegaMine.Modules.Plant;
     using MegaMine.Modules.Quarry;
     using MegaMine.Modules.Shared;
@@ -25,15 +22,15 @@ namespace MegaMine.Web
     using MegaMine.Services.Widget;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
+    using Modules.Fleet;
     using Newtonsoft.Json;
     using Newtonsoft.Json.Serialization;
 
     public class Startup
     {
-        private IModuleStartup[] modules = { new QuarryStartup(), new PlantStartup(), new SharedStartup(), new SecurityStartup(), new WidgetStartup() };
+        private IModuleStartup[] modules = { new QuarryStartup(), new FleetStartup(), new PlantStartup(), new SharedStartup(), new SecurityStartup(), new WidgetStartup() };
 
         public Startup(IHostingEnvironment env)
         {
@@ -69,12 +66,6 @@ namespace MegaMine.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddEntityFrameworkSqlServer()
-            .AddDbContext<FleetDbContext>(options =>
-            {
-                options.UseSqlServer(SiteSettings.ConnectionString);
-            });
-
             // configuring services for all modules
             foreach (var module in this.modules)
             {
@@ -93,12 +84,6 @@ namespace MegaMine.Web
                     options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
                 });
 
-            // Fleet
-            services.AddTransient<FleetDomain>();
-            services.AddTransient<FleetRepository>();
-
-            // services.AddTransient<SparePartRepository>();
-
             // Automapper configurations
             Mapper.Initialize(x =>
             {
@@ -107,8 +92,6 @@ namespace MegaMine.Web
                 {
                     module.ConfigureMapping(x);
                 }
-
-                x.AddProfile<FleetMappingProfile>();
             });
         }
 

@@ -17,6 +17,7 @@
 /// <reference path="app/fleet/manufacturer.js" />
 /// <reference path="app/fleet/manufacturerDialog.js" />
 /// <reference path="app/fleet/manufacturerList.js" />
+/// <reference path="app/fleet/route.js" />
 /// <reference path="app/fleet/servicereport.js" />
 /// <reference path="app/fleet/sparePart.js" />
 /// <reference path="app/fleet/sparePartDialog.js" />

@@ -254,13 +254,14 @@
                 });
         }
 
-        public getVehicleTypes(): ng.IHttpPromise<Models.IVehicleTypeModel[]> {
+        public getVehicleTypes(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleTypeModel[]>> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/vehicletypesget")
                 .then(function (data: Shared.Models.IAjaxDataModel<Models.IVehicleTypeModel[]>):
                     Shared.Models.IAjaxDataModel<Models.IVehicleTypeModel[]> {
                     self.utility.extend(self.vehicleTypes.list, data.model);
                     angular.extend(self.vehicleTypes.widgets, data.dashboard);
+                    debugger;
                     return data;
                 });
         }
@@ -279,7 +280,7 @@
 
         public deleteVehicleType(vehicleTypeId: number): ng.IHttpPromise<void> {
             const self: FleetService = this;
-            return self.$http.post<void>("/api/quarry/vehicletypedelete", vehicleTypeId);
+            return self.$http.post<void>("/api/fleet/vehicletypedelete", vehicleTypeId);
         }
 
         public getDrivers(): ng.IHttpPromise<Models.IVehicleDriverModel[]> {

@@ -103,11 +103,11 @@ var MegaMine;
                     title: "Vehicle Types",
                     previousState: "dashboard",
                     templateUrl: "/app/fleet/vehicletype.html",
-                    controller: "vehicleType",
+                    controller: Fleet.VehicleType,
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                                return vehicleService.getVehicleType();
+                        resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService) {
+                                return fleetService.getVehicleTypes();
                             }]
                     }
                 })

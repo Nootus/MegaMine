@@ -18,21 +18,26 @@ namespace MegaMine.Modules.Fleet.Controllers
     using MegaMine.Modules.Fleet.Models;
     using MegaMine.Modules.Fleet.Shared;
     using Microsoft.AspNetCore.Mvc;
+    using Services.Widget.Domain;
 
     public class FleetController : Controller
     {
         private FleetDomain domain;
+        private FleetDashboardDomain dashboardDomain;
+        private WidgetDomain widgetDomain;
 
-        public FleetController(FleetDomain domain)
+        public FleetController(FleetDomain domain, FleetDashboardDomain dashboardDomain, WidgetDomain widgetDomain)
         {
             this.domain = domain;
+            this.dashboardDomain = dashboardDomain;
+            this.widgetDomain = widgetDomain;
         }
 
         // Vehicle Type
         [HttpGet]
         public async Task<AjaxModel<List<VehicleTypeModel>>> VehicleTypesGet()
         {
-            return await AjaxHelper.GetAsync(m => this.domain.VehicleTypesGet());
+            return await AjaxHelper.GetDashboardAsync(m => this.domain.VehicleTypesGet(), this.dashboardDomain, this.widgetDomain);
         }
 
         [HttpPost]
@@ -45,6 +50,12 @@ namespace MegaMine.Modules.Fleet.Controllers
         public async Task<AjaxModel<NTModel>> VehicleTypeUpdate([FromBody] VehicleTypeModel model)
         {
             return await AjaxHelper.SaveAsync(m => this.domain.VehicleTypeSave(model), FleetMessages.VehicleTypeSaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> VehicleTypeDelete([FromBody] int vehicleTypeId)
+        {
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleTypeDelete(vehicleTypeId), FleetMessages.VehicleTypeDeleteSuccess);
         }
 
         // Vehicle
