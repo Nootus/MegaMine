@@ -129,11 +129,11 @@ var MegaMine;
                     title: "Drivers",
                     previousState: "dashboard",
                     templateUrl: "/app/fleet/driver.html",
-                    controller: "driver",
+                    controller: Fleet.Driver,
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                                return vehicleService.getDrivers();
+                        resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService) {
+                                return fleetService.getDrivers();
                             }]
                     }
                 })

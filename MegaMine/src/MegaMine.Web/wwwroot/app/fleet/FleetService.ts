@@ -9,9 +9,13 @@
 
         // master tables
         public vehicleTypes: Widget.Models.IDashboardDataModel<Models.IVehicleTypeModel> = {
-            list: [], widgets: <Widget.Models.IDashboardWidgets>{}
+            list: <Models.IVehicleTypeModel[]>[],
+            widgets: <Widget.Models.IDashboardWidgets>{}
         };
-        public drivers: Models.IVehicleDriverModel[] = [];
+        public drivers: Widget.Models.IDashboardDataModel<Models.IVehicleDriverModel> = {
+            list: <Models.IVehicleDriverModel[]>[],
+            widgets: <Widget.Models.IDashboardWidgets>{}
+        };
 
         // vehicles
         public vehicleList: Models.IVehicleListModel[] = [];
@@ -27,7 +31,11 @@
         public driverListItems: Shared.Models.IListItem<number, string>[] = [];
 
         // manufacturers data types
-        public manufacturerList: Models.IVehicleManufacturerModel[] = [];
+        public manufacturerList: Widget.Models.IDashboardDataModel<Models.IVehicleManufacturerModel> = {
+            list: <Models.IVehicleManufacturerModel[]>[],
+            widgets: <Widget.Models.IDashboardWidgets>{}
+        };
+
         public manufacturer: Models.IManufacturerDetailsModel = <Models.IManufacturerDetailsModel>{};
         public currentManufacturer: Models.IVehicleManufacturerModel = <Models.IVehicleManufacturerModel>{};
 
@@ -47,11 +55,13 @@
         }
 
 
-        public getManufacturerList(): ng.IHttpPromise<Models.IVehicleManufacturerModel[]> {
+        public getManufacturerList(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]>> {
             const self: FleetService = this;
-            return self.$http.get("/api/fleet/manufacturersGet")
-                .then(function (data: Models.IVehicleManufacturerModel[]): Models.IVehicleManufacturerModel[] {
-                    self.utility.extend(self.manufacturerList, data);
+            return self.$http.get("/api/fleet/manufacturersget")
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]>):
+                    Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]> {
+                    self.utility.extend(self.manufacturerList.list, data.model);
+                    angular.extend(self.manufacturerList.widgets, data.dashboard);
                     return data;
                 });
         }
@@ -261,7 +271,6 @@
                     Shared.Models.IAjaxDataModel<Models.IVehicleTypeModel[]> {
                     self.utility.extend(self.vehicleTypes.list, data.model);
                     angular.extend(self.vehicleTypes.widgets, data.dashboard);
-                    debugger;
                     return data;
                 });
         }
@@ -283,11 +292,13 @@
             return self.$http.post<void>("/api/fleet/vehicletypedelete", vehicleTypeId);
         }
 
-        public getDrivers(): ng.IHttpPromise<Models.IVehicleDriverModel[]> {
+        public getDrivers(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleDriverModel[]>> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/driversget")
-                .then(function (data: Models.IVehicleDriverModel[]): Models.IVehicleDriverModel[] {
-                    self.utility.extend(self.drivers, data);
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IVehicleDriverModel[]>):
+                    Shared.Models.IAjaxDataModel<Models.IVehicleDriverModel[]> {
+                    self.utility.extend(self.drivers.list, data.model);
+                    angular.extend(self.drivers.widgets, data.dashboard);
                     return data;
                 });
         }
@@ -301,6 +312,11 @@
                 url = "/api/fleet/driverupdate";
             }
             return self.$http.post<void>(url, model);
+        }
+
+        public deleteDriver(vehicleDriverId: number): ng.IHttpPromise<void> {
+            const self: FleetService = this;
+            return self.$http.post<void>("/api/fleet/driverdelete", vehicleDriverId);
         }
 
         public getServiceReport(vehicleServiceId: number, startDate: Date, endDate: Date): ng.IHttpPromise<Models.IVehicleServiceModel[]> {

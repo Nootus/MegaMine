@@ -74,6 +74,11 @@ namespace MegaMine.Modules.Fleet.Domain
            await this.vehicleRepository.DriverSave(model);
         }
 
+        public async Task DriverDelete(int vehicleDriverId)
+        {
+            await this.vehicleRepository.DriverDelete(vehicleDriverId);
+        }
+
         public async Task<List<VehicleManufacturerModel>> VehicleManufacturersGet()
         {
             return await this.vehicleRepository.VehicleManufacturersGet();

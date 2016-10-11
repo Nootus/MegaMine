@@ -1,0 +1,63 @@
+﻿module MegaMine.Fleet {
+
+    @controller("megamine", "MegaMine.Fleet.ManufacturerList")
+    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService")
+    export class ManufacturerList {
+
+        public dashboard: Widget.Models.IDashboardModel<ManufacturerList, Models.IVehicleManufacturerModel>;
+
+        constructor(private fleetService: FleetService,
+            private dialogService: Shared.Dialog.DialogService<Models.IVehicleManufacturerModel>) {
+            const self: ManufacturerList = this;
+            const gridOptions: uiGrid.IGridOptions = {
+                columnDefs: [
+                    { name: "name", field: "name", displayName: "Name", type: "string" },
+                    { name: "description", field: "description", displayName: "Description", type: "string" }
+                ]
+            };
+
+            self.dashboard = {
+                header: "Manufacturers",
+                context: self,
+                widgets: {
+                    allWidgets: fleetService.manufacturerList.widgets.allWidgets,
+                    pageWidgets: fleetService.manufacturerList.widgets.pageWidgets
+                },
+                records: {
+                    options: {
+                        primaryField: "vehicleManufacturerId",
+                        data: fleetService.manufacturerList.list,
+                        view: self.viewManufacturer
+                    },
+                    list: {
+                        options: {
+                            fields: ["name", "description"]
+                        }
+                    },
+                    grid: {
+                        options: gridOptions
+                    },
+                    buttons: {
+                        add: {
+                            text: "New",
+                            toolTip: "New Manufacturer",
+                            claim: "Fleet:ManufacturerAdd",
+                            save: self.addManufacturer
+                        }
+                    }
+                }
+            };
+
+        }
+
+        public viewManufacturer(model: Models.IVehicleManufacturerModel) {
+            navigation.gotoManufacturer(model.vehicleManufacturerId);
+        }
+
+        public addManufacturer(ev: ng.IAngularEvent, context: ManufacturerList) {
+            const self: ManufacturerList = context;
+            let model: Models.IVehicleManufacturerModel = <Models.IVehicleManufacturerModel>{ vehicleManufacturerId: 0 };
+            manufacturerDialog.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
+        }
+    }
+}

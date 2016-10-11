@@ -19,7 +19,7 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
     public class VehicleTypeTest : FleetControllerTest
     {
         [Fact]
-        public async void VehicleTypeListGet()
+        public async void VehicleTypesGet()
         {
             // Arrange
             this.FleetDbContext.VehicleTypes.AddRange(
@@ -70,6 +70,25 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             VehicleTypeEntity entity = this.FleetDbContext.VehicleTypes.Where(e => e.VehicleTypeId == 2).First();
             Assert.Equal(entity.VehicleTypeName, "Bulldozer");
             Assert.Equal(ajaxModel.Message, FleetMessages.VehicleTypeSaveSuccess);
+        }
+
+        [Fact]
+        public async void VehicleTypeDelete()
+        {
+            // Arrange
+            this.FleetDbContext.VehicleTypes.AddRange(
+                    new VehicleTypeEntity() { VehicleTypeId = 1, VehicleTypeName = "Escavator", CompanyId = 1, DeletedInd = false },
+                    new VehicleTypeEntity() { VehicleTypeId = 2, VehicleTypeName = "Truck", CompanyId = 1, DeletedInd = false });
+
+            await this.SaveChangesAsync(this.FleetDbContext);
+
+            // Act
+            AjaxModel<NTModel> ajaxModel = await this.Controller.VehicleTypeDelete(2);
+
+            // Assert
+            VehicleTypeEntity entity = this.FleetDbContext.VehicleTypes.Single(e => e.VehicleTypeId == 2);
+            Assert.Equal(entity.DeletedInd, true);
+            Assert.Equal(ajaxModel.Message, FleetMessages.VehicleTypeDeleteSuccess);
         }
     }
 }

@@ -14,9 +14,13 @@ var MegaMine;
                 this.utility = utility;
                 // master tables
                 this.vehicleTypes = {
-                    list: [], widgets: {}
+                    list: [],
+                    widgets: {}
                 };
-                this.drivers = [];
+                this.drivers = {
+                    list: [],
+                    widgets: {}
+                };
                 // vehicles
                 this.vehicleList = [];
                 this.vehicle = {};
@@ -28,7 +32,10 @@ var MegaMine;
                 this.vehicleDriverList = [];
                 this.driverListItems = [];
                 // manufacturers data types
-                this.manufacturerList = [];
+                this.manufacturerList = {
+                    list: [],
+                    widgets: {}
+                };
                 this.manufacturer = {};
                 this.currentManufacturer = {};
                 // models
@@ -46,9 +53,10 @@ var MegaMine;
             }
             getManufacturerList() {
                 const self = this;
-                return self.$http.get("/api/fleet/manufacturersGet")
+                return self.$http.get("/api/fleet/manufacturersget")
                     .then(function (data) {
-                    self.utility.extend(self.manufacturerList, data);
+                    self.utility.extend(self.manufacturerList.list, data.model);
+                    angular.extend(self.manufacturerList.widgets, data.dashboard);
                     return data;
                 });
             }
@@ -241,7 +249,6 @@ var MegaMine;
                     .then(function (data) {
                     self.utility.extend(self.vehicleTypes.list, data.model);
                     angular.extend(self.vehicleTypes.widgets, data.dashboard);
-                    debugger;
                     return data;
                 });
             }
@@ -264,7 +271,8 @@ var MegaMine;
                 const self = this;
                 return self.$http.get("/api/fleet/driversget")
                     .then(function (data) {
-                    self.utility.extend(self.drivers, data);
+                    self.utility.extend(self.drivers.list, data.model);
+                    angular.extend(self.drivers.widgets, data.dashboard);
                     return data;
                 });
             }
@@ -278,6 +286,10 @@ var MegaMine;
                     url = "/api/fleet/driverupdate";
                 }
                 return self.$http.post(url, model);
+            }
+            deleteDriver(vehicleDriverId) {
+                const self = this;
+                return self.$http.post("/api/fleet/driverdelete", vehicleDriverId);
             }
             getServiceReport(vehicleServiceId, startDate, endDate) {
                 const self = this;

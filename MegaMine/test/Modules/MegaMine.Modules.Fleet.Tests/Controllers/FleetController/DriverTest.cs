@@ -76,6 +76,25 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
         }
 
         [Fact]
+        public async void DriverDelete()
+        {
+            // Arrange
+            this.FleetDbContext.VehicleDrivers.AddRange(
+                    new VehicleDriverEntity() { VehicleDriverId = 1, DriverName = "Peter", CompanyId = 1, DeletedInd = false },
+                    new VehicleDriverEntity() { VehicleDriverId = 2, DriverName = "Raju", CompanyId = 1, DeletedInd = false });
+
+            await this.SaveChangesAsync(this.FleetDbContext);
+
+            // Act
+            AjaxModel<NTModel> ajaxModel = await this.Controller.DriverDelete(2);
+
+            // Assert
+            VehicleDriverEntity entity = this.FleetDbContext.VehicleDrivers.Single(e => e.VehicleDriverId == 2);
+            Assert.Equal(entity.DeletedInd, true);
+            Assert.Equal(ajaxModel.Message, FleetMessages.DriverDeleteSuccess);
+        }
+
+        [Fact]
         public async void DriversListGet()
         {
             // Arrange

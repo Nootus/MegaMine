@@ -13,9 +13,10 @@ namespace MegaMine.Modules.Fleet.Shared
         // master tables
         public const string VehicleTypeSaveSuccess = "Vehicle Type Saved Successfully";
         public const string VehicleTypeDeleteSuccess = "Vehicle Type Deleted Successfully";
-        
+
         public const string VehicleManufacturerSaveSuccess = "Manufacturer Saved Successfully";
         public const string DriverSaveSuccess = "Driver Saved Successfully";
+        public const string DriverDeleteSuccess = "Driver Deleted Successfully";
 
         // vehicle Messages
         public const string VehicleServiceSaveSuccess = "Vehicle Service Saved Successfully";

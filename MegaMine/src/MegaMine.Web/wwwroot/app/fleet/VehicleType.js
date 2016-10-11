@@ -15,8 +15,8 @@ var MegaMine;
                 const self = this;
                 const gridOptions = {
                     columnDefs: [
-                        { name: 'vehicleTypeName', field: 'vehicleTypeName', displayName: 'Vehicle Type', type: 'string' },
-                        { name: 'vehicleTypeDescription', field: 'vehicleTypeDescription', type: 'string', displayName: 'Description' },
+                        { name: "vehicleTypeName", field: "vehicleTypeName", displayName: "Vehicle Type", type: "string" },
+                        { name: "vehicleTypeDescription", field: "vehicleTypeDescription", type: "string", displayName: "Description" }
                     ]
                 };
                 self.dashboard = {
@@ -44,7 +44,7 @@ var MegaMine;
                             add: {
                                 text: "New",
                                 toolTip: "New Vehicle Type",
-                                claim: "Fleet:VehicleTypeEdit",
+                                claim: "Fleet:VehicleTypeAdd",
                                 save: self.addVehicleType
                             },
                             edit: {
@@ -65,7 +65,7 @@ var MegaMine;
             viewDialog(model, dialogMode, ev, context) {
                 const self = context;
                 self.dialogService.show({
-                    templateUrl: 'vehicle_type_dialog',
+                    templateUrl: "vehicle_type_dialog",
                     targetEvent: ev,
                     data: { model: model },
                     dialogMode: dialogMode
@@ -79,7 +79,7 @@ var MegaMine;
                     }
                     else {
                         self.fleetService.saveVehicleType(dialogModel).then(function () {
-                            //update the grid values
+                            // update the grid values
                             if (dialogModel.vehicleTypeId === 0) {
                                 self.fleetService.getVehicleTypes();
                             }

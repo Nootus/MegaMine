@@ -23,20 +23,6 @@
                     }
                 })
 
-                .state("manufacturerlist", {
-                    url: virtualPath + "/manufacturerlist",
-                    title: "Manufacturer List",
-                    previousState: "dashboard",
-                    templateUrl: "/app/fleet/manufacturerlist.html",
-                    controller: "manufacturerList",
-                    controllerAs: "vm",
-                    resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                            return vehicleService.getManufacturerList();
-                        }]
-                    }
-                })
-
                 .state("vehicle", {
                     url: virtualPath + "/vehicle/:vehicleid",
                     title: "Vehicle",
@@ -136,11 +122,27 @@
                     title: "Drivers",
                     previousState: "dashboard",
                     templateUrl: "/app/fleet/driver.html",
-                    controller: "driver",
+                    controller: Driver,
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                            return vehicleService.getDrivers();
+                        resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService: FleetService):
+                            ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleDriverModel[]>> {
+                            return fleetService.getDrivers();
+                        }]
+                   }
+                })
+
+                .state("manufacturerlist", {
+                    url: virtualPath + "/manufacturerlist",
+                    title: "Manufacturers",
+                    previousState: "dashboard",
+                    templateUrl: "/app/fleet/manufacturerlist.html",
+                    controller: ManufacturerList,
+                    controllerAs: "vm",
+                    resolve: {
+                        resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService: FleetService):
+                            ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]>> {
+                            return fleetService.getManufacturerList();
                         }]
                     }
                 })

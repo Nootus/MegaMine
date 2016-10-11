@@ -11,8 +11,8 @@
             const self: VehicleType = this;
             const gridOptions: uiGrid.IGridOptions = {
                 columnDefs: [
-                    { name: 'vehicleTypeName', field: 'vehicleTypeName', displayName: 'Vehicle Type', type: 'string' },
-                    { name: 'vehicleTypeDescription', field: 'vehicleTypeDescription', type: 'string', displayName: 'Description' },
+                    { name: "vehicleTypeName", field: "vehicleTypeName", displayName: "Vehicle Type", type: "string" },
+                    { name: "vehicleTypeDescription", field: "vehicleTypeDescription", type: "string", displayName: "Description" }
                 ]
             };
 
@@ -41,7 +41,7 @@
                         add: {
                             text: "New",
                             toolTip: "New Vehicle Type",
-                            claim: "Fleet:VehicleTypeEdit",
+                            claim: "Fleet:VehicleTypeAdd",
                             save: self.addVehicleType
                         },
                         edit: {
@@ -58,7 +58,7 @@
 
         public addVehicleType(ev: ng.IAngularEvent, context: VehicleType): void {
             const self: VehicleType = context;
-            let model: Models.IVehicleTypeModel = <Models.IVehicleTypeModel>{ vehicleTypeId: 0 }
+            let model: Models.IVehicleTypeModel = <Models.IVehicleTypeModel>{ vehicleTypeId: 0 };
             self.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev, context);
         }
 
@@ -66,7 +66,7 @@
             ev: ng.IAngularEvent, context: VehicleType): void {
             const self: VehicleType = context;
             self.dialogService.show({
-                templateUrl: 'vehicle_type_dialog',
+                templateUrl: "vehicle_type_dialog",
                 targetEvent: ev,
                 data: { model: model },
                 dialogMode: dialogMode
@@ -79,13 +79,12 @@
                         });
                     } else {
                         self.fleetService.saveVehicleType(dialogModel).then(function (): void {
-                            //update the grid values
+                            // update the grid values
                             if (dialogModel.vehicleTypeId === 0) {
                                 self.fleetService.getVehicleTypes();
-                            }
-                            else {
-                                model.vehicleTypeName = dialogModel.vehicleTypeName
-                                model.vehicleTypeDescription = dialogModel.vehicleTypeDescription
+                            } else {
+                                model.vehicleTypeName = dialogModel.vehicleTypeName;
+                                model.vehicleTypeDescription = dialogModel.vehicleTypeDescription;
                             }
 
                             self.dialogService.hide();

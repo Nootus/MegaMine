@@ -73,6 +73,11 @@ namespace MegaMine.Modules.Fleet.Repositories
             await this.SaveEntity<VehicleDriverEntity, VehicleDriverModel>(model);
         }
 
+        public async Task DriverDelete(int vehicleDriverId)
+        {
+            await this.DeleteEntity<VehicleDriverEntity>(vehicleDriverId);
+        }
+
         // Vehicle Model
         public async Task ModelSave(VehicleManufactureModelModel model)
         {
