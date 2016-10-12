@@ -12,6 +12,6 @@
         fuelResetDate: Date;
         serviceCost: number;
         serviceDate: Date;
-        serviceRecord: IVehicleServiceModel[]
+        serviceRecord: IVehicleServiceModel[];
     }
 }

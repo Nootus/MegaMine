@@ -8,8 +8,12 @@
                         deleteClaim: string, hide?: string | boolean): uiGrid.IColumnDef {
             const self: Template = this;
 
-            var buttons: Models.IButton[] = [<Models.IButton>{ buttonType: Models.ButtonType.view },
-                                                <Models.IButton>{ buttonType: Models.ButtonType.edit, claim: editClaim }];
+            var buttons: Models.IButton[] = [<Models.IButton>{ buttonType: Models.ButtonType.view }];
+
+            if (editClaim !== undefined) {
+                buttons.push(<Models.IButton>{ buttonType: Models.ButtonType.edit, claim: editClaim });
+            }
+
             if (deleteClaim !== undefined) {
                 buttons.push(<Models.IButton>{ buttonType: Models.ButtonType.delete, claim: deleteClaim });
             }

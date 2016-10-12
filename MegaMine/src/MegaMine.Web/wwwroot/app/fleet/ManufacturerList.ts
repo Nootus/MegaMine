@@ -1,13 +1,14 @@
 ﻿module MegaMine.Fleet {
 
     @controller("megamine", "MegaMine.Fleet.ManufacturerList")
-    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService")
+    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Navigation")
     export class ManufacturerList {
 
         public dashboard: Widget.Models.IDashboardModel<ManufacturerList, Models.IVehicleManufacturerModel>;
 
         constructor(private fleetService: FleetService,
-            private dialogService: Shared.Dialog.DialogService<Models.IVehicleManufacturerModel>) {
+            private dialogService: Shared.Dialog.DialogService<Models.IVehicleManufacturerModel>,
+            private navigation: Shared.Navigation) {
             const self: ManufacturerList = this;
             const gridOptions: uiGrid.IGridOptions = {
                 columnDefs: [
@@ -47,17 +48,16 @@
                     }
                 }
             };
-
         }
 
-        public viewManufacturer(model: Models.IVehicleManufacturerModel) {
-            navigation.gotoManufacturer(model.vehicleManufacturerId);
+        public viewManufacturer(model: Models.IVehicleManufacturerModel): void {
+            this.navigation.gotoManufacturer(model.vehicleManufacturerId);
         }
 
-        public addManufacturer(ev: ng.IAngularEvent, context: ManufacturerList) {
+        public addManufacturer(ev: ng.IAngularEvent, context: ManufacturerList): void {
             const self: ManufacturerList = context;
             let model: Models.IVehicleManufacturerModel = <Models.IVehicleManufacturerModel>{ vehicleManufacturerId: 0 };
-            manufacturerDialog.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
+            // manufacturerDialog.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
         }
     }
 }

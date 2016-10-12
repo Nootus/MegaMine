@@ -2,7 +2,7 @@
     interface IDashboardRecordButtons<TContext> {
         options?: IDashboardRecordButtonOptions;
         add: IDashboardRecordButton<TContext>;
-        edit: IDashboardRecordButton<TContext>;
-        delete: IDashboardRecordButton<TContext>;
+        edit?: IDashboardRecordButton<TContext>;
+        delete?: IDashboardRecordButton<TContext>;
     }
 }

@@ -16,7 +16,7 @@ var MegaMine;
                 const gridOptions = {
                     columnDefs: [
                         { name: "driverName", field: "driverName", displayName: "Name", type: "string" },
-                        { name: "contact", field: "contact", displayName: "Contact", type: "string" },
+                        { name: "contact", field: "contact", displayName: "Contact", type: "string" }
                     ]
                 };
                 self.dashboard = {
@@ -65,7 +65,7 @@ var MegaMine;
             viewDialog(model, dialogMode, ev, context) {
                 const self = context;
                 self.dialogService.show({
-                    templateUrl: 'driver_dialog',
+                    templateUrl: "driver_dialog",
                     targetEvent: ev,
                     data: { model: model },
                     dialogMode: dialogMode

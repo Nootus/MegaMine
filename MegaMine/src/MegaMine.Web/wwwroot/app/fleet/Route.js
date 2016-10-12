@@ -20,21 +20,8 @@ var MegaMine;
                     controller: "vehicleList",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                                return vehicleService.getVehicleList();
-                            }]
-                    }
-                })
-                    .state("manufacturerlist", {
-                    url: virtualPath + "/manufacturerlist",
-                    title: "Manufacturer List",
-                    previousState: "dashboard",
-                    templateUrl: "/app/fleet/manufacturerlist.html",
-                    controller: "manufacturerList",
-                    controllerAs: "vm",
-                    resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                                return vehicleService.getManufacturerList();
+                        resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService) {
+                                return fleetService.getVehicleList();
                             }]
                     }
                 })
@@ -46,8 +33,9 @@ var MegaMine;
                     controller: "vehicle",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                                return vehicleService.getVehicle($stateParams.vehicleid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams, fleetService) {
+                                return fleetService.getVehicle($stateParams.vehicleid);
                             }]
                     }
                 })
@@ -57,7 +45,7 @@ var MegaMine;
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleServiceRecord.html",
                     controller: "vehicleServiceRecord",
-                    controllerAs: "vm",
+                    controllerAs: "vm"
                 })
                     .state("vehicle.fuel", {
                     url: "/fuel",
@@ -67,8 +55,9 @@ var MegaMine;
                     controller: "vehicleFuel",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                                return vehicleService.getFuelList($stateParams.vehicleid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams, fleetService) {
+                                return fleetService.getFuelList($stateParams.vehicleid);
                             }]
                     }
                 })
@@ -80,8 +69,9 @@ var MegaMine;
                     controller: "vehicleDriver",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                                return vehicleService.getVehicleDriverList($stateParams.vehicleid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams, fleetService) {
+                                return fleetService.getVehicleDriverList($stateParams.vehicleid);
                             }]
                     }
                 })
@@ -93,8 +83,9 @@ var MegaMine;
                     controller: "vehicleTrip",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                                return vehicleService.getTripList($stateParams.vehicleid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams, fleetService) {
+                                return fleetService.getTripList($stateParams.vehicleid);
                             }]
                     }
                 })
@@ -119,8 +110,9 @@ var MegaMine;
                     controller: "servicereport",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                                return vehicleService.getVehicleList();
+                        resolveModel: ["MegaMine.Fleet.FleetService",
+                            function (fleetService) {
+                                return fleetService.getVehicleList();
                             }]
                     }
                 })
@@ -137,6 +129,19 @@ var MegaMine;
                             }]
                     }
                 })
+                    .state("manufacturerlist", {
+                    url: virtualPath + "/manufacturerlist",
+                    title: "Manufacturers",
+                    previousState: "dashboard",
+                    templateUrl: "/app/fleet/manufacturerlist.html",
+                    controller: Fleet.ManufacturerList,
+                    controllerAs: "vm",
+                    resolve: {
+                        resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService) {
+                                return fleetService.getManufacturerList();
+                            }]
+                    }
+                })
                     .state("manufacturer", {
                     url: virtualPath + "/manufacturer/:manufacturerid",
                     title: "Manufacturer",
@@ -145,8 +150,9 @@ var MegaMine;
                     controller: "manufacturer",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["$stateParams", "vehicleService", function ($stateParams, vehicleService) {
-                                return vehicleService.getManufacturer($stateParams.manufacturerid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams, fleetService) {
+                                return fleetService.getManufacturer($stateParams.manufacturerid);
                             }]
                     }
                 });

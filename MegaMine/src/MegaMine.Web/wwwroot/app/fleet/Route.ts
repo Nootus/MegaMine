@@ -17,8 +17,9 @@
                     controller: "vehicleList",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                            return vehicleService.getVehicleList();
+                        resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService: FleetService):
+                                ng.IHttpPromise<Models.IVehicleListModel[]> {
+                            return fleetService.getVehicleList();
                         }]
                     }
                 })
@@ -31,8 +32,10 @@
                     controller: "vehicle",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                            return vehicleService.getVehicle($stateParams.vehicleid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams: ng.ui.IFleetRouteStateParamsService, fleetService: FleetService):
+                                ng.IHttpPromise<Models.IVehicleDetailsModel> {
+                            return fleetService.getVehicle($stateParams.vehicleid);
                         }]
                     }
                 })
@@ -43,7 +46,7 @@
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleServiceRecord.html",
                     controller: "vehicleServiceRecord",
-                    controllerAs: "vm",
+                    controllerAs: "vm"
                 })
 
                 .state("vehicle.fuel", {
@@ -54,8 +57,10 @@
                     controller: "vehicleFuel",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                            return vehicleService.getFuelList($stateParams.vehicleid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams: ng.ui.IFleetRouteStateParamsService, fleetService: FleetService):
+                                ng.IHttpPromise<Models.IFuelModel[]> {
+                            return fleetService.getFuelList($stateParams.vehicleid);
                         }]
                     }
                 })
@@ -68,8 +73,10 @@
                     controller: "vehicleDriver",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                            return vehicleService.getVehicleDriverList($stateParams.vehicleid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams: ng.ui.IFleetRouteStateParamsService, fleetService: FleetService):
+                                ng.IHttpPromise<Models.IVehicleDriverAssignmentModel[]> {
+                            return fleetService.getVehicleDriverList($stateParams.vehicleid);
                         }]
                     }
                 })
@@ -82,8 +89,10 @@
                     controller: "vehicleTrip",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['$stateParams', 'vehicleService', function ($stateParams, vehicleService) {
-                            return vehicleService.getTripList($stateParams.vehicleid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams: ng.ui.IFleetRouteStateParamsService, fleetService: FleetService):
+                                    ng.IHttpPromise<Models.IVehicleTripModel[]> {
+                                return fleetService.getTripList($stateParams.vehicleid);
                         }]
                     }
                 })
@@ -111,8 +120,9 @@
                     controller: "servicereport",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ['vehicleService', function (vehicleService) {
-                            return vehicleService.getVehicleList();
+                        resolveModel: ["MegaMine.Fleet.FleetService",
+                            function (fleetService: FleetService): ng.IHttpPromise<Models.IVehicleListModel[]> {
+                                return fleetService.getVehicleList();
                         }]
                     }
                 })
@@ -155,8 +165,10 @@
                     controller: "manufacturer",
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["$stateParams", "vehicleService", function ($stateParams, vehicleService) {
-                            return vehicleService.getManufacturer($stateParams.manufacturerid);
+                        resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
+                            function ($stateParams: ng.ui.IFleetRouteStateParamsService, fleetService: FleetService):
+                                ng.IHttpPromise<Models.IManufacturerDetailsModel> {
+                            return fleetService.getManufacturer($stateParams.manufacturerid);
                         }]
                     }
                 });

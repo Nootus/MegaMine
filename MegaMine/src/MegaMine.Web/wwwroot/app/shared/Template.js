@@ -11,8 +11,10 @@ var MegaMine;
         let Template = class Template {
             getButtonDefaultColumnDefs(field, editClaim, deleteClaim, hide) {
                 const self = this;
-                var buttons = [{ buttonType: 0 /* view */ },
-                    { buttonType: 1 /* edit */, claim: editClaim }];
+                var buttons = [{ buttonType: 0 /* view */ }];
+                if (editClaim !== undefined) {
+                    buttons.push({ buttonType: 1 /* edit */, claim: editClaim });
+                }
                 if (deleteClaim !== undefined) {
                     buttons.push({ buttonType: 2 /* delete */, claim: deleteClaim });
                 }

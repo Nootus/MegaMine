@@ -28,7 +28,10 @@ var MegaMine;
                         { name: "width", field: "width", type: "number", displayName: "Width" },
                         { name: "height", field: "height", type: "number", displayName: "Height" },
                         { name: "weight", field: "weight", type: "number", displayName: "Weight" },
-                        { name: "materialDate", field: "materialDate", displayName: "Date", type: "date", cellFilter: "date:\"" + constants.dateFormat + "\"" },
+                        {
+                            name: "materialDate", field: "materialDate", displayName: "Date", type: "date",
+                            cellFilter: "date:\"" + constants.dateFormat + "\""
+                        },
                         { name: "quarry", field: "quarry", type: "string", displayName: "Quarry" }
                     ]
                 };
@@ -50,8 +53,9 @@ var MegaMine;
                 if (form.$valid) {
                     self.noStockMessage = undefined;
                     self.quarryService.getStock(self.fromYardId).then(function () {
-                        if (self.quarryService.stock.length === 0)
+                        if (self.quarryService.stock.length === 0) {
                             self.noStockMessage = self.message.noStockMessage;
+                        }
                     });
                     self.currentYardId = self.fromYardId;
                 }
@@ -65,7 +69,7 @@ var MegaMine;
             moveMaterial(form, ev) {
                 const self = this;
                 form.$submitted = true;
-                //checking the from & to yard
+                // checking the from & to yard
                 if (self.currentYardId === self.toYardId) {
                     self.movementErrorMessages.splice(0, self.movementErrorMessages.length);
                     self.movementErrorMessages.push({ type: "dupyard", text: self.message.dupYard });
@@ -80,7 +84,10 @@ var MegaMine;
                         self.dialogUtility.alert("No Materials Selected", "Please select materials to move", ev);
                     }
                     else {
-                        self.quarryService.moveMaterial({ materialIds: selectedIds, fromYardId: self.currentYardId, toYardId: self.toYardId, movementDate: self.movementDate });
+                        self.quarryService.moveMaterial({
+                            materialIds: selectedIds, fromYardId: self.currentYardId,
+                            toYardId: self.toYardId, movementDate: self.movementDate
+                        });
                     }
                 }
             }

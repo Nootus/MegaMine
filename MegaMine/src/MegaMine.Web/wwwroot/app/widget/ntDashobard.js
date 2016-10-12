@@ -41,8 +41,8 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
                                                 + '</div>'
                                                 + '<div class="right-list-menu" ng-show="showContextMenu">'
                                                     + '<nt-button type="context-bar" icon-css="eye" tool-tip="View" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.view + ', $event, dashboard.context)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{dashboard.records.buttons.edit.claim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.save + ', $event, dashboard.context)"></nt-button>'
-                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{dashboard.records.buttons.delete.claim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.delete + ', $event, dashboard.context)"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" claim="{{editClaim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.save + ', $event, dashboard.context)" ng-hide = "editClaim === undefined"></nt-button>'
+                                                    + '<nt-button type="context-bar" icon-css="trash" tool-tip="Delete" claim="{{deleteClaim}}" ng-click="dashboard.records.options.view(item, ' + constants.enum.dialogMode.delete + ', $event, dashboard.context)" ng-hide = "deleteClaim === undefined"></nt-button>'
                                                 + '</div>'
                                             + '</md-list-item>'
                                         + '</md-list>'
@@ -55,6 +55,10 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
     };
 
     function link(scope, element, attrs, nullController) {
+
+        // setting the edit and delete claim
+        scope.editClaim = scope.dashboard.records.buttons.edit === undefined ? undefined : scope.dashboard.records.buttons.edit.claim;
+        scope.deleteClaim = scope.dashboard.records.buttons.delete === undefined ? undefined : scope.dashboard.records.buttons.delete.claim;
 
         //setting grid button row
         if (scope.dashboard.records === undefined) {
@@ -70,7 +74,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
             scope.dashboard.records.grid.options.data = scope.dashboard.records.options.data;
             scope.dashboard.records.grid.view = scope.dashboard.records.options.view;
             scope.dashboard.records.grid.context = scope.dashboard.context;
-            scope.dashboard.records.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.records.options.primaryField, scope.dashboard.records.buttons.edit.claim, scope.dashboard.records.buttons.delete.claim, scope.dashboard.records.buttons.options.hideGridButtons));
+            scope.dashboard.records.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.records.options.primaryField, scope.editClaim, scope.deleteClaim, scope.dashboard.records.buttons.options.hideGridButtons));
             scope.viewType = scope.viewType || constants.enum.viewType.list;
         }
 

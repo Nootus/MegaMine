@@ -29,7 +29,10 @@
                     { name: "width", field: "width", type: "number", displayName: "Width" },
                     { name: "height", field: "height", type: "number", displayName: "Height" },
                     { name: "weight", field: "weight", type: "number", displayName: "Weight" },
-                    { name: "materialDate", field: "materialDate", displayName: "Date", type: "date", cellFilter: "date:\"" + constants.dateFormat + "\"" },
+                    {
+                        name: "materialDate", field: "materialDate", displayName: "Date", type: "date",
+                        cellFilter: "date:\"" + constants.dateFormat + "\""
+                    },
                     { name: "quarry", field: "quarry", type: "string", displayName: "Quarry" }
                 ]
             };
@@ -43,37 +46,38 @@
             self.initialize();
         }
 
-        private initialize() {
+        private initialize(): void {
             const self: MaterialMovement = this;
             self.yards = self.quarryService.yardList;
             self.groupYards = self.quarryService.groupYards;
             self.quarryService.stock.splice(0, self.quarryService.stock.length);
         }
 
-        public getStock(form) {
+        public getStock(form: Models.IMaterialMovementFormController): void {
             const self: MaterialMovement = this;
             if (form.$valid) {
                 self.noStockMessage = undefined;
-                self.quarryService.getStock(self.fromYardId).then(function () {
-                    if (self.quarryService.stock.length === 0)
+                self.quarryService.getStock(self.fromYardId).then(function (): void {
+                    if (self.quarryService.stock.length === 0) {
                         self.noStockMessage = self.message.noStockMessage;
+                    }
                 });
                 self.currentYardId = self.fromYardId;
             }
         }
 
-        public validateToYard(form) {
+        public validateToYard(form: Models.IMaterialMovementFormController): void {
             const self: MaterialMovement = this;
             if (form.toYard !== undefined && !form.toYard.$valid && self.currentYardId !== self.toYardId) {
                 form.toYard.$setValidity("dupyard", true);
             }
         }
 
-        public moveMaterial(form, ev) {
+        public moveMaterial(form: Models.IMaterialMovementFormController, ev: MouseEvent): void {
             const self: MaterialMovement = this;
             form.$submitted = true;
 
-            //checking the from & to yard
+            // checking the from & to yard
             if (self.currentYardId === self.toYardId) {
                 self.movementErrorMessages.splice(0, self.movementErrorMessages.length);
                 self.movementErrorMessages.push({ type: "dupyard", text: self.message.dupYard });
@@ -82,16 +86,19 @@
             }
 
             if (form.$valid) {
-                var selectedIds = [];
-                angular.forEach(self.grid.options.gridApi.selection.getSelectedRows(), function (item) {
-                    selectedIds.push(item.materialId)
+                var selectedIds: number[] = [];
+                angular.forEach(self.grid.options.gridApi.selection.getSelectedRows(), function (item: Models.IStockModel): void {
+                    selectedIds.push(item.materialId);
                 });
 
                 if (selectedIds.length === 0) {
                     self.dialogUtility.alert("No Materials Selected", "Please select materials to move", ev);
-                }
-                else {
-                    self.quarryService.moveMaterial({ materialIds: selectedIds, fromYardId: self.currentYardId, toYardId: self.toYardId, movementDate: self.movementDate })
+                } else {
+                    self.quarryService.moveMaterial(
+                        {
+                            materialIds: selectedIds, fromYardId: self.currentYardId,
+                            toYardId: self.toYardId, movementDate: self.movementDate
+                        });
                 }
             }
         }

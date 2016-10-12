@@ -12,7 +12,7 @@
             const gridOptions: uiGrid.IGridOptions = {
                 columnDefs: [
                     { name: "driverName", field: "driverName", displayName: "Name", type: "string" },
-                    { name: "contact", field: "contact", displayName: "Contact", type: "string" },
+                    { name: "contact", field: "contact", displayName: "Contact", type: "string" }
                 ]
             };
 
@@ -58,7 +58,7 @@
 
         public addDriver(ev: ng.IAngularEvent, context: Driver): void {
             const self: Driver = context;
-            let model: Models.IVehicleDriverModel = <Models.IVehicleDriverModel>{ vehicleDriverId: 0 }
+            let model: Models.IVehicleDriverModel = <Models.IVehicleDriverModel>{ vehicleDriverId: 0 };
             self.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev, context);
         }
 
@@ -66,7 +66,7 @@
             ev: ng.IAngularEvent, context: Driver): void {
             const self: Driver = context;
             self.dialogService.show({
-                templateUrl: 'driver_dialog',
+                templateUrl: "driver_dialog",
                 targetEvent: ev,
                 data: { model: model },
                 dialogMode: dialogMode
@@ -78,7 +78,7 @@
                             self.dialogService.hide();
                         });
                     } else {
-                        self.fleetService.saveDriver(dialogModel).then(function () {
+                        self.fleetService.saveDriver(dialogModel).then(function (): void {
                             // update the grid values
                             if (dialogModel.vehicleDriverId === 0) {
                                 self.fleetService.getDrivers();
