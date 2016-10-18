@@ -56,10 +56,6 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
 
     function link(scope, element, attrs, nullController) {
 
-        // setting the edit and delete claim
-        scope.editClaim = scope.dashboard.records.buttons.edit === undefined ? undefined : scope.dashboard.records.buttons.edit.claim;
-        scope.deleteClaim = scope.dashboard.records.buttons.delete === undefined ? undefined : scope.dashboard.records.buttons.delete.claim;
-
         //setting grid button row
         if (scope.dashboard.records === undefined) {
             scope.viewType = constants.enum.viewType.dashboardOnly
@@ -69,6 +65,10 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
             if (scope.dashboard.records.buttons.options === undefined) {
                 scope.dashboard.records.buttons.options = {};
             }
+
+            // setting the edit and delete claim
+            scope.editClaim = scope.dashboard.records.buttons.edit === undefined ? undefined : scope.dashboard.records.buttons.edit.claim;
+            scope.deleteClaim = scope.dashboard.records.buttons.delete === undefined ? undefined : scope.dashboard.records.buttons.delete.claim;
 
             //setting up grid settings
             scope.dashboard.records.grid.options.data = scope.dashboard.records.options.data;

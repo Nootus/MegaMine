@@ -8,6 +8,6 @@
         vehicleModelId: number;
         vehicleTypeList: Shared.Models.IListItem<number, string>[];
         manufacturerList: Shared.Models.IListItem<number, string>[];
-        vehicleModelList: IVehicleManufactureModelModel[];
+        vehicleModelList: IVehicleManufacturerModelModel[];
     }
 }

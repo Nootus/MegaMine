@@ -144,13 +144,13 @@ namespace MegaMine.Modules.Fleet.Controllers
         }
 
         [HttpPost]
-        public async Task<AjaxModel<NTModel>> ModelAdd([FromBody] VehicleManufactureModelModel model)
+        public async Task<AjaxModel<NTModel>> ModelAdd([FromBody] VehicleManufacturerModelModel model)
         {
             return await AjaxHelper.SaveAsync(m => this.domain.ModelSave(model), FleetMessages.VehicleModelSaveSuccess);
         }
 
         [HttpPost]
-        public async Task<AjaxModel<NTModel>> ModelUpdate([FromBody] VehicleManufactureModelModel model)
+        public async Task<AjaxModel<NTModel>> ModelUpdate([FromBody] VehicleManufacturerModelModel model)
         {
             return await AjaxHelper.SaveAsync(m => this.domain.ModelSave(model), FleetMessages.VehicleModelSaveSuccess);
         }

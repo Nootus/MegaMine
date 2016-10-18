@@ -119,7 +119,7 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
         public async void ModelAdd()
         {
             // Arrange
-            VehicleManufactureModelModel model = new VehicleManufactureModelModel() { VehicleModelId = 0, Name = "PC8000-6" };
+            VehicleManufacturerModelModel model = new VehicleManufacturerModelModel() { VehicleModelId = 0, Name = "PC8000-6" };
 
             // Act
             AjaxModel<NTModel> ajaxModel = await this.Controller.ModelAdd(model);
@@ -139,7 +139,7 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
                     new VehicleModelEntity() { VehicleModelId = 2, Name = "PC3000-6", VehicleManufacturerId = 2, CompanyId = 1, DeletedInd = false });
             await this.SaveChangesAsync(this.FleetDbContext);
 
-            VehicleManufactureModelModel model = new VehicleManufactureModelModel() { VehicleModelId = 2, Name = "PC8000-6" };
+            VehicleManufacturerModelModel model = new VehicleManufacturerModelModel() { VehicleModelId = 2, Name = "PC8000-6" };
 
             // Act
             AjaxModel<NTModel> ajaxModel = await this.Controller.ModelAdd(model);

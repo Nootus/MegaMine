@@ -79,9 +79,9 @@ namespace MegaMine.Modules.Fleet.Repositories
         }
 
         // Vehicle Model
-        public async Task ModelSave(VehicleManufactureModelModel model)
+        public async Task ModelSave(VehicleManufacturerModelModel model)
         {
-            await this.SaveEntity<VehicleModelEntity, VehicleManufactureModelModel>(model);
+            await this.SaveEntity<VehicleModelEntity, VehicleManufacturerModelModel>(model);
         }
 
         // Fuel
@@ -236,9 +236,9 @@ namespace MegaMine.Modules.Fleet.Repositories
             await this.SaveEntity<VehicleManufacturerEntity, VehicleManufacturerModel>(model);
         }
 
-        public async Task<List<VehicleManufactureModelModel>> VehicleManufactureModelGet()
+        public async Task<List<VehicleManufacturerModelModel>> VehicleManufactureModelGet()
         {
-            return await this.GetListAsync<VehicleModelEntity, VehicleManufactureModelModel>(sort => sort.Name);
+            return await this.GetListAsync<VehicleModelEntity, VehicleManufacturerModelModel>(sort => sort.Name);
         }
 
         // Vehicle
@@ -309,7 +309,7 @@ namespace MegaMine.Modules.Fleet.Repositories
         {
             ManufacturerDetailsModel model = Mapper.Map<VehicleManufacturerEntity, ManufacturerDetailsModel>(await this.SingleAsync<VehicleManufacturerEntity>(manufacturerId));
 
-            model.Models = await this.GetListAsync<VehicleModelEntity, VehicleManufactureModelModel>(w => w.VehicleManufacturerId == manufacturerId, s => s.Name);
+            model.Models = await this.GetListAsync<VehicleModelEntity, VehicleManufacturerModelModel>(w => w.VehicleManufacturerId == manufacturerId, s => s.Name);
             return model;
         }
 

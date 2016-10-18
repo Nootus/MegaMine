@@ -54,7 +54,7 @@ namespace MegaMine.Modules.Fleet.Domain
           await this.vehicleRepository.VehicleSave(model);
         }
 
-        public async Task ModelSave(VehicleManufactureModelModel model)
+        public async Task ModelSave(VehicleManufacturerModelModel model)
         {
             await this.vehicleRepository.ModelSave(model);
         }

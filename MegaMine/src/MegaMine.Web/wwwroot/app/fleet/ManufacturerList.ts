@@ -50,8 +50,9 @@
             };
         }
 
-        public viewManufacturer(model: Models.IVehicleManufacturerModel): void {
-            this.navigation.gotoManufacturer(model.vehicleManufacturerId);
+        public viewManufacturer(model: Models.IVehicleManufacturerModel, dialogMode: Shared.Dialog.Models.DialogMode,
+            ev: ng.IAngularEvent, context: ManufacturerList): void {
+            context.navigation.gotoManufacturer(model.vehicleManufacturerId);
         }
 
         public addManufacturer(ev: ng.IAngularEvent, context: ManufacturerList): void {

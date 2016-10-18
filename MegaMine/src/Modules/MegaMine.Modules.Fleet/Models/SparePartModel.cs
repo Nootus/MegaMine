@@ -35,6 +35,6 @@ namespace MegaMine.Modules.Fleet.Models
 
         public List<ListItem<int, string>> ManufacturerList { get; set; }
 
-        public List<VehicleManufactureModelModel> VehicleModelList { get; set; }
+        public List<VehicleManufacturerModelModel> VehicleModelList { get; set; }
     }
 }

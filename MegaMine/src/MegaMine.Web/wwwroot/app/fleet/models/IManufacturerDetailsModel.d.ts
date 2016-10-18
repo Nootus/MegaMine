@@ -3,6 +3,6 @@
         vehicleManufacturerId: number;
         name: string;
         description: string;
-        models: IVehicleManufactureModelModel[];
+        models: IVehicleManufacturerModelModel[];
     }
 }

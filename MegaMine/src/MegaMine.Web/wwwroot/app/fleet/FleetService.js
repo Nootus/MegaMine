@@ -39,7 +39,10 @@ var MegaMine;
                 this.manufacturer = {};
                 this.currentManufacturer = {};
                 // models
-                this.modelsList = [];
+                this.modelsList = {
+                    list: [],
+                    widgets: {}
+                };
                 // trips
                 this.tripsList = [];
             }
@@ -76,8 +79,9 @@ var MegaMine;
                 const self = this;
                 return self.$http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
                     .then(function (data) {
-                    self.manufacturer = data;
-                    self.utility.extend(self.modelsList, self.manufacturer.models);
+                    self.manufacturer = data.model;
+                    self.utility.extend(self.modelsList.list, self.manufacturer.models);
+                    angular.extend(self.manufacturerList.widgets, data.dashboard);
                     return data;
                 });
             }

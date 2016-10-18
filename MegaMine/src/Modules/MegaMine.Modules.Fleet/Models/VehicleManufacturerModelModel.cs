@@ -8,7 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Modules.Fleet.Models
 {
-    public class VehicleManufactureModelModel
+    public class VehicleManufacturerModelModel
     {
         public int VehicleModelId { get; set; }
 

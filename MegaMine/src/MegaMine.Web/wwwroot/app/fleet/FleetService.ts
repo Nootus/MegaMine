@@ -40,7 +40,10 @@
         public currentManufacturer: Models.IVehicleManufacturerModel = <Models.IVehicleManufacturerModel>{};
 
         // models
-        public modelsList: Models.IVehicleManufactureModelModel[] = [];
+        public modelsList: Widget.Models.IDashboardDataModel<Models.IVehicleManufacturerModelModel> = {
+            list: <Models.IVehicleManufacturerModelModel[]>[],
+            widgets: <Widget.Models.IDashboardWidgets>{}
+        };
 
         // trips
         public tripsList: Models.IVehicleTripModel[] = [];
@@ -83,9 +86,11 @@
         public getManufacturer(manufacturerId: number): ng.IHttpPromise<Models.IManufacturerDetailsModel> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
-                .then(function (data: Models.IManufacturerDetailsModel): Models.IManufacturerDetailsModel {
-                    self.manufacturer = data;
-                    self.utility.extend(self.modelsList, self.manufacturer.models);
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>)
+                    : Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel> {
+                    self.manufacturer = data.model;
+                    self.utility.extend(self.modelsList.list, self.manufacturer.models);
+                    angular.extend(self.manufacturerList.widgets, data.dashboard);
                     return data;
                 });
         }
@@ -131,7 +136,7 @@
             return self.$http.post<void>(url, model);
         }
 
-        public saveModel(model: Models.IVehicleManufactureModelModel): ng.IHttpPromise<void> {
+        public saveModel(model: Models.IVehicleManufacturerModelModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
             let url: string;
             if (model.vehicleModelId === 0) {

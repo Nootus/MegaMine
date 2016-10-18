@@ -1,5 +1,5 @@
 ﻿declare module MegaMine.Fleet.Models {
-    interface IVehicleManufactureModelModel {
+    interface IVehicleManufacturerModelModel {
         vehicleModelId: number;
         vehicleManufacturerId: number;
         name: string;

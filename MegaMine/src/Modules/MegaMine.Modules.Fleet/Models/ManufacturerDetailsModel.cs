@@ -18,6 +18,6 @@ namespace MegaMine.Modules.Fleet.Models
 
         public string Description { get; set; }
 
-        public List<VehicleManufactureModelModel> Models { get; set; }
+        public List<VehicleManufacturerModelModel> Models { get; set; }
     }
 }

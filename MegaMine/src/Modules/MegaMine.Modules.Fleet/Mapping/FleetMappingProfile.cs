@@ -21,33 +21,16 @@ namespace MegaMine.Modules.Fleet.Mapping
 
         protected override void Configure()
         {
-            Mapper.CreateMap<VehicleTypeEntity, VehicleTypeModel>();
-            Mapper.CreateMap<VehicleTypeModel, VehicleTypeEntity>();
-
-            Mapper.CreateMap<VehicleTripEntity, VehicleTripModel>();
-            Mapper.CreateMap<VehicleTripModel, VehicleTripEntity>();
-
-            Mapper.CreateMap<VehicleDriverEntity, VehicleDriverModel>();
-            Mapper.CreateMap<VehicleDriverModel, VehicleDriverEntity>();
-
-            Mapper.CreateMap<VehicleModelEntity, VehicleManufactureModelModel>();
-            Mapper.CreateMap<VehicleManufactureModelModel, VehicleModelEntity>();
-
-            Mapper.CreateMap<VehicleFuelEntity, FuelModel>();
-            Mapper.CreateMap<FuelModel, VehicleFuelEntity>();
-
-            Mapper.CreateMap<VehicleDriverAssignmentEntity, VehicleDriverAssignmentModel>();
-            Mapper.CreateMap<VehicleDriverAssignmentModel, VehicleDriverAssignmentEntity>();
-
-            Mapper.CreateMap<VehicleManufacturerEntity, VehicleManufacturerModel>();
-            Mapper.CreateMap<VehicleManufacturerModel, VehicleManufacturerEntity>();
-            Mapper.CreateMap<VehicleManufacturerEntity, ManufacturerDetailsModel>();
-
-            Mapper.CreateMap<VehicleEntity, VehicleModel>();
-            Mapper.CreateMap<VehicleModel, VehicleEntity>();
-
-            Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>();
-            Mapper.CreateMap<VehicleServiceModel, VehicleServiceEntity>();
+            Mapper.CreateMap<VehicleTypeEntity, VehicleTypeModel>().ReverseMap();
+            Mapper.CreateMap<VehicleTripEntity, VehicleTripModel>().ReverseMap();
+            Mapper.CreateMap<VehicleDriverEntity, VehicleDriverModel>().ReverseMap();
+            Mapper.CreateMap<VehicleModelEntity, VehicleManufacturerModelModel>().ReverseMap();
+            Mapper.CreateMap<VehicleFuelEntity, FuelModel>().ReverseMap();
+            Mapper.CreateMap<VehicleDriverAssignmentEntity, VehicleDriverAssignmentModel>().ReverseMap();
+            Mapper.CreateMap<VehicleManufacturerEntity, VehicleManufacturerModel>().ReverseMap();
+            Mapper.CreateMap<VehicleManufacturerEntity, ManufacturerDetailsModel>().ReverseMap();
+            Mapper.CreateMap<VehicleEntity, VehicleModel>().ReverseMap();
+            Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>().ReverseMap();
         }
     }
 }

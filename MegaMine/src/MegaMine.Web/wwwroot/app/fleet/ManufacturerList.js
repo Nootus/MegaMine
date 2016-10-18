@@ -52,8 +52,8 @@ var MegaMine;
                     }
                 };
             }
-            viewManufacturer(model) {
-                this.navigation.gotoManufacturer(model.vehicleManufacturerId);
+            viewManufacturer(model, dialogMode, ev, context) {
+                context.navigation.gotoManufacturer(model.vehicleManufacturerId);
             }
             addManufacturer(ev, context) {
                 const self = context;
