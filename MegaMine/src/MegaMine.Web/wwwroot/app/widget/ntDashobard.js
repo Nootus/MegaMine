@@ -6,10 +6,11 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
     return {
         restrict: 'E',
         scope: {
-            dashboard: '='
+            dashboard: '=',
+            headerClass: '@',
         },
         link: link,
-        template: '<nt-toolbar header="{{dashboard.header}}" class="command-bar">'
+        template: '<nt-toolbar header="{{dashboard.header}}" class="command-bar {{headerClass}}">'
                         + '<nt-button type="command-bar" icon-css="plus-square-o" tool-tip="Add Widget" text="Widget" ng-click="addWidget($event)" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="ban" tool-tip="Clear Widgets" text="Clear" ng-click="clearWidgets()" ng-hide="viewType === viewTypeEnum.grid"></nt-button>'
                         + '<nt-button type="command-bar" icon-css="list" tool-tip="Toogle List" text="List" ng-click="toggleListView()" ng-hide="viewType === viewTypeEnum.grid || viewType === viewTypeEnum.dashboardOnly"></nt-button>'

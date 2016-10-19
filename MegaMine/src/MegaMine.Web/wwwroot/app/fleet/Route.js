@@ -147,7 +147,7 @@ var MegaMine;
                     title: "Manufacturer",
                     previousState: "manufacturerList",
                     templateUrl: "/app/fleet/manufacturer.html",
-                    controller: "manufacturer",
+                    controller: Fleet.Manufacturer,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",

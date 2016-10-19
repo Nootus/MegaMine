@@ -381,7 +381,7 @@ h3.left-bar-item + div > div {
 /* Command Bar & Dialog Bar */
 .command-bar > md-toolbar, .command-bar > md-toolbar {
     min-height: 46px;
-    background-color: rgba(67, 116, 167, 0.25) !important;
+    background-color: rgba(67, 116, 167, 0.25);
     color: white;
     height: 46px;
 
@@ -420,6 +420,10 @@ h3.left-bar-item + div > div {
 .command-bar-button:hover > .command-bar-button-icon {
     font-size: 20px;
     margin-top: 0px;
+}
+
+.command-bar.sub-bar > md-toolbar {
+    background-color: #4f667b;
 }
 
 .left-bar-item .command-bar-button:hover > .command-bar-button-icon {

@@ -15,13 +15,13 @@ var MegaMine;
                 const self = this;
                 const gridOptions = {
                     columnDefs: [
-                        { name: 'name', field: 'name', displayName: 'Name', type: 'string' },
-                        { name: 'description', field: 'description', displayName: 'Description', type: 'string' }
+                        { name: "name", field: "name", displayName: "Name", type: "string" },
+                        { name: "description", field: "description", displayName: "Description", type: "string" }
                     ]
                 };
                 self.model = fleetService.manufacturer;
                 self.dashboard = {
-                    header: self.model.name,
+                    header: "Models",
                     context: self,
                     widgets: {
                         allWidgets: fleetService.modelsList.widgets.allWidgets,
@@ -29,7 +29,7 @@ var MegaMine;
                     },
                     records: {
                         options: {
-                            primaryField: "vehicleManufacturerId",
+                            primaryField: "vehicleModelId",
                             data: fleetService.modelsList.list,
                             view: self.viewDialog
                         },
@@ -69,23 +69,31 @@ var MegaMine;
             viewDialog(model, dialogMode, ev, context) {
                 const self = context;
                 self.dialogService.show({
-                    templateUrl: 'vehicle_model_dialog',
+                    templateUrl: "vehicle_model_dialog",
                     targetEvent: ev,
                     data: { model: model },
                     dialogMode: dialogMode
                 })
                     .then(function (dialogModel) {
-                    self.fleetService.saveModel(dialogModel).then(function () {
-                        //update the grid values
-                        if (dialogModel.vehicleModelId === 0) {
+                    if (dialogMode === 2 /* delete */) {
+                        self.fleetService.deleteModel(dialogModel.vehicleModelId).then(function () {
                             self.fleetService.getManufacturer(dialogModel.vehicleManufacturerId);
-                        }
-                        else {
-                            model.name = dialogModel.name;
-                            model.description = dialogModel.description;
-                        }
-                        self.dialogService.hide();
-                    });
+                            self.dialogService.hide();
+                        });
+                    }
+                    else {
+                        self.fleetService.saveModel(dialogModel).then(function () {
+                            // update the grid values
+                            if (dialogModel.vehicleModelId === 0) {
+                                self.fleetService.getManufacturer(dialogModel.vehicleManufacturerId);
+                            }
+                            else {
+                                model.name = dialogModel.name;
+                                model.description = dialogModel.description;
+                            }
+                            self.dialogService.hide();
+                        });
+                    }
                 });
             }
         };

@@ -140,7 +140,7 @@ namespace MegaMine.Modules.Fleet.Controllers
         [HttpGet]
         public async Task<AjaxModel<ManufacturerDetailsModel>> ManufacturerDetailsGet(int manufacturerId)
         {
-            return await AjaxHelper.GetAsync(m => this.domain.ManufacturerDetailsGet(manufacturerId));
+            return await AjaxHelper.GetDashboardAsync(m => this.domain.ManufacturerDetailsGet(manufacturerId), this.dashboardDomain, this.widgetDomain);
         }
 
         [HttpPost]
@@ -153,6 +153,12 @@ namespace MegaMine.Modules.Fleet.Controllers
         public async Task<AjaxModel<NTModel>> ModelUpdate([FromBody] VehicleManufacturerModelModel model)
         {
             return await AjaxHelper.SaveAsync(m => this.domain.ModelSave(model), FleetMessages.VehicleModelSaveSuccess);
+        }
+
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> ModelDelete([FromBody] int vehicleModelId)
+        {
+            return await AjaxHelper.SaveAsync(m => this.domain.ModelDelete(vehicleModelId), FleetMessages.VehicleModelDeleteSuccess);
         }
 
         // Driver

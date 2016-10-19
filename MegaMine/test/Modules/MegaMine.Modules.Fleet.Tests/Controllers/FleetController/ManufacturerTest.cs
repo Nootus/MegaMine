@@ -149,5 +149,23 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             Assert.Equal(entity.Name, "PC8000-6");
             Assert.Equal(ajaxModel.Message, FleetMessages.VehicleModelSaveSuccess);
         }
+
+        [Fact]
+        public async void ModelDelete()
+        {
+            // Arrange
+            this.FleetDbContext.VehicleModels.AddRange(
+                    new VehicleModelEntity() { VehicleModelId = 1, Name = "PC138USLC-10", VehicleManufacturerId = 2, CompanyId = 1, DeletedInd = false },
+                    new VehicleModelEntity() { VehicleModelId = 2, Name = "PC3000-6", VehicleManufacturerId = 2, CompanyId = 1, DeletedInd = false });
+            await this.SaveChangesAsync(this.FleetDbContext);
+
+            // Act
+            AjaxModel<NTModel> ajaxModel = await this.Controller.ModelDelete(2);
+
+            // Assert
+            VehicleModelEntity entity = this.FleetDbContext.VehicleModels.Where(e => e.VehicleModelId == 2).First();
+            Assert.Equal(entity.DeletedInd, true);
+            Assert.Equal(ajaxModel.Message, FleetMessages.VehicleModelDeleteSuccess);
+        }
     }
 }

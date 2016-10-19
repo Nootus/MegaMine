@@ -15,13 +15,17 @@ namespace MegaMine.Modules.Fleet.Shared
         public const string VehicleTypeDeleteSuccess = "Vehicle Type Deleted Successfully";
 
         public const string VehicleManufacturerSaveSuccess = "Manufacturer Saved Successfully";
+        public const string VehicleManufacturerDeleteSuccess = "Manufacturer Deleted Successfully";
+        public const string VehicleModelSaveSuccess = "Vehicle Model Saved Successfully";
+        public const string VehicleModelDeleteSuccess = "Vehicle Model Deleted Successfully";
+
+        // Driver
         public const string DriverSaveSuccess = "Driver Saved Successfully";
         public const string DriverDeleteSuccess = "Driver Deleted Successfully";
 
         // vehicle Messages
         public const string VehicleServiceSaveSuccess = "Vehicle Service Saved Successfully";
         public const string VehicleSaveSuccess = "Vehicle Saved Successfully";
-        public const string VehicleModelSaveSuccess = "Vehicle Model Saved Successfully";
         public const string DriveAssessmentError = "Driver is already assigned. Cannot assign another driver";
         public const string FuelSaveSuccess = "Fuel Saved Successfully";
         public const string FuelInvalidOdometer = "Invalid Odometer or Date. There is already a higher Odometer reading";

@@ -162,12 +162,12 @@
                     title: "Manufacturer",
                     previousState: "manufacturerList",
                     templateUrl: "/app/fleet/manufacturer.html",
-                    controller: "manufacturer",
+                    controller: Manufacturer,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
                             function ($stateParams: ng.ui.IFleetRouteStateParamsService, fleetService: FleetService):
-                                ng.IHttpPromise<Models.IManufacturerDetailsModel> {
+                                ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>> {
                             return fleetService.getManufacturer($stateParams.manufacturerid);
                         }]
                     }

@@ -1,5 +1,5 @@
 ﻿//-------------------------------------------------------------------------------------------------
-// <copyright file="VehicleManufactureModelModel.cs" company="Nootus">
+// <copyright file="VehicleManufacturerModelModel.cs" company="Nootus">
 //  Copyright (c) Nootus. All rights reserved.
 // </copyright>
 // <description>

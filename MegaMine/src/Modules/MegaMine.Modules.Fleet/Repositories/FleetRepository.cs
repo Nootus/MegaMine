@@ -78,12 +78,6 @@ namespace MegaMine.Modules.Fleet.Repositories
             await this.DeleteEntity<VehicleDriverEntity>(vehicleDriverId);
         }
 
-        // Vehicle Model
-        public async Task ModelSave(VehicleManufacturerModelModel model)
-        {
-            await this.SaveEntity<VehicleModelEntity, VehicleManufacturerModelModel>(model);
-        }
-
         // Fuel
         public async Task<List<FuelModel>> FuelGetList(int vehicleId)
         {
@@ -239,6 +233,16 @@ namespace MegaMine.Modules.Fleet.Repositories
         public async Task<List<VehicleManufacturerModelModel>> VehicleManufactureModelGet()
         {
             return await this.GetListAsync<VehicleModelEntity, VehicleManufacturerModelModel>(sort => sort.Name);
+        }
+
+        public async Task ModelSave(VehicleManufacturerModelModel model)
+        {
+            await this.SaveEntity<VehicleModelEntity, VehicleManufacturerModelModel>(model);
+        }
+
+        public async Task ModelDelete(int vehicleModelId)
+        {
+            await this.DeleteEntity<VehicleModelEntity>(vehicleModelId);
         }
 
         // Vehicle

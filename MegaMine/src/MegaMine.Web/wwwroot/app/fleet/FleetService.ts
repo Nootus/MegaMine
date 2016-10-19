@@ -83,7 +83,7 @@
             return self.$http.post<void>("/api/fleet/vehiclefuelreset", vehicleId);
         }
 
-        public getManufacturer(manufacturerId: number): ng.IHttpPromise<Models.IManufacturerDetailsModel> {
+        public getManufacturer(manufacturerId: number): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
                 .then(function (data: Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>)
@@ -146,6 +146,13 @@
             }
             return self.$http.post<void>(url, model);
         }
+
+        public deleteModel(vehicleModelId: number): ng.IHttpPromise<void> {
+            const self: FleetService = this;
+            return self.$http.post<void>("/api/fleet/modeldelete", vehicleModelId);
+        }
+
+
 
         public getVehicleDriverList(vehicleId: number): ng.IHttpPromise<Models.IVehicleDriverAssignmentModel[]> {
             const self: FleetService = this;

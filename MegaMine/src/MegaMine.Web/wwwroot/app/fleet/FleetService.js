@@ -134,6 +134,10 @@ var MegaMine;
                 }
                 return self.$http.post(url, model);
             }
+            deleteModel(vehicleModelId) {
+                const self = this;
+                return self.$http.post("/api/fleet/modeldelete", vehicleModelId);
+            }
             getVehicleDriverList(vehicleId) {
                 const self = this;
                 return self.$http.get("/api/fleet/vehicledrivergetlist", { params: { "vehicleId": vehicleId } })
