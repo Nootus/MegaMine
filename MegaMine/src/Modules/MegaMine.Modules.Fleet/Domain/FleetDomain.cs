@@ -89,19 +89,19 @@ namespace MegaMine.Modules.Fleet.Domain
             return await this.fleetRepository.VehicleManufacturersGet();
         }
 
-        public async Task VehicleManufacturerSave(VehicleManufacturerModel model)
-        {
-           await this.fleetRepository.VehicleManufacturerSave(model);
-        }
-
         public async Task VehicleFuelSave(FuelModel model)
         {
            await this.fleetRepository.FuelSave(model);
         }
 
-        public async Task ManufacturerSave(VehicleManufacturerModel model)
+        public async Task VehicleManufacturerSave(VehicleManufacturerModel model)
         {
            await this.fleetRepository.VehicleManufacturerSave(model);
+        }
+
+        public async Task VehicleManufacturerDelete(int manufacturerId)
+        {
+            await this.fleetRepository.VehicleManufacturerDelete(manufacturerId);
         }
 
         public async Task<VehicleManufacturerModel> VehicleManufacturerGet(int manufacturerId)

@@ -91,6 +91,24 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
         }
 
         [Fact]
+        public async void ManufacturerDelete()
+        {
+            // Arrange
+            this.FleetDbContext.VehicleManufacturers.AddRange(
+                    new VehicleManufacturerEntity() { VehicleManufacturerId = 1, Name = "Deere", CompanyId = 1, DeletedInd = false },
+                    new VehicleManufacturerEntity() { VehicleManufacturerId = 2, Name = "Komatsu", CompanyId = 1, DeletedInd = false });
+            await this.SaveChangesAsync(this.FleetDbContext);
+
+            // Act
+            AjaxModel<NTModel> ajaxModel = await this.Controller.ManufacturerDelete(2);
+
+            // Assert
+            VehicleManufacturerEntity entity = this.FleetDbContext.VehicleManufacturers.Where(e => e.VehicleManufacturerId == 2).First();
+            Assert.Equal(entity.DeletedInd, true);
+            Assert.Equal(ajaxModel.Message, FleetMessages.VehicleManufacturerDeleteSuccess);
+        }
+
+        [Fact]
         public async void ManufacturerDetailsGet()
         {
             // Arrange

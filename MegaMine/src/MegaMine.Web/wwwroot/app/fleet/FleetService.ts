@@ -57,18 +57,6 @@
                 });
         }
 
-
-        public getManufacturerList(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]>> {
-            const self: FleetService = this;
-            return self.$http.get("/api/fleet/manufacturersget")
-                .then(function (data: Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]>):
-                    Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]> {
-                    self.utility.extend(self.manufacturerList.list, data.model);
-                    angular.extend(self.manufacturerList.widgets, data.dashboard);
-                    return data;
-                });
-        }
-
         public getVehicle(vehicleId: number): ng.IHttpPromise<Models.IVehicleDetailsModel> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/vehicledetailsget", { params: { "vehicleId": vehicleId } })
@@ -81,18 +69,6 @@
         public resetFuelAverage(vehicleId: number): ng.IHttpPromise<void> {
             const self: FleetService = this;
             return self.$http.post<void>("/api/fleet/vehiclefuelreset", vehicleId);
-        }
-
-        public getManufacturer(manufacturerId: number): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>> {
-            const self: FleetService = this;
-            return self.$http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
-                .then(function (data: Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>)
-                    : Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel> {
-                    self.manufacturer = data.model;
-                    self.utility.extend(self.modelsList.list, self.manufacturer.models);
-                    angular.extend(self.manufacturerList.widgets, data.dashboard);
-                    return data;
-                });
         }
 
         public getTripList(vehicleId: number): ng.IHttpPromise<Models.IVehicleTripModel[]> {
@@ -136,6 +112,52 @@
             return self.$http.post<void>(url, model);
         }
 
+        public getManufacturerList(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]>> {
+            const self: FleetService = this;
+            return self.$http.get("/api/fleet/manufacturersget")
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]>):
+                    Shared.Models.IAjaxDataModel<Models.IVehicleManufacturerModel[]> {
+                    self.utility.extend(self.manufacturerList.list, data.model);
+                    angular.extend(self.manufacturerList.widgets, data.dashboard);
+                    return data;
+                });
+        }
+
+        public getManufacturer(manufacturerId: number): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>> {
+            const self: FleetService = this;
+            return self.$http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>)
+                    : Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel> {
+                    self.manufacturer = data.model;
+                    self.utility.extend(self.modelsList.list, self.manufacturer.models);
+                    angular.extend(self.manufacturerList.widgets, data.dashboard);
+                    return data;
+                });
+        }
+
+        public saveManufacturer(model: Models.IVehicleManufacturerModel): ng.IHttpPromise<void> {
+            const self: FleetService = this;
+            let url: string;
+            if (model.vehicleManufacturerId === 0) {
+                url = "/api/fleet/manufactureradd";
+            } else {
+                url = "/api/fleet/manufacturerupdate";
+            }
+
+            return self.$http.post(url, model)
+                .then(function (): ng.IHttpPromise<void> {
+                    // updating the current manufacturer so that the view manufacturer screen gets refreshed properly.
+                    self.manufacturer.name = model.name;
+                    self.manufacturer.description = model.description;
+                    return;
+                });
+        }
+
+        public deleteManufacturer(vehicleManufacturerId: number): ng.IHttpPromise<void> {
+            const self: FleetService = this;
+            return self.$http.post<void>("/api/fleet/manufacturerdelete", vehicleManufacturerId);
+        }
+
         public saveModel(model: Models.IVehicleManufacturerModelModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
             let url: string;
@@ -151,8 +173,6 @@
             const self: FleetService = this;
             return self.$http.post<void>("/api/fleet/modeldelete", vehicleModelId);
         }
-
-
 
         public getVehicleDriverList(vehicleId: number): ng.IHttpPromise<Models.IVehicleDriverAssignmentModel[]> {
             const self: FleetService = this;
@@ -253,25 +273,6 @@
                     self.vehicle.vehicleType = model.vehicleType;
                     self.vehicle.manufacturer = model.manufacturer;
                     self.vehicle.vehicleModel = model.vehicleModel;
-                    return;
-                });
-        }
-
-        public saveManufacturer(model: Models.IVehicleManufacturerModel): ng.IHttpPromise<void> {
-            const self: FleetService = this;
-            let url: string;
-            if (model.vehicleManufacturerId === 0) {
-                url = "/api/fleet/manufactureradd";
-            } else {
-                url = "/api/fleet/manufacturerupdate";
-            }
-
-            return self.$http.post(url, model)
-                .then(function (): ng.IHttpPromise<void>
-                {
-                    // updating the current manufacturer so that the view manufacturer screen gets refreshed properly.
-                    self.manufacturer.name = model.name;
-                    self.manufacturer.description = model.description;
                     return;
                 });
         }

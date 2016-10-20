@@ -1,13 +1,13 @@
 ﻿module MegaMine.Fleet {
 
     @controller("megamine", "MegaMine.Fleet.Manufacturer")
-    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService")
+    @inject("MegaMine.Fleet.FleetService", "MegaMine.Fleet.ManufacturerDialog", "MegaMine.Shared.Dialog.DialogService")
     export class Manufacturer {
 
         public dashboard: Widget.Models.IDashboardModel<Manufacturer, Models.IVehicleManufacturerModelModel>;
         public model: Models.IManufacturerDetailsModel;
 
-        constructor(private fleetService: FleetService,
+        constructor(private fleetService: FleetService, private manufacturerDialog: MegaMine.Fleet.ManufacturerDialog,
             private dialogService: Shared.Dialog.DialogService<Models.IVehicleManufacturerModel>) {
             const self: Manufacturer = this;
             const gridOptions: uiGrid.IGridOptions = {
@@ -57,9 +57,15 @@
             };
         }
 
-        //function viewManufacturer(ev) {
-        //    manufacturerDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
-        //}
+        public viewManufacturer(ev) {
+            const self: Manufacturer = this;
+            self.manufacturerDialog.viewDialog(self.model, Shared.Dialog.Models.DialogMode.save, ev);
+        }
+
+        public deleteManufacturer(ev) {
+            const self: Manufacturer = this;
+            self.manufacturerDialog.viewDialog(self.model, Shared.Dialog.Models.DialogMode.delete, ev);
+        }
 
         public addModel(ev: ng.IAngularEvent, context: Manufacturer): void {
             const self: Manufacturer = context;

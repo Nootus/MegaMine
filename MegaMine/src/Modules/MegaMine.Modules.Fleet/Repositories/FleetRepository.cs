@@ -230,6 +230,11 @@ namespace MegaMine.Modules.Fleet.Repositories
             await this.SaveEntity<VehicleManufacturerEntity, VehicleManufacturerModel>(model);
         }
 
+        public async Task VehicleManufacturerDelete(int manufacturerId)
+        {
+            await this.DeleteEntity<VehicleManufacturerEntity>(manufacturerId);
+        }
+
         public async Task<List<VehicleManufacturerModelModel>> VehicleManufactureModelGet()
         {
             return await this.GetListAsync<VehicleModelEntity, VehicleManufacturerModelModel>(sort => sort.Name);

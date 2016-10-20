@@ -9,13 +9,14 @@ var MegaMine;
     var Fleet;
     (function (Fleet) {
         let ManufacturerDialog = class ManufacturerDialog {
-            constructor(fleetService, dialogService, utility) {
+            constructor(fleetService, dialogService, navigation, utility) {
                 this.fleetService = fleetService;
                 this.dialogService = dialogService;
+                this.navigation = navigation;
                 this.utility = utility;
             }
-            viewDialog(model, dialogMode, ev, context) {
-                const self = context;
+            viewDialog(model, dialogMode, ev) {
+                const self = this;
                 self.dialogService.show({
                     templateUrl: self.utility.virtualDirectory + '/app/fleet/manufacturerDialog.html',
                     targetEvent: ev,
@@ -23,22 +24,30 @@ var MegaMine;
                     dialogMode: dialogMode
                 })
                     .then(function (dialogModel) {
-                    self.fleetService.saveManufacturer(dialogModel).then(function () {
-                        if (model.vehicleManufacturerId === 0) {
-                            self.fleetService.getManufacturerList();
-                        }
-                        else {
-                            model.name = dialogModel.name;
-                            model.description = dialogModel.description;
-                        }
-                    });
-                    self.dialogService.hide();
+                    if (dialogMode === 2 /* delete */) {
+                        self.fleetService.deleteManufacturer(dialogModel.vehicleManufacturerId).then(function () {
+                            self.dialogService.hide();
+                            self.navigation.go("manufacturerlist");
+                        });
+                    }
+                    else {
+                        self.fleetService.saveManufacturer(dialogModel).then(function () {
+                            if (model.vehicleManufacturerId === 0) {
+                                self.fleetService.getManufacturerList();
+                            }
+                            else {
+                                model.name = dialogModel.name;
+                                model.description = dialogModel.description;
+                            }
+                        });
+                        self.dialogService.hide();
+                    }
                 });
             }
         };
         ManufacturerDialog = __decorate([
-            MegaMine.controller("megamine", "MegaMine.Fleet.Manufacturer"),
-            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Utility")
+            MegaMine.service("megamine", "MegaMine.Fleet.ManufacturerDialog"),
+            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Navigation", "MegaMine.Shared.Utility")
         ], ManufacturerDialog);
         Fleet.ManufacturerDialog = ManufacturerDialog;
     })(Fleet = MegaMine.Fleet || (MegaMine.Fleet = {}));

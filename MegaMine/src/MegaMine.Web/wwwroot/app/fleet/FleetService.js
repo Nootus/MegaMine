@@ -54,15 +54,6 @@ var MegaMine;
                     return data;
                 });
             }
-            getManufacturerList() {
-                const self = this;
-                return self.$http.get("/api/fleet/manufacturersget")
-                    .then(function (data) {
-                    self.utility.extend(self.manufacturerList.list, data.model);
-                    angular.extend(self.manufacturerList.widgets, data.dashboard);
-                    return data;
-                });
-            }
             getVehicle(vehicleId) {
                 const self = this;
                 return self.$http.get("/api/fleet/vehicledetailsget", { params: { "vehicleId": vehicleId } })
@@ -74,16 +65,6 @@ var MegaMine;
             resetFuelAverage(vehicleId) {
                 const self = this;
                 return self.$http.post("/api/fleet/vehiclefuelreset", vehicleId);
-            }
-            getManufacturer(manufacturerId) {
-                const self = this;
-                return self.$http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
-                    .then(function (data) {
-                    self.manufacturer = data.model;
-                    self.utility.extend(self.modelsList.list, self.manufacturer.models);
-                    angular.extend(self.manufacturerList.widgets, data.dashboard);
-                    return data;
-                });
             }
             getTripList(vehicleId) {
                 const self = this;
@@ -122,6 +103,46 @@ var MegaMine;
                     url = "/api/fleet/fuelupdate";
                 }
                 return self.$http.post(url, model);
+            }
+            getManufacturerList() {
+                const self = this;
+                return self.$http.get("/api/fleet/manufacturersget")
+                    .then(function (data) {
+                    self.utility.extend(self.manufacturerList.list, data.model);
+                    angular.extend(self.manufacturerList.widgets, data.dashboard);
+                    return data;
+                });
+            }
+            getManufacturer(manufacturerId) {
+                const self = this;
+                return self.$http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
+                    .then(function (data) {
+                    self.manufacturer = data.model;
+                    self.utility.extend(self.modelsList.list, self.manufacturer.models);
+                    angular.extend(self.manufacturerList.widgets, data.dashboard);
+                    return data;
+                });
+            }
+            saveManufacturer(model) {
+                const self = this;
+                let url;
+                if (model.vehicleManufacturerId === 0) {
+                    url = "/api/fleet/manufactureradd";
+                }
+                else {
+                    url = "/api/fleet/manufacturerupdate";
+                }
+                return self.$http.post(url, model)
+                    .then(function () {
+                    // updating the current manufacturer so that the view manufacturer screen gets refreshed properly.
+                    self.manufacturer.name = model.name;
+                    self.manufacturer.description = model.description;
+                    return;
+                });
+            }
+            deleteManufacturer(vehicleManufacturerId) {
+                const self = this;
+                return self.$http.post("/api/fleet/manufacturerdelete", vehicleManufacturerId);
             }
             saveModel(model) {
                 const self = this;
@@ -231,23 +252,6 @@ var MegaMine;
                     self.vehicle.vehicleType = model.vehicleType;
                     self.vehicle.manufacturer = model.manufacturer;
                     self.vehicle.vehicleModel = model.vehicleModel;
-                    return;
-                });
-            }
-            saveManufacturer(model) {
-                const self = this;
-                let url;
-                if (model.vehicleManufacturerId === 0) {
-                    url = "/api/fleet/manufactureradd";
-                }
-                else {
-                    url = "/api/fleet/manufacturerupdate";
-                }
-                return self.$http.post(url, model)
-                    .then(function () {
-                    // updating the current manufacturer so that the view manufacturer screen gets refreshed properly.
-                    self.manufacturer.name = model.name;
-                    self.manufacturer.description = model.description;
                     return;
                 });
             }

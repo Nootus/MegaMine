@@ -1,5 +1,7 @@
-﻿<nt-toolbar-button header="Manufacturer Details" button-text="Edit Manufacturer" button-icon="edit" button-click="vm.viewManufacturer($event)" claim="Fleet:ManufacturerEdit"></nt-toolbar-button>
-
+﻿<nt-toolbar header="Manufacturer Details">
+    <nt-button type="command-bar" icon="delete" tool-tip="Delete Manufacturer" text="Delete" ng-click="vm.deleteManufacturer($event)" claim="Fleet:ManufacturerDelete"></nt-button>
+    <nt-button type="command-bar" icon="edit" tool-tip="Edit Manufacturer" text="Edit" ng-click="vm.viewManufacturer($event)" claim="Fleet:ManufacturerEdit"></nt-button>
+</nt-toolbar>
 
 <md-content layout-padding>
     <div layout="row">

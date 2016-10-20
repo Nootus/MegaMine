@@ -9,8 +9,9 @@ var MegaMine;
     var Fleet;
     (function (Fleet) {
         let Manufacturer = class Manufacturer {
-            constructor(fleetService, dialogService) {
+            constructor(fleetService, manufacturerDialog, dialogService) {
                 this.fleetService = fleetService;
+                this.manufacturerDialog = manufacturerDialog;
                 this.dialogService = dialogService;
                 const self = this;
                 const gridOptions = {
@@ -58,9 +59,14 @@ var MegaMine;
                     }
                 };
             }
-            //function viewManufacturer(ev) {
-            //    manufacturerDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
-            //}
+            viewManufacturer(ev) {
+                const self = this;
+                self.manufacturerDialog.viewDialog(self.model, 1 /* save */, ev);
+            }
+            deleteManufacturer(ev) {
+                const self = this;
+                self.manufacturerDialog.viewDialog(self.model, 2 /* delete */, ev);
+            }
             addModel(ev, context) {
                 const self = context;
                 let model = { vehicleModelId: 0, vehicleManufacturerId: self.model.vehicleManufacturerId };
@@ -99,7 +105,7 @@ var MegaMine;
         };
         Manufacturer = __decorate([
             MegaMine.controller("megamine", "MegaMine.Fleet.Manufacturer"),
-            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService")
+            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Fleet.ManufacturerDialog", "MegaMine.Shared.Dialog.DialogService")
         ], Manufacturer);
         Fleet.Manufacturer = Manufacturer;
     })(Fleet = MegaMine.Fleet || (MegaMine.Fleet = {}));
