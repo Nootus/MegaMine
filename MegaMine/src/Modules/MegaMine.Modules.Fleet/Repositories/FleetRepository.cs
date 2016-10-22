@@ -373,15 +373,22 @@ namespace MegaMine.Modules.Fleet.Repositories
 
         public async Task<VehicleDetailsModel> VehicleServiceSave(VehicleServiceModel model)
         {
+            VehicleServiceEntity entity;
+
             decimal serviceCost = model.TotalServiceCost;
             if (model.VehicleServiceId != 0)
             {
-                VehicleServiceEntity currentService = await this.SingleAsync<VehicleServiceEntity>(e => e.VehicleServiceId == model.VehicleServiceId);
-                serviceCost = model.TotalServiceCost - currentService.TotalServiceCost;
+                VehicleServiceEntity currentServiceEntity = await this.SingleAsync<VehicleServiceEntity>(e => e.VehicleServiceId == model.VehicleServiceId);
+                serviceCost = model.TotalServiceCost - currentServiceEntity.TotalServiceCost;
+
+                entity = await this.UpdateEntity<VehicleServiceEntity, VehicleServiceModel>(currentServiceEntity, model, false);
+            }
+            else
+            {
+                entity = await this.AddEntity<VehicleServiceEntity, VehicleServiceModel>(model, false);
             }
 
-            // saving vehicle service and updating the vehicle details
-            VehicleServiceEntity entity = await this.SaveEntity<VehicleServiceEntity, VehicleServiceModel>(model, false);
+            // updating the vehicle details
             await this.VehicleServiceVehicleUpdate(entity, serviceCost);
             await this.DbContext.SaveChangesAsync();
 

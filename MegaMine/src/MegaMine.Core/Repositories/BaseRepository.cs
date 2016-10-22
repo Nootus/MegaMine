@@ -87,7 +87,15 @@ namespace MegaMine.Core.Repositories
         {
             TEntity entity = Mapper.Map<TModel, TEntity>(model);
 
-            return await this.UpdateEntity<TEntity>(entity, false, commit);
+            return await this.UpdateEntity<TEntity>(entity, true, commit);
+        }
+
+        protected async Task<TEntity> UpdateEntity<TEntity, TModel>(TEntity entity, TModel model, bool commit = true)
+            where TEntity : BaseEntity
+        {
+            entity = Mapper.Map<TModel, TEntity>(model, entity);
+
+            return await this.UpdateEntity<TEntity>(entity, true, commit);
         }
 
         protected async Task<TEntity> UpdateEntity<TEntity>(TEntity entity, bool updateAuditFields, bool commit)

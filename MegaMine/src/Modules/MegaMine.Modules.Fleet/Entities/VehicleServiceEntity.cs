@@ -33,7 +33,5 @@ namespace MegaMine.Modules.Fleet.Entities
         public decimal MiscServiceCost { get; set; }
 
         public string Description { get; set; }
-
-        public VehicleEntity Vehicle { get; set; }
     }
 }

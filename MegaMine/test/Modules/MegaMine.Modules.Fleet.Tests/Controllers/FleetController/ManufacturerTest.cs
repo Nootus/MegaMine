@@ -160,7 +160,7 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             VehicleManufacturerModelModel model = new VehicleManufacturerModelModel() { VehicleModelId = 2, Name = "PC8000-6" };
 
             // Act
-            AjaxModel<NTModel> ajaxModel = await this.Controller.ModelAdd(model);
+            AjaxModel<NTModel> ajaxModel = await this.Controller.ModelUpdate(model);
 
             // Assert
             VehicleModelEntity entity = this.FleetDbContext.VehicleModels.Where(e => e.VehicleModelId == 2).First();

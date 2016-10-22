@@ -30,7 +30,10 @@ namespace MegaMine.Modules.Fleet.Mapping
             Mapper.CreateMap<VehicleManufacturerEntity, VehicleManufacturerModel>().ReverseMap();
             Mapper.CreateMap<VehicleManufacturerEntity, ManufacturerDetailsModel>().ReverseMap();
             Mapper.CreateMap<VehicleEntity, VehicleModel>().ReverseMap();
-            Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>().ReverseMap();
+            Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>()
+                .ForMember(dest => dest.ServiceDate, opt => opt.MapFrom(src => src.ServiceStartDate))
+                .ReverseMap()
+                .ForMember(dest => dest.ServiceStartDate, opt => opt.MapFrom(src => src.ServiceDate));
         }
     }
 }
