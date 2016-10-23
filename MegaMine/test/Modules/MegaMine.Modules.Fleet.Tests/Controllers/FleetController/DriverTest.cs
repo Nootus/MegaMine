@@ -142,17 +142,8 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
         [InlineData("2016/1/1", "2016/1/15")]
         [InlineData("2016/1/1", null)]
         [InlineData("2016/1/1", "2015/10/31")]
-        public async void VehicleDriverAdd(string startDateString, string endDateString)
+        public async void VehicleDriverAdd(DateTime startDate, DateTime endDate)
         {
-            // Variables
-            DateTime startDate = DateTime.Parse(startDateString);
-            DateTime? endDate = null;
-
-            if (endDateString != null)
-            {
-                endDate = DateTime.Parse(endDateString);
-            }
-
             // Arrange
             this.FleetDbContext.Vehicles.Add(new VehicleEntity() { VehicleId = 1 });
             await this.SaveChangesAsync(this.FleetDbContext);

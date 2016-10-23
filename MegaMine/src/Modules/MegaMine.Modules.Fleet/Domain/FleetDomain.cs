@@ -89,11 +89,6 @@ namespace MegaMine.Modules.Fleet.Domain
             return await this.fleetRepository.VehicleManufacturersGet();
         }
 
-        public async Task VehicleFuelSave(FuelModel model)
-        {
-           await this.fleetRepository.FuelSave(model);
-        }
-
         public async Task VehicleManufacturerSave(VehicleManufacturerModel model)
         {
            await this.fleetRepository.VehicleManufacturerSave(model);
@@ -170,42 +165,5 @@ namespace MegaMine.Modules.Fleet.Domain
         {
           await this.fleetRepository.VehicleDriverSave(model);
         }
-
-/*
-        //public async Task<List<SparePartModel>> SparePartListGet()
-        //{
-        //    return await sparepartRepository.SparePartListGet();
-        //}
-
-        //public async Task<SparePartDetailsModel> SparePartDetailsGet(int sparePartId)
-        //{
-        //   return   await sparepartRepository.SparePartDetailsGet(sparePartId, vehicleRepository);
-        //}
-
-        //public async Task<SparePartModel> SparePartGet(int sparePartId)
-        //{
-        //    return await sparepartRepository.SparePartGet(sparePartId, vehicleRepository);
-        //}
-
-        //public async Task  SparePartSave(SparePartModel model)
-        //{
-        //   await sparepartRepository.SparePartSave(model);
-        //}
-
-        //public async Task SparePartManufacturerSave(SparePartManufacturerModel model)
-        //{
-        //  await sparepartRepository.SparePartManufacturerModelSave(model);
-        //}
-
-        //public async Task<SparePartOrderModel> SparePartOrderGet(int sparePartOrderId)
-        //{
-        //    return await sparepartRepository.SparePartOrderGet(sparePartOrderId);
-        //}
-
-        //public async Task  SparePartOrderSave(SparePartOrderModel model)
-        //{
-        //  await  sparepartRepository.SparePartOrderSave(model);
-        //}
-*/
     }
 }

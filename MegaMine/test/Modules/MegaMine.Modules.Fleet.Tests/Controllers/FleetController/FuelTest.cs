@@ -67,7 +67,7 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             FuelModel model = new FuelModel() { VehicleFuelId = 2, VehicleId = 1, FuelDate = new DateTime(2016, 2, 1), Odometer = 1300, Quantity = 30 };
 
             // Act
-            AjaxModel<NTModel> ajaxModel = await this.Controller.FuelAdd(model);
+            AjaxModel<NTModel> ajaxModel = await this.Controller.FuelUpdate(model);
 
             // Assert
             await this.AssertFuelSave(6.67m, ajaxModel.Message);

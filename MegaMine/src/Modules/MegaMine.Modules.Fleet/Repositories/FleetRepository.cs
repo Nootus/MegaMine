@@ -364,8 +364,9 @@ namespace MegaMine.Modules.Fleet.Repositories
         {
             var serviceQuery = from service in this.DbContext.VehicleServices
                                where (vehicleServiceId == 0 || service.VehicleServiceId == vehicleServiceId)
-                               && service.ServiceStartDate > startDate
-                               && service.ServiceStartDate < endDate
+                               && service.ServiceStartDate >= startDate
+                               && service.ServiceStartDate <= endDate
+                               && service.CompanyId == this.AppContext.CompanyId
                                && service.DeletedInd == false
                                select Mapper.Map<VehicleServiceEntity, VehicleServiceModel>(service);
             return await serviceQuery.ToListAsync();

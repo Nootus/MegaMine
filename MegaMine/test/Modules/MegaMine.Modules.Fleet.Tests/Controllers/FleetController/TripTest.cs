@@ -69,7 +69,7 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             VehicleTripModel model = new VehicleTripModel() { VehicleTripId = 2, VehicleId = 1, OdometerStart = 250, StartingTime = new DateTime(2016, 1, 15) };
 
             // Act
-            AjaxModel<NTModel> ajaxModel = await this.Controller.VehicleTripAdd(model);
+            AjaxModel<NTModel> ajaxModel = await this.Controller.VehicleTripUpdate(model);
 
             // Assert
             VehicleTripEntity entity = await this.FleetDbContext.VehicleTrips.LastAsync(m => m.VehicleTripId == 2);
