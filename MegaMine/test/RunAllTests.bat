@@ -1,0 +1,1 @@
+for /f %%x in ('dir /b /s project.json ^| find /v "MegaMine.Test"') do dotnet test %%x
