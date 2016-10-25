@@ -18,7 +18,7 @@ var MegaMine;
             viewDialog(model, dialogMode, ev) {
                 const self = this;
                 self.dialogService.show({
-                    templateUrl: self.utility.virtualDirectory + '/app/fleet/manufacturerDialog.html',
+                    templateUrl: self.utility.virtualDirectory + "/app/fleet/manufacturerDialog.html",
                     targetEvent: ev,
                     data: { model: model },
                     dialogMode: dialogMode

@@ -13,12 +13,12 @@
             , ev: ng.IAngularEvent): void {
             const self: ManufacturerDialog = this;
             self.dialogService.show({
-                templateUrl: self.utility.virtualDirectory + '/app/fleet/manufacturerDialog.html',
+                templateUrl: self.utility.virtualDirectory + "/app/fleet/manufacturerDialog.html",
                 targetEvent: ev,
                 data: { model: model },
                 dialogMode: dialogMode
             })
-            .then(function (dialogModel) {
+                .then(function (dialogModel: Models.IVehicleManufacturerModel) {
                 if (dialogMode === Shared.Dialog.Models.DialogMode.delete) {
                     self.fleetService.deleteManufacturer(dialogModel.vehicleManufacturerId).then(function (): void {
                         self.dialogService.hide();
@@ -28,10 +28,9 @@
                     self.fleetService.saveManufacturer(dialogModel).then(function (): void {
                         if (model.vehicleManufacturerId === 0) {
                             self.fleetService.getManufacturerList();
-                        }
-                        else {
-                            model.name = dialogModel.name
-                            model.description = dialogModel.description
+                        } else {
+                            model.name = dialogModel.name;
+                            model.description = dialogModel.description;
                         }
                     });
                     self.dialogService.hide();

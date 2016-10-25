@@ -57,12 +57,12 @@
             };
         }
 
-        public viewManufacturer(ev) {
+        public viewManufacturer(ev: ng.IAngularEvent) {
             const self: Manufacturer = this;
             self.manufacturerDialog.viewDialog(self.model, Shared.Dialog.Models.DialogMode.save, ev);
         }
 
-        public deleteManufacturer(ev) {
+        public deleteManufacturer(ev: ng.IAngularEvent) {
             const self: Manufacturer = this;
             self.manufacturerDialog.viewDialog(self.model, Shared.Dialog.Models.DialogMode.delete, ev);
         }

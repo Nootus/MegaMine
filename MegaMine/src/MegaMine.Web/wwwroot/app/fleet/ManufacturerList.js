@@ -9,8 +9,9 @@ var MegaMine;
     var Fleet;
     (function (Fleet) {
         let ManufacturerList = class ManufacturerList {
-            constructor(fleetService, dialogService, navigation) {
+            constructor(fleetService, manufacturerDialog, dialogService, navigation) {
                 this.fleetService = fleetService;
+                this.manufacturerDialog = manufacturerDialog;
                 this.dialogService = dialogService;
                 this.navigation = navigation;
                 const self = this;
@@ -58,12 +59,12 @@ var MegaMine;
             addManufacturer(ev, context) {
                 const self = context;
                 let model = { vehicleManufacturerId: 0 };
-                // manufacturerDialog.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
+                self.manufacturerDialog.viewDialog(model, 1 /* save */, ev);
             }
         };
         ManufacturerList = __decorate([
             MegaMine.controller("megamine", "MegaMine.Fleet.ManufacturerList"),
-            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Navigation")
+            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Fleet.ManufacturerDialog", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Navigation")
         ], ManufacturerList);
         Fleet.ManufacturerList = ManufacturerList;
     })(Fleet = MegaMine.Fleet || (MegaMine.Fleet = {}));

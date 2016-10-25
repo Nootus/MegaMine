@@ -1,12 +1,13 @@
 ﻿module MegaMine.Fleet {
 
     @controller("megamine", "MegaMine.Fleet.ManufacturerList")
-    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Navigation")
+    @inject("MegaMine.Fleet.FleetService", "MegaMine.Fleet.ManufacturerDialog",
+        "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Navigation")
     export class ManufacturerList {
 
         public dashboard: Widget.Models.IDashboardModel<ManufacturerList, Models.IVehicleManufacturerModel>;
 
-        constructor(private fleetService: FleetService,
+        constructor(private fleetService: FleetService, private manufacturerDialog: MegaMine.Fleet.ManufacturerDialog,
             private dialogService: Shared.Dialog.DialogService<Models.IVehicleManufacturerModel>,
             private navigation: Shared.Navigation) {
             const self: ManufacturerList = this;
@@ -58,7 +59,7 @@
         public addManufacturer(ev: ng.IAngularEvent, context: ManufacturerList): void {
             const self: ManufacturerList = context;
             let model: Models.IVehicleManufacturerModel = <Models.IVehicleManufacturerModel>{ vehicleManufacturerId: 0 };
-            // manufacturerDialog.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
+            self.manufacturerDialog.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
         }
     }
 }

@@ -18,7 +18,11 @@
         };
 
         // vehicles
-        public vehicleList: Models.IVehicleListModel[] = [];
+        public vehicleList: Widget.Models.IDashboardDataModel<Models.IVehicleListModel> = {
+            list: <Models.IVehicleListModel[]>[],
+            widgets: <Widget.Models.IDashboardWidgets>{}
+        };
+
         public vehicle: Models.IVehicleDetailsModel = <Models.IVehicleDetailsModel>{};
         public currentVehicle: Models.IVehicleModel = <Models.IVehicleModel>{};
         public currentVehicleService: Models.IVehicleServiceModel = <Models.IVehicleServiceModel>{};
@@ -51,9 +55,11 @@
         public getVehicleList(): ng.IHttpPromise<Models.IVehicleListModel[]> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/vehiclelist")
-                .then(function (data: Models.IVehicleListModel[]): Models.IVehicleListModel[] {
-                    self.utility.extend(self.vehicleList, data);
-                    return data;
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IVehicleListModel[]>):
+                    Shared.Models.IAjaxDataModel<Models.IVehicleListModel[]> {
+                        self.utility.extend(self.vehicleList.list, data.model);
+                        angular.extend(self.vehicleList.widgets, data.dashboard);
+                        return data;
                 });
         }
 

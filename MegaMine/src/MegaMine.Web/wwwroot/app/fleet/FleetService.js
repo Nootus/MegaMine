@@ -22,7 +22,10 @@ var MegaMine;
                     widgets: {}
                 };
                 // vehicles
-                this.vehicleList = [];
+                this.vehicleList = {
+                    list: [],
+                    widgets: {}
+                };
                 this.vehicle = {};
                 this.currentVehicle = {};
                 this.currentVehicleService = {};
@@ -50,7 +53,8 @@ var MegaMine;
                 const self = this;
                 return self.$http.get("/api/fleet/vehiclelist")
                     .then(function (data) {
-                    self.utility.extend(self.vehicleList, data);
+                    self.utility.extend(self.vehicleList.list, data.model);
+                    angular.extend(self.vehicleList.widgets, data.dashboard);
                     return data;
                 });
             }
