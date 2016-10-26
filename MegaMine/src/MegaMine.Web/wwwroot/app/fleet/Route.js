@@ -14,10 +14,10 @@ var MegaMine;
                 $stateProvider
                     .state("vehiclelist", {
                     url: virtualPath + "/vehiclelist",
-                    title: "Vehicle List",
+                    title: "Vehicles",
                     previousState: "dashboard",
                     templateUrl: "/app/fleet/vehiclelist.html",
-                    controller: "vehicleList",
+                    controller: Fleet.VehicleList,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService) {
@@ -30,7 +30,7 @@ var MegaMine;
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: "/app/fleet/vehicle.html",
-                    controller: "vehicle",
+                    controller: Fleet.Vehicle,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
@@ -44,7 +44,7 @@ var MegaMine;
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleServiceRecord.html",
-                    controller: "vehicleServiceRecord",
+                    controller: Fleet.VehicleServiceRecord,
                     controllerAs: "vm"
                 })
                     .state("vehicle.fuel", {

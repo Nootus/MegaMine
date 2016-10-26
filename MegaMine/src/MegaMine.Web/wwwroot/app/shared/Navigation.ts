@@ -9,7 +9,7 @@
         public isLoading: boolean = true;
         public environmentName: string;
         public breadcrumbs: Models.IBreadcrumb[] = [];
-        public vehicleMenuItems: any[] = [];
+        public vehicleMenuItems: Fleet.Models.IVehicleMenuItem[] = [];
 
         constructor(private $rootScope: ng.IRootScopeService, private $state: ng.ui.IStateService, private $window: ng.IWindowService,
             private $location: ng.ILocationService, private profile: Profile, private utility: Utility, private constants: Constants) {
@@ -121,7 +121,7 @@
             }
         }
 
-        private getVehicleMenuItem(vehicleId: number, text: string, url: string, iconCss: string): any {
+        private getVehicleMenuItem(vehicleId: number, text: string, url: string, iconCss: string): Fleet.Models.IVehicleMenuItem {
             const self: Navigation = this;
             let cssClass: string = "";
             let iconCssClass: string = "icon-menu icon-" + iconCss;

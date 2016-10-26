@@ -1,4 +1,9 @@
-﻿<nt-dashobard vm="vm" title="Service History" button-text="Add Service" button-click="vm.addService($event)" claim="Fleet:VehicleServiceAdd" toolbar-class="subtitle" grid-class="sub-grid"></nt-dashobard>
+﻿<nt-toolbar header="Service History"></nt-toolbar>
+<nt-grid grid="vm.grid"></nt-grid>
+
+
+
+<!--<nt-dashobard vm="vm" title="Service History" button-text="Add Service" button-click="vm.addService($event)" claim="Fleet:VehicleServiceAdd" toolbar-class="subtitle" grid-class="sub-grid"></nt-dashobard>-->
 
 <script type="text/ng-template" id="service_record_dialog">
     <md-dialog aria-label="Service Details" class="dialog">
@@ -16,5 +21,3 @@
         </nt-dialog>
     </md-dialog>
 </script>
-
-

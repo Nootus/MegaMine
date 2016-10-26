@@ -1,4 +1,7 @@
-﻿<nt-toolbar-button title="Vehicle Details" button-text="Edit Vehicle" button-icon="edit" button-click="vm.viewVehicle($event)" claim="Fleet:VehicleEdit"></nt-toolbar-button>
+﻿<nt-toolbar header="Vehicle Details">
+    <nt-button type="command-bar" icon="delete" tool-tip="Delete Vehicle" text="Delete" ng-click="vm.deleteVehicle($event)" claim="Fleet:VehicleDelete"></nt-button>
+    <nt-button type="command-bar" icon="edit" tool-tip="Edit Vehicle" text="Edit" ng-click="vm.viewVehicle($event)" claim="Fleet:VehicleEdit"></nt-button>
+</nt-toolbar>
 
 <md-content layout-padding>
     <div layout="row">
@@ -26,4 +29,3 @@
         <div flex ui-view></div>
     </div>
 </md-content>
-

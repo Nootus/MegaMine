@@ -1,53 +1,57 @@
-﻿'use strict';
-angular.module('megamine').controller('vehicle', vehicle)
-vehicle.$inject = ['$state', 'vehicleService', 'vehicleDialog', "MegaMine.Shared.Utility", "MegaMine.Shared.Profile", "MegaMine.Shared.Navigation", "MegaMine.Shared.Constants"];
-
-function vehicle($state, vehicleService, vehicleDialog, utility, profile, navigation, constants) {
-
-    var vm = {
-        model: {},
-        menuItems: [],
-        menuSelect: menuSelect,
-        viewVehicle: viewVehicle,
-    };
-
-    init();
-
-    return vm;
-
-    function init() {
-        vm.model = vehicleService.vehicle;
-        menuInitialize();
-    }
-
-    function viewVehicle(ev) {
-        vehicleDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
-    }
-
-    function menuInitialize() {
-        //setting menu item for the first time
-        if (navigation.vehicleMenuItems.length === 0) {
-            navigation.populateVehicleMenu(vm.model.vehicleId);
-        }
-        vm.menuItems = navigation.vehicleMenuItems;
-
-        //setting the first menu item if no menu item is selected
-        var menuSelected = false;
-        angular.forEach(vm.menuItems, function (item) {
-            if (item.cssClass === "highlight") {
-                menuSelected = true;
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var MegaMine;
+(function (MegaMine) {
+    var Fleet;
+    (function (Fleet) {
+        let Vehicle = class Vehicle {
+            constructor(fleetService, navigation) {
+                this.fleetService = fleetService;
+                this.navigation = navigation;
+                this.model = {};
+                this.menuItems = [];
+                const self = this;
+                self.model = self.fleetService.vehicle;
+                self.menuInitialize();
             }
-        });
-        if (!menuSelected) {
-            vm.menuItems[0].cssClass = "highlight";
-        }
-    }
-
-    function menuSelect(menuItem) {
-        angular.forEach(vm.menuItems, function (item) {
-            item.cssClass = "";
-        });
-        menuItem.cssClass = "highlight";
-    }
-
-}
+            //public viewVehicle(ev) {
+            //    vehicleDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
+            //}
+            menuInitialize() {
+                const self = this;
+                // setting menu item for the first time
+                if (self.navigation.vehicleMenuItems.length === 0) {
+                    self.navigation.populateVehicleMenu(self.model.vehicleId);
+                }
+                self.menuItems = self.navigation.vehicleMenuItems;
+                // setting the first menu item if no menu item is selected
+                let menuSelected = false;
+                angular.forEach(self.menuItems, function (item) {
+                    if (item.cssClass === "highlight") {
+                        menuSelected = true;
+                    }
+                });
+                if (!menuSelected) {
+                    self.menuItems[0].cssClass = "highlight";
+                }
+            }
+            menuSelect(menuItem) {
+                const self = this;
+                angular.forEach(self.menuItems, function (item) {
+                    item.cssClass = "";
+                });
+                menuItem.cssClass = "highlight";
+            }
+        };
+        Vehicle = __decorate([
+            MegaMine.controller("megamine", "MegaMine.Fleet.VehicleList"),
+            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Navigation")
+        ], Vehicle);
+        Fleet.Vehicle = Vehicle;
+    })(Fleet = MegaMine.Fleet || (MegaMine.Fleet = {}));
+})(MegaMine || (MegaMine = {}));
+//# sourceMappingURL=Vehicle.js.map

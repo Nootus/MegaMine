@@ -11,14 +11,14 @@
             $stateProvider
                 .state("vehiclelist", {
                     url: virtualPath + "/vehiclelist",
-                    title: "Vehicle List",
+                    title: "Vehicles",
                     previousState: "dashboard",
                     templateUrl: "/app/fleet/vehiclelist.html",
-                    controller: "vehicleList",
+                    controller: VehicleList,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Fleet.FleetService", function (fleetService: FleetService):
-                                ng.IHttpPromise<Models.IVehicleListModel[]> {
+                            ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleListModel[]>> {
                             return fleetService.getVehicleList();
                         }]
                     }
@@ -29,7 +29,7 @@
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: "/app/fleet/vehicle.html",
-                    controller: "vehicle",
+                    controller: Vehicle,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
@@ -45,7 +45,7 @@
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleServiceRecord.html",
-                    controller: "vehicleServiceRecord",
+                    controller: VehicleServiceRecord,
                     controllerAs: "vm"
                 })
 
@@ -121,7 +121,8 @@
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["MegaMine.Fleet.FleetService",
-                            function (fleetService: FleetService): ng.IHttpPromise<Models.IVehicleListModel[]> {
+                            function (fleetService: FleetService):
+                                ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleListModel[]>> {
                                 return fleetService.getVehicleList();
                         }]
                     }

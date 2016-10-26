@@ -62,7 +62,7 @@ namespace MegaMine.Modules.Fleet.Controllers
         [HttpGet]
         public async Task<AjaxModel<List<VehicleListModel>>> VehicleList()
         {
-            return await AjaxHelper.GetAsync(m => this.domain.VehicleList());
+            return await AjaxHelper.GetDashboardAsync(m => this.domain.VehicleList(), this.dashboardDomain, this.widgetDomain);
         }
 
         [HttpGet]

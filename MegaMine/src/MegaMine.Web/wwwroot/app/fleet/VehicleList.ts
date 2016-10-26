@@ -1,21 +1,25 @@
 ﻿module MegaMine.Fleet {
 
     @controller("megamine", "MegaMine.Fleet.VehicleList")
-    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Navigation")
+    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService",
+        "MegaMine.Shared.Navigation", "MegaMine.Shared.Constants")
     export class VehicleList {
 
         public dashboard: Widget.Models.IDashboardModel<VehicleList, Models.IVehicleListModel>;
 
         constructor(private fleetService: FleetService,
             private dialogService: Shared.Dialog.DialogService<Models.IVehicleListModel>,
-            private navigation: Shared.Navigation) {
+            private navigation: Shared.Navigation, private constants: Shared.Constants) {
             const self: VehicleList = this;
             const gridOptions: uiGrid.IGridOptions = {
                 columnDefs: [
                     { name: "registrationNumber", field: "registrationNumber", displayName: "Registration #", type: "string" },
                     { name: "vehicleType", field: "vehicleType", displayName: "Type", type: "string" },
                     { name: "vehicleModel", field: "vehicleModel", displayName: "Model", type: "string" },
-                    { name: "lastServiceDate", field: "lastServiceDate", displayName: "Service Date", type: "date", cellFilter: "date:"" + constants.dateFormat + """ },
+                    {
+                        name: "lastServiceDate", field: "lastServiceDate", displayName: "Service Date", type: "date",
+                        cellFilter: "date:\"" + constants.dateFormat + "\""
+                    },
                     { name: "fuelAverage", field: "fuelAverage", displayName: "Fuel Average", type: "number" },
                     { name: "driver", field: "driver", displayName: "Driver", type: "string" }
                 ]

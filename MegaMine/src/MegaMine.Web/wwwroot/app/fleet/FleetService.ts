@@ -52,7 +52,7 @@
         // trips
         public tripsList: Models.IVehicleTripModel[] = [];
 
-        public getVehicleList(): ng.IHttpPromise<Models.IVehicleListModel[]> {
+        public getVehicleList(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleListModel[]>> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/vehiclelist")
                 .then(function (data: Shared.Models.IAjaxDataModel<Models.IVehicleListModel[]>):
