@@ -464,3 +464,58 @@ h3.left-bar-item + div > div {
 
 /* End Scrollbar */
 
+/* Left sub menu used in vehicle */
+.sub-menu-header > md-toolbar {
+	background-image: url(/content/images/layout/menu_background.png);
+	background-repeat: repeat;
+    background-color: rgba(158,158,158,0.4);
+    min-height: 46px;
+}
+
+.sub-menu-header > md-toolbar > div {
+    background-color: rgba(158,158,158,0.4);
+    color: #DBB94F;
+    height: 46px;
+}
+
+
+div.left-sub-menu {
+	background-image: url(/content/images/layout/menu_background.png);
+	background-repeat: repeat;
+}
+
+div.left-sub-menu ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+div.left-sub-menu li{
+    border-style: solid;
+    border-width: 0px;
+    border-bottom-width: 1px !important;
+    /*border-bottom-color: rgb(77, 77, 77);*/
+    text-transform: uppercase;
+    height: 30px;
+    cursor: default;
+}
+
+div.left-sub-menu li.highlight{
+    background-color: rgba(158,158,158,0.4);
+}
+
+div.left-sub-menu a {
+    display: -webkit-box;
+    width: 100%;
+	color: #DBB94F !important;
+    padding: 0.3em 1.2em 0.3em 1.2em;
+    line-height: 1.34em; 
+    font-size: 13px;
+    text-decoration: none;
+}
+
+div.left-sub-menu a.md-button{
+    min-height: 30px !important;
+    height: 30px !important;
+}
+

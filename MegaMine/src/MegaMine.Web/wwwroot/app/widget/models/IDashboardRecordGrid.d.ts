@@ -5,5 +5,9 @@
         view?(model: TDataModel, dialogMode: Shared.Dialog.Models.DialogMode,
             ev: angular.IAngularEvent, context: TContext): void;
         context?: TContext;
+        primaryField?: string,
+        editClaim?: string,
+        deleteClaim?: string,
+        hideGridButtons?: string
     }
 }

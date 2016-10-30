@@ -66,46 +66,6 @@ h4{
 }
 
 
-div.left-menu {
-	background-image: url(images/layout/menu_background.png);
-	background-repeat: repeat;
-}
-
-div.left-menu ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-}
-
-div.left-menu li{
-    border-style: solid;
-    border-width: 0px;
-    border-bottom-width: 1px !important;
-    border-bottom-color: rgb(77, 77, 77);
-    text-transform: uppercase;
-    height: 30px;
-    cursor: default;
-}
-
-div.left-menu li.highlight{
-    background-color: rgba(158,158,158,0.4);
-}
-
-div.left-menu a {
-    display: -webkit-box;
-    width: 100%;
-	color: #DBB94F !important;
-    padding: 0.3em 1.2em 0.3em 1.2em;
-    line-height: 1.34em; 
-    font-size: 13px;
-    text-decoration: none;
-}
-
-div.left-menu a.md-button{
-    min-height: 30px !important;
-    height: 30px !important;
-}
-
 .content{
     margin-top: 6px;
 }
@@ -434,4 +394,3 @@ md-input-container.md-input-invalid .md-select-placeholder{
   transform:translate3d(100px, 0, 0);
 }*/
 /* UI-Router animation ends*/
-

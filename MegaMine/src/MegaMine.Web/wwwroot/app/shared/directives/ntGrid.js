@@ -1,8 +1,8 @@
 ﻿'use strict';
 angular.module('megamine').directive('ntGrid', ntGrid)
-ntGrid.$inject = ['$timeout', 'uiGridConstants', "MegaMine.Shared.Utility"];
+ntGrid.$inject = ['$timeout', 'uiGridConstants', "MegaMine.Shared.Utility", "MegaMine.Shared.Template"];
 
-function ntGrid($timeout, uiGridConstants, utility) {
+function ntGrid($timeout, uiGridConstants, utility, template) {
     return {
         restrict: 'E',
         replace: true,
@@ -18,11 +18,13 @@ function ntGrid($timeout, uiGridConstants, utility) {
 
     function link(scope, element, attrs, nullController, transclude) {
         if (scope.grid === undefined) {
-            scope.grid = { options: {} }; //work around as ui-grid is throwing error
+            scope.grid = { options: {} }; // work around as ui-grid is throwing error
         }
         else {
             scope.grid.cssClass = scope.grid.cssClass === undefined ? 'main-grid' : scope.grid.cssClass;
+            scope.grid.AddButtonColumn = AddButtonColumn; // this is used in Dashboard to add the button columns
             initialize(scope.grid.options, scope.grid.data);
+            AddButtonColumn(scope.grid, scope.grid.primaryField, scope.grid.editClaim, scope.grid.deleteClaim, scope.grid.hideGridButtons);
 
             setHeight(scope);
         }
@@ -37,6 +39,12 @@ function ntGrid($timeout, uiGridConstants, utility) {
         options.onRegisterApi = function (gridApi) {
             options.gridApi = gridApi;
         };
+    }
+
+    function AddButtonColumn(grid, primaryField, editClaim, deleteClaim, hideGridButtons) {
+        if (primaryField !== undefined) {
+            grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(primaryField, editClaim, deleteClaim, hideGridButtons));
+        }
     }
 
     function setHeight(scope) {

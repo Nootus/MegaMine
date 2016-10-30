@@ -75,7 +75,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
             scope.dashboard.records.grid.options.data = scope.dashboard.records.options.data;
             scope.dashboard.records.grid.view = scope.dashboard.records.options.view;
             scope.dashboard.records.grid.context = scope.dashboard.context;
-            scope.dashboard.records.grid.options.columnDefs.push(template.getButtonDefaultColumnDefs(scope.dashboard.records.options.primaryField, scope.editClaim, scope.deleteClaim, scope.dashboard.records.buttons.options.hideGridButtons));
+            scope.dashboard.records.grid.AddButtonColumn(scope.dashboard.records.grid, scope.dashboard.records.options.primaryField, scope.editClaim, scope.deleteClaim, scope.dashboard.records.buttons.options.hideGridButtons);
             scope.viewType = scope.viewType || constants.enum.viewType.list;
         }
 
@@ -164,7 +164,7 @@ function ntDashobard($timeout, $state, $stateParams, chart, dialogService, utili
         })
         .then(function (dialogModel) {
             var index = 0;
-            for (var index = 0; index < dashboard.widgets.allWidgets.length; index++) {
+            for (index = 0; index < dashboard.widgets.allWidgets.length; index++) {
                 if (dialogModel == dashboard.widgets.allWidgets[index].widgetId)
                     break;
             }

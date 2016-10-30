@@ -16,16 +16,19 @@
                     { name: 'serviceDate', field: 'serviceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + self.constants.dateFormat + '"' },
                     { name: 'compliant', field: 'compliant', displayName: 'Compliant', type: 'string' },
                     { name: 'totalServiceCost', field: 'totalServiceCost', displayName: 'Service Cost', type: 'number' }
-                    //template.getButtonDefaultColumnDefs('vehicleServiceId', 'Fleet:VehicleServiceEdit')
                 ]
             };
 
             self.grid = {
                 options: gridOptions,
                 data: fleetService.vehicle.serviceRecord,
-                context: self
+                context: self,
+                view: self.addService,
+                primaryField: "VehicleServiceId",
+                editClaim: "Fleet:VehicleServiceEdit",
+                deleteClaim: undefined,
+                hideGridButtons: undefined
             };
-            //gridUtility.initializeSubGrid(vm.gridOptions, $scope, vehicleService.vehicle.serviceRecord);
         }
 
         public addService(ev) {
