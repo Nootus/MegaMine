@@ -16,16 +16,19 @@ var MegaMine;
                 const self = this;
                 const gridOptions = {
                     columnDefs: [
-                        { name: 'serviceDate', field: 'serviceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + self.constants.dateFormat + '"' },
-                        { name: 'compliant', field: 'compliant', displayName: 'Compliant', type: 'string' },
-                        { name: 'totalServiceCost', field: 'totalServiceCost', displayName: 'Service Cost', type: 'number' }
+                        {
+                            name: "serviceDate", field: "serviceDate", displayName: "Service Date", type: "date",
+                            cellFilter: "date:\"" + self.constants.dateFormat + "\""
+                        },
+                        { name: "compliant", field: "compliant", displayName: "Compliant", type: "string" },
+                        { name: "totalServiceCost", field: "totalServiceCost", displayName: "Service Cost", type: "number" }
                     ]
                 };
                 self.grid = {
                     options: gridOptions,
                     data: fleetService.vehicle.serviceRecord,
                     context: self,
-                    view: self.addService,
+                    view: self.viewDialog,
                     primaryField: "VehicleServiceId",
                     editClaim: "Fleet:VehicleServiceEdit",
                     deleteClaim: undefined,
@@ -35,12 +38,12 @@ var MegaMine;
             addService(ev) {
                 const self = this;
                 let model = { vehicleServiceId: 0, vehicleId: self.fleetService.vehicle.vehicleId };
-                self.viewDialog(model, self.constants.enum.dialogMode.save, ev);
+                self.viewDialog(model, 1 /* save */, ev, self);
             }
-            viewDialog(model, dialogMode, ev) {
-                const self = this;
+            viewDialog(model, dialogMode, ev, context) {
+                const self = context;
                 self.dialogService.show({
-                    templateUrl: 'service_record_dialog',
+                    templateUrl: "service_record_dialog",
                     targetEvent: ev,
                     data: { model: model },
                     dialogMode: dialogMode

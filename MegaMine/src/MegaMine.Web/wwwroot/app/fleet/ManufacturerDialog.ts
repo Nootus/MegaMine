@@ -18,7 +18,7 @@
                 data: { model: model },
                 dialogMode: dialogMode
             })
-                .then(function (dialogModel: Models.IVehicleManufacturerModel) {
+                .then(function (dialogModel: Models.IVehicleManufacturerModel): void {
                 if (dialogMode === Shared.Dialog.Models.DialogMode.delete) {
                     self.fleetService.deleteManufacturer(dialogModel.vehicleManufacturerId).then(function (): void {
                         self.dialogService.hide();

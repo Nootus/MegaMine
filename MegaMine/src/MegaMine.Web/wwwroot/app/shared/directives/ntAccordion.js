@@ -11,7 +11,6 @@ function ntAccordion($compile, $timeout) {
 
 
     function compile(element, attrs, transclude) {
-
         var id = getId(attrs);
 
         element.addClass("accordion");

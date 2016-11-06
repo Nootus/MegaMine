@@ -214,7 +214,7 @@ var MegaMine;
                 return self.$http.post(url, model)
                     .then(function (data) {
                     self.vehicle.serviceCost = data.serviceCost;
-                    self.vehicle.serviceDate = new Date(data.serviceDate.toDateString());
+                    self.vehicle.serviceDate = new Date(data.serviceDate.toString());
                     self.utility.extend(self.vehicle.serviceRecord, data.serviceRecord);
                     return data;
                 });

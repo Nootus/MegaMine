@@ -42,6 +42,7 @@ namespace MegaMine.Modules.Fleet.Entities
 
         public virtual VehicleTypeEntity VehicleType { get; set; }
 
+        [ForeignKey("VehicleDriverAssignmentId")]
         public virtual VehicleDriverAssignmentEntity VehicleDriverAssignment { get; set; }
     }
 }

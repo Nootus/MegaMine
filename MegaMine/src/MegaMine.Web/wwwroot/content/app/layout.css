@@ -417,6 +417,11 @@ h3.left-bar-item + div > div {
     font-size: 18px;
     height: 10px;
 }
+
+.sub-menu-header .command-bar-button-icon {
+    color: #DBB94F !important;
+}
+
 .command-bar-button:hover > .command-bar-button-icon {
     font-size: 20px;
     margin-top: 0px;

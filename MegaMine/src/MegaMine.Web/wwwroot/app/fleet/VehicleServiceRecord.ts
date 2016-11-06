@@ -13,9 +13,12 @@
 
             const gridOptions: uiGrid.IGridOptions = {
                 columnDefs: [
-                    { name: 'serviceDate', field: 'serviceDate', displayName: 'Service Date', type: 'date', cellFilter: 'date:"' + self.constants.dateFormat + '"' },
-                    { name: 'compliant', field: 'compliant', displayName: 'Compliant', type: 'string' },
-                    { name: 'totalServiceCost', field: 'totalServiceCost', displayName: 'Service Cost', type: 'number' }
+                    {
+                        name: "serviceDate", field: "serviceDate", displayName: "Service Date", type: "date",
+                        cellFilter: "date:\"" + self.constants.dateFormat + "\""
+                    },
+                    { name: "compliant", field: "compliant", displayName: "Compliant", type: "string" },
+                    { name: "totalServiceCost", field: "totalServiceCost", displayName: "Service Cost", type: "number" }
                 ]
             };
 
@@ -23,7 +26,7 @@
                 options: gridOptions,
                 data: fleetService.vehicle.serviceRecord,
                 context: self,
-                view: self.addService,
+                view: self.viewDialog,
                 primaryField: "VehicleServiceId",
                 editClaim: "Fleet:VehicleServiceEdit",
                 deleteClaim: undefined,
@@ -31,22 +34,24 @@
             };
         }
 
-        public addService(ev) {
+        public addService(ev: ng.IAngularEvent): void {
             const self: VehicleServiceRecord = this;
-            let model: Models.IVehicleServiceModel = <Models.IVehicleServiceModel>{ vehicleServiceId: 0, vehicleId: self.fleetService.vehicle.vehicleId }
-            self.viewDialog(model, self.constants.enum.dialogMode.save, ev);
+            let model: Models.IVehicleServiceModel =
+                <Models.IVehicleServiceModel>{ vehicleServiceId: 0, vehicleId: self.fleetService.vehicle.vehicleId };
+            self.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev, self);
         }
 
-        public viewDialog(model, dialogMode, ev) {
-            const self: VehicleServiceRecord = this;
+        public viewDialog(model: Models.IVehicleServiceModel, dialogMode: Shared.Dialog.Models.DialogMode,
+            ev: ng.IAngularEvent, context: VehicleServiceRecord): void {
+            const self: VehicleServiceRecord = context;
             self.dialogService.show({
-                templateUrl: 'service_record_dialog',
+                templateUrl: "service_record_dialog",
                 targetEvent: ev,
                 data: { model: model },
                 dialogMode: dialogMode
             })
             .then(function (dialogModel: Models.IVehicleServiceModel): void {
-                self.fleetService.saveVehicleService(dialogModel).then(function () {
+                self.fleetService.saveVehicleService(dialogModel).then(function (): void {
                     self.dialogService.hide();
                 });
             });

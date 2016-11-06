@@ -132,8 +132,8 @@
         public getManufacturer(manufacturerId: number): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/manufacturerdetailsget", { params: { "manufacturerId": manufacturerId } })
-                .then(function (data: Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>)
-                    : Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel> {
+                .then(function (data: Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel>):
+                        Shared.Models.IAjaxDataModel<Models.IManufacturerDetailsModel> {
                     self.manufacturer = data.model;
                     self.utility.extend(self.modelsList.list, self.manufacturer.models);
                     angular.extend(self.manufacturerList.widgets, data.dashboard);
@@ -233,7 +233,7 @@
             return self.$http.post(url, model)
                 .then(function (data: Models.IVehicleDetailsModel): Models.IVehicleDetailsModel {
                     self.vehicle.serviceCost = data.serviceCost;
-                    self.vehicle.serviceDate = new Date(data.serviceDate.toDateString());
+                    self.vehicle.serviceDate = new Date(data.serviceDate.toString());
                     self.utility.extend(self.vehicle.serviceRecord, data.serviceRecord);
                     return data;
                 });

@@ -1,13 +1,11 @@
-﻿<nt-toolbar class="sub-menu-header" header="Service History"></nt-toolbar>
+﻿<nt-toolbar class="sub-menu-header" header="Service History">
+    <nt-button type="command-bar" icon="add" tool-tip="New Serviice" text="New" ng-click="vm.addService($event)" claim="Fleet:VehicleServiceAdd"></nt-button>
+</nt-toolbar>
 <nt-grid grid="vm.grid"></nt-grid>
-
-
-
-<!--<nt-dashobard vm="vm" title="Service History" button-text="Add Service" button-click="vm.addService($event)" claim="Fleet:VehicleServiceAdd" toolbar-class="subtitle" grid-class="sub-grid"></nt-dashobard>-->
 
 <script type="text/ng-template" id="service_record_dialog">
     <md-dialog aria-label="Service Details" class="dialog">
-        <nt-dialog form="serviceForm" title="Service Details">
+        <nt-dialog form="serviceForm" header="Service Details">
             <div layout="row">
                 <nt-input flex="30" form="serviceForm" type="date" label="Service Date" control-name="serviceDate" ng-model="vm.model.serviceDate" ng-required="true"></nt-input>
                 <nt-input flex="70" form="serviceForm" type="string" label="Compliant" control-name="compliant" ng-model="vm.model.compliant" em-maxlength="100" ng-required="true"></nt-input>

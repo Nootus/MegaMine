@@ -1,5 +1,5 @@
 ﻿'use strict';
-angular.module('megamine').directive('ntGrid', ntGrid)
+angular.module('megamine').directive('ntGrid', ntGrid);
 ntGrid.$inject = ['$timeout', 'uiGridConstants', "MegaMine.Shared.Utility", "MegaMine.Shared.Template"];
 
 function ntGrid($timeout, uiGridConstants, utility, template) {
@@ -7,7 +7,7 @@ function ntGrid($timeout, uiGridConstants, utility, template) {
         restrict: 'E',
         replace: true,
         scope: {
-            grid: '=',
+            grid: '='
         },
         link: link,
         template: '<md-content layout-padding class="grid-content" ng-style="{\'height\' : grid.height }">'
@@ -57,7 +57,7 @@ function ntGrid($timeout, uiGridConstants, utility, template) {
                 scope.dashboardInd = false;
             }
             setGridHeight(scope);
-        }, 100)
+        }, 100);
 
         scope.$on('window_resize', function () {
             setGridHeight(scope);
