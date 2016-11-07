@@ -1,22 +1,23 @@
 ﻿module MegaMine.Fleet {
 
     @controller("megamine", "MegaMine.Fleet.VehicleList")
-    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Navigation")
+    @inject("MegaMine.Fleet.FleetService", "MegaMine.Fleet.VehicleDialog", "MegaMine.Shared.Navigation")
     export class Vehicle {
 
         public model: Models.IVehicleDetailsModel = <Models.IVehicleDetailsModel>{};
         public menuItems: Models.IVehicleMenuItem[] = [];
 
-        constructor(private fleetService: FleetService, private navigation: Shared.Navigation) {
+        constructor(private fleetService: FleetService, private vehicleDialog: VehicleDialog, private navigation: Shared.Navigation) {
             const self: Vehicle = this;
 
             self.model = self.fleetService.vehicle;
             self.menuInitialize();
         }
 
-        //public viewVehicle(ev) {
-        //    vehicleDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
-        //}
+        public viewVehicle(ev: ng.IAngularEvent) {
+            const self: Vehicle = this;
+            self.vehicleDialog.viewDialog(self.model, Shared.Dialog.Models.DialogMode.save, ev);
+        }
 
         public menuInitialize(): void {
             const self: Vehicle = this;

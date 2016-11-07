@@ -9,5 +9,10 @@
         vehicleTypeList: Shared.Models.IListItem<number, string>[];
         manufacturerList: Shared.Models.IListItem<number, string>[];
         vehicleModelList: IVehicleManufacturerModelModel[];
+
+        // ui fields
+        modelList?: Shared.Models.IListItem<number, string>[];
+        vehicleModel: string;
+        manufacturer: string;
     }
 }

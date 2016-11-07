@@ -263,7 +263,7 @@
         }
 
 
-        public saveVehicle(model: Models.IVehicleDetailsModel): ng.IHttpPromise<void> {
+        public saveVehicle(model: Models.IVehicleModel): ng.IHttpPromise<void> {
             const self: FleetService = this;
             let url: string;
             if (model.vehicleId === 0) {

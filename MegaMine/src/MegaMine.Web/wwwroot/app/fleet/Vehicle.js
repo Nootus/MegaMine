@@ -9,8 +9,9 @@ var MegaMine;
     var Fleet;
     (function (Fleet) {
         let Vehicle = class Vehicle {
-            constructor(fleetService, navigation) {
+            constructor(fleetService, vehicleDialog, navigation) {
                 this.fleetService = fleetService;
+                this.vehicleDialog = vehicleDialog;
                 this.navigation = navigation;
                 this.model = {};
                 this.menuItems = [];
@@ -18,9 +19,10 @@ var MegaMine;
                 self.model = self.fleetService.vehicle;
                 self.menuInitialize();
             }
-            //public viewVehicle(ev) {
-            //    vehicleDialog.viewDialog(vm.model, constants.enum.dialogMode.save, ev);
-            //}
+            viewVehicle(ev) {
+                const self = this;
+                self.vehicleDialog.viewDialog(self.model, 1 /* save */, ev);
+            }
             menuInitialize() {
                 const self = this;
                 // setting menu item for the first time
@@ -49,7 +51,7 @@ var MegaMine;
         };
         Vehicle = __decorate([
             MegaMine.controller("megamine", "MegaMine.Fleet.VehicleList"),
-            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Navigation")
+            MegaMine.inject("MegaMine.Fleet.FleetService", "MegaMine.Fleet.VehicleDialog", "MegaMine.Shared.Navigation")
         ], Vehicle);
         Fleet.Vehicle = Vehicle;
     })(Fleet = MegaMine.Fleet || (MegaMine.Fleet = {}));

@@ -13,5 +13,10 @@
         serviceCost: number;
         serviceDate: Date;
         serviceRecord: IVehicleServiceModel[];
+
+        // UI Fields
+        vehicleTypeId: number;
+        vehicleManufacturerId: number;
+        vehicleModelId: number;
     }
 }

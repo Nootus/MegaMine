@@ -1,5 +1,5 @@
 ﻿<md-dialog aria-label="Vehicle" class="dialog">
-    <nt-dialog form="vehicleForm" title="Vehicle">
+    <nt-dialog form="vehicleForm" header="Vehicle">
         <div layout="row">
             <nt-input flex="30" form="vehicleForm" label="Registration #" control-name="registrationNumber" ng-model="vm.model.registrationNumber" ng-required="true" em-maxlength="20"></nt-input>
             <nt-select flex="30" form="vehicleForm" label="Type" control-name="vehicleType" ng-model="vm.model.vehicleTypeId" opt-list="vm.model.vehicleTypeList" ng-required="true"></nt-select>
