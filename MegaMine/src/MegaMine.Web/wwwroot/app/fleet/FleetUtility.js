@@ -9,38 +9,40 @@ var MegaMine;
     var Fleet;
     (function (Fleet) {
         let FleetUtility = class FleetUtility {
+            constructor() {
+                this.bindModelDropDown = (manufacturerId, oldmanufacturerId) => {
+                    const self = this;
+                    if (self.vehicleModel.modelList === undefined) {
+                        self.vehicleModel.modelList = [];
+                    }
+                    let modelList = self.vehicleModel.modelList;
+                    let vehicleModelList = self.vehicleModel.vehicleModelList;
+                    if (vehicleModelList === undefined) {
+                        return;
+                    }
+                    modelList.splice(0, modelList.length);
+                    for (let counter = 0; counter < vehicleModelList.length; counter++) {
+                        if (vehicleModelList[counter].vehicleManufacturerId === manufacturerId) {
+                            modelList.push({ key: vehicleModelList[counter].vehicleModelId, item: vehicleModelList[counter].name });
+                        }
+                    }
+                    if (manufacturerId === oldmanufacturerId) {
+                        return;
+                    }
+                    if (modelList.length > 0) {
+                        self.vehicleModel.vehicleModelId = modelList[0].key;
+                    }
+                    else {
+                        self.vehicleModel.vehicleModelId = undefined;
+                    }
+                };
+            }
             watchManufacturerModel(scope, model) {
                 const self = this;
                 self.vehicleModel = model;
                 scope.$watch(function (scope) {
                     return model.vehicleManufacturerId;
                 }, self.bindModelDropDown);
-            }
-            bindModelDropDown(manufacturerId, oldmanufacturerId) {
-                const self = this;
-                if (self.vehicleModel.modelList === undefined) {
-                    self.vehicleModel.modelList = [];
-                }
-                let modelList = self.vehicleModel.modelList;
-                let vehicleModelList = self.vehicleModel.vehicleModelList;
-                if (vehicleModelList === undefined) {
-                    return;
-                }
-                modelList.splice(0, modelList.length);
-                for (let counter = 0; counter < vehicleModelList.length; counter++) {
-                    if (vehicleModelList[counter].vehicleManufacturerId === manufacturerId) {
-                        modelList.push({ key: vehicleModelList[counter].vehicleModelId, item: vehicleModelList[counter].name });
-                    }
-                }
-                if (manufacturerId === oldmanufacturerId) {
-                    return;
-                }
-                if (modelList.length > 0) {
-                    self.vehicleModel.vehicleModelId = modelList[0].key;
-                }
-                else {
-                    self.vehicleModel.vehicleModelId = undefined;
-                }
             }
         };
         FleetUtility = __decorate([

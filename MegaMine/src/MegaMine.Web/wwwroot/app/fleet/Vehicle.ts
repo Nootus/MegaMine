@@ -14,7 +14,7 @@
             self.menuInitialize();
         }
 
-        public viewVehicle(ev: ng.IAngularEvent) {
+        public viewVehicle(ev: ng.IAngularEvent): void {
             const self: Vehicle = this;
             self.vehicleDialog.viewDialog(self.model, Shared.Dialog.Models.DialogMode.save, ev);
         }

@@ -28,7 +28,11 @@ var MegaMine;
                     data: { model: self.fleetService.currentVehicle },
                     dialogMode: dialogMode,
                     dialogInit: self.dialogInit,
-                    resolve: { resolvemodel: function () { return self.fleetService.getCurrentVehicle(model.vehicleId); } }
+                    resolve: {
+                        resolvemodel: function () {
+                            return self.fleetService.getCurrentVehicle(model.vehicleId);
+                        }
+                    }
                 })
                     .then(function (dialogModel) {
                     self.fleetService.saveVehicle(dialogModel).then(function () {

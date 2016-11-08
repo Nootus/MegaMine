@@ -14,7 +14,7 @@
         serviceDate: Date;
         serviceRecord: IVehicleServiceModel[];
 
-        // UI Fields
+        // ui fields
         vehicleTypeId: number;
         vehicleManufacturerId: number;
         vehicleModelId: number;

@@ -11,7 +11,7 @@
         }
 
 
-        public viewDialog(model: Models.IVehicleDetailsModel, dialogMode: Shared.Dialog.Models.DialogMode, ev: ng.IAngularEvent) {
+        public viewDialog(model: Models.IVehicleDetailsModel, dialogMode: Shared.Dialog.Models.DialogMode, ev: ng.IAngularEvent): void {
             const self: VehicleDialog = this;
             self.dialogService.show({
                 templateUrl: self.utility.virtualDirectory + "/app/fleet/vehicleDialog.html",
@@ -19,7 +19,11 @@
                 data: { model: self.fleetService.currentVehicle },
                 dialogMode: dialogMode,
                 dialogInit: self.dialogInit,
-                resolve: { resolvemodel: function () { return self.fleetService.getCurrentVehicle(model.vehicleId) } }
+                resolve: {
+                    resolvemodel: function (): ng.IHttpPromise<Models.IVehicleModel> {
+                        return self.fleetService.getCurrentVehicle(model.vehicleId);
+                    }
+                }
             })
                 .then(function (dialogModel: Models.IVehicleModel): void {
                     self.fleetService.saveVehicle(dialogModel).then(function (): void {
@@ -41,9 +45,10 @@
 
         }
 
-        public dialogInit = (dialogController: Shared.Dialog.DialogController<Models.IVehicleModel>, dialogModel: Models.IVehicleModel): void => {
+        public dialogInit = (dialogController: Shared.Dialog.DialogController<Models.IVehicleModel>,
+                dialogModel: Models.IVehicleModel): void => {
             const self: VehicleDialog = this;
             self.fleetUtility.watchManufacturerModel(dialogController.$scope, dialogModel);
-        }
+        };
     }
 }

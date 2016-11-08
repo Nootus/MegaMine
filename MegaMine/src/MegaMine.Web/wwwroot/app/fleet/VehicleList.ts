@@ -1,13 +1,13 @@
 ﻿module MegaMine.Fleet {
 
     @controller("megamine", "MegaMine.Fleet.VehicleList")
-    @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService",
+    @inject("MegaMine.Fleet.FleetService", "MegaMine.Fleet.VehicleDialog", "MegaMine.Shared.Dialog.DialogService",
         "MegaMine.Shared.Navigation", "MegaMine.Shared.Constants")
     export class VehicleList {
 
         public dashboard: Widget.Models.IDashboardModel<VehicleList, Models.IVehicleListModel>;
 
-        constructor(private fleetService: FleetService,
+        constructor(private fleetService: FleetService, private vehicleDialog: VehicleDialog,
             private dialogService: Shared.Dialog.DialogService<Models.IVehicleListModel>,
             private navigation: Shared.Navigation, private constants: Shared.Constants) {
             const self: VehicleList = this;
@@ -65,8 +65,8 @@
 
         public addVehicle(ev: ng.IAngularEvent, context: VehicleList): void {
             const self: VehicleList = context;
-            let model: Models.IVehicleListModel = <Models.IVehicleListModel>{ vehicleId: 0 };
-            // manufacturerDialog.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
+            let model: Models.IVehicleDetailsModel = <Models.IVehicleDetailsModel>{ vehicleId: 0 };
+            self.vehicleDialog.viewDialog(model, Shared.Dialog.Models.DialogMode.save, ev);
         }
     }
 }

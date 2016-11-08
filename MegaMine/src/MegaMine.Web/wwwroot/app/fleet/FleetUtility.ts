@@ -12,7 +12,7 @@
                 , self.bindModelDropDown);
         }
 
-        public bindModelDropDown (manufacturerId: number, oldmanufacturerId: number): void {
+        public bindModelDropDown = (manufacturerId: number, oldmanufacturerId: number): void => {
             const self: FleetUtility = this;
             if (self.vehicleModel.modelList === undefined) {
                 self.vehicleModel.modelList = [];
