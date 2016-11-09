@@ -29,7 +29,7 @@ var MegaMine;
                     data: fleetService.vehicle.serviceRecord,
                     context: self,
                     view: self.viewDialog,
-                    primaryField: "VehicleServiceId",
+                    primaryField: "vehicleServiceId",
                     editClaim: "Fleet:VehicleServiceEdit",
                     deleteClaim: undefined,
                     hideGridButtons: undefined

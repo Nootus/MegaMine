@@ -27,7 +27,7 @@
                 data: fleetService.vehicle.serviceRecord,
                 context: self,
                 view: self.viewDialog,
-                primaryField: "VehicleServiceId",
+                primaryField: "vehicleServiceId",
                 editClaim: "Fleet:VehicleServiceEdit",
                 deleteClaim: undefined,
                 hideGridButtons: undefined
@@ -50,11 +50,11 @@
                 data: { model: model },
                 dialogMode: dialogMode
             })
-            .then(function (dialogModel: Models.IVehicleServiceModel): void {
-                self.fleetService.saveVehicleService(dialogModel).then(function (): void {
-                    self.dialogService.hide();
+                .then(function (dialogModel: Models.IVehicleServiceModel): void {
+                    self.fleetService.saveVehicleService(dialogModel).then(function (): void {
+                        self.dialogService.hide();
+                    });
                 });
-            });
         }
     }
 }

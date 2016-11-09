@@ -1,12 +1,12 @@
-﻿<nt-dashobard vm="vm" title="Fuel History" toolbar-class="subtitle" grid-class="sub-grid">
-    <nt-old-button ng-click="vm.resetFuel($event)" button-icon="edit" button-text="Reset Average" claim="Fleet:VehicleFuelReset"></nt-old-button>
-    <nt-old-button ng-click="vm.addFuel($event)" button-icon="add" button-text="Add Fuel" claim="Fleet:VehicleFuelAdd"></nt-old-button>
-</nt-dashobard>
-
+﻿<nt-toolbar class="sub-menu-header" header="Fuel History">
+    <nt-button type="command-bar" icon-css="undo" tool-tip="Reset Average" text="Reset" ng-click="vm.resetFuel($event)" claim="Fleet:VehicleFuelReset"></nt-button>
+    <nt-button type="command-bar" icon="add" tool-tip="New Fuel" text="New" ng-click="vm.addFuel($event)" claim="Fleet:VehicleFuelAdd"></nt-button>
+</nt-toolbar>
+<nt-grid grid="vm.grid"></nt-grid>
 
 <script type="text/ng-template" id="vehicle_fuel_dialog">
     <md-dialog aria-label="Fuel" class="dialog">
-        <nt-dialog form="fuelForm" title="Fuel">
+        <nt-dialog form="fuelForm" header="Fuel">
             <div class="dialog_error">{{vm.dialogError.message}}</div>
             <div layout="row">
                 <nt-input flex="33" form="fuelForm" type="date" label="Fuel Date" control-name="fuelDate" ng-model="vm.model.fuelDate" ng-required="true"></nt-input>

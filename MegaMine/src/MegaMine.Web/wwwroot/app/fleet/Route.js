@@ -52,7 +52,7 @@ var MegaMine;
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleFuel.html",
-                    controller: "vehicleFuel",
+                    controller: Fleet.VehicleFuel,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
