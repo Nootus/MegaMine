@@ -9,13 +9,13 @@ var MegaMine;
     var Quarry;
     (function (Quarry) {
         let Stockyard = class Stockyard {
-            constructor(quarryService, quarryUtility, constants, dialogService, template, message) {
+            constructor(quarryService, quarryUtility, constants, dialogService, template, messages) {
                 this.quarryService = quarryService;
                 this.quarryUtility = quarryUtility;
                 this.constants = constants;
                 this.dialogService = dialogService;
                 this.template = template;
-                this.message = message;
+                this.messages = messages;
                 this.processTypeEnum = Quarry.Models.ProcessType;
                 this.yards = [];
                 this.yardId = 0;
@@ -76,7 +76,7 @@ var MegaMine;
                     self.noStockMessage = undefined;
                     self.quarryService.getStock(self.yardId).then(function () {
                         if (self.quarryService.stock.length === 0) {
-                            self.noStockMessage = self.message.noStockMessage;
+                            self.noStockMessage = self.messages.noStockMessage;
                         }
                     });
                 }
@@ -127,7 +127,7 @@ var MegaMine;
         };
         Stockyard = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.Stockyard"),
-            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Quarry.QuarryUtility", "MegaMine.Shared.Constants", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template", "MegaMine.Shared.Message")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Quarry.QuarryUtility", "MegaMine.Shared.Constants", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template", "MegaMine.Shared.Messages")
         ], Stockyard);
         Quarry.Stockyard = Stockyard;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

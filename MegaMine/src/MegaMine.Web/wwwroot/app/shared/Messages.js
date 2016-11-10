@@ -8,7 +8,7 @@ var MegaMine;
 (function (MegaMine) {
     var Shared;
     (function (Shared) {
-        let Message = class Message {
+        let Messages = class Messages {
             constructor() {
                 this.unAuthorized = "Unauthorized";
                 this.confirmError = "Please fix the errors before saving";
@@ -31,11 +31,11 @@ var MegaMine;
                 this.OperatorTimeOverlapInvalid = "Time should not overlap for operators";
             }
         };
-        Message = __decorate([
-            MegaMine.service("megamine", "MegaMine.Shared.Message"),
+        Messages = __decorate([
+            MegaMine.service("megamine", "MegaMine.Shared.Messages"),
             MegaMine.inject()
-        ], Message);
-        Shared.Message = Message;
+        ], Messages);
+        Shared.Messages = Messages;
     })(Shared = MegaMine.Shared || (MegaMine.Shared = {}));
 })(MegaMine || (MegaMine = {}));
-//# sourceMappingURL=Message.js.map
+//# sourceMappingURL=Messages.js.map

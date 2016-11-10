@@ -1,16 +1,19 @@
-﻿<nt-dashobard vm="vm" title="Trip History" button-text="Add Trip" button-click="vm.addTrip($event)" claim="Fleet:VehicleTripAdd" toolbar-class="subtitle" grid-class="sub-grid"></nt-dashobard>
+﻿<nt-toolbar class="sub-menu-header" header="Trip History">
+    <nt-button type="command-bar" icon="add" tool-tip="New Trip" text="New" ng-click="vm.addTrip($event)" claim="Fleet:VehicleTripAdd"></nt-button>
+</nt-toolbar>
+<nt-grid grid="vm.grid"></nt-grid>
 
 <script type="text/ng-template" id="vehicle_trip_dialog">
     <md-dialog aria-label="Trip" class="dialog">
-        <nt-dialog form="tripForm" title="Trip">
+        <nt-dialog form="tripForm" header="Trip">
             <div layout="row">
                 <nt-input flex="33" form="tripForm" type="string" label="TripName" control-name="vehicleTripName" ng-model="vm.model.vehicleTripName" em-maxlength="100" ng-required="true"></nt-input>
-                <nt-input flex="33" form="tripForm" type="date" label="Start" control-name="startingTime" ng-model="vm.model.startingTime" ng-required="true" ng-change="vm.validator.validateDates(tripForm)"></nt-input>
-                <nt-input flex="33" form="tripForm" type="date" label="Reached" control-name="reachingTime" ng-model="vm.model.reachingTime" ng-required="true" error-messages="vm.validator.endDateMessages" ng-change="vm.validator.validateDates(tripForm)"></nt-input>
+                <nt-input flex="33" form="tripForm" type="date" label="Start" control-name="startingTime" ng-model="vm.model.startingTime" ng-required="true" ng-change="vm.validators[0].validate(tripForm)"></nt-input>
+                <nt-input flex="33" form="tripForm" type="date" label="Reached" control-name="reachingTime" ng-model="vm.model.reachingTime" ng-required="true" error-messages="vm.validators[0].errorMessages" ng-change="vm.validators[0].validate(tripForm)"></nt-input>
             </div>
             <div layout="row">
-                <nt-input flex="33" form="tripForm" type="number" label="Odometer Start" control-name="odometerStart" ng-model="vm.model.odometerStart" ng-required="true" ng-change="vm.validator.validateOdometer(tripForm)"></nt-input>
-                <nt-input flex="33" form="tripForm" type="number" label="Odometer End" control-name="odometerEnd" ng-model="vm.model.odometerEnd" ng-required="true" error-messages="vm.validator.endOdometerMessages" ng-change="vm.validator.validateOdometer(tripForm)"></nt-input>
+                <nt-input flex="33" form="tripForm" type="number" label="Odometer Start" control-name="odometerStart" ng-model="vm.model.odometerStart" ng-required="true" ng-change="vm.validators[1].validate(tripForm)"></nt-input>
+                <nt-input flex="33" form="tripForm" type="number" label="Odometer End" control-name="odometerEnd" ng-model="vm.model.odometerEnd" ng-required="true" error-messages="vm.validators[1].errorMessages" ng-change="vm.validators[1].validate(tripForm)"></nt-input>
             </div>
         </nt-dialog>
     </md-dialog>

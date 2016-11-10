@@ -9,16 +9,16 @@ var MegaMine;
     var Account;
     (function (Account) {
         let ChangePasswordDialog = class ChangePasswordDialog {
-            constructor(accountService, dialogService, message) {
+            constructor(accountService, dialogService, messages) {
                 this.accountService = accountService;
                 this.dialogService = dialogService;
-                this.message = message;
+                this.messages = messages;
             }
             viewDialog(ev) {
                 const self = this;
                 let error;
                 let validator = {
-                    errorMessages: [{ type: "passsordSame", text: self.message.samePassword }],
+                    errorMessages: [{ type: "passsordSame", text: self.messages.samePassword }],
                     validate: self.validatePasswords
                 };
                 self.dialogService.show({
@@ -49,7 +49,7 @@ var MegaMine;
         };
         ChangePasswordDialog = __decorate([
             MegaMine.service("megamine", "MegaMine.Account.ChangePasswordDialog"),
-            MegaMine.inject("MegaMine.Account.AccountService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Message")
+            MegaMine.inject("MegaMine.Account.AccountService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Messages")
         ], ChangePasswordDialog);
         Account.ChangePasswordDialog = ChangePasswordDialog;
     })(Account = MegaMine.Account || (MegaMine.Account = {}));

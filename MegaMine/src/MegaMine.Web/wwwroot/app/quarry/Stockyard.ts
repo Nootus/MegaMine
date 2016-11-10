@@ -2,7 +2,7 @@
 
     @controller("megamine", "MegaMine.Quarry.Stockyard")
     @inject("MegaMine.Quarry.QuarryService", "MegaMine.Quarry.QuarryUtility", "MegaMine.Shared.Constants",
-                "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template", "MegaMine.Shared.Message")
+                "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template", "MegaMine.Shared.Messages")
     export class Stockyard {
 
         public grid: Widget.Models.IDashboardRecordGrid<Stockyard, Models.IStockModel>;
@@ -14,7 +14,7 @@
 
         constructor(private quarryService: QuarryService, private quarryUtility: QuarryUtility,
             private constants: Shared.Constants, private dialogService: Shared.Dialog.DialogService<Models.IStockModel>,
-            private template: Shared.Template, private message: Shared.Message) {
+            private template: Shared.Template, private messages: Shared.Messages) {
             const self: Stockyard = this;
 
             self.grid = {
@@ -65,7 +65,7 @@
                 self.noStockMessage = undefined;
                 self.quarryService.getStock(self.yardId).then(function (): void {
                     if (self.quarryService.stock.length === 0) {
-                        self.noStockMessage = self.message.noStockMessage;
+                        self.noStockMessage = self.messages.noStockMessage;
                     }
                 });
             }

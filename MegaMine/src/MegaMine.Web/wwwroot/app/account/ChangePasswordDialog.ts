@@ -1,11 +1,11 @@
 ﻿module MegaMine.Account {
 
     @service("megamine", "MegaMine.Account.ChangePasswordDialog")
-    @inject("MegaMine.Account.AccountService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Message")
+    @inject("MegaMine.Account.AccountService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Messages")
     export class ChangePasswordDialog {
         public model: Models.IChangePasswordModel;
         constructor(private accountService: AccountService, private dialogService: Shared.Dialog.DialogService<Models.IChangePasswordModel>
-            , private message: MegaMine.Shared.Message) {
+            , private messages: MegaMine.Shared.Messages) {
         }
 
 
@@ -13,7 +13,7 @@
             const self: ChangePasswordDialog = this;
             let error: Shared.Models.INtException;
             let validator: Shared.Models.IDataValidator = {
-                errorMessages: [{ type: "passsordSame", text: self.message.samePassword }],
+                errorMessages: [{ type: "passsordSame", text: self.messages.samePassword }],
                 validate: self.validatePasswords
             };
 

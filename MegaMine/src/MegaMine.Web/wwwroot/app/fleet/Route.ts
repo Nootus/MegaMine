@@ -70,7 +70,7 @@
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleDriver.html",
-                    controller: "vehicleDriver",
+                    controller: VehicleDriver,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
@@ -86,7 +86,7 @@
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleTrip.html",
-                    controller: "vehicleTrip",
+                    controller: VehicleTrip,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",

@@ -1,8 +1,8 @@
 ﻿module MegaMine.Shared {
 
-    @service("megamine", "MegaMine.Shared.Message")
+    @service("megamine", "MegaMine.Shared.Messages")
     @inject()
-    export class Message {
+    export class Messages {
 
         public unAuthorized: string = "Unauthorized";
         public confirmError: string = "Please fix the errors before saving";

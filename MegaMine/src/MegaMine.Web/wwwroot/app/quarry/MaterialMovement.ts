@@ -2,7 +2,7 @@
 
     @controller("megamine", "MegaMine.Quarry.MaterialMovement")
     @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.GridUtility", "MegaMine.Shared.Dialog.DialogUtility",
-        "MegaMine.Shared.Constants", "MegaMine.Shared.Message")
+        "MegaMine.Shared.Constants", "MegaMine.Shared.Messages")
     export class MaterialMovement {
 
         // variables used in the view
@@ -18,7 +18,7 @@
 
         constructor(private quarryService: QuarryService, private gridUtility: Shared.GridUtility,
             private dialogUtility: Shared.Dialog.DialogUtility, private constants: Shared.Constants,
-            private message: Shared.Message) {
+            private messages: Shared.Messages) {
             const self: MaterialMovement = this;
             const gridOptions: uiGrid.IGridOptions = {
                 columnDefs: [
@@ -59,7 +59,7 @@
                 self.noStockMessage = undefined;
                 self.quarryService.getStock(self.fromYardId).then(function (): void {
                     if (self.quarryService.stock.length === 0) {
-                        self.noStockMessage = self.message.noStockMessage;
+                        self.noStockMessage = self.messages.noStockMessage;
                     }
                 });
                 self.currentYardId = self.fromYardId;
@@ -80,7 +80,7 @@
             // checking the from & to yard
             if (self.currentYardId === self.toYardId) {
                 self.movementErrorMessages.splice(0, self.movementErrorMessages.length);
-                self.movementErrorMessages.push({ type: "dupyard", text: self.message.dupYard });
+                self.movementErrorMessages.push({ type: "dupyard", text: self.messages.dupYard });
 
                 form.toYard.$setValidity("dupyard", false);
             }

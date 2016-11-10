@@ -9,12 +9,12 @@ var MegaMine;
     var Quarry;
     (function (Quarry) {
         let MaterialMovement = class MaterialMovement {
-            constructor(quarryService, gridUtility, dialogUtility, constants, message) {
+            constructor(quarryService, gridUtility, dialogUtility, constants, messages) {
                 this.quarryService = quarryService;
                 this.gridUtility = gridUtility;
                 this.dialogUtility = dialogUtility;
                 this.constants = constants;
-                this.message = message;
+                this.messages = messages;
                 this.yards = [];
                 this.groupYards = [];
                 this.movementErrorMessages = [];
@@ -54,7 +54,7 @@ var MegaMine;
                     self.noStockMessage = undefined;
                     self.quarryService.getStock(self.fromYardId).then(function () {
                         if (self.quarryService.stock.length === 0) {
-                            self.noStockMessage = self.message.noStockMessage;
+                            self.noStockMessage = self.messages.noStockMessage;
                         }
                     });
                     self.currentYardId = self.fromYardId;
@@ -72,7 +72,7 @@ var MegaMine;
                 // checking the from & to yard
                 if (self.currentYardId === self.toYardId) {
                     self.movementErrorMessages.splice(0, self.movementErrorMessages.length);
-                    self.movementErrorMessages.push({ type: "dupyard", text: self.message.dupYard });
+                    self.movementErrorMessages.push({ type: "dupyard", text: self.messages.dupYard });
                     form.toYard.$setValidity("dupyard", false);
                 }
                 if (form.$valid) {
@@ -94,7 +94,7 @@ var MegaMine;
         };
         MaterialMovement = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.MaterialMovement"),
-            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.GridUtility", "MegaMine.Shared.Dialog.DialogUtility", "MegaMine.Shared.Constants", "MegaMine.Shared.Message")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.GridUtility", "MegaMine.Shared.Dialog.DialogUtility", "MegaMine.Shared.Constants", "MegaMine.Shared.Messages")
         ], MaterialMovement);
         Quarry.MaterialMovement = MaterialMovement;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

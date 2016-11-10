@@ -11,7 +11,7 @@ function ntInput(moment, constants) {
             label: '@',
             controlName: '@',
             type: '@',
-            ngRequired: '=?',
+            ngRequired: '@',
             ngDisabled: '@',
             ngChange: '=?',
             emMaxlength: '@',
@@ -21,7 +21,7 @@ function ntInput(moment, constants) {
         link: link,
         template: '<md-input-container md-is-error="isFieldError()" style="{{style}}" ng-trim="true">'
                     + '<label>{{label}}</label>'
-                    + '<input name="{{controlName}}" type="{{type}}" ng-required="ngRequired" ng-disabled="isDisabled" md-maxlength="{{emMaxlength}}" ng-model="ngModel" ng-change="ngChange" >'
+                    + '<input name="{{controlName}}" type="{{type}}" ng-required="isRequired" ng-disabled="isDisabled" md-maxlength="{{emMaxlength}}" ng-model="ngModel" ng-change="ngChange" >'
                     + '<div ng-messages="form[controlName].$error" ng-show="isFieldError()">'
                     + '<span ng-message="required">Required!</span>'
                     + '<span ng-message="md-maxlength">Text is too long!</span>'
@@ -53,6 +53,10 @@ function ntInput(moment, constants) {
 
         if (scope.ngDisabled === "true") {
             scope.isDisabled = true;
+        }
+
+        if (scope.ngRequired === "true") {
+            scope.isRequired = true;
         }
 
 

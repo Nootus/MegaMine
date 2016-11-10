@@ -2,23 +2,6 @@
 
     export const MODULE_NANME: string = "megamine";
 
-    // const directiveProperties: string[] = [
-    //    "compile",
-    //    "controller",
-    //    "controllerAs",
-    //    "bindToController",
-    //    "link",
-    //    "priority",
-    //    "replace",
-    //    "require",
-    //    "restrict",
-    //    "scope",
-    //    "template",
-    //    "templateUrl",
-    //    "terminal",
-    //    "transclude"
-    // ];
-
     /* tslint:disable:no-any */
     export interface IClassAnnotationDecorator {
         (target: any): void;

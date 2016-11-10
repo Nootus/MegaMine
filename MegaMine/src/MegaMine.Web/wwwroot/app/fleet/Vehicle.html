@@ -17,7 +17,7 @@
         <nt-input flex="20" label="Driver" control-name="driver" ng-model="vm.model.driver" ng-disabled="true"></nt-input>
     </div>
     <div layout="row">
-        <div class="left-sub-menu" flex="20">
+        <div class="left-sub-menu">
             <ul class="left-sub-menu">
                 <li class="{{menuItem.cssClass}}" ng-repeat="menuItem in vm.menuItems track by $index">
                     <md-button ng-href="{{menuItem.url}}" ng-click="vm.menuSelect(menuItem)">

@@ -200,7 +200,7 @@
             return self.$http.post<void>(url, model);
         }
 
-        public getDriversListItems(vehicleId: number): ng.IHttpPromise<Shared.Models.IListItem<number, string>[]> {
+        public getDriversListItems(): ng.IHttpPromise<Shared.Models.IListItem<number, string>[]> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/driverslistget")
                 .then(function (data: Shared.Models.IListItem<number, string>[]): Shared.Models.IListItem<number, string>[] {

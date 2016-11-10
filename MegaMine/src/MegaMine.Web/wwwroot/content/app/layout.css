@@ -485,6 +485,7 @@ h3.left-bar-item + div > div {
 
 
 div.left-sub-menu {
+    width: 170px;
 	background-image: url(/content/images/layout/menu_background.png);
 	background-repeat: repeat;
 }

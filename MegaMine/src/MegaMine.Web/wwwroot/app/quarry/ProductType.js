@@ -9,11 +9,11 @@ var MegaMine;
     var Quarry;
     (function (Quarry) {
         let ProductType = class ProductType {
-            constructor(quarryService, utility, dialogService, message) {
+            constructor(quarryService, utility, dialogService, messages) {
                 this.quarryService = quarryService;
                 this.utility = utility;
                 this.dialogService = dialogService;
-                this.message = message;
+                this.messages = messages;
                 this.validateFormulaOrder = (form) => {
                     const self = this;
                     if (form !== undefined) {
@@ -135,7 +135,7 @@ var MegaMine;
             viewDialog(model, dialogMode, ev, context) {
                 const self = context;
                 var validator = {
-                    orderErrorMessages: [{ type: "orderRequired", text: self.message.required }],
+                    orderErrorMessages: [{ type: "orderRequired", text: self.messages.required }],
                     validateFormulaOrder: self.validateFormulaOrder
                 };
                 let disabled = dialogMode !== 1 /* save */;
@@ -190,7 +190,7 @@ var MegaMine;
         };
         ProductType = __decorate([
             MegaMine.controller("megamine", "MegaMine.Quarry.ProductType"),
-            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Message")
+            MegaMine.inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Messages")
         ], ProductType);
         Quarry.ProductType = ProductType;
     })(Quarry = MegaMine.Quarry || (MegaMine.Quarry = {}));

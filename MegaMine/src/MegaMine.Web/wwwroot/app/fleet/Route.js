@@ -66,7 +66,7 @@ var MegaMine;
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleDriver.html",
-                    controller: "vehicleDriver",
+                    controller: Fleet.VehicleDriver,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",
@@ -80,7 +80,7 @@ var MegaMine;
                     title: "Vehicle",
                     previousState: "vehiclelist",
                     templateUrl: virtualPath + "/app/fleet/vehicleTrip.html",
-                    controller: "vehicleTrip",
+                    controller: Fleet.VehicleTrip,
                     controllerAs: "vm",
                     resolve: {
                         resolveModel: ["$stateParams", "MegaMine.Fleet.FleetService",

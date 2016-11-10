@@ -1,13 +1,13 @@
 ﻿module MegaMine.Quarry {
 
     @controller("megamine", "MegaMine.Quarry.ProductType")
-    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Message")
+    @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Messages")
     export class ProductType {
 
         public dashboard: Widget.Models.IDashboardModel<ProductType, Models.IProductTypeModel>;
 
         constructor(private quarryService: QuarryService, private utility: Shared.Utility,
-            private dialogService: Shared.Dialog.DialogService<Models.IProductTypeModel>, private message: Shared.Message) {
+            private dialogService: Shared.Dialog.DialogService<Models.IProductTypeModel>, private messages: Shared.Messages) {
             const self: ProductType = this;
 
             angular.forEach(quarryService.productTypes.list, function (item: Models.IProductTypeModel): void {
@@ -142,7 +142,7 @@
             ev: ng.IAngularEvent, context: ProductType): void {
             const self: ProductType = context;
             var validator: any = {
-                orderErrorMessages: [{ type: "orderRequired", text: self.message.required }],
+                orderErrorMessages: [{ type: "orderRequired", text: self.messages.required }],
                 validateFormulaOrder: self.validateFormulaOrder
             };
 

@@ -182,7 +182,7 @@ var MegaMine;
                 }
                 return self.$http.post(url, model);
             }
-            getDriversListItems(vehicleId) {
+            getDriversListItems() {
                 const self = this;
                 return self.$http.get("/api/fleet/driverslistget")
                     .then(function (data) {
