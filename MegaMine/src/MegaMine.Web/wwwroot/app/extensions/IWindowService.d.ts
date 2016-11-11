@@ -5,5 +5,6 @@
         navigation: MegaMine.Shared.Navigation;
         profile: MegaMine.Shared.Profile;
         constants: MegaMine.Shared.Constants;
+        d3: any;
     }
 }

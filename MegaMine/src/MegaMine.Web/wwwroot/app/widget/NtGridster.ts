@@ -12,7 +12,7 @@
 
         public link: ng.IDirectiveLinkFn = this.linkFn;
         public template: string = this.getTemplate();
-        public controller: any = NtGridster;
+        public controller: typeof NtGridster = NtGridster;
         public controllerAs: string = "$ctrl";
 
         constructor(private $timeout: ng.ITimeoutService) {
