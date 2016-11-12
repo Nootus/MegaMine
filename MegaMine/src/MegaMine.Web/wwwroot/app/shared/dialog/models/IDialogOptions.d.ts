@@ -1,6 +1,6 @@
 ﻿declare module MegaMine.Shared.Dialog.Models {
     interface IDialogOptions<TModel> {
-        templateUrl: string;
+        templateUrl?: string;
         template?: string;
         targetEvent: any;
         data: IDialogData<TModel>;

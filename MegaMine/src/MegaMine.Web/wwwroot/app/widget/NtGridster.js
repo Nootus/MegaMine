@@ -47,6 +47,7 @@ var MegaMine;
                         handles: ["n", "e", "s", "w", "ne", "se", "sw", "nw"],
                         // optional callback fired when resize is started
                         start: function (event, $element, widgetOptions) {
+                            // no code 
                         },
                         // optional callback fired when item is resized,
                         resize: function (event, $element, widgetOptions) {

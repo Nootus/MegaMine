@@ -8,5 +8,7 @@
         xAxisLabel: string;
         yAxisLabel: string;
         chart: IChartModel;
+
+        dashboard?: any; // for back referencing the dashboard
     }
 }

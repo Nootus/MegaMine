@@ -112,21 +112,21 @@
                 }, 500)
             }
 
-            scope.minimize = function () {
+            scope.minimize = function (): void {
                 scope.maxiInd = false;
                 angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
-                    angular.element(item).removeClass('hide')
-                })
-                scope.$parent.gridsterItem.$element.removeClass('show');
-                Object.keys(scope.maximizeStyle).forEach(function (key) { delete scope.maximizeStyle[key]; });
-                self.$timeout(function () {
+                    angular.element(item).removeClass("hide")
+                });
+                scope.$parent.gridsterItem.$element.removeClass("show");
+                Object.keys(scope.maximizeStyle).forEach(function (key: string): void { delete scope.maximizeStyle[key]; });
+                self.$timeout(function (): void {
                     nvd3Scope.api.update();
-                }, 500)
-            }
+                }, 500);
+            };
         }
 
         private openSettings(scope: INtWidgetScope, ev: any): void {
-            scope.widget.dashboard.widgetSettings(ev, scope.widget, scope.widget.dashboard, scope.id)
+            scope.widget.dashboard.widgetSettings(ev, scope.widget, scope.widget.dashboard, scope.id);
         }
     }
 

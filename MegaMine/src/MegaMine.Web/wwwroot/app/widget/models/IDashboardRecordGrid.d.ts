@@ -9,5 +9,8 @@
         editClaim?: string;
         deleteClaim?: string;
         hideGridButtons?: string;
+        height?: string;
+        AddButtonColumn?(grid: IDashboardRecordGrid<TContext, TDataModel>, primaryField: string,
+            editClaim: string, deleteClaim: string, hideGridButtons: string): void;
     }
 }

@@ -7,7 +7,7 @@
 
         }
 
-        public set(widgets) {
+        public set(widgets: Models.IWidgetModel[]): void {
             const self: ChartOptions = this;
             angular.forEach(widgets, function (item: Models.IWidgetModel): void {
                 item.chart.data = item.chart.model.data;

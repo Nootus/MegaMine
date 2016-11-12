@@ -48,18 +48,22 @@
                     handles: ["n", "e", "s", "w", "ne", "se", "sw", "nw"],
 
                     // optional callback fired when resize is started
-                    start: function (event, $element, widgetOptions) {
+                    start: function (event: ng.IAngularEvent, $element: ng.IAugmentedJQuery,
+                                                                    widgetOptions: Models.IWidgetOptionsModel): void {
+                        // no code 
                     },
 
                     // optional callback fired when item is resized,
-                    resize: function (event, $element, widgetOptions) {
+                    resize: function (event: ng.IAngularEvent, $element: ng.IAugmentedJQuery,
+                                                                    widgetOptions: Models.IWidgetOptionsModel): void {
                         self.$timeout(function (): void {
                             widgetOptions.chart.api.update();
-                        }, 50)
+                        }, 50);
                     },
 
                     // optional callback fired when item is finished resizing 
-                    stop: function (event, $element, widgetOptions) {
+                    stop: function (event: ng.IAngularEvent, $element: ng.IAugmentedJQuery,
+                                                                    widgetOptions: Models.IWidgetOptionsModel): void {
                         self.$timeout(function (): void {
                             widgetOptions.chart.api.update();
                         }, 400);

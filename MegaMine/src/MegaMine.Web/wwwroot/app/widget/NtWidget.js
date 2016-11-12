@@ -106,9 +106,9 @@ var MegaMine;
                 scope.minimize = function () {
                     scope.maxiInd = false;
                     angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
-                        angular.element(item).removeClass('hide');
+                        angular.element(item).removeClass("hide");
                     });
-                    scope.$parent.gridsterItem.$element.removeClass('show');
+                    scope.$parent.gridsterItem.$element.removeClass("show");
                     Object.keys(scope.maximizeStyle).forEach(function (key) { delete scope.maximizeStyle[key]; });
                     self.$timeout(function () {
                         nvd3Scope.api.update();

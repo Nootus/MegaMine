@@ -3,5 +3,6 @@
         dashboardPageWidgetId: number;
         widgetId: number;
         widgetOptions: IWidgetOptionsModel;
+        widget?: IWidgetModel;
     }
 }

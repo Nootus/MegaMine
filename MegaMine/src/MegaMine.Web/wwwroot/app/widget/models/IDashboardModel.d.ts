@@ -5,5 +5,7 @@
         context: TContext;
         widgets: IDashboardWidgets;
         records?: IDashboardRecord<TContext, TDataModel>;
+        widgetSettings?(ev: ng.IAngularEvent, widget: Models.IWidgetModel,
+            dashboard: Models.IDashboardModel<TContext, TDataModel>, id: number): void;
     }
 }

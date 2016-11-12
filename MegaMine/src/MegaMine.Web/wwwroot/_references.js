@@ -72,7 +72,6 @@
 /// <reference path="app/shared/template.js" />
 /// <reference path="app/shared/utility.js" />
 /// <reference path="app/temp.js" />
-/// <reference path="app/widget/chart.js" />
 /// <reference path="app/widget/chartoptions.js" />
 /// <reference path="app/widget/ntDashobard.js" />
 /// <reference path="app/widget/ntGridster.js" />
