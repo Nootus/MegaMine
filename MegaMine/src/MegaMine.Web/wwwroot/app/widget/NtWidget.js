@@ -50,11 +50,12 @@ var MegaMine;
             linkFn(scope, element, instanceAttributes, $ctrl) {
                 let nvd3Scope = {};
                 scope.remove = function () {
-                    var index = 0;
-                    var widgets = scope.widget.dashboard.pageWidgets;
-                    for (var index = 0; index < widgets.length; index++) {
-                        if (scope.id == widgets[index].dashboardPageWidgetId)
+                    let index = 0;
+                    let widgets = scope.widget.dashboard.pageWidgets;
+                    for (index = 0; index < widgets.length; index++) {
+                        if (scope.id === widgets[index].dashboardPageWidgetId) {
                             break;
+                        }
                     }
                     widgets.splice(index, 1);
                 };
@@ -73,7 +74,7 @@ var MegaMine;
                         nvd3Scope.config.visible = true;
                     }, 100);
                 };
-                scope.$on('gridster-resized', function (sizes, gridster) {
+                scope.$on("gridster-resized", function (sizes, gridster) {
                     if (nvd3Scope !== undefined) {
                         self.$timeout(function () {
                             nvd3Scope.api.update();
@@ -89,15 +90,15 @@ var MegaMine;
                     scope.maxiInd = true;
                     angular.extend(scope.maximizeStyle, {
                         width: scope.$parent.gridster.$element.width(),
-                        height: self.utility.getContentHeight('portal-content', 50),
-                        position: 'absolute',
-                        top: '35px',
-                        left: '5px'
+                        height: self.utility.getContentHeight("portal-content", 50),
+                        position: "absolute",
+                        top: "35px",
+                        left: "5px"
                     });
                     angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
-                        angular.element(item).addClass('hide');
+                        angular.element(item).addClass("hide");
                     });
-                    scope.$parent.gridsterItem.$element.addClass('show');
+                    scope.$parent.gridsterItem.$element.addClass("show");
                     angular.element(".chart-bar").scrollTop(0);
                     self.$timeout(function () {
                         nvd3Scope.api.update();

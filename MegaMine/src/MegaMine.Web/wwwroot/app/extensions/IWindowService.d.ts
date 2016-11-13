@@ -8,3 +8,8 @@
         d3: any;
     }
 }
+
+interface Window {
+    toastr: any;
+    moment: any;
+}

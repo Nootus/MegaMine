@@ -11,7 +11,7 @@
 
         public enum = {
             dialogMode: { view: 0, save: 1, delete: 2 },
-            buttonType: { view: 0, edit: 1, delete: 2 },
+            buttonType: { view: 0, edit: 1, delete: 2 }
         };
     }
 }

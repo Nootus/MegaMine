@@ -40,26 +40,27 @@
                               on-ready="onReady">
                         </nvd3>
                     </div>
-                </div>`
+                </div>`;
         }
 
         public linkFn(scope: INtWidgetScope, element: ng.IAugmentedJQuery,
             instanceAttributes: ng.IAttributes, $ctrl: NtWidget): void {
             let nvd3Scope: any = {};
 
-            scope.remove = function () {
-                var index = 0;
-                var widgets = scope.widget.dashboard.pageWidgets;
-                for (var index = 0; index < widgets.length; index++) {
-                    if (scope.id == widgets[index].dashboardPageWidgetId)
+            scope.remove = function (): void {
+                let index: number = 0;
+                let widgets: Models.IPageWidgetModel[] = scope.widget.dashboard.pageWidgets;
+                for (index = 0; index < widgets.length; index++) {
+                    if (scope.id === widgets[index].dashboardPageWidgetId) {
                         break;
+                    }
                 }
                 widgets.splice(index, 1);
-            }
+            };
 
-            scope.refresh = function () {
+            scope.refresh = function (): void {
                 nvd3Scope.api.update();
-            }
+            };
 
             $ctrl.nvd3(scope, nvd3Scope);
             $ctrl.mixiMini(scope, nvd3Scope);
@@ -74,16 +75,16 @@
 
                 self.$timeout(function (): void {
                     nvd3Scope.config.visible = true;
-                }, 100)
-            }
+                }, 100);
+            };
 
-            scope.$on('gridster-resized', function (sizes: ng.IAngularEvent, gridster: any): void {
+            scope.$on("gridster-resized", function (sizes: ng.IAngularEvent, gridster: any): void {
                 if (nvd3Scope !== undefined) {
                     self.$timeout(function (): void {
                         nvd3Scope.api.update();
-                    }, 100)
+                    }, 100);
                 }
-            })
+            });
         }
 
         private mixiMini(scope: any, nvd3Scope: any): void {
@@ -91,31 +92,31 @@
             scope.maxiInd = false;
             scope.maximizeStyle = {};
 
-            scope.maximize = function () {
+            scope.maximize = function (): void {
                 scope.maxiInd = true;
 
                 angular.extend(scope.maximizeStyle, {
                     width: scope.$parent.gridster.$element.width(),
-                    height: self.utility.getContentHeight('portal-content', 50),
-                    position: 'absolute',
-                    top: '35px',
-                    left: '5px'
+                    height: self.utility.getContentHeight("portal-content", 50),
+                    position: "absolute",
+                    top: "35px",
+                    left: "5px"
                 });
 
-                angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
-                    angular.element(item).addClass('hide')
-                })
-                scope.$parent.gridsterItem.$element.addClass('show');
+                angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item: string): void {
+                    angular.element(item).addClass("hide");
+                });
+                scope.$parent.gridsterItem.$element.addClass("show");
                 angular.element(".chart-bar").scrollTop(0);
-                self.$timeout(function () {
+                self.$timeout(function (): void {
                     nvd3Scope.api.update();
-                }, 500)
-            }
+                }, 500);
+            };
 
             scope.minimize = function (): void {
                 scope.maxiInd = false;
-                angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
-                    angular.element(item).removeClass("hide")
+                angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item: string): void {
+                    angular.element(item).removeClass("hide");
                 });
                 scope.$parent.gridsterItem.$element.removeClass("show");
                 Object.keys(scope.maximizeStyle).forEach(function (key: string): void { delete scope.maximizeStyle[key]; });
@@ -131,8 +132,8 @@
     }
 
     interface INtWidgetScope extends ng.IScope {
-        id: string;
-        widget: any;
+        id: number;
+        widget: Models.IWidgetModel;
         onReady: Function;
         remove: Function;
         refresh: Function;
