@@ -1,4 +1,6 @@
-﻿<nt-toolbar-button header="Textures" button-text="Add" button-icon="add" button-click="$ctrl.addTexture($event, $ctrl)" claim="Quarry:TextureAdd"></nt-toolbar-button>
+﻿<nt-toolbar header="Textures">
+    <nt-button type="command-bar" icon="add" tool-tip="Add Texture" text="Add" ng-click="$ctrl.addTexture($event, $ctrl)" claim="Quarry:TextureAdd"></nt-button>
+</nt-toolbar>
 <nt-grid class="grid-content" grid="$ctrl.grid"></nt-grid>
 
 <script type="text/ng-template" id="texture_dialog">

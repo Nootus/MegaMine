@@ -1,4 +1,6 @@
-﻿<nt-toolbar-button header="Add Material" button-text="Save" button-icon="save" button-click="vm.saveMaterial($event)"></nt-toolbar-button>
+﻿<nt-toolbar header="Add Material">
+    <nt-button type="command-bar" icon="save" tool-tip="Save Material" text="Save" ng-click="vm.saveMaterial($event)"></nt-button>
+</nt-toolbar>
 <md-content layout-padding style="height: 100%">
     <form name="materialForm" novalidate>
         <div layout="row"> 
