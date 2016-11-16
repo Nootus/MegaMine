@@ -42,7 +42,7 @@
                             ng-hide="viewType === ${ Models.DashboardViewType.grid } || 
                                                                     viewType === ${ Models.DashboardViewType.dashboardOnly }">
                         </nt-button>
-                        <nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="refresh()">
+                        <nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="$ctrl.refresh()">
                         </nt-button>
                         <nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.records.buttons.add.toolTip}}" 
                             text="{{dashboard.records.buttons.add.text}}" 
@@ -143,7 +143,6 @@
             scope.toggleListView = function(): void { self.toggleListView(scope); };
             scope.toggleView = function(): void { self.toggleView(scope); };
             scope.toggleListContextMenu = function(): void { self.toggleListContextMenu(scope); };
-            scope.refresh = self.refresh;
             scope.addWidget = function(ev: ng.IAngularEvent): void { self.widgetSettings(ev, undefined, scope.dashboard, undefined); };;
             scope.clearWidgets = function(): void { self.clearWidgets(scope); };
 
@@ -199,8 +198,8 @@
             });
         }
 
-        private widgetSettings(ev: ng.IAngularEvent, widget: Models.IWidgetModel, dashboard: Models.IDashboardModel<TContext, TDataModel>,
-                    id: number): void {
+        private widgetSettings = (ev: ng.IAngularEvent, widget: Models.IWidgetModel,
+                        dashboard: Models.IDashboardModel<TContext, TDataModel>, id: number): void => {
             let self: NtDashobard<TContext, TDataModel> = this;
             let header: string = "Add Widget";
             let buttonText: string = "Add";
@@ -252,7 +251,7 @@
 
                     self.dialogService.hide();
                 });
-        }
+        };
 
         private getWidgetTemplate(header: string, buttonText: string): string {
             return `<md-dialog aria-label="${ header }" class="dialog">
@@ -270,7 +269,7 @@
             scope.dashboard.widgets.pageWidgets.splice(0, scope.dashboard.widgets.pageWidgets.length);
         }
 
-        private refresh(): ng.IPromise<any> {
+        public refresh(): ng.IPromise<any> {
             let self: NtDashobard<TContext, TDataModel> = this;
             let current: ng.ui.IState = self.$state.current;
             let params: ng.ui.IStateOptions = angular.copy(self.$stateParams);

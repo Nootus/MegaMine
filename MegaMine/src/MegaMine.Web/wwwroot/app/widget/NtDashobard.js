@@ -28,6 +28,54 @@ var MegaMine;
                 this.template = this.getTemplate();
                 this.controller = NtDashobard_1;
                 this.controllerAs = "$ctrl";
+                this.widgetSettings = (ev, widget, dashboard, id) => {
+                    let self = this;
+                    let header = "Add Widget";
+                    let buttonText = "Add";
+                    let dialogMode = 1 /* save */;
+                    if (widget !== undefined) {
+                        header = widget.name;
+                        buttonText = "Save";
+                        dialogMode = 1 /* save */;
+                    }
+                    self.dialogService.show({
+                        template: self.getWidgetTemplate(header, buttonText),
+                        targetEvent: ev,
+                        data: { model: id, dataOptions: { widgets: dashboard.widgets.allWidgets } },
+                        dialogMode: dialogMode
+                    })
+                        .then(function (dialogModel) {
+                        let index = 0;
+                        for (index = 0; index < dashboard.widgets.allWidgets.length; index++) {
+                            if (dialogModel === dashboard.widgets.allWidgets[index].widgetId) {
+                                break;
+                            }
+                        }
+                        let widgetItem = {
+                            dashboardPageWidgetId: Math.random(),
+                            widgetId: dashboard.widgets.allWidgets[index].widgetId,
+                            widgetOptions: {
+                                columns: undefined,
+                                rows: undefined,
+                                sizeX: dashboard.widgets.allWidgets[index].sizeX,
+                                sizeY: dashboard.widgets.allWidgets[index].sizeY
+                            }
+                        };
+                        if (widget !== undefined) {
+                            let current;
+                            for (current = 0; current < dashboard.widgets.pageWidgets.length; current++) {
+                                if (id === dashboard.widgets.pageWidgets[current].dashboardPageWidgetId) {
+                                    break;
+                                }
+                            }
+                            angular.extend(widgetItem.widgetOptions, dashboard.widgets.pageWidgets[current].widgetOptions);
+                            dashboard.widgets.pageWidgets.splice(current, 1);
+                        }
+                        self.preprocessWidgetItem(widgetItem, dashboard);
+                        dashboard.widgets.pageWidgets.push(widgetItem);
+                        self.dialogService.hide();
+                    });
+                };
             }
             getTemplate() {
                 return `<nt-toolbar header="{{dashboard.header}}" class="command-bar {{headerClass}}">
@@ -48,7 +96,7 @@ var MegaMine;
                             ng-hide="viewType === ${1 /* grid */} || 
                                                                     viewType === ${3 /* dashboardOnly */}">
                         </nt-button>
-                        <nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="refresh()">
+                        <nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="$ctrl.refresh()">
                         </nt-button>
                         <nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.records.buttons.add.toolTip}}" 
                             text="{{dashboard.records.buttons.add.text}}" 
@@ -140,7 +188,6 @@ var MegaMine;
                 scope.toggleListView = function () { self.toggleListView(scope); };
                 scope.toggleView = function () { self.toggleView(scope); };
                 scope.toggleListContextMenu = function () { self.toggleListContextMenu(scope); };
-                scope.refresh = self.refresh;
                 scope.addWidget = function (ev) { self.widgetSettings(ev, undefined, scope.dashboard, undefined); };
                 ;
                 scope.clearWidgets = function () { self.clearWidgets(scope); };
@@ -187,54 +234,6 @@ var MegaMine;
                 self.$timeout(function () {
                     scope.height = self.utility.getContentHeight("portal-content", 5);
                     scope.dashboard.records.grid.height = scope.height;
-                });
-            }
-            widgetSettings(ev, widget, dashboard, id) {
-                let self = this;
-                let header = "Add Widget";
-                let buttonText = "Add";
-                let dialogMode = 1 /* save */;
-                if (widget !== undefined) {
-                    header = widget.name;
-                    buttonText = "Save";
-                    dialogMode = 1 /* save */;
-                }
-                self.dialogService.show({
-                    template: self.getWidgetTemplate(header, buttonText),
-                    targetEvent: ev,
-                    data: { model: id, dataOptions: { widgets: dashboard.widgets.allWidgets } },
-                    dialogMode: dialogMode
-                })
-                    .then(function (dialogModel) {
-                    let index = 0;
-                    for (index = 0; index < dashboard.widgets.allWidgets.length; index++) {
-                        if (dialogModel === dashboard.widgets.allWidgets[index].widgetId) {
-                            break;
-                        }
-                    }
-                    let widgetItem = {
-                        dashboardPageWidgetId: Math.random(),
-                        widgetId: dashboard.widgets.allWidgets[index].widgetId,
-                        widgetOptions: {
-                            columns: undefined,
-                            rows: undefined,
-                            sizeX: dashboard.widgets.allWidgets[index].sizeX,
-                            sizeY: dashboard.widgets.allWidgets[index].sizeY
-                        }
-                    };
-                    if (widget !== undefined) {
-                        let current;
-                        for (current = 0; current < dashboard.widgets.pageWidgets.length; current++) {
-                            if (id === dashboard.widgets.pageWidgets[current].dashboardPageWidgetId) {
-                                break;
-                            }
-                        }
-                        angular.extend(widgetItem.widgetOptions, dashboard.widgets.pageWidgets[current].widgetOptions);
-                        dashboard.widgets.pageWidgets.splice(current, 1);
-                    }
-                    self.preprocessWidgetItem(widgetItem, dashboard);
-                    dashboard.widgets.pageWidgets.push(widgetItem);
-                    self.dialogService.hide();
                 });
             }
             getWidgetTemplate(header, buttonText) {

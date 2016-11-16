@@ -15,12 +15,15 @@
         public controller: typeof NtGridster = NtGridster;
         public controllerAs: string = "$ctrl";
 
+        // scope variables
+        public gridsterOptions: any;
+
         constructor(private $timeout: ng.ITimeoutService) {
 
         }
 
         public getTemplate(): string {
-            return `<div gridster="gridsterOptions">
+            return `<div gridster="$ctrl.gridsterOptions">
                         <ul class="with-3d-shadow with-transitions">
                             <li class="widget" gridster-item="item.widgetOptions" ng-repeat="item in widgets">
                                 <nt-widget id="{{item.dashboardPageWidgetId}}" widget="item.widget"></nt-nvd3>
@@ -29,9 +32,8 @@
                     </div>`;
         }
 
-        public linkFn(scope: INtGridsterScope, element: ng.IAugmentedJQuery,
-            instanceAttributes: ng.IAttributes, $ctrl: NtGridster): void {
-            scope.gridsterOptions = $ctrl.getGridsterOptions();
+        public linkFn(scope: ng.IScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtGridster): void {
+            $ctrl.gridsterOptions = $ctrl.getGridsterOptions();
         }
 
         private getGridsterOptions(): any {
@@ -71,9 +73,5 @@
                 }
             };
         }
-    }
-
-    interface INtGridsterScope extends ng.IScope {
-        gridsterOptions: any;
     }
 }

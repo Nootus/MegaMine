@@ -23,7 +23,7 @@ var MegaMine;
                 this.controllerAs = "$ctrl";
             }
             getTemplate() {
-                return `<div gridster="gridsterOptions">
+                return `<div gridster="$ctrl.gridsterOptions">
                         <ul class="with-3d-shadow with-transitions">
                             <li class="widget" gridster-item="item.widgetOptions" ng-repeat="item in widgets">
                                 <nt-widget id="{{item.dashboardPageWidgetId}}" widget="item.widget"></nt-nvd3>
@@ -32,7 +32,7 @@ var MegaMine;
                     </div>`;
             }
             linkFn(scope, element, instanceAttributes, $ctrl) {
-                scope.gridsterOptions = $ctrl.getGridsterOptions();
+                $ctrl.gridsterOptions = $ctrl.getGridsterOptions();
             }
             getGridsterOptions() {
                 let self = this;

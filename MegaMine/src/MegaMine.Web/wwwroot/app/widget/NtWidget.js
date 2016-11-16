@@ -24,17 +24,28 @@ var MegaMine;
                 this.template = this.getTemplate();
                 this.controller = NtWidget_1;
                 this.controllerAs = "$ctrl";
+                this.maxiInd = false;
+                this.maximizeStyle = {};
+                // private variables
+                this.nvd3Scope = {};
+                this.onReady = (childScope) => {
+                    let self = this;
+                    angular.extend(self.nvd3Scope, childScope);
+                    self.$timeout(function () {
+                        self.nvd3Scope.config.visible = true;
+                    }, 100);
+                };
             }
             getTemplate() {
-                return `<div class="box" ng-style="maximizeStyle">
+                return `<div class="box" ng-style="$ctrl.maximizeStyle">
                     <div class="box-header">
                         <h3>{{ widget.name }}</h3>
                             <div class="box-header-btns pull-right">
-                                <a title="Settings" ng-click="openSettings($event)"><i class="fa fa-cog"></i></a>
-                                <a title="Maximize" ng-click="maximize()" ng-hide="maxiInd"><i class="fa fa-maximize"></i></a>
-                                <a title="Minimize" ng-click="minimize()" ng-show="maxiInd"><i class="fa fa-minimize"></i></a>
-                                <a title="Refresh" ng-click="refresh()"><i class="fa fa-refresh"></i></a>
-                                <a title="Remove widget" ng-click="remove()"><i class="fa fa-trash"></i></a>
+                                <a title="Settings" ng-click="$ctrl.openSettings($event)"><i class="fa fa-cog"></i></a>
+                                <a title="Maximize" ng-click="$ctrl.maximize()" ng-hide="$ctrl.maxiInd"><i class="fa fa-maximize"></i></a>
+                                <a title="Minimize" ng-click="$ctrl.minimize()" ng-show="$ctrl.maxiInd"><i class="fa fa-minimize"></i></a>
+                                <a title="Refresh" ng-click="$ctrl.refresh()"><i class="fa fa-refresh"></i></a>
+                                <a title="Remove widget" ng-click="$ctrl.remove()"><i class="fa fa-trash"></i></a>
                             </div>
                     </div>
                     <div class="box-content">
@@ -42,82 +53,76 @@ var MegaMine;
                               data="widget.chart.data"
                               api="widget.chart.api"
                               config="{ visible: false }"
-                              on-ready="onReady">
+                              on-ready="$ctrl.onReady">
                         </nvd3>
                     </div>
                 </div>`;
             }
             linkFn(scope, element, instanceAttributes, $ctrl) {
-                let nvd3Scope = {};
-                scope.remove = function () {
-                    let index = 0;
-                    let widgets = scope.widget.dashboard.pageWidgets;
-                    for (index = 0; index < widgets.length; index++) {
-                        if (scope.id === widgets[index].dashboardPageWidgetId) {
-                            break;
-                        }
-                    }
-                    widgets.splice(index, 1);
-                };
-                scope.refresh = function () {
-                    nvd3Scope.api.update();
-                };
-                $ctrl.nvd3(scope, nvd3Scope);
-                $ctrl.mixiMini(scope, nvd3Scope);
-                scope.openSettings = function (ev) { $ctrl.openSettings(scope, ev); };
-            }
-            nvd3(scope, nvd3Scope) {
-                let self = this;
-                scope.onReady = function (childScope, element) {
-                    angular.extend(nvd3Scope, childScope);
-                    self.$timeout(function () {
-                        nvd3Scope.config.visible = true;
-                    }, 100);
-                };
+                const self = $ctrl;
+                let scopewidget = "widget";
+                let scopeid = "id";
+                self.$scope = scope;
+                self.widget = scope[scopewidget];
+                self.id = parseInt(scope[scopeid], 10);
                 scope.$on("gridster-resized", function (sizes, gridster) {
-                    if (nvd3Scope !== undefined) {
+                    if (self.nvd3Scope !== undefined) {
                         self.$timeout(function () {
-                            nvd3Scope.api.update();
+                            self.nvd3Scope.api.update();
                         }, 100);
                     }
                 });
             }
-            mixiMini(scope, nvd3Scope) {
+            remove() {
                 let self = this;
-                scope.maxiInd = false;
-                scope.maximizeStyle = {};
-                scope.maximize = function () {
-                    scope.maxiInd = true;
-                    angular.extend(scope.maximizeStyle, {
-                        width: scope.$parent.gridster.$element.width(),
-                        height: self.utility.getContentHeight("portal-content", 50),
-                        position: "absolute",
-                        top: "35px",
-                        left: "5px"
-                    });
-                    angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
-                        angular.element(item).addClass("hide");
-                    });
-                    scope.$parent.gridsterItem.$element.addClass("show");
-                    angular.element(".chart-bar").scrollTop(0);
-                    self.$timeout(function () {
-                        nvd3Scope.api.update();
-                    }, 500);
-                };
-                scope.minimize = function () {
-                    scope.maxiInd = false;
-                    angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item) {
-                        angular.element(item).removeClass("hide");
-                    });
-                    scope.$parent.gridsterItem.$element.removeClass("show");
-                    Object.keys(scope.maximizeStyle).forEach(function (key) { delete scope.maximizeStyle[key]; });
-                    self.$timeout(function () {
-                        nvd3Scope.api.update();
-                    }, 500);
-                };
+                let index = 0;
+                let widgets = self.widget.dashboard.widgets.pageWidgets;
+                for (index = 0; index < widgets.length; index++) {
+                    if (self.id === widgets[index].dashboardPageWidgetId) {
+                        break;
+                    }
+                }
+                widgets.splice(index, 1);
             }
-            openSettings(scope, ev) {
-                scope.widget.dashboard.widgetSettings(ev, scope.widget, scope.widget.dashboard, scope.id);
+            refresh() {
+                let self = this;
+                self.nvd3Scope.api.update();
+            }
+            maximize() {
+                const self = this;
+                self.maxiInd = true;
+                angular.extend(self.maximizeStyle, {
+                    width: self.$scope.$parent.gridster.$element.width(),
+                    height: self.utility.getContentHeight("portal-content", 50),
+                    position: "absolute",
+                    top: "35px",
+                    left: "5px"
+                });
+                angular.forEach(self.$scope.$parent.gridsterItem.$element.siblings(), function (item) {
+                    angular.element(item).addClass("hide");
+                });
+                self.$scope.$parent.gridsterItem.$element.addClass("show");
+                angular.element(".chart-bar").scrollTop(0);
+                self.$timeout(function () {
+                    self.nvd3Scope.api.update();
+                }, 500);
+            }
+            minimize() {
+                const self = this;
+                self.maxiInd = false;
+                angular.forEach(self.$scope.$parent.gridsterItem.$element.siblings(), function (item) {
+                    angular.element(item).removeClass("hide");
+                });
+                self.$scope.$parent.gridsterItem.$element.removeClass("show");
+                Object.keys(self.maximizeStyle).forEach(function (key) { delete self.maximizeStyle[key]; });
+                self.$timeout(function () {
+                    self.nvd3Scope.api.update();
+                }, 500);
+            }
+            ;
+            openSettings(ev) {
+                const self = this;
+                self.widget.dashboard.widgetSettings(ev, self.widget, self.widget.dashboard, self.id);
             }
         };
         NtWidget = NtWidget_1 = __decorate([

@@ -16,20 +16,30 @@
         public controller: typeof NtWidget = NtWidget;
         public controllerAs: string = "$ctrl";
 
+        // scope variables
+        public id: number;
+        public widget: Models.IWidgetModel;
+        public maxiInd: boolean = false;
+        public maximizeStyle: any = {};
+
+        // private variables
+        private nvd3Scope: any = {};
+        private $scope: any;
+
         constructor(private $timeout: ng.ITimeoutService, private utility: MegaMine.Shared.Utility) {
 
         }
 
         public getTemplate(): string {
-            return `<div class="box" ng-style="maximizeStyle">
+            return `<div class="box" ng-style="$ctrl.maximizeStyle">
                     <div class="box-header">
                         <h3>{{ widget.name }}</h3>
                             <div class="box-header-btns pull-right">
-                                <a title="Settings" ng-click="openSettings($event)"><i class="fa fa-cog"></i></a>
-                                <a title="Maximize" ng-click="maximize()" ng-hide="maxiInd"><i class="fa fa-maximize"></i></a>
-                                <a title="Minimize" ng-click="minimize()" ng-show="maxiInd"><i class="fa fa-minimize"></i></a>
-                                <a title="Refresh" ng-click="refresh()"><i class="fa fa-refresh"></i></a>
-                                <a title="Remove widget" ng-click="remove()"><i class="fa fa-trash"></i></a>
+                                <a title="Settings" ng-click="$ctrl.openSettings($event)"><i class="fa fa-cog"></i></a>
+                                <a title="Maximize" ng-click="$ctrl.maximize()" ng-hide="$ctrl.maxiInd"><i class="fa fa-maximize"></i></a>
+                                <a title="Minimize" ng-click="$ctrl.minimize()" ng-show="$ctrl.maxiInd"><i class="fa fa-minimize"></i></a>
+                                <a title="Refresh" ng-click="$ctrl.refresh()"><i class="fa fa-refresh"></i></a>
+                                <a title="Remove widget" ng-click="$ctrl.remove()"><i class="fa fa-trash"></i></a>
                             </div>
                     </div>
                     <div class="box-content">
@@ -37,106 +47,98 @@
                               data="widget.chart.data"
                               api="widget.chart.api"
                               config="{ visible: false }"
-                              on-ready="onReady">
+                              on-ready="$ctrl.onReady">
                         </nvd3>
                     </div>
                 </div>`;
         }
 
-        public linkFn(scope: INtWidgetScope, element: ng.IAugmentedJQuery,
-            instanceAttributes: ng.IAttributes, $ctrl: NtWidget): void {
-            let nvd3Scope: any = {};
+        public linkFn(scope: ng.IScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtWidget): void {
+            const self: NtWidget = $ctrl;
 
-            scope.remove = function (): void {
-                let index: number = 0;
-                let widgets: Models.IPageWidgetModel[] = scope.widget.dashboard.pageWidgets;
-                for (index = 0; index < widgets.length; index++) {
-                    if (scope.id === widgets[index].dashboardPageWidgetId) {
-                        break;
-                    }
-                }
-                widgets.splice(index, 1);
-            };
+            let scopewidget = "widget";
+            let scopeid = "id";
 
-            scope.refresh = function (): void {
-                nvd3Scope.api.update();
-            };
-
-            $ctrl.nvd3(scope, nvd3Scope);
-            $ctrl.mixiMini(scope, nvd3Scope);
-
-            scope.openSettings = function (ev: ng.IAngularEvent): void { $ctrl.openSettings(scope, ev); };
-        }
-
-        private nvd3(scope: INtWidgetScope, nvd3Scope: any): void {
-            let self: NtWidget = this;
-            scope.onReady = function (childScope: any, element: any): void {
-                angular.extend(nvd3Scope, childScope);
-
-                self.$timeout(function (): void {
-                    nvd3Scope.config.visible = true;
-                }, 100);
-            };
+            self.$scope = scope;
+            self.widget = scope[scopewidget];
+            self.id = parseInt(scope[scopeid], 10);
 
             scope.$on("gridster-resized", function (sizes: ng.IAngularEvent, gridster: any): void {
-                if (nvd3Scope !== undefined) {
+                if (self.nvd3Scope !== undefined) {
                     self.$timeout(function (): void {
-                        nvd3Scope.api.update();
+                        self.nvd3Scope.api.update();
                     }, 100);
                 }
             });
         }
 
-        private mixiMini(scope: any, nvd3Scope: any): void {
+        public onReady = (childScope: ng.IScope): void => {
             let self: NtWidget = this;
-            scope.maxiInd = false;
-            scope.maximizeStyle = {};
 
-            scope.maximize = function (): void {
-                scope.maxiInd = true;
+            angular.extend(self.nvd3Scope, childScope);
 
-                angular.extend(scope.maximizeStyle, {
-                    width: scope.$parent.gridster.$element.width(),
-                    height: self.utility.getContentHeight("portal-content", 50),
-                    position: "absolute",
-                    top: "35px",
-                    left: "5px"
-                });
+            self.$timeout(function (): void {
+                self.nvd3Scope.config.visible = true;
+            }, 100);
+        };
 
-                angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item: string): void {
-                    angular.element(item).addClass("hide");
-                });
-                scope.$parent.gridsterItem.$element.addClass("show");
-                angular.element(".chart-bar").scrollTop(0);
-                self.$timeout(function (): void {
-                    nvd3Scope.api.update();
-                }, 500);
-            };
-
-            scope.minimize = function (): void {
-                scope.maxiInd = false;
-                angular.forEach(scope.$parent.gridsterItem.$element.siblings(), function (item: string): void {
-                    angular.element(item).removeClass("hide");
-                });
-                scope.$parent.gridsterItem.$element.removeClass("show");
-                Object.keys(scope.maximizeStyle).forEach(function (key: string): void { delete scope.maximizeStyle[key]; });
-                self.$timeout(function (): void {
-                    nvd3Scope.api.update();
-                }, 500);
-            };
+        public remove(): void {
+            let self: NtWidget = this;
+            let index: number = 0;
+            let widgets: Models.IPageWidgetModel[] = self.widget.dashboard.widgets.pageWidgets;
+            for (index = 0; index < widgets.length; index++) {
+                if (self.id === widgets[index].dashboardPageWidgetId) {
+                    break;
+                }
+            }
+            widgets.splice(index, 1);
         }
 
-        private openSettings(scope: INtWidgetScope, ev: any): void {
-            scope.widget.dashboard.widgetSettings(ev, scope.widget, scope.widget.dashboard, scope.id);
+        public refresh(): void {
+            let self: NtWidget = this;
+            self.nvd3Scope.api.update();
         }
-    }
 
-    interface INtWidgetScope extends ng.IScope {
-        id: number;
-        widget: Models.IWidgetModel;
-        onReady: Function;
-        remove: Function;
-        refresh: Function;
-        openSettings: Function;
+        public maximize(): void {
+            const self: NtWidget = this;
+
+            self.maxiInd = true;
+
+            angular.extend(self.maximizeStyle, {
+                width: self.$scope.$parent.gridster.$element.width(),
+                height: self.utility.getContentHeight("portal-content", 50),
+                position: "absolute",
+                top: "35px",
+                left: "5px"
+            });
+
+            angular.forEach(self.$scope.$parent.gridsterItem.$element.siblings(), function (item: string): void {
+                angular.element(item).addClass("hide");
+            });
+            self.$scope.$parent.gridsterItem.$element.addClass("show");
+            angular.element(".chart-bar").scrollTop(0);
+            self.$timeout(function (): void {
+                self.nvd3Scope.api.update();
+            }, 500);
+        }
+
+        public minimize(): void {
+            const self: NtWidget = this;
+
+            self.maxiInd = false;
+            angular.forEach(self.$scope.$parent.gridsterItem.$element.siblings(), function (item: string): void {
+                angular.element(item).removeClass("hide");
+            });
+            self.$scope.$parent.gridsterItem.$element.removeClass("show");
+            Object.keys(self.maximizeStyle).forEach(function (key: string): void { delete self.maximizeStyle[key]; });
+            self.$timeout(function (): void {
+                self.nvd3Scope.api.update();
+            }, 500);
+        };
+
+        public openSettings(ev: ng.IAngularEvent): void {
+            const self: NtWidget = this;
+            self.widget.dashboard.widgetSettings(ev, self.widget, self.widget.dashboard, self.id);
+        }
     }
 }
