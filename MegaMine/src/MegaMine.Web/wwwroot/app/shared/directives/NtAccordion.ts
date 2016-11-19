@@ -1,4 +1,4 @@
-module MegaMine.Widget {
+module MegaMine.Shared.Directives {
 
     @directive("megamine", "ntAccordion")
     export class NtAccordion implements ng.IDirective {

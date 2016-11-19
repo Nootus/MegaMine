@@ -78,16 +78,16 @@
                                                         <p>{{ item[dashboard.records.list.options.fields[2]] }}</p>
                                                     </div>
                                                     <div class="right-list-menu" ng-show="showContextMenu">
-                                                        <nt-button type="context- bar" icon-css="eye" tool-tip="View"
+                                                        <nt-button type="context-bar" icon-css="eye" tool-tip="View"
                                                             ng-click="dashboard.records.options.view(item, 
                                                             ${ Shared.Dialog.Models.DialogMode.view }, $event, dashboard.context)">
                                                         </nt-button>
-                                                        <nt-button type="context- bar" icon-css="pencil- square - o" tool-tip="Edit" 
+                                                        <nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" 
                                                             claim="{{ editClaim }} " ng-click="dashboard.records.options.view(item, 
                                                             ${ Shared.Dialog.Models.DialogMode.save }, $event, dashboard.context)" 
                                                             ng-hide = "editClaim === undefined">
                                                         </nt-button>
-                                                        <nt-button type="context- bar" icon-css="trash" tool-tip="Delete" 
+                                                        <nt-button type="context-bar" icon-css="trash" tool-tip="Delete" 
                                                             claim="{{ deleteClaim }}" ng-click="dashboard.records.options.view(item, 
                                                             ${ Shared.Dialog.Models.DialogMode.delete }, $event, dashboard.context)" 
                                                             ng-hide = "deleteClaim === undefined">

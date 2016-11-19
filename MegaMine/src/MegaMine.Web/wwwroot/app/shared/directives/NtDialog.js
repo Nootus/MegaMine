@@ -34,6 +34,9 @@ function ntDialog($mdDialog, constants) {
 
     function link(scope, element, attrs, nullController, transclude) {
         //interal variables
+        if (scope.saveText === undefined)
+            scope.saveText = 'Save';
+
         angular.extend(scope, {
             dialogModeEnum: constants.enum.dialogMode,
             dialogMode: scope.$parent.vm.dialogMode,
@@ -42,8 +45,6 @@ function ntDialog($mdDialog, constants) {
             cancel: scope.$parent.vm.cancel,
         });
 
-        if (scope.saveText === undefined)
-            scope.saveText = 'Save';
 
         scope.dialogForm = scope[scope.form]
         scope.$parent.vm.dialogForm = scope.dialogForm;
