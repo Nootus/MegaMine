@@ -16,7 +16,7 @@ var MegaMine;
             }
             viewDialog(ev) {
                 const self = this;
-                let error;
+                let error = {};
                 let validator = {
                     errorMessages: [{ type: "passsordSame", text: self.messages.samePassword }],
                     validate: self.validatePasswords

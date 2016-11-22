@@ -52,7 +52,8 @@ function apiInterceptor($window, $q, utility, message) {
                         return $q.reject(response);
                         break;
                     case 2: //validation error messages
-                        return $q.reject(response.data);
+                        var exp = { message: response.data.message, errors: response.data.model.data };
+                        return $q.reject(exp);
                         break;
                     default:
                         utility.showInfo(response.data.message);

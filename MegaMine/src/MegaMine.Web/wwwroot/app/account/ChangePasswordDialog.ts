@@ -4,14 +4,14 @@
     @inject("MegaMine.Account.AccountService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Messages")
     export class ChangePasswordDialog {
         public model: Models.IChangePasswordModel;
-        constructor(private accountService: AccountService, private dialogService: Shared.Dialog.DialogService<Models.IChangePasswordModel>
-            , private messages: MegaMine.Shared.Messages) {
+        constructor(private accountService: AccountService, private dialogService: Shared.Dialog.DialogService<Models.IChangePasswordModel>,
+            private messages: MegaMine.Shared.Messages) {
         }
 
 
         public viewDialog(ev: ng.IAngularEvent): void {
             const self: ChangePasswordDialog = this;
-            let error: Shared.Models.INtException;
+            let error: Shared.Models.INtException = <Shared.Models.INtException>{};
             let validator: Shared.Models.IDataValidator = {
                 errorMessages: [{ type: "passsordSame", text: self.messages.samePassword }],
                 validate: self.validatePasswords
