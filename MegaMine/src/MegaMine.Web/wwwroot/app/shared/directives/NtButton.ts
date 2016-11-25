@@ -78,6 +78,10 @@
             const claim: string = scope[scopeClaim];
             const overrideDisabled: string = scope[scopeOverrideDisabled];
 
+            if (self.form === undefined) {
+                self.form = self.$scope.$parent.dialogForm;
+            }
+
             if (claim === undefined || claim === "") {
                 self.hideButton = false;
             } else {

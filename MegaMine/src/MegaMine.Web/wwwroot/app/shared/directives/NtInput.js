@@ -34,10 +34,10 @@ var MegaMine;
                     this.controllerAs = "$ctrl";
                 }
                 getTemplate() {
-                    return `<md-input-container md-is-error="$ctrl.isFieldError()" style="{{$ctrl.style}}" ng-trim="true">
+                    return `<md-input-container md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" style="{{$ctrl.style}}" ng-trim="true">
                         <label>{{$ctrl.label}}</label>
-                        <input name="{{$ctrl.controlName}}" type="{{$ctrl.type}}" ng-required="$ctrl.isRequired" ng-disabled="$ctrl.isDisabled" md-maxlength="{{$ctrl.emMaxlength}}" ng-model="ngModel" ng-change="$ctrl.ngChange">
-                        <div ng-messages="$ctrl.form[$ctrl.controlName].$error" ng-show="$ctrl.isFieldError()">
+                        <input name="{{$ctrl.controlName}}" type="{{$ctrl.type}}" ng-required="$ctrl.isRequired" ng-disabled="$ctrl.isDisabled" md-maxlength="{{$ctrl.emMaxlength}}" ng-model="ngModel" ng-change="ngChange">
+                        <div ng-messages="$ctrl.form[$ctrl.controlName].$error" ng-show="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)">
                             <span ng-message="required">Required!</span>
                             <span ng-message="md-maxlength">Text is too long!</span>
                             <span ng-message="number">Invalid number!</span>
@@ -51,36 +51,29 @@ var MegaMine;
                 }
                 linkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
-                    const scopeForm = "form";
-                    const scopeLabel = "label";
-                    const scopeControlName = "controlName";
-                    const scopeType = "type";
-                    const scopeNgRequired = "ngRequired";
-                    const scopeNgDisabled = "ngDisabled";
-                    const scopeNgChange = "ngChange";
-                    const scopeEmMaxlength = "emMaxlength";
-                    const scopeStyle = "style";
-                    const scopeErrorMessages = "errorMessages";
-                    self.$scope = scope;
-                    self.form = scope[scopeForm];
-                    self.label = scope[scopeLabel];
-                    self.controlName = scope[scopeControlName];
-                    self.type = scope[scopeType];
-                    self.ngRequired = scope[scopeNgRequired];
-                    self.ngDisabled = scope[scopeNgDisabled];
-                    self.ngChange = scope[scopeNgChange];
-                    self.emMaxlength = scope[scopeEmMaxlength];
-                    self.style = scope[scopeStyle];
-                    self.errorMessages = scope[scopeErrorMessages];
+                    self.form = scope.form;
+                    self.label = scope.label;
+                    self.controlName = scope.controlName;
+                    self.type = scope.type;
+                    self.ngRequired = scope.ngRequired;
+                    self.ngDisabled = scope.ngDisabled;
+                    self.ngChange = scope.ngChange;
+                    self.emMaxlength = scope.emMaxlength;
+                    self.style = scope.style;
+                    self.errorMessages = scope.errorMessages;
+                    if (self.form === undefined) {
+                        self.form = scope.$parent.$parent[scope.$parent.$parent["form"]];
+                    }
                     if (self.type === "date" || self.type === "time" || self.type === "datetime-local") {
-                        if (self.$scope.ngModel !== null && self.$scope.ngModel !== undefined) {
-                            self.$scope.ngModel = new Date(self.$scope.ngModel);
+                        if (scope.ngModel !== null && scope.ngModel !== undefined) {
+                            scope.ngModel = new Date(scope.ngModel);
                         }
                     }
                     if (self.type === undefined)
                         self.type = "text";
-                    if (self.$scope.$parent.dialogMode !== undefined) {
-                        self.isDisabled = self.$scope.$parent.dialogMode !== 1 /* save */;
+                    let dialogMode = scope.$parent.$parent["dialogMode"];
+                    if (dialogMode !== undefined) {
+                        self.isDisabled = dialogMode !== 1 /* save */;
                     }
                     if (self.ngDisabled === "true") {
                         self.isDisabled = true;
@@ -89,14 +82,11 @@ var MegaMine;
                         self.isRequired = true;
                     }
                 }
-                isFieldError() {
+                isFieldError(form, controlName) {
                     const self = this;
-                    if (self.form === undefined) {
-                        self.form = self.$scope.$parent.$parent.dialogForm;
-                    }
-                    if (self.form !== undefined) {
-                        let control = self.form[self.controlName];
-                        return self.form.$submitted && !control.$valid;
+                    if (form !== undefined) {
+                        let control = form[self.controlName];
+                        return form.$submitted && !control.$valid;
                     }
                 }
             };

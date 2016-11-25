@@ -64,6 +64,9 @@ var MegaMine;
                     const icon = scope[scopeIcon];
                     const claim = scope[scopeClaim];
                     const overrideDisabled = scope[scopeOverrideDisabled];
+                    if (self.form === undefined) {
+                        self.form = self.$scope.$parent.dialogForm;
+                    }
                     if (claim === undefined || claim === "") {
                         self.hideButton = false;
                     }

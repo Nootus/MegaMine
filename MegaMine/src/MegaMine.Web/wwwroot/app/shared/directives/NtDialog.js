@@ -13,7 +13,10 @@ function ntDialog($mdDialog, constants) {
             header: '@',
             saveText: '@'
         },
-        link: link,
+        link: {
+            pre: preLink,
+            post: postLink
+        },
         template: ''
                     + '<form name="{{form}}" novalidate>'
                     + '    <nt-toolbar header="{{header}}" class="command-bar dialog">'
@@ -32,8 +35,8 @@ function ntDialog($mdDialog, constants) {
                     + ''
     };
 
-    function link(scope, element, attrs, nullController, transclude) {
-        //interal variables
+    function preLink(scope, element, attrs, nullController, transclude) {
+        // interal variables
         if (scope.saveText === undefined)
             scope.saveText = 'Save';
 
@@ -44,8 +47,9 @@ function ntDialog($mdDialog, constants) {
             deleteItem: scope.$parent.vm.deleteItem,
             cancel: scope.$parent.vm.cancel,
         });
+    }
 
-
+    function postLink(scope, element, attrs, nullController, transclude) {
         scope.dialogForm = scope[scope.form]
         scope.$parent.vm.dialogForm = scope.dialogForm;
     }

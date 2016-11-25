@@ -12,8 +12,8 @@
                 <nt-select flex="50" form="driverForm" label="Driver" control-name="driverName" ng-model="vm.model.vehicleDriverId" opt-list="vm.service.driverListItems" ng-required="true" ng-disabled="{{ vm.dataOptions.assignmentMode === vm.dataOptions.assignmentEnum.unassign }}"></nt-select>
             </div>
             <div layout="row">
-                <nt-input flex="45" form="driverForm" type="datetime-local" label="Start Time" control-name="assignmentStartDate" ng-model="vm.model.assignmentStartDate" ng-required="true" ng-disabled="{{ vm.dataOptions.assignmentMode === vm.dataOptions.assignmentEnum.unassign }}" ng-change="vm.validator.validateDates(driverForm)"></nt-input>
-                <nt-input flex="45" form="driverForm" type="datetime-local" label="End Time" control-name="assignmentEndDate" ng-model="vm.model.assignmentEndDate" ng-required="{{vm.dataOptions.assignmentMode !== vm.dataOptions.assignmentEnum.assign}}" ng-hide="{{vm.dataOptions.assignmentMode === vm.dataOptions.assignmentEnum.assign}}" error-messages="vm.validator.errorMessages" ng-change="vm.validator.validateDates(driverForm)"></nt-input>
+                <nt-input flex="45" form="driverForm" type="datetime-local" label="Start Time" control-name="assignmentStartDate" ng-model="vm.model.assignmentStartDate" ng-required="true" ng-disabled="{{ vm.dataOptions.assignmentMode === vm.dataOptions.assignmentEnum.unassign }}" ng-change="vm.validator.validate(driverForm)"></nt-input>
+                <nt-input flex="45" form="driverForm" type="datetime-local" label="End Time" control-name="assignmentEndDate" ng-model="vm.model.assignmentEndDate" ng-required="{{vm.dataOptions.assignmentMode !== vm.dataOptions.assignmentEnum.assign}}" ng-hide="{{vm.dataOptions.assignmentMode === vm.dataOptions.assignmentEnum.assign}}" error-messages="vm.validator.errorMessages" ng-change="vm.validator.validate(driverForm)"></nt-input>
             </div>
         </nt-dialog>
     </md-dialog>
