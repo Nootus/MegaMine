@@ -34,7 +34,7 @@
         }
 
         public validatePasswords(form: Models.IChangePasswordFormController): void {
-            if (form !== undefined) {
+            if (form !== undefined && form.newPassword !== undefined) {
                 if (form.newPassword.$modelValue !== form.confirmPassword.$modelValue) {
                     form.confirmPassword.$setValidity("passsordSame", false);
                 } else {

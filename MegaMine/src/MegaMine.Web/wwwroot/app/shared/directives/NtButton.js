@@ -34,8 +34,9 @@ var MegaMine;
                 }
                 getTemplate() {
                     return `<span ng-hide="$ctrl.hideButton === true" >
-                        <md-button class="{{$ctrl.cssClass}} {{$ctrl.type}}-button has-hover" aria-label="{{$ctrl.toolTip}}" ng-click="$ctrl.ntClick({ev: $event})"
-                            ng-disabled="$ctrl.form.$invalid && $ctrl.form.$submitted && $ctrl.bypassDisabled">
+                        <md-button class="{{$ctrl.cssClass}} {{$ctrl.type}}-button has-hover" 
+                                aria-label="{{$ctrl.toolTip}}" ng-click="$ctrl.ntClick($ctrl.form, $event)"
+                                ng-disabled="$ctrl.form.$invalid && $ctrl.form.$submitted && $ctrl.bypassDisabled">
                             <md-tooltip ng-style="$ctrl.toolTipStyle">{{$ctrl.toolTip}}</md-tooltip>
                             <md-icon class="fa fa-{{$ctrl.iconCss}} {{$ctrl.type}}-button-icon" aria-label="{{$ctrl.toolTip}}"></md-icon>
                             <div class="{{$ctrl.type}}-button-text">{{$ctrl.text}}</div>
@@ -44,28 +45,18 @@ var MegaMine;
                 }
                 linkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
-                    self.$scope = scope;
-                    //scope variables
-                    const scopeCssClass = "cssClass";
-                    const scopeType = "type";
-                    const scopeToolTip = "toolTip";
-                    const scopeIconCss = "iconCss";
-                    const scopeIcon = "icon";
-                    const scopeText = "text";
-                    const scopeClaim = "claim";
-                    const scopeOverrideDisabled = "overrideDisabled";
-                    const scopeForm = "form";
-                    self.cssClass = scope[scopeCssClass];
-                    self.type = scope[scopeType];
-                    self.toolTip = scope[scopeToolTip];
-                    self.iconCss = scope[scopeIconCss];
-                    self.text = scope[scopeText];
-                    self.form = scope[scopeForm];
-                    const icon = scope[scopeIcon];
-                    const claim = scope[scopeClaim];
-                    const overrideDisabled = scope[scopeOverrideDisabled];
+                    // scope variables
+                    self.cssClass = scope.cssClass;
+                    self.type = scope.type;
+                    self.toolTip = scope.toolTip;
+                    self.iconCss = scope.iconCss;
+                    self.text = scope.text;
+                    self.form = scope.form;
+                    const icon = scope.icon;
+                    const claim = scope.claim;
+                    const overrideDisabled = scope.overrideDisabled;
                     if (self.form === undefined) {
-                        self.form = self.$scope.$parent.dialogForm;
+                        self.form = scope.$parent.$parent.$parent[scope.$parent.$parent.$parent["form"]];
                     }
                     if (claim === undefined || claim === "") {
                         self.hideButton = false;
@@ -76,7 +67,7 @@ var MegaMine;
                     // setting the default values
                     self.bypassDisabled = overrideDisabled === "true" ? false : true;
                     // hiding the tooltip if not specified
-                    let hideToolTip = scope[scopeToolTip] === undefined ? true : false;
+                    let hideToolTip = scope.toolTip === undefined ? true : false;
                     if (hideToolTip) {
                         self.toolTipStyle = {
                             display: "none"
@@ -112,13 +103,9 @@ var MegaMine;
                         }
                     }
                 }
-                ntClick(ev) {
-                    const self = this;
-                    if (self.form === undefined) {
-                        self.form = self.$scope.$parent.dialogForm;
-                    }
-                    if (self.form != undefined) {
-                        self.form.$setSubmitted();
+                ntClick(form, ev) {
+                    if (form !== undefined) {
+                        form.$setSubmitted();
                     }
                 }
             };
