@@ -17,7 +17,7 @@ var MegaMine;
                     // directive attributes
                     this.restrict = "E";
                     this.scope = {
-                        header: '@'
+                        header: "@"
                     };
                     this.link = this.linkFn;
                     this.template = this.getTemplate();
@@ -36,7 +36,7 @@ var MegaMine;
                 linkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
                     if (self.utility.isEmpty(instanceAttributes["class"])) {
-                        instanceAttributes.$addClass('command-bar');
+                        instanceAttributes.$addClass("command-bar");
                     }
                 }
             };

@@ -26,7 +26,7 @@ var MegaMine;
                         ngChange: "=?",
                         emMaxlength: "@",
                         style: "@",
-                        errorMessages: "=?",
+                        errorMessages: "=?"
                     };
                     this.link = this.linkFn;
                     this.template = this.getTemplate();
@@ -34,9 +34,12 @@ var MegaMine;
                     this.controllerAs = "$ctrl";
                 }
                 getTemplate() {
-                    return `<md-input-container md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" style="{{$ctrl.style}}" ng-trim="true">
+                    return `<md-input-container md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" 
+                            style="{{$ctrl.style}}" ng-trim="true">
                         <label>{{$ctrl.label}}</label>
-                        <input name="{{$ctrl.controlName}}" type="{{$ctrl.type}}" ng-required="$ctrl.isRequired" ng-disabled="$ctrl.isDisabled" md-maxlength="{{$ctrl.emMaxlength}}" ng-model="ngModel" ng-change="ngChange">
+                        <input name="{{$ctrl.controlName}}" type="{{$ctrl.type}}" ng-required="$ctrl.isRequired"
+                            ng-disabled="$ctrl.isDisabled" md-maxlength="{{$ctrl.emMaxlength}}" ng-model="ngModel" 
+                            ng-change="ngChange">
                         <div ng-messages="$ctrl.form[$ctrl.controlName].$error" ng-show="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)">
                             <span ng-message="required">Required!</span>
                             <span ng-message="md-maxlength">Text is too long!</span>
@@ -69,8 +72,9 @@ var MegaMine;
                             scope.ngModel = new Date(scope.ngModel);
                         }
                     }
-                    if (self.type === undefined)
+                    if (self.type === undefined) {
                         self.type = "text";
+                    }
                     let dialogMode = scope.$parent.$parent["dialogMode"];
                     if (dialogMode !== undefined) {
                         self.isDisabled = dialogMode !== 1 /* save */;

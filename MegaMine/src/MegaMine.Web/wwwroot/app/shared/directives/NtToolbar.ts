@@ -7,7 +7,7 @@
         // directive attributes
         public restrict: string = "E";
         public scope: any = {
-            header: '@'
+            header: "@"
         };
 
         public link: ng.IDirectiveLinkFn = this.linkFn;
@@ -26,15 +26,14 @@
                     <h2 flex>{{header}}</h2>
                     <div ng-transclude></div>
                     </div>
-                </md-toolbar>`
+                </md-toolbar>`;
         }
 
         public linkFn(scope: ng.IScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtToolbar): void {
             const self: NtToolbar = $ctrl;
             if(self.utility.isEmpty(instanceAttributes["class"])) {
-                instanceAttributes.$addClass('command-bar');
+                instanceAttributes.$addClass("command-bar");
             }
         }
     }
 }
- 

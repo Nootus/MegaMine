@@ -122,12 +122,18 @@
                     counter++;
                 }
 
-                if (formulaExists && self.utility.isEmpty(form.formulaOrder.$modelValue)) {
-                    form.formulaOrder.$setValidity("orderRequired", false);
-                } else {
-                    form.formulaOrder.$setValidity("orderRequired", true);
+                if(form.formulaOrder !== undefined) {
+                    if (formulaExists && self.utility.isEmpty(form.formulaOrder.$modelValue)) {
+                        form.formulaOrder.$setValidity("orderRequired", false);
+                    } else {
+                        form.formulaOrder.$setValidity("orderRequired", true);
+                    }
                 }
             }
+        }
+
+        private getSelf = () : ProductType => {
+            return this;
         }
 
         public addProductType(ev: ng.IAngularEvent, context: ProductType): void {
@@ -143,7 +149,7 @@
             const self: ProductType = context;
             var validator: any = {
                 orderErrorMessages: [{ type: "orderRequired", text: self.messages.required }],
-                validateFormulaOrder: self.validateFormulaOrder
+                validate: self.validateFormulaOrder
             };
 
             let disabled: boolean = dialogMode !== Shared.Dialog.Models.DialogMode.save;

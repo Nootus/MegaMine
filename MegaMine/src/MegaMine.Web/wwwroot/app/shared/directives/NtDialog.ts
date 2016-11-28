@@ -7,12 +7,12 @@
         // directive attributes
         public restrict: string = "E";
         public transclude: any = {
-            'dialogButtons': '?dialogButtons'
+           "dialogButtons": "?dialogButtons"
         };
         public scope: any = {
-            form: '@',
-            header: '@',
-            saveText: '@'
+            form: "@",
+            header: "@",
+            saveText: "@"
         };
 
         public link: ng.IDirectivePrePost = {
@@ -39,10 +39,19 @@
                    <nt-toolbar header="{{$ctrl.header}}" class="command-bar dialog">
                      <md-dialog-actions>
                       <span ng-transclude="dialogButtons"></span>
-                      <nt-button type="command-bar" icon-css="floppy-o" text="{{$ctrl.saveText}}" ng-click="save(dialogForm)" ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.save }" ng-disabled="dialogForm.$invalid && dialogForm.$submitted"></nt-button>
-                      <nt-button type="command-bar" icon-css="trash" css-class="delete" text="Delete" ng-click="deleteItem(dialogForm)" ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.delete }"></nt-button>
-                      <nt-button type="command-bar" icon-css="ban" text="Cancel" ng-click="cancel($event)" ng-show="dialogMode !== ${ Shared.Dialog.Models.DialogMode.view }" override-disabled="true"></nt-button>
-                      <nt-button type="command-bar" icon-css="times" text="Close" ng-click="cancel($event)" ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.view }" override-disabled="true"></nt-button>
+                      <nt-button type="command-bar" icon-css="floppy-o" text="{{$ctrl.saveText}}" ng-click="save(dialogForm)" 
+                            ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.save }" 
+                            ng-disabled="dialogForm.$invalid && dialogForm.$submitted">
+                      </nt-button>
+                      <nt-button type="command-bar" icon-css="trash" css-class="delete" text="Delete" 
+                            ng-click="deleteItem(dialogForm)" ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.delete }">
+                      </nt-button>
+                      <nt-button type="command-bar" icon-css="ban" text="Cancel" ng-click="cancel($event)" 
+                            ng-show="dialogMode !== ${ Shared.Dialog.Models.DialogMode.view }" override-disabled="true">
+                      </nt-button>
+                      <nt-button type="command-bar" icon-css="times" text="Close" ng-click="cancel($event)" 
+                            ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.view }" override-disabled="true">
+                      </nt-button>
                      </md-dialog-actions>
                    </nt-toolbar>
                    <md-dialog-content class="dialog-content">
@@ -59,8 +68,9 @@
             self.saveText = scope.saveText;
 
             // interal variables
-            if (self.saveText === undefined)
+            if (self.saveText === undefined) {
                 self.saveText = "Save";
+                }
 
             angular.extend(scope, {
                 dialogMode: scope.$parent.vm.dialogMode,

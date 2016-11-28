@@ -17,7 +17,7 @@
             ngChange: "=?",
             emMaxlength: "@",
             style: "@",
-            errorMessages: "=?",
+            errorMessages: "=?"
         };
 
         public link: ng.IDirectiveLinkFn = this.linkFn;
@@ -35,15 +35,18 @@
         public ngChange: any;
         public emMaxlength: number;
         public style: string;
-        public errorMessages: Models.IErrorMessage[]
+        public errorMessages: Models.IErrorMessage[];
 
         public isRequired: boolean;
         public isDisabled: boolean;
 
         public getTemplate(): string {
-            return `<md-input-container md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" style="{{$ctrl.style}}" ng-trim="true">
+            return `<md-input-container md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" 
+                            style="{{$ctrl.style}}" ng-trim="true">
                         <label>{{$ctrl.label}}</label>
-                        <input name="{{$ctrl.controlName}}" type="{{$ctrl.type}}" ng-required="$ctrl.isRequired" ng-disabled="$ctrl.isDisabled" md-maxlength="{{$ctrl.emMaxlength}}" ng-model="ngModel" ng-change="ngChange">
+                        <input name="{{$ctrl.controlName}}" type="{{$ctrl.type}}" ng-required="$ctrl.isRequired"
+                            ng-disabled="$ctrl.isDisabled" md-maxlength="{{$ctrl.emMaxlength}}" ng-model="ngModel" 
+                            ng-change="ngChange">
                         <div ng-messages="$ctrl.form[$ctrl.controlName].$error" ng-show="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)">
                             <span ng-message="required">Required!</span>
                             <span ng-message="md-maxlength">Text is too long!</span>
@@ -54,7 +57,7 @@
                                 <span ng-message-exp="errorMessage.type">{{ errorMessage.text }}</span>
                             </span>
                         </div>
-                    </md-input-container>`
+                    </md-input-container>`;
         }
 
         public linkFn(scope: INtInputScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtInput): void {
@@ -81,8 +84,9 @@
                 }
             }
 
-            if (self.type === undefined)
+            if (self.type === undefined) {
                 self.type = "text";
+                }
 
             let dialogMode: Dialog.Models.DialogMode = scope.$parent.$parent["dialogMode"];
             if (dialogMode !== undefined) {
@@ -118,6 +122,6 @@
         ngChange: any;
         emMaxlength: number;
         style: string;
-        errorMessages: Models.IErrorMessage[]
+        errorMessages: Models.IErrorMessage[];
     }
 }

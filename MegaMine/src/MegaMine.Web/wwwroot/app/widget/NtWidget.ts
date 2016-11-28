@@ -53,15 +53,12 @@
                 </div>`;
         }
 
-        public linkFn(scope: ng.IScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtWidget): void {
+        public linkFn(scope: INtWidgetScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtWidget): void {
             const self: NtWidget = $ctrl;
 
-            let scopewidget = "widget";
-            let scopeid = "id";
-
             self.$scope = scope;
-            self.widget = scope[scopewidget];
-            self.id = parseInt(scope[scopeid], 10);
+            self.widget = scope.widget;
+            self.id = scope.id;
 
             scope.$on("gridster-resized", function (sizes: ng.IAngularEvent, gridster: any): void {
                 if (self.nvd3Scope !== undefined) {
@@ -140,5 +137,10 @@
             const self: NtWidget = this;
             self.widget.dashboard.widgetSettings(ev, self.widget, self.widget.dashboard, self.id);
         }
+    }
+
+    interface INtWidgetScope extends ng.IScope {
+        id: number;
+        widget: Models.IWidgetModel;
     }
 }

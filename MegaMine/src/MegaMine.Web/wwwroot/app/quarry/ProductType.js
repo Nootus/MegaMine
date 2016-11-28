@@ -31,13 +31,18 @@ var MegaMine;
                             }
                             counter++;
                         }
-                        if (formulaExists && self.utility.isEmpty(form.formulaOrder.$modelValue)) {
-                            form.formulaOrder.$setValidity("orderRequired", false);
-                        }
-                        else {
-                            form.formulaOrder.$setValidity("orderRequired", true);
+                        if (form.formulaOrder !== undefined) {
+                            if (formulaExists && self.utility.isEmpty(form.formulaOrder.$modelValue)) {
+                                form.formulaOrder.$setValidity("orderRequired", false);
+                            }
+                            else {
+                                form.formulaOrder.$setValidity("orderRequired", true);
+                            }
                         }
                     }
+                };
+                this.getSelf = () => {
+                    return this;
                 };
                 const self = this;
                 angular.forEach(quarryService.productTypes.list, function (item) {
@@ -136,7 +141,7 @@ var MegaMine;
                 const self = context;
                 var validator = {
                     orderErrorMessages: [{ type: "orderRequired", text: self.messages.required }],
-                    validateFormulaOrder: self.validateFormulaOrder
+                    validate: self.validateFormulaOrder
                 };
                 let disabled = dialogMode !== 1 /* save */;
                 self.dialogService.show({

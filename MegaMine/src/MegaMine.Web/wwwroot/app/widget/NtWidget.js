@@ -60,11 +60,9 @@ var MegaMine;
             }
             linkFn(scope, element, instanceAttributes, $ctrl) {
                 const self = $ctrl;
-                let scopewidget = "widget";
-                let scopeid = "id";
                 self.$scope = scope;
-                self.widget = scope[scopewidget];
-                self.id = parseInt(scope[scopeid], 10);
+                self.widget = scope.widget;
+                self.id = scope.id;
                 scope.$on("gridster-resized", function (sizes, gridster) {
                     if (self.nvd3Scope !== undefined) {
                         self.$timeout(function () {
