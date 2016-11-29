@@ -18,7 +18,10 @@
             form: "=?"
         };
 
-        public link: ng.IDirectiveLinkFn = this.linkFn;
+        public link: ng.IDirectivePrePost = {
+            pre: this.preLinkFn,
+            post: this.postLinkFn
+        };
         public template: string = this.getTemplate();
         public controller: typeof NtButton = NtButton;
         public controllerAs: string = "$ctrl";
@@ -31,9 +34,16 @@
         public text: string;
         public form: ng.IFormController;
 
+        // additional scope variables
         public hideButton: boolean;
         public bypassDisabled: boolean;
         public toolTipStyle: any;
+
+        // local variables
+        private icon: string;
+        private claim: string;
+        private overrideDisabled: string;
+        private hideToolTip: boolean;
 
         constructor(private profile: MegaMine.Shared.Profile) {
 
@@ -51,7 +61,7 @@
                     </span>`;
         }
 
-        public linkFn(scope: INtButtonScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtButton): void {
+        public preLinkFn(scope: INtButtonScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtButton): void {
             const self: NtButton = $ctrl;
 
             // scope variables
@@ -62,33 +72,39 @@
             self.text = scope.text;
             self.form = scope.form;
 
-            const icon: string = scope.icon;
-            const claim: string = scope.claim;
-            const overrideDisabled: string = scope.overrideDisabled;
+            // private variables
+            self.icon = scope.icon;
+            self.claim = scope.claim;
+            self.overrideDisabled = scope.overrideDisabled;
+            self.hideToolTip = scope.toolTip === undefined ? true : false;
+        }
+
+        public postLinkFn(scope: INtButtonScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtButton): void {
+            const self: NtButton = $ctrl;
 
             if (self.form === undefined) {
                 self.form = scope.$parent.$parent.$parent[scope.$parent.$parent.$parent["form"]];
             }
 
-            if (claim === undefined || claim === "") {
+            if (self.claim === undefined || self.claim === "") {
                 self.hideButton = false;
             } else {
-                self.hideButton = !self.profile.isAuthorized(claim.split(","));
+                self.hideButton = !self.profile.isAuthorized(self.claim.split(","));
             }
 
             // setting the default values
-            self.bypassDisabled = overrideDisabled === "true" ? false : true;
+            self.bypassDisabled = self.overrideDisabled === "true" ? false : true;
+
             // hiding the tooltip if not specified
-            let hideToolTip: boolean = scope.toolTip === undefined ? true : false;
-            if (hideToolTip) {
+            if (self.hideToolTip) {
                 self.toolTipStyle = {
                     display: "none"
                 };
             }
 
             // icons
-            if (icon !== undefined) {
-                switch (icon) {
+            if (self.icon !== undefined) {
+                switch (self.icon) {
                     case "save":
                         self.iconCss = "save";
                         break;

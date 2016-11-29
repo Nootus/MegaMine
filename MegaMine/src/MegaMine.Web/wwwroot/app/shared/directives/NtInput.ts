@@ -20,13 +20,17 @@
             errorMessages: "=?"
         };
 
-        public link: ng.IDirectiveLinkFn = this.linkFn;
+        public link: ng.IDirectivePrePost = {
+            pre: this.preLinkFn,
+            post: this.postLinkFn
+        };
         public template: string = this.getTemplate();
         public controller: typeof NtInput = NtInput;
         public controllerAs: string = "$ctrl";
 
         // scope variables
         public form: ng.IFormController;
+        public ngModel: any;
         public label: string;
         public controlName: string;
         public type: string;
@@ -60,10 +64,11 @@
                     </md-input-container>`;
         }
 
-        public linkFn(scope: INtInputScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtInput): void {
+        public preLinkFn(scope: INtInputScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtInput): void {
             const self: NtInput = $ctrl;
 
             self.form = scope.form;
+            self.ngModel = scope.ngModel;
             self.label = scope.label;
             self.controlName = scope.controlName;
             self.type = scope.type;
@@ -73,6 +78,10 @@
             self.emMaxlength = scope.emMaxlength;
             self.style = scope.style;
             self.errorMessages = scope.errorMessages;
+        }
+
+        public postLinkFn(scope: INtInputScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtInput): void {
+            const self: NtInput = $ctrl;
 
             if (self.form === undefined) {
                 self.form = scope.$parent.$parent[scope.$parent.$parent["form"]];
@@ -86,7 +95,7 @@
 
             if (self.type === undefined) {
                 self.type = "text";
-                }
+            }
 
             let dialogMode: Dialog.Models.DialogMode = scope.$parent.$parent["dialogMode"];
             if (dialogMode !== undefined) {

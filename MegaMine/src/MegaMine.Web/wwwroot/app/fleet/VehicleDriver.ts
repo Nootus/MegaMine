@@ -81,7 +81,7 @@
         }
 
         public validateDates(form: Models.IVehicleDriverFormController): void {
-            if (form !== undefined) {
+            if (form !== undefined && form.assignmentStartDate !== undefined) {
                 if (form.assignmentStartDate.$modelValue > form.assignmentEndDate.$modelValue) {
                     form.assignmentEndDate.$setValidity("invalidEndDate", false);
                 } else {

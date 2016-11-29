@@ -233,7 +233,9 @@ var MegaMine;
                 let self = this;
                 self.$timeout(function () {
                     scope.height = self.utility.getContentHeight("portal-content", 5);
-                    scope.dashboard.records.grid.height = scope.height;
+                    if (scope.dashboard.records !== undefined && scope.dashboard.records.grid !== undefined) {
+                        scope.dashboard.records.grid.height = scope.height;
+                    }
                 });
             }
             getWidgetTemplate(header, buttonText) {

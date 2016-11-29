@@ -23,7 +23,10 @@ var MegaMine;
                     this.scope = {
                         grid: "="
                     };
-                    this.link = this.linkFn;
+                    this.link = {
+                        pre: this.preLinkFn,
+                        post: this.postLinkFn
+                    };
                     this.template = this.getTemplate();
                     this.controller = NtGrid_1;
                     this.controllerAs = "$ctrl";
@@ -41,9 +44,12 @@ var MegaMine;
                             ui-grid-exporter ui-grid-selection ng-class="$ctrl.cssClass"></div>
                     </md-content>`;
                 }
-                linkFn(scope, element, instanceAttributes, $ctrl) {
+                preLinkFn(scope, element, instanceAttributes, $ctrl) {
                     let self = $ctrl;
                     self.grid = scope.grid;
+                }
+                postLinkFn(scope, element, instanceAttributes, $ctrl) {
+                    let self = $ctrl;
                     if (self.grid === undefined) {
                         self.grid = { options: {} }; // work around as ui-grid is throwing error
                     }

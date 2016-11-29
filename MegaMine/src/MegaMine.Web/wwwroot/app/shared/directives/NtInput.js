@@ -28,7 +28,10 @@ var MegaMine;
                         style: "@",
                         errorMessages: "=?"
                     };
-                    this.link = this.linkFn;
+                    this.link = {
+                        pre: this.preLinkFn,
+                        post: this.postLinkFn
+                    };
                     this.template = this.getTemplate();
                     this.controller = NtInput_1;
                     this.controllerAs = "$ctrl";
@@ -52,9 +55,10 @@ var MegaMine;
                         </div>
                     </md-input-container>`;
                 }
-                linkFn(scope, element, instanceAttributes, $ctrl) {
+                preLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
                     self.form = scope.form;
+                    self.ngModel = scope.ngModel;
                     self.label = scope.label;
                     self.controlName = scope.controlName;
                     self.type = scope.type;
@@ -64,6 +68,9 @@ var MegaMine;
                     self.emMaxlength = scope.emMaxlength;
                     self.style = scope.style;
                     self.errorMessages = scope.errorMessages;
+                }
+                postLinkFn(scope, element, instanceAttributes, $ctrl) {
+                    const self = $ctrl;
                     if (self.form === undefined) {
                         self.form = scope.$parent.$parent[scope.$parent.$parent["form"]];
                     }

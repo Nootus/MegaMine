@@ -27,7 +27,10 @@ var MegaMine;
                         overrideDisabled: "@",
                         form: "=?"
                     };
-                    this.link = this.linkFn;
+                    this.link = {
+                        pre: this.preLinkFn,
+                        post: this.postLinkFn
+                    };
                     this.template = this.getTemplate();
                     this.controller = NtButton_1;
                     this.controllerAs = "$ctrl";
@@ -43,7 +46,7 @@ var MegaMine;
                         </md-button>
                     </span>`;
                 }
-                linkFn(scope, element, instanceAttributes, $ctrl) {
+                preLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
                     // scope variables
                     self.cssClass = scope.cssClass;
@@ -52,30 +55,34 @@ var MegaMine;
                     self.iconCss = scope.iconCss;
                     self.text = scope.text;
                     self.form = scope.form;
-                    const icon = scope.icon;
-                    const claim = scope.claim;
-                    const overrideDisabled = scope.overrideDisabled;
+                    // private variables
+                    self.icon = scope.icon;
+                    self.claim = scope.claim;
+                    self.overrideDisabled = scope.overrideDisabled;
+                    self.hideToolTip = scope.toolTip === undefined ? true : false;
+                }
+                postLinkFn(scope, element, instanceAttributes, $ctrl) {
+                    const self = $ctrl;
                     if (self.form === undefined) {
                         self.form = scope.$parent.$parent.$parent[scope.$parent.$parent.$parent["form"]];
                     }
-                    if (claim === undefined || claim === "") {
+                    if (self.claim === undefined || self.claim === "") {
                         self.hideButton = false;
                     }
                     else {
-                        self.hideButton = !self.profile.isAuthorized(claim.split(","));
+                        self.hideButton = !self.profile.isAuthorized(self.claim.split(","));
                     }
                     // setting the default values
-                    self.bypassDisabled = overrideDisabled === "true" ? false : true;
+                    self.bypassDisabled = self.overrideDisabled === "true" ? false : true;
                     // hiding the tooltip if not specified
-                    let hideToolTip = scope.toolTip === undefined ? true : false;
-                    if (hideToolTip) {
+                    if (self.hideToolTip) {
                         self.toolTipStyle = {
                             display: "none"
                         };
                     }
                     // icons
-                    if (icon !== undefined) {
-                        switch (icon) {
+                    if (self.icon !== undefined) {
+                        switch (self.icon) {
                             case "save":
                                 self.iconCss = "save";
                                 break;

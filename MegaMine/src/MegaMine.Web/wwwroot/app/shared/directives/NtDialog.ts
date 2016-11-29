@@ -70,7 +70,7 @@
             // interal variables
             if (self.saveText === undefined) {
                 self.saveText = "Save";
-                }
+            }
 
             angular.extend(scope, {
                 dialogMode: scope.$parent.vm.dialogMode,

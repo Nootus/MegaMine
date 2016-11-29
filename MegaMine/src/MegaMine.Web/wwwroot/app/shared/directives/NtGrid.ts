@@ -11,7 +11,10 @@
             grid: "="
         };
 
-        public link: ng.IDirectiveLinkFn = this.linkFn;
+        public link: ng.IDirectivePrePost = {
+            pre: this.preLinkFn,
+            post: this.postLinkFn
+        };
         public template: string = this.getTemplate();
         public controller: typeof NtGrid = NtGrid;
         public controllerAs: string = "$ctrl";
@@ -33,11 +36,16 @@
                     </md-content>`;
         }
 
-        public linkFn(scope: INtGridScope<TContext, TDataModel>, element: ng.IAugmentedJQuery,
+        public preLinkFn(scope: INtGridScope<TContext, TDataModel>, element: ng.IAugmentedJQuery,
             instanceAttributes: ng.IAttributes, $ctrl: NtGrid<TContext, TDataModel>): void {
             let self: NtGrid<TContext, TDataModel> = $ctrl;
 
             self.grid = scope.grid;
+        }
+
+        public postLinkFn(scope: INtGridScope<TContext, TDataModel>, element: ng.IAugmentedJQuery,
+            instanceAttributes: ng.IAttributes, $ctrl: NtGrid<TContext, TDataModel>): void {
+            let self: NtGrid<TContext, TDataModel> = $ctrl;
 
             if (self.grid === undefined) {
                 self.grid = { options: {} }; // work around as ui-grid is throwing error
