@@ -47,6 +47,7 @@ var MegaMine;
                 preLinkFn(scope, element, instanceAttributes, $ctrl) {
                     let self = $ctrl;
                     self.grid = scope.grid;
+                    self.$scope = scope;
                 }
                 postLinkFn(scope, element, instanceAttributes, $ctrl) {
                     let self = $ctrl;
@@ -59,7 +60,7 @@ var MegaMine;
                         self.grid.AddButtonColumn = self.AddButtonColumn; // this is used in Dashboard to add the button columns
                         self.initialize(self.grid.options, self.grid.data);
                         self.AddButtonColumn(self.grid, self.grid.primaryField, self.grid.editClaim, self.grid.deleteClaim, self.grid.hideGridButtons);
-                        self.setHeight(scope);
+                        self.setHeight();
                     }
                 }
                 initialize(options, data) {
@@ -72,7 +73,7 @@ var MegaMine;
                         options.gridApi = gridApi;
                     };
                 }
-                setHeight(scope) {
+                setHeight() {
                     let self = this;
                     // finding whether the grid is embed in a dashboard. In that case height is set by dashboard
                     self.$timeout(function () {
@@ -84,23 +85,17 @@ var MegaMine;
                         }
                         self.setGridHeight();
                     }, 100);
-                    scope.$on("window_resize", function () {
+                    self.$scope.$on("window_resize", function () {
                         self.setGridHeight();
                     });
                 }
                 setGridHeight() {
                     let self = this;
-                    let timeoutInterval = 50;
-                    let bottomOffset = 10;
-                    // if (self.grid.dialog) {
-                    //    timeoutInterval = 250;
-                    //    bottomOffset = 40;
-                    // }
                     self.$timeout(function () {
                         if (!self.dashboardInd) {
-                            self.grid.height = self.utility.getContentHeight("grid-content", bottomOffset);
+                            self.grid.height = self.utility.getContentHeight("grid-content", 10);
                         }
-                    }, timeoutInterval);
+                    }, 50);
                 }
             };
             NtGrid = NtGrid_1 = __decorate([

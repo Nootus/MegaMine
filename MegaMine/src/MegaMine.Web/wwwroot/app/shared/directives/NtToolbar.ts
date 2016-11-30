@@ -10,11 +10,17 @@
             header: "@"
         };
 
-        public link: ng.IDirectiveLinkFn = this.linkFn;
+        public link: ng.IDirectivePrePost = {
+            pre: this.preLinkFn,
+            post: this.postLinkFn
+        };
         public template: string = this.getTemplate();
         public controller: typeof NtToolbar = NtToolbar;
         public controllerAs: string = "$ctrl";
         public transclude: boolean = true;
+
+        // scope variables
+        public header: string;
 
         constructor(private utility: MegaMine.Shared.Utility) {
 
@@ -29,11 +35,21 @@
                 </md-toolbar>`;
         }
 
-        public linkFn(scope: ng.IScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtToolbar): void {
+        public preLinkFn(scope: INtToolbarScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtToolbar): void {
+            const self: NtToolbar = $ctrl;
+
+            $ctrl.header = scope.header;
+        }
+
+        public postLinkFn(scope: ng.IScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtToolbar): void {
             const self: NtToolbar = $ctrl;
             if(self.utility.isEmpty(instanceAttributes["class"])) {
                 instanceAttributes.$addClass("command-bar");
             }
         }
+    }
+
+    interface INtToolbarScope extends ng.IScope {
+        header: string;
     }
 }

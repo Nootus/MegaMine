@@ -17,7 +17,10 @@ var MegaMine;
                 this.scope = {
                     widgets: "="
                 };
-                this.link = this.linkFn;
+                this.link = {
+                    pre: this.preLinkFn,
+                    post: this.postLinkFn
+                };
                 this.template = this.getTemplate();
                 this.controller = NtGridster_1;
                 this.controllerAs = "$ctrl";
@@ -25,14 +28,19 @@ var MegaMine;
             getTemplate() {
                 return `<div gridster="$ctrl.gridsterOptions">
                         <ul class="with-3d-shadow with-transitions">
-                            <li class="widget" gridster-item="item.widgetOptions" ng-repeat="item in widgets">
+                            <li class="widget" gridster-item="item.widgetOptions" ng-repeat="item in $ctrl.widgets">
                                 <nt-widget id="{{item.dashboardPageWidgetId}}" widget="item.widget"></nt-nvd3>
                             </li>
                         </ul>
                     </div>`;
             }
-            linkFn(scope, element, instanceAttributes, $ctrl) {
-                $ctrl.gridsterOptions = $ctrl.getGridsterOptions();
+            preLinkFn(scope, element, instanceAttributes, $ctrl) {
+                const self = $ctrl;
+                self.widgets = scope.widgets;
+            }
+            postLinkFn(scope, element, instanceAttributes, $ctrl) {
+                const self = $ctrl;
+                self.gridsterOptions = $ctrl.getGridsterOptions();
             }
             getGridsterOptions() {
                 let self = this;

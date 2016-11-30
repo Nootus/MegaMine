@@ -40,7 +40,6 @@
             });
         }
 
-
         private options(chartType: string, xAxisDataLabels: string[]): Models.IChartOptions {
             let self: ChartOptions = this;
             let d3: any = self.$window.d3;

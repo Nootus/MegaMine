@@ -19,7 +19,10 @@ var MegaMine;
                     this.scope = {
                         header: "@"
                     };
-                    this.link = this.linkFn;
+                    this.link = {
+                        pre: this.preLinkFn,
+                        post: this.postLinkFn
+                    };
                     this.template = this.getTemplate();
                     this.controller = NtToolbar_1;
                     this.controllerAs = "$ctrl";
@@ -33,7 +36,11 @@ var MegaMine;
                     </div>
                 </md-toolbar>`;
                 }
-                linkFn(scope, element, instanceAttributes, $ctrl) {
+                preLinkFn(scope, element, instanceAttributes, $ctrl) {
+                    const self = $ctrl;
+                    $ctrl.header = scope.header;
+                }
+                postLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
                     if (self.utility.isEmpty(instanceAttributes["class"])) {
                         instanceAttributes.$addClass("command-bar");

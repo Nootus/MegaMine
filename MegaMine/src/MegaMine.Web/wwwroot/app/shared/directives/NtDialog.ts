@@ -36,28 +36,28 @@
 
         public getTemplate(): string {
             return `<form name="{{$ctrl.form}}" novalidate>
-                   <nt-toolbar header="{{$ctrl.header}}" class="command-bar dialog">
-                     <md-dialog-actions>
-                      <span ng-transclude="dialogButtons"></span>
-                      <nt-button type="command-bar" icon-css="floppy-o" text="{{$ctrl.saveText}}" ng-click="save(dialogForm)" 
-                            ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.save }" 
-                            ng-disabled="dialogForm.$invalid && dialogForm.$submitted">
-                      </nt-button>
-                      <nt-button type="command-bar" icon-css="trash" css-class="delete" text="Delete" 
-                            ng-click="deleteItem(dialogForm)" ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.delete }">
-                      </nt-button>
-                      <nt-button type="command-bar" icon-css="ban" text="Cancel" ng-click="cancel($event)" 
-                            ng-show="dialogMode !== ${ Shared.Dialog.Models.DialogMode.view }" override-disabled="true">
-                      </nt-button>
-                      <nt-button type="command-bar" icon-css="times" text="Close" ng-click="cancel($event)" 
-                            ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.view }" override-disabled="true">
-                      </nt-button>
-                     </md-dialog-actions>
-                   </nt-toolbar>
-                   <md-dialog-content class="dialog-content">
-                      <div ng-transclude></div>
-                   </md-dialog-content>
-               </form>`;
+                       <nt-toolbar header="{{$ctrl.header}}" class="command-bar dialog">
+                         <md-dialog-actions>
+                          <span ng-transclude="dialogButtons"></span>
+                          <nt-button type="command-bar" icon-css="floppy-o" text="{{$ctrl.saveText}}" ng-click="save(dialogForm)" 
+                                ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.save }" 
+                                ng-disabled="dialogForm.$invalid && dialogForm.$submitted">
+                          </nt-button>
+                          <nt-button type="command-bar" icon-css="trash" css-class="delete" text="Delete" 
+                                ng-click="deleteItem(dialogForm)" ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.delete }">
+                          </nt-button>
+                          <nt-button type="command-bar" icon-css="ban" text="Cancel" ng-click="cancel($event)" 
+                                ng-show="dialogMode !== ${ Shared.Dialog.Models.DialogMode.view }" override-disabled="true">
+                          </nt-button>
+                          <nt-button type="command-bar" icon-css="times" text="Close" ng-click="cancel($event)" 
+                                ng-show="dialogMode === ${ Shared.Dialog.Models.DialogMode.view }" override-disabled="true">
+                          </nt-button>
+                         </md-dialog-actions>
+                       </nt-toolbar>
+                       <md-dialog-content class="dialog-content">
+                          <div ng-transclude></div>
+                       </md-dialog-content>
+                   </form>`;
         }
 
         public preLinkFn(scope: INtDialogScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtDialog): void {

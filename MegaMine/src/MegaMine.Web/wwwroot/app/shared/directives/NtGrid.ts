@@ -24,6 +24,8 @@
         public dashboardInd: boolean = false;
         public cssClass: string;
 
+        private $scope: INtGridScope<TContext, TDataModel>;
+
         constructor(private $timeout: ng.ITimeoutService, private uiGridConstants: uiGrid.IUiGridConstants,
             private utility: Shared.Utility, private templateUtility: Shared.Template) {
 
@@ -41,6 +43,8 @@
             let self: NtGrid<TContext, TDataModel> = $ctrl;
 
             self.grid = scope.grid;
+
+            self.$scope = scope;
         }
 
         public postLinkFn(scope: INtGridScope<TContext, TDataModel>, element: ng.IAugmentedJQuery,
@@ -57,7 +61,7 @@
                 self.AddButtonColumn(
                     self.grid, self.grid.primaryField, self.grid.editClaim, self.grid.deleteClaim, self.grid.hideGridButtons);
 
-                self.setHeight(scope);
+                self.setHeight();
             }
         }
 
@@ -83,7 +87,7 @@
             }
         };
 
-        private setHeight(scope: INtGridScope<TContext, TDataModel>): void  {
+        private setHeight(): void  {
             let self: NtGrid<TContext, TDataModel> = this;
             // finding whether the grid is embed in a dashboard. In that case height is set by dashboard
             self.$timeout(function (): void {
@@ -95,7 +99,7 @@
                 self.setGridHeight();
             }, 100);
 
-            scope.$on("window_resize", function (): void {
+            self.$scope.$on("window_resize", function (): void {
                 self.setGridHeight();
             });
         }
@@ -103,19 +107,11 @@
         private setGridHeight(): void {
             let self: NtGrid<TContext, TDataModel> = this;
 
-            let timeoutInterval: number = 50;
-            let bottomOffset: number = 10;
-
-            // if (self.grid.dialog) {
-            //    timeoutInterval = 250;
-            //    bottomOffset = 40;
-            // }
-
             self.$timeout(function (): void {
                 if (!self.dashboardInd) {
-                    self.grid.height = self.utility.getContentHeight("grid-content", bottomOffset);
+                    self.grid.height = self.utility.getContentHeight("grid-content", 10);
                 }
-            }, timeoutInterval);
+            }, 50);
         }
     }
 
