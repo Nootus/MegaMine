@@ -30,7 +30,6 @@
 
         // scope variables
         public form: ng.IFormController;
-        public ngModel: any;
         public label: string;
         public controlName: string;
         public type: string;
@@ -68,7 +67,6 @@
             const self: NtInput = $ctrl;
 
             self.form = scope.form;
-            self.ngModel = scope.ngModel;
             self.label = scope.label;
             self.controlName = scope.controlName;
             self.type = scope.type;

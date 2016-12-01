@@ -10,8 +10,7 @@ var MegaMine;
     (function (Shared) {
         var Directives;
         (function (Directives) {
-            let NtInput_1;
-            let NtInput = NtInput_1 = class NtInput {
+            let NtInput_1 = class NtInput {
                 constructor() {
                     // directive attributes
                     this.restrict = "E";
@@ -58,7 +57,6 @@ var MegaMine;
                 preLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
                     self.form = scope.form;
-                    self.ngModel = scope.ngModel;
                     self.label = scope.label;
                     self.controlName = scope.controlName;
                     self.type = scope.type;
@@ -101,6 +99,7 @@ var MegaMine;
                     }
                 }
             };
+            let NtInput = NtInput_1;
             NtInput = NtInput_1 = __decorate([
                 MegaMine.directive("megamine", "ntInput"),
                 MegaMine.inject()
