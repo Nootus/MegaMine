@@ -36,7 +36,8 @@
                     </div>`;
         }
 
-        public preLinkFn(scope: INtGridsterScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtGridster): void {
+        public preLinkFn(scope: INtGridsterScope, element: ng.IAugmentedJQuery,
+            instanceAttributes: ng.IAttributes, $ctrl: NtGridster): void {
             const self: NtGridster = $ctrl;
 
             self.widgets = scope.widgets;

@@ -82,7 +82,8 @@
             const self: NtInput = $ctrl;
 
             if (self.form === undefined) {
-                self.form = scope.$parent.$parent[scope.$parent.$parent["form"]];
+                const frm: string = "form";
+                self.form = scope.$parent.$parent[scope.$parent.$parent[frm]];
             }
 
             if (self.type === "date" || self.type === "time" || self.type === "datetime-local") {
@@ -95,7 +96,8 @@
                 self.type = "text";
             }
 
-            let dialogMode: Dialog.Models.DialogMode = scope.$parent.$parent["dialogMode"];
+            const dialogModeString: string = "dialogMode";
+            let dialogMode: Dialog.Models.DialogMode = scope.$parent.$parent[dialogModeString];
             if (dialogMode !== undefined) {
                 self.isDisabled = dialogMode !== Dialog.Models.DialogMode.save;
             }

@@ -10,7 +10,8 @@ var MegaMine;
     (function (Shared) {
         var Directives;
         (function (Directives) {
-            let NtInput_1 = class NtInput {
+            let NtInput_1;
+            let NtInput = NtInput_1 = class NtInput {
                 constructor() {
                     // directive attributes
                     this.restrict = "E";
@@ -70,7 +71,8 @@ var MegaMine;
                 postLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
                     if (self.form === undefined) {
-                        self.form = scope.$parent.$parent[scope.$parent.$parent["form"]];
+                        const frm = "form";
+                        self.form = scope.$parent.$parent[scope.$parent.$parent[frm]];
                     }
                     if (self.type === "date" || self.type === "time" || self.type === "datetime-local") {
                         if (scope.ngModel !== null && scope.ngModel !== undefined) {
@@ -80,7 +82,8 @@ var MegaMine;
                     if (self.type === undefined) {
                         self.type = "text";
                     }
-                    let dialogMode = scope.$parent.$parent["dialogMode"];
+                    const dialogModeString = "dialogMode";
+                    let dialogMode = scope.$parent.$parent[dialogModeString];
                     if (dialogMode !== undefined) {
                         self.isDisabled = dialogMode !== 1 /* save */;
                     }
@@ -99,7 +102,6 @@ var MegaMine;
                     }
                 }
             };
-            let NtInput = NtInput_1;
             NtInput = NtInput_1 = __decorate([
                 MegaMine.directive("megamine", "ntInput"),
                 MegaMine.inject()

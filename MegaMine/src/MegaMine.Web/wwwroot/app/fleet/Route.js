@@ -102,20 +102,6 @@ var MegaMine;
                             }]
                     }
                 })
-                    .state("servicereport", {
-                    url: virtualPath + "/servicereport",
-                    title: "Service Report",
-                    previousState: "dashboard",
-                    templateUrl: "/app/fleet/servicereport.html",
-                    controller: "servicereport",
-                    controllerAs: "vm",
-                    resolve: {
-                        resolveModel: ["MegaMine.Fleet.FleetService",
-                            function (fleetService) {
-                                return fleetService.getVehicleList();
-                            }]
-                    }
-                })
                     .state("driver", {
                     url: virtualPath + "/driver",
                     title: "Drivers",

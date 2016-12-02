@@ -64,7 +64,8 @@ var MegaMine;
                 postLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
                     if (self.form === undefined) {
-                        self.form = scope.$parent.$parent.$parent[scope.$parent.$parent.$parent["form"]];
+                        const frm = "form";
+                        self.form = scope.$parent.$parent.$parent[scope.$parent.$parent.$parent[frm]];
                     }
                     if (self.claim === undefined || self.claim === "") {
                         self.hideButton = false;

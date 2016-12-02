@@ -10,7 +10,8 @@ var MegaMine;
     (function (Shared) {
         var Directives;
         (function (Directives) {
-            let NtSelect_1 = class NtSelect {
+            let NtSelect_1;
+            let NtSelect = NtSelect_1 = class NtSelect {
                 constructor($compile, $timeout) {
                     this.$compile = $compile;
                     this.$timeout = $timeout;
@@ -23,12 +24,12 @@ var MegaMine;
                         optValue: "@",
                         optText: "@",
                         form: "=?",
-                        label: '@',
+                        label: "@",
                         controlName: "@",
-                        ngRequired: '=?',
-                        ngDisabled: '@',
-                        style: '@',
-                        errorMessages: '=?'
+                        ngRequired: "=?",
+                        ngDisabled: "@",
+                        style: "@",
+                        errorMessages: "=?"
                     };
                     this.link = {
                         pre: this.preLinkFn,
@@ -38,7 +39,8 @@ var MegaMine;
                     this.controllerAs = "$ctrl";
                 }
                 getTemplate(controlName, optValue, optText) {
-                    return `<md-input-container class="ntselect {{$ctrl.errorCss}}" md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" style="{{$ctrl.style}}">
+                    return `<md-input-container class="ntselect {{$ctrl.errorCss}}" 
+                            md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" style="{{$ctrl.style}}">
                         <label>{{$ctrl.label}}</label>
                         <md-select name="${controlName}" ng-required="$ctrl.ngRequired" ng-disabled="$ctrl.isDisabled" ng-model="ngModel" 
                                 ng-change="$ctrl.change()" aria-label="{{$ctrl.controlName}}"
@@ -70,13 +72,14 @@ var MegaMine;
                 }
                 postLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
+                    const frm = "form";
                     if (self.form === undefined) {
-                        self.form = scope.$parent.$parent[scope.$parent.$parent["form"]];
+                        self.form = scope.$parent.$parent[scope.$parent.$parent[frm]];
                     }
                     self.optValue = self.optValue === undefined ? "key" : self.optValue;
                     self.optText = self.optText === undefined ? "item" : self.optText;
                     self.errorCss = "";
-                    //checking the required
+                    // checking the required
                     if (self.$scope.ngModel === 0 && (self.ngRequired === "true" || self.ngRequired === true)) {
                         self.$scope.ngModel = undefined;
                     }
@@ -93,12 +96,14 @@ var MegaMine;
                 isFieldError(form, controlName) {
                     const self = this;
                     if (form !== undefined) {
-                        var control = form[controlName];
-                        var isError = form.$submitted && !control.$valid;
-                        if (isError)
+                        let control = form[controlName];
+                        let isError = form.$submitted && !control.$valid;
+                        if (isError) {
                             self.errorCss = "ntselect-invalid";
-                        else
+                        }
+                        else {
                             self.errorCss = "";
+                        }
                         return isError;
                     }
                 }
@@ -109,7 +114,6 @@ var MegaMine;
                     });
                 }
             };
-            let NtSelect = NtSelect_1;
             NtSelect = NtSelect_1 = __decorate([
                 MegaMine.directive("megamine", "ntSelect"),
                 MegaMine.inject("$compile", "$timeout")

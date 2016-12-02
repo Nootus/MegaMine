@@ -41,9 +41,6 @@ var MegaMine;
                         }
                     }
                 };
-                this.getSelf = () => {
-                    return this;
-                };
                 const self = this;
                 angular.forEach(quarryService.productTypes.list, function (item) {
                     self.initializeModel(item);

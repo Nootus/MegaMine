@@ -83,7 +83,8 @@
             const self: NtButton = $ctrl;
 
             if (self.form === undefined) {
-                self.form = scope.$parent.$parent.$parent[scope.$parent.$parent.$parent["form"]];
+                const frm: string = "form";
+                self.form = scope.$parent.$parent.$parent[scope.$parent.$parent.$parent[frm]];
             }
 
             if (self.claim === undefined || self.claim === "") {

@@ -122,7 +122,7 @@
                     counter++;
                 }
 
-                if(form.formulaOrder !== undefined) {
+                if (form.formulaOrder !== undefined) {
                     if (formulaExists && self.utility.isEmpty(form.formulaOrder.$modelValue)) {
                         form.formulaOrder.$setValidity("orderRequired", false);
                     } else {
@@ -130,11 +130,7 @@
                     }
                 }
             }
-        }
-
-        private getSelf = () : ProductType => {
-            return this;
-        }
+        };
 
         public addProductType(ev: ng.IAngularEvent, context: ProductType): void {
             const self: ProductType = context;

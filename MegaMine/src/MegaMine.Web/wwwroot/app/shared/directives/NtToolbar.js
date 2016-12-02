@@ -38,7 +38,7 @@ var MegaMine;
                 }
                 preLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
-                    $ctrl.header = scope.header;
+                    self.header = scope.header;
                 }
                 postLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;

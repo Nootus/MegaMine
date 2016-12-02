@@ -13,12 +13,12 @@
             optValue: "@",
             optText: "@",
             form: "=?",
-            label: '@',
+            label: "@",
             controlName: "@",
-            ngRequired: '=?',
-            ngDisabled: '@',
-            style: '@',
-            errorMessages: '=?'
+            ngRequired: "=?",
+            ngDisabled: "@",
+            style: "@",
+            errorMessages: "=?"
         };
 
         public link: ng.IDirectivePrePost = {
@@ -50,8 +50,9 @@
 
         }
 
-        private getTemplate(controlName: string, optValue: string, optText: string) {
-            return `<md-input-container class="ntselect {{$ctrl.errorCss}}" md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" style="{{$ctrl.style}}">
+        private getTemplate(controlName: string, optValue: string, optText: string): string {
+            return `<md-input-container class="ntselect {{$ctrl.errorCss}}" 
+                            md-is-error="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)" style="{{$ctrl.style}}">
                         <label>{{$ctrl.label}}</label>
                         <md-select name="${ controlName }" ng-required="$ctrl.ngRequired" ng-disabled="$ctrl.isDisabled" ng-model="ngModel" 
                                 ng-change="$ctrl.change()" aria-label="{{$ctrl.controlName}}"
@@ -72,7 +73,7 @@
 
             self.ntChange = scope.ntChange;
             self.optList = scope.optList;
-            self.optValue = scope.optValue
+            self.optValue = scope.optValue;
             self.optText = scope.optText;
             self.form = scope.form;
             self.label = scope.label;
@@ -88,21 +89,23 @@
         public postLinkFn(scope: ng.IScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtSelect): void {
             const self: NtSelect = $ctrl;
 
+            const frm: string = "form";
+
             if (self.form === undefined) {
-                self.form = scope.$parent.$parent[scope.$parent.$parent["form"]];
+                self.form = scope.$parent.$parent[scope.$parent.$parent[frm]];
             }
 
-            self.optValue = self.optValue === undefined ? "key" : self.optValue
-            self.optText = self.optText === undefined ? "item" : self.optText
+            self.optValue = self.optValue === undefined ? "key" : self.optValue;
+            self.optText = self.optText === undefined ? "item" : self.optText;
             self.errorCss = "";
 
-            //checking the required
+            // checking the required
             if (self.$scope.ngModel === 0 && (self.ngRequired === "true" || self.ngRequired === true)) {
                 self.$scope.ngModel = undefined;
             }
 
             if (self.$scope.$parent.$parent.dialogMode !== undefined) {
-                self.isDisabled = self.$scope.$parent.$parent.dialogMode !== Dialog.Models.DialogMode.save
+                self.isDisabled = self.$scope.$parent.$parent.dialogMode !== Dialog.Models.DialogMode.save;
             }
             if (self.ngDisabled === "true") {
                 self.isDisabled = true;
@@ -117,12 +120,13 @@
         public isFieldError(form: ng.IFormController, controlName: string): boolean {
             const self: NtSelect = this;
             if (form !== undefined) {
-                var control = form[controlName];
-                var isError = form.$submitted && !control.$valid;
-                if (isError)
+                let control: ng.INgModelController = form[controlName];
+                let isError: boolean = form.$submitted && !control.$valid;
+                if (isError) {
                     self.errorCss = "ntselect-invalid";
-                else
+                } else {
                     self.errorCss = "";
+                }
 
                 return isError;
             }
@@ -130,7 +134,7 @@
 
         public change(): void {
             const self: NtSelect = this;
-            self.$timeout(function () {
+            self.$timeout(function (): void {
                 self.ntChange();
             });
         }

@@ -38,7 +38,7 @@
         public preLinkFn(scope: INtToolbarScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtToolbar): void {
             const self: NtToolbar = $ctrl;
 
-            $ctrl.header = scope.header;
+            self.header = scope.header;
         }
 
         public postLinkFn(scope: ng.IScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtToolbar): void {
