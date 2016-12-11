@@ -39,7 +39,7 @@ var MegaMine;
                 controller: MegaMine.Account.Login,
                 controllerAs: "vm",
                 resolve: {
-                    resolveModel: ["MegaMine.Shared.Profile", "accountService",
+                    resolveModel: ["MegaMine.Shared.Profile", "MegaMine.Account.AccountService",
                         function (profile, accountService) {
                             profile.logout();
                             return accountService.logout();

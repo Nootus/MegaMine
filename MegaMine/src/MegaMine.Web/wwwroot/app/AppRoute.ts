@@ -38,7 +38,7 @@
                     controller: Account.Login,
                     controllerAs: "vm",
                     resolve: {
-                        resolveModel: ["MegaMine.Shared.Profile", "accountService",
+                        resolveModel: ["MegaMine.Shared.Profile", "MegaMine.Account.AccountService",
                             function (profile: Shared.Profile, accountService: Account.AccountService): ng.IHttpPromise<void> {
                                 profile.logout();
                                 return accountService.logout();
