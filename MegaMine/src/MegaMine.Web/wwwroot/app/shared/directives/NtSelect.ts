@@ -30,7 +30,6 @@
 
         // scope variables
         public ntChange: any;
-        public optList: any[];
         public optValue: string;
         public optText: string;
         public form: ng.IFormController;
@@ -57,7 +56,7 @@
                         <md-select name="${ controlName }" ng-required="$ctrl.ngRequired" ng-disabled="$ctrl.isDisabled" ng-model="ngModel" 
                                 ng-change="$ctrl.change()" aria-label="{{$ctrl.controlName}}"
                                 ng-model-options="{ updateOn: \'default blur\', debounce: { default: 500, blur: 0 } }">
-                            <md-option ng-value="opt.${ optValue }" ng-repeat="opt in $ctrl.optList">{{ opt.${ optText } }}</md-option>
+                            <md-option ng-value="opt.${ optValue }" ng-repeat="opt in optList">{{ opt.${ optText } }}</md-option>
                         </md-select>
                         <div ng-messages="$ctrl.form[$ctrl.controlName].$error" ng-show="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)">
                             <span ng-message="required">Required!</span>
@@ -72,7 +71,6 @@
             const self: NtSelect = $ctrl;
 
             self.ntChange = scope.ntChange;
-            self.optList = scope.optList;
             self.optValue = scope.optValue;
             self.optText = scope.optText;
             self.form = scope.form;
@@ -142,7 +140,6 @@
 
     interface INtSelectScope extends ng.IScope {
         ntChange: any;
-        optList: any[];
         optValue: string;
         optText: string;
         form: ng.IFormController;

@@ -45,7 +45,7 @@ var MegaMine;
                         <md-select name="${controlName}" ng-required="$ctrl.ngRequired" ng-disabled="$ctrl.isDisabled" ng-model="ngModel" 
                                 ng-change="$ctrl.change()" aria-label="{{$ctrl.controlName}}"
                                 ng-model-options="{ updateOn: \'default blur\', debounce: { default: 500, blur: 0 } }">
-                            <md-option ng-value="opt.${optValue}" ng-repeat="opt in $ctrl.optList">{{ opt.${optText} }}</md-option>
+                            <md-option ng-value="opt.${optValue}" ng-repeat="opt in optList">{{ opt.${optText} }}</md-option>
                         </md-select>
                         <div ng-messages="$ctrl.form[$ctrl.controlName].$error" ng-show="$ctrl.isFieldError($ctrl.form, $ctrl.controlName)">
                             <span ng-message="required">Required!</span>
@@ -58,7 +58,6 @@ var MegaMine;
                 preLinkFn(scope, element, instanceAttributes, $ctrl) {
                     const self = $ctrl;
                     self.ntChange = scope.ntChange;
-                    self.optList = scope.optList;
                     self.optValue = scope.optValue;
                     self.optText = scope.optText;
                     self.form = scope.form;
