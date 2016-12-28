@@ -22,6 +22,9 @@ bld/
 *.userosscache
 *.sln.docstates
 
+*.js
+*.js.map
+
 # DNX
 project.lock.json
 
