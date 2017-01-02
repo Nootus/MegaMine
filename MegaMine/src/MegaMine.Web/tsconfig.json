@@ -1,12 +1,14 @@
 {
   "compilerOptions": {
-    "noImplicitAny": false,
-    "noEmitOnError": true,
-    "removeComments": false,
+    "target": "es5",
+    "module": "commonjs",
+    "moduleResolution": "node",
     "sourceMap": true,
+    "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": false,
-    "target": "es6"
+    "removeComments": false,
+    "noImplicitAny": false,
+    "suppressImplicitAnyIndexErrors": true
   },
   "include": [
     "./wwwroot/app/**/*.ts"

@@ -36,6 +36,37 @@
     <script>
         window.virtualDirectory = "";
         window.environmentName = '@ViewBag.EnvironmentName';
+
+        // temporary work around for emit metadata and modules
+        var MegaMine = {
+            Account: {
+                Models: {}
+            },
+            Dashboard: {
+                Models: {}
+            },
+            Annotations: {},
+            Fleet: {
+                Models: {}
+            },
+            Home: {},
+            Plant: {
+                Models: {}
+            },
+            Quarry: {
+                Models: {}
+            },
+            Shared: {
+                Dialog: {
+                    Models: {}
+                },
+                Directives: {},
+                Models: {}
+            },
+            Widget: {
+                Models: {}
+            }   
+        };
     </script>
 
     <environment names="Production">
