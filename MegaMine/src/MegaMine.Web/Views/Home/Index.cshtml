@@ -1,6 +1,6 @@
 @addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
-<html ng-app="megamine">
+<html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <base href="/" target="_blank">
@@ -98,6 +98,9 @@
         <script src='scripts/pdfmake/vfs_fonts.js'></script>
 
         @Html.Partial("AppJsReferences.cshtml")
+        <script>
+            angular.bootstrap(document.body, ['megamine']);
+        </script>
     </environment>
 </body>
 </html>

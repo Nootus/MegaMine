@@ -15,7 +15,7 @@ var gulp = require("gulp"),
 
 var webroot = "./wwwroot/";
 var paths = {
-    appJs: [webroot + "app/extensions/annotations.js", webroot + "app/app.js", webroot + "app/**/*.js"],
+    appJs: [webroot + "app/extensions/Annotations.js", webroot + "app/App.js", webroot + "app/**/*.js"],
     scriptsJs: [webroot + "scripts/jquery.js"
                     , webroot + "scripts/angular/angular.js"
                     , webroot + "scripts/angular/angular-messages.js"
