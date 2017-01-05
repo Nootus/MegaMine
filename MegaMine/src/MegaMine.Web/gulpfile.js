@@ -11,7 +11,8 @@ var gulp = require("gulp"),
     typescript = require("gulp-tsc"),
     del = require("del"),
     file = require('gulp-file'),
-    tslint = require("gulp-tslint");
+    tslint = require("gulp-tslint"),
+    flatten = require('gulp-flatten');
 
 var webroot = "./wwwroot/";
 var paths = {
@@ -129,3 +130,21 @@ gulp.task("tslint", function () {
         }));
 });
 
+gulp.task("SystemJS", function () {
+
+    var scriptFiles = [
+        "./node_modules/@angular/core/bundles/core.umd.js",
+        "./node_modules/@angular/common/bundles/common.umd.js",
+        "./node_modules/@angular/compiler/bundles/compiler.umd.js",
+        "./node_modules/@angular/platform-browser/bundles/platform-browser.umd.js",
+        "./node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js",
+        "./node_modules/@angular/http/bundles/http.umd.js",
+        "./node_modules/@angular/router/bundles/router.umd.js",
+        "./node_modules/@angular/forms/bundles/forms.umd.js",
+        "./node_modules/@angular/upgrade/bundles/upgrade-static.umd.js",
+        "./node_modules/angular-in-memory-web-api/bundles/in-memory-web-api.umd.js"
+    ];
+    gulp.src(scriptFiles, { base: "." })
+       .pipe(flatten())
+       .pipe(gulp.dest(webroot + "scripts/angular2"));
+});

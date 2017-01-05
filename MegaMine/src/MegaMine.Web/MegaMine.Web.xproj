@@ -23,4 +23,9 @@
     <DnxInvisibleFolder Include="Properties\PublishProfiles\" />
   </ItemGroup>
   <Import Project="$(VSToolsPath)\DotNet.Web\Microsoft.DotNet.Web.targets" Condition="'$(VSToolsPath)' != ''" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties tsconfig_1json__JSONSchema="http://json.schemastore.org/typingsrc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>
