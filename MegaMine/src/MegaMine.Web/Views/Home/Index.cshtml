@@ -98,11 +98,11 @@
         <script src='scripts/pdfmake/vfs_fonts.js'></script>
 
         <!-- Polyfill(s) for older browsers -->
-        <script src="node_modules/core-js/client/shim.min.js"></script>
+        <script src="scripts/angular2/shim.min.js"></script>
 
-        <script src="node_modules/zone.js/dist/zone.js"></script>
-        <script src="node_modules/reflect-metadata/Reflect.js"></script>
-        <script src="node_modules/systemjs/dist/system.src.js"></script>
+        <script src="scripts/angular2/zone.js"></script>
+        <script src="scripts/angular2/Reflect.js"></script>
+        <script src="scripts/angular2/system.src.js"></script>
 
         <script src="systemjs.config.js"></script>
         <script>
@@ -110,10 +110,6 @@
         </script>
 
         @Html.Partial("AppJsReferences.cshtml")
-        <script>
-            angular.bootstrap(document.body, ['megamine']);
-        </script>
-
 
     </environment>
 </body>

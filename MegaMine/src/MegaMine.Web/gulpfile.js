@@ -16,7 +16,13 @@ var gulp = require("gulp"),
 
 var webroot = "./wwwroot/";
 var paths = {
-    appJs: [webroot + "app/extensions/Annotations.js", webroot + "app/App.js", webroot + "app/**/*.js"],
+    appJs: [webroot + "app/extensions/Annotations.js",
+        webroot + "app/App.js",
+        webroot + "app/**/*.js",
+        "!" + webroot + "app/AppModule.js",
+        "!" + webroot + "app/Main.js",
+        "!" + webroot + "app/AppComponent.js"
+],
     scriptsJs: [webroot + "scripts/jquery.js"
                     , webroot + "scripts/angular/angular.js"
                     , webroot + "scripts/angular/angular-messages.js"
@@ -100,6 +106,7 @@ gulp.task("injectJsFileCreate", function () {
 });
 
 gulp.task('injectJS', ["injectJsFileCreate"], function () {
+
     var target = gulp.src('./views/home/AppJsReferences.cshtml');
     var sources = gulp.src(paths.appJs, { read: false });
     return target.pipe(inject(sources, {
@@ -133,6 +140,10 @@ gulp.task("tslint", function () {
 gulp.task("SystemJS", function () {
 
     var scriptFiles = [
+        "./node_modules/core-js/client/shim.min.js",
+        "./node_modules/zone.js/dist/zone.js",
+        "./node_modules/reflect-metadata/Reflect.js",
+        "./node_modules/systemjs/dist/system.src.js",
         "./node_modules/@angular/core/bundles/core.umd.js",
         "./node_modules/@angular/common/bundles/common.umd.js",
         "./node_modules/@angular/compiler/bundles/compiler.umd.js",
@@ -147,4 +158,8 @@ gulp.task("SystemJS", function () {
     gulp.src(scriptFiles, { base: "." })
        .pipe(flatten())
        .pipe(gulp.dest(webroot + "scripts/angular2"));
+
+    // copy rx
+    gulp.src(["./node_modules/rxjs/**/*.js"], { base: "./node_modules/rxjs" })
+       .pipe(gulp.dest(webroot + "scripts/rxjs"));
 });
