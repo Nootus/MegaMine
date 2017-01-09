@@ -44,7 +44,16 @@
                                 return accountService.logout();
                             }]
                     }
+                })
+
+                .state("myapp", {
+                    url: virtualPath + "/myapp",
+                    title: "MyApp",
+                    previousState: "",
+                    template: "<my-app></my-app>",
+
                 });
+
 
             $locationProvider.html5Mode(true);
 

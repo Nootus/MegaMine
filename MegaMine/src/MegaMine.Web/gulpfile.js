@@ -21,6 +21,9 @@ var paths = {
         webroot + "app/**/*.js",
         "!" + webroot + "app/AppModule.js",
         "!" + webroot + "app/Main.js",
+        "!" + webroot + "app/AppRoutingModule.js",
+        "!" + webroot + "app/MigrationUrlHandlingStrategy.js",
+        "!" + webroot + "app/RootComponent.js",
         "!" + webroot + "app/AppComponent.js"
 ],
     scriptsJs: [webroot + "scripts/jquery.js"
