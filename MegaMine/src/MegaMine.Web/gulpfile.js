@@ -24,6 +24,7 @@ var paths = {
         "!" + webroot + "app/AppRoutingModule.js",
         "!" + webroot + "app/MigrationUrlHandlingStrategy.js",
         "!" + webroot + "app/RootComponent.js",
+        "!" + webroot + "app/UserComponent.js",
         "!" + webroot + "app/AppComponent.js"
 ],
     scriptsJs: [webroot + "scripts/jquery.js"
@@ -144,8 +145,10 @@ gulp.task("SystemJS", function () {
 
     var scriptFiles = [
         "./node_modules/core-js/client/shim.min.js",
+        "./node_modules/core-js/client/shim.min.js.map",
         "./node_modules/zone.js/dist/zone.js",
         "./node_modules/reflect-metadata/Reflect.js",
+        "./node_modules/reflect-metadata/Reflect.js.map",
         "./node_modules/systemjs/dist/system.src.js",
         "./node_modules/@angular/core/bundles/core.umd.js",
         "./node_modules/@angular/common/bundles/common.umd.js",
@@ -163,6 +166,6 @@ gulp.task("SystemJS", function () {
        .pipe(gulp.dest(webroot + "scripts/angular2"));
 
     // copy rx
-    gulp.src(["./node_modules/rxjs/**/*.js"], { base: "./node_modules/rxjs" })
+    gulp.src(["./node_modules/rxjs/**/*.js", "./node_modules/rxjs/**/*.js.map"], { base: "./node_modules/rxjs" })
        .pipe(gulp.dest(webroot + "scripts/rxjs"));
 });

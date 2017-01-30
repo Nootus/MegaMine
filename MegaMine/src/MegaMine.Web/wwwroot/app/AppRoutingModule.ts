@@ -1,33 +1,29 @@
 ﻿import { NgModule } from '@angular/core';
-import { RouterModule, Routes, UrlHandlingStrategy, UrlTree } from '@angular/router';
-import { AppComponent } from './AppComponent';
-
-export class MigrationUrlHandlingStrategy implements UrlHandlingStrategy {
-    shouldProcessUrl(url: UrlTree): boolean {
-        return url.toString().startsWith("/myapp");
-    }
-    extract(url: UrlTree): UrlTree { return url; }
-    merge(url: UrlTree, whole: UrlTree): UrlTree { return url; }
-}
+import { RouterModule, Routes } from '@angular/router';
+import { UserComponent } from './UserComponent';
 
 const appRoutes: Routes = [
-    { path: 'myapp', component: AppComponent }
+    { path: 'user', component: UserComponent },
+    { path: '', redirectTo: '/user', pathMatch: 'full' }
 ];
+
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes, {
-            useHash: true,
-            initialNavigation: false // we went to trigger navigation outselves after ng1 is done bootstrapping
-        })
+        RouterModule.forRoot(appRoutes
+            , {
+                useHash: false,
+                initialNavigation: true // we went to trigger navigation outselves after ng1 is done bootstrapping
+            })
     ],
-    providers: [
-        {
-            provide: UrlHandlingStrategy,
-            useClass: MigrationUrlHandlingStrategy
-        }
-    ], 
    exports: [
         RouterModule
     ]
 })
 export class AppRoutingModule { }
+
+/*
+            , {
+            useHash: true,
+            initialNavigation: true // we went to trigger navigation outselves after ng1 is done bootstrapping
+            }
+*/

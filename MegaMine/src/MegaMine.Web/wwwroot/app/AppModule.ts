@@ -2,34 +2,26 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { UpgradeModule } from '@angular/upgrade/static';
 
-import { UrlHandlingStrategy, UrlTree } from '@angular/router';
-
 import { AppComponent } from './AppComponent';
+import { UserComponent } from './UserComponent';
 import { RootComponent } from './RootComponent';
-
-export class MigrationUrlHandlingStrategy implements UrlHandlingStrategy {
-    shouldProcessUrl(url: UrlTree): boolean {
-        return url.toString().startsWith("/myapp");
-    }
-    extract(url: UrlTree): UrlTree { return url; }
-    merge(url: UrlTree, whole: UrlTree): UrlTree { return url; }
-}
+import { AppRoutingModule } from './AppRoutingModule';
 
 @NgModule({
     imports: [
         BrowserModule,
-        UpgradeModule
+        UpgradeModule,
+        AppRoutingModule
     ],
     declarations: [
         AppComponent,
-        RootComponent
+        RootComponent,
+        UserComponent
     ],
-    providers: [
-        { provide: UrlHandlingStrategy, useClass: MigrationUrlHandlingStrategy }
-    ], 
     entryComponents: [
         AppComponent,
-        RootComponent
+        RootComponent,
+        UserComponent
     ]
 })
 export class AppModule {

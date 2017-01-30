@@ -9,7 +9,7 @@
 
             $stateProvider
                 .state("dashboard", {
-                    url: virtualPath + "/",
+                    url: virtualPath + "/dashboard",
                     title: "Dashboard",
                     previousState: "",
                     templateUrl: "/app/dashboard/dashboard.html",
@@ -57,8 +57,8 @@
 
             $locationProvider.html5Mode(true);
 
-            $urlRouterProvider.when("", "/");
-            $urlRouterProvider.when(virtualPath + "/", virtualPath);
+            $urlRouterProvider.when("", "/dashboard");
+            $urlRouterProvider.when(virtualPath + "/", virtualPath + "/dashboard");
         }
     }
 }
