@@ -229,6 +229,24 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             Assert.Equal(ajaxModel.Message, FleetMessages.VehicleSaveSuccess);
         }
 
+        [Fact]
+        public async void VehicleDelete()
+        {
+            // Arrange
+            this.VehicleTable();
+            await this.SaveChangesAsync(this.FleetDbContext);
+
+            int vehicleId = 3;
+
+            // Act
+            AjaxModel<NTModel> ajaxModel = await this.Controller.VehicleDelete(vehicleId);
+
+            // Assert
+            VehicleEntity entity = this.FleetDbContext.Vehicles.First(m => m.VehicleId == vehicleId);
+            Assert.Equal(entity.DeletedInd, true);
+            Assert.Equal(ajaxModel.Message, FleetMessages.VehicleDeleteSuccess);
+        }
+
         private void VehicleReferrentialTables()
         {
             this.FleetDbContext.VehicleTypes.AddRange(

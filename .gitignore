@@ -2,8 +2,6 @@
 # This .gitignore file was automatically created by Microsoft(R) Visual Studio.
 ################################################################################
 
-/gitpush.bat
-
 # Build results
 [Dd]ebug/
 [Dd]ebugPublic/

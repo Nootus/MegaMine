@@ -126,14 +126,14 @@ namespace MegaMine.Web
                     defaults: new { controller = "Home", action = "Error" });
 
                 routes.MapRoute(
-                    name: "default",
+                    name: "catchall",
                     template: "{*url}",
                     defaults: new { controller = "Home", action = "Index" });
 
-                // routes.MapRoute(
-                //    name: "default",
-                //    template: "{controller}/{action}",
-                //    defaults: new { controller = "Home", action = "Index" });
+                routes.MapRoute(
+                   name: "default",
+                   template: "{controller}/{action}",
+                   defaults: new { controller = "Home", action = "Index" });
             });
         }
     }

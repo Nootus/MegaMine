@@ -14,9 +14,13 @@
             self.menuInitialize();
         }
 
-        public viewVehicle(ev: ng.IAngularEvent): void {
+        public vehicleView(ev: ng.IAngularEvent): void {
             const self: Vehicle = this;
             self.vehicleDialog.viewDialog(self.model, Shared.Dialog.Models.DialogMode.save, ev);
+        }
+
+        public vehicleDelete(ev: ng.IAngularEvent): void {
+            this.vehicleDialog.viewDialog(this.model, Shared.Dialog.Models.DialogMode.delete, ev);
         }
 
         public menuInitialize(): void {

@@ -256,6 +256,11 @@ namespace MegaMine.Modules.Fleet.Repositories
             await this.SaveEntity<VehicleEntity, VehicleModel>(model);
         }
 
+        public async Task VehicleDelete(int vehicleId)
+        {
+            await this.DeleteEntity<VehicleEntity>(vehicleId);
+        }
+
         public async Task<VehicleModel> VehicleGet(int vehicleId)
         {
             VehicleModel model = null;

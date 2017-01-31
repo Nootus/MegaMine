@@ -112,6 +112,12 @@ namespace MegaMine.Modules.Fleet.Controllers
             return await AjaxHelper.SaveAsync(m => this.domain.VehicleSave(model), FleetMessages.VehicleSaveSuccess);
         }
 
+        [HttpPost]
+        public async Task<AjaxModel<NTModel>> VehicleDelete([FromBody] int vehicleId)
+        {
+            return await AjaxHelper.SaveAsync(m => this.domain.VehicleDelete(vehicleId), FleetMessages.VehicleDeleteSuccess);
+        }
+
         // Manufacturer
         [HttpGet]
         public async Task<AjaxModel<List<VehicleManufacturerModel>>> ManufacturersGet()

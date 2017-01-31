@@ -26,6 +26,7 @@ namespace MegaMine.Modules.Fleet.Shared
         // vehicle Messages
         public const string VehicleServiceSaveSuccess = "Vehicle Service Saved Successfully";
         public const string VehicleSaveSuccess = "Vehicle Saved Successfully";
+        public const string VehicleDeleteSuccess = "Vehicle Deleted Successfully";
         public const string DriveAssessmentError = "Driver is already assigned. Cannot assign another driver";
         public const string FuelSaveSuccess = "Fuel Saved Successfully";
         public const string FuelInvalidOdometer = "Invalid Odometer or Date. There is already a higher Odometer reading";

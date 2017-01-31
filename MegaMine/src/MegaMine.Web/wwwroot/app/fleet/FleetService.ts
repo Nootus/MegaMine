@@ -283,6 +283,11 @@
                 });
         }
 
+        public vehicleDelete(vehicleId: number): ng.IHttpPromise<void> {
+            const self: FleetService = this;
+            return self.$http.post<void>("/api/fleet/vehicledelete", vehicleId);
+        }
+
         public getVehicleTypes(): ng.IHttpPromise<Shared.Models.IAjaxDataModel<Models.IVehicleTypeModel[]>> {
             const self: FleetService = this;
             return self.$http.get("/api/fleet/vehicletypesget")
