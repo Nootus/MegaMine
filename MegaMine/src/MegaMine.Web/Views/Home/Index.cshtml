@@ -72,6 +72,17 @@
     <environment names="Production">
 
         <script src="js/scripts.min.js" asp-append-version="true"></script>
+        <!-- Polyfill(s) for older browsers -->
+        <script src="scripts/angular2/shim.min.js"></script>
+
+        <script src="scripts/angular2/zone.js"></script>
+        <script src="scripts/angular2/Reflect.js"></script>
+        <script src="scripts/angular2/system.src.js"></script>
+
+        <script src="systemjs.config.js"></script>
+        <script>
+          System.import('app').catch(function(err){ console.error(err); });
+        </script>
         <script src="js/app.min.js" asp-append-version="true"></script>
     </environment>
     <environment names="Development,Staging">

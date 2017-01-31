@@ -1,4 +1,4 @@
-/// <binding AfterBuild='injectJS' ProjectOpened='default' />
+/// <binding />
 "use strict";
 
 var gulp = require("gulp"),

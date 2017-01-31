@@ -26,21 +26,28 @@
                 }
             })
                 .then(function (dialogModel: Models.IVehicleModel): void {
-                    self.fleetService.saveVehicle(dialogModel).then(function (): void {
-                        if (model.vehicleId === 0) {
-                            self.fleetService.getVehicleList();
-                        } else {
-                            model.vehicleType = self.utility.getListItem(dialogModel.vehicleTypeList, dialogModel.vehicleTypeId);
-                            model.manufacturer = self.utility.getListItem(dialogModel.manufacturerList, dialogModel.vehicleManufacturerId);
-                            model.vehicleModel = self.utility.getListItem(dialogModel.modelList, dialogModel.vehicleModelId);
+                    if (dialogMode === Shared.Dialog.Models.DialogMode.delete) {
+                        self.fleetService.vehicleDelete(dialogModel.vehicleManufacturerId).then(function (): void {
+                            self.dialogService.hide();
+                            self.navigation.go("vehiclelist");
+                        });
+                    } else {
+                        self.fleetService.saveVehicle(dialogModel).then(function (): void {
+                            if (model.vehicleId === 0) {
+                                self.fleetService.getVehicleList();
+                            } else {
+                                model.vehicleType = self.utility.getListItem(dialogModel.vehicleTypeList, dialogModel.vehicleTypeId);
+                                model.manufacturer = self.utility.getListItem(dialogModel.manufacturerList, dialogModel.vehicleManufacturerId);
+                                model.vehicleModel = self.utility.getListItem(dialogModel.modelList, dialogModel.vehicleModelId);
 
-                            model.registrationNumber = dialogModel.registrationNumber;
-                            model.vehicleTypeId = dialogModel.vehicleTypeId;
-                            model.vehicleManufacturerId = dialogModel.vehicleManufacturerId;
-                            model.vehicleModelId = dialogModel.vehicleModelId;
-                        }
-                        self.dialogService.hide();
-                    });
+                                model.registrationNumber = dialogModel.registrationNumber;
+                                model.vehicleTypeId = dialogModel.vehicleTypeId;
+                                model.vehicleManufacturerId = dialogModel.vehicleManufacturerId;
+                                model.vehicleModelId = dialogModel.vehicleModelId;
+                            }
+                            self.dialogService.hide();
+                        });
+                    }
                 });
 
         }
