@@ -27,7 +27,7 @@
             })
                 .then(function (dialogModel: Models.IVehicleModel): void {
                     if (dialogMode === Shared.Dialog.Models.DialogMode.delete) {
-                        self.fleetService.vehicleDelete(dialogModel.vehicleManufacturerId).then(function (): void {
+                        self.fleetService.vehicleDelete(dialogModel.vehicleId).then(function (): void {
                             self.dialogService.hide();
                             self.navigation.go("vehiclelist");
                         });
