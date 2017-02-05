@@ -14,8 +14,8 @@
         public selectedColours: Shared.Models.IListItem<number, string>[] = [];
         public summary: Models.IProductSummaryModel[] = [];
 
-        public grid: Widget.Models.IDashboardRecordGrid<ProductSummary, Models.IProductSummaryModel>;
-        public dialogGrid: Widget.Models.IDashboardRecordGrid<ProductSummary, Models.IStockModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<ProductSummary, Models.IProductSummaryModel>;
+        public dialogGrid: MegaMine.Shared.DataRecord.IDataRecordGrid<ProductSummary, Models.IStockModel>;
         public searchParams: Models.IProductSummarySearchModel = <Models.IProductSummarySearchModel>{};
 
 

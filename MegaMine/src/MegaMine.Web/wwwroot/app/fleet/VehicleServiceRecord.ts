@@ -4,7 +4,7 @@
     @inject("MegaMine.Fleet.FleetService", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Constants")
     export class VehicleServiceRecord {
 
-        public grid: Widget.Models.IDashboardRecordGrid<VehicleServiceRecord, Models.IVehicleServiceModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<VehicleServiceRecord, Models.IVehicleServiceModel>;
 
         constructor(private fleetService: FleetService, private dialogService: Shared.Dialog.DialogService<Models.IVehicleServiceModel>,
             private constants: Shared.Constants) {

@@ -4,7 +4,7 @@
     @inject("MegaMine.Quarry.QuarryService", "MegaMine.Shared.Utility", "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template")
     export class Texture {
 
-        private grid: Widget.Models.IDashboardRecordGrid<Texture, Models.ITextureModel>;
+        private grid: MegaMine.Shared.DataRecord.IDataRecordGrid<Texture, Models.ITextureModel>;
 
         constructor(private quarryService: QuarryService, private utility: Shared.Utility,
                         private dialogService: Shared.Dialog.DialogService<Models.ITextureModel>, private template: Shared.Template) {

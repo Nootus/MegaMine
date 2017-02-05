@@ -5,8 +5,8 @@
         "MegaMine.Shared.Constants", "MegaMine.Shared.Template")
     export class QuarrySummary {
 
-        public grid: Widget.Models.IDashboardRecordGrid<QuarrySummary, Models.IQuarrySummaryModel>;
-        public dialogGrid: Widget.Models.IDashboardRecordGrid<QuarrySummary, Models.IStockModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<QuarrySummary, Models.IQuarrySummaryModel>;
+        public dialogGrid: MegaMine.Shared.DataRecord.IDataRecordGrid<QuarrySummary, Models.IStockModel>;
         public searchParams: Models.IQuarrySummarySearchModel;
 
         constructor(private quarryService: QuarryService, private quarryUtility: QuarryUtility,

@@ -38,7 +38,7 @@
         public ngRequired: any;
         public ngDisabled: string;
         public style: string;
-        public errorMessages: Models.IErrorMessage[];
+        public errorMessages: MegaMine.Shared.Models.IErrorMessage[];
 
         public errorCss: string;
         public isDisabled: boolean;
@@ -148,6 +148,6 @@
         ngRequired: any;
         ngDisabled: string;
         style: string;
-        errorMessages: Models.IErrorMessage[];
+        errorMessages: MegaMine.Shared.Models.IErrorMessage[];
     }
 }

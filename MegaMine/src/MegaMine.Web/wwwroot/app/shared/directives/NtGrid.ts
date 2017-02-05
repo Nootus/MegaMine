@@ -20,7 +20,7 @@
         public controllerAs: string = "$ctrl";
 
         // scope variables
-        public grid: Widget.Models.IDashboardRecordGrid<TContext, TDataModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<TContext, TDataModel>;
         public dashboardInd: boolean = false;
         public cssClass: string;
 
@@ -78,7 +78,7 @@
             };
         }
 
-        private AddButtonColumn = (grid: Widget.Models.IDashboardRecordGrid<TContext, TDataModel>, primaryField: string,
+        private AddButtonColumn = (grid: MegaMine.Shared.DataRecord.IDataRecordGrid<TContext, TDataModel>, primaryField: string,
             editClaim: string, deleteClaim: string, hideGridButtons:string): void => {
             let self: NtGrid<TContext, TDataModel> = this;
             if (primaryField !== undefined) {
@@ -116,7 +116,7 @@
     }
 
     interface INtGridScope<TContext, TDataModel> extends ng.IScope {
-        grid: Widget.Models.IDashboardRecordGrid<TContext, TDataModel>;
+        grid: MegaMine.Shared.DataRecord.IDataRecordGrid<TContext, TDataModel>;
     }
 }
 

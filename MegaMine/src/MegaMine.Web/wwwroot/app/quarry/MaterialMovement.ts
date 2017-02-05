@@ -6,7 +6,7 @@
     export class MaterialMovement {
 
         // variables used in the view
-        public grid: Widget.Models.IDashboardRecordGrid<MaterialMovement, Models.IStockModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<MaterialMovement, Models.IStockModel>;
         public yards: Models.IYardModel[] = [];
         public groupYards: Models.IYardModel[] = [];
         public fromYardId: number;

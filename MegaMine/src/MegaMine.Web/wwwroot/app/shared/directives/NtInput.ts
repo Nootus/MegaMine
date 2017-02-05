@@ -38,7 +38,7 @@
         public ngChange: any;
         public emMaxlength: number;
         public style: string;
-        public errorMessages: Models.IErrorMessage[];
+        public errorMessages: MegaMine.Shared.Models.IErrorMessage[];
 
         public isRequired: boolean;
         public isDisabled: boolean;
@@ -131,6 +131,6 @@
         ngChange: any;
         emMaxlength: number;
         style: string;
-        errorMessages: Models.IErrorMessage[];
+        errorMessages: MegaMine.Shared.Models.IErrorMessage[];
     }
 }

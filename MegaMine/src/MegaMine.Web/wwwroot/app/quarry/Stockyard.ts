@@ -5,7 +5,7 @@
                 "MegaMine.Shared.Dialog.DialogService", "MegaMine.Shared.Template", "MegaMine.Shared.Messages")
     export class Stockyard {
 
-        public grid: Widget.Models.IDashboardRecordGrid<Stockyard, Models.IStockModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<Stockyard, Models.IStockModel>;
         public processTypeEnum: typeof Models.ProcessType = Models.ProcessType;
         public yards: Models.IYardModel[] = [];
         public yardId: number = 0;

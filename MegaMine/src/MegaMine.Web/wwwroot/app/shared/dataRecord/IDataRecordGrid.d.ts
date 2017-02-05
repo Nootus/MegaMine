@@ -1,5 +1,5 @@
-﻿declare module MegaMine.Widget.Models {
-    interface IDashboardRecordGrid<TContext, TDataModel> {
+﻿declare module MegaMine.Shared.DataRecord {
+    interface IDataRecordGrid<TContext, TDataModel> {
         options: uiGrid.IGridOptions;
         data?: TDataModel[];
         view?(model: TDataModel, dialogMode: Shared.Dialog.Models.DialogMode,
@@ -10,7 +10,7 @@
         deleteClaim?: string;
         hideGridButtons?: string;
         height?: string;
-        AddButtonColumn?(grid: IDashboardRecordGrid<TContext, TDataModel>, primaryField: string,
+        AddButtonColumn?(grid: IDataRecordGrid<TContext, TDataModel>, primaryField: string,
             editClaim: string, deleteClaim: string, hideGridButtons: string): void;
     }
 }

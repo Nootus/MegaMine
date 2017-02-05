@@ -1,5 +1,5 @@
-﻿declare module MegaMine.Widget.Models {
-    interface IDashboardRecordButton<TContext> {
+﻿declare module MegaMine.Shared.DataRecord {
+    interface IDataRecordButton<TContext> {
         text?: string;
         toolTip?: string;
         claim: string;

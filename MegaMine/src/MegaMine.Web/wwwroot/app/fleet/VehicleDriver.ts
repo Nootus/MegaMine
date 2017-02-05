@@ -5,7 +5,7 @@
             "MegaMine.Shared.Utility", "MegaMine.Shared.Constants", "MegaMine.Shared.Messages")
     export class VehicleDriver {
 
-        public grid: Widget.Models.IDashboardRecordGrid<VehicleDriver, Models.IVehicleDriverAssignmentModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<VehicleDriver, Models.IVehicleDriverAssignmentModel>;
         public assignmentMode: Models.VehicleDriverAssignmentMode = undefined;
         public assignmentEnum: typeof Models.VehicleDriverAssignmentMode = Models.VehicleDriverAssignmentMode;
 

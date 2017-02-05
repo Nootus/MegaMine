@@ -113,7 +113,7 @@
             } else {
                 // button settings
                 if (scope.dashboard.records.buttons.options === undefined) {
-                    scope.dashboard.records.buttons.options = <Models.IDashboardRecordButtonOptions>{};
+                    scope.dashboard.records.buttons.options = <MegaMine.Shared.DataRecord.IDataRecordButtonOptions>{};
                 }
 
                 // setting the edit and delete claim

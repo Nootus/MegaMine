@@ -5,7 +5,7 @@
         "MegaMine.Shared.Dialog.DialogUtility", "MegaMine.Shared.Constants")
     export class VehicleFuel {
 
-        public grid: Widget.Models.IDashboardRecordGrid<VehicleFuel, Models.IFuelModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<VehicleFuel, Models.IFuelModel>;
 
         constructor(private fleetService: FleetService, private dialogService: Shared.Dialog.DialogService<Models.IFuelModel>,
             private dialogUtility: MegaMine.Shared.Dialog.DialogUtility, private constants: Shared.Constants) {

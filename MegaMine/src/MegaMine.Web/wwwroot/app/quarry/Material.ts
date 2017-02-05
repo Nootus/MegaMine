@@ -6,7 +6,7 @@
     export class Material {
 
         // variables access in the view
-        public grid: Widget.Models.IDashboardRecordGrid<Material, Models.IMaterialModel>;
+        public grid: MegaMine.Shared.DataRecord.IDataRecordGrid<Material, Models.IMaterialModel>;
         public model: Models.IStockModel = <Models.IStockModel>{};
         public previousModel: Models.IStockModel = <Models.IStockModel>{};
         public viewModel: Models.IMaterialViewModel = <Models.IMaterialViewModel>{};
