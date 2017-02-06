@@ -25,11 +25,11 @@
 
         public getTemplate(): string {
             return `<nt-toolbar header="{{dashboard.header}}" class="command-bar {{headerClass}}">
-                        <nt-button type="command-bar" icon-css="list" tool-tip="List View" text="List" ng-click="toggleView()" 
-                            ng-show="viewType === ${ Models.CardGridViewType.grid }">
+                        <nt-button type="command-bar" css-class="toggle" icon-css="list" tool-tip="List View" text="List" ng-click="toggleView()" 
+                            ng-class="{ 'selected': viewType === ${ Models.CardGridViewType.card }}">
                         </nt-button>
-                        <nt-button type="command-bar" icon-css="th" tool-tip="Grid View" text="Grid" ng-click="toggleView()" 
-                            ng-show="viewType === ${ Models.CardGridViewType.card }" >
+                        <nt-button type="command-bar" css-class="toggle" icon-css="th" tool-tip="Grid View" text="Grid" ng-click="toggleView()" 
+                            ng-class="{ 'selected': viewType === ${ Models.CardGridViewType.grid }}" >
                         </nt-button>
                         <nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="$ctrl.refresh()">
                         </nt-button>
@@ -42,44 +42,40 @@
                     <div class="portal-content">
                         <nt-grid class="grid-content" grid="dashboard.records.grid" 
                                 ng-hide="viewType !== ${ Models.CardGridViewType.grid }"></nt-grid>
-                        <div class="chart-content full-width" layout="row" ng-hide="viewType === ${ Models.CardGridViewType.grid }" 
-                                ng-style="{'height' : height }"> 
-                            <div flex="20" layout="row" class="right-bar">
-                                <md-whiteframe class="md-whiteframe-24dp" flex>
-                                    <md-content flex>
-                                        <div class="full-width"> 
-                                            <md-list>
-                                                <md-list-item class="md-3-line right-list" 
-                                                        ng-repeat="item in dashboard.records.options.data 
-                                                        track by item[dashboard.records.options.primaryField]" 
-                                                        ng-mouseenter="showContextMenu = true" ng-mouseleave="showContextMenu = false">
-                                                    <div class="md-list-item-text right-list-item" layout="column">
-                                                        <h3>{{ item[dashboard.records.list.options.fields[0]] }}</h3>
-                                                        <h4>{{ item[dashboard.records.list.options.fields[1]] }}</h4>
-                                                        <p>{{ item[dashboard.records.list.options.fields[2]] }}</p>
-                                                    </div>
-                                                    <div class="right-list-menu" ng-show="showContextMenu">
-                                                        <nt-button type="context-bar" icon-css="eye" tool-tip="View"
-                                                            ng-click="dashboard.records.options.view(item, 
-                                                            ${ Shared.Dialog.Models.DialogMode.view}, $event, dashboard.context)">
-                                                        </nt-button>
-                                                        <nt-button type="context-bar" icon-css="pencil-square-o" tool-tip="Edit" 
-                                                            claim="{{ editClaim }} " ng-click="dashboard.records.options.view(item, 
-                                                            ${ Shared.Dialog.Models.DialogMode.save}, $event, dashboard.context)" 
-                                                            ng-hide = "editClaim === undefined">
-                                                        </nt-button>
-                                                        <nt-button type="context-bar" icon-css="trash" tool-tip="Delete" 
-                                                            claim="{{ deleteClaim }}" ng-click="dashboard.records.options.view(item, 
-                                                            ${ Shared.Dialog.Models.DialogMode.delete}, $event, dashboard.context)" 
-                                                            ng-hide = "deleteClaim === undefined">
-                                                        </nt-button>
-                                                    </div>
-                                                </md-list-item>
-                                            </md-list>
-                                        </div>
-                                    </md-content>
-                                </md-whiteframe>
-                            </div>
+                        <div class="full-width" layout="row" ng-hide="viewType === ${ Models.CardGridViewType.grid }" ng-style="{'height' : height }"> 
+                            <md-content flex layout="row" layout-wrap>
+                                <div flex="20" ng-repeat="item in dashboard.records.options.data 
+                                               track by item[dashboard.records.options.primaryField]">
+                                  <md-card class="cardgrid">
+                                    <md-card-title>
+                                      <md-card-title-text>
+                                        <span class="md-headline">{{ item[dashboard.records.list.options.fields[0]] }}</span>
+                                        <span class="md-subhead">{{ item[dashboard.records.list.options.fields[1]] }}</span>
+                                      </md-card-title-text>
+                                    </md-card-title>
+                                    <md-card-content>
+                                        <hr />
+                                        {{ item[dashboard.records.list.options.fields[2]] }}
+                                    </md-card-content>
+                                    <md-card-actions layout="row" layout-align="center center">
+                                        <nt-button flex="25" type="command-bar" icon-css="eye" tool-tip="View" text="View"
+                                            ng-click="dashboard.records.options.view(item,
+                                            ${ Shared.Dialog.Models.DialogMode.view}, $event, dashboard.context)">
+                                        </nt-button>
+                                        <nt-button flex="25" type="command-bar" icon-css="pencil-square-o" tool-tip="Edit" text="Edit" 
+                                            claim="{{ editClaim }} " ng-click="dashboard.records.options.view(item, 
+                                            ${ Shared.Dialog.Models.DialogMode.save}, $event, dashboard.context)" 
+                                            ng-hide = "editClaim === undefined">
+                                        </nt-button>
+                                        <nt-button flex="20" type="command-bar" icon-css="trash" tool-tip="Delete" text="Delete"
+                                            claim="{{ deleteClaim }}" ng-click="dashboard.records.options.view(item, 
+                                            ${ Shared.Dialog.Models.DialogMode.delete }, $event, dashboard.context)" 
+                                            ng-hide = "deleteClaim === undefined">
+                                        </nt-button>
+                                   </md-card-actions>
+                                  </md-card>
+                                </div>
+                            </md-content>
                         </div>
                     </div>`;
         }

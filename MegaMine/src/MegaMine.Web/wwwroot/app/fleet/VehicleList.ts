@@ -52,6 +52,12 @@
                             toolTip: "New Vehicle",
                             claim: "Fleet:VehicleAdd",
                             save: self.addVehicle
+                        },
+                        edit: {
+                            claim: "Fleet:VehicleEdit"
+                        },
+                        delete: {
+                            claim: "Fleet:VehicleDelete"
                         }
                     }
                 }
@@ -60,7 +66,12 @@
 
         public viewVehicle(model: Models.IVehicleListModel, dialogMode: Shared.Dialog.Models.DialogMode,
             ev: ng.IAngularEvent, context: VehicleList): void {
-            context.navigation.gotoVehicle(model.vehicleId);
+            if (dialogMode === Shared.Dialog.Models.DialogMode.view) {
+                context.navigation.gotoVehicle(model.vehicleId);
+            }
+            else {
+                //context.vehicleDialog.viewDialog(model, dialogMode, ev);
+            }
         }
 
         public addVehicle(ev: ng.IAngularEvent, context: VehicleList): void {
