@@ -16,7 +16,9 @@
         public template: string = this.getTemplate();
         public controller: typeof NtCardGrid = NtCardGrid;
         public controllerAs: string = "$ctrl";
-        public transclude: boolean = true;
+        public transclude: any = {
+            "cardContent": "cardContent"
+        };
 
         constructor(private $compile: ng.ICompileService, private $timeout: ng.ITimeoutService, private $state: ng.ui.IStateService, private $stateParams: ng.ui.IStateOptions,
             private dialogService: MegaMine.Shared.Dialog.DialogService<number>,
@@ -45,7 +47,6 @@
                                 ng-hide="viewType !== ${ Models.CardGridViewType.grid }"></nt-grid>
                         <div class="full-width" layout="row" ng-hide="viewType === ${ Models.CardGridViewType.grid }" ng-style="{'height' : height }"> 
                             <md-content flex layout="row" layout-wrap>
-                                        <div ng-transclude></div>
                                 <div flex="20" ng-repeat="item in dashboard.records.options.data 
                                                track by item[dashboard.records.options.primaryField]">
                                   <md-card class="cardgrid">
@@ -57,6 +58,7 @@
                                     </md-card-title>
                                     <md-card-content>
                                         <hr />
+                                        <div ng-transclude="cardContent"></div>
                                     </md-card-content>
                                     <md-card-actions layout="row" layout-align="center center">
                                         <nt-button flex="25" type="command-bar" icon-css="eye" tool-tip="View" text="View"
@@ -111,11 +113,11 @@
 
             self.setHeight(scope);
 
-            transclude(scope, function (clone, tranScope) {
-                debugger;
-                let tranHtml = self.$compile(clone)(tranScope);
-                element.append(tranHtml);
-            });
+            //transclude(scope, function (clone, tranScope) {
+            //    debugger;
+            //    let tranHtml = self.$compile(clone)(tranScope);
+            //    element.append(tranHtml);
+            //});
 
             scope.$on("window_resize", function (): void {
                 self.setHeight(scope);
