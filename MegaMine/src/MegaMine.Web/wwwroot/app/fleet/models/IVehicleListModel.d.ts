@@ -8,5 +8,11 @@
         driver: string;
         lastServiceDate: Date;
         totalServiceCost: number;
+
+        // for dialog
+        manufacturer: string;
+        vehicleTypeId: number;
+        vehicleManufacturerId: number;
+        vehicleModelId: number;
     }
 }

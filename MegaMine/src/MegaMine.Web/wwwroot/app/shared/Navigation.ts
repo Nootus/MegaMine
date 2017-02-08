@@ -74,6 +74,10 @@
             this.$state.go(stateName);
         }
 
+        public is(stateName: string): boolean {
+            return this.$state.is(stateName);
+        }
+
         public gotoDashboard(): void {
             this.$state.go("dashboard");
         }

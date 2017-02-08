@@ -28,10 +28,6 @@
             self.dashboard = {
                 header: "Vehicles",
                 context: self,
-                widgets: {
-                    allWidgets: fleetService.vehicleList.widgets.allWidgets,
-                    pageWidgets: fleetService.vehicleList.widgets.pageWidgets
-                },
                 records: {
                     options: {
                         primaryField: "vehicleId",
@@ -70,7 +66,7 @@
                 context.navigation.gotoVehicle(model.vehicleId);
             }
             else {
-                //context.vehicleDialog.viewDialog(model, dialogMode, ev);
+                context.vehicleDialog.viewDialog(model, dialogMode   , ev);
             }
         }
 

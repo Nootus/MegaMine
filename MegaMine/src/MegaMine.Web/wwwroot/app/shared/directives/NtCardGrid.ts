@@ -1,7 +1,7 @@
 ﻿module MegaMine.Shared.Directives {
 
     @directive("megamine", "ntCardGrid")
-    @inject("$timeout", "$state", "$stateParams", "MegaMine.Shared.Dialog.DialogService",
+    @inject("$compile", "$timeout", "$state", "$stateParams", "MegaMine.Shared.Dialog.DialogService",
         "MegaMine.Shared.Utility", "MegaMine.Shared.Constants")
     export class NtCardGrid<TContext, TDataModel> implements ng.IDirective {
 
@@ -16,8 +16,9 @@
         public template: string = this.getTemplate();
         public controller: typeof NtCardGrid = NtCardGrid;
         public controllerAs: string = "$ctrl";
+        public transclude: boolean = true;
 
-        constructor(private $timeout: ng.ITimeoutService, private $state: ng.ui.IStateService, private $stateParams: ng.ui.IStateOptions,
+        constructor(private $compile: ng.ICompileService, private $timeout: ng.ITimeoutService, private $state: ng.ui.IStateService, private $stateParams: ng.ui.IStateOptions,
             private dialogService: MegaMine.Shared.Dialog.DialogService<number>,
             private utility: MegaMine.Shared.Utility, private constants: MegaMine.Shared.Constants) {
 
@@ -44,6 +45,7 @@
                                 ng-hide="viewType !== ${ Models.CardGridViewType.grid }"></nt-grid>
                         <div class="full-width" layout="row" ng-hide="viewType === ${ Models.CardGridViewType.grid }" ng-style="{'height' : height }"> 
                             <md-content flex layout="row" layout-wrap>
+                                        <div ng-transclude></div>
                                 <div flex="20" ng-repeat="item in dashboard.records.options.data 
                                                track by item[dashboard.records.options.primaryField]">
                                   <md-card class="cardgrid">
@@ -55,7 +57,6 @@
                                     </md-card-title>
                                     <md-card-content>
                                         <hr />
-                                        {{ item[dashboard.records.list.options.fields[2]] }}
                                     </md-card-content>
                                     <md-card-actions layout="row" layout-align="center center">
                                         <nt-button flex="25" type="command-bar" icon-css="eye" tool-tip="View" text="View"
@@ -81,7 +82,7 @@
         }
 
         public linkFn(scope: INtCardGridScope<TContext, TDataModel>, element: ng.IAugmentedJQuery,
-            instanceAttributes: ng.IAttributes, $ctrl: NtCardGrid<TContext, TDataModel>): void {
+            instanceAttributes: ng.IAttributes, $ctrl: NtCardGrid<TContext, TDataModel>, transclude: ng.ITranscludeFunction): void {
             let self: NtCardGrid<TContext, TDataModel> = $ctrl;
 
             // setting grid button row
@@ -109,6 +110,12 @@
             scope.toggleListContextMenu = function (): void { self.toggleListContextMenu(scope); };
 
             self.setHeight(scope);
+
+            transclude(scope, function (clone, tranScope) {
+                debugger;
+                let tranHtml = self.$compile(clone)(tranScope);
+                element.append(tranHtml);
+            });
 
             scope.$on("window_resize", function (): void {
                 self.setHeight(scope);

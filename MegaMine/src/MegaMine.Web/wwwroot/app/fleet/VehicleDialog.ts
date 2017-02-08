@@ -11,7 +11,7 @@
         }
 
 
-        public viewDialog(model: Models.IVehicleDetailsModel, dialogMode: Shared.Dialog.Models.DialogMode, ev: ng.IAngularEvent): void {
+        public viewDialog(model: Models.IVehicleDetailsModel | Models.IVehicleListModel, dialogMode: Shared.Dialog.Models.DialogMode, ev: ng.IAngularEvent): void {
             const self: VehicleDialog = this;
             self.dialogService.show({
                 templateUrl: self.utility.virtualDirectory + "/app/fleet/vehicleDialog.html",
@@ -29,7 +29,11 @@
                     if (dialogMode === Shared.Dialog.Models.DialogMode.delete) {
                         self.fleetService.vehicleDelete(dialogModel.vehicleId).then(function (): void {
                             self.dialogService.hide();
-                            self.navigation.go("vehiclelist");
+                            if (self.navigation.is("vehiclelist")) {
+                                self.fleetService.getVehicleList();
+                            } else {
+                                self.navigation.go("vehiclelist");
+                            }
                         });
                     } else {
                         self.fleetService.saveVehicle(dialogModel).then(function (): void {
