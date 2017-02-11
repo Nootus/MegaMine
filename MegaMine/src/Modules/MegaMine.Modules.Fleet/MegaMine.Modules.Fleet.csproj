@@ -1,0 +1,32 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>MegaMine.Modules.Fleet Class Library</Description>
+    <Authors>Prasanna</Authors>
+    <TargetFramework>net461</TargetFramework>
+    <AssemblyName>MegaMine.Modules.Fleet</AssemblyName>
+    <PackageId>MegaMine.Modules.Fleet</PackageId>
+    <GenerateAssemblyConfigurationAttribute>false</GenerateAssemblyConfigurationAttribute>
+    <GenerateAssemblyCompanyAttribute>false</GenerateAssemblyCompanyAttribute>
+    <GenerateAssemblyProductAttribute>false</GenerateAssemblyProductAttribute>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\MegaMine.Core\MegaMine.Core.csproj" />
+    <ProjectReference Include="..\..\Services\MegaMine.Services.Security\MegaMine.Services.Security.csproj" />
+    <ProjectReference Include="..\..\Services\MegaMine.Services.Widget\MegaMine.Services.Widget.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Mvc" Version="1.0.2" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="1.0.2" />
+    <PackageReference Include="AutoMapper" Version="4.0.4" />
+    <PackageReference Include="StyleCop.Analyzers" Version="1.0.0" />
+  </ItemGroup>
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'net461' ">
+    <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
+  </ItemGroup>
+
+</Project>
