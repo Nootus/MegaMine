@@ -19,10 +19,6 @@
             self.dashboard = {
                 header: "Vehicle Types",
                 context: self,
-                widgets: {
-                    allWidgets: fleetService.vehicleTypes.widgets.allWidgets,
-                    pageWidgets: fleetService.vehicleTypes.widgets.pageWidgets
-                },
                 records: {
                     options: {
                         primaryField: "vehicleTypeId",

@@ -19,10 +19,6 @@
             self.dashboard = {
                 header: "Drivers",
                 context: self,
-                widgets: {
-                    allWidgets: fleetService.drivers.widgets.allWidgets,
-                    pageWidgets: fleetService.drivers.widgets.pageWidgets
-                },
                 records: {
                     options: {
                         primaryField: "vehicleDriverId",

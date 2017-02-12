@@ -17,7 +17,7 @@
         public controller: typeof NtCardGrid = NtCardGrid;
         public controllerAs: string = "$ctrl";
         public transclude: any = {
-            "cardContent": "cardContent"
+            "cardContent": "?cardContent"
         };
 
         constructor(private $compile: ng.ICompileService, private $timeout: ng.ITimeoutService, private $state: ng.ui.IStateService, private $stateParams: ng.ui.IStateOptions,
@@ -47,7 +47,7 @@
                                 ng-hide="viewType !== ${ Models.CardGridViewType.grid }"></nt-grid>
                         <div class="full-width" layout="row" ng-hide="viewType === ${ Models.CardGridViewType.grid }" ng-style="{'height' : height }"> 
                             <md-content flex layout="row" layout-wrap>
-                                <div flex="20" ng-repeat="item in dashboard.records.options.data 
+                                <div class="cardgrid" flex="20" ng-repeat="item in dashboard.records.options.data 
                                                track by item[dashboard.records.options.primaryField]">
                                   <md-card class="cardgrid">
                                     <md-card-title>
@@ -56,10 +56,7 @@
                                         <span class="md-subhead">{{ item[dashboard.records.list.options.fields[1]] }}</span>
                                       </md-card-title-text>
                                     </md-card-title>
-                                    <md-card-content>
-                                        <hr />
-                                        <div ng-transclude="cardContent"></div>
-                                    </md-card-content>
+                                    <md-card-content ng-transclude="cardContent"></md-card-content>
                                     <md-card-actions layout="row" layout-align="center center">
                                         <nt-button flex="25" type="command-bar" icon-css="eye" tool-tip="View" text="View"
                                             ng-click="dashboard.records.options.view(item,

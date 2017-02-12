@@ -107,7 +107,7 @@ namespace MegaMine.Modules.Fleet.Repositories
         public async Task FuelSave(FuelModel model)
         {
             // validating Odometer reading
-            VehicleFuelEntity vehicleFuelEntity = await (from fuel in this.DbContext.VehicleFuels where fuel.VehicleFuelId != model.VehicleFuelId && ((fuel.Odometer >= model.Odometer && fuel.FuelDate < model.FuelDate) || (fuel.Odometer <= model.Odometer && fuel.FuelDate > model.FuelDate)) select fuel).FirstOrDefaultAsync();
+            VehicleFuelEntity vehicleFuelEntity = await (from fuel in this.DbContext.VehicleFuels where fuel.VehicleFuelId != model.VehicleFuelId && fuel.VehicleId == model.VehicleId && ((fuel.Odometer >= model.Odometer && fuel.FuelDate < model.FuelDate) || (fuel.Odometer <= model.Odometer && fuel.FuelDate > model.FuelDate)) select fuel).FirstOrDefaultAsync();
 
             if (vehicleFuelEntity != null)
             {
@@ -336,6 +336,7 @@ namespace MegaMine.Modules.Fleet.Repositories
                         from vehicledriver in driverJoin.DefaultIfEmpty()
                         where vehicles.DeletedInd == false
                         && vehicles.CompanyId == this.AppContext.CompanyId
+                        orderby types.VehicleTypeName, model.Name, vehicles.RegistrationNumber
                         select new VehicleListModel
                         {
                             VehicleId = vehicles.VehicleId,

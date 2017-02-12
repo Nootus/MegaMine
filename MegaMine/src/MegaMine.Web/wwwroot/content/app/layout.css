@@ -571,6 +571,16 @@ md-card.cardgrid .md-subhead {
     padding-top: 2px !important;
 }
 
+md-card.cardgrid md-card-title-text {
+    overflow: hidden;
+}
+
+md-card.cardgrid md-card-title-text > span {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
 md-card.cardgrid md-card-actions {
     background-color: rgba(81, 110, 125, 0.69);
 }

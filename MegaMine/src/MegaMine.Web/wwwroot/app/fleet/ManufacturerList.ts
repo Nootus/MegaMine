@@ -21,10 +21,6 @@
             self.dashboard = {
                 header: "Manufacturers",
                 context: self,
-                widgets: {
-                    allWidgets: fleetService.manufacturerList.widgets.allWidgets,
-                    pageWidgets: fleetService.manufacturerList.widgets.pageWidgets
-                },
                 records: {
                     options: {
                         primaryField: "vehicleManufacturerId",
@@ -45,6 +41,12 @@
                             toolTip: "New Manufacturer",
                             claim: "Fleet:ManufacturerAdd",
                             save: self.addManufacturer
+                        },
+                        edit: {
+                            claim: "Fleet:ManufacturerEdit"
+                        },
+                        delete: {
+                            claim: "Fleet:ManufacturerDelete"
                         }
                     }
                 }
@@ -53,7 +55,12 @@
 
         public viewManufacturer(model: Models.IVehicleManufacturerModel, dialogMode: Shared.Dialog.Models.DialogMode,
             ev: ng.IAngularEvent, context: ManufacturerList): void {
-            context.navigation.gotoManufacturer(model.vehicleManufacturerId);
+            if (dialogMode === Shared.Dialog.Models.DialogMode.view) {
+                context.navigation.gotoManufacturer(model.vehicleManufacturerId);
+            }
+            else {
+                context.manufacturerDialog.viewDialog(model, dialogMode, ev);
+            }
         }
 
         public addManufacturer(ev: ng.IAngularEvent, context: ManufacturerList): void {
