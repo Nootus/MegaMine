@@ -4,6 +4,7 @@
         registrationNumber: string;
         vehicleType: string;
         vehicleModel: string;
+        ownership: string;
         fuelAverage: number;
         driver: string;
         lastServiceDate: Date;
@@ -12,6 +13,7 @@
         // for dialog
         manufacturer: string;
         vehicleTypeId: number;
+        ownershipId: number;
         vehicleManufacturerId: number;
         vehicleModelId: number;
     }

@@ -53,7 +53,6 @@
                                     <md-card-title>
                                       <md-card-title-text>
                                         <span class="md-headline">{{ item[dashboard.records.list.options.fields[0]] }}</span>
-                                        <span class="md-subhead">{{ item[dashboard.records.list.options.fields[1]] }}</span>
                                       </md-card-title-text>
                                     </md-card-title>
                                     <md-card-content ng-transclude="cardContent"></md-card-content>

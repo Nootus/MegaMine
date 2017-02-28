@@ -1,6 +1,13 @@
 ﻿<nt-card-grid flex dashboard="vm.dashboard">
     <card-content>
         <hr />
-        {{$parent.item.vehicleModel}}
+        <div layout="row">
+            <nt-input flex="60" label="Vehicle Type" control-name="vehicleType" ng-model="$parent.item.vehicleType" ng-disabled="true"></nt-input>
+            <nt-input flex="40" label="Ownership" control-name="ownership" ng-model="$parent.item.ownership" ng-disabled="true"></nt-input>
+        </div>
+        <div layout="row">
+            <nt-input flex="60" label="Manufacturer" control-name="manufacturer" ng-model="$parent.item.manufacturer" ng-disabled="true"></nt-input>
+            <nt-input flex="40" label="Model" control-name="vehicleModel" ng-model="$parent.item.vehicleModel" ng-disabled="true"></nt-input>
+        </div>
     </card-content>
 </nt-card-grid>

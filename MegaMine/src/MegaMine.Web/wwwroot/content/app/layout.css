@@ -588,3 +588,7 @@ md-card.cardgrid md-card-actions {
 md-card.cardgrid .command-bar-button-text, md-card.cardgrid .command-bar-button-icon {
     color: black !important;
 }
+
+md-card.cardgrid md-card-content {
+    padding-bottom: 0px;
+}

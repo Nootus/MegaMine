@@ -246,6 +246,7 @@
                     angular.extend(self.currentVehicle, data);
                     if (vehicleId === 0) {
                         self.currentVehicle.vehicleTypeId = undefined;
+                        self.currentVehicle.ownershipId = undefined;
                         self.currentVehicle.vehicleManufacturerId = undefined;
                         self.currentVehicle.vehicleModelId = undefined;
                         return data;

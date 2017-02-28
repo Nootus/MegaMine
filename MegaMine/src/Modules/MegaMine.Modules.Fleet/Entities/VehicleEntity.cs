@@ -28,6 +28,8 @@ namespace MegaMine.Modules.Fleet.Entities
 
         public int VehicleModelId { get; set; }
 
+        public int OwnershipId { get; set; }
+
         public int? VehicleDriverId { get; set; }
 
         public int? VehicleDriverAssignmentId { get; set; }

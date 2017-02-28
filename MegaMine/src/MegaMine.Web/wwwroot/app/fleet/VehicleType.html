@@ -1,4 +1,9 @@
-﻿<nt-card-grid flex dashboard="vm.dashboard"></nt-card-grid>
+﻿<nt-card-grid flex dashboard="vm.dashboard">
+    <card-content>
+        <hr />
+        {{$parent.item.vehicleTypeDescription}}
+    </card-content>
+</nt-card-grid>
 
 <script type="text/ng-template" id="vehicle_type_dialog">
     <md-dialog aria-label="Vehicle Type" class="dialog">

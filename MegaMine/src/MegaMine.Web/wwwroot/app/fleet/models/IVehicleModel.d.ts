@@ -4,9 +4,11 @@
         registrationNumber: string;
         vehicleType: string;
         vehicleTypeId: number;
+        ownershipId: number;
         vehicleManufacturerId: number;
         vehicleModelId: number;
         vehicleTypeList: Shared.Models.IListItem<number, string>[];
+        ownershipList: Shared.Models.IListItem<number, string>[];
         manufacturerList: Shared.Models.IListItem<number, string>[];
         vehicleModelList: IVehicleManufacturerModelModel[];
 

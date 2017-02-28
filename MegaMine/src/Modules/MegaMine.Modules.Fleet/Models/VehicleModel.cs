@@ -1,6 +1,6 @@
 ﻿//-------------------------------------------------------------------------------------------------
 // <copyright file="VehicleModel.cs" company="Nootus">
-//  Copyright (c) Nootus. All rights reserved.
+// Copyright (c) Nootus. All rights reserved.
 // </copyright>
 // <description>
 //  Contains Vehicle details and the corresponding drop down lists
@@ -19,13 +19,19 @@ namespace MegaMine.Modules.Fleet.Models
 
         public string VehicleType { get; set; }
 
+        public string Ownership { get; set; }
+
         public int VehicleTypeId { get; set; }
+
+        public int OwnershipId { get; set; }
 
         public int VehicleManufacturerId { get; set; }
 
         public int VehicleModelId { get; set; }
 
         public List<ListItem<int, string>> VehicleTypeList { get; set; }
+
+        public List<ListItem<int, string>> OwnershipList { get; set; }
 
         public List<ListItem<int, string>> ManufacturerList { get; set; }
 

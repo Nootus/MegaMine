@@ -15,6 +15,8 @@
                 columnDefs: [
                     { name: "registrationNumber", field: "registrationNumber", displayName: "Registration #", type: "string" },
                     { name: "vehicleType", field: "vehicleType", displayName: "Type", type: "string" },
+                    { name: "ownership", field: "ownership", displayName: "Owernship", type: "string" },
+                    { name: "manufacturer", field: "manufacturer", displayName: "Manufacturer", type: "string" },
                     { name: "vehicleModel", field: "vehicleModel", displayName: "Model", type: "string" },
                     {
                         name: "lastServiceDate", field: "lastServiceDate", displayName: "Service Date", type: "date",

@@ -41,11 +41,13 @@
                                 self.fleetService.getVehicleList();
                             } else {
                                 model.vehicleType = self.utility.getListItem(dialogModel.vehicleTypeList, dialogModel.vehicleTypeId);
+                                model.ownership = self.utility.getListItem(dialogModel.ownershipList, dialogModel.ownershipId);
                                 model.manufacturer = self.utility.getListItem(dialogModel.manufacturerList, dialogModel.vehicleManufacturerId);
                                 model.vehicleModel = self.utility.getListItem(dialogModel.modelList, dialogModel.vehicleModelId);
 
                                 model.registrationNumber = dialogModel.registrationNumber;
                                 model.vehicleTypeId = dialogModel.vehicleTypeId;
+                                model.ownershipId = dialogModel.ownershipId;
                                 model.vehicleManufacturerId = dialogModel.vehicleManufacturerId;
                                 model.vehicleModelId = dialogModel.vehicleModelId;
                             }

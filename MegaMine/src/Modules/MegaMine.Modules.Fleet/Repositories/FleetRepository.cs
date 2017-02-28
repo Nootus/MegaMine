@@ -52,6 +52,11 @@ namespace MegaMine.Modules.Fleet.Repositories
             return await this.GetListItemsAsync<VehicleTypeEntity>(e => new ListItem<int, string> { Key = e.VehicleTypeId, Item = e.VehicleTypeName }, s => s.VehicleTypeName);
         }
 
+        public async Task<List<ListItem<int, string>>> OwnershipListItemGet()
+        {
+            return await this.GetListItemsAsync<OwnershipEntity>(e => new ListItem<int, string> { Key = e.OwnershipId, Item = e.OwnershipName }, s => s.OwnershipId.ToString());
+        }
+
         public async Task VehicleTypeSave(VehicleTypeModel model)
         {
             await this.SaveEntity<VehicleTypeEntity, VehicleTypeModel>(model);
@@ -107,7 +112,7 @@ namespace MegaMine.Modules.Fleet.Repositories
         public async Task FuelSave(FuelModel model)
         {
             // validating Odometer reading
-            VehicleFuelEntity vehicleFuelEntity = await (from fuel in this.DbContext.VehicleFuels where fuel.VehicleFuelId != model.VehicleFuelId && fuel.VehicleId == model.VehicleId && ((fuel.Odometer >= model.Odometer && fuel.FuelDate < model.FuelDate) || (fuel.Odometer <= model.Odometer && fuel.FuelDate > model.FuelDate)) select fuel).FirstOrDefaultAsync();
+            VehicleFuelEntity vehicleFuelEntity = await (from fuel in this.DbContext.VehicleFuels where fuel.VehicleFuelId != model.VehicleFuelId && fuel.VehicleId == model.VehicleId && ((fuel.Odometer > model.Odometer && fuel.FuelDate < model.FuelDate) || (fuel.Odometer < model.Odometer && fuel.FuelDate > model.FuelDate)) select fuel).FirstOrDefaultAsync();
 
             if (vehicleFuelEntity != null)
             {
@@ -269,6 +274,7 @@ namespace MegaMine.Modules.Fleet.Repositories
                 model = new VehicleModel();
                 model.VehicleId = 0;
                 model.VehicleType = string.Empty;
+                model.Ownership = string.Empty;
                 model.RegistrationNumber = string.Empty;
             }
             else
@@ -277,6 +283,7 @@ namespace MegaMine.Modules.Fleet.Repositories
             }
 
             model.VehicleTypeList = await this.VehicleTypeListItemGet();
+            model.OwnershipList = await this.OwnershipListItemGet();
             model.ManufacturerList = await this.VehicleManufacturerListItemGet();
             model.VehicleModelList = await this.VehicleManufactureModelGet();
             return model;
@@ -286,6 +293,7 @@ namespace MegaMine.Modules.Fleet.Repositories
         {
             var vehicleQuery = from vehicle in this.DbContext.Vehicles
                                join vehicleType in this.DbContext.VehicleTypes on vehicle.VehicleTypeId equals vehicleType.VehicleTypeId
+                               join ownership in this.DbContext.Ownerships on vehicle.OwnershipId equals ownership.OwnershipId
                                join manufacurer in this.DbContext.VehicleManufacturers on vehicle.VehicleManufacturerId equals manufacurer.VehicleManufacturerId
                                join vehicleModel in this.DbContext.VehicleModels on vehicle.VehicleModelId equals vehicleModel.VehicleModelId
                                join driver in this.DbContext.VehicleDrivers on vehicle.VehicleDriverId equals driver.VehicleDriverId into driverJoin
@@ -296,6 +304,7 @@ namespace MegaMine.Modules.Fleet.Repositories
                                    VehicleId = vehicle.VehicleId,
                                    RegistrationNumber = vehicle.RegistrationNumber,
                                    VehicleType = vehicleType.VehicleTypeName,
+                                   Ownership = ownership.OwnershipName,
                                    Manufacturer = manufacurer.Name,
                                    VehicleModel = vehicleModel.Name,
                                    Driver = vehicledriver == null ? null : vehicledriver.DriverName,
@@ -331,20 +340,24 @@ namespace MegaMine.Modules.Fleet.Repositories
         {
             var query = from vehicles in this.DbContext.Vehicles
                         join types in this.DbContext.VehicleTypes on vehicles.VehicleTypeId equals types.VehicleTypeId
-                        join model in this.DbContext.VehicleModels on vehicles.VehicleModelId equals model.VehicleModelId
-                        join driver in this.DbContext.VehicleDrivers on vehicles.VehicleDriverId equals driver.VehicleDriverId into driverJoin
+                        join ownerships in this.DbContext.Ownerships on vehicles.OwnershipId equals ownerships.OwnershipId
+                        join manufactures in this.DbContext.VehicleManufacturers on vehicles.VehicleManufacturerId equals manufactures.VehicleManufacturerId
+                        join models in this.DbContext.VehicleModels on vehicles.VehicleModelId equals models.VehicleModelId
+                        join drivers in this.DbContext.VehicleDrivers on vehicles.VehicleDriverId equals drivers.VehicleDriverId into driverJoin
                         from vehicledriver in driverJoin.DefaultIfEmpty()
                         where vehicles.DeletedInd == false
                         && vehicles.CompanyId == this.AppContext.CompanyId
-                        orderby types.VehicleTypeName, model.Name, vehicles.RegistrationNumber
+                        orderby types.VehicleTypeName, models.Name, vehicles.RegistrationNumber
                         select new VehicleListModel
                         {
                             VehicleId = vehicles.VehicleId,
                             RegistrationNumber = vehicles.RegistrationNumber,
                             VehicleType = types.VehicleTypeName,
+                            Ownership = ownerships.OwnershipName,
                             LastServiceDate = vehicles.LastServiceDate,
                             TotalServiceCost = vehicles.TotalServiceCost,
-                            VehicleModel = model.Name,
+                            Manufacturer = manufactures.Name,
+                            VehicleModel = models.Name,
                             FuelAverage = vehicles.FuelAverage,
                             Driver = vehicledriver == null ? null : vehicledriver.DriverName
                         };

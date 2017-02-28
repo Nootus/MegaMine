@@ -5,6 +5,7 @@
         vehicleType: string;
         manufacturer: string;
         vehicleModel: string;
+        ownership: string;
         driver: string;
         vehicleDriverId: number;
         vehicleDriverAssignmentId: number;
@@ -16,6 +17,7 @@
 
         // ui fields
         vehicleTypeId: number;
+        ownershipId: number;
         vehicleManufacturerId: number;
         vehicleModelId: number;
     }

@@ -19,6 +19,8 @@ namespace MegaMine.Modules.Fleet.Models
 
         public string VehicleType { get; set; }
 
+        public string Ownership { get; set; }
+
         public string Manufacturer { get; set; }
 
         public string VehicleModel { get; set; }

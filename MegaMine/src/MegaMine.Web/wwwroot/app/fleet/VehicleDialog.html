@@ -1,8 +1,9 @@
 ﻿<md-dialog aria-label="Vehicle" class="dialog">
     <nt-dialog form="vehicleForm" header="Vehicle">
         <div layout="row">
-            <nt-input flex="30" form="vehicleForm" label="Registration #" control-name="registrationNumber" ng-model="vm.model.registrationNumber" ng-required="true" em-maxlength="20"></nt-input>
-            <nt-select flex="30" form="vehicleForm" label="Type" control-name="vehicleType" ng-model="vm.model.vehicleTypeId" opt-list="vm.model.vehicleTypeList" ng-required="true"></nt-select>
+            <nt-input flex="20" form="vehicleForm" label="Registration #" control-name="registrationNumber" ng-model="vm.model.registrationNumber" ng-required="true" em-maxlength="20"></nt-input>
+            <nt-select flex="20" form="vehicleForm" label="Type" control-name="vehicleType" ng-model="vm.model.vehicleTypeId" opt-list="vm.model.vehicleTypeList" ng-required="true"></nt-select>
+            <nt-select flex="20" form="vehicleForm" label="Ownership" control-name="ownership" ng-model="vm.model.ownershipId" opt-list="vm.model.ownershipList" ng-required="true"></nt-select>
             <nt-select flex="20" form="vehicleForm" label="Manufacturer" control-name="manufacturer" ng-model="vm.model.vehicleManufacturerId" opt-list="vm.model.manufacturerList" ng-required="true"></nt-select>
             <nt-select flex="20" form="vehicleForm" label="Model" control-name="vehicleModel" ng-model="vm.model.vehicleModelId" opt-list="vm.model.modelList" ng-required="true"></nt-select>
         </div>

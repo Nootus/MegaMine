@@ -21,6 +21,8 @@ namespace MegaMine.Modules.Fleet.Repositories
 
         public DbSet<VehicleTypeEntity> VehicleTypes { get; set; }
 
+        public DbSet<OwnershipEntity> Ownerships { get; set; }
+
         public DbSet<VehicleEntity> Vehicles { get; set; }
 
         public DbSet<VehicleServiceEntity> VehicleServices { get; set; }

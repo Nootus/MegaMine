@@ -194,13 +194,15 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             Assert.Equal(vehicle.VehicleModelList[1].Name, "PC3000-6");
             Assert.Equal(vehicle.VehicleTypeList.Count, 2);
             Assert.Equal(vehicle.VehicleTypeList[1].Item, "Truck");
+            Assert.Equal(vehicle.OwnershipList.Count, 2);
+            Assert.Equal(vehicle.OwnershipList[1].Item, "Rent");
         }
 
         [Fact]
         public async void VehicleAdd()
         {
             // Arrange
-            VehicleModel model = new VehicleModel() { VehicleId = 0, RegistrationNumber = "AP12345", VehicleManufacturerId = 1, VehicleModelId = 1, VehicleTypeId = 1 };
+            VehicleModel model = new VehicleModel() { VehicleId = 0, RegistrationNumber = "AP12345", VehicleManufacturerId = 1, VehicleModelId = 1, VehicleTypeId = 1, OwnershipId = 1 };
 
             // Act
             AjaxModel<NTModel> ajaxModel = await this.Controller.VehicleAdd(model);
@@ -218,7 +220,7 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             this.VehicleTable();
             await this.SaveChangesAsync(this.FleetDbContext);
 
-            VehicleModel model = new VehicleModel() { VehicleId = 1, RegistrationNumber = "AP12345", VehicleManufacturerId = 1, VehicleModelId = 1, VehicleTypeId = 1 };
+            VehicleModel model = new VehicleModel() { VehicleId = 1, RegistrationNumber = "AP12345", VehicleManufacturerId = 1, VehicleModelId = 1, VehicleTypeId = 1, OwnershipId = 1 };
 
             // Act
             AjaxModel<NTModel> ajaxModel = await this.Controller.VehicleUpdate(model);
@@ -253,6 +255,10 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
                 new VehicleTypeEntity() { VehicleTypeId = 1, VehicleTypeName = "Escavator", CompanyId = 1, DeletedInd = false },
                 new VehicleTypeEntity() { VehicleTypeId = 2, VehicleTypeName = "Truck", CompanyId = 1, DeletedInd = false });
 
+            this.FleetDbContext.Ownerships.AddRange(
+                new OwnershipEntity() { OwnershipId = 1, OwnershipName = "Own", CompanyId = 1, DeletedInd = false },
+                new OwnershipEntity() { OwnershipId = 2, OwnershipName = "Rent", CompanyId = 1, DeletedInd = false });
+
             this.FleetDbContext.VehicleManufacturers.AddRange(
                     new VehicleManufacturerEntity() { VehicleManufacturerId = 1, Name = "Deere", CompanyId = 1, DeletedInd = false },
                     new VehicleManufacturerEntity() { VehicleManufacturerId = 2, Name = "Komatsu", CompanyId = 1, DeletedInd = false });
@@ -277,9 +283,9 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
         private void VehicleTable()
         {
             this.FleetDbContext.Vehicles.AddRange(
-                    new VehicleEntity() { VehicleId = 1, RegistrationNumber = "AP12DB1234", LastServiceDate = new DateTime(2016, 6, 1), TotalServiceCost = 300.50M, FuelAverage = 10.25M, VehicleTypeId = 1, VehicleManufacturerId = 2, VehicleModelId = 1, VehicleDriverId = 1, CompanyId = 1, DeletedInd = false },
+                    new VehicleEntity() { VehicleId = 1, RegistrationNumber = "AP12DB1234", LastServiceDate = new DateTime(2016, 6, 1), TotalServiceCost = 300.50M, FuelAverage = 10.25M, VehicleTypeId = 1, OwnershipId = 1, VehicleManufacturerId = 2, VehicleModelId = 1, VehicleDriverId = 1, CompanyId = 1, DeletedInd = false },
                     new VehicleEntity() { VehicleId = 2, RegistrationNumber = "AP12DB0000", LastServiceDate = new DateTime(2016, 3, 10), TotalServiceCost = 1000, FuelAverage = 10.25M, CompanyId = 2, DeletedInd = false },
-                    new VehicleEntity() { VehicleId = 3, RegistrationNumber = "AP12DB7890", LastServiceDate = new DateTime(2016, 6, 15), TotalServiceCost = 2500, FuelAverage = 15.25M, VehicleTypeId = 2, VehicleManufacturerId = 2, VehicleModelId = 2, VehicleDriverId = 2, CompanyId = 1, DeletedInd = false });
+                    new VehicleEntity() { VehicleId = 3, RegistrationNumber = "AP12DB7890", LastServiceDate = new DateTime(2016, 6, 15), TotalServiceCost = 2500, FuelAverage = 15.25M, VehicleTypeId = 2, OwnershipId = 1, VehicleManufacturerId = 2, VehicleModelId = 2, VehicleDriverId = 2, CompanyId = 1, DeletedInd = false });
         }
     }
 }
