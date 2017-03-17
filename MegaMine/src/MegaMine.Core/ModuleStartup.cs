@@ -9,6 +9,8 @@
 namespace MegaMine.Core
 {
     using MegaMine.Core.Common;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
@@ -37,5 +39,10 @@ namespace MegaMine.Core
         public abstract void ConfigureDependencyInjection(IServiceCollection services);
 
         public abstract void ConfigureMapping(AutoMapper.IConfiguration action);
+
+        public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            // this is not required for all Modules. Those needed will override
+        }
     }
 }

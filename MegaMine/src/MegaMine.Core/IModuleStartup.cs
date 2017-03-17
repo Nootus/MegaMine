@@ -8,6 +8,8 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core
 {
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -20,5 +22,7 @@ namespace MegaMine.Core
         void ConfigureDependencyInjection(IServiceCollection services);
 
         void ConfigureMapping(AutoMapper.IConfiguration action);
+
+        void Configure(IApplicationBuilder app, IHostingEnvironment env);
     }
 }

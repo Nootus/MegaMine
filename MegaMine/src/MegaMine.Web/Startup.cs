@@ -84,6 +84,8 @@ namespace MegaMine.Web
                     options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
                 });
 
+            services.AddSession();
+
             // Automapper configurations
             Mapper.Initialize(x =>
             {
@@ -97,8 +99,6 @@ namespace MegaMine.Web
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseContextMiddleware();
-
             // Add the following to the request pipeline only in development environment.
             if (env.IsDevelopment())
             {
@@ -111,8 +111,16 @@ namespace MegaMine.Web
             }
 
             app.UseStaticFiles();
-            app.UseIdentity();
+            app.UseContextMiddleware();
+
+            // configuring services for all modules
+            foreach (var module in this.modules)
+            {
+                module.Configure(app, env);
+            }
+
             app.UseProfileMiddleware();
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

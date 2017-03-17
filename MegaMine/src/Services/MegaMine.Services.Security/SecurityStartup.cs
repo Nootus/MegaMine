@@ -16,6 +16,8 @@ namespace MegaMine.Services.Security
     using MegaMine.Services.Security.Identity;
     using MegaMine.Services.Security.Mapping;
     using MegaMine.Services.Security.Repositories;
+    using Microsoft.AspNetCore.Builder;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -43,6 +45,16 @@ namespace MegaMine.Services.Security
         public override void ConfigureMapping(IConfiguration config)
         {
             config.AddProfile<SecurityMappingProfile>();
+        }
+
+        public override void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        {
+            app.UseClaimsTransformation(new ClaimsTransformationOptions
+            {
+                Transformer = new ClaimsTransformer()
+            });
+
+            app.UseIdentity();
         }
     }
 }
