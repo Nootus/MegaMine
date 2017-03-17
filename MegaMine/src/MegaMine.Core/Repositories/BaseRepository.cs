@@ -243,7 +243,7 @@ namespace MegaMine.Core.Repositories
                     ExpressionType.Equal,
                     Expression.PropertyOrField(aliasParam, keyName),
                     Expression.Constant(id)),
-                aliasParam);
+            aliasParam);
 
             var whereQuery = (IQueryable<TEntity>)entity.Provider.CreateQuery(
                 Expression.Call(

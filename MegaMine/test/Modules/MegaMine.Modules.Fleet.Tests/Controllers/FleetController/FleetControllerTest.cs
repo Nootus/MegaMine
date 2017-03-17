@@ -25,8 +25,11 @@ namespace MegaMine.Modules.Fleet.Tests.Controllers.FleetController
             this.CreateAppContext();
 
             // Automapper initializers
-            Mapper.AddProfile<FleetMappingProfile>();
-            Mapper.AddProfile<WidgetMappingProfile>();
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<FleetMappingProfile>();
+                cfg.AddProfile<WidgetMappingProfile>();
+            });
 
             // setting up the context and repositories
             this.FleetDbContext = this.CreateDbContext<FleetDbContext>();

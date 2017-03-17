@@ -8,10 +8,10 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core.Models
 {
-    public class ListItem<K, T>
+    public class ListItem<TKey, TItem>
     {
-        public K Key { get; set; }
+        public TKey Key { get; set; }
 
-        public T Item { get; set; }
+        public TItem Item { get; set; }
     }
 }

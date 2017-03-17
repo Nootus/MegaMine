@@ -74,7 +74,7 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             List<MaterialModel> models = new List<MaterialModel>()
             {
                 new MaterialModel() { MaterialId = 1, BlockNumber = "1111", QuarryId = 1, YardId = 1, MaterialColourId = 1, ProductTypeId = 1, ProcessTypeId = 1, Length = 0.5m, Width = 0.5m, Height = 0.5m, Weight = 0.5m, MaterialDate = DateTime.Now },
-                new MaterialModel() { MaterialId = 2, BlockNumber = "2222", QuarryId = 1, YardId = 1, MaterialColourId = 1, ProductTypeId = 1, ProcessTypeId = 1, Length = 0.5m, Width = 0.5m, Height = 0.5m, Weight = 0.5m, MaterialDate = DateTime.Now }
+                new MaterialModel() { MaterialId = 2, BlockNumber = "2222", QuarryId = 1, YardId = 1, MaterialColourId = 1, ProductTypeId = 1, ProcessTypeId = 1, Length = 0.5m, Width = 0.5m, Height = 0.5m, Weight = 0.5m, MaterialDate = DateTime.Now },
             };
 
             // Act

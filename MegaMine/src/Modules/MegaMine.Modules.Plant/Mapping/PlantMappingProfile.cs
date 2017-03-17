@@ -14,19 +14,19 @@ namespace MegaMine.Modules.Plant.Mapping
 
     public class PlantMappingProfile : Profile
     {
+        public PlantMappingProfile()
+        {
+            this.CreateMap<MachineEntity, MachineModel>().ReverseMap();
+            this.CreateMap<BladeEntity, BladeModel>().ReverseMap();
+            this.CreateMap<OperatorEntity, OperatorModel>().ReverseMap();
+        }
+
         public override string ProfileName
         {
             get
             {
                 return "PlantMappingProfile";
             }
-        }
-
-        protected override void Configure()
-        {
-            Mapper.CreateMap<MachineEntity, MachineModel>().ReverseMap();
-            Mapper.CreateMap<BladeEntity, BladeModel>().ReverseMap();
-            Mapper.CreateMap<OperatorEntity, OperatorModel>().ReverseMap();
         }
     }
 }

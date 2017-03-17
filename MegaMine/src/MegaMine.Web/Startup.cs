@@ -66,6 +66,16 @@ namespace MegaMine.Web
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // Automapper configurations
+            Mapper.Initialize(x =>
+            {
+                x.AddProfile<CoreMappingProfile>();
+                foreach (var module in this.modules)
+                {
+                    module.ConfigureMapping(x);
+                }
+            });
+
             // configuring services for all modules
             foreach (var module in this.modules)
             {
@@ -85,16 +95,6 @@ namespace MegaMine.Web
                 });
 
             services.AddSession();
-
-            // Automapper configurations
-            Mapper.Initialize(x =>
-            {
-                x.AddProfile<CoreMappingProfile>();
-                foreach (var module in this.modules)
-                {
-                    module.ConfigureMapping(x);
-                }
-            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)

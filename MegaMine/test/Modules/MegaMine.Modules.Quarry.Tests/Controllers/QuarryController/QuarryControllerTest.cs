@@ -32,8 +32,11 @@ namespace MegaMine.Modules.Quarry.Tests.Controllers.QuarryController
             this.CreateAppContext();
 
             // Automapper initializers
-            Mapper.AddProfile<QuarryMappingProfile>();
-            Mapper.AddProfile<WidgetMappingProfile>();
+            Mapper.Initialize(cfg =>
+            {
+                cfg.AddProfile<QuarryMappingProfile>();
+                cfg.AddProfile<WidgetMappingProfile>();
+            });
 
             // setting up the context and repositories
             this.QuarryDbContext = this.CreateDbContext<QuarryDbContext>();

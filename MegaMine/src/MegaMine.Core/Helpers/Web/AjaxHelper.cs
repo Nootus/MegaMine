@@ -137,7 +137,7 @@ namespace MegaMine.Core.Helpers.Web
                     WidgetOptions options = new WidgetOptions()
                     {
                         XAxisLabel = widget.XAxisLabel,
-                        YAxisLabel = widget.YAxisLabel
+                        YAxisLabel = widget.YAxisLabel,
                     };
                     widget.Chart.Model = await widgetData(widget.WidgetId, options);
                 }

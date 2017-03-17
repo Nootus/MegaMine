@@ -42,16 +42,16 @@ namespace MegaMine.Services.Security
             services.AddScoped<SignInManager<ApplicationUser>, ApplicationSignInManager>();
         }
 
-        public override void ConfigureMapping(IConfiguration config)
+        public override void ConfigureMapping(IMapperConfigurationExpression config)
         {
             config.AddProfile<SecurityMappingProfile>();
         }
 
         public override void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            app.UseClaimsTransformation(new ClaimsTransformationOptions
+            app.UseClaimsTransformation(new ClaimsTransformationOptions()
             {
-                Transformer = new ClaimsTransformer()
+                Transformer = new ClaimsTransformer(),
             });
 
             app.UseIdentity();

@@ -39,7 +39,7 @@ namespace MegaMine.Services.Security.Repositories
                             FirstName = users.FirstName,
                             LastName = users.LastName,
                             UserName = idn.UserName,
-                            CompanyId = users.CompanyId
+                            CompanyId = users.CompanyId,
                         };
 
             ProfileModel model = await query.FirstOrDefaultAsync();
@@ -148,12 +148,12 @@ namespace MegaMine.Services.Security.Repositories
         public List<PageModel> IdentityPagesGet()
         {
             var query = from page in this.DbContext.IdentityPages.Include(c => c.Claims).ThenInclude(a => a.Claim) select page;
-            return Mapper.DynamicMap<List<IdentityPageEntity>, List<PageModel>>(query.ToList());
+            return Mapper.Map<List<IdentityPageEntity>, List<PageModel>>(query.ToList());
         }
 
         public List<MenuModel> IdentityMenuPagesGet()
         {
-            var query = from menuPage in this.DbContext.IdentityMenuPages where menuPage.DeletedInd == false select Mapper.DynamicMap<IdentityMenuPageEntity, MenuModel>(menuPage);
+            var query = from menuPage in this.DbContext.IdentityMenuPages where menuPage.DeletedInd == false select Mapper.Map<IdentityMenuPageEntity, MenuModel>(menuPage);
             return query.ToList();
         }
 

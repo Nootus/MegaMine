@@ -14,30 +14,33 @@ namespace MegaMine.Modules.Fleet.Mapping
 
     public class FleetMappingProfile : Profile
     {
-        public override string ProfileName
+        public FleetMappingProfile()
         {
-            get { return "FleetMappingProfile"; }
-        }
-
-        protected override void Configure()
-        {
-            Mapper.CreateMap<VehicleTypeEntity, VehicleTypeModel>().ReverseMap();
-            Mapper.CreateMap<VehicleTripEntity, VehicleTripModel>().ReverseMap();
-            Mapper.CreateMap<VehicleDriverEntity, VehicleDriverModel>().ReverseMap();
-            Mapper.CreateMap<VehicleModelEntity, VehicleManufacturerModelModel>().ReverseMap();
-            Mapper.CreateMap<VehicleFuelEntity, FuelModel>().ReverseMap();
-            Mapper.CreateMap<VehicleDriverAssignmentEntity, VehicleDriverAssignmentModel>().ReverseMap();
-            Mapper.CreateMap<VehicleManufacturerEntity, VehicleManufacturerModel>().ReverseMap();
-            Mapper.CreateMap<VehicleManufacturerEntity, ManufacturerDetailsModel>().ReverseMap();
-            Mapper.CreateMap<VehicleEntity, VehicleModel>()
+            this.CreateMap<VehicleTypeEntity, VehicleTypeModel>().ReverseMap();
+            this.CreateMap<VehicleTripEntity, VehicleTripModel>().ReverseMap();
+            this.CreateMap<VehicleDriverEntity, VehicleDriverModel>().ReverseMap();
+            this.CreateMap<VehicleModelEntity, VehicleManufacturerModelModel>().ReverseMap();
+            this.CreateMap<VehicleFuelEntity, FuelModel>().ReverseMap();
+            this.CreateMap<VehicleDriverAssignmentEntity, VehicleDriverAssignmentModel>().ReverseMap();
+            this.CreateMap<VehicleManufacturerEntity, VehicleManufacturerModel>().ReverseMap();
+            this.CreateMap<VehicleManufacturerEntity, ManufacturerDetailsModel>().ReverseMap();
+            this.CreateMap<VehicleEntity, VehicleModel>()
                 .ForMember(dest => dest.VehicleType, opt => opt.Ignore())
                 .ForMember(dest => dest.Ownership, opt => opt.Ignore())
                 .ReverseMap()
                 .ForMember(dest => dest.VehicleType, opt => opt.Ignore());
-            Mapper.CreateMap<VehicleServiceEntity, VehicleServiceModel>()
+            this.CreateMap<VehicleServiceEntity, VehicleServiceModel>()
                 .ForMember(dest => dest.ServiceDate, opt => opt.MapFrom(src => src.ServiceStartDate))
                 .ReverseMap()
                 .ForMember(dest => dest.ServiceStartDate, opt => opt.MapFrom(src => src.ServiceDate));
+        }
+
+        public override string ProfileName
+        {
+            get
+            {
+                return "FleetMappingProfile";
+            }
         }
     }
 }

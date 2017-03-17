@@ -13,17 +13,17 @@ namespace MegaMine.Core.Mapping
 
     public class CoreMappingProfile : Profile
     {
+        public CoreMappingProfile()
+        {
+            this.CreateMap<NTContextModel, NTContextModel>();
+        }
+
         public override string ProfileName
         {
             get
             {
-                return "SecurityMappingProfile";
+                return "CoreMappingProfile";
             }
-        }
-
-        protected override void Configure()
-        {
-            Mapper.CreateMap<NTContextModel, NTContextModel>();
         }
     }
 }

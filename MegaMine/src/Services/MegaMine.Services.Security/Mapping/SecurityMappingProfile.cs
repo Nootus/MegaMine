@@ -8,6 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Services.Security.Mapping
 {
+    using System.Collections.Generic;
     using AutoMapper;
     using MegaMine.Core.Exception;
     using MegaMine.Services.Security.Entities;
@@ -17,21 +18,25 @@ namespace MegaMine.Services.Security.Mapping
 
     public class SecurityMappingProfile : Profile
     {
-        public override string ProfileName
+        public SecurityMappingProfile()
         {
-            get { return "SecurityMappingProfile"; }
+            this.CreateMap<CompanyEntity, CompanyModel>();
+            this.CreateMap<IdentityPageEntity, PageModel>(MemberList.Destination);
+            this.CreateMap<IdentityPageClaimEntity, PageClaimModel>();
+            this.CreateMap<IdentityClaimEntity, ClaimModel>();
+            this.CreateMap<IdentityMenuPageEntity, MenuModel>();
+            this.CreateMap<IdentityRoleClaim<string>, ClaimModel>();
+            this.CreateMap<IdentityUserClaim<string>, ClaimModel>();
+            this.CreateMap<ApplicationRole, RoleModel>(MemberList.Destination);
+            this.CreateMap<IdentityError, NTError>();
         }
 
-        protected override void Configure()
+        public override string ProfileName
         {
-            Mapper.CreateMap<CompanyEntity, CompanyModel>();
-            Mapper.CreateMap<IdentityPageEntity, PageModel>(MemberList.Destination);
-            Mapper.CreateMap<IdentityPageClaimEntity, PageClaimModel>();
-            Mapper.CreateMap<IdentityMenuPageEntity, MenuModel>();
-            Mapper.CreateMap<IdentityRoleClaim<string>, ClaimModel>();
-            Mapper.CreateMap<IdentityUserClaim<string>, ClaimModel>();
-            Mapper.CreateMap<ApplicationRole, RoleModel>(MemberList.Destination);
-            Mapper.CreateMap<IdentityError, NTError>();
+            get
+            {
+                return "SecurityMappingProfile";
+            }
         }
     }
 }

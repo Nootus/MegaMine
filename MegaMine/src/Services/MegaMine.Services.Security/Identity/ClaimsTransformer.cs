@@ -19,7 +19,6 @@ namespace MegaMine.Services.Security.Identity
         public Task<ClaimsPrincipal> TransformAsync(ClaimsTransformationContext context)
         {
             ClaimsPrincipal principal = context.Principal;
-            // ((ClaimsIdentity)principal.Identity).AddClaim(new Claim("something", "important"));
             ClaimsIdentity identity = (ClaimsIdentity)principal.Identity;
             identity.AddClaim(new Claim("TestClaim", @"
                 This will be a very long string

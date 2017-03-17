@@ -25,7 +25,7 @@ namespace MegaMine.Modules.Fleet
             services.AddTransient<FleetDashboardDomain>();
         }
 
-        public override void ConfigureMapping(IConfiguration config)
+        public override void ConfigureMapping(IMapperConfigurationExpression config)
         {
             config.AddProfile<FleetMappingProfile>();
         }

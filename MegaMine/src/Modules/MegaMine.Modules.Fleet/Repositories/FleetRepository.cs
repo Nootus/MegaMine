@@ -147,7 +147,7 @@ namespace MegaMine.Modules.Fleet.Repositories
                            DriverName = driver.DriverName,
                            VehicleId = vda.VehicleId,
                            AssignmentStartDate = vda.AssignmentStartDate,
-                           AssignmentEndDate = vda.AssignmentEndDate
+                           AssignmentEndDate = vda.AssignmentEndDate,
                         };
 
             return await query.ToListAsync();
@@ -271,11 +271,13 @@ namespace MegaMine.Modules.Fleet.Repositories
             VehicleModel model = null;
             if (vehicleId == 0)
             {
-                model = new VehicleModel();
-                model.VehicleId = 0;
-                model.VehicleType = string.Empty;
-                model.Ownership = string.Empty;
-                model.RegistrationNumber = string.Empty;
+                model = new VehicleModel()
+                {
+                    VehicleId = 0,
+                    VehicleType = string.Empty,
+                    Ownership = string.Empty,
+                    RegistrationNumber = string.Empty,
+            };
             }
             else
             {
@@ -359,7 +361,7 @@ namespace MegaMine.Modules.Fleet.Repositories
                             Manufacturer = manufactures.Name,
                             VehicleModel = models.Name,
                             FuelAverage = vehicles.FuelAverage,
-                            Driver = vehicledriver == null ? null : vehicledriver.DriverName
+                            Driver = vehicledriver == null ? null : vehicledriver.DriverName,
                         };
 
             return await query.ToListAsync();

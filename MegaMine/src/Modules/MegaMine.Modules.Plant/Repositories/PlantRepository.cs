@@ -42,7 +42,7 @@ namespace MegaMine.Modules.Plant.Repositories
                             Name = mac.Name,
                             BladeId = mac.BladeId,
                             BladeName = bld.Name,
-                            Description = mac.Description
+                            Description = mac.Description,
                         };
 
             return await query.ToListAsync();

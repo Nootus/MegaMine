@@ -14,24 +14,24 @@ namespace MegaMine.Modules.Quarry.Mapping
 
     public class QuarryMappingProfile : Profile
     {
+        public QuarryMappingProfile()
+        {
+            this.CreateMap<MaterialColourEntity, MaterialColourModel>().ReverseMap();
+            this.CreateMap<ProductTypeEntity, ProductTypeModel>().ReverseMap();
+            this.CreateMap<TextureEntity, TextureModel>().ReverseMap();
+            this.CreateMap<QuarryEntity, QuarryModel>().ReverseMap();
+            this.CreateMap<YardEntity, YardModel>().ReverseMap();
+            this.CreateMap<MaterialEntity, MaterialModel>().ReverseMap();
+            this.CreateMap<ProductSummaryEntity, ProductSummaryModel>();
+            this.CreateMap<StockEntity, StockModel>();
+        }
+
         public override string ProfileName
         {
             get
             {
                 return "QuarryMappingProfile";
             }
-        }
-
-        protected override void Configure()
-        {
-            Mapper.CreateMap<MaterialColourEntity, MaterialColourModel>().ReverseMap();
-            Mapper.CreateMap<ProductTypeEntity, ProductTypeModel>().ReverseMap();
-            Mapper.CreateMap<TextureEntity, TextureModel>().ReverseMap();
-            Mapper.CreateMap<QuarryEntity, QuarryModel>().ReverseMap();
-            Mapper.CreateMap<YardEntity, YardModel>().ReverseMap();
-            Mapper.CreateMap<MaterialEntity, MaterialModel>().ReverseMap();
-            Mapper.CreateMap<ProductSummaryEntity, ProductSummaryModel>();
-            Mapper.CreateMap<StockEntity, StockModel>();
         }
     }
 }

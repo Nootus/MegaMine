@@ -59,7 +59,7 @@ namespace MegaMine.Services.Security.Middleware
                 UserName = context.User.Identity.Name,
                 FirstName = claims.First(c => c.Type == NTClaimTypes.FirstName).Value,
                 LastName = claims.First(c => c.Type == NTClaimTypes.LastName).Value,
-                CompanyId = Convert.ToInt32(companyId ?? "0")
+                CompanyId = Convert.ToInt32(companyId ?? "0"),
             };
 
             // setting the Group CompanyId

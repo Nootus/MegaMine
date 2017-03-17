@@ -8,6 +8,7 @@
 //-------------------------------------------------------------------------------------------------
 namespace MegaMine.Core
 {
+    using AutoMapper;
     using MegaMine.Core.Common;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
@@ -38,7 +39,7 @@ namespace MegaMine.Core
 
         public abstract void ConfigureDependencyInjection(IServiceCollection services);
 
-        public abstract void ConfigureMapping(AutoMapper.IConfiguration action);
+        public abstract void ConfigureMapping(IMapperConfigurationExpression action);
 
         public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

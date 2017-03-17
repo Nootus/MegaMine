@@ -23,7 +23,7 @@ namespace MegaMine.Modules.Shared
             services.AddTransient<SharedRepository>();
         }
 
-        public override void ConfigureMapping(IConfiguration config)
+        public override void ConfigureMapping(IMapperConfigurationExpression config)
         {
             config.AddProfile<SharedMappingProfile>();
         }

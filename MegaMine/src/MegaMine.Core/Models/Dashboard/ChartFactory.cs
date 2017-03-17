@@ -81,7 +81,7 @@ namespace MegaMine.Core.Models.Dashboard
                         {
                             X = entity.X,
                             Y = entity.Y,
-                            Order = entity.XOrder
+                            Order = entity.XOrder,
                         });
             }
 

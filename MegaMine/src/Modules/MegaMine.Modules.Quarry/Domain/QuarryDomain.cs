@@ -165,7 +165,7 @@ namespace MegaMine.Modules.Quarry.Domain
                 ProductTypes = await this.quarryRepository.ProductTypeListItemsGet(),
                 Quarries = await this.quarryRepository.QuarryListItemsGet(),
                 Colours = await this.quarryRepository.MaterialColourListItemsGet(),
-                Summary = await this.quarryRepository.ProductSummarySearch(new ProductSummarySearchModel())
+                Summary = await this.quarryRepository.ProductSummarySearch(new ProductSummarySearchModel()),
             };
         }
 

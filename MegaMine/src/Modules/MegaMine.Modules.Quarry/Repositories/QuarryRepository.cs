@@ -213,7 +213,7 @@ namespace MegaMine.Modules.Quarry.Repositories
                     FromYardId = yardId,
                     ToYardId = yardId,
                     MovementDate = model.MaterialDate,
-                    CurrentInd = true
+                    CurrentInd = true,
                 };
 
                 this.DbContext.MaterialMovements.Add(movement);
@@ -250,12 +250,12 @@ namespace MegaMine.Modules.Quarry.Repositories
 
             return await this.DbContext.FromSql<StockEntity>(
                                 "quarry.StockGet @YardId = {0}, @ProductTypeId = {1}, @MaterialColourId = {2}, @StartDate = {3}, @EndDate = {4}",
-                                 yardId,
-                                 productTypeId,
-                                 materialColourId,
-                                 startDate,
-                                 endDate)
-                                 .Select(m => Mapper.Map<StockEntity, StockModel>(m)).ToListAsync();
+                                yardId,
+                                productTypeId,
+                                materialColourId,
+                                startDate,
+                                endDate)
+                                .Select(m => Mapper.Map<StockEntity, StockModel>(m)).ToListAsync();
         }
 
         public async Task<List<StockModel>> MoveMaterial(MaterialMovementModel model)
