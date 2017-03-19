@@ -82,6 +82,9 @@ namespace MegaMine.Web
                 module.ConfigureServices(services);
             }
 
+            services.AddMemoryCache();
+            services.AddSession();
+
             services.AddMvc()
                 .AddMvcOptions(options =>
                 {
@@ -93,8 +96,6 @@ namespace MegaMine.Web
                     options.SerializerSettings.DateTimeZoneHandling = DateTimeZoneHandling.Local;
                     options.SerializerSettings.DateFormatHandling = DateFormatHandling.IsoDateFormat;
                 });
-
-            services.AddSession();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -111,6 +112,10 @@ namespace MegaMine.Web
             }
 
             app.UseStaticFiles();
+            app.UseSession(new SessionOptions()
+            {
+                CookieHttpOnly = true,
+            });
             app.UseContextMiddleware();
 
             // configuring services for all modules
@@ -120,7 +125,6 @@ namespace MegaMine.Web
             }
 
             app.UseProfileMiddleware();
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -9,10 +9,15 @@
 
 namespace MegaMine.Services.Security.Identity
 {
-    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
+    using MegaMine.Core.Context;
+    using MegaMine.Services.Security.Models;
     using Microsoft.AspNetCore.Authentication;
+    using Microsoft.AspNetCore.Http;
+    using Newtonsoft.Json;
 
     public class ClaimsTransformer : IClaimsTransformer
     {
@@ -20,78 +25,13 @@ namespace MegaMine.Services.Security.Identity
         {
             ClaimsPrincipal principal = context.Principal;
             ClaimsIdentity identity = (ClaimsIdentity)principal.Identity;
-            identity.AddClaim(new Claim("TestClaim", @"
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-                This will be a very long string
-            "));
+            string claimString = NTContext.HttpContext.Session.GetString("identityClaims");
+            if (claimString != null)
+            {
+                List<ClaimModel> sessionClaims = JsonConvert.DeserializeObject<List<ClaimModel>>(claimString);
+                identity.AddClaims(sessionClaims.Select(sc => new Claim(sc.ClaimType, sc.ClaimValue)));
+            }
+
             return Task.FromResult(principal);
         }
     }
