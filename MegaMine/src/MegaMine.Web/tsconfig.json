@@ -8,7 +8,11 @@
     "experimentalDecorators": true,
     "lib": [ "es2015", "dom" ],
     "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true
+    "suppressImplicitAnyIndexErrors": true,
+    "types": [
+      "hammerjs",
+      "rx"
+    ]
   },
   "exclude": [
     "node_modules"
