@@ -24,10 +24,5 @@ namespace MegaMine.Modules.Quarry
 
             services.AddTransient<QuarryDashboardDomain>();
         }
-
-        public override void ConfigureMapping(IMapperConfigurationExpression config)
-        {
-            config.AddProfile<QuarryMappingProfile>();
-        }
     }
 }

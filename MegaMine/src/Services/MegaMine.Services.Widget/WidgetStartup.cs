@@ -22,10 +22,5 @@ namespace MegaMine.Services.Widget
             services.AddTransient<WidgetDomain>();
             services.AddTransient<WidgetRepository>();
         }
-
-        public override void ConfigureMapping(IMapperConfigurationExpression config)
-        {
-            config.AddProfile<WidgetMappingProfile>();
-        }
     }
 }

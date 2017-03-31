@@ -25,7 +25,7 @@ namespace MegaMine.Services.Security.Identity
         {
             ClaimsPrincipal principal = context.Principal;
             ClaimsIdentity identity = (ClaimsIdentity)principal.Identity;
-            string claimString = NTContext.HttpContext.Session.GetString("identityClaims");
+            string claimString = NTContext.HttpContext.Session.GetString("IdentityClaims");
             if (claimString != null)
             {
                 List<ClaimModel> sessionClaims = JsonConvert.DeserializeObject<List<ClaimModel>>(claimString);

@@ -42,11 +42,6 @@ namespace MegaMine.Services.Security
             services.AddScoped<SignInManager<ApplicationUser>, ApplicationSignInManager>();
         }
 
-        public override void ConfigureMapping(IMapperConfigurationExpression config)
-        {
-            config.AddProfile<SecurityMappingProfile>();
-        }
-
         public override void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
             app.UseClaimsTransformation(new ClaimsTransformationOptions()

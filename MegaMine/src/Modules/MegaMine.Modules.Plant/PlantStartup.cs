@@ -22,10 +22,5 @@ namespace MegaMine.Modules.Plant
             services.AddTransient<PlantDomain>();
             services.AddTransient<PlantRepository>();
         }
-
-        public override void ConfigureMapping(IMapperConfigurationExpression config)
-        {
-            config.AddProfile<PlantMappingProfile>();
-        }
     }
 }

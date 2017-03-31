@@ -39,7 +39,10 @@ namespace MegaMine.Core
 
         public abstract void ConfigureDependencyInjection(IServiceCollection services);
 
-        public abstract void ConfigureMapping(IMapperConfigurationExpression action);
+        public void ConfigureMapping(IMapperConfigurationExpression config)
+        {
+            config.AddProfiles(this.GetType().Assembly);
+        }
 
         public virtual void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {

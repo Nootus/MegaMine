@@ -58,7 +58,7 @@ namespace MegaMine.Services.Security.Identity
                 }
             }
 
-            NTContext.HttpContext.Session.SetString("identityClaims", JsonConvert.SerializeObject(sessionClaims));
+            NTContext.HttpContext.Session.SetString("IdentityClaims", JsonConvert.SerializeObject(sessionClaims));
 
             return principal;
         }
