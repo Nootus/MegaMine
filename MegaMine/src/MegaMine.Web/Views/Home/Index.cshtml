@@ -73,27 +73,26 @@
 
         <script src="js/scripts.min.js" asp-append-version="true"></script>
         <!-- Polyfill(s) for older browsers -->
-        <script src="scripts/angular2/shim.min.js"></script>
-
-        <script src="scripts/angular2/zone.js"></script>
-        <script src="scripts/angular2/Reflect.js"></script>
-        <script src="scripts/angular2/system.src.js"></script>
-
+        <script src="lib/js/systemjs/shim.min.js"></script>
+        <script src="lib/js/systemjs/zone.js"></script>
+        <script src="lib/js/systemjs/Reflect.js"></script>
+        <script src="lib/js/systemjs/system.src.js"></script>
         <script src="systemjs.config.js"></script>
         <script>
-          System.import('app').catch(function(err){ console.error(err); });
+            System.import('app').catch(function (err) { console.error(err); });
         </script>
+
         <script src="js/app.min.js" asp-append-version="true"></script>
     </environment>
     <environment names="Development,Staging">
         <script src="scripts/jquery.js"></script>
 
-        <script src="scripts/angular/angular.js"></script>
-        <script src="scripts/angular/angular-messages.js"></script>
-        <script src="scripts/angular/angular-animate.js"></script>
-        <script src="scripts/angular/angular-aria.js"></script>
-        <script src="scripts/angular/angular-material.min.js"></script>
-        <script src="scripts/angular/angular-ui-router.min.js"></script>
+        <script src="lib/js/angularjs/angular.js"></script>
+        <script src="lib/js/angularjs/angular-messages.js"></script>
+        <script src="lib/js/angularjs/angular-animate.js"></script>
+        <script src="lib/js/angularjs/angular-aria.js"></script>
+        <script src="lib/js/angularjs/angular-material.min.js"></script>
+        <script src="lib/js/angularjs/angular-ui-router.min.js"></script>
 
         <script src="scripts/charting/d3.js"></script>
         <script src="scripts/charting/nv.d3.js"></script>
@@ -109,12 +108,10 @@
         <script src='scripts/pdfmake/vfs_fonts.js'></script>
 
         <!-- Polyfill(s) for older browsers -->
-        <script src="scripts/angular2/shim.min.js"></script>
-
-        <script src="scripts/angular2/zone.js"></script>
-        <script src="scripts/angular2/Reflect.js"></script>
-        <script src="scripts/angular2/system.src.js"></script>
-
+        <script src="lib/js/systemjs/shim.min.js"></script>
+        <script src="lib/js/systemjs/zone.js"></script>
+        <script src="lib/js/systemjs/Reflect.js"></script>
+        <script src="lib/js/systemjs/system.src.js"></script>
         <script src="systemjs.config.js"></script>
         <script>
           System.import('app').catch(function(err){ console.error(err); });
