@@ -72,14 +72,11 @@
                     <div ng-include="'menu_accordion'"></div>
                 </div>
             </div>
-            <!--<div>
-                <a href="/myapp">My App</a>
-            </div>-->
         </div>
         <div flex>
             <!--<my-app></my-app>-->
             <div flex layout="row" class="container main-content ui-view-container">
-                <div flex ui-view class="view-content">
+                <nt-router flex class="view-content">
                     <div id="splash" class="splash">
                         <br /><br />
                         <h2 class="splash-main-header">Welcome to Mega Mine</h2>
@@ -87,7 +84,7 @@
                         <br />
                         <img class="splash-loading" src="content/images/layout/loading.gif" />
                     </div>
-                </div>
+                </nt-router>
             </div>
         </div>
     </div>

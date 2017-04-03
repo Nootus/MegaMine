@@ -1,41 +1,38 @@
-/**
- * System configuration for Angular samples
- * Adjust as necessary for your application needs.
- */
 (function (global) {
     System.config({
         paths: {
             // paths serve as alias
-            'scripts:': 'scripts/angular2/'
+            "scripts:": "lib/js/",
+            "ngScripts:": "lib/js/@angular/"
         },
-        // map tells the System loader where to look for things
         map: {
             // our app is within the app folder
-            app: 'app',
+            app: "app",
 
             // angular bundles
-            '@angular/core': 'scripts:core.umd.js',
-            '@angular/common': 'scripts:common.umd.js',
-            '@angular/compiler': 'scripts:compiler.umd.js',
-            '@angular/platform-browser': 'scripts:platform-browser.umd.js',
-            '@angular/platform-browser-dynamic': 'scripts:platform-browser-dynamic.umd.js',
-            '@angular/http': 'scripts:http.umd.js',
-            '@angular/router': 'scripts:router.umd.js',
-            '@angular/forms': 'scripts:forms.umd.js',
-            '@angular/upgrade/static': 'scripts:upgrade-static.umd.js',
+            "@angular/core": "ngScripts:core.umd.js",
+            "@angular/common": "ngScripts:common.umd.js",
+            "@angular/compiler": "ngScripts:compiler.umd.js",
+            "@angular/platform-browser": "ngScripts:platform-browser.umd.js",
+            "@angular/platform-browser-dynamic": "ngScripts:platform-browser-dynamic.umd.js",
+            "@angular/http": "ngScripts:http.umd.js",
+            "@angular/router": "ngScripts:router.umd.js",
+            "@angular/forms": "ngScripts:forms.umd.js",
+            "@angular/upgrade/static": "ngScripts:upgrade-static.umd.js",
 
             // other libraries
-            'rxjs': 'scripts/rxjs',
-            'angular-in-memory-web-api': 'scripts:in-memory-web-api.umd.js'
+            "rxjs": "scripts:rxjs",
+            "hammerjs": "scripts:hammerjs/hammer.js",
+            "angular-in-memory-web-api": "ngScripts:in-memory-web-api.umd.js"
         },
         // packages tells the System loader how to load when no filename and/or no extension
         packages: {
             app: {
-                main: './main.js',
-                defaultExtension: 'js'
+                main: "./main.js",
+                defaultExtension: "js"
             },
             rxjs: {
-                defaultExtension: 'js'
+                defaultExtension: "js"
             }
         }
     });
