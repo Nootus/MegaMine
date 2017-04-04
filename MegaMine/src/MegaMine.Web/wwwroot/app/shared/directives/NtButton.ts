@@ -38,12 +38,12 @@
         public hideButton: boolean;
         public bypassDisabled: boolean;
         public toolTipStyle: any;
+        public showToolTip: boolean;
 
         // local variables
         private icon: string;
         private claim: string;
         private overrideDisabled: string;
-        private hideToolTip: boolean;
 
         constructor(private profile: MegaMine.Shared.Profile) {
 
@@ -54,7 +54,7 @@
                         <md-button class="{{$ctrl.cssClass}} {{$ctrl.type}}-button has-hover" 
                                 aria-label="{{$ctrl.toolTip}}" ng-click="$ctrl.ntClick($ctrl.form, $event)"
                                 ng-disabled="$ctrl.form.$invalid && $ctrl.form.$submitted && $ctrl.bypassDisabled">
-                            <md-tooltip ng-style="$ctrl.toolTipStyle">{{$ctrl.toolTip}}</md-tooltip>
+                            <md-tooltip md-visible="$ctrl.showToolTip">{{$ctrl.toolTip}}</md-tooltip>
                             <md-icon class="fa fa-{{$ctrl.iconCss}} {{$ctrl.type}}-button-icon" aria-label="{{$ctrl.toolTip}}"></md-icon>
                             <div class="{{$ctrl.type}}-button-text">{{$ctrl.text}}</div>
                         </md-button>
@@ -67,7 +67,7 @@
             // scope variables
             self.cssClass = scope.cssClass;
             self.type = scope.type;
-            self.toolTip = scope.toolTip;
+            self.toolTip = scope.toolTip === undefined ? scope.text : scope.toolTip;
             self.iconCss = scope.iconCss;
             self.text = scope.text;
             self.form = scope.form;
@@ -76,7 +76,7 @@
             self.icon = scope.icon;
             self.claim = scope.claim;
             self.overrideDisabled = scope.overrideDisabled;
-            self.hideToolTip = scope.toolTip === undefined ? true : false;
+            self.showToolTip = scope.toolTip === undefined ? false : true;
         }
 
         public postLinkFn(scope: INtButtonScope, element: ng.IAugmentedJQuery, instanceAttributes: ng.IAttributes, $ctrl: NtButton): void {
@@ -97,7 +97,7 @@
             self.bypassDisabled = self.overrideDisabled === "true" ? false : true;
 
             // hiding the tooltip if not specified
-            if (self.hideToolTip) {
+            if (!self.showToolTip) {
                 self.toolTipStyle = {
                     display: "none"
                 };

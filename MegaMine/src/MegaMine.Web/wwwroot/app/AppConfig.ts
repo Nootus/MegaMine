@@ -7,7 +7,6 @@
                                 , $mdThemingProvider: ng.material.IThemingProvider) {
             // add the interceptor to the $httpProvider.
             $httpProvider.interceptors.push("apiInterceptor");
-            $httpProvider.useLegacyPromiseExtensions(false);
 
             $mdThemingProvider.theme("default")
                 .primaryPalette("grey");

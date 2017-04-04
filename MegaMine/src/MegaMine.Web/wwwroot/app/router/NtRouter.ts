@@ -18,7 +18,7 @@ angular.module("ntRouter").config(function ($provide: angular.auto.IProvideServi
             }
 
             // call original go
-            this.baseGo(to, params, options);
+            $state.baseGo(to, params, options);
         };
 
         return $delegate;

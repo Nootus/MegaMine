@@ -9,21 +9,10 @@ const appRoutes: Routes = [
 
 @NgModule({
     imports: [
-        RouterModule.forRoot(appRoutes
-            , {
-                useHash: false,
-                initialNavigation: true // we went to trigger navigation outselves after ng1 is done bootstrapping
-            })
+        RouterModule.forRoot(appRoutes)
     ],
    exports: [
         RouterModule
     ]
 })
 export class AppRoutingModule { }
-
-/*
-            , {
-            useHash: true,
-            initialNavigation: true // we went to trigger navigation outselves after ng1 is done bootstrapping
-            }
-*/
