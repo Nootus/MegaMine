@@ -10,15 +10,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Include="wwwroot\app\router\NtRouter.ts" />
-    <Content Include="wwwroot\app\router\NtRouterComponent.ts" />
-    <Content Include="wwwroot\app\router\NtRouterModule.ts" />
-    <Content Include="wwwroot\app\router\RouterLinkComponent.ts" />
-    <Content Include="wwwroot\app\router\UIViewDirective.ts" />
-    <Content Include="wwwroot\app\RxjsOperators.ts" />
-  </ItemGroup>
-
-  <ItemGroup>
     <None Include="App.config" />
     <Content Update="wwwroot\**\*;Views\**\*;appsettings.json;web.config">
       <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>

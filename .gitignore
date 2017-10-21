@@ -40,3 +40,4 @@ project.lock.json
 
 /MegaMine/src/MegaMine.Web/Views/Home/AppJsReferences.cshtml
 /MegaMine/src/MegaMine.Web/wwwroot/lib
+/.vs/slnx.sqlite
