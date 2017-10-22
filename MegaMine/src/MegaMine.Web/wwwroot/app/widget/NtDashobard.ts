@@ -44,7 +44,7 @@
                         </nt-button>
                         <nt-button type="command-bar" icon-css="refresh" tool-tip="Refresh Page" text="Refresh" ng-click="$ctrl.refresh()">
                         </nt-button>
-                        <nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.records.buttons.add.toolTip}}" 
+                        <nt-button type="command-bar" icon-css="plus" tool-tip="{{dashboard.records === undefined ? 'Add' : dashboard.records.buttons.add.toolTip}}" 
                             text="{{dashboard.records.buttons.add.text}}" 
                             ng-click="dashboard.records.buttons.add.save($event, dashboard.context)" 
                             claim="{{dashboard.records.buttons.add.claim}}" 

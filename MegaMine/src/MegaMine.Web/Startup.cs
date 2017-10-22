@@ -140,7 +140,8 @@ namespace MegaMine.Web
                 routes.MapRoute(
                     name: "catchall",
                     template: "{*url}",
-                    defaults: new { controller = "Home", action = "Index" });
+                    defaults: new { controller = "Home", action = "Index" },
+                    constraints: new { url = @"^[a-zA-Z0-9]*" });
 
                 routes.MapRoute(
                    name: "default",
